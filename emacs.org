@@ -62,7 +62,6 @@
    #+end_src
    
 * Text (non code) editing setup
-  
 ** Formatting
    
    For writing text, I prefer Emacs to do line wrapping for me.
@@ -111,7 +110,8 @@
     ;;;; Do not modify this file by hand.  It was automatically generated
     ;;;; from `emacs.org` in the same directory. See that file for more
     ;;;; information.
-    
+
+    <<environment>>
     <<tools>>
     <<looks>>
     <<text-setup>>
@@ -157,3 +157,16 @@
         (funcall (my/->mode m) +1)))
     
    #+end_src
+* Environment
+  
+  For some reason on OSX I can't get Emacs and my shell to
+  automatically agree on what PATH is. For now, I hardcode PATH in my
+  Emacs configuration.
+
+  #+name: environment
+  #+begin_src emacs-lisp
+    (add-to-list 'exec-path "/usr/local/bin")
+    (add-to-list 'exec-path "/usr/texbin")
+    (add-to-list 'exec-path "~/bin")
+    (setenv "PATH" "/usr/local/bin:/usr/bin:/usr/texbin:~/bin")
+  #+end_src
