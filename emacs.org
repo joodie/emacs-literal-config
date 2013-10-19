@@ -64,15 +64,15 @@
 * Text (non code) editing setup
 ** Formatting
    
-   For writing text, I prefer Emacs to do line wrapping for me.
+   For writing text, I prefer Emacs to do line wrapping for me. Also,
+   superfluous whitespace may be automatically removed.
 
   #+name: text-setup
   #+begin_src emacs-lisp
-
     (defun my/text-formatting-hooks
       ()
       (auto-fill-mode +1) ; turn on automatic hard line wraps
-      )
+      (whitespace-mode +1))
     
     (add-hook 'text-mode-hook
               'my/text-formatting-hooks)
