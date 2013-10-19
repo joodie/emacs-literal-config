@@ -41,14 +41,26 @@
                 'my/general-lisp-hooks))
   #+end_src emacs-lisp
 
-* Reduce UI clutter
+* Graphics and looks
+** Color theme
 
-  #+name: reduce-clutter
-  #+begin_src emacs-lisp
-    (when (window-system)
-      (tool-bar-mode -1))    
-  #+end_src
-  
+   I'm using a custom color theme based on the default theme, with a
+   little less saturation.
+
+   #+name: looks   
+   #+begin_src emacs-lisp
+     (load-theme 'joost)
+   #+end_src
+   
+** Reduce clutter
+
+   #+name: looks
+   #+begin_src emacs-lisp
+     (when (window-system)
+       (tool-bar-mode -1)
+       (scroll-bar-mode -1))    
+   #+end_src
+   
 * Text (non code) editing setup
   
 ** Formatting
@@ -71,14 +83,14 @@
   
   As far as reasonable, I try to keep my custom key bindings within
   the "official" restraints. Specifically, I want my global key
-  bindings to start with ~"C-c [lower case letter]"~.
+  bindings to start with "C-c [lower case letter]"~.
 
   #+name: global-keys
   #+begin_src emacs-lisp
     (global-set-key "\C-cg" 'magit-status)
   #+end_src
 
-* Global naviation
+* Global navigation
   
   I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
   etc.
@@ -101,7 +113,7 @@
     ;;;; information.
     
     <<tools>>
-    <<reduce-clutter>>
+    <<looks>>
     <<text-setup>>
     <<lisp-setup>>
     <<global-keys>>
