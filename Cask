@@ -3,7 +3,9 @@
 (source "melpa" "http://melpa.milkbox.net/packages/")
 
 (depends-on "highlight-parentheses")
+(depends-on "ido-yes-or-no")
 (depends-on "magit")
 (depends-on "org")
 (depends-on "pallet")
 (depends-on "paredit")
+(depends-on "smex")
