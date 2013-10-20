@@ -1,21 +1,26 @@
-#+TITLE: Emacs Configuration
+#+TITLE: Making Emacs Work For Me
 #+AUTHOR: Joost Diepenmaat
 #+EMAIL: joost@zeekat.nl
 
+* Configuring Emacs: A Yak Shaving Diary
+
+  This is my Nth attempt at creating a readable and maintainable Emacs
+  configuration. I'm hopeful that using Org-Babel and a literate
+  programming style will help tame the bit-rot and spaghettification.
+
 * Installation
 
-  This configuration is intended to be installable from scratch.  It
-  uses ~Cask~ to specify the package dependencies.  ~Pallet~ is
-  installed to sync actual installed packages with the dependency
-  spec.
+  This configuration is intended to be installable from scratch. It
+  uses [[https://github.com/cask/cask][Cask]] to specify the package dependencies. [[https://github.com/rdallasgray/pallet][Pallet]] is installed
+  to sync actual installed packages with the dependency spec.
 
 ** Installation procedure
 
   - Install GNU Emacs 24 or higher
-  - Install Cask: See https://github.com/cask/cask
-  - Clone this repository into ~\~/.emacs.d~
-  - Run ~cask install~
-  - Start emacs
+  - Install Cask from https://github.com/cask/cask
+  - Clone this repository into ~$HOME/.emacs.d~
+  - Run ~cask install~ in ~$HOME/.emacs.d~
+  - Start Emacs
 
 ** Issues installing
 
@@ -50,7 +55,7 @@
 ** Reduce clutter
 
    Remove the toolbar. It's ugly and I never use it. Also remove the
-   scrollbars; below, I set up the fringe to show my position in a
+   scroll bars; below, I set up the fringe to show my position in a
    buffer.
 
    #+name: look-and-feel
@@ -87,11 +92,11 @@
      (sml/setup)
    #+END_SRC
 
-** Scrolling behaviour
+** Scrolling behavior
 
-   Emacs's default scrolling behaviour, like a lot of the default
+   Emacs's default scrolling behavior, like a lot of the default
    Emacs experience, is pretty idiosyncratic. The following snippet
-   makes for a smoother scrolling behaviour when using keyboard
+   makes for a smoother scrolling behavior when using keyboard
    navigation.
 
    #+NAME: look-and-feel
@@ -103,19 +108,19 @@
 	   scroll-preserve-screen-position 1)
    #+END_SRC
 
-   I've not yet found a good smooth way to deal with scrollwheel /
-   trackpad input.
+   I've not yet found a good smooth way to deal with scroll wheel /
+   track pad input.
 
-* Startup
+* Start up
 
-  Start with the scratch buffer; no startup screen.
+  Start with the scratch buffer; no start up screen.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-screen +1)
   #+END_SRC
 
-* Formatting and whitespace
+* Formatting and white-space
   #+name: formatting
   #+begin_src emacs-lisp
     (defun my/clean-buffer-formatting
@@ -138,7 +143,7 @@
 ** Text (non-code) formatting
 
    For writing text, I prefer Emacs to do line wrapping for me. Also,
-   superfluous whitespace should be shown.
+   superfluous white-space should be shown.
 
    #+name: formatting
    #+begin_src emacs-lisp
@@ -164,7 +169,7 @@
    #+name: programming-setup
    #+begin_src emacs-lisp
      (define-minor-mode my/pair-programming-mode
-       "Toggle visualisations for pair programming.
+       "Toggle visualizations for pair programming.
 
      Interactively with no argument, this command toggles the mode.  A
      positive prefix argument enables the mode, any other prefix
@@ -188,7 +193,7 @@
 
 ** Lisps
 
-   For lisp code, I want ParEdit plus general highlighting etc.
+   For lisp code, I want Par Edit plus general highlighting etc.
 
    #+name: programming-setup
    #+begin_src emacs-lisp
@@ -376,7 +381,7 @@
 * Environment
 
   For some reason on OSX I can't get Emacs and my shell to
-  automatically agree on what PATH is. For now, I hardcode PATH in my
+  automatically agree on what PATH is. For now, I hard-code PATH in my
   Emacs configuration.
 
   #+name: environment
