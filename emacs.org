@@ -22,8 +22,11 @@
   - Emacs failing to load pallet can indicate that ~cask~ is
     attempting to install packages using a different Emacs version
     than the one you're starting. Check your ~$PATH~ and/or aliases.
+
 * Graphics and looks
+
 ** Font
+
    I like [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]], but it doesn't support a wide range of Unicode
    characters, so I fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]] for those.
 
@@ -45,9 +48,11 @@
 
    #+end_src
 ** Reduce clutter
+
    Remove the toolbar. It's ugly and I never use it. Also remove the
    scrollbars; below, I set up the fringe to show my position in a
    buffer.
+
    #+name: looks
    #+begin_src emacs-lisp
      (when (window-system)
@@ -55,6 +60,7 @@
        (scroll-bar-mode -1))
    #+end_src
 ** Fringe decorations
+
    [[http://www.emacswiki.org/emacs/TheFringe][The fringe]] is the vertical region at the right and left of the
    buffer. Emacs lets you customize it of course.
 
@@ -69,12 +75,16 @@
      (setq-default indicate-empty-lines +1)
 
    #+END_SRC
+
 * Startup
+
   Start with the scratch buffer; no startup screen.
+
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-screen +1)
   #+END_SRC
+
 * Formatting and whitespace
   #+name: formatting
   #+begin_src emacs-lisp
@@ -94,6 +104,7 @@
     (dolist (mode-hook (my/normal-mode-hooks))
       (add-hook mode-hook 'my/general-formatting-hooks))
   #+end_src
+
 ** Text (non-code) formatting
 
    For writing text, I prefer Emacs to do line wrapping for me. Also,
@@ -110,7 +121,9 @@
    #+end_src
 
 * Programming
+
 ** Pair programming
+
    Normally, I think line numbers in code editors just take up space,
    but they can be useful when pair programming; calling out a line
    number is probably more efficient than pointing at the screen.
@@ -144,10 +157,11 @@
    #+end_src
 
 ** Lisps
-  For lisp code, I want ParEdit plus general highlighting etc.
 
-  #+name: programming-setup
-  #+begin_src emacs-lisp
+   For lisp code, I want ParEdit plus general highlighting etc.
+
+   #+name: programming-setup
+   #+begin_src emacs-lisp
     (setq my/lisps
 	  '(emacs-lisp lisp clojure))
 
@@ -160,7 +174,7 @@
     (dolist (mode (mapcar 'my/->mode-hook my/lisps))
       (add-hook mode
 		'my/general-lisp-hooks))
-  #+end_src emacs-lisp
+   #+end_src emacs-lisp
 
 ** Clojure
 
@@ -231,10 +245,12 @@
   #+end_src
 
 * Org Mode
+
 ** Global keys
+
    Short key bindings for capturing notes/links and switching to agenda.
 
-  #+name: org-config
+   #+name: org-config
   #+begin_src emacs-lisp
     (global-set-key "\C-cl" 'org-store-link)
     (global-set-key "\C-cc" 'org-capture)
@@ -244,7 +260,7 @@
 
 ** Tasks / TODOs
 
-  #+name: org-config
+   #+name: org-config
   #+begin_src emacs-lisp
     (setq org-todo-keywords
 	  '((sequence "TODO(t)" "PENDING(p)" "MEETING(m)" "|" "DONE(d)" "CANCELED(c)")))
@@ -285,48 +301,48 @@
 
 ** Hooks and modes
 
-  #+name: tools
-  #+begin_src emacs-lisp
-    (defun my/->string
-      (str)
-      (cond
-       ((stringp str) str)
-       ((symbolp str) (symbol-name str))))
+   #+name: tools
+   #+begin_src emacs-lisp
+     (defun my/->string
+       (str)
+       (cond
+	((stringp str) str)
+	((symbolp str) (symbol-name str))))
 
-    (defun my/->mode-hook
-      (name)
-      "Turn mode name into hook symbol"
-      (intern (replace-regexp-in-string "\\(-mode\\)?\\(-hook\\)?$"
-					"-mode-hook"
-					(my/->string name))))
+     (defun my/->mode-hook
+       (name)
+       "Turn mode name into hook symbol"
+       (intern (replace-regexp-in-string "\\(-mode\\)?\\(-hook\\)?$"
+					 "-mode-hook"
+					 (my/->string name))))
 
-    (defun my/->mode
-      (name)
-      "Turn mode name into mode symbol"
-      (intern (replace-regexp-in-string "\\(-mode\\)?$"
-					"-mode"
-					(my/->string name))))
+     (defun my/->mode
+       (name)
+       "Turn mode name into mode symbol"
+       (intern (replace-regexp-in-string "\\(-mode\\)?$"
+					 "-mode"
+					 (my/->string name))))
 
-    (defun my/turn-on
-      (&rest mode-list)
-      "Turn on the given (minor) modes."
-      (dolist (m mode-list)
-	(funcall (my/->mode m) +1)))
+     (defun my/turn-on
+       (&rest mode-list)
+       "Turn on the given (minor) modes."
+       (dolist (m mode-list)
+	 (funcall (my/->mode m) +1)))
 
-    (defvar my/normal-base-modes
-      (mapcar 'my/->mode '(text prog))
-      "The list of modes that are considered base modes for
-      programming and text editing. In an ideal world, this should
-      just be text-mode and prog-mode, however, some modes that
-      should derive from prog-mode derive from fundamental-mode
-      instead. They are added here.")
+     (defvar my/normal-base-modes
+       (mapcar 'my/->mode '(text prog))
+       "The list of modes that are considered base modes for
+       programming and text editing. In an ideal world, this should
+       just be text-mode and prog-mode, however, some modes that
+       should derive from prog-mode derive from fundamental-mode
+       instead. They are added here.")
 
-    (defun my/normal-mode-hooks
-      ()
-      "Returns the mode-hooks for `my/normal-base-modes`"
-      (mapcar 'my/->mode-hook my/normal-base-modes))
+     (defun my/normal-mode-hooks
+       ()
+       "Returns the mode-hooks for `my/normal-base-modes`"
+       (mapcar 'my/->mode-hook my/normal-base-modes))
 
-   #+end_src
+    #+end_src
 * Environment
 
   For some reason on OSX I can't get Emacs and my shell to
