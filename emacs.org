@@ -75,6 +75,17 @@
      (setq-default indicate-empty-lines +1)
 
    #+END_SRC
+** Mode line
+
+   The default Mode Line is confusing and boring. Using
+   sml-smart-mode-line it's a bit nicer to look at and more
+   informative.
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (require 'smart-mode-line)
+     (sml/setup)
+   #+END_SRC
 
 ** Scrolling behaviour
 
@@ -86,10 +97,10 @@
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (setq redisplay-dont-pause t
-           scroll-margin 1
-           scroll-step 1
-           scroll-conservatively 10000
-           scroll-preserve-screen-position 1)
+	   scroll-margin 1
+	   scroll-step 1
+	   scroll-conservatively 10000
+	   scroll-preserve-screen-position 1)
    #+END_SRC
 
    I've not yet found a good smooth way to deal with scrollwheel /
