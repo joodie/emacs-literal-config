@@ -14,6 +14,7 @@
 (depends-on "highlight-parentheses")
 (depends-on "ido-yes-or-no")
 (depends-on "magit")
+(depends-on "markdown-mode")
 (depends-on "org")
 (depends-on "pallet")
 (depends-on "paredit")
