@@ -4,7 +4,7 @@
 
 * Configuring Emacs: A Yak Shaving Diary
 
-  This is my Nth attempt at creating a readable and maintainable Emacs
+  This is my ∞th attempt at creating a readable and maintainable Emacs
   configuration. I'm hopeful that using Org-Babel and a literate
   programming style will help tame the bit-rot and spaghettification.
 
@@ -193,7 +193,7 @@
 
 ** Lisps
 
-   For lisp code, I want Par Edit plus general highlighting etc.
+   For lisp code, I want ParEdit plus general highlighting etc.
 
    #+name: programming-setup
    #+begin_src emacs-lisp
