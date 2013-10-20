@@ -44,16 +44,6 @@
 				    :weight 'normal)))
 
    #+end_src
-** Color theme
-
-   I'm using a custom color theme based on the default theme, with a
-   little less saturation.
-
-   #+name: looks
-   #+begin_src emacs-lisp
-     ;(load-theme 'joost)
-   #+end_src
-
 ** Reduce clutter
 
    #+name: looks
@@ -63,7 +53,6 @@
        (scroll-bar-mode -1))
    #+end_src
 * Formatting and whitespace
-
   #+name: formatting
   #+begin_src emacs-lisp
     (defun my/clean-buffer-formatting
@@ -81,9 +70,7 @@
 
     (dolist (mode-hook (my/normal-mode-hooks))
       (add-hook mode-hook 'my/general-formatting-hooks))
-
   #+end_src
-
 ** Text (non-code) formatting
 
    For writing text, I prefer Emacs to do line wrapping for me. Also,
@@ -178,8 +165,7 @@
 
      (add-hook 'cider-mode-hook
 	       'my/cider-mode-hooks)
-
-   #+END_SR
+   #+END_SRC
 
    I treat the REPL mode specially, since certain hooks that work in
    ~clojure-mode~ won't make sense or break functionality in
