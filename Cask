@@ -6,6 +6,7 @@
 (depends-on "cider-tracing")
 (depends-on "clojure-test-mode")
 (depends-on "clojurescript-mode")
+(depends-on "git-gutter-fringe")
 (depends-on "highlight-parentheses")
 (depends-on "ido-yes-or-no")
 (depends-on "magit")

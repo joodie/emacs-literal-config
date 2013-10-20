@@ -45,13 +45,36 @@
 
    #+end_src
 ** Reduce clutter
-
+   Remove the toolbar. It's ugly and I never use it. Also remove the
+   scrollbars; below, I set up the fringe to show my position in a
+   buffer.
    #+name: looks
    #+begin_src emacs-lisp
      (when (window-system)
        (tool-bar-mode -1)
        (scroll-bar-mode -1))
    #+end_src
+** Fringe decorations
+   [[http://www.emacswiki.org/emacs/TheFringe][The fringe]] is the vertical region at the right and left of the
+   buffer. Emacs lets you customize it of course.
+
+   Here I set up git diffs and buffer position in the fringe.
+
+   #+NAME: looks
+   #+BEGIN_SRC emacs-lisp
+     (require 'git-gutter-fringe)
+     (global-git-gutter-mode +1)
+
+     (setq-default indicate-buffer-boundaries 'left)
+     (setq-default indicate-empty-lines +1)
+
+   #+END_SRC
+* Startup
+  Start with the scratch buffer; no startup screen.
+  #+NAME: startup
+  #+BEGIN_SRC emacs-lisp
+    (setq inhibit-startup-screen +1)
+  #+END_SRC
 * Formatting and whitespace
   #+name: formatting
   #+begin_src emacs-lisp
@@ -252,6 +275,7 @@
     <<programming-setup>>
     <<global-keys>>
     <<global-navigation>>
+    <<startup>>
   #+end_src
 
 * Tools
