@@ -99,11 +99,44 @@
 	       'my/text-formatting-hooks)
    #+end_src
 
-* Lisp code
-** General Lisps
-  For general lisp code, I want ParEdit plus general highlighting etc.
+* Programming
+** Pair programming
+   Normally, I think line numbers in code editors just take up space,
+   but they can be useful when pair programming; calling out a line
+   number is probably more efficient than pointing at the screen.
 
-  #+name: lisp-setup
+   I wrapped this in a global minor mode so turning that stuff on and
+   off is easy.
+
+   #+name: code-setup
+   #+begin_src emacs-lisp
+     (define-minor-mode my/pair-programming-mode
+       "Toggle visualisations for pair programming.
+
+     Interactively with no argument, this command toggles the mode.  A
+     positive prefix argument enables the mode, any other prefix
+     argument disables it.  From Lisp, argument omitted or nil enables
+     the mode, `toggle' toggles the state."
+       ;; The initial value.
+       nil
+       ;; The indicator for the mode line.
+       " Pairing"
+       ;; The minor mode bindings.
+       '()
+       :group 'my/pairing
+       (linum-mode (if my/pair-programming-mode 1 -1)))
+
+     (define-global-minor-mode my/global-pair-programming-mode
+       my/pair-programming-mode
+       (lambda () (my/pair-programming-mode 1)))
+
+     (global-set-key "\C-cp" 'my/global-pair-programming-mode)
+   #+end_src
+
+** Lisps
+  For lisp code, I want ParEdit plus general highlighting etc.
+
+  #+name: code-setup
   #+begin_src emacs-lisp
     (setq my/lisps
 	  '(emacs-lisp lisp clojure))
@@ -125,7 +158,7 @@
    interaction. Also, I want ~clojure-test-mode~ available in source
    buffers.
 
-   #+NAME: lisp-setup
+   #+NAME: code-setup
    #+BEGIN_SRC emacs-lisp
      (defun my/clojure-mode-hooks
        ()
@@ -146,13 +179,13 @@
      (add-hook 'cider-mode-hook
 	       'my/cider-mode-hooks)
 
-   #+END_SRC
+   #+END_SR
 
    I treat the REPL mode specially, since certain hooks that work in
    ~clojure-mode~ won't make sense or break functionality in
    ~cider-repl-mode~.
 
-   #+NAME: lisp-setup
+   #+NAME: code-setup
    #+BEGIN_SRC emacs-lisp
      (defun my/cider-repl-mode-hooks
        ()
@@ -230,7 +263,7 @@
     <<tools>>
     <<looks>>
     <<formatting>>
-    <<lisp-setup>>
+    <<code-setup>>
     <<global-keys>>
     <<global-navigation>>
   #+end_src
