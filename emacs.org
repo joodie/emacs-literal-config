@@ -30,7 +30,7 @@
    I like [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]], but it doesn't support a wide range of Unicode
    characters, so I fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]] for those.
 
-   #+name: looks
+   #+name: look-and-feel
    #+begin_src emacs-lisp
      (set-face-attribute 'default nil
 			 :family "Inconsolata"
@@ -53,7 +53,7 @@
    scrollbars; below, I set up the fringe to show my position in a
    buffer.
 
-   #+name: looks
+   #+name: look-and-feel
    #+begin_src emacs-lisp
      (when (window-system)
        (tool-bar-mode -1)
@@ -66,7 +66,7 @@
 
    Here I set up git diffs and buffer position in the fringe.
 
-   #+NAME: looks
+   #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (require 'git-gutter-fringe)
      (global-git-gutter-mode +1)
@@ -75,6 +75,25 @@
      (setq-default indicate-empty-lines +1)
 
    #+END_SRC
+
+** Scrolling behaviour
+
+   Emacs's default scrolling behaviour, like a lot of the default
+   Emacs experience, is pretty idiosyncratic. The following snippet
+   makes for a smoother scrolling behaviour when using keyboard
+   navigation.
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (setq redisplay-dont-pause t
+           scroll-margin 1
+           scroll-step 1
+           scroll-conservatively 10000
+           scroll-preserve-screen-position 1)
+   #+END_SRC
+
+   I've not yet found a good smooth way to deal with scrollwheel /
+   trackpad input.
 
 * Startup
 
@@ -178,7 +197,7 @@
 
 ** Clojure
 
-   I'm using ~CIDER~ (formerly ~nrepl.el~) for clojure source/repl
+   I'm using [[https://github.com/clojure-emacs/cider/commits/master][CIDER]] (formerly ~nrepl.el~) for clojure source/repl
    interaction. Also, I want ~clojure-test-mode~ available in source
    buffers.
 
@@ -286,7 +305,7 @@
 
     <<environment>>
     <<tools>>
-    <<looks>>
+    <<look-and-feel>>
     <<formatting>>
     <<programming-setup>>
     <<global-keys>>
