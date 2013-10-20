@@ -52,6 +52,7 @@
 				    :weight 'normal)))
 
    #+end_src
+
 ** Reduce clutter
 
    Remove the toolbar. It's ugly and I never use it. Also remove the
@@ -64,6 +65,7 @@
        (tool-bar-mode -1)
        (scroll-bar-mode -1))
    #+end_src
+
 ** Fringe decorations
 
    [[http://www.emacswiki.org/emacs/TheFringe][The fringe]] is the vertical region at the right and left of the
@@ -80,6 +82,7 @@
      (setq-default indicate-empty-lines +1)
 
    #+END_SRC
+
 ** Mode line
 
    The default Mode Line is confusing and boring. Using
@@ -121,6 +124,7 @@
   #+END_SRC
 
 * Formatting and white-space
+
   #+name: formatting
   #+begin_src emacs-lisp
     (defun my/clean-buffer-formatting
@@ -286,28 +290,28 @@
    Short key bindings for capturing notes/links and switching to agenda.
 
    #+name: org-config
-  #+begin_src emacs-lisp
-    (global-set-key "\C-cl" 'org-store-link)
-    (global-set-key "\C-cc" 'org-capture)
-    (global-set-key "\C-ca" 'org-agenda)
-    (global-set-key "\C-cb" 'org-iswitchb)
-  #+end_src
+   #+begin_src emacs-lisp
+     (global-set-key "\C-cl" 'org-store-link)
+     (global-set-key "\C-cc" 'org-capture)
+     (global-set-key "\C-ca" 'org-agenda)
+     (global-set-key "\C-cb" 'org-iswitchb)
+   #+end_src
 
 ** Tasks / TODOs
 
    #+name: org-config
-  #+begin_src emacs-lisp
-    (setq org-todo-keywords
-	  '((sequence "TODO(t)" "PENDING(p)" "MEETING(m)" "|" "DONE(d)" "CANCELED(c)")))
+   #+begin_src emacs-lisp
+     (setq org-todo-keywords
+	   '((sequence "TODO(t)" "PENDING(p)" "MEETING(m)" "|" "DONE(d)" "CANCELED(c)")))
 
-    (defun my-org-autodone
-      (n-done n-not-done)
-      "Switch entry to DONE when all subentries are done, to TODO otherwise."
-      (let (org-log-done org-log-states)   ; turn off logging
-	(org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+     (defun my-org-autodone
+       (n-done n-not-done)
+       "Switch entry to DONE when all subentries are done, to TODO otherwise."
+       (let (org-log-done org-log-states)   ; turn off logging
+	 (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-    (add-hook 'org-after-todo-statistics-hook 'my-org-autodone)
-  #+end_src
+     (add-hook 'org-after-todo-statistics-hook 'my-org-autodone)
+   #+end_src
 
 * Configuration file layout
 
@@ -378,6 +382,7 @@
        (mapcar 'my/->mode-hook my/normal-base-modes))
 
     #+end_src
+
 * Environment
 
   For some reason on OSX I can't get Emacs and my shell to
