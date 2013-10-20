@@ -23,6 +23,27 @@
     attempting to install packages using a different Emacs version
     than the one you're starting. Check your ~$PATH~ and/or aliases.
 * Graphics and looks
+** Font
+   I like [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]], but it doesn't support a wide range of Unicode
+   characters, so I fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]] for those.
+
+   #+name: looks
+   #+begin_src emacs-lisp
+     (set-face-attribute 'default nil
+			 :family "Inconsolata"
+			 :height 140
+			 :weight 'normal
+			 :width 'normal)
+
+     (when (functionp 'set-fontset-font)
+       (set-fontset-font "fontset-default"
+			 'unicode
+			 (font-spec :family "DejaVu Sans"
+				    :width 'normal
+				    :size 13.0
+				    :weight 'normal)))
+
+   #+end_src
 ** Color theme
 
    I'm using a custom color theme based on the default theme, with a
@@ -30,7 +51,7 @@
 
    #+name: looks
    #+begin_src emacs-lisp
-     (load-theme 'joost)
+     ;(load-theme 'joost)
    #+end_src
 
 ** Reduce clutter
@@ -51,16 +72,16 @@
       (interactive)
       (indent-region (point-min) (point-max))
       (whitespace-cleanup))
-    
+
     (global-set-key "\C-cn" 'my/clean-buffer-formatting)
-    
+
     (defun my/general-formatting-hooks
       ()
       (setq show-trailing-whitespace 't))
-    
+
     (dolist (mode-hook (my/normal-mode-hooks))
       (add-hook mode-hook 'my/general-formatting-hooks))
-    
+
   #+end_src
 
 ** Text (non-code) formatting
@@ -78,8 +99,8 @@
 	       'my/text-formatting-hooks)
    #+end_src
 
-* Lisp code setup
-
+* Lisp code
+** General Lisps
   For general lisp code, I want ParEdit plus general highlighting etc.
 
   #+name: lisp-setup
@@ -90,12 +111,59 @@
     (defun my/general-lisp-hooks
       ()
       (my/turn-on 'paredit
-		  'highlight-parentheses-mode))
+		  'rainbow-delimiters
+		  'highlight-parentheses))
 
     (dolist (mode (mapcar 'my/->mode-hook my/lisps))
       (add-hook mode
 		'my/general-lisp-hooks))
   #+end_src emacs-lisp
+
+** Clojure
+
+   I'm using ~CIDER~ (formerly ~nrepl.el~) for clojure source/repl
+   interaction. Also, I want ~clojure-test-mode~ available in source
+   buffers.
+
+   #+NAME: lisp-setup
+   #+BEGIN_SRC emacs-lisp
+     (defun my/clojure-mode-hooks
+       ()
+       (my/turn-on 'clojure-test 'cider))
+
+     (add-hook 'clojure-mode-hook
+	       'my/clojure-mode-hooks)
+
+     ;; note that currently cider-mode gets run for every clojure
+     ;; buffer. Maybe I should set it up so that only ~cider~ or
+     ;; ~cider-jack-in~ are defined in clojure mode instead.
+     (defun my/cider-mode-hooks
+       ()
+       "Clojure specific setup code that should only be run when we
+       have a CIDER REPL connection"
+       (cider-turn-on-eldoc-mode))
+
+     (add-hook 'cider-mode-hook
+	       'my/cider-mode-hooks)
+
+   #+END_SRC
+
+   I treat the REPL mode specially, since certain hooks that work in
+   ~clojure-mode~ won't make sense or break functionality in
+   ~cider-repl-mode~.
+
+   #+NAME: lisp-setup
+   #+BEGIN_SRC emacs-lisp
+     (defun my/cider-repl-mode-hooks
+       ()
+       (my/turn-on 'paredit
+		   'rainbow-delimiters
+		   'highlight-parentheses))
+
+     (add-hook 'cider-repl-mode-hook
+	       'my/cider-repl-mode-hooks)
+
+   #+END_SRC
 
 * Global key bindings
 
@@ -181,27 +249,27 @@
       (cond
        ((stringp str) str)
        ((symbolp str) (symbol-name str))))
-    
+
     (defun my/->mode-hook
       (name)
       "Turn mode name into hook symbol"
       (intern (replace-regexp-in-string "\\(-mode\\)?\\(-hook\\)?$"
-                                        "-mode-hook"
-                                        (my/->string name))))
-    
+					"-mode-hook"
+					(my/->string name))))
+
     (defun my/->mode
       (name)
       "Turn mode name into mode symbol"
       (intern (replace-regexp-in-string "\\(-mode\\)?$"
-                                        "-mode"
-                                        (my/->string name))))
-    
+					"-mode"
+					(my/->string name))))
+
     (defun my/turn-on
       (&rest mode-list)
       "Turn on the given (minor) modes."
       (dolist (m mode-list)
-        (funcall (my/->mode m) +1)))
-    
+	(funcall (my/->mode m) +1)))
+
     (defvar my/normal-base-modes
       (mapcar 'my/->mode '(text prog))
       "The list of modes that are considered base modes for
@@ -209,12 +277,12 @@
       just be text-mode and prog-mode, however, some modes that
       should derive from prog-mode derive from fundamental-mode
       instead. They are added here.")
-    
+
     (defun my/normal-mode-hooks
       ()
       "Returns the mode-hooks for `my/normal-base-modes`"
       (mapcar 'my/->mode-hook my/normal-base-modes))
-    
+
    #+end_src
 * Environment
 
