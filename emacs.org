@@ -372,7 +372,10 @@
     ;;;; Do not modify this file by hand.  It was automatically generated
     ;;;; from `emacs.org` in the same directory. See that file for more
     ;;;; information.
-
+    ;;;;
+    ;;;; If you cannot find the `emacs.org` file, see the source
+    ;;;; repository at https://github.com/joodie/emacs-literal-config
+    
     <<environment>>
     <<tools>>
     <<look-and-feel>>
