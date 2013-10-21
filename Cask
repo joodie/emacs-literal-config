@@ -20,5 +20,7 @@
 (depends-on "paredit")
 (depends-on "pkg-info")
 (depends-on "rainbow-delimiters")
+(depends-on "rhtml-mode")
+(depends-on "rinari")
 (depends-on "smart-mode-line")
 (depends-on "smex")

@@ -160,7 +160,6 @@
    #+end_src
 
 * Programming
-
 ** Pair programming
 
    Normally, I think line numbers in code editors just take up space,
@@ -260,6 +259,18 @@
 
    #+END_SRC
 
+** Ruby
+*** Rake
+    Tell Emacs rake files are Ruby files.
+
+    #+name: programming-setup
+    #+BEGIN_SRC emacs-lisp
+
+      (dolist (exp '("Rakefile\\'" "\\.rake\\'"))
+	(add-to-list 'auto-mode-alist
+		     (cons exp 'ruby-mode)))
+
+    #+END_SRC
 * Global key bindings
 
   As far as reasonable, I try to keep my custom key bindings within
@@ -323,7 +334,7 @@
    #+BEGIN_SRC emacs-lisp
      (setq org-src-fontify-natively 't)
      (set-face-attribute 'org-block-background nil
-                         :background "#f0f0e8")
+			 :background "#f0f0e8")
    #+END_SRC
 
 * Configuration file layout
@@ -406,7 +417,8 @@
   #+name: environment
   #+begin_src emacs-lisp
     (add-to-list 'exec-path "/usr/local/bin")
+    (add-to-list 'exec-path "/bin")
     (add-to-list 'exec-path "/usr/texbin")
     (add-to-list 'exec-path "~/bin")
-    (setenv "PATH" "/usr/local/bin:/usr/bin:/usr/texbin:~/bin")
+    (setenv "PATH" "/usr/local/bin:/usr/bin:/usr/texbin:~/bin:/bin")
   #+end_src
