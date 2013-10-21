@@ -286,6 +286,17 @@
 		     (cons exp 'ruby-mode)))
 
     #+END_SRC
+*** Rails
+
+    Having some kind of navigation support for rails projects can be
+    very handy. I've contributed a few things to [[https://github.com/remvee/emacs-rails][Emacs-Rails mode]] in
+    the past, but for the moment, I'm going to the slightly more
+    light-weight Rinari mode.
+
+    #+NAME: programming-setup
+    #+BEGIN_SRC emacs-lisp
+          (global-rinari-mode +1)
+    #+END_SRC
 * Global key bindings
 
   As far as reasonable, I try to keep my custom key bindings within
