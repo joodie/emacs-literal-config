@@ -9,6 +9,7 @@
 (depends-on "clojure-test-mode")
 (depends-on "clojurescript-mode")
 (depends-on "epl")
+(depends-on "f")
 (depends-on "git")
 (depends-on "git-gutter-fringe")
 (depends-on "highlight-parentheses")

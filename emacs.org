@@ -8,17 +8,26 @@
   configuration. I'm hopeful that using Org-Babel and a literate
   programming style will help tame the bit-rot and spaghettification.
 
-* Installation
+* How to use my configuration
 
-  This configuration is intended to be installable from scratch. It
-  uses [[https://github.com/cask/cask][Cask]] to specify the package dependencies. [[https://github.com/rdallasgray/pallet][Pallet]] is installed
-  to sync actual installed packages with the dependency spec.
+** Obtaining the source
+
+   You can find the latest public version of the configuration in [[https://github.com/joodie/emacs-literal-config/][the
+   Github repository]]. The meat of it (and the source of this
+   document) is the ~emacs.org~ file.
+
+** Installation
+
+   This configuration is intended to be installable from scratch. It
+   uses [[https://github.com/cask/cask][Cask]] to specify the package dependencies. [[https://github.com/rdallasgray/pallet][Pallet]] is installed
+   to sync actual installed packages with the dependency spec.
 
 ** Installation procedure
 
   - Install GNU Emacs 24 or higher
   - Install Cask from https://github.com/cask/cask
-  - Clone this repository into ~$HOME/.emacs.d~
+  - Clone [[https://github.com/joodie/emacs-literal-config][the repository]] as ~$HOME/.emacs.d~ (or symlink it to that
+    directory).
   - Run ~cask install~ in ~$HOME/.emacs.d~
   - Start Emacs
 
@@ -27,7 +36,7 @@
   - Emacs failing to load pallet can indicate that ~cask~ is
     attempting to install packages using a different Emacs version
     than the one you're starting. Check your ~$PATH~ and/or aliases.
-
+    
 * Graphics and looks
 
 ** Font
