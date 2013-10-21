@@ -111,8 +111,14 @@
 	   scroll-preserve-screen-position 1)
    #+END_SRC
 
-   I've not yet found a good smooth way to deal with scroll wheel /
-   track pad input.
+   This snippet makes mouse wheel and trackpad scrolling
+   bearable. Scroll in 1-line increments the buffer under the mouse.
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (setq mouse-wheel-follow-mouse 't)
+     (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+   #+END_SRC
 
 * Start up
 
