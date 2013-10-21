@@ -290,7 +290,7 @@
 
     Having some kind of navigation support for rails projects can be
     very handy. I've contributed a few things to [[https://github.com/remvee/emacs-rails][Emacs-Rails mode]] in
-    the past, but for the moment, I'm going to the slightly more
+    the past, but for the moment, I'm going to try the slightly more
     light-weight Rinari mode.
 
     #+NAME: programming-setup
