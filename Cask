@@ -12,6 +12,7 @@
 (depends-on "f")
 (depends-on "git")
 (depends-on "git-gutter-fringe")
+(depends-on "graphviz-dot-mode")
 (depends-on "highlight-parentheses")
 (depends-on "htmlize")
 (depends-on "ido-yes-or-no")
