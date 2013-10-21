@@ -13,6 +13,7 @@
 (depends-on "git")
 (depends-on "git-gutter-fringe")
 (depends-on "highlight-parentheses")
+(depends-on "htmlize")
 (depends-on "ido-yes-or-no")
 (depends-on "magit")
 (depends-on "markdown-mode")
