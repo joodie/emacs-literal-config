@@ -39,6 +39,7 @@
 (depends-on "rhtml-mode")
 (depends-on "rinari")
 (depends-on "ruby-compilation")
+(depends-on "rvm")
 (depends-on "s")
 (depends-on "smart-mode-line")
 (depends-on "smex")
