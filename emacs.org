@@ -325,26 +325,33 @@
     (ido-mode +1)
     (global-set-key "\M-x" 'smex)
     (ido-yes-or-no-mode +1)
-  #+end_src
+  #+END_SRC
 
 * Org Mode
+** MobileOrg
+   Use Dropbox for syncing my agenda files with my Android
+   phone. Worry about the security implications later.
 
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-mobile-directory "~/Dropbox/MobileOrg")
+   #+END_SRC
 ** Global keys
 
    Short key bindings for capturing notes/links and switching to agenda.
 
    #+name: org-config
-   #+begin_src emacs-lisp
+   #+BEGIN_SRC emacs-lisp
      (global-set-key "\C-cl" 'org-store-link)
      (global-set-key "\C-cc" 'org-capture)
      (global-set-key "\C-ca" 'org-agenda)
      (global-set-key "\C-cb" 'org-iswitchb)
-   #+end_src
+   #+END_SRC
 
 ** Tasks / TODOs
 
    #+name: org-config
-   #+begin_src emacs-lisp
+   #+BEGIN_SRC emacs-lisp
      (setq org-todo-keywords
 	   '((sequence "TODO(t)" "PENDING(p)" "MEETING(m)" "|" "DONE(d)" "CANCELED(c)")))
 
