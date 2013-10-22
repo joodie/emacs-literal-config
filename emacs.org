@@ -298,6 +298,25 @@
     #+BEGIN_SRC emacs-lisp
 	  (global-rinari-mode +1)
     #+END_SRC
+* TODO Auto Complete
+
+  Getting auto completion to work right tends to be a messy process of
+  trial and error, though in recent years the situation has improved,
+  with =auto-complete= mode being more or less the defacto standard.
+
+  - Fuzzy matching isn't working the way I expected, though. Need to
+    work on that.
+
+  #+NAME: auto-complete
+  #+BEGIN_SRC emacs-lisp
+    (require 'fuzzy)
+    (require 'auto-complete)
+    (setq ac-auto-show-menu t
+	  ac-quick-help-delay 0.5
+	  ac-use-fuzzy t)
+    (global-auto-complete-mode +1)
+
+  #+END_SRC
 * Global key bindings
 
   As far as reasonable, I try to keep my custom key bindings within
@@ -403,7 +422,7 @@
     ;;;;
     ;;;; If you cannot find the `emacs.org` file, see the source
     ;;;; repository at https://github.com/joodie/emacs-literal-config
-    
+
     <<environment>>
     <<tools>>
     <<customize-config>>

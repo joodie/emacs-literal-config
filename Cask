@@ -3,6 +3,7 @@
 (source "melpa" "http://melpa.milkbox.net/packages/")
 (source "marmalade" "http://marmalade-repo.org/packages/")
 
+(depends-on "auto-complete")
 (depends-on "cask")
 (depends-on "cider")
 (depends-on "cider-decompile")
@@ -15,6 +16,7 @@
 (depends-on "f")
 (depends-on "findr")
 (depends-on "fringe-helper")
+(depends-on "fuzzy")
 (depends-on "git")
 (depends-on "git-commit-mode")
 (depends-on "git-gutter")
