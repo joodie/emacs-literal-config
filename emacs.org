@@ -55,9 +55,9 @@
      (when (functionp 'set-fontset-font)
        (set-fontset-font "fontset-default"
 			 'unicode
-			 (font-spec :family "DejaVu Sans"
+			 (font-spec :family "DejaVu Sans Mono"
 				    :width 'normal
-				    :size 13.0
+				    :size 12.4
 				    :weight 'normal)))
 
    #+END_SRC
@@ -240,7 +240,7 @@
    #+BEGIN_SRC emacs-lisp
      (defun my/clojure-mode-hooks
        ()
-       (my/turn-on 'clojure-test 'cider))
+       (my/turn-on 'clojure-test))
 
      (add-hook 'clojure-mode-hook
 	       'my/clojure-mode-hooks)
@@ -342,9 +342,11 @@
 
     (global-set-key "\C-ce" 'my/edit-emacs-configuration)
 
+    (setq ido-enable-flex-matching t)
     (ido-mode +1)
-    (global-set-key "\M-x" 'smex)
     (ido-yes-or-no-mode +1)
+
+    (global-set-key "\M-x" 'smex)
   #+END_SRC
 
 * Org Mode
@@ -397,17 +399,85 @@
 			 :background "#f0f0e8")
    #+END_SRC
 
+   Untangle files.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key "\C-cu" 'my/org-babel-untangle)
+     
+     (defun my/org-babel-untangle
+       (path)
+       (interactive "fFile to include: ")
+       (message "Untangling '%s'..." path)
+       (save-current-buffer
+         (let ((lang (save-current-buffer
+                       (set-buffer (find-file-noselect path))
+                       (my/mode->language major-mode))))
+           (insert (format "\n#+BEGIN_SRC %s :tangle %s\n" lang (file-relative-name path)))
+           (forward-char (cadr (insert-file-contents path)))
+           (insert "\n#+" "END_SRC\n"))))
+     
+     (defun my/mode->language
+       (mode)
+       "Return the language for the given mode"
+       (intern (replace-regexp-in-string "\\-mode$" "" (my/->string mode))))
+     
+     (defun my/org-babel-untangle-tree
+       (path)
+       (interactive "Droot directory to untangle: ")
+       (mapc 'my/org-babel-untangle 
+             (cl-remove-if
+              'file-directory-p
+              (directory-files path t))))
+     
+   #+END_SRC
+
+** Language evaluation support
+
+   Org-Babel needs to be told that evaluation of certain languages is
+   allowed. I collect all languages here, then enable all of them at
+   the end of the section.
+
+   #+name: org-config :noweb no-export
+   #+BEGIN_SRC emacs-lisp
+     (defvar my/org-babel-evaluated-languages
+       '(emacs-lisp)
+       "List of languages that may be evaluated in Org documents")
+
+     <<org-config-languages>>
+
+     (org-babel-do-load-languages
+      'org-babel-load-languages
+      (mapcar (lambda (lang)
+		(cons lang t))
+	      my/org-babel-evaluated-languages))
+   #+END_SRC
+
+** Diagramming
+
    I like [[http://www.graphviz.org/][Graphviz]] for generating graphs. It takes a few lines of code
    to link graphviz's =dot= mode to =org-babel= so I can include dot
    source in org mode and export with nice looking diagrams.
 
-   #+name: org-config
+   #+name: org-config-languages
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
 
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((dot . t)))
+     (add-to-list 'my/org-babel-evaluated-languages 'dot)
+   #+END_SRC
+
+   [[http://ditaa.sourceforge.net/][Ditaa]] is another nice package for turning ASCII art into PNG/EPS
+   diagrams. Turn that on, too.
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'ditaa)
+   #+END_SRC
+
+   PlantUml is built on top of Graphviz.
+
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'plantuml)
    #+END_SRC
 
 * Configuration file layout
