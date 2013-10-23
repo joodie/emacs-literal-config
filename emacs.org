@@ -404,32 +404,34 @@
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (global-set-key "\C-cu" 'my/org-babel-untangle)
-     
+
      (defun my/org-babel-untangle
        (path)
        (interactive "fFile to include: ")
        (message "Untangling '%s'..." path)
        (save-current-buffer
-         (let ((lang (save-current-buffer
-                       (set-buffer (find-file-noselect path))
-                       (my/mode->language major-mode))))
-           (insert (format "\n#+BEGIN_SRC %s :tangle %s\n" lang (file-relative-name path)))
-           (forward-char (cadr (insert-file-contents path)))
-           (insert "\n#+" "END_SRC\n"))))
-     
+	 (let ((lang (save-current-buffer
+		       (set-buffer (find-file-noselect path))
+		       (my/mode->language major-mode))))
+	   (insert (format "\n** %s\n\n#+BEGIN_SRC %s :tangle %s\n"
+			   (capitalize (replace-regexp-in-string "\\[_-\\]" " " (file-name-base path)))
+			   lang
+			   (file-relative-name path)))
+	   (forward-char (cadr (insert-file-contents path)))
+	   (insert "\n#+" "END_SRC\n"))))
+
      (defun my/mode->language
        (mode)
        "Return the language for the given mode"
        (intern (replace-regexp-in-string "\\-mode$" "" (my/->string mode))))
-     
+
      (defun my/org-babel-untangle-tree
        (path)
        (interactive "Droot directory to untangle: ")
-       (mapc 'my/org-babel-untangle 
-             (cl-remove-if
-              'file-directory-p
-              (directory-files path t))))
-     
+       (mapc 'my/org-babel-untangle
+	     (cl-remove-if 'file-directory-p
+			   (f-files path (lambda (p) t) t))))
+
    #+END_SRC
 
 ** Language evaluation support
