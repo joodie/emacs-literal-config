@@ -2,6 +2,7 @@
 #+AUTHOR: Joost Diepenmaat
 #+EMAIL: joost@zeekat.nl
 
+
 * Configuring Emacs: A Yak Shaving Diary
 
   This is my ∞th attempt at creating a readable and maintainable Emacs
@@ -143,6 +144,8 @@
 
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
+    (setq-default indent-tabs-mode nil)
+
     (defun my/clean-buffer-formatting
       ()
       "Indent and clean up the buffer"
@@ -407,6 +410,8 @@
    Use syntax highlighting ("fontification") in org-mode source
    blocks, and use a slightly darker background to visually separate
    the source block from its surroundings.
+
+   This also highlights source blocks in HTML exports.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
