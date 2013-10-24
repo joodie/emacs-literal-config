@@ -233,7 +233,21 @@
 ** Clojure
 
    I'm using [[https://github.com/clojure-emacs/cider/commits/master][CIDER]] (formerly ~nrepl.el~) for clojure source/repl
-   interaction. Also, I want ~clojure-test-mode~ available in source
+   interaction.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (defun my/cider-mode-hooks
+       ()
+       "Clojure specific setup code that should only be run when we
+       have a CIDER REPL connection"
+       (cider-turn-on-eldoc-mode))
+
+     (add-hook 'cider-mode-hook
+	       'my/cider-mode-hooks)
+   #+END_SRC
+
+   Also, I want ~clojure-test-mode~ available in source
    buffers.
 
    #+NAME: programming-setup
@@ -244,18 +258,20 @@
 
      (add-hook 'clojure-mode-hook
 	       'my/clojure-mode-hooks)
+   #+END_SRC
 
-     ;; note that currently cider-mode gets run for every clojure
-     ;; buffer. Maybe I should set it up so that only ~cider~ or
-     ;; ~cider-jack-in~ are defined in clojure mode instead.
-     (defun my/cider-mode-hooks
+   Clojure-test-mode =<C-c '>= key binding conflicts with org-tangle, so
+   I bind that to another key.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (defun my/fix-org-tangle-clojure-test-mode-conflict
        ()
-       "Clojure specific setup code that should only be run when we
-       have a CIDER REPL connection"
-       (cider-turn-on-eldoc-mode))
+       (define-key clojure-test-mode-map "\C-c\"" 'clojure-test-show-result)
+       (define-key clojure-test-mode-map "\C-c'" nil))
 
-     (add-hook 'cider-mode-hook
-	       'my/cider-mode-hooks)
+     (eval-after-load "clojure-test-mode"
+       '(my/fix-org-tangle-clojure-test-mode-conflict))
    #+END_SRC
 
    I treat the REPL mode specially, since certain hooks that work in
