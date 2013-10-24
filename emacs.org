@@ -536,13 +536,14 @@
     ;;;;
     ;;;; If you cannot find the `emacs.org` file, see the source
     ;;;; repository at https://github.com/joodie/emacs-literal-config
-
+    
     <<environment>>
     <<tools>>
     <<customize-config>>
     <<look-and-feel>>
     <<formatting>>
     <<programming-setup>>
+    <<auto-complete>>
     <<global-keys>>
     <<global-navigation>>
     <<org-config>>
