@@ -142,8 +142,8 @@
 
 * Formatting and white-space
 
- #+name: formatting
- #+BEGIN_SRC emacs-lisp
+  #+name: formatting
+  #+BEGIN_SRC emacs-lisp
     (setq-default indent-tabs-mode nil)
 
     (defun my/clean-buffer-formatting
@@ -598,7 +598,7 @@
        "Returns the mode-hooks for `my/normal-base-modes`"
        (mapcar 'my/->mode-hook my/normal-base-modes))
 
-    #+END_SRC
+   #+END_SRC
 
 * Environment
 
@@ -612,7 +612,7 @@
     (when (memq window-system '(mac ns))
       (exec-path-from-shell-initialize))
   #+END_SRC
-  
+
 * Monkey Patches
 ** TODO Org-Indent-Region fix
 
