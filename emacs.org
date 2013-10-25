@@ -602,21 +602,18 @@
 
 * Environment
 
-  For some reason on OSX I can't get Emacs and my shell to
-  automatically agree on what PATH is. For now, I hard-code PATH in my
-  Emacs configuration.
+  OSX doesn't set the environment from the shell init files for
+  graphical applications, but I set PATH and a bunch of other stuff
+  there. The =exec-path-from-shell= package will take care of
+  that. Thanks to Ting-Yu Lin for pointing it out.
 
-  #+name: environment
+  #+NAME: environment
   #+BEGIN_SRC emacs-lisp
-    (add-to-list 'exec-path "/usr/local/bin")
-    (add-to-list 'exec-path "/bin")
-    (add-to-list 'exec-path "/usr/texbin")
-    (add-to-list 'exec-path "~/bin")
-    (setenv "PATH" "/usr/local/bin:/usr/bin:/usr/texbin:~/bin:/bin")
+    (when (memq window-system '(mac ns))
+      (exec-path-from-shell-initialize))
   #+END_SRC
-
+  
 * Monkey Patches
-
 ** TODO Org-Indent-Region fix
 
    I need to submit this as a patch.

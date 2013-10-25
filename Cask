@@ -13,6 +13,7 @@
 (depends-on "clojurescript-mode")
 (depends-on "dash")
 (depends-on "epl")
+(depends-on "exec-path-from-shell")
 (depends-on "f")
 (depends-on "findr")
 (depends-on "fringe-helper")
