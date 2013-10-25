@@ -146,8 +146,7 @@
   #+BEGIN_SRC emacs-lisp
     (setq-default indent-tabs-mode nil)
 
-    (defun my/clean-buffer-formatting
-      ()
+    (defun my/clean-buffer-formatting ()
       "Indent and clean up the buffer"
       (interactive)
       (indent-region (point-min) (point-max))
@@ -155,8 +154,7 @@
 
     (global-set-key "\C-cn" 'my/clean-buffer-formatting)
 
-    (defun my/general-formatting-hooks
-      ()
+    (defun my/general-formatting-hooks ()
       (setq show-trailing-whitespace 't))
 
     (dolist (mode-hook (my/normal-mode-hooks))
@@ -170,8 +168,7 @@
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
-     (defun my/text-formatting-hooks
-       ()
+     (defun my/text-formatting-hooks ()
        (my/turn-on 'auto-fill)) ; turn on automatic hard line wraps
 
      (add-hook 'text-mode-hook
@@ -222,8 +219,7 @@
      (setq my/lisps
            '(emacs-lisp lisp clojure))
 
-     (defun my/general-lisp-hooks
-       ()
+     (defun my/general-lisp-hooks ()
        (my/turn-on 'paredit
                    'rainbow-delimiters
                    'highlight-parentheses))
@@ -240,8 +236,7 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (defun my/cider-mode-hooks
-       ()
+     (defun my/cider-mode-hooks ()
        "Clojure specific setup code that should only be run when we
        have a CIDER REPL connection"
        (cider-turn-on-eldoc-mode))
@@ -255,8 +250,7 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (defun my/clojure-mode-hooks
-       ()
+     (defun my/clojure-mode-hooks ()
        (my/turn-on 'clojure-test))
 
      (add-hook 'clojure-mode-hook
@@ -268,8 +262,7 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (defun my/fix-org-tangle-clojure-test-mode-conflict
-       ()
+     (defun my/fix-org-tangle-clojure-test-mode-conflict ()
        (define-key clojure-test-mode-map "\C-c\"" 'clojure-test-show-result)
        (define-key clojure-test-mode-map "\C-c'" nil))
 
@@ -283,8 +276,7 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (defun my/cider-repl-mode-hooks
-       ()
+     (defun my/cider-repl-mode-hooks ()
        (my/turn-on 'paredit
                    'rainbow-delimiters
                    'highlight-parentheses))
@@ -345,6 +337,7 @@
   #+name: global-keys
   #+BEGIN_SRC emacs-lisp
     (global-set-key "\C-cg" 'magit-status)
+    (global-set-key "\C-cq" 'delete-indentation)
   #+END_SRC
 
 * Global navigation
@@ -354,8 +347,7 @@
 
   #+name: global-navigation
   #+BEGIN_SRC emacs-lisp
-    (defun my/edit-emacs-configuration
-      ()
+    (defun my/edit-emacs-configuration ()
       (interactive)
       (find-file "~/.emacs.d/emacs.org"))
 
@@ -396,8 +388,7 @@
      (setq org-todo-keywords
            '((sequence "TODO(t)" "PENDING(p)" "MEETING(m)" "|" "DONE(d)" "CANCELED(c)")))
 
-     (defun my-org-autodone
-       (n-done n-not-done)
+     (defun my-org-autodone (n-done n-not-done)
        "Switch entry to DONE when all subentries are done, to TODO otherwise."
        (let (org-log-done org-log-states)   ; turn off logging
          (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
@@ -447,8 +438,7 @@
    #+BEGIN_SRC emacs-lisp
      (global-set-key "\C-cu" 'my/org-babel-untangle)
 
-     (defun my/org-babel-untangle
-       (path)
+     (defun my/org-babel-untangle (path)
        (interactive "fFile to include: ")
        (message "Untangling '%s'..." path)
        (save-current-buffer
@@ -462,13 +452,11 @@
            (forward-char (cadr (insert-file-contents path)))
            (insert "\n#+" "END_SRC\n"))))
 
-     (defun my/mode->language
-       (mode)
+     (defun my/mode->language (mode)
        "Return the language for the given mode"
        (intern (replace-regexp-in-string "\\-mode$" "" (my/->string mode))))
 
-     (defun my/org-babel-untangle-tree
-       (path)
+     (defun my/org-babel-untangle-tree (path)
        (interactive "Droot directory to untangle: ")
        (mapc 'my/org-babel-untangle
              (cl-remove-if 'file-directory-p
@@ -559,28 +547,24 @@
 
    #+name: tools
    #+BEGIN_SRC emacs-lisp
-     (defun my/->string
-       (str)
+     (defun my/->string (str)
        (cond
         ((stringp str) str)
         ((symbolp str) (symbol-name str))))
 
-     (defun my/->mode-hook
-       (name)
+     (defun my/->mode-hook (name)
        "Turn mode name into hook symbol"
        (intern (replace-regexp-in-string "\\(-mode\\)?\\(-hook\\)?$"
                                          "-mode-hook"
                                          (my/->string name))))
 
-     (defun my/->mode
-       (name)
+     (defun my/->mode (name)
        "Turn mode name into mode symbol"
        (intern (replace-regexp-in-string "\\(-mode\\)?$"
                                          "-mode"
                                          (my/->string name))))
 
-     (defun my/turn-on
-       (&rest mode-list)
+     (defun my/turn-on (&rest mode-list)
        "Turn on the given (minor) modes."
        (dolist (m mode-list)
          (funcall (my/->mode m) +1)))
@@ -593,8 +577,7 @@
        should derive from prog-mode derive from fundamental-mode
        instead. They are added here.")
 
-     (defun my/normal-mode-hooks
-       ()
+     (defun my/normal-mode-hooks ()
        "Returns the mode-hooks for `my/normal-base-modes`"
        (mapcar 'my/->mode-hook my/normal-base-modes))
 
