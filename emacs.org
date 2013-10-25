@@ -48,18 +48,18 @@
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (set-face-attribute 'default nil
-			 :family "Inconsolata"
-			 :height 140
-			 :weight 'normal
-			 :width 'normal)
+                         :family "Inconsolata"
+                         :height 140
+                         :weight 'normal
+                         :width 'normal)
 
      (when (functionp 'set-fontset-font)
        (set-fontset-font "fontset-default"
-			 'unicode
-			 (font-spec :family "DejaVu Sans Mono"
-				    :width 'normal
-				    :size 12.4
-				    :weight 'normal)))
+                         'unicode
+                         (font-spec :family "DejaVu Sans Mono"
+                                    :width 'normal
+                                    :size 12.4
+                                    :weight 'normal)))
 
    #+END_SRC
 
@@ -116,10 +116,10 @@
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (setq redisplay-dont-pause t
-	   scroll-margin 1
-	   scroll-step 1
-	   scroll-conservatively 10000
-	   scroll-preserve-screen-position 1)
+           scroll-margin 1
+           scroll-step 1
+           scroll-conservatively 10000
+           scroll-preserve-screen-position 1)
    #+END_SRC
 
    This snippet makes mouse wheel and trackpad scrolling
@@ -142,8 +142,8 @@
 
 * Formatting and white-space
 
-  #+name: formatting
-  #+BEGIN_SRC emacs-lisp
+ #+name: formatting
+ #+BEGIN_SRC emacs-lisp
     (setq-default indent-tabs-mode nil)
 
     (defun my/clean-buffer-formatting
@@ -175,7 +175,7 @@
        (my/turn-on 'auto-fill)) ; turn on automatic hard line wraps
 
      (add-hook 'text-mode-hook
-	       'my/text-formatting-hooks)
+               'my/text-formatting-hooks)
    #+END_SRC
 
 * Programming
@@ -220,17 +220,17 @@
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (setq my/lisps
-	   '(emacs-lisp lisp clojure))
+           '(emacs-lisp lisp clojure))
 
      (defun my/general-lisp-hooks
        ()
        (my/turn-on 'paredit
-		   'rainbow-delimiters
-		   'highlight-parentheses))
+                   'rainbow-delimiters
+                   'highlight-parentheses))
 
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
        (add-hook mode
-		 'my/general-lisp-hooks))
+                 'my/general-lisp-hooks))
    #+END_SRC
 
 ** Clojure
@@ -247,7 +247,7 @@
        (cider-turn-on-eldoc-mode))
 
      (add-hook 'cider-mode-hook
-	       'my/cider-mode-hooks)
+               'my/cider-mode-hooks)
    #+END_SRC
 
    Also, I want ~clojure-test-mode~ available in source
@@ -260,7 +260,7 @@
        (my/turn-on 'clojure-test))
 
      (add-hook 'clojure-mode-hook
-	       'my/clojure-mode-hooks)
+               'my/clojure-mode-hooks)
    #+END_SRC
 
    Clojure-test-mode =<C-c '>= key binding conflicts with org-tangle, so
@@ -286,11 +286,11 @@
      (defun my/cider-repl-mode-hooks
        ()
        (my/turn-on 'paredit
-		   'rainbow-delimiters
-		   'highlight-parentheses))
+                   'rainbow-delimiters
+                   'highlight-parentheses))
 
      (add-hook 'cider-repl-mode-hook
-	       'my/cider-repl-mode-hooks)
+               'my/cider-repl-mode-hooks)
 
    #+END_SRC
 
@@ -302,8 +302,8 @@
     #+BEGIN_SRC emacs-lisp
 
       (dolist (exp '("Rakefile\\'" "\\.rake\\'"))
-	(add-to-list 'auto-mode-alist
-		     (cons exp 'ruby-mode)))
+        (add-to-list 'auto-mode-alist
+                     (cons exp 'ruby-mode)))
 
     #+END_SRC
 *** Rails
@@ -315,7 +315,7 @@
 
     #+NAME: programming-setup
     #+BEGIN_SRC emacs-lisp
-	  (global-rinari-mode +1)
+          (global-rinari-mode +1)
     #+END_SRC
 * TODO Auto Complete
 
@@ -331,8 +331,8 @@
     (require 'fuzzy)
     (require 'auto-complete)
     (setq ac-auto-show-menu t
-	  ac-quick-help-delay 0.5
-	  ac-use-fuzzy t)
+          ac-quick-help-delay 0.5
+          ac-use-fuzzy t)
     (global-auto-complete-mode +1)
 
   #+END_SRC
@@ -394,13 +394,13 @@
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-todo-keywords
-	   '((sequence "TODO(t)" "PENDING(p)" "MEETING(m)" "|" "DONE(d)" "CANCELED(c)")))
+           '((sequence "TODO(t)" "PENDING(p)" "MEETING(m)" "|" "DONE(d)" "CANCELED(c)")))
 
      (defun my-org-autodone
        (n-done n-not-done)
        "Switch entry to DONE when all subentries are done, to TODO otherwise."
        (let (org-log-done org-log-states)   ; turn off logging
-	 (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+         (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
      (add-hook 'org-after-todo-statistics-hook 'my-org-autodone)
    #+END_SRC
@@ -417,7 +417,7 @@
    #+BEGIN_SRC emacs-lisp
      (setq org-src-fontify-natively 't)
      (set-face-attribute 'org-block-background nil
-			 :background "#f0f0e8")
+                         :background "#f0f0e8")
    #+END_SRC
 
    Use the =minted= package for syntax highlighting source blocks in
@@ -437,7 +437,7 @@
      ;; execute external programs.
      ;; This obviously and can be dangerous to activate!
      (setq org-latex-pdf-process
-	   '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+           '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
    #+END_SRC
 
@@ -452,15 +452,15 @@
        (interactive "fFile to include: ")
        (message "Untangling '%s'..." path)
        (save-current-buffer
-	 (let ((lang (save-current-buffer
-		       (set-buffer (find-file-noselect path))
-		       (my/mode->language major-mode))))
-	   (insert (format "\n** %s\n\n#+BEGIN_SRC %s :tangle %s\n"
-			   (capitalize (replace-regexp-in-string "\\[_-\\]" " " (file-name-base path)))
-			   lang
-			   (file-relative-name path)))
-	   (forward-char (cadr (insert-file-contents path)))
-	   (insert "\n#+" "END_SRC\n"))))
+         (let ((lang (save-current-buffer
+                       (set-buffer (find-file-noselect path))
+                       (my/mode->language major-mode))))
+           (insert (format "\n** %s\n\n#+BEGIN_SRC %s :tangle %s\n"
+                           (capitalize (replace-regexp-in-string "\\[_-\\]" " " (file-name-base path)))
+                           lang
+                           (file-relative-name path)))
+           (forward-char (cadr (insert-file-contents path)))
+           (insert "\n#+" "END_SRC\n"))))
 
      (defun my/mode->language
        (mode)
@@ -471,8 +471,8 @@
        (path)
        (interactive "Droot directory to untangle: ")
        (mapc 'my/org-babel-untangle
-	     (cl-remove-if 'file-directory-p
-			   (f-files path (lambda (p) t) t))))
+             (cl-remove-if 'file-directory-p
+                           (f-files path (lambda (p) t) t))))
 
    #+END_SRC
 
@@ -493,8 +493,8 @@
      (org-babel-do-load-languages
       'org-babel-load-languages
       (mapcar (lambda (lang)
-		(cons lang t))
-	      my/org-babel-evaluated-languages))
+                (cons lang t))
+              my/org-babel-evaluated-languages))
    #+END_SRC
 
 ** Diagramming
@@ -536,7 +536,7 @@
     ;;;;
     ;;;; If you cannot find the `emacs.org` file, see the source
     ;;;; repository at https://github.com/joodie/emacs-literal-config
-    
+
     <<environment>>
     <<tools>>
     <<customize-config>>
@@ -562,28 +562,28 @@
      (defun my/->string
        (str)
        (cond
-	((stringp str) str)
-	((symbolp str) (symbol-name str))))
+        ((stringp str) str)
+        ((symbolp str) (symbol-name str))))
 
      (defun my/->mode-hook
        (name)
        "Turn mode name into hook symbol"
        (intern (replace-regexp-in-string "\\(-mode\\)?\\(-hook\\)?$"
-					 "-mode-hook"
-					 (my/->string name))))
+                                         "-mode-hook"
+                                         (my/->string name))))
 
      (defun my/->mode
        (name)
        "Turn mode name into mode symbol"
        (intern (replace-regexp-in-string "\\(-mode\\)?$"
-					 "-mode"
-					 (my/->string name))))
+                                         "-mode"
+                                         (my/->string name))))
 
      (defun my/turn-on
        (&rest mode-list)
        "Turn on the given (minor) modes."
        (dolist (m mode-list)
-	 (funcall (my/->mode m) +1)))
+         (funcall (my/->mode m) +1)))
 
      (defvar my/normal-base-modes
        (mapcar 'my/->mode '(text prog))
@@ -615,6 +615,27 @@
     (setenv "PATH" "/usr/local/bin:/usr/bin:/usr/texbin:~/bin:/bin")
   #+END_SRC
 
+* Monkey Patches
+
+** TODO Org-Indent-Region fix
+
+   I need to submit this as a patch.
+
+   #+NAME: monkey-patches
+   #+BEGIN_SRC emacs-lisp
+    (eval-after-load 'org
+      '(defun org-indent-region (start end)
+         "Indent region."
+         (interactive "r")
+         (save-excursion
+           (let ((line-end (org-current-line end)))
+             (goto-char start)
+             (while (< (org-current-line) line-end)
+               (cond ((org-in-src-block-p t) (org-src-native-tab-command-maybe))
+                     (t (call-interactively 'org-indent-line)))
+               (move-beginning-of-line 2))))))
+
+   #+END_SRC
 * Options set using the customize interface
 
   By default, Emacs saves the options you set via the `customize-*`
