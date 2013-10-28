@@ -287,28 +287,26 @@
    #+END_SRC
 
 ** Ruby
-*** Rake
-    Tell Emacs rake files are Ruby files.
+   Tell Emacs rake files are Ruby files.
 
-    #+name: programming-setup
-    #+BEGIN_SRC emacs-lisp
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
 
       (dolist (exp '("Rakefile\\'" "\\.rake\\'"))
         (add-to-list 'auto-mode-alist
                      (cons exp 'ruby-mode)))
 
-    #+END_SRC
-*** Rails
+   #+END_SRC
 
-    Having some kind of navigation support for rails projects can be
-    very handy. I've contributed a few things to [[https://github.com/remvee/emacs-rails][Emacs-Rails mode]] in
-    the past, but for the moment, I'm going to try the slightly more
-    light-weight Rinari mode.
+   Having some kind of navigation support for rails projects can be
+   very handy. I've contributed a few things to [[https://github.com/remvee/emacs-rails][Emacs-Rails mode]] in
+   the past, but for the moment, I'm going to try the slightly more
+   light-weight Rinari mode.
 
-    #+NAME: programming-setup
-    #+BEGIN_SRC emacs-lisp
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
           (global-rinari-mode +1)
-    #+END_SRC
+   #+END_SRC
 * TODO Auto Complete
 
   Getting auto completion to work right tends to be a messy process of
