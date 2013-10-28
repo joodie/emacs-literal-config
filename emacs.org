@@ -381,6 +381,20 @@
      (global-set-key "\C-cb" 'org-iswitchb)
    #+END_SRC
 
+   Org-Agenda needs to be loaded before calling =org-agenda= works.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+        (require 'org-agenda)
+   #+END_SRC
+
+   I prefer a forthnight's overview on the agenda.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+        (setq org-agenda-span 14)
+   #+END_SRC
+
 ** Tasks / TODOs
 
    #+name: org-config
