@@ -291,11 +291,10 @@
 
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
-
-      (dolist (exp '("Rakefile\\'" "\\.rake\\'"))
-        (add-to-list 'auto-mode-alist
-                     (cons exp 'ruby-mode)))
-
+     (dolist (exp '("Rakefile\\'" "\\.rake\\'"))
+       (add-to-list 'auto-mode-alist
+                    (cons exp 'ruby-mode)))
+     
    #+END_SRC
 
    Having some kind of navigation support for rails projects can be
@@ -305,7 +304,20 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-          (global-rinari-mode +1)
+     (global-rinari-mode +1)
+   #+END_SRC
+** Perl
+   I still occasionally need to work on Perl code, so I have a few
+   basic settings to make that reasonably painless.
+
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (fset 'perl-mode 'cperl-mode) ;; force cperl mode
+
+     (defun my/cperl-mode-hooks ()
+       (my/turn-on flymake-mode))
+
+     (add-hook 'cperl-mode-hook 'my/cperl-mode-hooks)
    #+END_SRC
 * TODO Auto Complete
 
