@@ -393,12 +393,37 @@
         (setq org-agenda-span 14)
    #+END_SRC
 
-** Tasks / TODOs
+** Notes / Tasks / TODOs
+
+   Make custom markers for todo items:
+
+   - TODO :: something that needs to be done at some point. If it
+             has a date, it should be done on that day but it may be
+             moved.
+
+   - PENDING :: something that's awaiting feedback from someone
+                else. If it has a date, it needs followup if there
+                hasn't been any feedback at that time.
+
+   - MEETING :: a scheduled meeting and cannot easily be rescheduled.
+
+   - DONE :: done.
+
+   - CANCELED :: can be ignored. May include a note on why it's been
+                 cancelled.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-todo-keywords
            '((sequence "TODO(t)" "PENDING(p)" "MEETING(m)" "|" "DONE(d)" "CANCELED(c)")))
+
+   #+END_SRC
+
+   Automatically mark todo items with todo subitems as DONE when all
+   subitems are done.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
 
      (defun my-org-autodone (n-done n-not-done)
        "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -406,6 +431,17 @@
          (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
      (add-hook 'org-after-todo-statistics-hook 'my-org-autodone)
+
+   #+END_SRC
+
+   I want to file and refile notes to any main header in any file in
+   my =org-agenda-files= list.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-refile-targets '((nil :level . 1)
+                                (org-agenda-files :level . 1)))
+
    #+END_SRC
 
 ** Org-Babel
