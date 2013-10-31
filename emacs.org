@@ -30,6 +30,7 @@
   - Clone [[https://github.com/joodie/emacs-literal-config][the repository]] as ~$HOME/.emacs.d~ (or symlink it to that
     directory).
   - Run ~cask install~ in ~$HOME/.emacs.d~
+  - Run ~touch custom.el~ in ~$HOME/.emacs.d~
   - Start Emacs
 
 ** Issues installing
