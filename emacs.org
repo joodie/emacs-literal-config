@@ -303,6 +303,17 @@ Current line is subtly highlighted in pale blue.
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-screen +1)
   #+END_SRC
+** Options set using the customize interface
+
+  By default, Emacs saves the options you set via the `customize-*`
+  functions in the user init file, which is "~/.emacs.d/init.el" in
+  this setup. I prefer to have it put that data in a seperate file.
+
+  #+name: customize-config
+  #+BEGIN_SRC emacs-lisp
+    (setq custom-file "~/.emacs.d/custom.el")
+    (load custom-file)
+  #+END_SRC
 
 * Formatting and white-space
 
@@ -828,14 +839,3 @@ Current line is subtly highlighted in pale blue.
                (move-beginning-of-line 2))))))
 
    #+END_SRC
-* Options set using the customize interface
-
-  By default, Emacs saves the options you set via the `customize-*`
-  functions in the user init file, which is "~/.emacs.d/init.el" in
-  this setup. I prefer to have it put that data in a seperate file.
-
-  #+name: customize-config
-  #+BEGIN_SRC emacs-lisp
-    (setq custom-file "~/.emacs.d/custom.el")
-    (load custom-file)
-  #+END_SRC
