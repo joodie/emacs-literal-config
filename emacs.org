@@ -1,19 +1,22 @@
 #+TITLE: Making Emacs Work For Me
-#+AUTHOR: Joost Diepenmaat
-#+EMAIL: joost@zeekat.nl
+#+AUTHOR: Heikki Lehvaslaiho
+#+EMAIL: heikki.lehvaslaiho@gmail.com
 
 
-* Configuring Emacs: A Yak Shaving Diary
 
-  This is my ∞th attempt at creating a readable and maintainable Emacs
-  configuration. I'm hopeful that using Org-Babel and a literate
-  programming style will help tame the bit-rot and spaghettification.
+* Emacs Configuration
 
-* How to use my configuration
+  This is my version of Joost Diepenmaat's Org-Babel and a literate
+  programming style emacs configuration. His [[https://github.com/joodie/emacs-literal-config/][
+   Github repository]] is here. This fork is [[https://github.com/heikkil/emacs-literal-config][here]].
+
+* How to use this configuration
+
+  This section is copid directly from Joost.
 
 ** Obtaining the source
 
-   You can find the latest public version of the configuration in [[https://github.com/joodie/emacs-literal-config/][the
+   You can find the latest public version of the configuration in [[https://github.com/heikkil/emacs-literal-config/][the
    Github repository]]. The meat of it (and the source of this
    document) is the ~emacs.org~ file.
 
@@ -27,7 +30,7 @@
 
   - Install GNU Emacs 24 or higher
   - Install Cask from https://github.com/cask/cask
-  - Clone [[https://github.com/joodie/emacs-literal-config][the repository]] as ~$HOME/.emacs.d~ (or symlink it to that
+  - Clone [[https://github.com/heikkil/emacs-literal-config][the repository]] as ~$HOME/.emacs.d~ (or symlink it to that
     directory).
   - Run ~cask install~ in ~$HOME/.emacs.d~
   - Run ~touch custom.el~ in ~$HOME/.emacs.d~
@@ -38,18 +41,17 @@
   - Emacs failing to load pallet can indicate that ~cask~ is
     attempting to install packages using a different Emacs version
     than the one you're starting. Check your ~$PATH~ and/or aliases.
-
 * Graphics and looks
 
 ** Font
 
-   I like [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]], but it doesn't support a wide range of Unicode
-   characters, so I fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]] for those.
+   I continue using [[http://en.wikipedia.org/wiki/Monaco_(typeface)][Monaco]], but I keep Joost's fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu
+   Sans]].
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (set-face-attribute 'default nil
-                         :family "Inconsolata"
+                         :family "Monaco"
                          :height 140
                          :weight 'normal
                          :width 'normal)
@@ -65,55 +67,207 @@
    #+END_SRC
 
 ** Reduce clutter
-
+ 
    Remove the toolbar. It's ugly and I never use it. Also remove the
    scroll bars; below, I set up the fringe to show my position in a
    buffer.
-
+ 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (when (window-system)
        (tool-bar-mode -1)
        (scroll-bar-mode -1))
    #+END_SRC
-
+ 
 ** Fringe decorations
-
+ 
    [[http://www.emacswiki.org/emacs/TheFringe][The fringe]] is the vertical region at the right and left of the
    buffer. Emacs lets you customize it of course.
-
+ 
    Here I set up git diffs and buffer position in the fringe.
-
+ 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (when (window-system)
        (require 'git-gutter-fringe))
-
+ 
      (global-git-gutter-mode +1)
      (setq-default indicate-buffer-boundaries 'left)
      (setq-default indicate-empty-lines +1)
-
+ 
    #+END_SRC
-
+ 
 ** Mode line
-
-   The default Mode Line is confusing and boring. Using
-   sml-smart-mode-line it's a bit nicer to look at and more
-   informative.
-
+ 
+   The default Mode Line is confusing and boring. This setup [[ http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html][]] makes it
+   clear and easy to eye. A nice visual bell is an added
+   bonus. Someone might argue that the amount of code is excessive for
+   such a small feature.
+ 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (require 'smart-mode-line)
-     (sml/setup)
+     (setq-default
+      mode-line-format
+      '(;; Position, including warning for 80 columns
+        (:propertize "%4l:" face mode-line-position-face)
+        (:eval (propertize "%3c" 'face
+                           (if (>= (current-column) 80)
+                               'mode-line-80col-face
+                             'mode-line-position-face)))
+        ;; emacsclient [default -- keep?]
+        mode-line-client
+        " "
+        ;; read-only or modified status
+        (:eval
+         (cond (buffer-read-only
+                (propertize " RO " 'face 'mode-line-read-only-face))
+               ((buffer-modified-p)
+                (propertize " ** " 'face 'mode-line-modified-face))
+               (t "    ")))
+        " "
+        ;; directory and buffer/file name
+        (:propertize (:eval (shorten-directory default-directory 30))
+                     face mode-line-folder-face)
+        (:propertize "%b"
+                     face mode-line-filename-face)
+        ;; narrow [default -- keep?]
+        " %n "
+ 
+        ;; mode indicators:
+        ;; vc, recursive edit, major mode, minor modes, process, global
+        (vc-mode vc-mode)
+        "  %["
+        (:propertize mode-name
+                     face mode-line-mode-face)
+        "%] "
+        (:eval (propertize (format-mode-line minor-mode-alist)
+                           'face 'mode-line-minor-mode-face))
+        " "
+        (:propertize mode-line-process
+                     face mode-line-process-face)
+        (global-mode-string global-mode-string)
+ 
+        ))
+ 
+     ;; Helper function
+     (defun shorten-directory (dir max-length)
+       "Show up to `max-length' characters of a directory name `dir'."
+       (let ((path (reverse (split-string (abbreviate-file-name dir) "/")))
+             (output ""))
+         (when (and path (equal "" (car path)))
+           (setq path (cdr path)))
+         (while (and path (< (length output) (- max-length 4)))
+           (setq output (concat (car path) "/" output))
+           (setq path (cdr path)))
+         (when path
+           (setq output (concat ".../" output)))
+         output))
+ 
+     ;; Extra mode line faces
+     (make-face 'mode-line-read-only-face)
+     (make-face 'mode-line-modified-face)
+     (make-face 'mode-line-folder-face)
+     (make-face 'mode-line-filename-face)
+     (make-face 'mode-line-position-face)
+     (make-face 'mode-line-mode-face)
+     (make-face 'mode-line-minor-mode-face)
+     (make-face 'mode-line-process-face)
+     (make-face 'mode-line-80col-face)
+ 
+ 
+     (set-face-attribute 'mode-line nil
+                         :foreground "gray60" :background "gray20"
+                         :inverse-video nil
+                         :box '(:line-width 6 :color "gray20" :style nil))
+     (set-face-attribute 'mode-line-inactive nil
+                         :foreground "gray80" :background "gray40"
+                         :inverse-video nil
+                         :box '(:line-width 6 :color "gray40" :style nil))
+ 
+     (set-face-attribute 'mode-line-read-only-face nil
+                         :inherit 'mode-line-face
+                         :foreground "#4271ae"
+                         :box '(:line-width 2 :color "#4271ae"))
+     (set-face-attribute 'mode-line-modified-face nil
+                         :inherit 'mode-line-face
+                         :foreground "#c82829"
+                         :background "#ffffff"
+                         :box '(:line-width 2 :color "#c82829"))
+     (set-face-attribute 'mode-line-folder-face nil
+                         :inherit 'mode-line-face
+                         :foreground "gray60")
+     (set-face-attribute 'mode-line-filename-face nil
+                         :inherit 'mode-line-face
+                         :foreground "#eab700"
+                         :weight 'bold)
+     (set-face-attribute 'mode-line-position-face nil
+                         :inherit 'mode-line-face
+                                             ;:family "Menlo"
+                         :height 130
+                         )
+     (set-face-attribute 'mode-line-mode-face nil
+                         :inherit 'mode-line-face
+                         :foreground "gray80")
+     (set-face-attribute 'mode-line-minor-mode-face nil
+                         :inherit 'mode-line-mode-face
+                         :foreground "gray40"
+                         :height 110)
+     (set-face-attribute 'mode-line-process-face nil
+                         :inherit 'mode-line-face
+                         :foreground "#718c00")
+     (set-face-attribute 'mode-line-80col-face nil
+                         :inherit 'mode-line-position-face
+                         :foreground "black" :background "#eab700")
+ 
+ 
+     ;; --------------------------------------------------------
+     ;; Visual bell in Mac Carbon Emacs is an annoying black square
+     ;; This blinks read background once in the echo area
+     ;; Nice little alternative visual bell; Miles Bader <miles /at/ gnu.org>
+ 
+     (defcustom echo-area-bell-string "*DING* " ;"♪"
+       "Message displayed in mode-line by `echo-area-bell' function."
+       :group 'user)
+ 
+     (defcustom echo-area-bell-delay 0.1
+       "Number of seconds `echo-area-bell' displays its message."
+       :group 'user)
+ 
+     ;; internal variables
+     (defvar echo-area-bell-cached-string nil)
+     (defvar echo-area-bell-propertized-string nil)
+     (defun echo-area-bell ()
+       "Briefly display a highlighted message in the echo-area.
+         The string displayed is the value of `echo-area-bell-string',
+         with a red background; the background highlighting extends to the
+         right margin.  The string is displayed for `echo-area-bell-delay'
+         seconds.
+         This function is intended to be used as a value of `ring-bell-function'."
+       (unless (equal echo-area-bell-string echo-area-bell-cached-string)
+         (setq echo-area-bell-propertized-string
+               (propertize
+                (concat
+                 (propertize
+                  "x"
+                  'display
+                  `(space :align-to (- right ,(+ 2 (length echo-area-bell-string)))))
+                 echo-area-bell-string)
+                'face '(:background "red")))
+         (setq echo-area-bell-cached-string echo-area-bell-string))
+       (message echo-area-bell-propertized-string)
+       (sit-for echo-area-bell-delay)
+       (message ""))
+     (setq ring-bell-function 'echo-area-bell)
+ 
    #+END_SRC
-
+ 
 ** Scrolling behavior
-
+ 
    Emacs's default scrolling behavior, like a lot of the default
    Emacs experience, is pretty idiosyncratic. The following snippet
    makes for a smoother scrolling behavior when using keyboard
    navigation.
-
+ 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (setq redisplay-dont-pause t
@@ -122,16 +276,25 @@
            scroll-conservatively 10000
            scroll-preserve-screen-position 1)
    #+END_SRC
-
+ 
    This snippet makes mouse wheel and trackpad scrolling
    bearable. Scroll in 1-line increments the buffer under the mouse.
-
+ 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (setq mouse-wheel-follow-mouse 't)
      (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
    #+END_SRC
-
+ 
+** Current line
+ 
+Current line is subtly highlighted in pale blue.
+ 
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (global-hl-line-mode 1)
+     (set-face-background hl-line-face "AliceBlue")
+   #+END_SRC
 * Start up
 
   Start with the scratch buffer; no start up screen.
