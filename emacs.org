@@ -482,6 +482,78 @@ Current line is subtly highlighted in pale blue.
    #+BEGIN_SRC emacs-lisp
           (global-rinari-mode +1)
    #+END_SRC
+
+** Perl
+
+   Use =cperl-mode= instead of the default =perl-mode=
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
+     (add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
+     (add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
+     (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
+
+     (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t)
+     (defun n-cperl-mode-hook ()
+       (setq cperl-indent-level 4
+             cperl-close-paren-offset -4
+             cperl-continued-statement-offset 4
+             cperl-indent-parens-as-block t
+             cperl-tab-always-indent t))
+   #+END_SRC
+
+  Call perltify from emacs
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+      (defun perltidy ()
+         "Run perltidy on the current region or buffer."
+         (interactive)
+         ; Inexplicably, save-excursion doesn't work here.
+         (let ((orig-point (point)))
+           (unless mark-active (mark-defun))
+           (shell-command-on-region (point) (mark) "perltidy -q" nil t)
+           (goto-char orig-point)))
+
+     (global-set-key "\C-ct" 'perltidy)
+
+   #+END_SRC
+
+  Call =pod-mode= on inline documentation and enable spell checking.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (autoload 'pod-mode "pod-mode"
+       "Mode for editing POD files" t)
+     (add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
+     (add-hook 'pod-mode-hook 'font-lock-mode)
+
+     (add-hook 'pod-mode-hook '(lambda ( )
+                                 (progn (font-lock-mode)   ; =syntax highlighting
+                                        (auto-fill-mode 1) ; =wordwrap
+                                        (flyspell-mode 1)  ; =spellchecking
+                                        )))
+   #+END_SRC
+
+** C++
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     ;; Use the GDB visual debugging mode
+     (setq gdb-many-windows t)
+     ;; Turn Semantic on
+     (semantic-mode 1)
+     ;; Try to make completions when not typing
+     (global-semantic-idle-completions-mode 1)
+     ;; Use the Semantic speedbar additions
+     (add-hook 'speedbar-load-hook (lambda () (require 'semantic/sb)))
+     ;; Treat .h files as C++ files (instead of C)
+     (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+     ;; Run compile when you press F5
+     (global-set-key (kbd "<f5>") 'compile)
+   #+END_SRC
+
 * TODO Auto Complete
 
   Getting auto completion to work right tends to be a messy process of
