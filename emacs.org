@@ -1,18 +1,17 @@
-#+TITLE: Making Emacs Work For Me
+#+TITLE: Literal Emacs Configuration
 #+AUTHOR: Heikki Lehvaslaiho
 #+EMAIL: heikki.lehvaslaiho@gmail.com
-
 
 
 * Emacs Configuration
 
   This is my version of Joost Diepenmaat's Org-Babel and a literate
-  programming style emacs configuration. His [[https://github.com/joodie/emacs-literal-config/][
-   Github repository]] is here. This fork is [[https://github.com/heikkil/emacs-literal-config][here]].
-
+  programming style emacs configuration. His original
+  [[https://github.com/joodie/emacs-literal-config/][Github repository]] was forked on 1st November 2013 and is kept
+  [[https://github.com/heikkil/emacs-literal-config][here]].
 * How to use this configuration
 
-  This section is copid directly from Joost.
+  This section is copied directly from Joost.
 
 ** Obtaining the source
 
@@ -41,12 +40,13 @@
   - Emacs failing to load pallet can indicate that ~cask~ is
     attempting to install packages using a different Emacs version
     than the one you're starting. Check your ~$PATH~ and/or aliases.
+
 * Graphics and looks
 
 ** Font
 
-   I continue using [[http://en.wikipedia.org/wiki/Monaco_(typeface)][Monaco]], but I keep Joost's fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu
-   Sans]].
+   I continue using [[http://en.wikipedia.org/wiki/Monaco_(typeface)][Monaco]] that has more readable Scandinavian characters,
+   but I keep Joost's fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]].
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
@@ -67,43 +67,43 @@
    #+END_SRC
 
 ** Reduce clutter
- 
-   Remove the toolbar. It's ugly and I never use it. Also remove the
-   scroll bars; below, I set up the fringe to show my position in a
-   buffer.
- 
+
+   Remove the toolbar. It's ugly and I never use it. I keep the
+   scroll bars on right -- horizontal space is cheep. Below, I set up
+   the fringe to the left.
+
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (when (window-system)
        (tool-bar-mode -1)
-       (scroll-bar-mode -1))
+       (scroll-bar-mode 1))
    #+END_SRC
- 
+
 ** Fringe decorations
- 
+
    [[http://www.emacswiki.org/emacs/TheFringe][The fringe]] is the vertical region at the right and left of the
    buffer. Emacs lets you customize it of course.
- 
+
    Here I set up git diffs and buffer position in the fringe.
- 
+
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (when (window-system)
        (require 'git-gutter-fringe))
- 
+
      (global-git-gutter-mode +1)
      (setq-default indicate-buffer-boundaries 'left)
      (setq-default indicate-empty-lines +1)
- 
+
    #+END_SRC
- 
+
 ** Mode line
- 
+
    The default Mode Line is confusing and boring. This setup [[ http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html][]] makes it
    clear and easy to eye. A nice visual bell is an added
    bonus. Someone might argue that the amount of code is excessive for
    such a small feature.
- 
+
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (setq-default
@@ -132,7 +132,7 @@
                      face mode-line-filename-face)
         ;; narrow [default -- keep?]
         " %n "
- 
+
         ;; mode indicators:
         ;; vc, recursive edit, major mode, minor modes, process, global
         (vc-mode vc-mode)
@@ -146,9 +146,9 @@
         (:propertize mode-line-process
                      face mode-line-process-face)
         (global-mode-string global-mode-string)
- 
+
         ))
- 
+
      ;; Helper function
      (defun shorten-directory (dir max-length)
        "Show up to `max-length' characters of a directory name `dir'."
@@ -162,7 +162,7 @@
          (when path
            (setq output (concat ".../" output)))
          output))
- 
+
      ;; Extra mode line faces
      (make-face 'mode-line-read-only-face)
      (make-face 'mode-line-modified-face)
@@ -173,8 +173,8 @@
      (make-face 'mode-line-minor-mode-face)
      (make-face 'mode-line-process-face)
      (make-face 'mode-line-80col-face)
- 
- 
+
+
      (set-face-attribute 'mode-line nil
                          :foreground "gray60" :background "gray20"
                          :inverse-video nil
@@ -183,7 +183,7 @@
                          :foreground "gray80" :background "gray40"
                          :inverse-video nil
                          :box '(:line-width 6 :color "gray40" :style nil))
- 
+
      (set-face-attribute 'mode-line-read-only-face nil
                          :inherit 'mode-line-face
                          :foreground "#4271ae"
@@ -218,21 +218,21 @@
      (set-face-attribute 'mode-line-80col-face nil
                          :inherit 'mode-line-position-face
                          :foreground "black" :background "#eab700")
- 
- 
+
+
      ;; --------------------------------------------------------
      ;; Visual bell in Mac Carbon Emacs is an annoying black square
      ;; This blinks read background once in the echo area
      ;; Nice little alternative visual bell; Miles Bader <miles /at/ gnu.org>
- 
+
      (defcustom echo-area-bell-string "*DING* " ;"♪"
        "Message displayed in mode-line by `echo-area-bell' function."
        :group 'user)
- 
+
      (defcustom echo-area-bell-delay 0.1
        "Number of seconds `echo-area-bell' displays its message."
        :group 'user)
- 
+
      ;; internal variables
      (defvar echo-area-bell-cached-string nil)
      (defvar echo-area-bell-propertized-string nil)
@@ -258,16 +258,16 @@
        (sit-for echo-area-bell-delay)
        (message ""))
      (setq ring-bell-function 'echo-area-bell)
- 
+
    #+END_SRC
- 
+
 ** Scrolling behavior
- 
+
    Emacs's default scrolling behavior, like a lot of the default
    Emacs experience, is pretty idiosyncratic. The following snippet
    makes for a smoother scrolling behavior when using keyboard
    navigation.
- 
+
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (setq redisplay-dont-pause t
@@ -276,20 +276,20 @@
            scroll-conservatively 10000
            scroll-preserve-screen-position 1)
    #+END_SRC
- 
+
    This snippet makes mouse wheel and trackpad scrolling
    bearable. Scroll in 1-line increments the buffer under the mouse.
- 
+
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (setq mouse-wheel-follow-mouse 't)
      (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
    #+END_SRC
- 
+
 ** Current line
- 
+
 Current line is subtly highlighted in pale blue.
- 
+
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (global-hl-line-mode 1)
@@ -301,18 +301,53 @@ Current line is subtly highlighted in pale blue.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
+
+    ;; startup
     (setq inhibit-startup-screen +1)
   #+END_SRC
+
 ** Options set using the customize interface
 
   By default, Emacs saves the options you set via the `customize-*`
   functions in the user init file, which is "~/.emacs.d/init.el" in
   this setup. I prefer to have it put that data in a seperate file.
 
+  Many more customisations are in =custom.el=
+
   #+name: customize-config
   #+BEGIN_SRC emacs-lisp
     (setq custom-file "~/.emacs.d/custom.el")
     (load custom-file)
+  #+END_SRC
+
+* Backups
+
+  Default emacs behaviour is to clutter directories with its backup
+  files. The following creates numbered backups and directs them all
+  into =$HOME/.emacs_backups= directory.
+
+  #+NAME: startup
+  #+BEGIN_SRC emacs-lisp
+    (setq make-backup-files t) ;; Enable backup files
+    ;; Enable versioning
+    (setq version-control t)  ;; make numbered backups
+    (setq backup-by-copying t)
+    (setq kept-new-versions 6)
+    (setq kept-old-versions 2)
+    (setq delete-old-versions t)
+    ;; Save all backup file in this directory.
+    (setq backup-directory-alist (quote ((".*" . "~/.emacs_backups/"))))
+  #+END_SRC
+
+* Confirmations and quiting emacs
+
+  Set y/n abbreviations for all confirmations and ask for confimation
+  before quiting emacs.
+
+  #+NAME: startup
+  #+BEGIN_SRC emacs-lisp
+    (fset 'yes-or-no-p 'y-or-n-p)
+    (setq confirm-kill-emacs 'y-or-n-p)
   #+END_SRC
 
 * Formatting and white-space
@@ -348,6 +383,349 @@ Current line is subtly highlighted in pale blue.
 
      (add-hook 'text-mode-hook
                'my/text-formatting-hooks)
+   #+END_SRC
+** Understand compressed formats
+
+ This allows emacs to handle .gz files.
+
+   #+name: formatting
+   #+BEGIN_SRC emacs-lisp
+     (auto-compression-mode t)
+   #+END_SRC
+** Auto refresh buffers
+
+   A changed file is updated automatically.
+
+   #+name: formatting
+   #+BEGIN_SRC emacs-lisp
+     (global-auto-revert-mode 1)
+   #+END_SRC
+
+   Also auto refresh dired files, but be quiet about it.
+
+  #+name: formatting
+   #+BEGIN_SRC emacs-lisp
+     (setq global-auto-revert-non-file-buffers t)
+     (setq auto-revert-verbose nil)
+   #+END_SRC
+
+* Abbreviations
+
+  Emacs comes with =abbrev-mode= that is able to replace typed strings
+  in context sensitive way. I use it to correct typos (teh -> the) and
+  replace short abreviations with long, multiline texts in modes that
+  I use frequently.
+
+  #+name: abbreviations
+  #+BEGIN_SRC emacs-lisp
+    (setq default-abbrev-mode t)
+    (cond ((file-exists-p "~/.emacs.d/abbrev_defs")
+           (read-abbrev-file "~/.emacs.d/abbrev_defs")))
+
+    (setq save-abbrevs t)                ; save abbrevs when files are saved
+                                         ; you will be asked before saving
+
+    (if (file-exists-p abbrev-file-name) ; reads the abbreviations file
+        (quietly-read-abbrev-file))      ;  on startup if the file exists
+
+  #+END_SRC
+
+  This sort of metafunction does not really fix in any other category,
+  so I call it an abbreviation.
+
+  #+name: abbreviations
+  #+BEGIN_SRC emacs-lisp
+    (defun insert-buffer-name ()
+      "Inserts file name of the buffer on the current buffer."
+      (interactive)
+      (insert (buffer-name))
+      )
+  #+END_SRC
+
+* Version control
+
+  The only version control system worth using is git and *magit* is
+  the emacs interface to it. Various git files have their dedicated
+  modes that are defined in the Cask file: git-commit-mode,
+  gitconfig-mode, git-rebase-mode, and gitignore-mode.
+
+  From any buffer linked to git controlled file, you can hit =C-x g=
+  to enter magit status window. Pressing =q= restored the previous
+  window(s).
+
+  #+name: version-control
+  #+BEGIN_SRC emacs-lisp
+    (global-set-key [f8] 'magit-status)
+    (global-set-key (kbd "C-x g") 'magit-status)
+
+    ;; full screen magit-status
+    (defadvice magit-status (around magit-fullscreen activate)
+      (window-configuration-to-register :magit-fullscreen)
+      ad-do-it
+      (delete-other-windows))
+
+    (defun magit-quit-session ()
+      "Restores the previous window configuration and kills the magit buffer"
+      (interactive)
+      (kill-buffer)
+      (jump-to-register :magit-fullscreen))
+  #+END_SRC
+
+* Spell Checker
+   #+NAME: spell-checker
+   #+BEGIN_SRC emacs-lisp
+
+     ;; Set aspell as spell program
+     (setq ispell-program-name "aspell")
+
+     ;; Speed up aspell: ultra | fast | normal
+     (setq ispell-extra-args '("--sug-mode=normal"))
+
+     ;; Flyspell activation for text mode
+     (add-hook 'text-mode-hook
+               (lambda () (flyspell-mode 1)))
+
+     ;; Remove Flyspell from some sub modes of text mode
+     (dolist (hook '(change-log-mode-hook
+                     log-edit-mode-hook))
+       (add-hook hook (lambda () (flyspell-mode -1))))
+
+   #+END_SRC
+
+* Text files
+** LaTeX
+
+   Use AUCTex for all LaTeX
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     (setq TeX-auto-save t)
+         (setq TeX-parse-self t)
+         (setq-default TeX-master nil)
+         (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+         (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+         (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+         (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+         (setq reftex-plug-into-AUCTeX t)
+
+     ;; default processing to pdflatex
+     (setq TeX-PDF-mode t)
+
+     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+   #+END_SRC
+
+** Zsh
+   Zsh is the shell that is a superset of Bash. Tell emacs that its
+   config files are shell scripts.
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     (setq auto-mode-alist
+           (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
+   #+END_SRC
+
+
+** EverNote
+
+   ##+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (require 'evernote-mode)
+     (setq evernote-username "heikkil") ; optional: you can use this username as default.
+     (setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; option
+     ;; keys  "\C-cex" are now "\C-cwx"
+     (global-set-key "\C-cwc" 'evernote-create-note)
+     (global-set-key "\C-cwo" 'evernote-open-note)
+     (global-set-key "\C-cws" 'evernote-search-notes)
+     (global-set-key "\C-cwS" 'evernote-do-saved-search)
+     (global-set-key "\C-cww" 'evernote-write-note)
+     (global-set-key "\C-cwp" 'evernote-post-region)
+     (global-set-key "\C-cwb" 'evernote-browser)
+   #+END_SRC
+
+
+** NEURON
+
+   NEURON is a high level programming language for computational
+   neurologybiology. Unless you are in the field, there are remote
+   chanches that you'll need these modes. If you, copy the el files
+   add them to your PATH.
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     ;;
+     ;; NEURON hoc and mod files
+     ;;
+     ;; see: http://www.sterratt.me.uk/progs/neuron/
+     ;; wget http://www.sterratt.me.uk/sites/sterratt.me.uk/files/nrnhoc.el
+     ;; wget http://www.sterratt.me.uk/sites/sterratt.me.uk/files/nmodl.el
+
+     (autoload 'nrnhoc-mode "nrnhoc" "Enter NRNHOC mode." t)
+     (setq auto-mode-alist (cons '("\\.hoc\\'" . nrnhoc-mode) auto-mode-alist))
+     ;; (add-hook 'nrnhoc-mode-hook 'turn-on-font-lock)
+
+     (autoload 'nmodl-mode "nmodl" "Enter NMODL mode." t)
+     (setq auto-mode-alist (cons '("\\.mod\\'" . nmodl-mode) auto-mode-alist))
+
+   #+END_SRC
+
+** Deft mode
+
+  Before I learned about =org-mode=, I tried the =deft-mode=. Now my deft
+  uses org-mode but does not get used much.
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+    (setq
+     deft-extension "org"
+     deft-directory "~/Documents/org/deft/"
+     deft-use-filename-as-title t
+     deft-text-mode 'org-mode)
+    (global-set-key [f9] 'deft)
+  #+END_SRC
+
+** MarkDown
+
+   Github and especially BitBucket use =markdown mode=, so my emacs
+   knows about it. GitHub knows about =org=mode=, so it is not getting
+   much use.
+
+ #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+    (autoload 'markdown-mode "markdown-mode.el"
+       "Major mode for editing Markdown files" t)
+    (setq auto-mode-alist
+       (cons '("\\.md" . markdown-mode) auto-mode-alist))
+  #+END_SRC
+
+** Count words in a buffer
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+    ;; word-count
+    (defun word-count nil "Count words in buffer" (interactive)
+      (shell-command-on-region (point-min) (point-max) "wc -w"))
+  #+END_SRC
+
+** Shortcut to select text within quotes
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+    (defun select-text-in-quote ()
+      "http://xahlee.org/emacs/modernization_mark-word.html"
+      (interactive)
+      (let (b1 b2)
+        (skip-chars-backward "^<>([{â€œã€Œã€Žâ€¹Â«ï¼ˆã€ˆã€Šã€”ã€ã€–â¦—ã€˜\"")
+        (setq b1 (point))
+        (skip-chars-forward "^<>)]}â€ã€ã€â€ºÂ»ï¼‰ã€‰ã€‹ã€•ã€‘ã€—â¦˜ã€™\"")
+        (setq b2 (point))
+        (set-mark b1)))
+    (global-set-key (kbd "C-'") 'select-text-in-quote)
+  #+END_SRC
+
+** Selection of text formattings done by external programs
+
+  It has been quicker for me to write perl scripts to format text than
+  any other way. These functions demonstrate how a standard command
+  line programs that read from STDIN and write to STDOUT can be
+  included into emacs workflow. Markdown and SmartyPants are equally
+  antiquated functions.
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+
+    (defun txt2xhtml ()
+      "Turn consecutive non-empty lines of plain text into HTML <p> elements."
+      (interactive)
+      (shell-command-on-region (point)
+             (mark) "txt2xhtml.pl" nil t))
+
+    (defun txt2header ()
+      "Turn consecutive non-empty lines of plain text into HTML <h2> elements."
+      (interactive)
+      (shell-command-on-region (point)
+             (mark) "txt2header.pl" nil t))
+
+    (defun txt2para ()
+      "Turn consecutive non-empty lines of plain text into paragraphs."
+      (interactive)
+      (shell-command-on-region (point)
+             (mark) "txt2para.pl" nil t))
+
+    (defun do-mark-down (start end)
+       "Invoke the Markdown algorithm on region."
+       (interactive "r")
+       (shell-command-on-region start end "Markdown.pl" t t))
+     (global-set-key "\C-cm" 'do-mark-down)
+
+    (defun do-smarty-pants (start end)
+       "Invoke the SmartyPants algorithm on region."
+       (interactive "r")
+       (shell-command-on-region start end "SmartyPants.pl" t t))
+     (global-set-key "\C-cs" 'do-smarty-pants)
+  #+END_SRC
+
+** Copy and comment a region or line
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+    (defun copy-and-comment-region (beg end)
+      "Insert a copy of the lines in region and comment them.
+    When transient-mark-mode is enabled, if no region is active then only the
+    current line is acted upon.
+
+    If the region begins or ends in the middle of a line, that entire line is
+    copied, even if the region is narrowed to the middle of a line.
+    The copied lines are commented according to mode.
+
+    Current position is preserved."
+      (interactive "r")
+      (let ((orig-pos (point-marker)))
+        (save-restriction
+          (widen)
+          (when (and transient-mark-mode (not (use-region-p)))
+            (setq beg (line-beginning-position)
+                  end (line-beginning-position 2)))
+
+          (goto-char beg)
+          (setq beg (line-beginning-position))
+          (goto-char end)
+          (unless (= (point) (line-beginning-position))
+            (setq end (line-beginning-position 2)))
+
+          (goto-char beg)
+          (insert-before-markers (buffer-substring-no-properties beg end))
+          (comment-region beg end)
+          (goto-char orig-pos))))
+
+  #+END_SRC
+
+** Underline current line
+
+   From [[https://gist.github.com/n3mo/5366507]]
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     (defun underline-text (prefixArgCode)
+       "Underlines the current line and moves point to the beginning
+     of the line directly following the underlining. If
+     `universal-argument' is called, prompts user for underline
+     character, otherwise uses the = character."
+       (interactive "P")
+       (let ((selection (buffer-substring-no-properties
+                 (line-beginning-position)
+                         (line-end-position)))
+             (under-char
+              (if (equal prefixArgCode nil)
+                  "="
+                (read-key-sequence "Char?"))))
+         (end-of-line)
+         (newline-and-indent)
+         (insert (apply 'concat (make-list (length selection) under-char)))
+         (next-line 1)
+         (beginning-of-line)))
+
+     ;; I use the following binding: C-c u (think C-c "underline")
+     (global-set-key (kbd "C-c u") 'underline-text)
    #+END_SRC
 
 * Programming
@@ -573,6 +951,7 @@ Current line is subtly highlighted in pale blue.
     (global-auto-complete-mode +1)
 
   #+END_SRC
+
 * Global key bindings
 
   As far as reasonable, I try to keep my custom key bindings within
@@ -583,9 +962,117 @@ Current line is subtly highlighted in pale blue.
   #+BEGIN_SRC emacs-lisp
     (global-set-key "\C-cg" 'magit-status)
     (global-set-key "\C-cq" 'delete-indentation)
+    (global-set-key (kbd "C-c ;") 'iedit-mode)
   #+END_SRC
 
-* Global navigation
+* Navigation
+** Local navigation in a buffer
+
+   My fingers still know old shortcut for jumping to a line number.
+
+  #+name: local-navigation
+  #+BEGIN_SRC emacs-lisp
+    (global-set-key "\C-x\," 'goto-line)
+  #+END_SRC
+
+   I have to write this default key combination down since I can never
+   remember it: kill line backward from cursor: =C-0 C-k=.
+
+   An other nifty edit command =C-backspace= makes deleting words faster.
+
+  #+name: local-navigation
+  #+BEGIN_SRC emacs-lisp
+    (global-set-key (kbd "C-<backspace>") (lambda ()
+                                            (interactive)
+                                            (kill-line 0)))
+  #+END_SRC
+
+   The most complex replace key combination made little bit easier:
+
+  #+name: local-navigation
+  #+BEGIN_SRC emacs-lisp
+    (defalias 'qrr 'query-replace-regexp)  ; M-C-S %
+  #+END_SRC
+
+
+ #+name: local-navigation
+  #+BEGIN_SRC emacs-lisp
+    ;; folding of code
+    ;; http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/
+    (defun toggle-selective-display ()
+      (interactive)
+      (set-selective-display (if selective-display nil 1)))
+
+    (global-set-key [f7] 'toggle-selective-display)
+  #+END_SRC
+
+M-j is bound to join the next line with the current one. Copied from
+[[http://whattheemacsd.com/key-bindings.el-03.html][WhatTheEmacs!?]]
+
+  #+name: local-navigation
+  #+BEGIN_SRC emacs-lisp
+    (global-set-key (kbd "M-j")
+                    (lambda () (interactive) (join-line -1)))
+  #+END_SRC
+
+   When editing indented text, you seldom want to go to the first
+   column of the line. Instead the following modifies =C-a= to move
+   point back to indentation of beginning of line. Copied from [[ http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][EmacsRedux]].
+
+   Move point to the first non-whitespace character on this line.  If
+   point is already there, move to the beginning of the line.
+   Effectively toggle between the first non-whitespace character and
+   the beginning of the line.
+
+  #+name: local-navigation
+  #+BEGIN_SRC emacs-lisp
+    (defun smarter-move-beginning-of-line (arg)
+      "Move point back to indentation of beginning of line.
+
+      Move point to the first non-whitespace character on this line.
+      If point is already there, move to the beginning of the line.
+      Effectively toggle between the first non-whitespace character and
+      the beginning of the line.
+
+      If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+      point reaches the beginning or end of the buffer, stop there."
+      (interactive "^p")
+      (setq arg (or arg 1))
+
+      ;; Move lines first
+      (when (/= arg 1)
+        (let ((line-move-visual nil))
+          (forward-line (1- arg))))
+
+      (let ((orig-point (point)))
+        (back-to-indentation)
+        (when (= orig-point (point))
+          (move-beginning-of-line 1))))
+
+    ;; remap C-a to `smarter-move-beginning-of-line'
+    (global-set-key [remap move-beginning-of-line]
+                    'smarter-move-beginning-of-line)
+
+  #+END_SRC
+
+** External navigation
+
+   This allows you to google the selected region from local emacs buffer. Defines
+   fuction =google=.
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+      (defun google ()
+     "Google the selected region if any, display a query prompt otherwise."
+     (interactive)
+     (browse-url
+      (concat
+       "http://www.google.com/search?ie=utf-8&oe=utf-8&q="
+       (url-hexify-string (if mark-active
+                              (buffer-substring (region-beginning) (region-end))
+                            (read-string "Google: "))))))
+   #+END_SRC
+** Global navigation
 
   I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
   etc.
@@ -605,14 +1092,226 @@ Current line is subtly highlighted in pale blue.
     (global-set-key "\M-x" 'smex)
   #+END_SRC
 
+  I like emacs to remember files that I have visited. The =recentf=
+  package allows you to change =C-x C-b= to them as they were open all
+  the time.
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (require 'recentf)
+    (recentf-mode 1)
+    (setq recentf-max-saved-items 200
+          recentf-max-menu-items 35)
+    (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+ #+END_SRC
+
+  I tend to organize topics by folders and keep track of things in
+  files that are all called =notes.org=. This tells emacs to use
+  unique buffer names with format 'name:dir'. Copied from [[http://emacs-fu.blogspot.com/2009/11/making-buffer-names-unique.html][Emacs-fu
+  blog]].
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (require 'uniquify)
+    (setq
+     uniquify-buffer-name-style 'post-forward
+     uniquify-separator ":")
+ #+END_SRC
+
+* Editing as root
+
+  If you open a file that you do not have permissions to edit, you can
+  call this function =edit-current-file-as-root= to invoke sudo rights
+  within emacs. Kudos to [[http://wenshanren.org/?p=298][Wenshan]].
+
+   #+BEGIN_SRC emacs-lisp
+   (defun edit-current-file-as-root ()
+     "Edit as root the file associated with the current buffer"
+     (interactive)
+     (if (buffer-file-name)
+         (progn
+           (setq file (concat "/sudo:root@localhost:" (buffer-file-name)))
+           (find-file file))
+       (message "Buffer is not associated to a file.")))
+   #+END_SRC
+
+* Geographical location
+
+  Calendar functions like to know your geograpical coordinates to
+  display celestial movements correctly. I am at KAUST in Saudi Arabia.
+
+  #+name: location
+  #+BEGIN_SRC emacs-lisp
+    (setq calendar-latitude 22.3)
+    (setq calendar-longitude 39.1)
+    (setq calendar-location-name "KAUST")
+  #+END_SRC
+
 * Org Mode
+
+** Agenda
+
+   You have to tell org-mode which files contain your agenda. Only
+   these files will be searched using agenda commands.
+
+   I am using only one file at the moment.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     '(org-agenda-files (quote ("~/Dropbox/org/reference.org")))
+   #+END_SRC
+
+   This needs experimenting. It might add the org diary into the
+   agenda without explicitely adding the file.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+  (setq org-agenda-include-diary t)
+   #+END_SRC
+
+   This sets the agenda calendar workweek to start on Sunday
+   according to Saudi Arabian custom.
+
+  #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-agenda-start-on-weekday 7)
+   #+END_SRC
+
+Tags can be added to any agenda item manually or preferebly by puling
+them from a list. At the agenda item header, hit =C-c C-q= to see the
+list and select any subset of tags by pressing the shortcut key.
+
+  #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+    (setq org-tag-alist (quote (("BITCOIN" . ?a)
+                               ("BIO"     . ?b)
+                               ("COMP"    . ?c)
+                               ("EMACS"   . ?e)
+                               ("PHOTO"   . ?f)
+                               ("GIT"     . ?g)
+                               ("HOME"    . ?h)
+                               ("LATEX"   . ?l)
+                               ("MAP"     . ?m)
+                               ("ORG"     . ?o)
+                               ("PERL"    . ?p)
+                               ("WORK"    . ?w)
+                               ("PYTHON"  . ?y)
+                               ("ZSH"     . ?z)
+                               )))
+   #+END_SRC
+
+** Capture templates
+
+   First we have to tell emacs where we want to store all captured notes.
+
+   I keep all files in DropBox.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-directory "~/Dropbox/org")
+     (setq org-default-notes-file "~/Dropbox/org/refile.org")
+   #+END_SRC
+
+   I copied these capture templates from [ref needed]. The only one I
+   really use is reference [f] to store all kinds things I need to
+   remember. They are time stamped, stored in that order and have
+   optional tags I defined in the previous section.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, and org-protocol
+     (setq org-capture-templates
+            (quote (("t" "todo" entry (file "~/Dropbox/org/refile.org")
+                    "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+                   ("r" "respond" entry (file "~/Dropbox/org/refile.org")
+                    "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+                   ("n" "note" entry (file "~/Dropbox/org/refile.org")
+                    "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+                   ("j" "journal" entry (file+datetree "~/Dropbox/org/journal.org")
+                    "* %?\n%U\n" :clock-in t :clock-resume t)
+                   ("f" "reFerence" entry (file+datetree "~/Dropbox/org/reference.org")
+                    "* %?\nEntered on %U\n  %i")  ; '\n %a' removed as unnecessary
+                   ("p" "Phone call" entry (file "~/Dropbox/org/refile.org")
+                    "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+                   ("h" "Habit" entry (file "~/Dropbox/org/refile.org")
+                    "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+   #+END_SRC
+
+   At some point, I will refine my workflow or remove unused templates.
+
+   This was copied from the same source. It might be cruft.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     ;; Remove empty LOGBOOK drawers on clock out
+     (defun bh/remove-empty-drawer-on-clock-out ()
+       (interactive)
+       (save-excursion
+         (beginning-of-line 0)
+         (org-remove-empty-drawer-at "LOGBOOK" (point))))
+
+     (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+   #+END_SRC
+
+** Refile
+
+   Captured notes are kept in a temporaty file, and periodically
+   refiled into their proper places. Or so goes the threory. Since I
+   keep all notes in one file, there is nothing to refile. This block
+   is here only as a template.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+          ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+     (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                      (org-agenda-files :maxlevel . 9))))
+
+     ;; Use full outline paths for refile targets - we file directly with IDO
+     (setq org-refile-use-outline-path t)
+
+     ;; Targets complete directly with IDO
+     (setq org-outline-path-complete-in-steps nil)
+
+     ;; Allow refile to create parent tasks with confirmation
+     (setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+     ;; Use IDO for both buffer and file completion and ido-everywhere to t
+     (setq org-completion-use-ido t)
+     (setq ido-everywhere t)
+     (setq ido-max-directory-size 100000)
+     (ido-mode (quote both))
+
+     ;; Refile settings
+     ;; Exclude DONE state tasks from refile targets
+     ;;(defun bh/verify-refile-target ()
+     ;;  "Exclude todo keywords with a done state from refile targets"
+     ;;  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+     ;;
+     ;;(setq org-refile-target-verify-function 'bh/verify-refile-target)
+
+   #+END_SRC
+
 ** MobileOrg
    Use Dropbox for syncing my agenda files with my Android
    phone. Worry about the security implications later.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (setq org-mobile-directory "~/Dropbox/MobileOrg")
+     (setq org-mobile-directory "~/Dropbox/org")
+   #+END_SRC
+** External jars
+
+   Tell emacs where to find external depencies. Ditaa and PlantUML are
+   java jar files. PlantUML need to be called in fundamental mode
+   (find out why).
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-ditaa-jar-path "~/src/org-mode/contrib/scripts/ditaa.jar")
+     (setq org-plantuml-jar-path
+           (expand-file-name "~/.emacs.d/bin/plantuml.jar"))
+     ;; Use fundamental mode when editing plantuml blocks with C-c '
+     (add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
    #+END_SRC
 ** Global keys
 
@@ -625,6 +1324,10 @@ Current line is subtly highlighted in pale blue.
      (global-set-key "\C-ca" 'org-agenda)
      (global-set-key "\C-cb" 'org-iswitchb)
    #+END_SRC
+
+   In addition, use =C-c C-l= to store current position (copy);
+
+
 
    Org-Agenda needs to be loaded before calling =org-agenda= works.
 
@@ -691,7 +1394,22 @@ Current line is subtly highlighted in pale blue.
 
    #+END_SRC
 
+   Add timestamp to all DONE items.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-log-done 'time)
+   #+END_SRC
+
 ** Org-Babel
+
+   Run code with a block by =C-c C-c= without confirmation. This is a
+   known security risk, but makes life easier. Beware.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-confirm-babel-evaluate nil)
+   #+END_SRC
 
    Use syntax highlighting ("fontification") in org-mode source
    blocks, and use a slightly darker background to visually separate
@@ -707,8 +1425,8 @@ Current line is subtly highlighted in pale blue.
    #+END_SRC
 
    Use the =minted= package for syntax highlighting source blocks in
-   LaTeX / PDF exports. [[http://joat-programmer.blogspot.nl/2013/07/org-mode-version-8-and-pdf-export-with.html][Configuration copied from a blog post
-   by Florian Bergmann.]]
+   LaTeX / PDF exports. Configuration copied from a blog post by
+   [[http://joat-programmer.blogspot.nl/2013/07/org-mode-version-8-and-pdf-export-with.html][Florian Bergmann]]. Check also the blog by [[ http://praveen.kumar.in/2012/03/10/org-mode-latex-and-minted-syntax-highlighting/][Praveen Kumar]].
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -726,6 +1444,36 @@ Current line is subtly highlighted in pale blue.
            '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
    #+END_SRC
+
+
+   My additions and overrides inlude export to Beamer presentations, too.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+      (require 'ox-beamer)
+   #+END_SRC
+
+   Enable internal references to org mode headers accoding to this
+   example:
+
+   #+BEGIN_EXAMPLE
+      * My Headline
+      In section [[My Headline]] we discuss ...
+   #+END_EXAMPLE
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+      (setq org-latex-hyperref-format "\\ref{%s}")
+   #+END_SRC
+
+   Slower by more robust latex to PDF processing uses =latexmk=.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+;     (setq org-latex-pdf-process
+;       '("/usr/texbin/latexmk -interaction=nonstopmode -shell-escape -pdflatex=/usr/texbin/xelatex -gg -f -pdf %f"))
+   #+END_SRC
+
 
    Untangle files.
 
@@ -759,6 +1507,71 @@ Current line is subtly highlighted in pale blue.
 
    #+END_SRC
 
+   Display images created by a source block inline.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'org-babel-after-execute-hook 'my/display-inline-images 'append)
+     (defun my/display-inline-images ()
+       (condition-case nil
+           (org-display-inline-images)
+         (error nil)))
+   #+END_SRC
+
+** Latex export
+
+   This defines a new latex class ==fu-org-article== based on the
+   article class that has freshed more compact look than the default
+   article.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+(add-to-list 'org-latex-classes
+             '("fu-org-article"
+"\\documentclass[11pt,a4paper]{article}
+\\usepackage[T1]{fontenc}
+\\usepackage{xunicode}        % for XeTex
+\\usepackage{fontspec}        % for XeTex
+\\usepackage{xltxtra}         % for XeTex
+\\usepackage{url}             % for XeTex to break long URLs at line ending
+\\usepackage[english]{babel}  % for XeTex
+\\usepackage{libertine}
+\\usepackage{graphicx}
+\\usepackage{minted}
+\\usepackage{hypernat}
+\\usepackage[round]{natbib}
+
+\\usepackage{paralist}
+\\let\\itemize\\compactitem
+\\let\\description\\compactdesc
+\\let\\enumerate\\compactenum
+
+\\defaultfontfeatures{Mapping=tex-text}
+\\setromanfont[Mapping=tex-text, Numbers=OldStyle]{Linux Libertine O}
+
+\\usepackage[a4paper, textheight=10in,
+            marginparsep=7pt, marginparwidth=.6in]{geometry}
+
+\\usepackage[colorlinks=true,urlcolor=black,linkcolor=black,citecolor=blue]{hyperref}
+
+\\let\\nofiles\\relax % Void the \\nofiles command
+
+\\pagestyle{plain}
+\\title{}
+      [NO-DEFAULT-PACKAGES]
+      [NO-PACKAGES]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+               )
+             )
+
+   #+END_SRC
+
+
+
 ** Language evaluation support
 
    Org-Babel needs to be told that evaluation of certain languages is
@@ -780,7 +1593,48 @@ Current line is subtly highlighted in pale blue.
               my/org-babel-evaluated-languages))
    #+END_SRC
 
-** Diagramming
+*** General programming languages
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'perl)
+   #+END_SRC
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'clojure)
+   #+END_SRC
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'ruby)
+   #+END_SRC
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'sh)
+   #+END_SRC
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'python)
+   #+END_SRC
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'emacs-lisp)
+   #+END_SRC
+
+*** Statistics
+
+    [[http://www.r-project.org/][R]] has been the new S for a long time.
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'R)
+   #+END_SRC
+
+*** Diagramming
 
    I like [[http://www.graphviz.org/][Graphviz]] for generating graphs. It takes a few lines of code
    to link graphviz's =dot= mode to =org-babel= so I can include dot
@@ -801,10 +1655,273 @@ Current line is subtly highlighted in pale blue.
      (add-to-list 'my/org-babel-evaluated-languages 'ditaa)
    #+END_SRC
 
-   PlantUml is built on top of Graphviz.
+   [[http://plantuml.sourceforge.net/][PlantUML]] is built on top of Graphviz.
 
+   #+name: org-config-languages
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'my/org-babel-evaluated-languages 'plantuml)
+   #+END_SRC
+
+*** Databases
+
+    SQL is relational database language.
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'sql)
+   #+END_SRC
+
+    SQLite is a common variant of SQL.
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'sqlite)
+   #+END_SRC
+
+*** Typesetting
+
+    org itself can be evaluated.
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'org)
+   #+END_SRC
+
+
+   Latex is always needed.
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'latex)
+   #+END_SRC
+
+   Lilypond is a [[http://www.lilypond.org/][music typesetting language]].
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'lilypond)
+   #+END_SRC
+
+** Shortcuts for some language blocks
+
+   There are some source blocks that I use more than others. To save
+   time typing them, I've defined skeletons with abbreviations for them.
+
+   *sblk* - Generic with interactive type.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (define-skeleton skel-org-block
+       "Insert an org block, querying for type."
+       "Type: "
+       "#+BEGIN_SRC " str "\n"
+       _ -
+       "\n#+END_SRC\n")
+     (define-abbrev org-mode-abbrev-table "sblk" "" 'skel-org-block-source)
+   #+END_SRC
+
+   *pblk* - perl block with shebang
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (define-skeleton skel-org-block-perl
+       "Insert an org perl block with results in the output."
+       ""
+       "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n#+BEGIN_SRC perl :tangle yes\n"
+       _ -
+       "\n#+END_SRC\n")
+
+     (define-abbrev org-mode-abbrev-table "pblk" "" 'skel-org-block-perl)
+   #+END_SRC
+
+   *rblk* -- R block  optimised for inline graphics
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (define-skeleton skel-org-block-r
+       "Insert an org R block with results in the output."
+       ""
+       "#+HEADER: :session *R* :cache yes :results output graphics :exports both :tangle yes\n#+BEGIN_SRC R  :file a.png  :width 500 :height 500\n"
+       _ -
+       "\n#+END_SRC\n")
+
+     (define-abbrev org-mode-abbrev-table "rblk" "" 'skel-org-block-r)
+   #+END_SRC
+
+   *splant* - PlantUML Source block
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (define-skeleton skel-org-block-plantuml
+       "Insert a org plantuml block, querying for filename."
+       "File (no extension): "
+       "#+BEGIN_SRC plantuml :file " str ".png\n"
+       _ -
+       "\n#+END_SRC\n")
+
+     (define-abbrev org-mode-abbrev-table "splant" "" 'skel-org-block-plantuml)
+   #+END_SRC
+
+   *sdot* - Graphviz DOT block
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (define-skeleton skel-org-block-dot
+       "Insert a org graphviz dot block, querying for filename."
+       "File (no extension): "
+       "#+BEGIN_SRC dot :file " str ".png :cmdline -Kdot -Tpng\n"
+       "graph G {\n"
+       _ - \n
+       "}"
+       "\n#+END_SRC\n")
+
+     (define-abbrev org-mode-abbrev-table "sdot" "" 'skel-org-block-dot)
+   #+END_SRC
+
+
+  *sditaa* - Ditaa source block
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (define-skeleton skel-org-block-ditaa
+       "Insert a org ditaa block, querying for filename."
+       "File (no extension): "
+       "#+BEGIN_SRC ditaa :file " str ".png  :cmdline -r\n"
+       _ -
+       "\n#+END_SRC\n")
+
+     (define-abbrev org-mode-abbrev-table "sditaa" "" 'skel-org-block-ditaa)
+   #+END_SRC
+
+   *lblk* - Emacs Lisp source block
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (define-skeleton skel-org-block-elisp
+       "Insert a org emacs-lisp block"
+       ""
+       "#+BEGIN_SRC emacs-lisp\n"
+       _ -
+       "\n#+END_SRC\n")
+
+     (define-abbrev org-mode-abbrev-table "lblk" "" 'skel-org-block-elisp)
+   #+END_SRC
+
+** References
+
+   I have one master bib file for references.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq reftex-default-bibliography
+           (quote
+            ("/Users/heikki/Documents/latex/all.bib")))
+   #+END_SRC
+
+   The RefTex package that manages citations needs configuration. =C-c
+   (= search for citation in the bibliograhy file. =C-c )= does
+   something else...
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (defun org-mode-reftex-setup ()
+       (load-library "reftex")
+       (and (buffer-file-name) (file-exists-p (buffer-file-name))
+            (progn
+              ;enable auto-revert-mode to update reftex when bibtex file changes
+              (global-auto-revert-mode t)
+            (reftex-parse-all))
+       (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+       (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
+       )
+     (add-hook 'org-mode-hook 'org-mode-reftex-setup)
+   #+END_SRC
+
+   Bibliography is needed only in some documents. I have defined an
+   abbreviation *obiblio* that adds these two lines to the
+   document. Place them to the end. Read more about [[http://merkel.zoneo.net/Latex/natbib.php][natbib]].
+
+   #+BEGIN_EXAMPLE
+     \bibliographystyle{natbib}{}
+     \bibliography{bibfilename}
+   #+END_EXAMPLE
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (define-skeleton skel-org-block-bibl
+       "Insert a org/lisp bibliography block"
+       ""
+       "\n\\bibliographystyle{plainnat}\n\\bibliography{/Users/heikki/Documents/latex/all}\n"
+       _ -
+       "")
+
+     (define-abbrev org-mode-abbrev-table "obiblio" "" 'skel-org-block-bibl)
+   #+END_SRC
+
+** Org-mode info
+
+   This links =C-c o= to the org-mode info. Unfortunately it defaults
+   to the built-in, outdated org mode version. Clone the latest from
+   the repository and point emacs to its documentation.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (defvar fp-org-distribution "~/src/org-mode")
+     (defun fp-org-info ()
+       (interactive)
+       (require 'info)
+       (let ((Info-directory-list (cons (concat fp-org-distribution "/doc")
+                                        Info-directory-list)))
+         (org-info)))
+     (global-set-key "\C-co" 'fp-org-info)
+   #+END_SRC
+
+*
+
+** Presentation
+
+   The org mode can be used to export presentations in fancy HTML5
+   Reveal.js  format. Read more at [[https://github.com/yjwen/org-reveal/blob/master/Readme.org][GitHub]].
+
+   To start using it, first clone the org-reveal repository.
+
+   #+BEGIN_SRC sh
+     cd ~/src/
+     git clone https://github.com/yjwen/org-reveal.git
+   #+END_SRC
+
+   Then activate the org-reveal mode and tell its location to emacs.
+
+#   #+name: org-config
+#   #+BEGIN_SRC emacs-lisp
+#     (require 'ox-reveal)
+#     (setq org-reveal-root "file:///Users/heikki/src/reveal.js")
+#   #+END_SRC
+
+** Master file fix
+
+   org-mode asks for a master file when opening the first org file in emacs
+   Discussion and [[http://lists.gnu.org/archive/html/emacs-orgmode/2012-02/msg00759.html][fix]] was provided.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq TeX-auto-save t)
+     (setq TeX-parse-self t)
+     (setq-default TeX-master nil)
+     (make-variable-buffer-local 'TeX-master) ;; I think this is needed because the variable is not buffer local until Auctex is active
+
+     (defun org-mode-reftex-setup ()
+       (setq TeX-master t)
+       (load-library "reftex")
+       (and (buffer-file-name)
+            (file-exists-p (buffer-file-name))
+            (progn
+          (reftex-parse-all)
+          (reftex-set-cite-format "[[cite:%l][%l]]")))
+       (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+       (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
+     (add-hook 'org-mode-hook 'org-mode-reftex-setup)
+
    #+END_SRC
 
 * Configuration file layout
@@ -818,17 +1935,23 @@ Current line is subtly highlighted in pale blue.
     ;;;; information.
     ;;;;
     ;;;; If you cannot find the `emacs.org` file, see the source
-    ;;;; repository at https://github.com/joodie/emacs-literal-config
+    ;;;; repository at https://github.com/heikkil/emacs-literal-config
 
     <<environment>>
     <<tools>>
     <<customize-config>>
     <<look-and-feel>>
     <<formatting>>
+    <<abbreviations>>
+    <<version-control>>
+    <<spell-checker>>
+    <<text-files>>
     <<programming-setup>>
     <<auto-complete>>
     <<global-keys>>
+    <<local-navigation>>
     <<global-navigation>>
+    <<location>>
     <<org-config>>
     <<startup>>
   #+END_SRC
@@ -889,6 +2012,13 @@ Current line is subtly highlighted in pale blue.
   #+BEGIN_SRC emacs-lisp
     (when (memq window-system '(mac ns))
       (exec-path-from-shell-initialize))
+  #+END_SRC
+
+  The =locate= command is not available in OS X so alias it to mdfind.
+  #+NAME: environment
+  #+BEGIN_SRC emacs-lisp
+    (when (eq system-type 'darwin)
+      (setq locate-command "mdfind"))
   #+END_SRC
 
 * Monkey Patches
