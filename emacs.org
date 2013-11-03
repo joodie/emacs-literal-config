@@ -1218,24 +1218,15 @@ M-j is bound to join the next line with the current one. Copied from
 ** Agenda
 
    You have to tell org-mode which files contain your agenda. Only
-   these files will be searched using agenda commands.
-
-   I am using only one file at the moment.
-
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-     '(org-agenda-files (quote ("~/Dropbox/org/reference.org")))
-   #+END_SRC
-
-   This following snippet needs more experimenting. It might add the
-   org diary into the agenda without explicitly adding the file.
+   these files will be searched using agenda commands. This adds all
+   files from the directory.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-include-diary t)
+     (setq org-agenda-files '("~/Dropbox/org"))
    #+END_SRC
 
-   This sets the agenda calendar workweek to start on Sunday
+   This sets the agenda calendar work week to start on Sunday
    according to Saudi Arabian custom.
 
    #+name: org-config
@@ -1914,8 +1905,16 @@ M-j is bound to join the next line with the current one. Copied from
 ** Org-mode info
 
    This links =C-c o= to the org-mode info. Unfortunately it defaults
-   to the built-in, outdated org mode version. Clone the latest from
-   the repository and point emacs to its documentation.
+   to the built-in, outdated org mode version. The solution is to
+   clone the latest version from the repository and point emacs to its
+   documentation.
+
+   #+BEGIN_SRC sh
+     cd ~/src/
+     git clone http://github.com/jwiegley/org-mode
+   #+END_SRC
+
+   Update this repository occasionally.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -1952,7 +1951,7 @@ M-j is bound to join the next line with the current one. Copied from
 
 ** Master file fix
 
-   org-mode asks for a master file when opening the first org file in
+   org-mode asks for a (LaTeX) master file when opening the first org file in
    emacs.  Discussion and [[http://lists.gnu.org/archive/html/emacs-orgmode/2012-02/msg00759.html][fix]] was provided.
 
    #+name: org-config
