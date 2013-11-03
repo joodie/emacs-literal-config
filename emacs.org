@@ -11,8 +11,7 @@
 
 * How to use this configuration
 
-  This section is copied directly from Joost with the addition of the
-  ~touch custom.el~ command.
+  This section is copied directly from Joost.
 
 ** Obtaining the source
 
@@ -33,7 +32,6 @@
   - Clone [[https://github.com/heikkil/emacs-literal-config][the repository]] as ~$HOME/.emacs.d~ (or symlink it to that
     directory).
   - Run ~cask install~ in ~$HOME/.emacs.d~
-  - Run ~touch custom.el~ in ~$HOME/.emacs.d~
   - Start Emacs
 
 ** Issues installing
@@ -333,15 +331,18 @@
 
    By default, Emacs saves the options you set via the `customize-*`
    functions in the user init file, which is "~/.emacs.d/init.el" in
-   this setup. I prefer to have these data in a separate file.
+   this setup. I prefer to have these data in a separate file,
+   =custom.el=. The file is created if it does not exist.
 
    All personal details and many more customisations that could be
    moved out of it are now in =custom.el=. This needs work.
 
    #+name: customize-config
    #+BEGIN_SRC emacs-lisp
-    (setq custom-file "~/.emacs.d/custom.el")
-    (load custom-file)
+     (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+     (unless (file-exists-p custom-file)
+       (write-region "" nil custom-file))
+     (load custom-file)
    #+END_SRC
 
 * Backups
