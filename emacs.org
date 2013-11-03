@@ -1,17 +1,18 @@
 #+TITLE: Literal Emacs Configuration
-#+AUTHOR: Heikki Lehvaslaiho
+#+AUTHOR: Heikki Lehväslaiho
 #+EMAIL: heikki.lehvaslaiho@gmail.com
 
 
 * Emacs Configuration
 
-  This is my version of Joost Diepenmaat's Org-Babel and a literate
-  programming style emacs configuration. His original
-  [[https://github.com/joodie/emacs-literal-config/][Github repository]] was forked on 1st November 2013 and is kept
-  [[https://github.com/heikkil/emacs-literal-config][here]].
+  This is  [[https://github.com/heikkil/emacs-literal-config][my version]] of Joost Diepenmaat's Org-Babel and a literate
+  programming style emacs configuration. I forked his original
+  [[https://github.com/joodie/emacs-literal-config/][Github repository]] on 1st November 2013.
+
 * How to use this configuration
 
-  This section is copied directly from Joost.
+  This section is copied directly from Joost with the addition of the
+  ~touch custom.el~ command.
 
 ** Obtaining the source
 
@@ -40,6 +41,27 @@
   - Emacs failing to load pallet can indicate that ~cask~ is
     attempting to install packages using a different Emacs version
     than the one you're starting. Check your ~$PATH~ and/or aliases.
+
+** Editing this document
+
+   You are expected to use emacs and version >8 of org-mode for
+   editing. To do that effectively, you need to understand how this
+   documents works.
+
+   The text and its headers can be in any order that best helps
+   understanding the structure. These elements are not read by emacs
+   at all. The emacs lisp code that configures emacs is in emacs-lisp
+   code blocks.
+
+   When emacs starts, code in =$HOME/init.el= loads first the
+   prerequisites and then this org document. The code in the
+   configuration section (see [[Configuration file layout]]) scans the
+   code blocks and extracts (tangles in literate programming talk)
+   them into the =emacs.el= file and evaluates it.
+
+   The order the blocks are written out is determined first by name
+   and then their order in this document. Blocks without names are
+   *not* tangled.
 
 * Graphics and looks
 
@@ -84,7 +106,8 @@
    [[http://www.emacswiki.org/emacs/TheFringe][The fringe]] is the vertical region at the right and left of the
    buffer. Emacs lets you customize it of course.
 
-   Here I set up git diffs and buffer position in the fringe.
+   Here I set up *git differences* and buffer boundaries in the left
+   fringe.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
@@ -99,10 +122,11 @@
 
 ** Mode line
 
-   The default Mode Line is confusing and boring. This setup [[ http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html][]] makes it
-   clear and easy to eye. A nice visual bell is an added
-   bonus. Someone might argue that the amount of code is excessive for
-   such a small feature.
+   The default emacs mode line is confusing and boring. [[ http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html][This setup]]
+   makes it clear and easy to eye. A nice visual bell is an added
+   bonus.  Some might argue that the amount of code used is excessive
+   for such a small feature, but since I was able to copy, paste and
+   modify, why not.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
@@ -288,43 +312,43 @@
 
 ** Current line
 
-Current line is subtly highlighted in pale blue.
+   Current line is subtly highlighted in pale blue.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (global-hl-line-mode 1)
      (set-face-background hl-line-face "AliceBlue")
    #+END_SRC
+
 * Start up
 
   Start with the scratch buffer; no start up screen.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
-
-    ;; startup
     (setq inhibit-startup-screen +1)
   #+END_SRC
 
 ** Options set using the customize interface
 
-  By default, Emacs saves the options you set via the `customize-*`
-  functions in the user init file, which is "~/.emacs.d/init.el" in
-  this setup. I prefer to have it put that data in a seperate file.
+   By default, Emacs saves the options you set via the `customize-*`
+   functions in the user init file, which is "~/.emacs.d/init.el" in
+   this setup. I prefer to have these data in a separate file.
 
-  Many more customisations are in =custom.el=
+   All personal details and many more customisations that could be
+   moved out of it are now in =custom.el=. This needs work.
 
-  #+name: customize-config
-  #+BEGIN_SRC emacs-lisp
+   #+name: customize-config
+   #+BEGIN_SRC emacs-lisp
     (setq custom-file "~/.emacs.d/custom.el")
     (load custom-file)
-  #+END_SRC
+   #+END_SRC
 
 * Backups
 
   Default emacs behaviour is to clutter directories with its backup
   files. The following creates numbered backups and directs them all
-  into =$HOME/.emacs_backups= directory.
+  into =$HOME/.emacs.d/backups/= directory.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
@@ -336,13 +360,13 @@ Current line is subtly highlighted in pale blue.
     (setq kept-old-versions 2)
     (setq delete-old-versions t)
     ;; Save all backup file in this directory.
-    (setq backup-directory-alist (quote ((".*" . "~/.emacs_backups/"))))
+    (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
   #+END_SRC
 
-* Confirmations and quiting emacs
+* Confirmations and quitting emacs
 
-  Set y/n abbreviations for all confirmations and ask for confimation
-  before quiting emacs.
+  Set short y/n abbreviations for all confirmations and ask for
+  confirmation before quiting emacs.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
@@ -351,6 +375,10 @@ Current line is subtly highlighted in pale blue.
   #+END_SRC
 
 * Formatting and white-space
+
+  Tabs are automatically converted to spaces and trailing white space
+  is shown. Global key =C-c n= indents and removes trailing white
+  space from the buffer.
 
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
@@ -401,7 +429,7 @@ Current line is subtly highlighted in pale blue.
      (global-auto-revert-mode 1)
    #+END_SRC
 
-   Also auto refresh dired files, but be quiet about it.
+   Also, auto refresh dired files, but be quiet about it.
 
   #+name: formatting
    #+BEGIN_SRC emacs-lisp
@@ -413,7 +441,7 @@ Current line is subtly highlighted in pale blue.
 
   Emacs comes with =abbrev-mode= that is able to replace typed strings
   in context sensitive way. I use it to correct typos (teh -> the) and
-  replace short abreviations with long, multiline texts in modes that
+  replace short strings with long, multiline texts in modes that
   I use frequently.
 
   #+name: abbreviations
@@ -446,12 +474,12 @@ Current line is subtly highlighted in pale blue.
 
   The only version control system worth using is git and *magit* is
   the emacs interface to it. Various git files have their dedicated
-  modes that are defined in the Cask file: git-commit-mode,
-  gitconfig-mode, git-rebase-mode, and gitignore-mode.
+  modes that are loaded by Cask: git-commit-mode, gitconfig-mode,
+  git-rebase-mode, and gitignore-mode.
 
-  From any buffer linked to git controlled file, you can hit =C-x g=
-  to enter magit status window. Pressing =q= restored the previous
-  window(s).
+  From any buffer that is linked to git controlled file, you can hit
+  =C-x g= to enter magit status window. Pressing =q= restores the
+  previous window(s).
 
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
@@ -472,6 +500,13 @@ Current line is subtly highlighted in pale blue.
   #+END_SRC
 
 * Spell Checker
+
+  [[http://www.emacswiki.org/emacs/FlySpell][Flyspell]] checks words as you write against the [[http://aspell.net/][GNU aspell]]
+  dictionaries.
+
+  You might have to install aspell for your computer. For OS X, do it
+  using [[http://brew.sh/][Homebrew]] =brew install aspell= .
+
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
 
@@ -495,7 +530,7 @@ Current line is subtly highlighted in pale blue.
 * Text files
 ** LaTeX
 
-   Use AUCTex for all LaTeX
+   Use AUCTex for all LaTeX.
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
@@ -515,8 +550,9 @@ Current line is subtly highlighted in pale blue.
    #+END_SRC
 
 ** Zsh
-   Zsh is the shell that is a superset of Bash. Tell emacs that its
-   config files are shell scripts.
+   [[http://www.zsh.org/][Zsh]] is the shell that is a superset of Bash. Tell emacs that its
+   config files are shell scripts. I use the [[https://github.com/sorin-ionescu/prezto][pretzo]] configuration
+   framework for it.
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
@@ -524,31 +560,13 @@ Current line is subtly highlighted in pale blue.
            (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
    #+END_SRC
 
-
-** EverNote
-
-   ##+NAME: programming-setup
-   #+BEGIN_SRC emacs-lisp
-     (require 'evernote-mode)
-     (setq evernote-username "heikkil") ; optional: you can use this username as default.
-     (setq evernote-enml-formatter-command '("w3m" "-dump" "-I" "UTF8" "-O" "UTF8")) ; option
-     ;; keys  "\C-cex" are now "\C-cwx"
-     (global-set-key "\C-cwc" 'evernote-create-note)
-     (global-set-key "\C-cwo" 'evernote-open-note)
-     (global-set-key "\C-cws" 'evernote-search-notes)
-     (global-set-key "\C-cwS" 'evernote-do-saved-search)
-     (global-set-key "\C-cww" 'evernote-write-note)
-     (global-set-key "\C-cwp" 'evernote-post-region)
-     (global-set-key "\C-cwb" 'evernote-browser)
-   #+END_SRC
-
-
 ** NEURON
 
    NEURON is a high level programming language for computational
-   neurologybiology. Unless you are in the field, there are remote
-   chanches that you'll need these modes. If you, copy the el files
-   add them to your PATH.
+   neurologybiology. Unless you are in the field, you will not need
+   these modes. If you do, download the =.el= files and add them into
+   your custom elisp directory (see section [[Custom lisp package
+   directory]]).
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
@@ -586,7 +604,7 @@ Current line is subtly highlighted in pale blue.
 ** MarkDown
 
    Github and especially BitBucket use =markdown mode=, so my emacs
-   knows about it. GitHub knows about =org=mode=, so it is not getting
+   knows about it. GitHub knows about =org-mode=, so it is not getting
    much use.
 
  #+name: text-files
@@ -762,6 +780,75 @@ Current line is subtly highlighted in pale blue.
 
      (global-set-key "\C-cp" 'my/global-pair-programming-mode)
    #+END_SRC
+** Perl
+
+   I recently moved from [[http://perlbrew.pl/][perlbrew]] to [[https://github.com/tokuhirom/plenv][plenv]] as a system that provides
+   user controlled perl environment that is separate from vendor
+   perl.
+
+   For OS X, install plenv with =brew install plenv; brew install
+   perl-build= and install your favorite version of perl.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (require 'plenv)
+     (plenv-global "5.18.1")
+   #+END_SRC
+
+
+   Use the built-in =cperl-mode= instead of the default =perl-mode=
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
+     (add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
+     (add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
+     (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
+
+     (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t)
+     (defun n-cperl-mode-hook ()
+       (setq cperl-indent-level 4
+             cperl-close-paren-offset -4
+             cperl-continued-statement-offset 4
+             cperl-indent-parens-as-block t
+             cperl-tab-always-indent t))
+   #+END_SRC
+
+   Call perltidy from emacs to indent and beautify perl code in the
+   current buffer. This code calls the command line [[http://metacpan.org/author/SHANCOCK][ perltidy]]
+   utility. It can be installed, with a module [[http://metacpan.org/pod/Perl::Tidy][Perl::Tidy]], from any
+   CPAN archive.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+      (defun perltidy ()
+         "Run perltidy on the current region or buffer."
+         (interactive)
+         ; Inexplicably, save-excursion doesn't work here.
+         (let ((orig-point (point)))
+           (unless mark-active (mark-defun))
+           (shell-command-on-region (point) (mark) "perltidy -q" nil t)
+           (goto-char orig-point)))
+
+     (global-set-key "\C-ct" 'perltidy)
+
+   #+END_SRC
+
+*** TODO Call =pod-mode= on POD documentation files and enable spell checking.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (autoload 'pod-mode "pod-mode"
+       "Mode for editing POD files" t)
+     (add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
+     (add-hook 'pod-mode-hook 'font-lock-mode)
+
+     (add-hook 'pod-mode-hook '(lambda ( )
+                                 (progn (font-lock-mode)   ; =syntax highlighting
+                                        (auto-fill-mode 1) ; =wordwrap
+                                        (flyspell-mode 1)  ; =spellchecking
+                                        )))
+   #+END_SRC
 
 ** Lisps
 
@@ -861,59 +948,6 @@ Current line is subtly highlighted in pale blue.
           (global-rinari-mode +1)
    #+END_SRC
 
-** Perl
-
-   Use =cperl-mode= instead of the default =perl-mode=
-
-   #+NAME: programming-setup
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
-     (add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
-     (add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
-     (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
-
-     (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t)
-     (defun n-cperl-mode-hook ()
-       (setq cperl-indent-level 4
-             cperl-close-paren-offset -4
-             cperl-continued-statement-offset 4
-             cperl-indent-parens-as-block t
-             cperl-tab-always-indent t))
-   #+END_SRC
-
-  Call perltify from emacs
-
-   #+NAME: programming-setup
-   #+BEGIN_SRC emacs-lisp
-      (defun perltidy ()
-         "Run perltidy on the current region or buffer."
-         (interactive)
-         ; Inexplicably, save-excursion doesn't work here.
-         (let ((orig-point (point)))
-           (unless mark-active (mark-defun))
-           (shell-command-on-region (point) (mark) "perltidy -q" nil t)
-           (goto-char orig-point)))
-
-     (global-set-key "\C-ct" 'perltidy)
-
-   #+END_SRC
-
-  Call =pod-mode= on inline documentation and enable spell checking.
-
-   #+NAME: programming-setup
-   #+BEGIN_SRC emacs-lisp
-     (autoload 'pod-mode "pod-mode"
-       "Mode for editing POD files" t)
-     (add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
-     (add-hook 'pod-mode-hook 'font-lock-mode)
-
-     (add-hook 'pod-mode-hook '(lambda ( )
-                                 (progn (font-lock-mode)   ; =syntax highlighting
-                                        (auto-fill-mode 1) ; =wordwrap
-                                        (flyspell-mode 1)  ; =spellchecking
-                                        )))
-   #+END_SRC
-
 ** C++
 
    #+NAME: programming-setup
@@ -962,7 +996,7 @@ Current line is subtly highlighted in pale blue.
   #+BEGIN_SRC emacs-lisp
     (global-set-key "\C-cg" 'magit-status)
     (global-set-key "\C-cq" 'delete-indentation)
-    (global-set-key (kbd "C-c ;") 'iedit-mode)
+    (global-set-key (kbd "C-c ;") 'iedit-mode) ;; TODO
   #+END_SRC
 
 * Navigation
@@ -1074,11 +1108,11 @@ M-j is bound to join the next line with the current one. Copied from
    #+END_SRC
 ** Global navigation
 
-  I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
-  etc.
+   I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
+   etc.
 
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
     (defun my/edit-emacs-configuration ()
       (interactive)
       (find-file "~/.emacs.d/emacs.org"))
@@ -1090,33 +1124,33 @@ M-j is bound to join the next line with the current one. Copied from
     (ido-yes-or-no-mode +1)
 
     (global-set-key "\M-x" 'smex)
-  #+END_SRC
+   #+END_SRC
 
-  I like emacs to remember files that I have visited. The =recentf=
-  package allows you to change =C-x C-b= to them as they were open all
-  the time.
+   I like emacs to remember files that I have visited. The =recentf=
+   package allows you to change =C-x C-b= to them as they were open all
+   the time.
 
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
     (require 'recentf)
     (recentf-mode 1)
     (setq recentf-max-saved-items 200
           recentf-max-menu-items 35)
     (global-set-key "\C-x\ \C-r" 'recentf-open-files)
- #+END_SRC
+   #+END_SRC
 
-  I tend to organize topics by folders and keep track of things in
-  files that are all called =notes.org=. This tells emacs to use
-  unique buffer names with format 'name:dir'. Copied from [[http://emacs-fu.blogspot.com/2009/11/making-buffer-names-unique.html][Emacs-fu
-  blog]].
+   I tend to organize topics by folders and keep track of things in
+   files that are all called =notes.org=. This tells emacs to use
+   unique buffer names with format 'name:dir'. Copied from [[http://emacs-fu.blogspot.com/2009/11/making-buffer-names-unique.html][Emacs-fu
+   blog]].
 
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
     (require 'uniquify)
     (setq
      uniquify-buffer-name-style 'post-forward
      uniquify-separator ":")
- #+END_SRC
+   #+END_SRC
 
 * Editing as root
 
@@ -1124,20 +1158,21 @@ M-j is bound to join the next line with the current one. Copied from
   call this function =edit-current-file-as-root= to invoke sudo rights
   within emacs. Kudos to [[http://wenshanren.org/?p=298][Wenshan]].
 
-   #+BEGIN_SRC emacs-lisp
-   (defun edit-current-file-as-root ()
-     "Edit as root the file associated with the current buffer"
-     (interactive)
-     (if (buffer-file-name)
-         (progn
-           (setq file (concat "/sudo:root@localhost:" (buffer-file-name)))
-           (find-file file))
-       (message "Buffer is not associated to a file.")))
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (defun edit-current-file-as-root ()
+      "Edit as root the file associated with the current buffer"
+       (interactive)
+       (if (buffer-file-name)
+           (progn
+             (setq file (concat "/sudo:root@localhost:" (buffer-file-name)))
+             (find-file file))
+         (message "Buffer is not associated to a file.")))
    #+END_SRC
 
 * Geographical location
 
-  Calendar functions like to know your geograpical coordinates to
+  Calendar functions like to know your geographical coordinates to
   display celestial movements correctly. I am at KAUST in Saudi Arabia.
 
   #+name: location
@@ -1146,6 +1181,9 @@ M-j is bound to join the next line with the current one. Copied from
     (setq calendar-longitude 39.1)
     (setq calendar-location-name "KAUST")
   #+END_SRC
+
+  It is possible (see package osx-location) to link emacs to location
+  information from the operating system.
 
 * Org Mode
 
@@ -1161,8 +1199,8 @@ M-j is bound to join the next line with the current one. Copied from
      '(org-agenda-files (quote ("~/Dropbox/org/reference.org")))
    #+END_SRC
 
-   This needs experimenting. It might add the org diary into the
-   agenda without explicitely adding the file.
+   This following snippet needs more experimenting. It might add the
+   org diary into the agenda without explicitly adding the file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -1172,14 +1210,14 @@ M-j is bound to join the next line with the current one. Copied from
    This sets the agenda calendar workweek to start on Sunday
    according to Saudi Arabian custom.
 
-  #+name: org-config
+   #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-agenda-start-on-weekday 7)
    #+END_SRC
 
-Tags can be added to any agenda item manually or preferebly by puling
-them from a list. At the agenda item header, hit =C-c C-q= to see the
-list and select any subset of tags by pressing the shortcut key.
+   Tags can be added to any agenda item manually or preferebly by pulling
+   them from a list. At the agenda item header, hit =C-c C-q= to see the
+   list and select any subset of tags by pressing the shortcut key(s).
 
   #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -1202,9 +1240,8 @@ list and select any subset of tags by pressing the shortcut key.
 
 ** Capture templates
 
-   First we have to tell emacs where we want to store all captured notes.
-
-   I keep all files in DropBox.
+   First we have to tell emacs where we want to store all captured
+   notes.  I keep all files in DropBox.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -1212,9 +1249,9 @@ list and select any subset of tags by pressing the shortcut key.
      (setq org-default-notes-file "~/Dropbox/org/refile.org")
    #+END_SRC
 
-   I copied these capture templates from [ref needed]. The only one I
-   really use is reference [f] to store all kinds things I need to
-   remember. They are time stamped, stored in that order and have
+   I copied these capture templates from [[http://doc.norang.ca/org-mode.html][this excellent page]]. The only
+   one I really use is reference [f] to store all kinds things I need
+   to remember. They are time stamped, stored in that order and have
    optional tags I defined in the previous section.
 
    #+name: org-config
@@ -1237,20 +1274,20 @@ list and select any subset of tags by pressing the shortcut key.
                     "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
    #+END_SRC
 
-   At some point, I will refine my workflow or remove unused templates.
+   At some point, I will refine my work flow or remove unused templates.
 
-   This was copied from the same source. It might be cruft.
+   This snippet was copied from the same source. It might be cruft.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      ;; Remove empty LOGBOOK drawers on clock out
-     (defun bh/remove-empty-drawer-on-clock-out ()
+     (defun my/remove-empty-drawer-on-clock-out ()
        (interactive)
        (save-excursion
          (beginning-of-line 0)
          (org-remove-empty-drawer-at "LOGBOOK" (point))))
 
-     (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+     (add-hook 'org-clock-out-hook 'my/remove-empty-drawer-on-clock-out 'append)
    #+END_SRC
 
 ** Refile
@@ -1426,7 +1463,7 @@ list and select any subset of tags by pressing the shortcut key.
 
    Use the =minted= package for syntax highlighting source blocks in
    LaTeX / PDF exports. Configuration copied from a blog post by
-   [[http://joat-programmer.blogspot.nl/2013/07/org-mode-version-8-and-pdf-export-with.html][Florian Bergmann]]. Check also the blog by [[ http://praveen.kumar.in/2012/03/10/org-mode-latex-and-minted-syntax-highlighting/][Praveen Kumar]].
+   [[http://joat-programmer.blogspot.nl/2013/07/org-mode-version-8-and-pdf-export-with.html][Florian Bergmann]]. Check also the blog entry by [[ http://praveen.kumar.in/2012/03/10/org-mode-latex-and-minted-syntax-highlighting/][Praveen Kumar]].
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -1453,20 +1490,9 @@ list and select any subset of tags by pressing the shortcut key.
       (require 'ox-beamer)
    #+END_SRC
 
-   Enable internal references to org mode headers accoding to this
-   example:
-
-   #+BEGIN_EXAMPLE
-      * My Headline
-      In section [[My Headline]] we discuss ...
-   #+END_EXAMPLE
-
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-      (setq org-latex-hyperref-format "\\ref{%s}")
-   #+END_SRC
-
-   Slower by more robust latex to PDF processing uses =latexmk=.
+   Slower but more robust latex-to-PDF processing uses =latexmk=. It
+   is inactivated here because the above xelatax call seems to work
+   well.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -1507,7 +1533,7 @@ list and select any subset of tags by pressing the shortcut key.
 
    #+END_SRC
 
-   Display images created by a source block inline.
+   Display images created by a source block in the same document.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -1522,7 +1548,10 @@ list and select any subset of tags by pressing the shortcut key.
 
    This defines a new latex class ==fu-org-article== based on the
    article class that has freshed more compact look than the default
-   article.
+   article. The fonts used in the output are Linux Libertine.
+
+   The original code from [[http://emacs-fu.blogspot.com/2011/04/nice-looking-pdfs-with-org-mode-and.html][emacs-fu]] blog has been amended and modified
+   several times.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -1569,8 +1598,6 @@ list and select any subset of tags by pressing the shortcut key.
              )
 
    #+END_SRC
-
-
 
 ** Language evaluation support
 
@@ -1955,7 +1982,6 @@ list and select any subset of tags by pressing the shortcut key.
     <<org-config>>
     <<startup>>
   #+END_SRC
-
 * Tools
 
   This section defines some functionality used elsewhere in this
@@ -2003,28 +2029,42 @@ list and select any subset of tags by pressing the shortcut key.
 
 * Environment
 
-  OSX doesn't set the environment from the shell init files for
-  graphical applications, but I set PATH and a bunch of other stuff
-  there. The =exec-path-from-shell= package will take care of
-  that. Thanks to Ting-Yu Lin for pointing it out.
+** OS X
 
-  #+NAME: environment
-  #+BEGIN_SRC emacs-lisp
+   OS X doesn't set the environment from the shell init files for
+   graphical applications, but I set PATH and a bunch of other stuff
+   there. The =exec-path-from-shell= package will take care of
+   that. Thanks to Ting-Yu Lin for pointing it out.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
     (when (memq window-system '(mac ns))
       (exec-path-from-shell-initialize))
-  #+END_SRC
+   #+END_SRC
 
-  The =locate= command is not available in OS X so alias it to mdfind.
-  #+NAME: environment
-  #+BEGIN_SRC emacs-lisp
+   The =locate= command is not available in OS X so alias it to mdfind.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
     (when (eq system-type 'darwin)
       (setq locate-command "mdfind"))
-  #+END_SRC
+   #+END_SRC
+
+** Custom lisp package directory
+
+   There are still lisp packages that you have to copy manually. This
+   defines =$HOME/.emacs.d/elisp= directory for a place for them.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'load-path "~/.emacs.d/elisp")
+   #+END_SRC
 
 * Monkey Patches
+
 ** TODO Org-Indent-Region fix
 
-   I need to submit this as a patch.
+   I (Joost) need to submit this as a patch.
 
    #+NAME: monkey-patches
    #+BEGIN_SRC emacs-lisp
