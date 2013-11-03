@@ -1904,22 +1904,21 @@ M-j is bound to join the next line with the current one. Copied from
      (global-set-key "\C-co" 'fp-org-info)
    #+END_SRC
 
-*
-
 ** Presentation
 
    The org mode can be used to export presentations in fancy HTML5
    Reveal.js  format. Read more at [[https://github.com/yjwen/org-reveal/blob/master/Readme.org][GitHub]].
 
-   To start using it, first clone the org-reveal repository.
+   To start using it, first clone the org-reveal repository, then
+   create a copy of the =Readme.org= file and edit it with emacs.
 
    #+BEGIN_SRC sh
      cd ~/src/
      git clone https://github.com/yjwen/org-reveal.git
    #+END_SRC
 
-   Then activate the org-reveal mode and tell its location to emacs.
-
+#   Then activate the org-reveal mode and tell its location to emacs.
+#
 #   #+name: org-config
 #   #+BEGIN_SRC emacs-lisp
 #     (require 'ox-reveal)
@@ -1928,8 +1927,8 @@ M-j is bound to join the next line with the current one. Copied from
 
 ** Master file fix
 
-   org-mode asks for a master file when opening the first org file in emacs
-   Discussion and [[http://lists.gnu.org/archive/html/emacs-orgmode/2012-02/msg00759.html][fix]] was provided.
+   org-mode asks for a master file when opening the first org file in
+   emacs.  Discussion and [[http://lists.gnu.org/archive/html/emacs-orgmode/2012-02/msg00759.html][fix]] was provided.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
