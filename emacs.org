@@ -1127,6 +1127,20 @@ M-j is bound to join the next line with the current one. Copied from
     (global-set-key "\M-x" 'smex)
    #+END_SRC
 
+   Tell smex that [[http://www.emacswiki.org/emacs/Smex][space inserts '-']] like we are used to.
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (defadvice smex (around space-inserts-hyphen activate compile)
+           (let ((ido-cannot-complete-command
+                  `(lambda ()
+                     (interactive)
+                     (if (string= " " (this-command-keys))
+                         (insert ?-)
+                       (funcall ,ido-cannot-complete-command)))))
+             ad-do-it))
+   #+END_SRC
+
    I like emacs to remember files that I have visited. The =recentf=
    package allows you to change =C-x C-b= to them as they were open all
    the time.
@@ -1917,13 +1931,13 @@ M-j is bound to join the next line with the current one. Copied from
      git clone https://github.com/yjwen/org-reveal.git
    #+END_SRC
 
-#   Then activate the org-reveal mode and tell its location to emacs.
-#
-#   #+name: org-config
-#   #+BEGIN_SRC emacs-lisp
-#     (require 'ox-reveal)
-#     (setq org-reveal-root "file:///Users/heikki/src/reveal.js")
-#   #+END_SRC
+   #   Then activate the org-reveal mode and tell its location to emacs.
+   #
+   #   #+name: org-config
+   #   #+BEGIN_SRC emacs-lisp
+   #     (require 'ox-reveal)
+   #     (setq org-reveal-root "file:///Users/heikki/src/reveal.js")
+   #   #+END_SRC
 
 ** Master file fix
 
