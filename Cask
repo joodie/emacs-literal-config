@@ -47,6 +47,7 @@
 (depends-on "plenv")
 (depends-on "pod-mode")
 (depends-on "rainbow-delimiters")
+(depends-on "regex-tool")
 (depends-on "rhtml-mode")
 (depends-on "rinari")
 (depends-on "ruby-compilation")

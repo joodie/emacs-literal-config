@@ -1200,6 +1200,19 @@ M-j is bound to join the next line with the current one. Copied from
   It is possible (see package osx-location) to link emacs to location
   information from the operating system.
 
+* Utilities
+
+** Regex tool
+
+   Coming from perl regexps, I find emacs regexps confusing. I have
+   installed a package =regexp-tool= that can be invoked by =M-x
+   regexp-tool=. It will open a new frame with three windows: Regex,
+   Text and Groups. This allows me to tune my regexps.
+
+   =M-x qrr= runs =query-replace-regexp=
+
+   Read more on [[http://www.emacswiki.org/emacs/RegularExpression][emacs regexps]].
+
 * Org Mode
 
 ** Agenda
@@ -1378,8 +1391,6 @@ M-j is bound to join the next line with the current one. Copied from
    #+END_SRC
 
    In addition, use =C-c C-l= to store current position (copy);
-
-
 
    Org-Agenda needs to be loaded before calling =org-agenda= works.
 
