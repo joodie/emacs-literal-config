@@ -9,3 +9,7 @@ emacs.tex
 url/cookies
 emacs.html
 backups
+bookmarks
+elisp
+semanticdb
+tramp
