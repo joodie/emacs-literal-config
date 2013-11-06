@@ -11,7 +11,8 @@
 
 * How to use this configuration
 
-  This section is copied directly from Joost.
+  This section is copied directly from Joost except the section Editing this
+  document ([[Editing this document]]) is new.
 
 ** Obtaining the source
 
@@ -60,6 +61,11 @@
    The order the blocks are written out is determined first by name
    and then their order in this document. Blocks without names are
    *not* tangled.
+
+   The best way to edit existing code blocks is to open a separate
+   buffer to it by placing the cursor in it and pressing =C-c '=. After
+   editing, activate the code =M-x eval-buffer= and exit the buffer
+   =C-c '=.
 
 * Graphics and looks
 
@@ -1265,32 +1271,51 @@ M-j is bound to join the next line with the current one. Copied from
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-directory "~/Dropbox/org")
-     (setq org-default-notes-file "~/Dropbox/org/refile.org")
+     (setq org-default-notes-file "~/Dropbox/org/reference.org")
    #+END_SRC
 
-   I copied these capture templates from [[http://doc.norang.ca/org-mode.html][this excellent page]]. The only
-   one I really use is reference [f] to store all kinds things I need
-   to remember. They are time stamped, stored in that order and have
-   optional tags I defined in the previous section.
+   I copied these capture templates from [[http://doc.norang.ca/org-mode.html][this excellent page]] and
+   modified to my own use. I try to minimize refiling.  I have three
+   main categories of entries:
+   1) *notes [n]* for all note taking (URLs, ideas, papers,...) that
+      can be filed away for later retrieval. They are time stamped,
+      stored in that order and have optional tags I defined in the
+      previous section.
+   2) *todos [t]* for notes with scheduled time (defaults to date
+      only) when it needs to be completed. These are added to the
+      agenda.
+   3) *events [e]* regular events with no completion but date and
+      time. If an event is a recurring one, it will edited and moved
+      to a different section of the file.
+
+   These are stored in their own files. Events are in
+   =calendar.org= that starts with sections for anniversaries and
+   other recurring tasks.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, and org-protocol
      (setq org-capture-templates
-            (quote (("t" "todo" entry (file "~/Dropbox/org/refile.org")
-                    "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                   ("r" "respond" entry (file "~/Dropbox/org/refile.org")
-                    "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-                   ("n" "note" entry (file "~/Dropbox/org/refile.org")
-                    "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-                   ("j" "journal" entry (file+datetree "~/Dropbox/org/journal.org")
-                    "* %?\n%U\n" :clock-in t :clock-resume t)
-                   ("f" "reFerence" entry (file+datetree "~/Dropbox/org/reference.org")
-                    "* %?\nEntered on %U\n  %i")  ; '\n %a' removed as unnecessary
-                   ("p" "Phone call" entry (file "~/Dropbox/org/refile.org")
-                    "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                   ("h" "Habit" entry (file "~/Dropbox/org/refile.org")
-                    "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+            (quote (
+                    ("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
+                     "* %?\nEntered on %U\n  %i")
+                    ("f" "reFerence" entry (file+datetree "~/Dropbox/org/reference.org")
+                     "* %?\nEntered on %U\n  %i")
+                    ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
+                     "* TODO %?\n     SCHEDULED: %t\n%i\nEntered on %U")
+                    ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
+                     "* %?\n     %T\n%i\nEntered on %U")
+                    ;; next entries are not in active use
+                    ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
+                     "* %?\nEntered on %U\n  %i\n")
+                    ("r" "respond" entry (file "~/Dropbox/org/reference.org")
+                     "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+                    ("x" "notex" entry (file "~/Dropbox/org/reference.org")
+                     "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+                    ("p" "Phone call" entry (file "~/Dropbox/org/reference.org")
+                     "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
+                    ("h" "Habit" entry (file "~/Dropbox/org/calandar.org")
+                     "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
    #+END_SRC
 
    At some point, I will refine my work flow or remove unused templates.
@@ -1749,7 +1774,7 @@ M-j is bound to join the next line with the current one. Copied from
 ** Shortcuts for some language blocks
 
    There are some source blocks that I use more than others. To save
-   time typing them, I've defined skeletons with abbreviations for them.
+   time typing them, I've defined [[http://www.emacswiki.org/emacs/SkeletonMode][skeletons]] with abbreviations for them.
 
    *sblk* - Generic with interactive type.
 
