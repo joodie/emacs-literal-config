@@ -344,21 +344,19 @@
    address. Set your full name (using plain ASCII to guard against
    conflicts with old modes).
 
-   You can tell emacs your preferred email address by hard coding it,
-   but that exposes it to spamming if you make your emacs
-   configuration public. like I am doing. The better way is to add it
-   to your global shell environment (you are using *NIX operating system,
-   aren't you?) where emacs will pick it up (from .zshenv or
-   .bash_profile):
+   You can tell emacs your preferred email address by hard coding it.
+   An alternative is to add it to your global shell environment (you
+   are using *NIX operating system, aren't you?) where emacs will pick
+   it up (from .zshenv or .bash_profile):
 
    #+BEGIN_SRC sh
-     export EMAIL="firstname.surname@xxxx.com"
+     export EMAIL=heikki.lehvaslaiho@gmail.com"
    #+END_SRC
 
    #+NAME: startup
    #+BEGIN_SRC emacs-lisp
-    '(user-full-name "Heikki Lehvaslaiho")
-    ;;'(user-mail-address "firstname.surname@xxxx.com"))
+    (setq user-full-name "Heikki Lehvaslaiho")
+    (setq user-mail-address "heikki.lehvaslaiho@gmail.com")
    #+END_SRC
 
 ** Options set using the customize interface
