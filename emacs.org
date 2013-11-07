@@ -11,8 +11,8 @@
 
 * How to use this configuration
 
-  This section is copied directly from Joost except the section Editing this
-  document ([[Editing this document]]) is new.
+  This section is copied directly from Joost except the section /Editing this
+  document/ ([[Editing this document]]) is new.
 
 ** Obtaining the source
 
@@ -54,7 +54,7 @@
 
    When emacs starts, code in =$HOME/init.el= loads first the
    prerequisites and then this org document. The code in the
-   configuration section (see [[Configuration file layout]]) scans the
+   configuration section (see Chapter [[Configuration file layout]]) scans the
    code blocks and extracts (tangles in literate programming talk)
    them into the =emacs.el= file and evaluates it.
 
@@ -63,16 +63,20 @@
    *not* tangled.
 
    The best way to edit existing code blocks is to open a separate
-   buffer to it by placing the cursor in it and pressing =C-c '=. After
-   editing, activate the code =M-x eval-buffer= and exit the buffer
-   =C-c '=.
+   buffer to it by placing the cursor in it and pressing C-c '.
+   After editing, activate the code =M-x eval-buffer= and exit
+   the buffer with C-c '.
+
+   If you want to get a better understanding what lisp codes below do,
+   place the cursor at the word, and press =C-h f= on a function or
+   =C-h v= on a variable.
 
 * Graphics and looks
 
 ** Font
 
-   I continue using [[http://en.wikipedia.org/wiki/Monaco_(typeface)][Monaco]] that has more readable Scandinavian characters,
-   but I keep Joost's fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]].
+   I continue using [[http://en.wikipedia.org/wiki/Monaco_(typeface)][Monaco]] that has more readable Scandinavian
+   characters, but I keep Joost's fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]].
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
@@ -102,7 +106,7 @@
    #+BEGIN_SRC emacs-lisp
      (when (window-system)
        (tool-bar-mode -1)
-       (scroll-bar-mode 1))
+       (scroll-bar-mode (quote right)))
    #+END_SRC
 
 ** Fringe decorations
@@ -333,6 +337,30 @@
     (setq inhibit-startup-screen +1)
   #+END_SRC
 
+
+** Identify yourself
+
+   Many emacs modes produce output that includes user's name and email
+   address. Set your full name (using plain ASCII to guard against
+   conflicts with old modes).
+
+   You can tell emacs your preferred email address by hard coding it,
+   but that exposes it to spamming if you make your emacs
+   configuration public. like I am doing. The better way is to add it
+   to your global shell environment (you are using *NIX operating system,
+   aren't you?) where emacs will pick it up (from .zshenv or
+   .bash_profile):
+
+   #+BEGIN_SRC sh
+     export EMAIL="firstname.surname@xxxx.com"
+   #+END_SRC
+
+   #+NAME: startup
+   #+BEGIN_SRC emacs-lisp
+    '(user-full-name "Heikki Lehvaslaiho")
+    ;;'(user-mail-address "firstname.surname@xxxx.com"))
+   #+END_SRC
+
 ** Options set using the customize interface
 
    By default, Emacs saves the options you set via the `customize-*`
@@ -407,6 +435,13 @@
       (add-hook mode-hook 'my/general-formatting-hooks))
   #+END_SRC
 
+  UNIXy text files should always end in a newline character. This
+  tells emacs to take care of it so that you do not have to.
+
+  #+BEGIN_SRC emacs-lisp
+   (setq require-final-newline t)
+  #+END_SRC
+
 ** Text (non-code) formatting
 
    For writing text, I prefer Emacs to do line wrapping for me. Also,
@@ -430,7 +465,7 @@
    #+END_SRC
 ** Auto refresh buffers
 
-   A changed file is updated automatically.
+   A file changed on disk is updated automatically.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
@@ -444,8 +479,24 @@
      (setq global-auto-revert-non-file-buffers t)
      (setq auto-revert-verbose nil)
    #+END_SRC
+* Editing
 
-* Abbreviations
+  Default modern emacs has a rectangle (column) editing
+  built-in. Press =C-<Return>= to enter it, use arrow keys to select,
+  copy, and exit the rectangle editing mode by =C-c=.
+
+  The biggest advantage modern emacs has over older ones is known as
+  CUA-mode. It enables common =C-x=, =C-c=, =C-v= keyboard
+  combinations in emacs buffers. You do not need this in emaxen in OS
+  X environment, as it is enabled, with support for the command key,
+  by default.
+
+  #+name: formatting
+  #+BEGIN_SRC 
+    (cua-mode nil nil (cua-base))
+  #+END_SRC
+
+** Abbreviations
 
   Emacs comes with =abbrev-mode= that is able to replace typed strings
   in context sensitive way. I use it to correct typos (teh -> the) and
@@ -466,6 +517,27 @@
 
   #+END_SRC
 
+  A special form of abbreviation is a time stamp in a file. I do nto
+  want to see AM/PM time stamps.
+
+  #+name: abbreviations
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'before-save-hook 'time-stamp)
+    (setq display-time-24hr-format t)
+  #+END_SRC
+
+
+  To use it, you place a template using bracket or quotes in the first
+  8 lines of a file. The time stamp will be added between the
+  characters. Typically, the line can start with a comment character
+  to mask it from the program processing the file.
+
+  #+BEGIN_EXAMPLE
+    Time-stamp: <>
+    # Time-stamp: " "
+  #+END_EXAMPLE
+
+
   This sort of metafunction does not really fix in any other category,
   so I call it an abbreviation.
 
@@ -478,36 +550,7 @@
       )
   #+END_SRC
 
-* Version control
-
-  The only version control system worth using is git and *magit* is
-  the emacs interface to it. Various git files have their dedicated
-  modes that are loaded by Cask: git-commit-mode, gitconfig-mode,
-  git-rebase-mode, and gitignore-mode.
-
-  From any buffer that is linked to git controlled file, you can hit
-  =C-x g= to enter magit status window. Pressing =q= restores the
-  previous window(s).
-
-  #+name: version-control
-  #+BEGIN_SRC emacs-lisp
-    (global-set-key [f8] 'magit-status)
-    (global-set-key (kbd "C-x g") 'magit-status)
-
-    ;; full screen magit-status
-    (defadvice magit-status (around magit-fullscreen activate)
-      (window-configuration-to-register :magit-fullscreen)
-      ad-do-it
-      (delete-other-windows))
-
-    (defun magit-quit-session ()
-      "Restores the previous window configuration and kills the magit buffer"
-      (interactive)
-      (kill-buffer)
-      (jump-to-register :magit-fullscreen))
-  #+END_SRC
-
-* Spell Checker
+** Spell Checking
 
   [[http://www.emacswiki.org/emacs/FlySpell][Flyspell]] checks words as you write against the [[http://aspell.net/][GNU aspell]]
   dictionaries.
@@ -535,94 +578,6 @@
 
    #+END_SRC
 
-* Text files
-** LaTeX
-
-   Use AUCTex for all LaTeX.
-
-   #+name: text-files
-   #+BEGIN_SRC emacs-lisp
-     (setq TeX-auto-save t)
-         (setq TeX-parse-self t)
-         (setq-default TeX-master nil)
-         (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-         (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-         (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-         (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-         (setq reftex-plug-into-AUCTeX t)
-
-     ;; default processing to pdflatex
-     (setq TeX-PDF-mode t)
-
-     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
-   #+END_SRC
-
-** Zsh
-   [[http://www.zsh.org/][Zsh]] is the shell that is a superset of Bash. Tell emacs that its
-   config files are shell scripts. I use the [[https://github.com/sorin-ionescu/prezto][pretzo]] configuration
-   framework for it.
-
-   #+name: text-files
-   #+BEGIN_SRC emacs-lisp
-     (setq auto-mode-alist
-           (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
-   #+END_SRC
-
-** NEURON
-
-   NEURON is a high level programming language for computational
-   neurologybiology. Unless you are in the field, you will not need
-   these modes. If you do, download the =.el= files and add them into
-   your custom elisp directory (see section [[Custom lisp package
-   directory]]).
-
-   #+name: text-files
-   #+BEGIN_SRC emacs-lisp
-     ;;
-     ;; NEURON hoc and mod files
-     ;;
-     ;; see: http://www.sterratt.me.uk/progs/neuron/
-     ;; wget http://www.sterratt.me.uk/sites/sterratt.me.uk/files/nrnhoc.el
-     ;; wget http://www.sterratt.me.uk/sites/sterratt.me.uk/files/nmodl.el
-
-     (autoload 'nrnhoc-mode "nrnhoc" "Enter NRNHOC mode." t)
-     (setq auto-mode-alist (cons '("\\.hoc\\'" . nrnhoc-mode) auto-mode-alist))
-     ;; (add-hook 'nrnhoc-mode-hook 'turn-on-font-lock)
-
-     (autoload 'nmodl-mode "nmodl" "Enter NMODL mode." t)
-     (setq auto-mode-alist (cons '("\\.mod\\'" . nmodl-mode) auto-mode-alist))
-
-   #+END_SRC
-
-** Deft mode
-
-  Before I learned about =org-mode=, I tried the =deft-mode=. Now my deft
-  uses org-mode but does not get used much.
-
-  #+name: text-files
-  #+BEGIN_SRC emacs-lisp
-    (setq
-     deft-extension "org"
-     deft-directory "~/Documents/org/deft/"
-     deft-use-filename-as-title t
-     deft-text-mode 'org-mode)
-    (global-set-key [f9] 'deft)
-  #+END_SRC
-
-** MarkDown
-
-   Github and especially BitBucket use =markdown mode=, so my emacs
-   knows about it. GitHub knows about =org-mode=, so it is not getting
-   much use.
-
- #+name: text-files
-  #+BEGIN_SRC emacs-lisp
-    (autoload 'markdown-mode "markdown-mode.el"
-       "Major mode for editing Markdown files" t)
-    (setq auto-mode-alist
-       (cons '("\\.md" . markdown-mode) auto-mode-alist))
-  #+END_SRC
-
 ** Count words in a buffer
 
   #+name: text-files
@@ -648,7 +603,7 @@
     (global-set-key (kbd "C-'") 'select-text-in-quote)
   #+END_SRC
 
-** Selection of text formattings done by external programs
+** Text editing done by external programs
 
   It has been quicker for me to write perl scripts to format text than
   any other way. These functions demonstrate how a standard command
@@ -753,6 +708,141 @@
      ;; I use the following binding: C-c u (think C-c "underline")
      (global-set-key (kbd "C-c u") 'underline-text)
    #+END_SRC
+
+** Editing as root
+
+  If you open a file that you do not have permissions to edit, you can
+  call this function =edit-current-file-as-root= to invoke sudo rights
+  within emacs. Kudos to [[http://wenshanren.org/?p=298][Wenshan]].
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (defun edit-current-file-as-root ()
+      "Edit as root the file associated with the current buffer"
+       (interactive)
+       (if (buffer-file-name)
+           (progn
+             (setq file (concat "/sudo:root@localhost:" (buffer-file-name)))
+             (find-file file))
+         (message "Buffer is not associated to a file.")))
+   #+END_SRC
+
+* Version control
+
+  The only version control system worth using is git and *magit* is
+  the emacs interface to it. Various git files have their dedicated
+  modes that are loaded by Cask: git-commit-mode, gitconfig-mode,
+  git-rebase-mode, and gitignore-mode.
+
+  From any buffer that is linked to git controlled file, you can hit
+  =C-x g= to enter magit status window. Pressing =q= restores the
+  previous window(s).
+
+  #+name: version-control
+  #+BEGIN_SRC emacs-lisp
+    (global-set-key [f8] 'magit-status)
+    (global-set-key (kbd "C-x g") 'magit-status)
+
+    ;; full screen magit-status
+    (defadvice magit-status (around magit-fullscreen activate)
+      (window-configuration-to-register :magit-fullscreen)
+      ad-do-it
+      (delete-other-windows))
+
+    (defun magit-quit-session ()
+      "Restores the previous window configuration and kills the magit buffer"
+      (interactive)
+      (kill-buffer)
+      (jump-to-register :magit-fullscreen))
+  #+END_SRC
+
+* Text files
+** LaTeX
+
+   Use AUCTex for all LaTeX.
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     (setq TeX-auto-save t)
+         (setq TeX-parse-self t)
+         (setq-default TeX-master nil)
+         (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+         (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+         (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+         (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+         (setq reftex-plug-into-AUCTeX t)
+
+     ;; default processing to pdflatex
+     (setq TeX-PDF-mode t)
+
+     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+   #+END_SRC
+
+** Zsh
+   [[http://www.zsh.org/][Zsh]] is the shell that is a superset of Bash. Tell emacs that its
+   config files are shell scripts. I use the [[https://github.com/sorin-ionescu/prezto][pretzo]] configuration
+   framework for it.
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     (setq auto-mode-alist
+           (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
+   #+END_SRC
+
+** NEURON
+
+   NEURON is a high level programming language for computational
+   neurologybiology. Unless you are in the field, you will not need
+   these modes. If you do, download the =.el= files and add them into
+   your custom elisp directory (see section [[Custom lisp package
+   directory]]).
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     ;;
+     ;; NEURON hoc and mod files
+     ;;
+     ;; see: http://www.sterratt.me.uk/progs/neuron/
+     ;; wget http://www.sterratt.me.uk/sites/sterratt.me.uk/files/nrnhoc.el
+     ;; wget http://www.sterratt.me.uk/sites/sterratt.me.uk/files/nmodl.el
+
+     (autoload 'nrnhoc-mode "nrnhoc" "Enter NRNHOC mode." t)
+     (setq auto-mode-alist (cons '("\\.hoc\\'" . nrnhoc-mode) auto-mode-alist))
+     ;; (add-hook 'nrnhoc-mode-hook 'turn-on-font-lock)
+
+     (autoload 'nmodl-mode "nmodl" "Enter NMODL mode." t)
+     (setq auto-mode-alist (cons '("\\.mod\\'" . nmodl-mode) auto-mode-alist))
+
+   #+END_SRC
+
+** Deft mode
+
+  Before I learned about =org-mode=, I tried the =deft-mode=. Now my deft
+  uses org-mode but does not get used much.
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+    (setq
+     deft-extension "org"
+     deft-directory "~/Documents/org/deft/"
+     deft-use-filename-as-title t
+     deft-text-mode 'org-mode)
+    (global-set-key [f9] 'deft)
+  #+END_SRC
+
+** MarkDown
+
+   Github and especially BitBucket use =markdown mode=, so my emacs
+   knows about it. GitHub knows about =org-mode=, so it is not getting
+   much use.
+
+ #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+    (autoload 'markdown-mode "markdown-mode.el"
+       "Major mode for editing Markdown files" t)
+    (setq auto-mode-alist
+       (cons '("\\.md" . markdown-mode) auto-mode-alist))
+  #+END_SRC
 
 * Programming
 ** Pair programming
@@ -1130,11 +1220,12 @@ M-j is bound to join the next line with the current one. Copied from
     (setq ido-enable-flex-matching t)
     (ido-mode +1)
     (ido-yes-or-no-mode +1)
-
+(setq ido-everywhere t)
     (global-set-key "\M-x" 'smex)
    #+END_SRC
 
-   Tell smex that [[http://www.emacswiki.org/emacs/Smex][space inserts '-']] like we are used to.
+   Tell smex that [[http://www.emacswiki.org/emacs/Smex][space inserts '-']] like we are used to when typing to
+   the echo space.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
@@ -1155,11 +1246,22 @@ M-j is bound to join the next line with the current one. Copied from
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
     (require 'recentf)
+    (setq recentf-auto-cleanup 'never) ;; cleanup interfers with tramp mode
     (recentf-mode 1)
     (setq recentf-max-saved-items 200
           recentf-max-menu-items 35)
     (global-set-key "\C-x\ \C-r" 'recentf-open-files)
    #+END_SRC
+
+   When I open a file again, I like emacs to show me the place I
+   was last time.
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (setq-default save-place t)
+     (require 'saveplace)
+   #+END_SRC
+
 
    I tend to organize topics by folders and keep track of things in
    files that are all called =notes.org=. This tells emacs to use
@@ -1172,24 +1274,6 @@ M-j is bound to join the next line with the current one. Copied from
     (setq
      uniquify-buffer-name-style 'post-forward
      uniquify-separator ":")
-   #+END_SRC
-
-* Editing as root
-
-  If you open a file that you do not have permissions to edit, you can
-  call this function =edit-current-file-as-root= to invoke sudo rights
-  within emacs. Kudos to [[http://wenshanren.org/?p=298][Wenshan]].
-
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
-    (defun edit-current-file-as-root ()
-      "Edit as root the file associated with the current buffer"
-       (interactive)
-       (if (buffer-file-name)
-           (progn
-             (setq file (concat "/sudo:root@localhost:" (buffer-file-name)))
-             (find-file file))
-         (message "Buffer is not associated to a file.")))
    #+END_SRC
 
 * Geographical location
