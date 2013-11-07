@@ -479,19 +479,15 @@
    #+END_SRC
 * Editing
 
-  Default modern emacs has a rectangle (column) editing
-  built-in. Press =C-<Return>= to enter it, use arrow keys to select,
-  copy, and exit the rectangle editing mode by =C-c=.
-
   The biggest advantage modern emacs has over older ones is known as
   CUA-mode. It enables common =C-x=, =C-c=, =C-v= keyboard
-  combinations in emacs buffers. You do not need this in emaxen in OS
-  X environment, as it is enabled, with support for the command key,
-  by default.
-
+  combinations in emacs buffers. It also adds an ability to rectangle
+  (column) editing built-in. Press =C-<Return>= to enter it, use arrow
+  keys to select, copy, and exit the rectangle editing mode by =C-c=.
+=
   #+name: formatting
-  #+BEGIN_SRC 
-    (cua-mode nil nil (cua-base))
+  #+BEGIN_SRC
+    (cua-mode t nil (cua-base))
   #+END_SRC
 
 ** Abbreviations
@@ -1303,6 +1299,23 @@ M-j is bound to join the next line with the current one. Copied from
    =M-x qrr= runs =query-replace-regexp=
 
    Read more on [[http://www.emacswiki.org/emacs/RegularExpression][emacs regexps]].
+
+** ChangeLog mode
+
+   While git and other distributed version control systems (see
+   [[Version control]]) do a great job in keeping track of changes
+   projects, sometimes you need something more general. Enter ancient
+   [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Change-Log-Commands.html][ChangeLog]] mode that predate all other version control systems. It
+   assumes that there is file is called =ChangeLog= somewhere in the
+   file hierarchy above the current file and gives you a strange key
+   chord =C-x 4 a= to add an entry to it.
+
+   I use it to keep a log of OS wide changes to my computers (thanks
+   for Martin Senger for teaching me the habit! ). Each computer has a
+   ChangeLog file in its own directory and the whole project is under
+   git control. When running install, uninstall, or configure commands
+   I open the relevant file and create a record of the change and
+   where the information came from.
 
 * Org Mode
 
