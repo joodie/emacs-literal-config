@@ -354,8 +354,9 @@
 * Backups
 
   Default emacs behaviour is to clutter directories with its backup
-  files. The following creates numbered backups and directs them all
-  into =$HOME/.emacs.d/backups/= directory.
+  files. The following creates numbered backups, limits the number of
+  backups kept, and directs them all into =$HOME/.emacs.d/backups/=
+  directory.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
@@ -1213,13 +1214,17 @@ M-j is bound to join the next line with the current one. Copied from
    Coming from perl regexps, I find emacs regexps confusing. I have
    installed a package =regexp-tool= that can be invoked by =M-x
    regexp-tool=. It will open a new frame with three windows: Regex,
-   Text and Groups. This allows me to tune my regexps.
+   Text and Groups. This allows me to tune my regexps. The variable
+   =regex-tool-backend= defaults to =emacs=, but can be changed to
+   =perl=.
 
    =M-x qrr= runs =query-replace-regexp=
 
    Read more on [[http://www.emacswiki.org/emacs/RegularExpression][emacs regexps]].
 
 * Org Mode
+
+  [[http://orgmode.org/][Org mode]] is for all plain text editing.
 
 ** Agenda
 
@@ -1422,7 +1427,7 @@ M-j is bound to join the next line with the current one. Copied from
         (setq org-agenda-span 14)
    #+END_SRC
 
-** Notes / Tasks / TODOs
+** TODOs
 
    Make custom markers for todo items:
 
@@ -1440,6 +1445,9 @@ M-j is bound to join the next line with the current one. Copied from
 
    - CANCELED :: can be ignored. May include a note on why it's been
                  cancelled.
+
+   Todos are applied by placing the cursor on the header or item line and
+   shift arrow left or right, or  accessing the list by =C-c C-t=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -1757,7 +1765,7 @@ M-j is bound to join the next line with the current one. Copied from
    #+END_SRC
 
 
-   Latex is always needed.
+    [[http://latex-project.org/][Latex]] is always needed.
 
    #+name: org-config-languages
    #+BEGIN_SRC emacs-lisp
