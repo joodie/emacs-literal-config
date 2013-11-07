@@ -29,7 +29,7 @@
 (depends-on "highlight-parentheses")
 (depends-on "htmlize")
 (depends-on "ido-yes-or-no")
-(depends-on "iedit-mode")
+(depends-on "iedit")
 (depends-on "inf-ruby")
 (depends-on "inflections")
 (depends-on "javap-mode")

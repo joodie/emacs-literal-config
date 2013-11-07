@@ -479,6 +479,8 @@
    #+END_SRC
 * Editing
 
+** CUA mode
+
   The biggest advantage modern emacs has over older ones is known as
   CUA-mode. It enables common =C-x=, =C-c=, =C-v= keyboard
   combinations in emacs buffers. It also adds an ability to rectangle
@@ -571,6 +573,17 @@
        (add-hook hook (lambda () (flyspell-mode -1))))
 
    #+END_SRC
+
+** iedit mode
+
+   [[http://www.emacswiki.org/emacs/Iedit][Iedit]] mode is activated by placing the cursor to a word and
+   pressing =C-c ;=. All occurrences of the word in the buffer are
+   then selected and can be simultaneously edited.
+
+  #+name: global-keys
+  #+BEGIN_SRC emacs-lisp
+    (global-set-key (kbd "C-c ;") 'iedit-mode)
+  #+END_SRC
 
 ** Count words in a buffer
 
@@ -723,7 +736,7 @@
 
 * Version control
 
-  The only version control system worth using is git and *magit* is
+  The only version control system worth using is git and [[http://magit.github.io/magit/magit.html][magit]] is
   the emacs interface to it. Various git files have their dedicated
   modes that are loaded by Cask: git-commit-mode, gitconfig-mode,
   git-rebase-mode, and gitignore-mode.
@@ -1088,7 +1101,6 @@
   #+BEGIN_SRC emacs-lisp
     (global-set-key "\C-cg" 'magit-status)
     (global-set-key "\C-cq" 'delete-indentation)
-    (global-set-key (kbd "C-c ;") 'iedit-mode) ;; TODO
   #+END_SRC
 
 * Navigation
