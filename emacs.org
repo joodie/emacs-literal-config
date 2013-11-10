@@ -486,9 +486,9 @@
   combinations in emacs buffers. It also adds an ability to rectangle
   (column) editing built-in. Press =C-<Return>= to enter it, use arrow
   keys to select, copy, and exit the rectangle editing mode by =C-c=.
-=
+
   #+name: formatting
-  #+BEGIN_SRC
+  #+BEGIN_SRC emacs-lisp
     (cua-mode t nil (cua-base))
   #+END_SRC
 
