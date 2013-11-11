@@ -1430,6 +1430,12 @@ M-j is bound to join the next line with the current one. Copied from
                      "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
    #+END_SRC
 
+   Todos can have additional keywords with dates: =DEADLINE= =C-c C-d=
+   for the
+   time the task needs to be finished, and =SCHEDULED= =C-c C-s= for the date
+   when to start working on the task.
+
+
    At some point, I will refine my work flow or remove unused templates.
 
    This snippet was copied from the same source. It might be cruft.
@@ -1483,6 +1489,36 @@ M-j is bound to join the next line with the current one. Copied from
      ;;(setq org-refile-target-verify-function 'bh/verify-refile-target)
 
    #+END_SRC
+** Agenda
+
+   The agenda command pulls all active events and todos from files
+   together.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key "\C-ca" 'org-agenda)
+     (global-set-key "\C-cc" 'org-capture)
+     (global-set-key "\C-cl" 'org-store-link)
+     (global-set-key "\C-cb" 'org-iswitchb)
+   #+END_SRC
+
+   In addition, use =C-c C-l= to store current position (copy);
+
+   Org-Agenda needs to be loaded before calling =org-agenda= works.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+        (require 'org-agenda)
+   #+END_SRC
+
+   I prefer a forthnight's overview on the agenda and warnings 5 days
+   before deadline.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-agenda-span 14)
+     (setq org-deadline-warning-days 5)
+   #+END_SRC
 
 ** MobileOrg
    Use Dropbox for syncing my agenda files with my Android
@@ -1505,33 +1541,6 @@ M-j is bound to join the next line with the current one. Copied from
            (expand-file-name "~/.emacs.d/bin/plantuml.jar"))
      ;; Use fundamental mode when editing plantuml blocks with C-c '
      (add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
-   #+END_SRC
-** Global keys
-
-   Short key bindings for capturing notes/links and switching to agenda.
-
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-     (global-set-key "\C-cl" 'org-store-link)
-     (global-set-key "\C-cc" 'org-capture)
-     (global-set-key "\C-ca" 'org-agenda)
-     (global-set-key "\C-cb" 'org-iswitchb)
-   #+END_SRC
-
-   In addition, use =C-c C-l= to store current position (copy);
-
-   Org-Agenda needs to be loaded before calling =org-agenda= works.
-
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-        (require 'org-agenda)
-   #+END_SRC
-
-   I prefer a forthnight's overview on the agenda.
-
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-        (setq org-agenda-span 14)
    #+END_SRC
 
 ** TODOs
