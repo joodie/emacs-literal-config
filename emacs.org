@@ -364,10 +364,9 @@
    By default, Emacs saves the options you set via the `customize-*`
    functions in the user init file, which is "~/.emacs.d/init.el" in
    this setup. I prefer to have these data in a separate file,
-   =custom.el=. The file is created if it does not exist.
-
-   All personal details and many more customisations that could be
-   moved out of it are now in =custom.el=. This needs work.
+   =custom.el=. The file is created if it does not exist. =custom.el=
+   is meant to be holding customizations only temporarily. Move them
+   to this main document when you time.
 
    #+name: customize-config
    #+BEGIN_SRC emacs-lisp
@@ -1712,7 +1711,7 @@ M-j is bound to join the next line with the current one. Copied from
 
 ** Latex export
 
-   This defines a new latex class ==fu-org-article== based on the
+   This defines a new latex class =fu-org-article= based on the
    article class that has freshed more compact look than the default
    article. The fonts used in the output are Linux Libertine.
 
@@ -2090,13 +2089,13 @@ M-j is bound to join the next line with the current one. Copied from
      git clone https://github.com/yjwen/org-reveal.git
    #+END_SRC
 
-   #   Then activate the org-reveal mode and tell its location to emacs.
-   #
-   #   #+name: org-config
-   #   #+BEGIN_SRC emacs-lisp
-   #     (require 'ox-reveal)
-   #     (setq org-reveal-root "file:///Users/heikki/src/reveal.js")
-   #   #+END_SRC
+   Then activate the org-reveal mode and tell its location to emacs.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (require 'ox-reveal)
+     (setq org-reveal-root "file:///Users/heikki/src/reveal.js")
+   #+END_SRC
 
 ** Master file fix
 
