@@ -407,6 +407,14 @@
     (setq confirm-kill-emacs 'y-or-n-p)
   #+END_SRC
 
+  Emacs pops up an annoying buffer when big chunks of text get
+  replaced overflowing the undo buffer. Prevent that:
+
+  #+NAME: startup
+  #+BEGIN_SRC emacs-lisp
+    (setq warning-suppress-types (quote ((undo discard-info))))
+  #+END_SRC
+
 * Formatting and white-space
 
   Tabs are automatically converted to spaces and trailing white space
