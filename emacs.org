@@ -1221,22 +1221,51 @@ M-j is bound to join the next line with the current one. Copied from
    #+END_SRC
 ** Global navigation
 
-   I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
-   etc.
+   This file org configuration file can always be accessed with =C-c e=.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
-    (defun my/edit-emacs-configuration ()
-      (interactive)
-      (find-file "~/.emacs.d/emacs.org"))
+     (defun my/edit-emacs-configuration ()
+       (interactive)
+       (find-file "~/.emacs.d/emacs.org"))
 
-    (global-set-key "\C-ce" 'my/edit-emacs-configuration)
+     (global-set-key "\C-ce" 'my/edit-emacs-configuration)
+   #+END_SRC
 
-    (setq ido-enable-flex-matching t)
-    (ido-mode +1)
-    (ido-yes-or-no-mode +1)
-(setq ido-everywhere t)
-    (global-set-key "\M-x" 'smex)
+   I like emacs to remember files that I have visited. The =recentf=
+   package allows you to see the list using  =C-x C-b=.
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+    (require 'recentf)
+    (setq recentf-auto-cleanup 'never) ;; cleanup interfers with tramp mode
+    (recentf-mode 1)
+    (setq recentf-max-saved-items 200
+          recentf-max-menu-items 35)
+    (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+   #+END_SRC
+
+
+   I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
+   etc. The ido mode can also be used to offer better interface to
+   =recentf=. That is linked to =C-c f=.
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (setq ido-enable-flex-matching t)
+     (ido-mode (quote both))
+     (ido-yes-or-no-mode +1)
+     (setq ido-everywhere t)
+     (global-set-key "\M-x" 'smex)
+
+     (defun recentf-ido-find-file ()
+       "Find a recent file using ido."
+       (interactive)
+       (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
+         (when file
+           (find-file file))))
+
+     (global-set-key (kbd "C-c f") 'recentf-ido-find-file)
    #+END_SRC
 
    Tell smex that [[http://www.emacswiki.org/emacs/Smex][space inserts '-']] like we are used to when typing to
@@ -1252,19 +1281,6 @@ M-j is bound to join the next line with the current one. Copied from
                          (insert ?-)
                        (funcall ,ido-cannot-complete-command)))))
              ad-do-it))
-   #+END_SRC
-
-   I like emacs to remember files that I have visited. The =recentf=
-   package allows you to see the list using  =C-x C-b=.
-
-   #+name: global-navigation
-   #+BEGIN_SRC emacs-lisp
-    (require 'recentf)
-    (setq recentf-auto-cleanup 'never) ;; cleanup interfers with tramp mode
-    (recentf-mode 1)
-    (setq recentf-max-saved-items 200
-          recentf-max-menu-items 35)
-    (global-set-key "\C-x\ \C-r" 'recentf-open-files)
    #+END_SRC
 
    When I open a file again, I like emacs to show me the place I
@@ -1490,7 +1506,7 @@ M-j is bound to join the next line with the current one. Copied from
        (save-excursion
          (beginning-of-line 0)
          (org-remove-empty-drawer-at "LOGBOOK" (point))))
-     
+
      (add-hook 'org-clock-out-hook 'my/remove-empty-drawer-on-clock-out 'append)
    #+END_SRC
 
