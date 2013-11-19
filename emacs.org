@@ -1657,8 +1657,10 @@ M-j is bound to join the next line with the current one. Copied from
    #+END_SRC
 
    Use the =minted= package for syntax highlighting source blocks in
-   LaTeX / PDF exports. Configuration copied from a blog post by
-   [[http://joat-programmer.blogspot.nl/2013/07/org-mode-version-8-and-pdf-export-with.html][Florian Bergmann]]. Check also the blog entry by [[ http://praveen.kumar.in/2012/03/10/org-mode-latex-and-minted-syntax-highlighting/][Praveen Kumar]].
+   LaTeX / PDF exports. It needs the python =Pygments= library.
+   Install it e.g. =sudo easy_install Pygments=.  Configuration copied
+   from a blog post by [[http://joat-programmer.blogspot.nl/2013/07/org-mode-version-8-and-pdf-export-with.html][Florian Bergmann]].  Check also the blog entry by
+   [[ http://praveen.kumar.in/2012/03/10/org-mode-latex-and-minted-syntax-highlighting/][Praveen Kumar]].
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
