@@ -478,7 +478,7 @@
 
    Also, auto refresh dired files, but be quiet about it.
 
-  #+name: formatting
+   #+name: formatting
    #+BEGIN_SRC emacs-lisp
      (setq global-auto-revert-non-file-buffers t)
      (setq auto-revert-verbose nil)
@@ -1744,9 +1744,9 @@ M-j is bound to join the next line with the current one. Copied from
 ** Latex export
 
    This defines a new latex class =fu-org-article= based on the
-   article class that has freshed more compact look than the default
-   article. The fonts used in the output are [[http://www.linuxlibertine.org/][Linux Libertine]]. The
-   Latex binaries and packages come from [[http://www.tug.org/texlive/][Tex Live]].
+   article class that has fresher and more compact look than the
+   default article. The fonts used in the output are [[http://www.linuxlibertine.org/][Linux
+   Libertine]]. The Latex binaries and packages come from [[http://www.tug.org/texlive/][Tex Live]].
 
    The original code from [[http://emacs-fu.blogspot.com/2011/04/nice-looking-pdfs-with-org-mode-and.html][emacs-fu]] blog has been amended and modified
    several times.
@@ -1762,7 +1762,7 @@ M-j is bound to join the next line with the current one. Copied from
      \\usepackage{xltxtra}         % for XeTex
      \\usepackage{url}             % for XeTex to break long URLs at line ending
      \\usepackage[english]{babel}  % for XeTex
-     \\usepackage{libertine}
+     \\usepackage[osf]{libertine}  % Libertine fonts with old-style numbers
      \\usepackage{graphicx}
      \\usepackage{minted}
      \\usepackage{hypernat}
@@ -1772,9 +1772,6 @@ M-j is bound to join the next line with the current one. Copied from
      \\let\\itemize\\compactitem
      \\let\\description\\compactdesc
      \\let\\enumerate\\compactenum
-
-     \\defaultfontfeatures{Mapping=tex-text}
-     \\setromanfont[Mapping=tex-text, Numbers=OldStyle]{Linux Libertine O}
 
      \\usepackage[a4paper, textheight=10in,
                  marginparsep=7pt, marginparwidth=.6in]{geometry}
