@@ -73,13 +73,15 @@
 
 ** Font
 
-   I continue using [[http://en.wikipedia.org/wiki/Monaco_(typeface)][Monaco]] that has more readable Scandinavian
-   characters, but I keep Joost's fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]].
+   Compared to Apple standard [[http://en.wikipedia.org/wiki/Monaco_(typeface)][Monaco]] that is a pretty good font,
+   [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]] is clearly crispier even on screen ([[http://www.levien.com/type/myfonts/Inconsolata.otf][Download]]). In
+   addition, it is optimised for printing, too. Where it is lacking in
+   Unicode support, [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans Mono]] ([[http://dejavu-fonts.org/wiki/index.php?title=Download][Download]]) has it all.
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (set-face-attribute 'default nil
-                         :family "Monaco"
+                         :family "Inconsolata"
                          :height 140
                          :weight 'normal
                          :width 'normal)
@@ -91,7 +93,6 @@
                                     :width 'normal
                                     :size 12.4
                                     :weight 'normal)))
-
    #+END_SRC
 
 ** Reduce clutter
@@ -1742,54 +1743,55 @@ M-j is bound to join the next line with the current one. Copied from
 
    This defines a new latex class =fu-org-article= based on the
    article class that has freshed more compact look than the default
-   article. The fonts used in the output are Linux Libertine.
+   article. The fonts used in the output are [[http://www.linuxlibertine.org/][Linux Libertine]]. The
+   Latex binaries and packages come from [[http://www.tug.org/texlive/][Tex Live]].
 
    The original code from [[http://emacs-fu.blogspot.com/2011/04/nice-looking-pdfs-with-org-mode-and.html][emacs-fu]] blog has been amended and modified
    several times.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-(add-to-list 'org-latex-classes
-             '("fu-org-article"
-"\\documentclass[11pt,a4paper]{article}
-\\usepackage[T1]{fontenc}
-\\usepackage{xunicode}        % for XeTex
-\\usepackage{fontspec}        % for XeTex
-\\usepackage{xltxtra}         % for XeTex
-\\usepackage{url}             % for XeTex to break long URLs at line ending
-\\usepackage[english]{babel}  % for XeTex
-\\usepackage{libertine}
-\\usepackage{graphicx}
-\\usepackage{minted}
-\\usepackage{hypernat}
-\\usepackage[round]{natbib}
+     (add-to-list 'org-latex-classes
+                  '("fu-org-article"
+     "\\documentclass[11pt,a4paper]{article}
+     \\usepackage[T1]{fontenc}
+     \\usepackage{xunicode}        % for XeTex
+     \\usepackage{fontspec}        % for XeTex
+     \\usepackage{xltxtra}         % for XeTex
+     \\usepackage{url}             % for XeTex to break long URLs at line ending
+     \\usepackage[english]{babel}  % for XeTex
+     \\usepackage{libertine}
+     \\usepackage{graphicx}
+     \\usepackage{minted}
+     \\usepackage{hypernat}
+     \\usepackage[round]{natbib}
 
-\\usepackage{paralist}
-\\let\\itemize\\compactitem
-\\let\\description\\compactdesc
-\\let\\enumerate\\compactenum
+     \\usepackage{paralist}
+     \\let\\itemize\\compactitem
+     \\let\\description\\compactdesc
+     \\let\\enumerate\\compactenum
 
-\\defaultfontfeatures{Mapping=tex-text}
-\\setromanfont[Mapping=tex-text, Numbers=OldStyle]{Linux Libertine O}
+     \\defaultfontfeatures{Mapping=tex-text}
+     \\setromanfont[Mapping=tex-text, Numbers=OldStyle]{Linux Libertine O}
 
-\\usepackage[a4paper, textheight=10in,
-            marginparsep=7pt, marginparwidth=.6in]{geometry}
+     \\usepackage[a4paper, textheight=10in,
+                 marginparsep=7pt, marginparwidth=.6in]{geometry}
 
-\\usepackage[colorlinks=true,urlcolor=black,linkcolor=black,citecolor=blue]{hyperref}
+     \\usepackage[colorlinks=true,urlcolor=black,linkcolor=black,citecolor=blue]{hyperref}
 
-\\let\\nofiles\\relax % Void the \\nofiles command
+     \\let\\nofiles\\relax % Void the \\nofiles command
 
-\\pagestyle{plain}
-\\title{}
-      [NO-DEFAULT-PACKAGES]
-      [NO-PACKAGES]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
-               )
-             )
+     \\pagestyle{plain}
+     \\title{}
+           [NO-DEFAULT-PACKAGES]
+           [NO-PACKAGES]"
+                    ("\\section{%s}" . "\\section*{%s}")
+                    ("\\subsection{%s}" . "\\subsection*{%s}")
+                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
+                    )
+                  )
 
    #+END_SRC
 
