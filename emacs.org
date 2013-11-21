@@ -327,6 +327,13 @@
      (set-face-background hl-line-face "AliceBlue")
    #+END_SRC
 
+** Global key bindings
+
+  As far as reasonable, I try to keep my custom key bindings within
+  the "official" restraints. Specifically, I want my global key
+  bindings to start with =C-c [lower case letter]=. Implementation are
+  in appropriate sections below.
+
 * Start up
 
   Start with the scratch buffer; no start up screen.
@@ -1100,18 +1107,6 @@
 
   #+END_SRC
 
-* Global key bindings
-
-  As far as reasonable, I try to keep my custom key bindings within
-  the "official" restraints. Specifically, I want my global key
-  bindings to start with =C-c [lower case letter]=.
-
-  #+name: global-keys
-  #+BEGIN_SRC emacs-lisp
-
-    (global-set-key "\C-cq" 'delete-indentation)
-  #+END_SRC
-
 * Navigation
 ** Local navigation in a buffer
 
@@ -1153,13 +1148,15 @@
     (global-set-key [f7] 'toggle-selective-display)
   #+END_SRC
 
-M-j is bound to join the next line with the current one. Copied from
-[[http://whattheemacsd.com/key-bindings.el-03.html][WhatTheEmacs!?]]
+   =M-j= is bound to join the next line with the current one. Copied from
+   [[http://whattheemacsd.com/key-bindings.el-03.html][WhatTheEmacs!?]] The is an alternative of =M-^= or =C-q= for joining
+   current line to previous one.
 
   #+name: local-navigation
   #+BEGIN_SRC emacs-lisp
     (global-set-key (kbd "M-j")
                     (lambda () (interactive) (join-line -1)))
+    (global-set-key "\C-cq" 'delete-indentation)
   #+END_SRC
 
    When editing indented text, you seldom want to go to the first
@@ -2176,7 +2173,6 @@ M-j is bound to join the next line with the current one. Copied from
     <<text-files>>
     <<programming-setup>>
     <<auto-complete>>
-    <<global-keys>>
     <<local-navigation>>
     <<global-navigation>>
     <<location>>
