@@ -1352,7 +1352,13 @@
 
 * Org Mode
 
-  [[http://orgmode.org/][Org mode]] is for all plain text editing.
+  [[http://orgmode.org/][Org mode]] is for all plain text editing. Lets bind the Org mode
+  online info to =C-c o= since it is so useful.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key "\C-co" 'org-info)
+   #+END_SRC
 
 ** Agenda
 
@@ -2074,32 +2080,6 @@
        "")
 
      (define-abbrev org-mode-abbrev-table "obiblio" "" 'skel-org-block-bibl)
-   #+END_SRC
-
-** Org-mode info
-
-   This links =C-c o= to the org-mode info. Unfortunately it defaults
-   to the built-in, outdated org mode version. The solution is to
-   clone the latest version from the repository and point emacs to its
-   documentation.
-
-   #+BEGIN_SRC sh
-     cd ~/src/
-     git clone http://github.com/jwiegley/org-mode
-   #+END_SRC
-
-   Update this repository occasionally.
-
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-     (defvar fp-org-distribution "~/src/org-mode")
-     (defun fp-org-info ()
-       (interactive)
-       (require 'info)
-       (let ((Info-directory-list (cons (concat fp-org-distribution "/doc")
-                                        Info-directory-list)))
-         (org-info)))
-     (global-set-key "\C-co" 'fp-org-info)
    #+END_SRC
 
 ** Presentation
