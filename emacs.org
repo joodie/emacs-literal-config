@@ -752,13 +752,12 @@
   git-rebase-mode, and gitignore-mode.
 
   From any buffer that is linked to git controlled file, you can hit
-  =C-x g= to enter magit status window. Pressing =q= restores the
+  =C-c g= to enter magit status window. Pressing =q= restores the
   previous window(s).
 
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
-    (global-set-key [f8] 'magit-status)
-    (global-set-key (kbd "C-x g") 'magit-status)
+    (global-set-key "\C-cg" 'magit-status)
 
     ;; full screen magit-status
     (defadvice magit-status (around magit-fullscreen activate)
@@ -1109,7 +1108,7 @@
 
   #+name: global-keys
   #+BEGIN_SRC emacs-lisp
-    (global-set-key "\C-cg" 'magit-status)
+
     (global-set-key "\C-cq" 'delete-indentation)
   #+END_SRC
 
