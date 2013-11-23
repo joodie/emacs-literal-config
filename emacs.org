@@ -1360,6 +1360,15 @@
      (global-set-key "\C-co" 'org-info)
    #+END_SRC
 
+  Text in other modes than org can be selected ("marked") by
+  =S-<arrow>=. In org mode these keys have special functions in lists
+  and headers and are otherwise disabled. The alternative is to press
+  =C-<space>= and arrow keys, but in Macs that key combination is used
+  to pop up Spotlight search field. To enable it, I've changed
+  Spotlight key =Cmnd-<space>=. It has a knock-on effect on disabling
+  the toggling of the active keyboard languages, but I can live with
+  that.
+
 ** Agenda
 
    You have to tell org-mode which files contain your agenda. Only
