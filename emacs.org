@@ -1477,8 +1477,6 @@
             (quote (
                     ("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
                      "* %?\nEntered on %U\n  %i")
-                    ("f" "reFerence" entry (file+datetree "~/Dropbox/org/reference.org")
-                     "* %?\nEntered on %U\n  %i")
                     ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
                      "* TODO %?\n     SCHEDULED: %t\n%i\nEntered on %U")
                     ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
