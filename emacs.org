@@ -343,7 +343,6 @@
     (setq inhibit-startup-screen +1)
   #+END_SRC
 
-
 ** Identify yourself
 
    Many emacs modes produce output that includes user's name and email
@@ -453,6 +452,14 @@
    (setq require-final-newline t)
   #+END_SRC
 
+  Emacs knows about text sentences and can navigate and mark them. By
+  default sentences are separated by double space like in old
+  typewriter text. Not any more.
+
+  #+BEGIN_SRC emacs-lisp
+   (setq sentence-end-double-space nil)
+  #+END_SRC
+
 ** Text (non-code) formatting
 
    For writing text, I prefer Emacs to do line wrapping for me. Also,
@@ -466,6 +473,13 @@
      (add-hook 'text-mode-hook
                'my/text-formatting-hooks)
    #+END_SRC
+
+   Pressing the enter key should indent, too.
+
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key (kbd "RET") 'newline-and-indent)
+   #+END_SRC
+
 ** Understand compressed formats
 
  This allows emacs to handle .gz files.
