@@ -1520,26 +1520,12 @@
    for the time the task needs to be finished, and =SCHEDULED= =C-c
    C-s= for the date when to start working on the task.
 
-   This snippet was copied from the same source. It might be cruft.
-
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-     ;; Remove empty LOGBOOK drawers on clock out
-     (defun my/remove-empty-drawer-on-clock-out ()
-       (interactive)
-       (save-excursion
-         (beginning-of-line 0)
-         (org-remove-empty-drawer-at "LOGBOOK" (point))))
-
-     (add-hook 'org-clock-out-hook 'my/remove-empty-drawer-on-clock-out 'append)
-   #+END_SRC
-
 ** Refile
 
    Captured notes are kept in a temporaty file, and periodically
    refiled into their proper places. Or so goes the threory. Since I
-   keep all notes in one file, there is nothing to refile. This block
-   is here only as a reminder.
+   create all notes directly into the correct file, there is nothing
+   to refile. This block is here only as a reminder.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
