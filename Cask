@@ -1,7 +1,7 @@
-(source "gnu" "http://elpa.gnu.org/packages/")
-(source "org" "http://orgmode.org/elpa/")
-(source "melpa" "http://melpa.milkbox.net/packages/")
-(source "marmalade" "http://marmalade-repo.org/packages/")
+(source gnu)
+(source org)
+(source melpa)
+(source marmalade)
 
 (depends-on "auto-complete")
 (depends-on "cask")
