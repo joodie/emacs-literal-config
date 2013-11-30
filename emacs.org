@@ -422,6 +422,17 @@
 
 * Formatting and white-space
 
+  [[http://ergoemacs.org/emacs/emacs_encoding_decoding_faq.html][Character encoding]] in files and emacs buffers is an important topic
+  for anyone dealing with anything other than plain ASCII English. The
+  best approach is to assume UTF-8 and deal with anything else
+  (Latin-1, UTF-16) only if absolutely have to.
+
+  #+name: formatting
+  #+BEGIN_SRC emacs-lisp
+    (set-language-environment "UTF-8")
+  #+END_SRC
+
+
   Tabs are automatically converted to spaces and trailing white space
   is shown. Global key =C-c n= indents and removes trailing white
   space from the buffer.
