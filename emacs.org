@@ -50,7 +50,7 @@
    You should be periodically upgrading you emacs packages. Some
    packages get almost daily fixes. It should be enough to update them
    every few weeks with =M-x pallet-update=. Do restart emacs after
-   the update.
+   the qupdate.
 
 ** Editing this document
 
@@ -2138,8 +2138,10 @@
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (require 'ox-reveal)
-     (setq org-reveal-root "file:///Users/heikki/src/reveal.js")
+     (setq org-reveal-root "/Users/heikki/src/reveal.js")
+     (if (file-exists-p org-reveal-root)
+         (require 'ox-reveal)
+       (message "Error: Can not find reveal.js directory"))
    #+END_SRC
 
 ** Master file fix
