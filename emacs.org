@@ -45,6 +45,12 @@
     out or edit these two places:
     1) *plenv* code needs a perl version that is installed
     2) *ox-reveal* have to be found by emacs
+** Upgrading emacs packages
+
+   You should be periodically upgrading you emacs packages. Some
+   packages get almost daily fixes. It should be enough to update them
+   every few weeks with =M-x pallet-update=. Do restart emacs after
+   the update.
 
 ** Editing this document
 
