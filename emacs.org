@@ -826,15 +826,25 @@
      (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
    #+END_SRC
 
-** Zsh
-   [[http://www.zsh.org/][Zsh]] is the shell that is a superset of Bash. Tell emacs that its
-   config files are shell scripts. I use the [[https://github.com/sorin-ionescu/prezto][pretzo]] configuration
-   framework for it.
+** Zsh and fish
+
+   [[http://www.zsh.org/][Zsh]] is a command line shell that is a superset of Bash. Tell emacs
+   that its =*.zsh= config files are shell scripts. I use the [[https://github.com/sorin-ionescu/prezto][pretzo]]
+   configuration framework for it.
+
+   [[http://fishshell.com/][Fish]], Friendly Interactive SHell, is faster and cleaner than Zsh,
+   but does not have quite as many features. I use [[https://github.com/bpinto/oh-my-fish][Oh My Fish!]]
+   management framework for it. We need to tell emacs that =*.fish=
+   function files and =*.load= configuration files are shell scripts.
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
      (setq auto-mode-alist
            (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
+     (setq auto-mode-alist
+           (cons '("\\.load$" . shell-script-mode) auto-mode-alist))
+     (setq auto-mode-alist
+           (cons '("\\.fish$" . shell-script-mode) auto-mode-alist))
    #+END_SRC
 
 ** NEURON
