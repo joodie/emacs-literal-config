@@ -4,7 +4,13 @@
 ac-comphist.dat
 emacs.el
 *#
+.#*
 emacs.pdf
 emacs.tex
 url/cookies
 emacs.html
+backups
+bookmarks
+elisp
+semanticdb
+tramp

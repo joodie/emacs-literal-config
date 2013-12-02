@@ -1,3 +1,6 @@
+;; start recording loading time
+(defconst emacs-start-time (current-time))
+
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 
@@ -14,4 +17,18 @@
 (require 'pallet)
 
 (org-babel-load-file "~/.emacs.d/emacs.org")
+
+
+;; report time
+(let ((elapsed (float-time (time-subtract (current-time)
+                                          emacs-start-time))))
+  (message "Loading %s...done (%.3fs)" load-file-name elapsed))
+
+(add-hook 'after-init-hook
+          `(lambda ()
+             (let ((elapsed (float-time (time-subtract (current-time)
+                                                       emacs-start-time))))
+               (message "Loading %s...done (%.3fs) [after-init]",
+                        load-file-name elapsed)))
+          t)
 
