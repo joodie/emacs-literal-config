@@ -41,6 +41,11 @@
     attempting to install packages using a different Emacs version
     than the one you're starting. Check your ~$PATH~ and/or aliases.
 
+  - To start up emacs without errors, you will have to either comment
+    out or edit these two places:
+    1) *plenv* code needs a perl version that is installed
+    2) *ox-reveal* have to be found by emacs
+
 ** Editing this document
 
    You are expected to use emacs and version >8 of org-mode for
