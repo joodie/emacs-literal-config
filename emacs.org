@@ -41,10 +41,14 @@
     attempting to install packages using a different Emacs version
     than the one you're starting. Check your ~$PATH~ and/or aliases.
 
-  - To start up emacs without errors, you will have to either comment
-    out or edit these two places:
-    1) *plenv* code needs a perl version that is installed
-    2) *ox-reveal* have to be found by emacs
+  - Emacs should load this configuration without errors in a vanilla
+    environment. Let me know it this is not the case.
+
+  - If there are missing dependencies, they are shown in the
+    =*Messages*= buffer with lines starting with "ERROR: ". Read the
+    corresponding section below for instructions to install the
+    dependencies.
+
 ** Upgrading emacs packages
 
    You should be periodically upgrading you emacs packages. Some
@@ -954,14 +958,16 @@
    perl.
 
    For OS X, install plenv with =brew install plenv; brew install
-   perl-build= and install your favorite version of perl.
+   perl-build= and install your favorite version of perl and put into
+   =plenv-global= below.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (require 'plenv)
-     (plenv-global "5.18.1")
+     (condition-case nil
+         (plenv-global "5.18.1")
+       (error (message "ERROR: unknown perl version. Is your plenv configured right?")))
    #+END_SRC
-
 
    Use the built-in =cperl-mode= instead of the default =perl-mode=
 
@@ -2141,7 +2147,7 @@
      (setq org-reveal-root "/Users/heikki/src/reveal.js")
      (if (file-exists-p org-reveal-root)
          (require 'ox-reveal)
-       (message "Error: Can not find reveal.js directory"))
+       (message "ERROR: Can not find reveal.js directory"))
    #+END_SRC
 
 ** Master file fix
