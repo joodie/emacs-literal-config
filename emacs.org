@@ -130,6 +130,15 @@
      (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
    #+END_SRC
 
+** Buffer names
+   Setup uniquify so that non-unique buffer names get the parent path
+   included to make them unique.
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (require 'uniquify)
+     (setq uniquify-buffer-name-style 'forward)
+   #+END_SRC
+
 * Start up
 
   Start with the scratch buffer; no start up screen.
@@ -293,7 +302,7 @@
      (dolist (exp '("Rakefile\\'" "\\.rake\\'"))
        (add-to-list 'auto-mode-alist
                     (cons exp 'ruby-mode)))
-     
+
    #+END_SRC
 
    Having some kind of navigation support for rails projects can be
@@ -492,7 +501,7 @@
            '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-     
+
    #+END_SRC
 
    Untangle files.
