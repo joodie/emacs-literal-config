@@ -236,6 +236,14 @@
        (add-hook mode
                  'my/general-lisp-hooks))
    #+END_SRC
+** Emacs Lisp
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (defun my/emacs-lisp-hooks ()
+       (my/turn-on 'eldoc-mode))
+
+     (add-hook 'emacs-lisp-mode-hook 'my/emacs-lisp-hooks)
+   #+END_SRC
 
 ** Clojure
 
