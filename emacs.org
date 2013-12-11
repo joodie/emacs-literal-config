@@ -791,6 +791,11 @@
          (message "Buffer is not associated to a file.")))
    #+END_SRC
 
+** Editing file lists with wdired
+   [[http://www.masteringemacs.org/articles/2013/10/10/wdired-editable-dired-buffers/][Editable dired]] is part of standard emacs. Once you are in dired
+   =C-x d=, directory editing, mode, you can press =C-x C-q= to edit
+   file names like any text. The familiar =C-c C-c= commits the
+   changes.
 * Version control
 
   The only version control system worth using is git and [[http://magit.github.io/magit/magit.html][magit]] is
