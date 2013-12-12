@@ -55,3 +55,4 @@
 (depends-on "s")
 (depends-on "smart-mode-line")
 (depends-on "smex")
+(depends-on "use-package")
