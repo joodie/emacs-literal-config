@@ -385,6 +385,20 @@
 
     (global-set-key "\M-x" 'smex)
   #+END_SRC
+
+** Projects
+
+   Projectile is useful. Especially, ~projectile-replace~ and
+   ~projectile-find-file~.
+
+   Projectile commands are bound with the default ~C-c p~ prefix. So I
+   can type ~C-c p C-h~ to list all of them.
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (projectile-global-mode +1)
+  #+END_SRC
+   
 * Org Mode
 ** MobileOrg
    Use Dropbox for syncing my agenda files with my Android

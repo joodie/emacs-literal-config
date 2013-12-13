@@ -42,6 +42,8 @@
 (depends-on "paredit")
 (depends-on "pkg-info")
 (depends-on "plantuml-mode")
+(depends-on "popup")
+(depends-on "projectile")
 (depends-on "rainbow-delimiters")
 (depends-on "rhtml-mode")
 (depends-on "rinari")
