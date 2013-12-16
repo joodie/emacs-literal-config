@@ -893,21 +893,6 @@
 
    #+END_SRC
 
-** Deft mode
-
-  Before I learned about =org-mode=, I tried the =deft-mode=. Now my deft
-  uses org-mode but does not get used much.
-
-  #+name: text-files
-  #+BEGIN_SRC emacs-lisp
-    (setq
-     deft-extension "org"
-     deft-directory "~/Documents/org/deft/"
-     deft-use-filename-as-title t
-     deft-text-mode 'org-mode)
-    (global-set-key [f9] 'deft)
-  #+END_SRC
-
 ** MarkDown
 
    Github and especially BitBucket use =markdown mode=, so my emacs
