@@ -1754,7 +1754,7 @@
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (global-set-key "\C-cu" 'my/org-babel-untangle)
+     (global-set-key "\C-ci" 'my/org-babel-untangle)
 
      (defun my/org-babel-untangle (path)
        (interactive "fFile to include: ")
