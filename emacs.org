@@ -907,6 +907,29 @@
        (cons '("\\.md" . markdown-mode) auto-mode-alist))
   #+END_SRC
 
+** Ledger
+
+Ledger is a command line accounting program with strong emacs support.
+
+The following sets some default reports and tells ledger to use ISO dates.
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+    (autoload 'ledger-mode "ledger-mode.el"
+      "Major mode for editing Ledger files" t)
+    (setq auto-mode-alist
+          (cons '("\\.led" . ledger-mode) auto-mode-alist))
+
+    (setq ledger-reports
+          (quote (("test" "ledger ")
+                  ("bal" "ledger -f %(ledger-file) bal")
+                  ("reg" "ledger -f %(ledger-file) reg")
+                  ("payee" "ledger -f %(ledger-file) reg @%(payee)")
+                  ("account" "ledger -f %(ledger-file) reg %(account)"))))
+    (setq ledger-use-iso-dates t)
+
+  #+END_SRC
+
 * Programming
 ** Pair programming
 
@@ -1547,6 +1570,49 @@
    Todos can have additional keywords with dates: =DEADLINE= =C-c C-d=
    for the time the task needs to be finished, and =SCHEDULED= =C-c
    C-s= for the date when to start working on the task.
+
+   Additionally, there are templates for the [[Ledger]] accounting program
+   for several accounts. The path to the file must exist.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-capture-templates
+           (append '(("l" "Ledger entries")
+                     ("lm" "MasterCard" plain
+                      (file "~/Documents/ledger/refile.led")
+                      "
+     %(org-read-date) %^{Payee}
+          ; entered: %U
+          Liabilities:MasterCard
+          Expenses:%^{Account}              € %^{Amount}
+     " :empty-lines-before 1)
+                     ("lc" "Cash" plain
+                      (file "~/Documents/ledger/refile.led")
+                      "
+     %(org-read-date) * %^{Payee}
+         ; entered: %U
+         Expenses:Cash
+         Expenses:%^{Account}              %^{Amount}
+     " :empty-lines-before 1 )
+                     ("ls" "SAR debit" plain
+                      (file "~/Documents/ledger/refile.led")
+                      "
+     %(org-read-date) * %^{Payee}
+         ; entered: %U
+         Assets:Samba
+         Expenses:%^{Account}              %^{Amount} SAR
+     " :empty-lines-before 1 )
+        ("le" "EUR debit" plain
+                      (file "~/Documents/ledger/refile.led")
+                      "
+     %(org-read-date) * %^{Payee}
+         ; entered: %U
+         Assets:Heikintili
+         Expenses:%^{Account}               € %^{Amount}
+     " :empty-lines-before 1 ))
+            org-capture-templates))
+   #+END_SRC
+
 
 ** Refile
 
