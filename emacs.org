@@ -1295,7 +1295,7 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+END_SRC
 
    I like emacs to remember files that I have visited. The =recentf=
-   package allows you to see the list using  =C-x C-b=.
+   package allows you to see the list using  =C-x C-r=.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
@@ -1310,7 +1310,7 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
    etc. The ido mode can also be used to offer better interface to
-   =recentf=. That is linked to =C-c f=.
+   =recentf=. That is linked to =C-c r=.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
@@ -1327,7 +1327,7 @@ The following sets some default reports and tells ledger to use ISO dates.
          (when file
            (find-file file))))
 
-     (global-set-key (kbd "C-c f") 'recentf-ido-find-file)
+     (global-set-key (kbd "C-c r") 'recentf-ido-find-file)
    #+END_SRC
 
    Tell smex that [[http://www.emacswiki.org/emacs/Smex][space inserts '-']] like we are used to when typing to
