@@ -4,6 +4,7 @@
 (source marmalade)
 
 (depends-on "auto-complete")
+(depends-on "bind-key")
 (depends-on "cask")
 (depends-on "cider")
 (depends-on "cider-decompile")
