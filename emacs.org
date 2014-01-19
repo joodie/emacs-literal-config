@@ -1663,7 +1663,9 @@ The following sets some default reports and tells ledger to use ISO dates.
 ** External jars
 
    Tell emacs where to find external depencies. Ditaa and PlantUML are
-   java jar files. PlantUML need to be called in fundamental mode
+   java jar files. Ditaa is part of org-mode git repository but
+   [[http://sourceforge.net/projects/plantuml/files/plantuml.jar/download][PlantUML]] needs to be downloaded and placed somewhere where Emacs
+   can find it. PlantUML need to be called in fundamental mode
    (find out why).
 
    #+name: org-config
