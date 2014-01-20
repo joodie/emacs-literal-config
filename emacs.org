@@ -1194,7 +1194,8 @@ The following sets some default reports and tells ledger to use ISO dates.
                                             (kill-line 0)))
   #+END_SRC
 
-   The most complex replace key combination made little bit easier:
+   The most complex replace key combination made little bit easier to
+   remember:
 
   #+name: local-navigation
   #+BEGIN_SRC emacs-lisp
@@ -1263,6 +1264,38 @@ The following sets some default reports and tells ledger to use ISO dates.
                     'smarter-move-beginning-of-line)
 
   #+END_SRC
+
+** Local navigation between windows
+
+   Emacs standard way of moving between windows opened in a frame is
+   =C-x o=. It jumps the cursor through all windows one by one. I like
+   to have a bit more control and use the built in windmove package.
+   With it, =shift-<arrow>= moves the focus.
+
+   The package description for windmove is good place to start
+   reading about it:
+
+   #+BEGIN_SRC emacs-lisp
+     ; execute this lisp code in org mode
+     ; by placing the curser after the closing parenthesis and press C-x C-e
+     (describe-package 'windmove)
+   #+END_SRC
+
+   I need to tell org-mode to [[http://orgmode.org/manual/Conflicts.html][allow the windmove]] commands where it
+   does not use them for its own purposes. These commands has to run
+   after org-mode (configured below) has been executed.
+
+   #+name: excute-last
+   #+BEGIN_SRC emacs-lisp
+     (windmove-default-keybindings)
+     (setq windmove-wrap-around t)
+
+     ;; Make windmove work in org-mode:
+     (add-hook 'org-shiftup-final-hook 'windmove-up)
+     (add-hook 'org-shiftleft-final-hook 'windmove-left)
+     (add-hook 'org-shiftdown-final-hook 'windmove-down)
+     (add-hook 'org-shiftright-final-hook 'windmove-right)
+   #+END_SRC
 
 ** External navigation
 
@@ -1662,7 +1695,7 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+END_SRC
 ** External jars
 
-   Tell emacs where to find external depencies. Ditaa and PlantUML are
+   Tell emacs where to find external dependencies. Ditaa and PlantUML are
    java jar files. Ditaa is part of org-mode git repository but
    [[http://sourceforge.net/projects/plantuml/files/plantuml.jar/download][PlantUML]] needs to be downloaded and placed somewhere where Emacs
    can find it. PlantUML need to be called in fundamental mode
@@ -1697,7 +1730,7 @@ The following sets some default reports and tells ledger to use ISO dates.
                  cancelled.
 
    Todos are applied by placing the cursor on the header or item line and
-   shift arrow left or right, or  accessing the list by =C-c C-t=.
+   shift arrow left or right, or accessing the list by =C-c C-t=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -2263,6 +2296,7 @@ The following sets some default reports and tells ledger to use ISO dates.
     <<location>>
     <<org-config>>
     <<startup>>
+    <<excute-last>>
   #+END_SRC
 * Tools
 
