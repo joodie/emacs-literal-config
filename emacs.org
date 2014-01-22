@@ -1497,6 +1497,7 @@ The following sets some default reports and tells ledger to use ISO dates.
                                ("BIO"     . ?b)
                                ("COMP"    . ?c)
                                ("EMACS"   . ?e)
+                               ("FOOD"    . ?d)
                                ("PHOTO"   . ?f)
                                ("GIT"     . ?g)
                                ("HOME"    . ?h)
@@ -1649,16 +1650,18 @@ The following sets some default reports and tells ledger to use ISO dates.
 
 ** Refile
 
-   Captured notes are kept in a temporaty file, and periodically
+   Captured notes are kept in a temporary file, and periodically
    refiled into their proper places. Or so goes the threory. Since I
    create all notes directly into the correct file, there is nothing
    to refile. This block is here only as a reminder.
 
+   Refile =(org-refile)= is bound to =C-c C-w=.
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     ;; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-     (setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                      (org-agenda-files :maxlevel . 9))))
+     ;; Targets include this file and any file contributing to the agenda - up to 3 levels deep
+     (setq org-refile-targets (quote ((nil :maxlevel . 3)
+                                      (org-agenda-files :maxlevel . 3))))
 
      ;; Use full outline paths for refile targets - we file directly with IDO
      (setq org-refile-use-outline-path t)
@@ -1759,8 +1762,8 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (setq org-refile-targets '((nil :level . 1)
-                                (org-agenda-files :level . 1)))
+     (setq org-refile-targets '((nil :level . 3)
+                                (org-agenda-files :level . 3)))
 
    #+END_SRC
 
@@ -1811,7 +1814,7 @@ The following sets some default reports and tells ledger to use ISO dates.
      (setq org-latex-listings 'minted)
      ;; Let the exporter use the -shell-escape option to let latex
      ;; execute external programs.
-     ;; This obviously and can be dangerous to activate!
+     ;; This obviously can be dangerous!
      (setq org-latex-pdf-process
            '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
