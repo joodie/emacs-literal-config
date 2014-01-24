@@ -1285,7 +1285,7 @@ The following sets some default reports and tells ledger to use ISO dates.
    does not use them for its own purposes. These commands has to run
    after org-mode (configured below) has been executed.
 
-   #+name: excute-last
+   #+name: execute-last
    #+BEGIN_SRC emacs-lisp
      (windmove-default-keybindings)
      (setq windmove-wrap-around t)
@@ -2299,7 +2299,7 @@ The following sets some default reports and tells ledger to use ISO dates.
     <<location>>
     <<org-config>>
     <<startup>>
-    <<excute-last>>
+    <<execute-last>>
   #+END_SRC
 * Tools
 
