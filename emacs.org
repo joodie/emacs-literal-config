@@ -1269,7 +1269,7 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    Emacs standard way of moving between windows opened in a frame is
    =C-x o=. It jumps the cursor through all windows one by one. I like
-   to have a bit more control and use the built in windmove package.
+   to have a bit more control and use the built in *windmove* package.
    With it, =shift-<arrow>= moves the focus.
 
    The package description for windmove is good place to start
@@ -1295,6 +1295,26 @@ The following sets some default reports and tells ledger to use ISO dates.
      (add-hook 'org-shiftleft-final-hook 'windmove-left)
      (add-hook 'org-shiftdown-final-hook 'windmove-down)
      (add-hook 'org-shiftright-final-hook 'windmove-right)
+   #+END_SRC
+
+   The *win-switch* package hijacks the =C-c o= command and allows you to
+   move and resize windows.
+
+   #+BEGIN_SRC emacs-lisp
+     (describe-package 'win-switch)
+   #+END_SRC
+
+   The following sets up a two second time frame to use arrow keys to
+   move between windows and use shift-arrow keys to resize the active
+   window.
+
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
+     (require 'win-switch)
+     (win-switch-setup-keys-arrow-meta)
+     (global-set-key "\C-xo" 'win-switch-dispatch)
+     (setq win-switch-other-window-first nil)
+     (setq win-switch-idle-time 2)
    #+END_SRC
 
 ** External navigation

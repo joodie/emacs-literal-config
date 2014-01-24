@@ -62,4 +62,5 @@
 (depends-on "smart-mode-line")
 (depends-on "smex")
 (depends-on "use-package")
+(depends-on "win-switch")
 (depends-on "yasnippet")
