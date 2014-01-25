@@ -1055,6 +1055,30 @@ The following sets some default reports and tells ledger to use ISO dates.
                  'my/general-lisp-hooks))
    #+END_SRC
 
+   The most useful paredit key combinations use =C-<arrow>= that are
+   taken by OS X to switch between desktops. Use the Cmd key (s for
+   super), instead.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (when (eq system-type 'darwin)
+       (eval-after-load 'paredit
+         '(progn
+            ;; C-left
+            (define-key paredit-mode-map (kbd "s-<left>")
+                        'paredit-forward-barf-sexp)
+            ;; C-right
+            (define-key paredit-mode-map (kbd "s-<right>")
+                        'paredit-forward-slurp-sexp)
+            ;; ESC-C-left
+            (define-key paredit-mode-map (kbd "M-s-<left>")
+                        'paredit-backward-slurp-sexp)
+            ;; ESC-C-right
+            (define-key paredit-mode-map (kbd "M-s-<right>")
+                        'paredit-backward-barf-sexp)
+          )))
+#+END_SRC
+
 ** Clojure
 
    I'm using [[https://github.com/clojure-emacs/cider/commits/master][CIDER]] (formerly ~nrepl.el~) for clojure source/repl
