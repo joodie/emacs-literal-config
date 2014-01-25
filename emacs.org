@@ -1297,8 +1297,8 @@ The following sets some default reports and tells ledger to use ISO dates.
      (add-hook 'org-shiftright-final-hook 'windmove-right)
    #+END_SRC
 
-   The *win-switch* package hijacks the =C-c o= command and allows you to
-   move and resize windows.
+   The *win-switch* package can override the =C-c o= command and
+   allow to both change and resize windows.
 
    #+BEGIN_SRC emacs-lisp
      (describe-package 'win-switch)
@@ -1306,7 +1306,8 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    The following sets up a two second time frame to use arrow keys to
    move between windows and use shift-arrow keys to resize the active
-   window.
+   window. The time that win-switch remains active will be reduced
+   once I get used to it.
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
