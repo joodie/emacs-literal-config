@@ -63,4 +63,5 @@
 (depends-on "smex")
 (depends-on "use-package")
 (depends-on "win-switch")
+(depends-on "xkcd")
 (depends-on "yasnippet")

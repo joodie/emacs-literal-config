@@ -1446,7 +1446,7 @@ The following sets some default reports and tells ledger to use ISO dates.
      uniquify-separator ":")
    #+END_SRC
 
-* Geographical location
+** Geographical location
 
   Calendar functions like to know your geographical coordinates to
   display celestial movements correctly. I am at KAUST in Saudi Arabia.
@@ -1492,6 +1492,20 @@ The following sets some default reports and tells ledger to use ISO dates.
    git control. When running install, uninstall, or configure commands
    I open the relevant file and create a record of the change and
    where the information came from.
+
+** Toys
+
+*** xkcd comics
+
+    The [[https://github.com/vibhavp/emacs-xkcd][xkcd]] package implements an [[Http://xkcd.com/][xkcd]] comics reader for Emacs.
+    =xkcd-get= or =xkcd-get-latest= commands fetch you a strip that is
+    stored locally.
+
+    | Keybinding | Use                             | Function        |
+    |------------+---------------------------------+-----------------|
+    | C-c t      | Show alt-text in the minibuffer | (xkcd-alt-text) |
+    | <right>    | Load next xkcd                  | (xkcd-next)     |
+    | <left>     | Load previous xkcd              | (xkcd-prev)     |
 
 * Org Mode
 
