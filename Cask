@@ -31,6 +31,7 @@
 (depends-on "gitignore-mode")
 (depends-on "graphviz-dot-mode")
 (depends-on "highlight-parentheses")
+(depends-on "howdoi")
 (depends-on "htmlize")
 (depends-on "ido-yes-or-no")
 (depends-on "iedit")

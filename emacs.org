@@ -1493,6 +1493,26 @@ The following sets some default reports and tells ledger to use ISO dates.
    I open the relevant file and create a record of the change and
    where the information came from.
 
+
+** How Do I?
+
+   Programming questions can be answered within emacs by
+   =howdoi-query= or =howdoi-query-line-at-point=. This will google
+   the answer in [[http://stackoverflow.com/][StackOverflow]], and parse and return best answers.
+
+   #+BEGIN_SRC emacs-lisp
+     ; execute this lisp code in org mode
+     ; by placing the curser after
+     ; the closing parenthesis and press C-x C-e
+     (describe-package 'howdoi)
+   #+END_SRC
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (require 'howdoi)
+   #+END_SRC
+
+
 ** Toys
 
 *** xkcd comics
