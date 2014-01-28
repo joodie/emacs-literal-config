@@ -139,6 +139,17 @@
      (setq uniquify-buffer-name-style 'forward)
    #+END_SRC
 
+** Window configuration
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (require 'sticky-windows)
+
+     (global-set-key     [(control x) (?0)]        'sticky-window-delete-window)
+     (global-set-key     [(control x) (?1)]        'sticky-window-delete-other-windows)
+     (global-set-key     [(control x) (?9)]        'sticky-window-keep-window-visible)
+
+   #+END_SRC
+
 * Start up
 
   Start with the scratch buffer; no start up screen.
@@ -398,7 +409,7 @@
   #+BEGIN_SRC emacs-lisp
     (projectile-global-mode +1)
   #+END_SRC
-   
+
 * Org Mode
 ** MobileOrg
    Use Dropbox for syncing my agenda files with my Android
@@ -696,6 +707,14 @@
     (when (memq window-system '(mac ns))
       (exec-path-from-shell-initialize))
   #+END_SRC
+
+  External packages may be dropped in the .emacs.d directory.
+
+  #+NAME: environment
+  #+BEGIN_SRC emacs-lisp
+    (add-to-list 'load-path "~/.emacs.d")
+  #+END_SRC
+
 
 * Options set using the customize interface
 
