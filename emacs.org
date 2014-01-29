@@ -1304,11 +1304,11 @@ The following sets some default reports and tells ledger to use ISO dates.
    [[http://emacs-fu.blogspot.com/2010/08/narrowing-buffer-contents.html][Emacs-Fu]] has an excellent article on narrowing. [[http://www.emacswiki.org/emacs/BasicNarrowing][EmacsWiki]] is worth
    checking for caveats. 
 
-   | Visible | Function           | Binding |
-   |---------+--------------------+---------|
-   | region  | (narrow-to-region) | C-x n n |
-   | subtree | (narrow-to-sutree) | C-x n s |
-   | all     | (widen)            | C-x n w |
+   | Visible | Function            | Binding |
+   |---------+---------------------+---------|
+   | region  | (narrow-to-region)  | C-x n n |
+   | subtree | (narrow-to-subtree) | C-x n s |
+   | all     | (widen)             | C-x n w |
 
 ** Local navigation between windows
 
