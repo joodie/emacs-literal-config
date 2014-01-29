@@ -1289,6 +1289,27 @@ The following sets some default reports and tells ledger to use ISO dates.
 
   #+END_SRC
 
+** Narrowing
+
+   Narrowing is a way for emacs to hide part of the buffer so that
+   only visible parts can be viewed *and edited*. This has the
+   potential to be so confusing to an unsuspecting user that this
+   feature is disabled by default. It has to be explicitly turned on.
+
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
+     (put 'narrow-to-region 'disabled nil)
+   #+END_SRC
+
+   [[http://emacs-fu.blogspot.com/2010/08/narrowing-buffer-contents.html][Emacs-Fu]] has an excellent article on narrowing. [[http://www.emacswiki.org/emacs/BasicNarrowing][EmacsWiki]] is worth
+   checking for caveats. 
+
+   | Visible | Function           | Binding |
+   |---------+--------------------+---------|
+   | region  | (narrow-to-region) | C-x n n |
+   | subtree | (narrow-to-sutree) | C-x n s |
+   | all     | (widen)            | C-x n w |
+
 ** Local navigation between windows
 
    Emacs standard way of moving between windows opened in a frame is
