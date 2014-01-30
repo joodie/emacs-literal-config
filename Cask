@@ -35,6 +35,7 @@
 (depends-on "inf-ruby")
 (depends-on "inflections")
 (depends-on "javap-mode")
+(depends-on "jsx-mode")
 (depends-on "jump")
 (depends-on "less-css-mode")
 (depends-on "litable")
