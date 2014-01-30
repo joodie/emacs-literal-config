@@ -2469,6 +2469,29 @@ The following sets some default reports and tells ledger to use ISO dates.
       (setq locate-command "mdfind"))
    #+END_SRC
 
+   Printing under OS X does not work in default emacs.  [[http://www.emacswiki.org/emacs/MacPrintMode][EmacsWiki]] has
+   slightly outdated instructions:
+
+   1. Copy [[ https://raw.github.com/marcora/emacs/master/mac-print-mode.el][mac-print-mode.el]] into =~.emacs.d/elisp= directory
+   2. htmlize pakage should be already installed
+   3. Install latest version of [[http://hmdt.jp/coral/][Coral]] (1.3)
+      - Download and open the image file
+      - =cp -r /Volumes/Coral1.3/bin/coral.app /Applications/=
+      - =cp /Volumes/Coral1.3/bin/bin/coral /usr/local/bin/=
+        and edit it so that it calls /Applications/coral.app/Contents/MacOS/coral
+   4. Run the following code:
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (when (eq system-type 'darwin)
+       (when (require 'mac-print-mode nil t)
+         (mac-print-mode 1)
+         (global-set-key (kbd "s-p") 'mac-print-buffer)))
+   #+END_SRC
+
+   Command-p now exports the current page as HTML and prints using the
+   system dialog.
+
 ** Custom lisp package directory
 
    There are still lisp packages that you have to copy manually. This
