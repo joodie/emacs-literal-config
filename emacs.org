@@ -1360,7 +1360,7 @@ The following sets some default reports and tells ledger to use ISO dates.
      (win-switch-setup-keys-arrow-meta)
      (global-set-key "\C-xo" 'win-switch-dispatch)
      (setq win-switch-other-window-first nil)
-     (setq win-switch-idle-time 2)
+     (setq win-switch-idle-time 0.75)
    #+END_SRC
 
 ** External navigation
