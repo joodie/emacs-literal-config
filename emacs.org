@@ -2502,6 +2502,28 @@ The following sets some default reports and tells ledger to use ISO dates.
      (add-to-list 'load-path "~/.emacs.d/elisp")
    #+END_SRC
 
+** Emacsclient
+
+   Especially in OS X commandline and graphical UI are separated from
+   each other and opening a file in a GUI program is not automatic. In
+   the case of emacs, the way around this is *emacsclient* (see =man
+   emacsclient=). The running emacs need to run in server mode for the
+   emacsclient to open a new frame to edit the file. When you finish
+   editing, close the frame by =C-x #= to continue on the command
+   line.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (server-start)
+   #+END_SRC
+
+   A commandline alias *em* (=alias em=emacsclient=) then calls
+   emacsclient instead of emacs on the terminal.
+
+   Additionally, for those quick and dirty editing jobs on terminal, I
+   have installed *zile*, [[http://www.gnu.org/software/zile/][a lightweight emacs clone]] with homebrew, and
+   aliased it to *e*.
+
 * Monkey Patches
 
 ** TODO Org-Indent-Region fix
