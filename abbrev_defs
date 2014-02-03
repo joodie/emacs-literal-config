@@ -1,6 +1,10 @@
 ;;-*-coding: utf-8;-*-
 (define-abbrev-table 'Buffer-menu-mode-abbrev-table '())
 
+(define-abbrev-table 'Custom-mode-abbrev-table '())
+
+(define-abbrev-table 'apropos-mode-abbrev-table '())
+
 (define-abbrev-table 'awk-mode-abbrev-table
   '(
    ))
@@ -67,6 +71,10 @@
 
 (define-abbrev-table 'eshell-mode-abbrev-table '())
 
+(define-abbrev-table 'finder-mode-abbrev-table '())
+
+(define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
+
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
 (define-abbrev-table 'git-commit-mode-abbrev-table '())
@@ -75,9 +83,9 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("8eur" "€" nil 3)
-    ("8pound" "£" nil 1)
-    ("heikkil" "Heikki Lehväslaiho" nil 3)
+    ("8eur" "€" nil 4)
+    ("8pound" "£" nil 2)
+    ("heikkil" "Heikki Lehväslaiho" nil 4)
     ("legnht" "length" nil 1)
     ("legnth" "length" nil 1)
     ("legth" "length" nil 1)
@@ -91,7 +99,8 @@
 use Modern::Perl;
 use Data::Printer;
 " nil 9)
-    ("teh" "the" nil 3)
+    ("taht" "that" nil 2)
+    ("teh" "the" nil 4)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
@@ -102,13 +111,25 @@ use Data::Printer;
 
 (define-abbrev-table 'help-mode-abbrev-table '())
 
+(define-abbrev-table 'howdoi-mode-abbrev-table '())
+
+(define-abbrev-table 'html-mode-abbrev-table '())
+
 (define-abbrev-table 'idl-mode-abbrev-table '())
 
 (define-abbrev-table 'java-mode-abbrev-table
   '(
    ))
 
+(define-abbrev-table 'js-mode-abbrev-table '())
+
 (define-abbrev-table 'latex-mode-abbrev-table '())
+
+(define-abbrev-table 'ledger-mode-abbrev-table '())
+
+(define-abbrev-table 'ledger-reconcile-mode-abbrev-table '())
+
+(define-abbrev-table 'ledger-report-mode-abbrev-table '())
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
@@ -126,6 +147,8 @@ use Data::Printer;
 
 (define-abbrev-table 'magit-mode-abbrev-table '())
 
+(define-abbrev-table 'magit-process-mode-abbrev-table '())
+
 (define-abbrev-table 'magit-reflog-mode-abbrev-table '())
 
 (define-abbrev-table 'magit-status-mode-abbrev-table '())
@@ -133,6 +156,8 @@ use Data::Printer;
 (define-abbrev-table 'magit-wazzup-mode-abbrev-table '())
 
 (define-abbrev-table 'message-mode-abbrev-table '())
+
+(define-abbrev-table 'nxml-mode-abbrev-table '())
 
 (define-abbrev-table 'objc-mode-abbrev-table
   '(
@@ -152,7 +177,7 @@ use Data::Printer;
     ("legth" "length" nil 1)
     ("lenght" "length" nil 1)
     ("lenth" "length" nil 1)
-    ("ma" "am" nil 2)
+    ("ma" "am" nil 3)
     ("oabstract" "#+BEGIN_ABSTRACT
 
 #+END_ABSTRACT
@@ -170,7 +195,7 @@ use Data::Printer;
     ("oscale" "#+ATTR_LaTeX: scale=0.75" nil 1)
     ("oshebang" "#+PROPERTY: :shebang \"#!/usr/bin/env perl\"" nil 1)
     ("osize" "#+ATTR_LaTeX: width=0.70\\textwidth" nil 1)
-    ("otitle" "#+TITLE: " nil 5)
+    ("otitle" "#+TITLE: " nil 6)
     ("otoc" "#+OPTIONS: toc:nil" nil 4)
     ("pblk" "" skel-org-block-perl 2)
     ("rblk" "" skel-org-block-r 1)
@@ -200,6 +225,8 @@ use Data::Printer;
 (define-abbrev-table 'ruby-compilation-mode-abbrev-table '())
 
 (define-abbrev-table 'ruby-mode-abbrev-table '())
+
+(define-abbrev-table 'sgml-mode-abbrev-table '())
 
 (define-abbrev-table 'sh-mode-abbrev-table '())
 
