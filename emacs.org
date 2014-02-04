@@ -2457,7 +2457,7 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-    (when (memq window-system '(mac ns))
+    (when (eq system-type 'darwin)
       (exec-path-from-shell-initialize))
    #+END_SRC
 
