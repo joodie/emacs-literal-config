@@ -39,6 +39,11 @@
     than the one you're starting. Check your ~$PATH~ and/or aliases.
 
 * Graphics and looks
+** Color theme
+   #+name: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (load-theme 'tango-dark)
+   #+END_SRC
 ** Font
 
    I like [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]], but it doesn't support a wide range of Unicode
@@ -95,14 +100,11 @@
 
 ** Mode line
 
-   The default Mode Line is confusing and boring. Using
-   sml-smart-mode-line it's a bit nicer to look at and more
-   informative.
+   The default Mode Line is confusing and boring. Right now I like powerline.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (require 'smart-mode-line)
-     (sml/setup)
+     (powerline-center)
    #+END_SRC
 
 ** Scrolling behavior
@@ -350,10 +352,22 @@
 
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.jsx\\'" . jsx-mode))
-     (autoload 'jsx-mode "jsx-mode" "JSX mode" t)
+     (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . js2-mode))
+
    #+END_SRC
 
+** ANSI Color in compilations
+   See http://stackoverflow.com/questions/3072648/cucumbers-ansi-colors-messing-up-emacs-compilation-buffer
+
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (require 'ansi-color)
+     (defun colorize-compilation-buffer ()
+       (toggle-read-only)
+       (ansi-color-apply-on-region (point-min) (point-max))
+       (toggle-read-only))
+     (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+   #+END_SRC
 * TODO Auto Complete
 
   Getting auto completion to work right tends to be a messy process of
@@ -505,19 +519,6 @@
    #+END_SRC
 
 ** Org-Babel
-
-   Use syntax highlighting ("fontification") in org-mode source
-   blocks, and use a slightly darker background to visually separate
-   the source block from its surroundings.
-
-   This also highlights source blocks in HTML exports.
-
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-     (setq org-src-fontify-natively 't)
-     (set-face-attribute 'org-block-background nil
-                         :background "#f0f0e8")
-   #+END_SRC
 
    Use the =minted= package for syntax highlighting source blocks in
    LaTeX / PDF exports. [[http://joat-programmer.blogspot.nl/2013/07/org-mode-version-8-and-pdf-export-with.html][Configuration copied from a blog post
