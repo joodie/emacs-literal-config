@@ -350,11 +350,23 @@
    #+END_SRC
 ** Javascript
 
+   I use JS2-mode for javascript source.
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . js2-mode))
-
    #+END_SRC
+
+** JSON
+
+   For JSON-formatted files, I use the default js-mode, which accepts
+   top-level bare objects (which is incorrect behaviour for
+   javascript, but the default in JSON).
+
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'auto-mode-alist '("\\.json\\'\\|\\.jshintrc\\'" . js-mode))
+   #+END_SRC
+   
 
 ** ANSI Color in compilations
    See http://stackoverflow.com/questions/3072648/cucumbers-ansi-colors-messing-up-emacs-compilation-buffer
