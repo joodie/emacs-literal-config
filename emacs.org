@@ -368,7 +368,10 @@
    #+END_SRC
    
 
-** ANSI Color in compilations
+** Compilation mode improvements
+
+*** ANSI Colors
+
    See http://stackoverflow.com/questions/3072648/cucumbers-ansi-colors-messing-up-emacs-compilation-buffer
 
    #+name: programming-setup
@@ -379,6 +382,13 @@
        (ansi-color-apply-on-region (point-min) (point-max))
        (toggle-read-only))
      (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+   #+END_SRC
+
+*** Follow output
+
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (setq compilation-scroll-output t)
    #+END_SRC
 * TODO Auto Complete
 
