@@ -40,9 +40,11 @@
 
 * Graphics and looks
 ** Color theme
+   Leuven theme is awesome!
+
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (load-theme 'tango-dark)
+     (load-theme 'leuven)
    #+END_SRC
 ** Font
 
@@ -104,7 +106,7 @@
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (powerline-center)
+     '(powerline-center-theme)
    #+END_SRC
 
 ** Scrolling behavior
@@ -197,6 +199,19 @@
    #+END_SRC
 
 * Programming
+** General programming
+
+   I want to use pretty-symbols mode for all programming.
+
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (defun my/prog-mode-hooks ()
+       (my/turn-on 'pretty-symbols))
+
+     (add-hook 'prog-mode-hook
+               'my/prog-mode-hooks)
+   #+END_SRC
+
 ** Pair programming
 
    Normally, I think line numbers in code editors just take up space,
@@ -228,7 +243,7 @@
        my/pair-programming-mode
        (lambda () (my/pair-programming-mode 1)))
 
-     (global-set-key "\C-cp" 'my/global-pair-programming-mode)
+     (global-set-key "\C-c\M-p" 'my/global-pair-programming-mode)
    #+END_SRC
 
 ** Lisps
@@ -366,30 +381,30 @@
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.json\\'\\|\\.jshintrc\\'" . js-mode))
    #+END_SRC
-   
+
 
 ** Compilation mode improvements
 
 *** ANSI Colors
 
-   See http://stackoverflow.com/questions/3072648/cucumbers-ansi-colors-messing-up-emacs-compilation-buffer
+    See http://stackoverflow.com/questions/3072648/cucumbers-ansi-colors-messing-up-emacs-compilation-buffer
 
-   #+name: programming-setup
-   #+BEGIN_SRC emacs-lisp
+    #+name: programming-setup
+    #+BEGIN_SRC emacs-lisp
      (require 'ansi-color)
      (defun colorize-compilation-buffer ()
        (toggle-read-only)
        (ansi-color-apply-on-region (point-min) (point-max))
        (toggle-read-only))
      (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-   #+END_SRC
+    #+END_SRC
 
 *** Follow output
 
-   #+name: programming-setup
-   #+BEGIN_SRC emacs-lisp
+    #+name: programming-setup
+    #+BEGIN_SRC emacs-lisp
      (setq compilation-scroll-output t)
-   #+END_SRC
+    #+END_SRC
 * TODO Auto Complete
 
   Getting auto completion to work right tends to be a messy process of
