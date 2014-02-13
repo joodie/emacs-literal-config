@@ -46,6 +46,16 @@
    #+BEGIN_SRC emacs-lisp
      (load-theme 'leuven)
    #+END_SRC
+
+** Nyan Cat will show you where you are!
+
+   Because, why not?
+   #+name: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (nyan-mode +1)
+   #+END_SRC
+
+
 ** Font
 
    I like [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]], but it doesn't support a wide range of Unicode
@@ -557,12 +567,20 @@
 
 ** Org-Babel
 
-   Use the =minted= package for syntax highlighting source blocks in
-   LaTeX / PDF exports. [[http://joat-programmer.blogspot.nl/2013/07/org-mode-version-8-and-pdf-export-with.html][Configuration copied from a blog post
-   by Florian Bergmann.]]
+*** Fontifying source blocks
 
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
+    Enable yntax highlighting in src blocks.
+    #+name: org-config
+    #+BEGIN_SRC emacs-lisp
+      (setq-default org-src-fontify-natively t)
+    #+END_SRC
+
+    Use the =minted= package for syntax highlighting source blocks in
+    LaTeX / PDF exports. [[http://joat-programmer.blogspot.nl/2013/07/org-mode-version-8-and-pdf-export-with.html][Configuration copied from a blog post
+    by Florian Bergmann.]]
+
+    #+name: org-config
+    #+BEGIN_SRC emacs-lisp
      ;; Include the latex-exporter
      (require 'ox-latex)
      ;; Add minted to the defaults packages to include when exporting.
@@ -581,12 +599,12 @@
              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
-   #+END_SRC
+    #+END_SRC
 
-   Untangle files.
+    Untangle files.
 
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
+    #+name: org-config
+    #+BEGIN_SRC emacs-lisp
      (global-set-key "\C-cu" 'my/org-babel-untangle)
 
      (defun my/org-babel-untangle (path)
@@ -613,7 +631,7 @@
              (cl-remove-if 'file-directory-p
                            (f-files path (lambda (p) t) t))))
 
-   #+END_SRC
+    #+END_SRC
 
 ** Language evaluation support
 
