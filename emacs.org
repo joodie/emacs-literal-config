@@ -474,6 +474,7 @@
   UNIXy text files should always end in a newline character. This
   tells emacs to take care of it so that you do not have to.
 
+  #+name: formatting
   #+BEGIN_SRC emacs-lisp
    (setq require-final-newline t)
   #+END_SRC
@@ -482,6 +483,7 @@
   default sentences are separated by double space like in old
   typewriter text. Not any more.
 
+  #+name: formatting
   #+BEGIN_SRC emacs-lisp
    (setq sentence-end-double-space nil)
   #+END_SRC
@@ -502,6 +504,7 @@
 
    Pressing the enter key should indent, too.
 
+   #+name: formatting
    #+BEGIN_SRC emacs-lisp
      (global-set-key (kbd "RET") 'newline-and-indent)
    #+END_SRC
