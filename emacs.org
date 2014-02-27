@@ -1545,11 +1545,16 @@ The following sets some default reports and tells ledger to use ISO dates.
     =xkcd-get= or =xkcd-get-latest= commands fetch you a strip that is
     stored locally.
 
-    | Keybinding | Use                             | Function        |
-    |------------+---------------------------------+-----------------|
-    | C-c t      | Show alt-text in the minibuffer | (xkcd-alt-text) |
-    | <right>    | Load next xkcd                  | (xkcd-next)     |
-    | <left>     | Load previous xkcd              | (xkcd-prev)     |
+    | Keybinding | Use                             | Function                        |
+    |------------+---------------------------------+---------------------------------|
+    | t          | Show alt-text in the minibuffer | (xkcd-alt-text)                 |
+    | r          | Show random strip               | (xkcd-rand)                     |
+    | q          | Kill buffer                     | (xkcd-kill-buffer)              |
+    | <right>    | Load next xkcd                  | (xkcd-next)                     |
+    | <left>     | Load previous xkcd              | (xkcd-prev)                     |
+    | o          | Show strip in browser           | (xkcd-open-browser)             |
+    | e          | Show explanation to strip       | (xkcd-open-explanation-browser) |
+
 
 * Org Mode
 
