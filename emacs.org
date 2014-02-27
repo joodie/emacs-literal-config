@@ -849,6 +849,11 @@
      (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
    #+END_SRC
 
+   [[http://www.emacswiki.org/emacs/LaTeXPreviewPane][latex-preview-panel]] package enables preview within Emacs. I could
+   add =(latex-preview-pane-enable)= here but it can be enabled  on
+   the fly with =M-x latex-preview-pane-mode=
+
+
 ** Zsh and fish
 
    [[http://www.zsh.org/][Zsh]] is a command line shell that is a superset of Bash. Tell emacs
