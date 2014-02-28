@@ -1995,6 +1995,16 @@ The following sets some default reports and tells ledger to use ISO dates.
          (error nil)))
    #+END_SRC
 
+** Markdown export
+
+   Org mode does not give markdown as an export option before you
+   tell it to.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (require 'ox-md)
+   #+END_SRC
+
 ** Latex export
 
    This defines a new latex class =fu-org-article= based on the
