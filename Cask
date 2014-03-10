@@ -16,6 +16,7 @@
 (depends-on "dklrt")
 (depends-on "elnode")
 (depends-on "epl")
+(depends-on "ess")
 (depends-on "exec-path-from-shell")
 (depends-on "f")
 (depends-on "fakir")
