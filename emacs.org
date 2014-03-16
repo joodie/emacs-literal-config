@@ -1166,6 +1166,57 @@ The following sets some default reports and tells ledger to use ISO dates.
           (global-rinari-mode +1)
    #+END_SRC
 
+** Python
+
+   Python has joined the other scripting languages in having a *env
+   version manager. Point the emacs to current stable python 2 for
+   global setting. Initial setup is [[https://github.com/ikame/.emacs.d/blob/master/setup-python.org][copied]].
+
+   First make sure you have installed your python dependencies runtime
+   environment:
+
+   #+BEGIN_SRC sh
+   pip install --user elpy
+   pip install --user rope
+   pip install --user jedi
+   #+END_SRC
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+          (require 'pyenv)
+          (setq pyenv-mode-set-version "2.7.6")
+
+     (add-to-list 'auto-mode-alist '("/requirements\\.txt\\'" . conf-mode))
+
+     (defun setup-python-mode ()
+       "Custom command to setup python-mode"
+       (interactive)
+       (let ((max-column 99))
+         (setq python-shell-interpreter "ipython"
+               python-shell-interpreter-args ""
+               ;;venv-location "~/.virtualenvs"
+               whitespace-line-column max-column
+               fill-column max-column
+               flycheck-flake8-maximum-line-length max-column
+               ;;elpy-rpc-backend "jedi"
+               elpy-default-minor-modes '(eldoc-mode)
+               elpy-rpc-project-specific t))
+       (setq python-indent-offset 4)
+       ;;(setq jedi:complete-on-dot t)
+       (flycheck-mode)
+       (pyenv-mode)
+       (highlight-lines-matching-regexp "import i?pdb")
+       (highlight-lines-matching-regexp "i?pdb.set_trace()")
+       (fci-mode)
+       (elpy-mode)
+       ;;(elpy-clean-modeline)
+     )
+
+     (add-hook 'python-mode-hook 'setup-python-mode)
+     ;;(add-hook 'python-mode-hook 'jedi:setup)
+
+    #+END_SRC
+
 ** C++
 
    #+NAME: programming-setup
