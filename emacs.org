@@ -504,12 +504,13 @@
                'my/text-formatting-hooks)
    #+END_SRC
 
-   Pressing the enter key should indent, too.
+   Pressing the enter key should indent, too. This is now done by
+   default in emacs 24.4. by enableing =electric-indent-mode=.
 
-   #+name: formatting
-   #+BEGIN_SRC emacs-lisp
-     (global-set-key (kbd "RET") 'newline-and-indent)
-   #+END_SRC
+   ##+name: formatting
+   ##+BEGIN_SRC emacs-lisp
+   #  ; (global-set-key (kbd "RET") 'newline-and-indent)
+   ##+END_SRC
 
 ** Understand compressed formats
 
@@ -1496,15 +1497,15 @@ The following sets some default reports and tells ledger to use ISO dates.
    I tend to organize topics by folders and keep track of things in
    files that are all called =notes.org=. This tells emacs to use
    unique buffer names with format 'name:dir'. Copied from [[http://emacs-fu.blogspot.com/2009/11/making-buffer-names-unique.html][Emacs-fu
-   blog]].
+   blog]]. This is on by default in emacs 24.4 and uses angle brackets.
 
-   #+name: global-navigation
-   #+BEGIN_SRC emacs-lisp
-    (require 'uniquify)
-    (setq
-     uniquify-buffer-name-style 'post-forward
-     uniquify-separator ":")
-   #+END_SRC
+   ##+name: global-navigation
+   ##+BEGIN_SRC emacs-lisp
+   # ;;require 'uniquify)
+   # ;;setq
+   # ;;uniquify-buffer-name-style 'post-forward
+   # ;;uniquify-separator ":")
+   ##+END_SRC
 
 ** Geographical location
 
