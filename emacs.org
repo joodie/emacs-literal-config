@@ -1056,8 +1056,8 @@ The following sets some default reports and tells ledger to use ISO dates.
            '(emacs-lisp lisp clojure))
 
      (defun my/general-lisp-hooks ()
-       (my/turn-on 'paredit
-                   'rainbow-delimiters
+       (my/turn-on ;;'paredit
+                   ;;'rainbow-delimiters
                    'highlight-parentheses))
 
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
@@ -1146,28 +1146,6 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    #+END_SRC
 
-** Ruby
-   Tell Emacs rake files are Ruby files.
-
-   #+name: programming-setup
-   #+BEGIN_SRC emacs-lisp
-
-      (dolist (exp '("Rakefile\\'" "\\.rake\\'"))
-        (add-to-list 'auto-mode-alist
-                     (cons exp 'ruby-mode)))
-
-   #+END_SRC
-
-   Having some kind of navigation support for rails projects can be
-   very handy. I've contributed a few things to [[https://github.com/remvee/emacs-rails][Emacs-Rails mode]] in
-   the past, but for the moment, I'm going to try the slightly more
-   light-weight Rinari mode.
-
-   #+NAME: programming-setup
-   #+BEGIN_SRC emacs-lisp
-          (global-rinari-mode +1)
-   #+END_SRC
-
 ** Python
 
    Python has joined the other scripting languages in having a *env
@@ -1178,24 +1156,22 @@ The following sets some default reports and tells ledger to use ISO dates.
    environment:
 
    #+BEGIN_SRC sh
-   pip install --user elpy
-   pip install --user rope
-   pip install --user jedi
+   pip install elpy
+   pip install rope
+   pip install jedi
    #+END_SRC
 
-   #+NAME: programming-setup
+   ##+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-          (require 'pyenv)
-          (setq pyenv-mode-set-version "2.7.6")
 
      (add-to-list 'auto-mode-alist '("/requirements\\.txt\\'" . conf-mode))
 
-     (defun setup-python-mode ()
+     (defun my/setup-python-mode ()
        "Custom command to setup python-mode"
        (interactive)
        (let ((max-column 99))
-         (setq python-shell-interpreter "ipython"
-               python-shell-interpreter-args ""
+         (setq ;;python-shell-interpreter "ipython"
+               ;;python-shell-interpreter-args ""
                ;;venv-location "~/.virtualenvs"
                whitespace-line-column max-column
                fill-column max-column
@@ -1207,14 +1183,16 @@ The following sets some default reports and tells ledger to use ISO dates.
        ;;(setq jedi:complete-on-dot t)
        (flycheck-mode)
        (pyenv-mode)
-       (highlight-lines-matching-regexp "import i?pdb")
-       (highlight-lines-matching-regexp "i?pdb.set_trace()")
-       (fci-mode)
-       (elpy-mode)
+       (setq pyenv-mode-set-version "2.7.6")
+       ;;(highlight-lines-matching-regexp "import i?pdb")
+       ;;(highlight-lines-matching-regexp "i?pdb.set_trace()")
+       (fci-mode 1)  ; fill-column-indicator
+       ;;(elpy-enable)
+       ;;(elpy-mode)
        ;;(elpy-clean-modeline)
      )
 
-     (add-hook 'python-mode-hook 'setup-python-mode)
+     (add-hook 'python-mode-hook 'my/setup-python-mode)
      ;;(add-hook 'python-mode-hook 'jedi:setup)
 
     #+END_SRC
@@ -1415,7 +1393,7 @@ The following sets some default reports and tells ledger to use ISO dates.
    window. The time that win-switch remains active will be reduced
    once I get used to it.
 
-   #+name: local-navigation
+   ##+name: local-navigation
    #+BEGIN_SRC emacs-lisp
      (require 'win-switch)
      (win-switch-setup-keys-arrow-meta)
@@ -1476,9 +1454,9 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+BEGIN_SRC emacs-lisp
      (setq ido-enable-flex-matching t)
      (ido-mode (quote both))
-     (ido-yes-or-no-mode +1)
+     ;;(ido-yes-or-no-mode +1)
      (setq ido-everywhere t)
-     (global-set-key "\M-x" 'smex)
+     ;;(global-set-key "\M-x" 'smex)
 
      (defun recentf-ido-find-file ()
        "Find a recent file using ido."
@@ -2201,6 +2179,14 @@ The following sets some default reports and tells ledger to use ISO dates.
      (add-to-list 'my/org-babel-evaluated-languages 'plantuml)
    #+END_SRC
 
+   The lowest thing around is [[http://www.gnuplot.info/][gnuplot]].
+
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'my/org-babel-evaluated-languages 'gnuplot)
+   #+END_SRC
+
+
 *** Databases
 
     SQL is relational database language.
@@ -2390,7 +2376,7 @@ The following sets some default reports and tells ledger to use ISO dates.
      (define-skeleton skel-org-block-bibl
        "Insert a org/lisp bibliography block"
        ""
-       "\n\\bibliographystyle{plainnat}\n\\bibliography{/Users/heikki/Documents/latex/all}\n"
+       "\n\\bibliographystyle{plainnat}\n\\bibliography{/Users/heikki/Documents/latex/all.bib}\n"
        _ -
        "")
 
