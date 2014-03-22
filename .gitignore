@@ -16,3 +16,6 @@ semanticdb
 tramp
 bin
 xkcd
+elpa
+url
+.emacs.desktop*

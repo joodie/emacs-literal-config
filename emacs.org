@@ -351,11 +351,13 @@
 
 * Start up
 
-  Start with the scratch buffer; no start up screen.
+  Start with the scratch buffer; no start up screen. Restore previous
+  window and file setup.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-screen +1)
+    (desktop-save-mode 1) ; emacs 24.4 feature
   #+END_SRC
 
 ** Identify yourself
