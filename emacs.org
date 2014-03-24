@@ -1185,6 +1185,7 @@ The following sets some default reports and tells ledger to use ISO dates.
        (flycheck-mode)
        (pyenv-mode)
        (setq pyenv-mode-set-version "2.7.6")
+       (add-hook 'focus-out-hook 'save-buffer)
        ;;(highlight-lines-matching-regexp "import i?pdb")
        ;;(highlight-lines-matching-regexp "i?pdb.set_trace()")
        (fci-mode 1)  ; fill-column-indicator
