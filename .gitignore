@@ -19,3 +19,4 @@ xkcd
 elpa
 url
 .emacs.desktop*
+.python-environments
