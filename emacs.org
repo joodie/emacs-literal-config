@@ -54,7 +54,7 @@
    You should be periodically upgrading you emacs packages. Some
    packages get almost daily fixes. It should be enough to update them
    every few weeks with =M-x pallet-update=. Do restart emacs after
-   the qupdate.
+   the update.
 
 ** Editing this document
 
@@ -83,6 +83,28 @@
    If you want to get a better understanding what any lisp code below
    do, view it in a lisp buffer, place the cursor at the word, and
    press =C-h f= on a function or =C-h v= on a variable.
+
+** Installing new packages
+
+   Every time you make major changes to this document (see [Editing
+   this Document]) or upgrade your packages, you are strongly advised to
+   note it down to a changelog file (see [ChangeLog mode]).
+
+   New packages are usually installed using command =list-packages= to
+   show the available ones and select the ones to include. The new
+   ones are automatically added to your [[file:Cask][Cask]] file for tracking.
+
+   Emacs module *[[https://github.com/Bruce-Connor/paradox][paradox]]* adds package ratings to the listing, new
+   shortcuts, and customization to package listings. After run,
+   =list-packages= is same as =paradox-list-packages=
+
+   You can give feedback if you set up the =paradox-github-token=
+   variable to your github token.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (setq paradox-github-token t)
+   #+END_SRC
 
 * Graphics and looks
 
@@ -878,6 +900,17 @@
            (cons '("\\.fish$" . shell-script-mode) auto-mode-alist))
    #+END_SRC
 
+   Indentation in the above setup was a problem, so I downloaded
+   =emacs-fish.el= and copied it to =~/.emacs.d/elisp=.
+
+   #+BEGIN_SRC sh
+   cd ~/src
+   git clone git@github.com:wwwjfy/emacs-fish.git
+   cd emacs-fish
+   cp emacs-fish/fish-mode.el ~/.emacs.d/elisp
+   #+END_SRC
+
+
 ** NEURON
 
    NEURON is a high level programming language for computational
@@ -1057,7 +1090,7 @@ The following sets some default reports and tells ledger to use ISO dates.
            '(emacs-lisp lisp clojure))
 
      (defun my/general-lisp-hooks ()
-       (my/turn-on ;;'paredit
+       (my/turn-on 'paredit
                    ;;'rainbow-delimiters
                    'highlight-parentheses))
 
@@ -1147,7 +1180,7 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    #+END_SRC
 
-** Python
+** TODO Python
 
    Python has joined the other scripting languages in having a *env
    version manager. Point the emacs to current stable python 2 for
@@ -1157,9 +1190,9 @@ The following sets some default reports and tells ledger to use ISO dates.
    environment:
 
    #+BEGIN_SRC sh
-   pip install elpy
-   pip install rope
-   pip install jedi
+     pip install elpy
+     pip install rope
+     pip install jedi
    #+END_SRC
 
    ##+NAME: programming-setup
@@ -1171,33 +1204,38 @@ The following sets some default reports and tells ledger to use ISO dates.
        "Custom command to setup python-mode"
        (interactive)
        (let ((max-column 99))
-         (setq ;;python-shell-interpreter "ipython"
-               ;;python-shell-interpreter-args ""
+         (setq python-shell-interpreter "python"
+               python-shell-interpreter-args "-i"
                ;;venv-location "~/.virtualenvs"
                whitespace-line-column max-column
                fill-column max-column
                flycheck-flake8-maximum-line-length max-column
-               ;;elpy-rpc-backend "jedi"
+               elpy-rpc-backend "jedi"
                ;;elpy-default-minor-modes '(eldoc-mode)
-               elpy-rpc-project-specific t))
+               ;;elpy-rpc-project-specific t)
+         )
        (setq python-indent-offset 4)
-       ;;(setq jedi:complete-on-dot t)
+       (setq jedi:complete-on-dot t)
        (flycheck-mode)
-       (pyenv-mode)
-       (setq pyenv-mode-set-version "2.7.6")
-       (add-hook 'focus-out-hook 'save-buffer)
+       ;;(pyenv-mode)
+       ;;(add-hook 'focus-out-hook 'save-buffer)
        ;;(highlight-lines-matching-regexp "import i?pdb")
        ;;(highlight-lines-matching-regexp "i?pdb.set_trace()")
-       (fci-mode 1)  ; fill-column-indicator
-       ;;(elpy-enable)
+       (turn-on-fci-mode)  ; fill-column-indicator
+       (elpy-enable)
+       (highlight-indentation-mode)
        ;;(elpy-mode)
        ;;(elpy-clean-modeline)
-     )
+     ))
 
      (add-hook 'python-mode-hook 'my/setup-python-mode)
-     ;;(add-hook 'python-mode-hook 'jedi:ac-setup)
-
+     (add-hook 'python-mode-hook 'jedi:ac-setup)
+     (add-hook 'python-mode-hook (lambda () (require 'sphinx-doc)))
     #+END_SRC
+
+   [[https://github.com/naiquevin/sphinx-doc.el][Sphinx-doc]] adds a function inserting docstring skeleton for Python
+   functions and methods. Inside a Python file move the cursor to some
+   function/method definition and hit =C-c M-d=.
 
 ** C++
 
@@ -1544,7 +1582,12 @@ The following sets some default reports and tells ledger to use ISO dates.
    =regex-tool-backend= defaults to =emacs=, but can be changed to
    =perl=.
 
-   =M-x qrr= runs =query-replace-regexp=
+   Now that [[https://github.com/emacs-helm/helm][helm]] ([[https://github.com/emacs-helm/helm/wiki][wiki]]) is installed, I am learning new tricks every
+   day. Regexp can be tested on current buffer or region with =M-x
+   helm-regexp=.
+
+   =M-x qrr= runs =query-replace-regexp= that by default has a really
+   complicated key binding =M-C-S %=.
 
    Read more on [[http://www.emacswiki.org/emacs/RegularExpression][emacs regexps]].
 
@@ -1553,7 +1596,7 @@ The following sets some default reports and tells ledger to use ISO dates.
    While git and other distributed version control systems (see
    [[Version control]]) do a great job in keeping track of changes
    projects, sometimes you need something more general. Enter ancient
-   [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Change-Log-Commands.html][ChangeLog]] mode that predate all other version control systems. It
+   [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Change-Log-Commands.html][ChangeLog]] mode that predates all other version control systems. It
    assumes that there is file is called =ChangeLog= somewhere in the
    file hierarchy above the current file and gives you a strange key
    chord =C-x 4 a= to add an entry to it.
@@ -1564,7 +1607,6 @@ The following sets some default reports and tells ledger to use ISO dates.
    git control. When running install, uninstall, or configure commands
    I open the relevant file and create a record of the change and
    where the information came from.
-
 
 ** How Do I?
 
@@ -1584,7 +1626,6 @@ The following sets some default reports and tells ledger to use ISO dates.
      (require 'howdoi)
    #+END_SRC
 
-
 ** Toys
 
 *** xkcd comics
@@ -1603,6 +1644,9 @@ The following sets some default reports and tells ledger to use ISO dates.
     | o          | Show strip in browser           | (xkcd-open-browser)             |
     | e          | Show explanation to strip       | (xkcd-open-explanation-browser) |
 
+*** 2048-game
+
+    Pure emacs and text-only version of [[http://gabrielecirulli.github.io/2048/][2048]] is called =2048-mode=.
 
 * Org Mode
 
@@ -2596,7 +2640,10 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+END_SRC
 
    A commandline alias *em* (=alias em=emacsclient=) then calls
-   emacsclient instead of emacs on the terminal.
+   emacsclient instead of emacs on the terminal. This will open a new
+   emacs window with the text to edit. To finish editing, save and
+   press =C-x #=. This works beautifully with fish shell command
+   =funced=.
 
    Additionally, for those quick and dirty editing jobs on terminal, I
    have installed *zile*, [[http://www.gnu.org/software/zile/][a lightweight emacs clone]] with homebrew, and

@@ -71,6 +71,7 @@
 (depends-on "regex-tool")
 (depends-on "s")
 (depends-on "smex")
+(depends-on "sphinx-doc")
 (depends-on "web")
 (depends-on "win-switch")
 (depends-on "xkcd")
