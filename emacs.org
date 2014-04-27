@@ -1230,7 +1230,9 @@ The following sets some default reports and tells ledger to use ISO dates.
 
      (add-hook 'python-mode-hook 'my/setup-python-mode)
      (add-hook 'python-mode-hook 'jedi:ac-setup)
-     (add-hook 'python-mode-hook (lambda () (require 'sphinx-doc)))
+     (add-hook 'python-mode-hook (lambda ()
+                                  (require 'sphinx-doc)
+                                  (sphinx-doc-mode t)))
     #+END_SRC
 
    [[https://github.com/naiquevin/sphinx-doc.el][Sphinx-doc]] adds a function inserting docstring skeleton for Python
