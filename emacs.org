@@ -1184,7 +1184,7 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    Python has joined the other scripting languages in having a *env
    version manager. Point the emacs to current stable python 2 for
-   global setting. Initial setup is [[https://github.com/ikame/.emacs.d/blob/master/setup-python.org][copied]].
+   global setting. Initial setup is [[https://github.com/ikame/.emacs.d/blob/master/setup-python.org][copied from here]] .
 
    First make sure you have installed your python dependencies runtime
    environment:
