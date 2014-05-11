@@ -145,6 +145,18 @@
        (scroll-bar-mode (quote right)))
    #+END_SRC
 
+** Symbols
+
+   Show written out symbols as they should be. This is available only
+   in emacs 24.4 and above. The replacements are looked up from
+   =prettify-symbols-alist=. Currently only displays “lambda” as “λ”
+   in lisp code.
+
+   #+name: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (global-prettify-symbols-mode 1)
+   #+END_SRC
+
 ** Fringe decorations
 
    [[http://www.emacswiki.org/emacs/TheFringe][The fringe]] is the vertical region at the right and left of the
