@@ -366,6 +366,15 @@
      (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
    #+END_SRC
 
+** Cursor
+
+   The cursor shows the location between characters.
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+      (modify-all-frames-parameters (list (cons 'cursor-type 'bar)))
+   #+END_SRC
+
 ** Current line
 
    Current line is subtly highlighted in pale blue.
