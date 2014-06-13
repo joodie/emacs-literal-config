@@ -1569,12 +1569,14 @@ The following sets some default reports and tells ledger to use ISO dates.
    # ;;uniquify-separator ":")
    ##+END_SRC
 
-   I just installed [[https://github.com/emacs-helm/helm][helm]] ([[https://github.com/emacs-helm/helm/wiki][wiki]]) and [[https://github.com/emacs-helm/helm-ls-git][helm-ls-git]].
+   I just installed [[https://github.com/emacs-helm/helm][helm]] ([[https://github.com/emacs-helm/helm/wiki][wiki]]) and [[https://github.com/emacs-helm/helm-ls-git][helm-ls-git]]. 
+
+   Something is slowing down file operations. Disabling helm!
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
-     (helm-mode 1)
-     (global-set-key (kbd "C-x C-d") 'helm-browse-project)
+     ;(helm-mode 1)
+     ;(global-set-key (kbd "C-x C-d") 'helm-browse-project)
    #+END_SRC
 
 
