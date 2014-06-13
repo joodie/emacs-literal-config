@@ -1600,14 +1600,18 @@ The following sets some default reports and tells ledger to use ISO dates.
 
 ** News feed
 
-  #+name: global-navigation
+   #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
    (setq elfeed-feeds
-         '(("http://feeds.bbci.co.uk/news/rss.xml" news)
+         '(("http://feeds.bbci.co.uk/news/world/rss.xml" news)
+          ("http://feeds.bbci.co.uk/news/science_and_environment/rss.xml" news)
+          ("http://feeds.bbci.co.uk/news/technology/rss.xml" news)
+          ("http://feeds.bbci.co.uk/news/health/rss.xml" news)
           ("http://kimmo.suominen.com/stuff/vw.xml" comics)
           ("http://kimmo.suominen.com/stuff/fingerpori.xml" comics)
           ("http://soloalgunaspalabras.wordpress.com/feed/" friends)
           ("http://perltricks.com/feed/rss" perl)))
+   (global-set-key (kbd "C-c f") 'elfeed)
    #+END_SRC
 
 ** Regex tool
@@ -1680,6 +1684,11 @@ The following sets some default reports and tells ledger to use ISO dates.
     | <left>     | Load previous xkcd              | (xkcd-prev)                     |
     | o          | Show strip in browser           | (xkcd-open-browser)             |
     | e          | Show explanation to strip       | (xkcd-open-explanation-browser) |
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key (kbd "C-c x") 'xkcd)
+   #+END_SRC
 
 *** 2048-game
 
