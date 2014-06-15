@@ -1695,6 +1695,13 @@ The following sets some default reports and tells ledger to use ISO dates.
 
     Pure emacs and text-only version of [[http://gabrielecirulli.github.io/2048/][2048]] is called =2048-mode=.
 
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (require '2048-game)
+     (global-set-key (kbd "C-c 2") '2048-game)
+   #+END_SRC
+
+
 * Org Mode
 
   [[http://orgmode.org/][Org mode]] is for all plain text editing. Lets bind the Org mode
