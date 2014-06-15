@@ -1734,11 +1734,13 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+END_SRC
 
    This sets the agenda calendar work week to start on Sunday
-   according to Saudi Arabian custom.
+   according to Saudi Arabian custom. Also, I need reminders of
+   holidays in Finland.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-agenda-start-on-weekday 7)
+     (require 'suomalainen-kalenteri)
    #+END_SRC
 
    Tags can be added to any agenda item manually or preferebly by pulling
