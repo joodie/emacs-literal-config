@@ -1081,7 +1081,10 @@ The following sets some default reports and tells ledger to use ISO dates.
            (shell-command-on-region (point) (mark) "perltidy -q" nil t)
            (goto-char orig-point)))
 
-     (global-set-key "\C-ct" 'perltidy)
+     ;;(global-set-key "\C-ct" 'perltidy)
+
+     (eval-after-load 'cperl-mode
+       '(define-key cperl-mode-map "\C-ct" 'perltidy))
 
    #+END_SRC
 
