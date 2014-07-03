@@ -40,6 +40,7 @@
 (depends-on "git-gutter")
 (depends-on "git-gutter-fringe")
 (depends-on "git-rebase-mode")
+(depends-on "git-timemachine")
 (depends-on "gitconfig-mode")
 (depends-on "gitignore-mode")
 (depends-on "graphviz-dot-mode")
