@@ -66,6 +66,7 @@
 (depends-on "pallet")
 (depends-on "paradox")
 (depends-on "paredit")
+(depends-on "password-store")
 (depends-on "pkg-info")
 (depends-on "plantuml-mode")
 (depends-on "plenv")
