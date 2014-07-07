@@ -1312,10 +1312,10 @@ The following sets some default reports and tells ledger to use ISO dates.
     (global-set-key "\C-x\," 'goto-line)
   #+END_SRC
 
-   I have to write this default key combination down since I can never
-   remember it: kill line backward from cursor: =C-0 C-k=.
+   Delete a word at a time: =M-backspace=.
 
-   An other nifty edit command =C-backspace= makes deleting words faster.
+   Kill line backward from cursor is =C-0 C-k= but it easier to
+   remember when redefined as =C-backspace=.
 
   #+name: local-navigation
   #+BEGIN_SRC emacs-lisp
