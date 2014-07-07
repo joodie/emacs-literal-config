@@ -1345,7 +1345,7 @@ The following sets some default reports and tells ledger to use ISO dates.
   #+END_SRC
 
    =M-j= is bound to join the next line with the current one. Copied from
-   [[http://whattheemacsd.com/key-bindings.el-03.html][WhatTheEmacs!?]] The is an alternative of =M-^= or =C-q= for joining
+   [[http://whattheemacsd.com/key-bindings.el-03.html][WhatTheEmacs!?]] The is an alternative of =M-^= or =C-c q= for joining
    current line to previous one.
 
   #+name: local-navigation
