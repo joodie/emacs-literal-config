@@ -1066,9 +1066,12 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+END_SRC
 
    Call perltidy from emacs to indent and beautify perl code in the
-   current buffer. This code calls the command line [[http://metacpan.org/author/SHANCOCK][ perltidy]]
+   current buffer. This code calls the command line [[http://metacpan.org/author/SHANCOCK][perltidy]]
    utility. It can be installed, with a module [[http://metacpan.org/pod/Perl::Tidy][Perl::Tidy]], from any
    CPAN archive.
+
+   =C-c t= for perl tidy is defined in the most efficient way: the code
+   is loaded only once when the cperl-mode is first called.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -1080,8 +1083,6 @@ The following sets some default reports and tells ledger to use ISO dates.
            (unless mark-active (mark-defun))
            (shell-command-on-region (point) (mark) "perltidy -q" nil t)
            (goto-char orig-point)))
-
-     ;;(global-set-key "\C-ct" 'perltidy)
 
      (eval-after-load 'cperl-mode
        '(define-key cperl-mode-map "\C-ct" 'perltidy))
