@@ -387,20 +387,21 @@
 
 ** Global key bindings
 
-  As far as reasonable, I try to keep my custom key bindings within
-  the "official" restraints. Specifically, I want my global key
-  bindings to start with =C-c [lower case letter]=. Implementation are
-  in appropriate sections below.
+   As far as reasonable, I try to keep my custom key bindings within
+   the "official" restraints. Specifically, I want my global key
+   bindings to start with =C-c [lower case letter]=. Implementation are
+   in appropriate sections below.
 
 * Start up
 
   Start with the scratch buffer; no start up screen. Restore previous
-  window and file setup.
+  window and file setup, but do it mostly lazily to speed up starting
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-screen +1)
     (desktop-save-mode 1) ; emacs 24.4 feature
+    (setq desktop-restore-eager 10) ; rest will be restored lazily
   #+END_SRC
 
 ** Identify yourself
