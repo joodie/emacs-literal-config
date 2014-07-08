@@ -582,7 +582,29 @@
    #+END_SRC
 * Editing
 
-** CUA mode
+** Selecting text
+
+   Usually text can be selected ("marked") by =S-<arrow>= keys, but in
+   my emacs that completely disabled.
+
+  The main reason for that is the org mode. In org mode =S-<arrow>=
+  keys have special functions in lists and headers and they are
+  disabled in other text areas.
+
+  The =S-<arrow>= are now exclusively used for selecting windows in
+  the emacs frame.
+
+  The preferred way to select text is to press =C-<space>= followed by
+  arrow keys to define the region, (but see below).
+
+  I am now using OS X in my main laptop computer and this choice had
+  knock-on effects. By default, =C-<space>= is used
+  to pop up the Spotlight search field. To circumvent that, I've changed
+  Spotlight key =Cmnd-<space>=. That in turn, disabled
+  the default key for toggling of the active keyboard languages, so
+  the key for that is now =Cmnd-alt-<space>=.
+
+*** CUA mode
 
   The biggest advantage modern emacs has over older ones is known as
   CUA-mode. It enables common =C-x=, =C-c=, =C-v= keyboard
@@ -595,6 +617,19 @@
   #+BEGIN_SRC emacs-lisp
     (cua-mode t)
   #+END_SRC
+
+*** Expand region
+
+    Selection can be created incrementally using semantic units. Just
+    press the key! Universal argument with a negative value (e.g. =C-u
+    -1=) reverses the selection. This works in all text modes and is
+    really convenient!
+
+    #+name: text-files
+    #+BEGIN_SRC emacs-lisp
+      (require 'expand-region)
+      (global-set-key (kbd "C-=") 'er/expand-region)
+    #+END_SRC
 
 ** Abbreviations
 
@@ -696,22 +731,6 @@
     ;; word-count
     (defun word-count nil "Count words in buffer" (interactive)
       (shell-command-on-region (point-min) (point-max) "wc -w"))
-  #+END_SRC
-
-** Shortcut to select text within quotes
-
-  #+name: text-files
-  #+BEGIN_SRC emacs-lisp
-    (defun select-text-in-quote ()
-      "http://xahlee.org/emacs/modernization_mark-word.html"
-      (interactive)
-      (let (b1 b2)
-        (skip-chars-backward "^<>([{â€œã€Œã€Žâ€¹Â«ï¼ˆã€ˆã€Šã€”ã€ã€–â¦—ã€˜\"")
-        (setq b1 (point))
-        (skip-chars-forward "^<>)]}â€ã€ã€â€ºÂ»ï¼‰ã€‰ã€‹ã€•ã€‘ã€—â¦˜ã€™\"")
-        (setq b2 (point))
-        (set-mark b1)))
-    (global-set-key (kbd "C-'") 'select-text-in-quote)
   #+END_SRC
 
 ** Text editing done by external programs
@@ -1092,8 +1111,8 @@ The following sets some default reports and tells ledger to use ISO dates.
 
 *** TODO Call =pod-mode= on POD documentation files and enable spell checking.
 
-   #+NAME: programming-setup
-   #+BEGIN_SRC emacs-lisp
+    #+NAME: programming-setup
+    #+BEGIN_SRC emacs-lisp
      (autoload 'pod-mode "pod-mode"
        "Mode for editing POD files" t)
      (add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
@@ -1104,7 +1123,7 @@ The following sets some default reports and tells ledger to use ISO dates.
                                         (auto-fill-mode 1) ; =wordwrap
                                         (flyspell-mode 1)  ; =spellchecking
                                         )))
-   #+END_SRC
+    #+END_SRC
 
 ** Lisps
 
@@ -1259,7 +1278,7 @@ The following sets some default reports and tells ledger to use ISO dates.
      (add-hook 'python-mode-hook (lambda ()
                                   (require 'sphinx-doc)
                                   (sphinx-doc-mode t)))
-    #+END_SRC
+   #+END_SRC
 
    [[https://github.com/naiquevin/sphinx-doc.el][Sphinx-doc]] adds a function inserting docstring skeleton for Python
    functions and methods. Inside a Python file move the cursor to some
@@ -1409,7 +1428,7 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+END_SRC
 
    [[http://emacs-fu.blogspot.com/2010/08/narrowing-buffer-contents.html][Emacs-Fu]] has an excellent article on narrowing. [[http://www.emacswiki.org/emacs/BasicNarrowing][EmacsWiki]] is worth
-   checking for caveats. 
+   checking for caveats.
 
    | Visible | Function            | Binding |
    |---------+---------------------+---------|
@@ -1473,7 +1492,7 @@ The following sets some default reports and tells ledger to use ISO dates.
 ** External navigation
 
    This allows you to google the selected region from local emacs buffer. Defines
-   fuction =google=.
+   function =google=.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
@@ -1574,7 +1593,7 @@ The following sets some default reports and tells ledger to use ISO dates.
    # ;;uniquify-separator ":")
    ##+END_SRC
 
-   I just installed [[https://github.com/emacs-helm/helm][helm]] ([[https://github.com/emacs-helm/helm/wiki][wiki]]) and [[https://github.com/emacs-helm/helm-ls-git][helm-ls-git]]. 
+   I just installed [[https://github.com/emacs-helm/helm][helm]] ([[https://github.com/emacs-helm/helm/wiki][wiki]]) and [[https://github.com/emacs-helm/helm-ls-git][helm-ls-git]].
 
    Something is slowing down file operations. Disabling helm!
 
@@ -1716,15 +1735,6 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+BEGIN_SRC emacs-lisp
      (global-set-key "\C-co" 'org-info)
    #+END_SRC
-
-  Text in other modes than org can be selected ("marked") by
-  =S-<arrow>=. In org mode these keys have special functions in lists
-  and headers and are otherwise disabled. The alternative is to press
-  =C-<space>= and arrow keys, but in Macs that key combination is used
-  to pop up Spotlight search field. To enable it, I've changed
-  Spotlight key =Cmnd-<space>=. It has a knock-on effect on disabling
-  the toggling of the active keyboard languages, but I can live with
-  that.
 
 ** Agenda
 
