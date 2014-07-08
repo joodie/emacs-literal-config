@@ -772,11 +772,11 @@
       (exec-path-from-shell-initialize))
   #+END_SRC
 
-  External packages may be dropped in the .emacs.d directory.
+  External packages may be dropped in the .emacs.d/ext directory.
 
   #+NAME: environment
   #+BEGIN_SRC emacs-lisp
-    (add-to-list 'load-path "~/.emacs.d")
+    (add-to-list 'load-path "~/.emacs.d/ext")
   #+END_SRC
 
 
