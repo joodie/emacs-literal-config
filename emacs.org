@@ -1635,6 +1635,8 @@ The following sets some default reports and tells ledger to use ISO dates.
           ("http://kimmo.suominen.com/stuff/fingerpori.xml" comics)
           ("http://soloalgunaspalabras.wordpress.com/feed/" friends)
           ("http://listenlearnread.blogspot.com/feeds/posts/default" friends)
+          ("http://feeds.nature.com/NatureNewsComment?format=xml" journals)
+          ("http://news.sciencemag.org/rss/weekly_news_email.xml" journals)
           ("http://perltricks.com/feed/rss" perl)))
    (global-set-key (kbd "C-c f") 'elfeed)
    #+END_SRC
