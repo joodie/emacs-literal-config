@@ -11,7 +11,6 @@
 (depends-on "cider-tracing")
 (depends-on "clojure-mode")
 (depends-on "clojure-test-mode")
-(depends-on "clojurescript-mode")
 (depends-on "concurrent")
 (depends-on "creole")
 (depends-on "dash")
