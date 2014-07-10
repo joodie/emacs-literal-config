@@ -65,7 +65,7 @@
    #+BEGIN_SRC emacs-lisp
      (set-face-attribute 'default nil
                          :family "Inconsolata"
-                         :height 140
+                         :height 130
                          :weight 'normal
                          :width 'normal)
 
