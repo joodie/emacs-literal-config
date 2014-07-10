@@ -299,31 +299,6 @@
                'my/cider-mode-hooks)
    #+END_SRC
 
-   Also, I want ~clojure-test-mode~ available in source
-   buffers.
-
-   #+NAME: programming-setup
-   #+BEGIN_SRC emacs-lisp
-     (defun my/clojure-mode-hooks ()
-       (my/turn-on 'clojure-test))
-
-     (add-hook 'clojure-mode-hook
-               'my/clojure-mode-hooks)
-   #+END_SRC
-
-   Clojure-test-mode =<C-c '>= key binding conflicts with org-tangle, so
-   I bind that to another key.
-
-   #+NAME: programming-setup
-   #+BEGIN_SRC emacs-lisp
-     (defun my/fix-org-tangle-clojure-test-mode-conflict ()
-       (define-key clojure-test-mode-map "\C-c\"" 'clojure-test-show-result)
-       (define-key clojure-test-mode-map "\C-c'" nil))
-
-     (eval-after-load "clojure-test-mode"
-       '(my/fix-org-tangle-clojure-test-mode-conflict))
-   #+END_SRC
-
    I treat the REPL mode specially, since certain hooks that work in
    ~clojure-mode~ won't make sense or break functionality in
    ~cider-repl-mode~.
