@@ -11,7 +11,6 @@
 (depends-on "cider-tracing")
 (depends-on "cljsbuild-mode")
 (depends-on "clojure-mode")
-(depends-on "clojure-test-mode")
 (depends-on "clojurescript-mode")
 (depends-on "coffee-mode")
 (depends-on "company")
