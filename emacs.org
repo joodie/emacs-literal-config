@@ -120,11 +120,14 @@
 
 ** Mode line
 
-   The default Mode Line is confusing and boring. Right now I like powerline.
+   I'm using smart mode line to clean up the modeline display a little.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     '(powerline-center-theme)
+     (sml/setup)
+     (sml/apply-theme 'dark)
+     (setq sml/shorten-directory t)
+     (setq sml/shorten-modes t)
    #+END_SRC
 
 ** Scrolling behavior
