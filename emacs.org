@@ -409,14 +409,23 @@
 
   #+NAME: auto-complete
   #+BEGIN_SRC emacs-lisp
-    (require 'fuzzy)
-    (require 'auto-complete)
-    (setq ac-auto-show-menu t
-          ac-quick-help-delay 0.5
-          ac-use-fuzzy t)
-    (global-auto-complete-mode +1)
-
+    ;; (require 'fuzzy)
+    ;; (require 'auto-complete)
+    ;; (setq ac-auto-show-menu t
+    ;;       ac-quick-help-delay 0.5
+    ;;       ac-use-fuzzy t)
+    ;; (global-auto-complete-mode +1)
   #+END_SRC
+
+  Company mode seems to be better supported by CIDER, so let's try
+  that for now.
+
+  #+NAME: auto-complete
+  #+BEGIN_SRC emacs-lisp
+    (require 'company)
+    (add-hook 'after-init-hook 'global-company-mode)
+  #+END_SRC
+
 * Global key bindings
 
   As far as reasonable, I try to keep my custom key bindings within
