@@ -52,9 +52,9 @@
    Because, why not?
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (nyan-mode +1)
+     (when (window-system)
+       (nyan-mode +1))
    #+END_SRC
-
 
 ** Font
 
@@ -92,6 +92,15 @@
        (scroll-bar-mode -1))
    #+END_SRC
 
+   When running emacs in a terminal, remove the menu bar.
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (when (not (window-system))
+       (menu-bar-mode -1))
+   #+END_SRC
+
+
 ** Fringe decorations
 
    [[http://www.emacswiki.org/emacs/TheFringe][The fringe]] is the vertical region at the right and left of the
@@ -102,12 +111,11 @@
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (when (window-system)
-       (require 'git-gutter-fringe))
+       (require 'git-gutter-fringe)
+       (global-git-gutter-mode +1))
 
-     (global-git-gutter-mode +1)
      (setq-default indicate-buffer-boundaries 'left)
      (setq-default indicate-empty-lines +1)
-
    #+END_SRC
 
 ** Mode line
