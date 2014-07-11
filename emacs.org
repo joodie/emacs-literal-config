@@ -306,6 +306,17 @@
      (add-hook 'cider-mode-hook
                'my/cider-mode-hooks)
    #+END_SRC
+   
+   Clojure-specific enhancements to lisp config.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (defun my/clojure-mode-hooks ()
+       (my/turn-on 'subword))
+
+     (add-hook 'clojure-mode-hook
+               'my/clojure-mode-hooks)
+   #+END_SRC
 
    I treat the REPL mode specially, since certain hooks that work in
    ~clojure-mode~ won't make sense or break functionality in
@@ -313,15 +324,17 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (defun my/cider-repl-mode-hooks ()
-       (my/turn-on 'paredit
-                   'rainbow-delimiters
-                   'highlight-parentheses))
+          (defun my/cider-repl-mode-hooks ()
+            (my/turn-on 'paredit
+                        'rainbow-delimiters
+                        'highlight-parentheses
+                        'subword))
 
-     (add-hook 'cider-repl-mode-hook
-               'my/cider-repl-mode-hooks)
-
+          (add-hook 'cider-repl-mode-hook
+                    'my/cider-repl-mode-hooks)
    #+END_SRC
+
+   
 
 ** Ruby
    Tell Emacs rake files are Ruby files.
