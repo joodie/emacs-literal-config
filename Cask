@@ -54,7 +54,6 @@
 (depends-on "magit")
 (depends-on "makey")
 (depends-on "markdown-mode")
-(depends-on "nyan-mode")
 (depends-on "org")
 (depends-on "org-plus-contrib")
 (depends-on "package-build")

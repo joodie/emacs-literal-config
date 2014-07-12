@@ -47,15 +47,6 @@
      (load-theme 'leuven)
    #+END_SRC
 
-** Nyan Cat will show you where you are!
-
-   Because, why not?
-   #+name: look-and-feel
-   #+BEGIN_SRC emacs-lisp
-     (when (window-system)
-       (nyan-mode +1))
-   #+END_SRC
-
 ** Font
 
    I like [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]], but it doesn't support a wide range of Unicode
