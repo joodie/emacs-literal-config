@@ -91,7 +91,6 @@
        (menu-bar-mode -1))
    #+END_SRC
 
-
 ** Fringe decorations
 
    [[http://www.emacswiki.org/emacs/TheFringe][The fringe]] is the vertical region at the right and left of the
@@ -166,6 +165,18 @@
 
    #+END_SRC
 
+** Window systems and terminals.
+   Emacs runs very fine in a terminal as is, but there are a few
+   tweaks that make terminal usage even nicer.
+
+*** Make mouse clicks work in xterm (and iTerm).
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (when (not (window-system))
+       (xterm-mouse-mode +1))
+   #+END_SRC
+   
 * Start up
 
   Start with the scratch buffer; no start up screen.
