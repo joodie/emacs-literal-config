@@ -235,27 +235,28 @@
 
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (define-minor-mode my/pair-programming-mode
-       "Toggle visualizations for pair programming.
+          (define-minor-mode my/pair-programming-mode
+            "Toggle visualizations for pair programming.
 
-     Interactively with no argument, this command toggles the mode.  A
-     positive prefix argument enables the mode, any other prefix
-     argument disables it.  From Lisp, argument omitted or nil enables
-     the mode, `toggle' toggles the state."
-       ;; The initial value.
-       nil
-       ;; The indicator for the mode line.
-       " Pairing"
-       ;; The minor mode bindings.
-       '()
-       :group 'my/pairing
-       (linum-mode (if my/pair-programming-mode 1 -1)))
+          Interactively with no argument, this command toggles the mode.  A
+          positive prefix argument enables the mode, any other prefix
+          argument disables it.  From Lisp, argument omitted or nil enables
+          the mode, `toggle' toggles the state."
+            ;; The initial value.
+            nil
+            ;; The indicator for the mode line.
+            " Pairing"
+            ;; The minor mode bindings.
+            '()
+            :group 'my/pairing
+            (linum-mode (if my/pair-programming-mode 1 -1))
+            (hl-line-mode (if my/pair-programming-mode 1 -1)))
 
-     (define-global-minor-mode my/global-pair-programming-mode
-       my/pair-programming-mode
-       (lambda () (my/pair-programming-mode 1)))
+          (define-global-minor-mode my/global-pair-programming-mode
+            my/pair-programming-mode
+            (lambda () (my/pair-programming-mode 1)))
 
-     (global-set-key "\C-c\M-p" 'my/global-pair-programming-mode)
+          (global-set-key "\C-c\M-p" 'my/global-pair-programming-mode)
    #+END_SRC
 
 ** Lisps
