@@ -13,6 +13,7 @@
 (depends-on "clojure-mode")
 (depends-on "clojurescript-mode")
 (depends-on "coffee-mode")
+(depends-on "command-log-mode")
 (depends-on "company")
 (depends-on "company-cider")
 (depends-on "csv-mode")
