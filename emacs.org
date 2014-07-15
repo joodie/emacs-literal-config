@@ -103,6 +103,7 @@
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+     ;;(fset 'list-packages 'paradox-list-packages)
      (setq paradox-github-token t)
    #+END_SRC
 
@@ -395,13 +396,13 @@
 * Start up
 
   Start with the scratch buffer; no start up screen. Restore previous
-  window and file setup, but do it mostly lazily to speed up starting
+  window and file setup inlcuding window placement.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-screen +1)
     (desktop-save-mode 1) ; emacs 24.4 feature
-    (setq desktop-restore-eager 10) ; rest will be restored lazily
+    ;;(setq desktop-restore-eager 10) ; rest will be restored lazily
   #+END_SRC
 
 ** Identify yourself
@@ -1870,24 +1871,6 @@ The following sets some default reports and tells ledger to use ISO dates.
                      "* %?\n     %T\n%i\nEntered on %U")
                    )))
    #+END_SRC
-
-#   #+name: org-config-inactive
-#   #+BEGIN_SRC emacs-lisp
-#     (setq org-capture-templates
-#            (quote (
-#                    ;; next entries are not in active use
-#                    ("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org")
-#                     "* %?\nEntered on %U\n  %i\n")
-#                    ("r" "respond" entry (file "~/Dropbox/org/reference.org")
-#                     "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-#                    ("x" "notex" entry (file "~/Dropbox/org/reference.org")
-#                     "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-#                    ("p" "Phone call" entry (file "~/Dropbox/org/reference.org")
-#                     "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-#                    ("h" "Habit" entry (file "~/Dropbox/org/calandar.org")
-#                     "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"<%Y-%m-%d %a .+1d/3d>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
-#   #+END_SRC
-
 
    Todos can have additional keywords with dates: =DEADLINE= =C-c C-d=
    for the time the task needs to be finished, and =SCHEDULED= =C-c
