@@ -894,6 +894,22 @@
   #+END_SRC
 
 * Text files
+** Writing style
+
+   [[https://github.com/bnbeckwith/writegood-mode][Writegood mode]] highlights common writing problems in English text.
+   It highlight weasel words, passive voice, and duplicate words.
+   Additionally, it can show [[http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests][Flesch-Kincaid scoring and grade-level estimates]].
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key "\C-cw" 'writegood-mode)
+     (global-set-key "\C-c\C-gg" 'writegood-grade-level)
+     (global-set-key "\C-c\C-ge" 'writegood-reading-ease)
+   #+END_SRC
+
+   #+RESULTS: text-files
+   : writegood-reading-ease
+
 ** LaTeX
 
    Use AUCTex for all LaTeX.

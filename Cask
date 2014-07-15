@@ -83,5 +83,6 @@
 (depends-on "suomalainen-kalenteri")
 (depends-on "web")
 (depends-on "win-switch")
+(depends-on "writegood-mode")
 (depends-on "xkcd")
 (depends-on "yasnippet")
