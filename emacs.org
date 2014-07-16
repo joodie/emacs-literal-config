@@ -714,6 +714,29 @@
 
    #+END_SRC
 
+  Alternatively, you can press =C-c k= to select the correct word from
+  dictionary and write it to abbreviations for automatic correction
+  permanently. Adapted from [[http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html][Endless Parentheses]].
+
+   #+NAME: spell-checker
+   #+BEGIN_SRC emacs-lisp
+     (defun my/aspell-word-then-abbrev (p)
+       "Call `ispell-word'. Then create an abbrev for the correction made.
+     With prefix P, create local abbrev. Otherwise it will be global."
+       (interactive "P")
+       (let ((bef (downcase (or (thing-at-point 'word) ""))) aft)
+         (call-interactively 'ispell-word)
+         (setq aft (downcase (or (thing-at-point 'word) "")))
+         (unless (string= aft bef)
+           (message "\"%s\" now expands to \"%s\" %sally"
+                    bef aft (if p "loc" "glob"))
+           (define-abbrev
+             (if p local-abbrev-table global-abbrev-table)
+             bef aft))))
+
+     (global-set-key (kbd "C-c k") 'my/aspell-word-then-abbrev)
+   #+END_SRC
+
 ** iedit mode
 
    [[http://www.emacswiki.org/emacs/Iedit][Iedit]] mode is activated by placing the cursor to a word and
