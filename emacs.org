@@ -477,6 +477,9 @@
     (global-set-key "\C-cq" 'delete-indentation)
     (global-set-key "\C-cx" 'er/expand-region)
     (global-set-key "\C-ct" 'git-timemachine)
+
+    ;; let's try god mode!
+    (global-set-key (kbd "<escape>") 'god-local-mode)
   #+END_SRC
 * Magit
   When tracking a branch from a remote, use the same name.
