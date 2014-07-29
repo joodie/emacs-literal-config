@@ -123,8 +123,8 @@
    I like to see the current time.
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (display-time-mode +1)
      (setq display-time-24hr-format t)
+     (display-time-mode +1)
    #+END_SRC
 
 ** Scrolling behavior
