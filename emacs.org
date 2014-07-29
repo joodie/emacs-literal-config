@@ -189,11 +189,13 @@
 
 * Start up
 
-  Start with the scratch buffer; no start up screen.
+  Start with an empty scratch buffer in org mode; no start up screen.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-screen +1)
+    (setq initial-major-mode 'org-mode)
+    (setq initial-scratch-message nil)
   #+END_SRC
 
 * Formatting and white-space
