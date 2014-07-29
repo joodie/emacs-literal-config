@@ -479,9 +479,32 @@
     (global-set-key "\C-cq" 'delete-indentation)
     (global-set-key "\C-cx" 'er/expand-region)
     (global-set-key "\C-ct" 'git-timemachine)
+  #+END_SRC
+* God Mode
+  See https://github.com/chrisdone/god-mode
 
+  
+  #+name: global-keys
+  #+BEGIN_SRC emacs-lisp
     ;; let's try god mode!
+    (require 'god-mode)
+
     (global-set-key (kbd "<escape>") 'god-local-mode)
+    (define-key god-local-mode-map (kbd "i") 'god-local-mode)
+    (global-set-key (kbd "C-x C-1") 'delete-other-windows)
+    (global-set-key (kbd "C-x C-2") 'split-window-below)
+    (global-set-key (kbd "C-x C-3") 'split-window-right)
+    (global-set-key (kbd "C-x C-0") 'delete-window)
+
+    (defun my/update-god-mode-indicator ()
+      (if god-local-mode
+          (progn (set-face-background 'mode-line "yellow"))
+        (progn (set-face-background 'mode-line "#ccc"))))
+
+    (add-hook 'god-mode-enabled-hook 'my/update-god-mode-indicator)
+    (add-hook 'god-mode-disabled-hook 'my/update-god-mode-indicator)
+
+    (god-mode)
   #+END_SRC
 * Magit
   When tracking a branch from a remote, use the same name.
