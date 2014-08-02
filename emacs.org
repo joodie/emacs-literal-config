@@ -518,6 +518,8 @@
     (add-hook 'god-mode-enabled-hook 'my/update-god-mode-indicator)
     (add-hook 'god-mode-disabled-hook 'my/update-god-mode-indicator)
 
+    (add-to-list 'god-exempt-major-modes 'cider-repl-mode)
+
     (god-mode)
   #+END_SRC
 * Magit
