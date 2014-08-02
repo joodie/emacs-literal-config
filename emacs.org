@@ -40,11 +40,19 @@
 
 * Graphics and looks
 ** Color theme
-   Leuven theme is awesome!
+   Leuven theme is awesome! Except for the font sizes.
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
+     (defun single-font-size ()
+       "Reset all faces to the height of the default face."
+       (dolist (f (face-list))
+         (when (not (equal 'default f))
+           (set-face-attribute f nil :height 1.0))))
+
      (load-theme 'leuven)
+     (single-font-size)
+
    #+END_SRC
 
 ** Font
