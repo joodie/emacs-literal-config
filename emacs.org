@@ -206,6 +206,12 @@
     (setq initial-scratch-message nil)
   #+END_SRC
 
+  #+NAME: startup
+  #+BEGIN_SRC emacs-lisp
+    (toggle-frame-maximized)
+
+  #+END_SRC
+
 * Formatting and white-space
 
   #+name: formatting
