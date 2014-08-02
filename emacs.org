@@ -596,6 +596,14 @@
         (setq org-agenda-span 14)
    #+END_SRC
 
+   Store new notes in ~/org/notes.org
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-default-notes-file (concat org-directory "/notes.org"))
+
+   #+END_SRC
+
+
 ** Notes / Tasks / TODOs
 
    Make custom markers for todo items:
