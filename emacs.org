@@ -1508,6 +1508,36 @@ The following sets some default reports and tells ledger to use ISO dates.
    | subtree | (narrow-to-subtree) | C-x n s |
    | all     | (widen)             | C-x n w |
 
+   Now the EndlessParentheses blog is showing how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic
+   keymaps]] to [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][toggle narrow and widen]] . You just do the spell "Emacs,
+   toggle narrowing" by pressing =C-x t n=!
+
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
+
+     ;; define the keymap C-x t
+     (define-prefix-command 'endless/toggle-map)
+     (define-key ctl-x-map "t" 'endless/toggle-map)
+
+     (defun narrow-or-widen-dwim (p)
+       "If the buffer is narrowed, innt widens. Otherwise, it narrows intelligently.
+     Intelligently means: region, subtree, or defun, whichever applies
+     first.
+
+     With prefix P, don't widen, just narrow even if buffer is already
+     narrowed."
+       (interactive "P")
+       (declare (interactive-only))
+       (cond ((and (buffer-narrowed-p) (not p)) (widen))
+             ((region-active-p)
+              (narrow-to-region (region-beginning) (region-end)))
+             ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
+             (t (narrow-to-defun))))
+
+     ;; bind this to: C-x t n
+     (define-key endless/toggle-map "n" 'narrow-or-widen-dwim)
+   #+END_SRC
+
 ** Local navigation between windows
 
    Emacs standard way of moving between windows opened in a frame is
