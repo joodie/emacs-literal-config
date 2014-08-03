@@ -116,6 +116,8 @@
    addition, it is optimised for printing, too. Where it is lacking in
    Unicode support, [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans Mono]] ([[http://dejavu-fonts.org/wiki/index.php?title=Download][Download]]) has it all.
 
+   See also [[http://endlessparentheses.com/manually-choose-a-fallback-font-for-unicode.html][EndlessParentheses]].
+
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (set-face-attribute 'default nil
