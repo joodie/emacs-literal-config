@@ -714,6 +714,36 @@
                      log-edit-mode-hook))
        (add-hook hook (lambda () (flyspell-mode -1))))
 
+     ;; switching languages
+     ;; code adapted from http://www.emacswiki.org/emacs/FlySpell
+
+     ;; default is same as 'american'
+     (setq ispell-dictionary "american")
+
+     (let ((langs '( "finnish" "english" "american" )))
+       (setq lang-ring (make-ring (length langs)))
+       (dolist (elem langs) (ring-insert lang-ring elem)))
+
+     (defun cycle-ispell-languages ()
+       (interactive)
+       (let* ((dict ispell-current-dictionary)
+              (lang (ring-ref lang-ring -1)))
+         (ring-insert lang-ring lang)
+         (ispell-change-dictionary lang)
+         (message "Dictionary switched fron %s to %s" dict lang)))
+
+     (defun flyspell-check-next-highlighted-word ()
+       "Custom function to spell check next highlighted word"
+       (interactive)
+       (flyspell-goto-next-error)
+       (ispell-word))
+
+     ;; custom key bindings
+     (global-set-key (kbd "C-c C-d b")  'flyspell-buffer)
+     (global-set-key (kbd "C-c C-d s")  'cycle-ispell-languages)
+     (global-set-key (kbd "C-c C-d p")  'flyspell-check-previous-highlighted-word)
+     (global-set-key (kbd "C-c C-d n")  'flyspell-check-next-highlighted-word)
+
    #+END_SRC
 
   Alternatively, you can press =C-c k= to select the correct word from
