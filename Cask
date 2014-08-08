@@ -31,6 +31,7 @@
 (depends-on "fill-column-indicator")
 (depends-on "find-file-in-project")
 (depends-on "findr")
+(depends-on "fish-mode")
 (depends-on "flycheck")
 (depends-on "flycheck-ledger")
 (depends-on "fringe-helper")
