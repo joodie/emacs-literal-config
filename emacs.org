@@ -1742,6 +1742,7 @@ The following sets some default reports and tells ledger to use ISO dates.
           ("https://www.schneier.com/blog/atom.xml" security)
           ("http://mosaicscience.com/feed/rss.xml" science)
           ("http://endlessparentheses.com/atom.xml" emacs)
+          ("http://planet.emacsen.org/atom.xml" emacs)
           ("http://perltricks.com/feed/rss" perl)))
    (global-set-key (kbd "C-c f") 'elfeed)
    #+END_SRC
@@ -1870,7 +1871,7 @@ The following sets some default reports and tells ledger to use ISO dates.
 
   #+name: org-config
    #+BEGIN_SRC emacs-lisp
-    (setq org-tag-alist (quote (("BITCOIN" . ?a)
+    (setq org-tag-alist (quote (("ATORP" . ?a)
                                ("BIO"     . ?b)
                                ("COMP"    . ?c)
                                ("EMACS"   . ?e)
@@ -1882,6 +1883,7 @@ The following sets some default reports and tells ledger to use ISO dates.
                                ("MAP"     . ?m)
                                ("ORG"     . ?o)
                                ("PERL"    . ?p)
+                               ("SECURITY" . ?s)
                                ("WORK"    . ?w)
                                ("PYTHON"  . ?y)
                                ("ZSH"     . ?z)
@@ -1908,7 +1910,7 @@ The following sets some default reports and tells ledger to use ISO dates.
         (require 'org-agenda)
    #+END_SRC
 
-   I prefer a forthnight's overview on the agenda and warnings 5 days
+   I prefer agenda listing for a fortnight's and warnings 5 days
    before deadline.
 
    #+name: org-config
