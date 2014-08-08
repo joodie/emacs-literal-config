@@ -9,7 +9,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
@@ -17,9 +19,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -53,7 +59,7 @@
     ("=pod" "=pod" cperl-electric-pod 0)
     ("continue" "continue" cperl-electric-else 0)
     ("do" "do" cperl-electric-keyword 0)
-    ("else" "else" cperl-electric-else 0)
+    ("else" "else" cperl-electric-else 1)
     ("elsif" "elsif" cperl-electric-keyword 0)
     ("for" "for" cperl-electric-keyword 0)
     ("foreach" "foreach" cperl-electric-keyword 0)
@@ -61,7 +67,7 @@
     ("formy" "formy" cperl-electric-keyword 0)
     ("head1" "head1" cperl-electric-pod 0)
     ("head2" "head2" cperl-electric-pod 0)
-    ("if" "if" cperl-electric-keyword 0)
+    ("if" "if" cperl-electric-keyword 1)
     ("over" "over" cperl-electric-pod 0)
     ("pod" "pod" cperl-electric-pod 0)
     ("unless" "unless" cperl-electric-keyword 0)
@@ -70,6 +76,8 @@
    ))
 
 (define-abbrev-table 'data-debug-mode-abbrev-table '())
+
+(define-abbrev-table 'debugger-mode-abbrev-table '())
 
 (define-abbrev-table 'diary-fancy-display-mode-abbrev-table '())
 
@@ -113,10 +121,11 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("8eur" "€" nil 4)
+    ("8eur" "€" nil 8)
     ("8pound" "£" nil 2)
     ("Flase" "False" nil 4)
     ("flase" "false" nil 4)
+    ("forthnight" "fortnight" nil 0)
     ("hayday" "heyday" nil 0)
     ("heikkil" "Heikki Lehväslaiho" nil 4)
     ("legnht" "length" nil 1)
@@ -125,15 +134,18 @@
     ("lenght" "length" nil 1)
     ("lenth" "length" nil 1)
     ("ma" "am" nil 4)
+    ("mammalial" "mammalian" nil 0)
     ("recepi" "recipe" nil 1)
     ("recepies" "recipes" nil 1)
     ("recepis" "recipes" nil 1)
+    ("revieled" "revealed" nil 0)
     ("sperl" "#!/usr/bin/env perl
 use Modern::Perl;
 use Data::Printer;
 " nil 9)
-    ("taht" "that" nil 3)
-    ("teh" "the" nil 4)
+    ("taht" "that" nil 5)
+    ("teh" "the" nil 5)
+    ("tehm" "them" nil 0)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
@@ -158,7 +170,9 @@ use Data::Printer;
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-mode-abbrev-table '())
 
@@ -202,7 +216,9 @@ use Data::Printer;
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -223,21 +239,22 @@ use Data::Printer;
 
 #+END_ABSTRACT
 " nil 5)
-    ("oarticle" "#+LATEX_CLASS: fu-org-article" nil 7)
-    ("oauthor" "#+AUTHOR: Heikki Lehv\\auml{}slaiho" nil 3)
+    ("oarticle" "#+LATEX_CLASS: fu-org-article" nil 9)
+    ("oauthor" "#+AUTHOR: Heikki Lehv\\auml{}slaiho" nil 6)
     ("obibio" "" skel-org-block-bibl 1)
     ("obiblio" "" skel-org-block-bibl 3)
     ("ocaption" "#+CAPTION: " nil 3)
     ("odate" "#+DATE:" nil 5)
     ("oindent" "#+STARTUP: indent" nil 4)
     ("olabel" "#+LABEL: fig:label" nil 6)
-    ("olable" "#+LABEL: fig:label" nil 5)
+    ("olable" "#+LABEL: fig:label" nil 7)
+    ("oname" "#+NAME:" nil 5)
     ("onotoc" "#+TOK: nil" nil 1)
     ("oscale" "#+ATTR_LaTeX: scale=0.75" nil 1)
     ("oshebang" "#+PROPERTY: :shebang \"#!/usr/bin/env perl\"" nil 1)
     ("osize" "#+ATTR_LaTeX: width=0.70\\textwidth" nil 1)
-    ("otitle" "#+TITLE: " nil 6)
-    ("otoc" "#+OPTIONS: toc:nil" nil 5)
+    ("otitle" "#+TITLE: " nil 8)
+    ("otoc" "#+OPTIONS: toc:nil" nil 8)
     ("pblk" "" skel-org-block-perl 2)
     ("rblk" "" skel-org-block-r 1)
     ("sblk" "" skel-org-block 1)
@@ -257,7 +274,9 @@ use Data::Printer;
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
@@ -267,7 +286,9 @@ use Data::Printer;
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'ruby-compilation-mode-abbrev-table '())
 
