@@ -82,6 +82,8 @@
 (depends-on "smex")
 (depends-on "sphinx-doc")
 (depends-on "suomalainen-kalenteri")
+(depends-on "w3m")
+(depends-on "wcheck-mode")
 (depends-on "web")
 (depends-on "win-switch")
 (depends-on "writegood-mode")
