@@ -86,7 +86,6 @@
 (depends-on "w3m")
 (depends-on "wcheck-mode")
 (depends-on "web")
-(depends-on "win-switch")
 (depends-on "writegood-mode")
 (depends-on "xkcd")
 (depends-on "yasnippet")
