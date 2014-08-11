@@ -135,6 +135,11 @@
                                     :weight 'normal)))
    #+END_SRC
 
+ You can use =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to increase
+ or decrease the buffer text size in the current buffer (=C-+= or
+ =C--= to repeat). To restore the default (global) face height, type
+ =C-x C-0=. (From [[http://www.emacswiki.org/emacs/SetFonts][EmacsWiki]])
+
 ** Reduce clutter
 
    Remove the toolbar. It's ugly and I never use it. I keep the
@@ -1520,7 +1525,7 @@ The following sets some default reports and tells ledger to use ISO dates.
      (define-key ctl-x-map "t" 'endless/toggle-map)
 
      (defun narrow-or-widen-dwim (p)
-       "If the buffer is narrowed, innt widens. Otherwise, it narrows intelligently.
+       "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
      Intelligently means: region, subtree, or defun, whichever applies
      first.
 
