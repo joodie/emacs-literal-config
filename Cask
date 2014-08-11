@@ -4,6 +4,7 @@
 
 (depends-on "2048-game")
 (depends-on "auto-complete")
+(depends-on "bbdb")
 (depends-on "bind-key")
 (depends-on "cask")
 (depends-on "cider")

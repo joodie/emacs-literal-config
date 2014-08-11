@@ -20,3 +20,4 @@ elpa
 url
 .emacs.desktop*
 .python-environments
+/bbdb

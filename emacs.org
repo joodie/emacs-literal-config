@@ -1825,7 +1825,7 @@ I have 2-step authentication on my gmail account, so the
     (add-to-list 'load-path "/usr/share/emacs/site-lisp/bbdb")
     (require 'bbdb)
     (bbdb-initialize 'message 'gnus 'sendmail)
-    (setq bbdb-file "~/bbdb.db")
+    (setq bbdb-file "~/emacs.d/bbdb")
     (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
     (setq bbdb/mail-auto-create-p t
           bbdb/news-auto-create-p t)
@@ -1872,14 +1872,14 @@ I have 2-step authentication on my gmail account, so the
   ;; Usage, FROM: My Name <work>
   (setq gnus-posting-styles
         '((".*"
-           (name "My Name"
+           (name "Heikki Lehväslaiho"
                  (address "heikki.lehvaslaiho@gmail.com"
-                          (organization "")
+                          (organization "KAUST")
                           (signature-file "~/.signature")
                           ("X-Troll" "Emacs is better than Vi")
                           )))))
 
-                                          ; You need install the command line brower 'w3m' and Emacs plugin 'w3m'
+  ;; You need install the command line brower 'w3m' and Emacs plugin 'w3m'
   (setq mm-text-html-renderer 'w3m)
 
   (setq message-send-mail-function 'smtpmail-send-it
