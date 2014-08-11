@@ -397,7 +397,7 @@
 
    As far as reasonable, I try to keep my custom key bindings within
    the "official" restraints. Specifically, I want my global key
-   bindings to start with =C-c [lower case letter]=. Implementation are
+   bindings to start with =C-c [lower case letter]=. Implementations are
    in appropriate sections below.
 
 * Start up
@@ -409,7 +409,6 @@
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-screen +1)
     (desktop-save-mode 1) ; emacs 24.4 feature
-    ;;(setq desktop-restore-eager 10) ; rest will be restored lazily
   #+END_SRC
 
 ** Identify yourself
@@ -545,7 +544,7 @@
 ** Text (non-code) formatting
 
    For writing text, I prefer Emacs to do line wrapping for me. Also,
-   superfluous white-space should be shown.
+   superfluous white-space should needs to be visible.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
@@ -556,17 +555,10 @@
                'my/text-formatting-hooks)
    #+END_SRC
 
-   Pressing the enter key should indent, too. This is now done by
-   default in emacs 24.4. by enableing =electric-indent-mode=.
-
-   ##+name: formatting
-   ##+BEGIN_SRC emacs-lisp
-   #  ; (global-set-key (kbd "RET") 'newline-and-indent)
-   ##+END_SRC
-
 ** Understand compressed formats
 
- This allows emacs to handle .gz files.
+ This allows emacs to handle opening and saving .gz files
+ automatically.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
@@ -574,7 +566,8 @@
    #+END_SRC
 ** Auto refresh buffers
 
-   A file changed on disk is updated automatically.
+   The buffer for a file that has changed on disk gets updated
+   automatically.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
@@ -928,10 +921,10 @@
    changes.
 * Version control
 
-  The only version control system worth using is git and [[http://magit.github.io/magit/magit.html][magit]] is
-  the emacs interface to it. Various git files have their dedicated
-  modes that are loaded by Cask: git-commit-mode, gitconfig-mode,
-  git-rebase-mode, and gitignore-mode.
+  The only version control system worth using is git and [[http://magit.github.io/magit/magit.html][magit]] is the
+  emacs interface to it. Most important files in git have their
+  dedicated modes: git-commit-mode, gitconfig-mode, git-rebase-mode,
+  and gitignore-mode.
 
   From any buffer that is linked to git controlled file, you can hit
   =C-c g= to enter magit status window. Pressing =q= restores the
@@ -958,8 +951,9 @@
 ** Writing style
 
    [[https://github.com/bnbeckwith/writegood-mode][Writegood mode]] highlights common writing problems in English text.
-   It highlight weasel words, passive voice, and duplicate words.
-   Additionally, it can show [[http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests][Flesch-Kincaid scoring and grade-level estimates]].
+   It highlights weasel words, passive voice, and duplicate words.
+   Additionally, it can show [[http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests][Flesch-Kincaid scoring and grade-level
+   estimates]].
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
@@ -967,9 +961,6 @@
      (global-set-key "\C-c\C-gg" 'writegood-grade-level)
      (global-set-key "\C-c\C-ge" 'writegood-reading-ease)
    #+END_SRC
-
-   #+RESULTS: text-files
-   : writegood-reading-ease
 
 ** LaTeX
 
@@ -996,7 +987,6 @@
    add =(latex-preview-pane-enable)= here but it can be enabled  on
    the fly with =M-x latex-preview-pane-mode=
 
-
 ** Zsh and fish
 
    [[http://www.zsh.org/][Zsh]] is a command line shell that is a superset of Bash. Tell emacs
@@ -1005,29 +995,22 @@
 
    [[http://fishshell.com/][Fish]], Friendly Interactive SHell, is faster and cleaner than Zsh,
    but does not have quite as many features. I use [[https://github.com/bpinto/oh-my-fish][Oh My Fish!]]
-   management framework for it. We need to tell emacs that =*.fish=
-   function files and =*.load= configuration files are shell scripts.
+   management framework for it. We need to tell emacs that =*.load=
+   configuration files are shell scripts in that need =fish-mode=.
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
      (setq auto-mode-alist
            (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
-     (setq auto-mode-alist
-           (cons '("\\.load$" . shell-script-mode) auto-mode-alist))
-     (setq auto-mode-alist
-           (cons '("\\.fish$" . shell-script-mode) auto-mode-alist))
+
+     ;;(setq auto-mode-alist
+     ;;      (cons '("\\.load$" . shell-script-mode) auto-mode-alist))
+     ;;(setq auto-mode-alist
+     ;;      (cons '("\\.fish$" . shell-script-mode) auto-mode-alist))
+     ;;(require 'fish-mode)
+     ;; specify major mode by file extension .load (.fish is already defined)
+     (add-to-list 'auto-mode-alist '("\\.load$'" . fish-mode))
    #+END_SRC
-
-   Indentation in the above setup was a problem, so I downloaded
-   =emacs-fish.el= and copied it to =~/.emacs.d/elisp=.
-
-   #+BEGIN_SRC sh
-   cd ~/src
-   git clone git@github.com:wwwjfy/emacs-fish.git
-   cd emacs-fish
-   cp emacs-fish/fish-mode.el ~/.emacs.d/elisp
-   #+END_SRC
-
 
 ** NEURON
 
@@ -1560,7 +1543,8 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+END_SRC
 
    I need to tell org-mode to [[http://orgmode.org/manual/Conflicts.html][allow the windmove]] commands where it
-   does not use them for its own purposes. These commands has to run
+   does not use them for its own purposes.  These commands work
+   outside headers and lists and has to run
    after org-mode (configured below) has been executed.
 
    #+name: execute-last
@@ -1665,36 +1649,11 @@ The following sets some default reports and tells ledger to use ISO dates.
      (require 'saveplace)
    #+END_SRC
 
-
-   I tend to organize topics by folders and keep track of things in
-   files that are all called =notes.org=. This tells emacs to use
-   unique buffer names with format 'name:dir'. Copied from [[http://emacs-fu.blogspot.com/2009/11/making-buffer-names-unique.html][Emacs-fu
-   blog]]. This is on by default in emacs 24.4 and uses angle brackets.
-
-   ##+name: global-navigation
-   ##+BEGIN_SRC emacs-lisp
-   # ;;require 'uniquify)
-   # ;;setq
-   # ;;uniquify-buffer-name-style 'post-forward
-   # ;;uniquify-separator ":")
-   ##+END_SRC
-
-   I just installed [[https://github.com/emacs-helm/helm][helm]] ([[https://github.com/emacs-helm/helm/wiki][wiki]]) and [[https://github.com/emacs-helm/helm-ls-git][helm-ls-git]].
-
-   Something is slowing down file operations. Disabling helm!
-
-   #+name: global-navigation
-   #+BEGIN_SRC emacs-lisp
-     ;(helm-mode 1)
-     ;(global-set-key (kbd "C-x C-d") 'helm-browse-project)
-   #+END_SRC
-
-
-
 ** Geographical location
 
   Calendar functions like to know your geographical coordinates to
-  display celestial movements correctly. I am at KAUST in Saudi Arabia.
+  display celestial movements correctly. I am mostly at KAUST in Saudi
+  Arabia.
 
   #+name: location
   #+BEGIN_SRC emacs-lisp
@@ -1706,7 +1665,7 @@ The following sets some default reports and tells ledger to use ISO dates.
   It is possible (see package =osx-location=) to link emacs to location
   information from the operating system.
 
-* Application
+* Applications
 
 Functionality that otherwise require external applications and are not
 really something a normal text editor would do.
@@ -1724,17 +1683,15 @@ As suggested, I installed w3m and its emacs package:
 brew install w3m
 #+END_SRC
 
-Personal information is set up earlier in this config at [[Identify
-yourself]] section.
+Personal information is set up earlier in this config at [[Identify yourself]] section.
 
 I have 2-step authentication on my gmail account, so the
 =~/.authinfo.gpg= file contains the [[http://support.google.com/accounts/bin/answer.py?answer=185833][gmail application specific password]].
 
-
-- TODO: https://github.com/redguardtoo/gmail2bbdb
-  - converts gmail contacts into bbdb file, it's used to complete
-    email address in gnus
-
+[[https://github.com/redguardtoo/gmail2bbdb][gmail2bbdb]] -converts gmail contacts into bbdb file that is used to
+complete email address in gnus. Clean the database with =M-x
+bbdb-search-duplicates= and use commands =d= for delete and =M-x
+bbdb-merge-records=.
 
 #+name: apps
 #+BEGIN_SRC emacs-lisp
@@ -1882,7 +1839,14 @@ I have 2-step authentication on my gmail account, so the
             (lambda () (local-set-key "o" 'my-gnus-group-list-subscribed-groups )))
 #+END_SRC
 
-** News feed
+** News feed reader
+
+   [[https://github.com/skeeto/elfeed][Elfeed]] is a sensible RSS feed reader. =C-c f= starts it and
+   =G= updates the article list. =r= marks things as read and =b=
+   opens them in browser. There are no folders but you can filter a
+   articles with =s=. Simple substring search with =BBC= works as
+   expected, but to filter using tags, you have to precede them with a
+   plus character, e.g. =+emacs=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
@@ -1914,10 +1878,6 @@ I have 2-step authentication on my gmail account, so the
    =regex-tool-backend= defaults to =emacs=, but can be changed to
    =perl=.
 
-   Now that [[https://github.com/emacs-helm/helm][helm]] ([[https://github.com/emacs-helm/helm/wiki][wiki]]) is installed, I am learning new tricks every
-   day. Regexp can be tested on current buffer or region with =M-x
-   helm-regexp=.
-
    =M-x qrr= runs =query-replace-regexp= that by default has a really
    complicated key binding =M-C-S %=.
 
@@ -1928,13 +1888,13 @@ I have 2-step authentication on my gmail account, so the
    While git and other distributed version control systems (see
    [[Version control]]) do a great job in keeping track of changes
    projects, sometimes you need something more general. Enter ancient
-   [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Change-Log-Commands.html][ChangeLog]] mode that predates all other version control systems. It
+   [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Change-Log-Commands.html][ChangeLog]] mode that predates all version control systems. It
    assumes that there is file is called =ChangeLog= somewhere in the
    file hierarchy above the current file and gives you a strange key
    chord =C-x 4 a= to add an entry to it.
 
-   I use it to keep a log of OS wide changes to my computers (thanks
-   for Martin Senger for teaching me the habit! ). Each computer has a
+   I use it to keep a log of OS-wide changes to my computers (thanks
+   for Martin Senger for teaching me the habit!). Each computer has a
    ChangeLog file in its own directory and the whole project is under
    git control. When running install, uninstall, or configure commands
    I open the relevant file and create a record of the change and
@@ -1962,9 +1922,7 @@ I have 2-step authentication on my gmail account, so the
 
 *** xkcd comics
 
-    The [[https://github.com/vibhavp/emacs-xkcd][xkcd]] package implements an [[Http://xkcd.com/][xkcd]] comics reader for Emacs.
-    =xkcd-get= or =xkcd-get-latest= commands fetch you a strip that is
-    stored locally.
+    The [[https://github.com/vibhavp/emacs-xkcd][xkcd]] package implements an [[Http://xkcd.com/][xkcd]] comics reader for Emacs: =C-c x=.
 
     | Keybinding | Use                             | Function                        |
     |------------+---------------------------------+---------------------------------|
@@ -1983,7 +1941,8 @@ I have 2-step authentication on my gmail account, so the
 
 *** 2048-game
 
-    Pure emacs and text-only version of [[http://gabrielecirulli.github.io/2048/][2048]] is called =2048-mode=.
+    Pure emacs and text-only version of the [[http://gabrielecirulli.github.io/2048/][2048]] game can be played
+    with =C-c 2=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
@@ -1993,8 +1952,9 @@ I have 2-step authentication on my gmail account, so the
 
 * Org Mode
 
-  [[http://orgmode.org/][Org mode]] is for all plain text editing. Lets bind the Org mode
-  online info to =C-c o= since it is so useful.
+  [[http://orgmode.org/][Org mode]] is for all writing of plain text. Use org mode rather than
+  plain text mode. Lets bind the org mode online info to =C-c o= since
+  it is so useful.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -2004,16 +1964,16 @@ I have 2-step authentication on my gmail account, so the
 ** Agenda
 
    You have to tell org-mode which files contain your agenda. Only
-   these files will be searched using agenda commands. This adds all
-   files from the directory. I am using DropBox to get one more way to
-   backup these important files.
+   these files will be searched using agenda commands. The following
+   adds all files from a directory. I am using DropBox to get one more
+   way to backup these important files.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-agenda-files '("~/Dropbox/org"))
    #+END_SRC
 
-   This sets the agenda calendar work week to start on Sunday
+   Next I set the agenda calendar work week to start on Sunday
    according to Saudi Arabian custom. Also, I need reminders of
    holidays in Finland.
 
@@ -2061,14 +2021,14 @@ I have 2-step authentication on my gmail account, so the
 
    In addition, use =C-c C-l= to store current position (copy);
 
-   Org-agenda needs to be loaded before calling =org-agenda= works.
+   Org-agenda needs to load before calling =org-agenda=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
         (require 'org-agenda)
    #+END_SRC
 
-   I prefer agenda listing for a fortnight's and warnings 5 days
+   I prefer agenda listing for a fortnight and warnings 5 days
    before deadline.
 
    #+name: org-config
@@ -2886,6 +2846,8 @@ I have 2-step authentication on my gmail account, so the
 
 ** OS X
 
+*** PATH
+
    OS X doesn't set the environment from the shell init files for
    graphical applications, but I set PATH and a bunch of other stuff
    there. The =exec-path-from-shell= package will take care of
@@ -2897,8 +2859,8 @@ I have 2-step authentication on my gmail account, so the
 
    No, fish as the default shell does not work. I am now using bash as
    the default shell and both tramp mode and magit pushing that were
-   problem previously just work. For every command prompt, I manually
-   start fish.
+   problem previously just work. The terminal program has been
+   configured to use fish.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
@@ -2911,6 +2873,8 @@ I have 2-step authentication on my gmail account, so the
          (exec-path-from-shell-initialize)))
    #+END_SRC
 
+*** locate
+
    The =locate= command is not available in OS X so alias it to mdfind.
 
    #+NAME: environment
@@ -2918,6 +2882,8 @@ I have 2-step authentication on my gmail account, so the
     (when (eq system-type 'darwin)
       (setq locate-command "mdfind"))
    #+END_SRC
+
+*** Printing
 
    Printing under OS X does not work in default emacs.  [[http://www.emacswiki.org/emacs/MacPrintMode][EmacsWiki]] has
    slightly outdated instructions:
@@ -2944,8 +2910,9 @@ I have 2-step authentication on my gmail account, so the
 
 ** Custom lisp package directory
 
-   There are still lisp packages that you have to copy manually. This
-   defines =$HOME/.emacs.d/elisp= directory for a place for them.
+   There are still lisp packages that you have to copy manually and
+   import to emacs. This defines =$HOME/.emacs.d/elisp= directory as
+   the place for them.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
@@ -2955,12 +2922,11 @@ I have 2-step authentication on my gmail account, so the
 ** Emacsclient
 
    Especially in OS X commandline and graphical UI are separated from
-   each other and opening a file in a GUI program is not automatic. In
-   the case of emacs, the way around this is *emacsclient* (see =man
-   emacsclient=). The running emacs need to run in server mode for the
-   emacsclient to open a new frame to edit the file. When you finish
-   editing, close the frame by =C-x #= to continue on the command
-   line.
+   each other and opening a file in a running GUI program is not
+   automatic. In the case of emacs, the way around this is
+   *emacsclient* (see =man emacsclient=). The emacs needs to run in
+   server mode for the emacsclient to open a new frame to edit the
+   file.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
@@ -2977,24 +2943,4 @@ I have 2-step authentication on my gmail account, so the
    have installed *zile*, [[http://www.gnu.org/software/zile/][a lightweight emacs clone]] with homebrew, and
    aliased it to *e*.
 
-* Monkey Patches
 
-** TODO Org-Indent-Region fix
-
-   I (Joost) need to submit this as a patch.
-
-   #+NAME: monkey-patches
-   #+BEGIN_SRC emacs-lisp
-    (eval-after-load 'org
-      '(defun org-indent-region (start end)
-         "Indent region."
-         (interactive "r")
-         (save-excursion
-           (let ((line-end (org-current-line end)))
-             (goto-char start)
-             (while (< (org-current-line) line-end)
-               (cond ((org-in-src-block-p t) (org-src-native-tab-command-maybe))
-                     (t (call-interactively 'org-indent-line)))
-               (move-beginning-of-line 2))))))
-
-   #+END_SRC
