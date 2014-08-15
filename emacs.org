@@ -2067,11 +2067,14 @@ bbdb-merge-records=.
 * Org Mode
 
   [[http://orgmode.org/][Org mode]] is for all writing of plain text. Use org mode rather than
-  plain text mode. Lets bind the org mode online info to =C-c o= since
+  plain text mode even when the file extension is =.txt=.
+
+  Lets bind the org mode online info to =C-c o= since
   it is so useful.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+     (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
      (global-set-key "\C-co" 'org-info)
    #+END_SRC
 
