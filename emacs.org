@@ -131,7 +131,7 @@
                          'unicode
                          (font-spec :family "DejaVu Sans Mono"
                                     :width 'normal
-                                    :size 12.4
+                                    :size 16
                                     :weight 'normal)))
    #+END_SRC
 
@@ -139,6 +139,12 @@
  or decrease the buffer text size in the current buffer (=C-+= or
  =C--= to repeat). To restore the default (global) face height, type
  =C-x C-0=. (From [[http://www.emacswiki.org/emacs/SetFonts][EmacsWiki]])
+
+*** TODO Unicode
+
+    - Xah Lee's [[http://ergoemacs.org/emacs/emacs_n_unicode.html][Unicode]] page for easy copy and paste.
+    - Draw Unicode characters [[http://shapecatcher.com/][online]].
+    - Enter Unicode characters in hexadecimal: =C-x 8<Enter>=.
 
 ** Reduce clutter
 
@@ -1497,8 +1503,8 @@ The following sets some default reports and tells ledger to use ISO dates.
    | all     | (widen)             | C-x n w |
 
    Now the EndlessParentheses blog is showing how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic
-   keymaps]] to [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][toggle narrow and widen]] . You just do the spell "Emacs,
-   toggle narrowing" by pressing =C-x t n=!
+   keymaps]] to [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][toggle narrow and widen]] . You just do the incantation
+   "Emacs, toggle narrowing" by pressing =C-x t n=!
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
@@ -1558,6 +1564,12 @@ The following sets some default reports and tells ledger to use ISO dates.
      (add-hook 'org-shiftdown-final-hook 'windmove-down)
      (add-hook 'org-shiftright-final-hook 'windmove-right)
    #+END_SRC
+
+** Local navigation between frames
+
+   Emacs should behave exactly like any other application with
+   multiple windows: you move between frames (windows belonging to the
+   same application) using OS specific keys. On OS X, this is =⌘-`=.
 
 ** External navigation
 
@@ -1857,6 +1869,7 @@ bbdb-merge-records=.
           ("http://feeds.bbci.co.uk/news/health/rss.xml" news)
           ("http://kimmo.suominen.com/stuff/vw.xml" comics)
           ("http://kimmo.suominen.com/stuff/fingerpori.xml" comics)
+          ("http://xkcd.com/atom.xml" comics)
           ("http://soloalgunaspalabras.wordpress.com/feed/" friends)
           ("http://listenlearnread.blogspot.com/feeds/posts/default" friends)
           ("http://feeds.nature.com/NatureNewsComment?format=xml" journals)
@@ -2494,7 +2507,6 @@ bbdb-merge-records=.
    #+name: org-config-languages
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
-
      (add-to-list 'my/org-babel-evaluated-languages 'dot)
    #+END_SRC
 
