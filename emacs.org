@@ -277,10 +277,9 @@
                          :foreground "gray80" :background "gray40"
                          :inverse-video nil
                          :box '(:line-width 6 :color "gray40" :style nil))
-
      (set-face-attribute 'mode-line-read-only-face nil
                          :inherit 'mode-line-face
-                         :foreground "#4271ae"
+                         :foreground "grey80"
                          :box '(:line-width 2 :color "#4271ae"))
      (set-face-attribute 'mode-line-modified-face nil
                          :inherit 'mode-line-face
@@ -296,9 +295,8 @@
                          :weight 'bold)
      (set-face-attribute 'mode-line-position-face nil
                          :inherit 'mode-line-face
-                                             ;:family "Menlo"
-                         :height 130
-                         )
+                         ;;:family "Menlo"
+                         :height 130)
      (set-face-attribute 'mode-line-mode-face nil
                          :inherit 'mode-line-face
                          :foreground "gray80")
@@ -387,6 +385,7 @@
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
       (modify-all-frames-parameters (list (cons 'cursor-type 'bar)))
+      (setq blink-cursor-mode nil)
    #+END_SRC
 
 ** Current line
@@ -492,6 +491,108 @@
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
     (setq warning-suppress-types (quote ((undo discard-info))))
+  #+END_SRC
+
+* Evil mode
+
+  I am trying out [[http://gitorious.org/evil/pages/Home][evil mode]] that adds vi-like modal editing and moving
+  to emacs.
+
+  Evil mode uses [[https://elpa.gnu.org/packages/undo-tree-readme.txt][undo-tree]] but I disable it to keep emacs' own powerful
+  albeit sometimes confusing cyclic undo system.
+
+  Vi and evil works in states of which most important are the *normal*
+  for navigating and editing, and *insert* for typing. I am replacing
+  the insert state with emacs state that is not tainted by evil mode at
+  all. Pressing =<ESC>= quits from any evil function and also to returns
+  from the emacs editing mode to evil normal mode (as does =,,=).
+
+  I have added visual clues to the mode line for different states: The
+  *black* background color of the mode line changes to blue if the
+  buffer is in insert mode. Likewise, the *hollow block cursor* on
+  normal mode changes to *bar* in insert mode. The red double asterisk
+  in the mode line for a changed buffer is already defined at [[Mode
+  line]].
+
+  #+name: formatting
+  #+BEGIN_SRC emacs-lisp
+  (require 'evil)
+  (setq evil-default-state 'normal)
+  ;; I like the cyclic emacs undo
+  (global-undo-tree-mode -1)
+
+  ;; Clear the insert state keymap to unadulterated Emacs behavior
+  (setcdr evil-insert-state-map nil)
+  (define-key evil-insert-state-map
+    (read-kbd-macro evil-toggle-key) 'evil-emacs-state)
+
+  (evil-set-initial-state 'magit-log-edit-mode 'emacs)
+  (evil-set-initial-state 'elfeed-search 'emacs)
+
+  ;;; ESC quits always
+  (defun minibuffer-keyboard-quit ()
+    "Abort recursive edit.
+  In Delete Selection mode, if the mark is active, just deactivate it;
+  then it takes a second \\[keyboard-quit] to abort the minibuffer."
+    (interactive)
+    (if (and delete-selection-mode transient-mark-mode mark-active)
+        (setq deactivate-mark  t)
+      (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
+      (abort-recursive-edit)))
+
+  (define-key evil-normal-state-map [escape] 'keyboard-quit)
+  (define-key evil-visual-state-map [escape] 'keyboard-quit)
+  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+
+  (global-set-key [escape] 'evil-normal-state)
+
+  ;; Don't wait for any other keys after escape is pressed.
+  (setq evil-esc-delay 0)
+
+  ;; double comma pressed rapidly returns to normal state, too
+  (require 'key-chord)
+  (key-chord-mode 1)
+  (key-chord-define-global ",," 'evil-normal-state)
+
+  ;; fix selection anomaly
+  (setq evil-want-visual-char-semi-exclusive t)
+
+  ;; Remap org-mode meta keys for convenience
+  (mapcar (lambda (state)
+            (evil-declare-key state org-mode-map
+              (kbd "M-l") 'org-metaright
+              (kbd "M-h") 'org-metaleft
+              (kbd "M-k") 'org-metaup
+              (kbd "M-j") 'org-metadown
+              (kbd "M-L") 'org-shiftmetaright
+              (kbd "M-H") 'org-shiftmetaleft
+              (kbd "M-K") 'org-shiftmetaup
+              (kbd "M-J") 'org-shiftmetadown))
+          '(normal insert))
+
+  ;; change mode-line color for the evil insert state
+  ;; original from http://www.emacswiki.org/emacs/Evil#toc16
+  ;; also, change cursor to indicate state
+  (require 'cl)
+  (lexical-let ((default-color (cons (face-background 'mode-line)
+                                     (face-foreground 'mode-line))))
+    (add-hook 'post-command-hook
+              (lambda ()
+                (let ((color (cond ((minibufferp) default-color)
+                                   ((evil-insert-state-p) '("#444488" . "#ffffff"))
+                                   ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
+                                   (t default-color)))
+                      (cursor (cond ((evil-insert-state-p) 'bar)
+                                    (t 'hollow))))
+                  (modify-all-frames-parameters (list (cons 'cursor-type cursor)))
+                  (setq blink-cursor-mode nil)
+                  (set-face-background 'mode-line (car color))
+                  (set-face-foreground 'mode-line (cdr color))))))
+
   #+END_SRC
 
 * Formatting and white-space
@@ -2954,5 +3055,3 @@ bbdb-merge-records=.
    Additionally, for those quick and dirty editing jobs on terminal, I
    have installed *zile*, [[http://www.gnu.org/software/zile/][a lightweight emacs clone]] with homebrew, and
    aliased it to *e*.
-
-
