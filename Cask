@@ -26,6 +26,7 @@
 (depends-on "epl")
 (depends-on "ess")
 (depends-on "evil")
+(depends-on "evil-surround")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
 (depends-on "f")

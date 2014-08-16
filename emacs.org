@@ -587,13 +587,30 @@
                                    ((evil-emacs-state-p)  '("#444488" . "#ffffff"))
                                    (t default-color)))
                       (cursor (cond ((evil-insert-state-p) 'bar)
+                                    ((evil-emacs-state-p) 'bar)
+                                    ((evil-normal-state-p) 'hollow)
+                                    ((evil-default-state-p) 'hollow)
+                                    ((evil-motion-state-p) 'hollow)
+                                    ((minibufferp) 'bar)
                                     (t 'hollow))))
                   (modify-all-frames-parameters (list (cons 'cursor-type cursor)))
                   (setq blink-cursor-mode nil)
                   (set-face-background 'mode-line (car color))
                   (set-face-foreground 'mode-line (cdr color))))))
 
+
+(setq evil-emacs-state-cursor '("red" bar))
+(setq evil-normal-state-cursor '("red" hollow))
+(setq evil-visual-state-cursor '("red" hollow))
+(setq evil-insert-state-cursor '("red" bar))
+(setq evil-replace-state-cursor '("red" bar))
+(setq evil-operator-state-cursor '("red" hollow))
+
+(require 'evil-surround)
+(global-evil-surround-mode 1)
+
   #+END_SRC
+** TODO add visual to mode line
 
 * Formatting and white-space
 
