@@ -378,6 +378,20 @@
      (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
    #+END_SRC
 
+*** Scroll other window
+
+    Often you are working in one window and reading instructions from
+    an other window. This defines key bindings =C-c y= to scroll the other
+    window down and =C-c Y= up without moving the cursor.
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key "\C-cy" 'scroll-other-window)
+     (global-set-key "\C-cY" (lambda () (interactive) (scroll-other-window '-)))
+   #+END_SRC
+
+    The default keybindings are complex or do not work under OS X.
+
 ** Cursor
 
    The cursor shows the location between characters.
