@@ -59,6 +59,7 @@
 (depends-on "key-chord")
 (depends-on "kv")
 (depends-on "ledger-mode")
+(depends-on "linum-relative")
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "noflet")
