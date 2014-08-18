@@ -2015,6 +2015,7 @@ bbdb-merge-records=.
           ("http://listenlearnread.blogspot.com/feeds/posts/default" friends)
           ("http://feeds.nature.com/NatureNewsComment?format=xml" journals)
           ("http://news.sciencemag.org/rss/weekly_news_email.xml" journals)
+          ("http://www.newscientist.com/feed/feeds" journals)
           ("https://www.schneier.com/blog/atom.xml" security)
           ("http://mosaicscience.com/feed/rss.xml" science)
           ("http://endlessparentheses.com/atom.xml" emacs)
