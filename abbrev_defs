@@ -135,11 +135,13 @@
     ("lenth" "length" nil 1)
     ("ma" "am" nil 4)
     ("mammalial" "mammalian" nil 0)
+    ("otehr" "other" nil 0)
     ("recepi" "recipe" nil 1)
     ("recepies" "recipes" nil 1)
     ("recepis" "recipes" nil 1)
     ("revieled" "revealed" nil 0)
     ("rigourous" "rigorous" nil 0)
+    ("sentance" "sentence" nil 1)
     ("sperl" "#!/usr/bin/env perl
 use Modern::Perl;
 use Data::Printer;
@@ -247,7 +249,8 @@ use Data::Printer;
     ("oindent" "#+STARTUP: indent" nil 4)
     ("olabel" "#+LABEL: fig:label" nil 6)
     ("olable" "#+LABEL: fig:label" nil 7)
-    ("oname" "#+NAME:" nil 5)
+    ("oname" "#+NAME:" nil 6)
+    ("otname" "#+TBLNAME:" nil 6)
     ("onotoc" "#+TOK: nil" nil 1)
     ("oscale" "#+ATTR_LaTeX: scale=0.75" nil 1)
     ("oshebang" "#+PROPERTY: :shebang \"#!/usr/bin/env perl\"" nil 1)
@@ -283,7 +286,9 @@ use Data::Printer;
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'ruby-compilation-mode-abbrev-table '())
 
