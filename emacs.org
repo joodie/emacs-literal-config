@@ -528,6 +528,18 @@
   in the mode line for a changed buffer is already defined at [[Mode
   line]].
 
+  [[https://github.com/timcharper/evil-surround][evil-surround]] is a plugin that enhances the evil mode to add, change
+  and delete triggers. These triggers can be characters (like quotes
+  and brackets) or tags (HTML) around strings.
+
+  | function | syntax                                |
+  |----------+---------------------------------------|
+  | add      | ys<textobject><trigger>               |
+  | change   | cs<old-trigger><new-trigger>.         |
+  | delete   | ds<trigger>                           |
+  | function | select argument & sf<function name>   |
+  |          |                                       |
+
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
   (require 'evil)
