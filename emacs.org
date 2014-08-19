@@ -11,7 +11,7 @@
 
 * How to use this configuration
 
-  This section is copied directly from Joost except the section /Editing this
+  I copied this section directly from Joost except the section /Editing this
   document/ ([[Editing this document]]) is new.
 
 ** Obtaining the source
@@ -22,9 +22,9 @@
 
 ** Installation
 
-   This configuration is intended to be installable from scratch. It
-   uses [[https://github.com/cask/cask][Cask]] to specify the package dependencies. [[https://github.com/rdallasgray/pallet][Pallet]] is installed
-   to sync actual installed packages with the dependency spec.
+   This configuration can be to be installable from scratch. It
+   uses [[https://github.com/cask/cask][Cask]] to specify the package dependencies. [[https://github.com/rdallasgray/pallet][Pallet]] syncs the
+   actual installed packages with the dependency spec.
 
 ** Installation procedure
 
@@ -44,36 +44,34 @@
   - Emacs should load this configuration without errors in a vanilla
     environment. Let me know it this is not the case.
 
-  - If there are missing dependencies, they are shown in the
-    =*Messages*= buffer with lines starting with "ERROR: ". Read the
-    corresponding section below for instructions to install the
-    dependencies.
+  - The =*Messages*= buffer shows missing dependencies with lines
+    starting with "ERROR: ". Read the corresponding section below for
+    instructions to install the dependencies.
 
 ** Upgrading emacs packages
 
    You should be periodically upgrading you emacs packages. Some
    packages get almost daily fixes. It should be enough to update them
-   every few weeks with =M-x pallet-update=. Do restart emacs after
+   once a month with =M-x pallet-update=. Do restart emacs after
    the update.
 
 ** Editing this document
 
-   You are expected to use emacs and version >8 of org-mode for
-   editing. To do that effectively, you need to understand how this
-   documents works.
-
-   The text and its headers can be in any order that best helps
-   understanding the structure. These elements are not read by emacs
-   at all. The emacs lisp code that configures emacs is in emacs-lisp
-   code blocks.
+   Use emacs and version >8 of org-mode for editing. To do that
+   effectively, you need to understand how this documents works.
 
    When emacs starts, code in =$HOME/init.el= loads first the
    prerequisites and then this org document. The code in the
    configuration section (see Chapter [[Configuration file layout]]) scans
    the code blocks and extracts (tangles in literate programming talk)
-   them into the =emacs.el= file and evaluates it. The order the
-   blocks are written out is determined first by name and then their
-   order in this document. Blocks without names are *not* tangled.
+   them into the =emacs.el= file and evaluates it. The name and the
+   order of blocks in this document determine the final order
+   statements. Blocks without names are *not* tangled.
+
+   The text and its headers can be in any order that best helps
+   understanding the structure. These elements are not read by emacs
+   at all. The emacs lisp code that configures emacs is in emacs-lisp
+   code blocks.
 
    The best way to edit existing code blocks is to open a separate
    buffer for it by placing the cursor in it and pressing C-c '.
@@ -111,10 +109,9 @@
 
 ** Font
 
-   Compared to Apple standard [[http://en.wikipedia.org/wiki/Monaco_(typeface)][Monaco]] that is a pretty good font,
-   [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]] is clearly crispier even on screen ([[http://www.levien.com/type/myfonts/Inconsolata.otf][Download]]). In
-   addition, it is optimised for printing, too. Where it is lacking in
-   Unicode support, [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans Mono]] ([[http://dejavu-fonts.org/wiki/index.php?title=Download][Download]]) has it all.
+   Even compared to good OS X standard [[http://en.wikipedia.org/wiki/Monaco_(typeface)][Monaco]], [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]] ([[http://www.levien.com/type/myfonts/Inconsolata.otf][Download]])
+   has a crispier and easier to read feel. Where it is lacking in
+   Unicode support, [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans Mono]] ([[http://dejavu-fonts.org/wiki/index.php?title=Download][Download]]) fills in.
 
    See also [[http://endlessparentheses.com/manually-choose-a-fallback-font-for-unicode.html][EndlessParentheses]].
 
@@ -162,9 +159,9 @@
 ** Symbols
 
    Show written out symbols as they should be. This is available only
-   in emacs 24.4 and above. The replacements are looked up from
-   =prettify-symbols-alist=. Currently only displays “lambda” as “λ”
-   in lisp code.
+   in emacs 24.4 and above. The replacements are in variable
+   =prettify-symbols-alist=. Currently it only displays “lambda” as
+   "λ" in lisp code.
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
@@ -456,9 +453,9 @@
    By default, Emacs saves the options you set via the `customize-*`
    functions in the user init file, which is "~/.emacs.d/init.el" in
    this setup. I prefer to have these data in a separate file,
-   =custom.el=. The file is created if it does not exist. =custom.el=
-   is meant to be holding customizations only temporarily. Move them
-   to this main document when you have time.
+   =custom.el= that gets created if it does not exist. In this setup
+   customizations are only collected to =custom.el= and you should
+   later move and reorganize them to this main document.
 
    #+name: customize-config
    #+BEGIN_SRC emacs-lisp
@@ -627,7 +624,6 @@
 (global-evil-surround-mode 1)
 
   #+END_SRC
-** TODO add visual to mode line
 
 * Formatting and white-space
 
@@ -640,7 +636,6 @@
   #+BEGIN_SRC emacs-lisp
     (set-language-environment "UTF-8")
   #+END_SRC
-
 
   Tabs are automatically converted to spaces and trailing white space
   is shown. Global key =C-c n= indents and removes trailing white
@@ -673,9 +668,10 @@
    (setq require-final-newline t)
   #+END_SRC
 
-  Emacs knows about text sentences and can navigate and mark them. By
-  default sentences are separated by double space like in old
-  typewriter text. Not any more.
+  Emacs knows about text sentences and can navigate and mark them. The
+  default emacs expects sentences that are separated by double space like in old
+  typewriter text. Not any more. Note that this leads to some ambiguity in
+  detecting sentences.
 
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
@@ -726,34 +722,33 @@
 
 ** Selecting text
 
-   Usually text can be selected ("marked") by =S-<arrow>= keys, but in
-   my emacs that completely disabled.
+   Usually, you can selected ("mark") text by =S-<arrow>= keys, but in
+   my emacs that disabled everywhere.
 
-  The main reason for that is the org mode. In org mode =S-<arrow>=
-  keys have special functions in lists and headers and they are
-  disabled in other text areas.
+  The main reason for that is the org mode. Org mode uses =S-<arrow>=
+  keys for special functions in lists and headers and disables them in
+  other text areas.
 
-  The =S-<arrow>= are now exclusively used for selecting windows in
-  the emacs frame.
+  The =S-<arrow>= are now exclusively used for switching windows within
+  an emacs frame.
 
   The preferred way to select text is to press =C-<space>= followed by
   arrow keys to define the region, (but see below).
 
   I am now using OS X in my main laptop computer and this choice had
-  knock-on effects. By default, =C-<space>= is used
-  to pop up the Spotlight search field. To circumvent that, I've changed
-  Spotlight key =Cmnd-<space>=. That in turn, disabled
-  the default key for toggling of the active keyboard languages, so
-  the key for that is now =Cmnd-alt-<space>=.
+  knock-on effects. By default, =C-<space>= pops up the Spotlight
+  search field. To circumvent that, I've changed Spotlight key
+  =Cmnd-<space>=. That, in turn, disabled the default key for toggling
+  of the active keyboard languages, so the key for that is now
+  =Cmnd-alt-<space>=.
 
 *** CUA mode
 
-  The biggest advantage modern emacs has over older ones is known as
-  CUA-mode. It enables common =C-x=, =C-c=, =C-v= keyboard
-  combinations in emacs buffers. It also adds an ability to do
-  rectangle (column) editing. Press =C-<Return>= to enter it, use
-  arrow keys to select, copy, and exit the rectangle editing mode by
-  =C-c=.
+  The biggest advantage modern emacs has over older ones is CUA-mode.
+  It enables common =C-x=, =C-c=, =C-v= keyboard combinations in emacs
+  buffers. It also adds an ability to do rectangle (column) editing.
+  Press =C-<Return>= to enter it, use arrow keys to select, copy, and
+  exit the rectangle editing mode by =C-c=.
 
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
@@ -762,10 +757,13 @@
 
 *** Expand region
 
-    Selection can be created incrementally using semantic units. Just
-    press the key! Universal argument with a negative value (e.g. =C-u
-    -1=) reverses the selection. This works in all text modes and is
-    really convenient!
+    You can select text incrementally using semantic units with by
+    using [[https://github.com/magnars/expand-region.el][expand-region]]: e.g. word, sentence, URL, quotes, paragraph,
+    and section. Just press =C-== and expand =\== and contract =-= the
+    selection! This works in all text modes including most programming
+    languages, and is really convenient!
+
+    [[http://blog.binchen.org/posts/how-to-use-expand-region-efficiently.html][Here]] is an alternative setup for evil.
 
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
@@ -803,20 +801,20 @@
     (setq display-time-24hr-format t)
   #+END_SRC
 
-
   To use it, you place a template using bracket or quotes in the first
-  8 lines of a file. The time stamp will be added between the
-  characters. Typically, the line can start with a comment character
-  to mask it from the program processing the file.
+  8 lines of a file. The time stamp value will be automatically added
+  and updated between these delimiters. Typically, the line can start
+  with a comment character to mask it from the program processing the
+  file.
 
   #+BEGIN_EXAMPLE
     Time-stamp: <>
     # Time-stamp: " "
   #+END_EXAMPLE
 
-
-  This sort of metafunction does not really fix in any other category,
-  so I call it an abbreviation.
+  =insert-buffer-name= does what the name says. This sort of
+  metafunction does not really fix in any other category, so I list it
+  here among abbreviations.
 
   #+name: abbreviations
   #+BEGIN_SRC emacs-lisp
@@ -908,11 +906,13 @@
      (global-set-key (kbd "C-c k") 'my/aspell-word-then-abbrev)
    #+END_SRC
 
-** iedit mode
+** TODO iedit mode
 
-   [[http://www.emacswiki.org/emacs/Iedit][Iedit]] mode is activated by placing the cursor to a word and
-   pressing =C-c ;=. All occurrences of the word in the buffer are
-   then selected and can be simultaneously edited.
+   Activate the [[http://www.emacswiki.org/emacs/Iedit][Iedit]] mode by placing the cursor to a word and
+   pressing =C-c ;=. All occurrences of that word in the buffer are
+   selected and can be simultaneously edited.
+
+   Fix: Key binding overruled by org mode
 
   #+name: global-keys
   #+BEGIN_SRC emacs-lisp
@@ -930,9 +930,9 @@
 
 ** Text editing done by external programs
 
-  It has been quicker for me to write perl scripts to format text than
-  any other way. These functions demonstrate how a standard command
-  line programs that read from STDIN and write to STDOUT can be
+  It used to be quicker for me to write perl scripts to format text than
+  do it any other way. These functions demonstrate how a standard command
+  line program that reads from STDIN and write to STDOUT is easily
   included into emacs workflow. Markdown and SmartyPants are equally
   antiquated functions.
 
@@ -1067,9 +1067,9 @@
   dedicated modes: git-commit-mode, gitconfig-mode, git-rebase-mode,
   and gitignore-mode.
 
-  From any buffer that is linked to git controlled file, you can hit
-  =C-c g= to enter magit status window. Pressing =q= restores the
-  previous window(s).
+  From any buffer linked to git controlled file, press =C-c g= to
+  enter magit status window. Pressing =q= restores the previous
+  window(s).
 
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
@@ -1092,12 +1092,13 @@
   browse previous versions of a file. Start it with =C-x
   git-timemachine=.
 
-  | key | descr                  |
-  |-----+------------------------|
-  | p   | visit previous version |
-  | n   | visit next version     |
-  | w   | copy the version hash  |
-  | q   | quit                   |
+  | key | description                 |
+  |-----+-----------------------------|
+  | p   | visit previous version      |
+  | n   | visit next version          |
+  | w   | copy the short version hash |
+  | W   | copy the full version hash  |
+  | q   | quit                        |
 
 * Text files
 ** Writing style
@@ -1136,7 +1137,7 @@
    #+END_SRC
 
    [[http://www.emacswiki.org/emacs/LaTeXPreviewPane][latex-preview-panel]] package enables preview within Emacs. I could
-   add =(latex-preview-pane-enable)= here but it can be enabled  on
+   add =(latex-preview-pane-enable)= here but it I can enable it  on
    the fly with =M-x latex-preview-pane-mode=
 
 ** Zsh and fish
@@ -1146,9 +1147,9 @@
    configuration framework for it.
 
    [[http://fishshell.com/][Fish]], Friendly Interactive SHell, is faster and cleaner than Zsh,
-   but does not have quite as many features. I use [[https://github.com/bpinto/oh-my-fish][Oh My Fish!]]
-   management framework for it. We need to tell emacs that =*.load=
-   configuration files are shell scripts in that need =fish-mode=.
+   It is now my main interective shell. I use [[https://github.com/bpinto/oh-my-fish][Oh My Fish!]] management
+   framework for it. We need to tell emacs that =*.load= configuration
+   files are shell scripts in that need =fish-mode=.
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
@@ -1304,13 +1305,12 @@ The following sets some default reports and tells ledger to use ISO dates.
              cperl-tab-always-indent t))
    #+END_SRC
 
-   Call perltidy from emacs to indent and beautify perl code in the
+   Call perltidy with =C-c t= from emacs to indent and beautify perl code in the
    current buffer. This code calls the command line [[http://metacpan.org/author/SHANCOCK][perltidy]]
-   utility. It can be installed, with a module [[http://metacpan.org/pod/Perl::Tidy][Perl::Tidy]], from any
-   CPAN archive.
+   utility that is part of [[http://metacpan.org/pod/Perl::Tidy][Perl::Tidy]] module.
 
-   =C-c t= for perl tidy is defined in the most efficient way: the code
-   is loaded only once when the cperl-mode is first called.
+   The =C-c t= key for perltidy is defined in the most efficient way:
+   the code is loaded only once when the cperl-mode is first called.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -1368,7 +1368,7 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    The most useful paredit key combinations use =C-<arrow>= that are
    taken by OS X to switch between desktops. Use the Cmd key (s for
-   super), instead.
+   super in emacs), instead.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -1587,8 +1587,8 @@ The following sets some default reports and tells ledger to use ISO dates.
     (global-set-key [f7] 'toggle-selective-display)
   #+END_SRC
 
-   =M-j= is bound to join the next line with the current one. Copied from
-   [[http://whattheemacsd.com/key-bindings.el-03.html][WhatTheEmacs!?]] The is an alternative of =M-^= or =C-c q= for joining
+   Key =M-j= joins the next line with the current one. Copied from
+   [[http://whattheemacsd.com/key-bindings.el-03.html][WhatTheEmacs!?]] The is an alternative to =M-^= or =C-c q= for joining
    current line to previous one.
 
   #+name: local-navigation
@@ -1650,7 +1650,7 @@ The following sets some default reports and tells ledger to use ISO dates.
      (put 'narrow-to-region 'disabled nil)
    #+END_SRC
 
-   [[http://emacs-fu.blogspot.com/2010/08/narrowing-buffer-contents.html][Emacs-Fu]] has an excellent article on narrowing. [[http://www.emacswiki.org/emacs/BasicNarrowing][EmacsWiki]] is worth
+   [[http://emacs-fu.blogspot.com/2010/08/narrowing-buffer-contents.html][Emacs-Fu]] has a well written article on narrowing. [[http://www.emacswiki.org/emacs/BasicNarrowing][EmacsWiki]] is worth
    checking for caveats.
 
    | Visible | Function            | Binding |
@@ -1708,9 +1708,8 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+END_SRC
 
    I need to tell org-mode to [[http://orgmode.org/manual/Conflicts.html][allow the windmove]] commands where it
-   does not use them for its own purposes.  These commands work
-   outside headers and lists and has to run
-   after org-mode (configured below) has been executed.
+   does not use them for its own purposes. These commands work outside
+   headers and lists and has to be called after org-mode (see below).
 
    #+name: execute-last
    #+BEGIN_SRC emacs-lisp
@@ -1749,7 +1748,7 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+END_SRC
 ** Global navigation
 
-   This file org configuration file can always be accessed with =C-c e=.
+   This file org configuration file has a shortcut =C-c e=.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
@@ -1775,8 +1774,8 @@ The following sets some default reports and tells ledger to use ISO dates.
 
 
    I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
-   etc. The ido mode can also be used to offer better interface to
-   =recentf=. That is linked to =C-c r=.
+   etc. The ido mode is also used to give better interface to
+   =recentf=, =C-c r=.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
@@ -1796,8 +1795,8 @@ The following sets some default reports and tells ledger to use ISO dates.
      (global-set-key (kbd "C-c r") 'recentf-ido-find-file)
    #+END_SRC
 
-   Tell smex that [[http://www.emacswiki.org/emacs/Smex][space inserts '-']] like we are used to when typing to
-   the echo space.
+   Tell smex that [[http://www.emacswiki.org/emacs/Smex][space inserts '-']] like is customary when typing
+   function names in the echo space.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
@@ -1823,7 +1822,7 @@ The following sets some default reports and tells ledger to use ISO dates.
 ** Geographical location
 
   Calendar functions like to know your geographical coordinates to
-  display celestial movements correctly. I am mostly at KAUST in Saudi
+  display celestial movements correctly. I am at KAUST in Saudi
   Arabia.
 
   #+name: location
@@ -1854,13 +1853,13 @@ As suggested, I installed w3m and its emacs package:
 brew install w3m
 #+END_SRC
 
-Personal information is set up earlier in this config at [[Identify yourself]] section.
+I set up personal information up earlier in this config at the [[Identify yourself]] section.
 
 I have 2-step authentication on my gmail account, so the
 =~/.authinfo.gpg= file contains the [[http://support.google.com/accounts/bin/answer.py?answer=185833][gmail application specific password]].
 
-[[https://github.com/redguardtoo/gmail2bbdb][gmail2bbdb]] -converts gmail contacts into bbdb file that is used to
-complete email address in gnus. Clean the database with =M-x
+[[https://github.com/redguardtoo/gmail2bbdb][gmail2bbdb]] -converts gmail contacts into bbdb file that gnus calls to
+complete email address. Clean the database with =M-x
 bbdb-search-duplicates= and use commands =d= for delete and =M-x
 bbdb-merge-records=.
 
@@ -1909,7 +1908,7 @@ bbdb-merge-records=.
   (add-hook 'mail-citation-hook 'sc-cite-original)
   (add-hook 'message-sent-hook 'gnus-score-followup-article)
   (add-hook 'message-sent-hook 'gnus-score-followup-thread)
-                                          ; @see http://stackoverflow.com/questions/945419/how-dont-use-gnus-adaptive-scoring-in-some-newsgroups
+  ;; @see http://stackoverflow.com/questions/945419/how-dont-use-gnus-adaptive-scoring-in-some-newsgroups
   (setq gnus-parameters
         '(("nnimap.*"
            (gnus-use-scoring nil))))
@@ -1946,7 +1945,6 @@ bbdb-merge-records=.
       (bbdb-record-putprop record 'timestamp (format-time-string
                                               bbdb-time-internal-format
                                               (current-time)))))
-
 
   (add-hook 'message-mode-hook
             '(lambda ()
@@ -1996,7 +1994,7 @@ bbdb-merge-records=.
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587
         smtpmail-local-domain "laptop")
-                                          ;http://www.gnu.org/software/emacs/manual/html_node/gnus/_005b9_002e2_005d.html
+  ;;http://www.gnu.org/software/emacs/manual/html_node/gnus/_005b9_002e2_005d.html
   (setq gnus-use-correct-string-widths nil)
 
 
@@ -2028,18 +2026,20 @@ bbdb-merge-records=.
           ("http://feeds.bbci.co.uk/news/health/rss.xml" news)
           ("http://kimmo.suominen.com/stuff/vw.xml" comics)
           ("http://kimmo.suominen.com/stuff/fingerpori.xml" comics)
-          ("http://xkcd.com/atom.xml" comics)
+           ("http://xkcd.com/atom.xml" comics)
           ("http://soloalgunaspalabras.wordpress.com/feed/" friends)
           ("http://listenlearnread.blogspot.com/feeds/posts/default" friends)
           ("http://feeds.nature.com/NatureNewsComment?format=xml" journals)
           ("http://news.sciencemag.org/rss/weekly_news_email.xml" journals)
-          ("http://www.newscientist.com/feed/feeds" journals)
+          ("http://feeds.newscientist.com/science-news" journals)
           ("https://www.schneier.com/blog/atom.xml" security)
           ("http://mosaicscience.com/feed/rss.xml" science)
           ("http://endlessparentheses.com/atom.xml" emacs)
           ("http://planet.emacsen.org/atom.xml" emacs)
           ("http://perltricks.com/feed/rss" perl)))
    (global-set-key (kbd "C-c f") 'elfeed)
+
+   (setq-default elfeed-search-filter "@1-month-ago +unread ")
    #+END_SRC
 
 ** Regex tool
@@ -2062,7 +2062,7 @@ bbdb-merge-records=.
    [[Version control]]) do a great job in keeping track of changes
    projects, sometimes you need something more general. Enter ancient
    [[http://www.gnu.org/software/emacs/manual/html_node/emacs/Change-Log-Commands.html][ChangeLog]] mode that predates all version control systems. It
-   assumes that there is file is called =ChangeLog= somewhere in the
+   assumes that there is file called =ChangeLog= somewhere in the
    file hierarchy above the current file and gives you a strange key
    chord =C-x 4 a= to add an entry to it.
 
@@ -2075,9 +2075,9 @@ bbdb-merge-records=.
 
 ** How Do I?
 
-   Programming questions can be answered within emacs by
-   =howdoi-query= or =howdoi-query-line-at-point=. This will google
-   the answer in [[http://stackoverflow.com/][StackOverflow]], and parse and return best answers.
+   Query programming problems within emacs by =howdoi-query= or
+   =howdoi-query-line-at-point=. This will google the answer in
+   [[http://stackoverflow.com/][StackOverflow]], and parse and return best answers.
 
    #+BEGIN_SRC emacs-lisp
      ; execute this lisp code in org mode
@@ -2114,8 +2114,8 @@ bbdb-merge-records=.
 
 *** 2048-game
 
-    Pure emacs and text-only version of the [[http://gabrielecirulli.github.io/2048/][2048]] game can be played
-    with =C-c 2=.
+    Start a pure emacs and text-only version of the [[http://gabrielecirulli.github.io/2048/][2048]] game with
+    =C-c 2=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
@@ -2139,10 +2139,10 @@ bbdb-merge-records=.
 
 ** Agenda
 
-   You have to tell org-mode which files contain your agenda. Only
-   these files will be searched using agenda commands. The following
-   adds all files from a directory. I am using DropBox to get one more
-   way to backup these important files.
+   First you have to tell org-mode which files contain your agenda
+   items. The following setup adds all files from a given directory. I
+   am using DropBox to get one more way to backup these important
+   files.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -2159,7 +2159,7 @@ bbdb-merge-records=.
      (require 'suomalainen-kalenteri)
    #+END_SRC
 
-   Tags can be added to any agenda item manually or preferebly by pulling
+   You can add tags to any agenda item  manually or preferebly by pulling
    them from a list. At the agenda item header, hit =C-c C-q= to see the
    list and select any subset of tags by pressing the shortcut key(s).
 
@@ -2195,13 +2195,13 @@ bbdb-merge-records=.
      (global-set-key "\C-cb" 'org-iswitchb)
    #+END_SRC
 
-   In addition, use =C-c C-l= to store current position (copy);
+   In addition, use =C-c C-l= to paste the link stored with =C-c l=.
 
    Org-agenda needs to load before calling =org-agenda=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-        (require 'org-agenda)
+     (require 'org-agenda)
    #+END_SRC
 
    I prefer agenda listing for a fortnight and warnings 5 days
@@ -2228,17 +2228,16 @@ bbdb-merge-records=.
    modified to my own use. I try to minimize refiling.  I have three
    main categories of entries:
    1) *notes [n]* for all note taking (URLs, ideas, papers,...) that
-      can be filed away for later retrieval. They are time stamped,
+      you want to file away for later retrieval. They are time stamped,
       stored in that order and have optional tags I defined in the
       previous section.
-   2) *todos [t]* for notes with scheduled time (defaults to date
-      only) when it needs to be completed. These are added to the
-      agenda.
+   2) *todos [t]* for notes with scheduled starting time (defaults
+      to date only). These will apper in the agenda.
    3) *events [e]* regular events with no completion but date and
       time. If an event is a recurring one, it will edited and moved
       to a different section of the file.
 
-   These are stored in their own files. Events are in
+   Each category of entries are stored in their own files. Events are in
    =calendar.org= that starts with sections for anniversaries and
    other recurring tasks.
 
@@ -2304,9 +2303,9 @@ bbdb-merge-records=.
 
 ** Refile
 
-   Captured notes are kept in a temporary file, and periodically
+   Captured notes should be kept in a temporary file and periodically
    refiled into their proper places. Or so goes the threory. Since I
-   create all notes directly into the correct file, there is nothing
+   create all notes directly directly into the correct file, there is nothing
    to refile. This block is here only as a reminder.
 
    Refile =(org-refile)= is bound to =C-c C-w=.
@@ -2352,11 +2351,11 @@ bbdb-merge-records=.
    #+END_SRC
 ** External jars
 
-   Tell emacs where to find external dependencies. Ditaa and PlantUML are
-   java jar files. Ditaa is part of org-mode git repository but
-   [[http://sourceforge.net/projects/plantuml/files/plantuml.jar/download][PlantUML]] needs to be downloaded and placed somewhere where Emacs
-   can find it. PlantUML need to be called in fundamental mode
-   (find out why).
+   Tell emacs where to find external dependencies. Ditaa and PlantUML
+   are java jar files. Ditaa is part of org-mode git repository but
+   you have to download [[http://sourceforge.net/projects/plantuml/files/plantuml.jar/download][PlantUML]] and place somewhere where Emacs can
+   find it. You have to call PlantUML need in fundamental mode (find out
+   why).
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -2381,13 +2380,13 @@ bbdb-merge-records=.
 
    - MEETING :: a scheduled meeting and cannot easily be rescheduled.
 
-   - DONE :: done.
+   - DONE    :: done.
 
    - CANCELED :: can be ignored. May include a note on why it's been
                  cancelled.
 
-   Todos are applied by placing the cursor on the header or item line and
-   shift arrow left or right, or accessing the list by =C-c C-t=.
+   Apply todo markers by placing the cursor on the header or item line
+   and shift arrow left or right, or accessing the list by =C-c C-t=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -2482,8 +2481,8 @@ bbdb-merge-records=.
       (require 'ox-beamer)
    #+END_SRC
 
-   Slower but more robust latex-to-PDF processing uses =latexmk=. It
-   is inactivated here because the above xelatax call seems to work
+   Slower but more robust latex-to-PDF processing uses =latexmk=. I
+   have I commented it out because the above xelatax call seems to work
    well.
 
    #+name: org-config
@@ -2493,7 +2492,7 @@ bbdb-merge-records=.
    #+END_SRC
 
 
-   Untangle files.
+   Untangle files; i.e. write org code blocks to their own files.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -2553,8 +2552,8 @@ bbdb-merge-records=.
    default article. The fonts used in the output are [[http://www.linuxlibertine.org/][Linux
    Libertine]]. The Latex binaries and packages come from [[http://www.tug.org/texlive/][Tex Live]].
 
-   The original code from [[http://emacs-fu.blogspot.com/2011/04/nice-looking-pdfs-with-org-mode-and.html][emacs-fu]] blog has been amended and modified
-   several times.
+   I have amended and modified the original code from [[http://emacs-fu.blogspot.com/2011/04/nice-looking-pdfs-with-org-mode-and.html][emacs-fu]] blog
+   quite a bit.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -2601,10 +2600,6 @@ bbdb-merge-records=.
 
 ** Language evaluation support
 
-   Org-Babel needs to be told that evaluation of certain languages is
-   allowed. I collect all languages here, then enable all of them at
-   the end of the section.
-
    #+name: org-config :noweb no-export
    #+BEGIN_SRC emacs-lisp
      (defvar my/org-babel-evaluated-languages
@@ -2619,6 +2614,9 @@ bbdb-merge-records=.
                 (cons lang t))
               my/org-babel-evaluated-languages))
    #+END_SRC
+
+   Org-Babel needs to know which languages to evaluate. I collect all
+   languages here, then enable all of them at the end of the section.
 
 *** General programming languages
 
@@ -2681,7 +2679,7 @@ bbdb-merge-records=.
      (add-to-list 'my/org-babel-evaluated-languages 'ditaa)
    #+END_SRC
 
-   [[http://plantuml.sourceforge.net/][PlantUML]] is built on top of Graphviz.
+   [[http://plantuml.sourceforge.net/][PlantUML]] uses Graphviz and therefore needs it installed.
 
    #+name: org-config-languages
    #+BEGIN_SRC emacs-lisp
@@ -2713,13 +2711,12 @@ bbdb-merge-records=.
 
 *** Typesetting
 
-    org itself can be evaluated.
+   Org code itself can be out into code blocks and evaluated.
 
    #+name: org-config-languages
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'my/org-babel-evaluated-languages 'org)
    #+END_SRC
-
 
     [[http://latex-project.org/][Latex]] is always needed.
 
@@ -2893,8 +2890,8 @@ bbdb-merge-records=.
 
 ** Presentation
 
-   The org mode can be used to export presentations in fancy HTML5
-   Reveal.js  format. Read more at [[https://github.com/yjwen/org-reveal/blob/master/Readme.org][GitHub]].
+   This code exports org mode outlines to presentations in fancy HTML5
+   Reveal.js format. Read more at [[https://github.com/yjwen/org-reveal/blob/master/Readme.org][GitHub]].
 
    To start using it, first clone the org-reveal repository, then
    create a copy of the =Readme.org= file and edit it with emacs.
@@ -2917,14 +2914,16 @@ bbdb-merge-records=.
 ** Master file fix
 
    org-mode asks for a (LaTeX) master file when opening the first org file in
-   emacs.  Discussion and [[http://lists.gnu.org/archive/html/emacs-orgmode/2012-02/msg00759.html][fix]] was provided.
+   emacs. This was discussed at the mailing list and the provided [[http://lists.gnu.org/archive/html/emacs-orgmode/2012-02/msg00759.html][fix]]
+   is applied here.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq TeX-auto-save t)
      (setq TeX-parse-self t)
      (setq-default TeX-master nil)
-     (make-variable-buffer-local 'TeX-master) ;; I think this is needed because the variable is not buffer local until Auctex is active
+     ;; I think this is needed because the variable is not buffer local until Auctex is active
+     (make-variable-buffer-local 'TeX-master)
 
      (defun org-mode-reftex-setup ()
        (setq TeX-master t)
@@ -3029,13 +3028,13 @@ bbdb-merge-records=.
    that. Thanks to Ting-Yu Lin for pointing it out.
 
    Although I have been using the fish shell for while, I was only
-   recently bitten by a problem of loosing PATH. The fix was found
+   recently bitten by a problem of loosing PATH. The fix comes from
    [[https://github.com/purcell/exec-path-from-shell/issues/9][here]]. Unfortunatelly there are still issues.
 
    No, fish as the default shell does not work. I am now using bash as
    the default shell and both tramp mode and magit pushing that were
-   problem previously just work. The terminal program has been
-   configured to use fish.
+   problem previously just work. I configured the terminal program to
+    use fish as my interactive shell.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
@@ -3096,17 +3095,16 @@ bbdb-merge-records=.
 
 ** Emacsclient
 
-   Especially in OS X commandline and graphical UI are separated from
-   each other and opening a file in a running GUI program is not
-   automatic. In the case of emacs, the way around this is
-   *emacsclient* (see =man emacsclient=). The emacs needs to run in
-   server mode for the emacsclient to open a new frame to edit the
-   file.
+   In OS X commandline and GUI versions of emacs are not the same
+   thing and opening a file in a running GUI program is not automatic.
+   In the case of emacs, the way around this is *emacsclient* (see
+   =man emacsclient=). The emacs needs to run in server mode for the
+   emacsclient to open a new frame to edit the file.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (server-start)
-   #+END_SRC
+    #+END_SRC
 
    A commandline alias *em* (=alias em=emacsclient=) then calls
    emacsclient instead of emacs on the terminal. This will open a new
