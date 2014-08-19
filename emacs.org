@@ -1088,6 +1088,17 @@
       (jump-to-register :magit-fullscreen))
   #+END_SRC
 
+  [[https://github.com/pidu/git-timemachine][git-timemachine] lets you
+  browse previous versions of a file. Start it with =C-x
+  git-timemachine=.
+
+  | key | descr                  |
+  |-----+------------------------|
+  | p   | visit previous version |
+  | n   | visit next version     |
+  | w   | copy the version hash  |
+  | q   | quit                   |
+
 * Text files
 ** Writing style
 
