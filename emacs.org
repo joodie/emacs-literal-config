@@ -1356,7 +1356,10 @@ The following sets some default reports and tells ledger to use ISO dates.
      (defun my/general-lisp-hooks ()
        (my/turn-on 'paredit
                    ;;'rainbow-delimiters
-                   'highlight-parentheses))
+                   'show-paren-mode
+                   ;;'highlight-parentheses
+                   (global-set-key "\M-9" 'backward-sexp)
+                   (global-set-key "\M-0" 'forward-sexp)))
 
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
        (add-hook mode
@@ -1436,7 +1439,8 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+BEGIN_SRC emacs-lisp
      (defun my/cider-repl-mode-hooks ()
        (my/turn-on 'paredit
-                   'rainbow-delimiters
+                   ;;'rainbow-delimiters
+                   'show-paren-mode
                    'highlight-parentheses))
 
      (add-hook 'cider-repl-mode-hook
