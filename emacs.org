@@ -821,9 +821,30 @@
     (defun insert-buffer-name ()
       "Inserts file name of the buffer on the current buffer."
       (interactive)
-      (insert (buffer-name))
-      )
+      (insert (buffer-name)))
   #+END_SRC
+
+Similarly, you might want to remove both the current buffer and its
+file (from [[http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/][Emacs Redux]]). =C-c d= now does it for you in one step and it
+works correctly even when a version control system tracks the file.
+
+  #+name: abbreviations
+  #+BEGIN_SRC emacs-lisp
+    (defun delete-file-and-buffer ()
+      "Kill the current buffer and deletes the file it is visiting."
+      (interactive)
+      (let ((filename (buffer-file-name)))
+        (when filename
+          (if (vc-backend filename)
+              (vc-delete-file filename)
+            (progn
+              (delete-file filename)
+              (message "Deleted file %s" filename)
+              (kill-buffer))))))
+    (global-set-key (kbd "C-c d")  'delete-file-and-buffer)
+
+  #+END_SRC
+
 
 ** Spell Checking
 
