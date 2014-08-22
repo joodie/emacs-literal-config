@@ -254,6 +254,15 @@
 
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+     (setq my/clojure-mode-symbol-patterns
+           '((?λ "\\<fn\\>" (clojure-mode))))
+
+     (dolist ((p my/clojure-mode-symbol-patterns))
+       (add-to-list 'pretty-symbol-patterns p))
+
+     (setq pretty-symbol-categories '(lambda))
+
      (defun my/prog-mode-hooks ()
        (my/turn-on 'pretty-symbols))
 
@@ -341,6 +350,10 @@
 
      (add-hook 'cider-mode-hook
                'my/cider-mode-hooks)
+
+     (setq cider-repl-history-file (expand-file-name "~/.emacs.d/.cider-repl-history"))
+
+
    #+END_SRC
 
    Clojure-specific enhancements to lisp config.
@@ -428,8 +441,11 @@
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.json\\'\\|\\.jshintrc\\'" . js-mode))
+
+     (setq js-indent-level 2)
    #+END_SRC
 
+   
 
 ** Compilation mode improvements
 
@@ -493,6 +509,7 @@
     (global-set-key "\C-cq" 'delete-indentation)
     (global-set-key "\C-cx" 'er/expand-region)
     (global-set-key "\C-ct" 'git-timemachine)
+    (global-set-key "\C-s" 'isearch-forward-regexp)
   #+END_SRC
 * God Mode
   See https://github.com/chrisdone/god-mode
@@ -543,6 +560,7 @@
 
     (setq ido-enable-flex-matching t)
     (ido-mode +1)
+    (require 'ido-yes-or-no)
     (ido-yes-or-no-mode +1)
 
     (global-set-key "\M-x" 'smex)
