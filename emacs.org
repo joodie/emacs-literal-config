@@ -2586,7 +2586,8 @@ bbdb-merge-records=.
      \\usepackage{fontspec}        % for XeTex
      \\usepackage{xltxtra}         % for XeTex
      \\usepackage{url}             % for XeTex to break long URLs at line ending
-     \\usepackage[english]{babel}  % for XeTex
+     \\usepackage[english,finnish]{babel}  % for XeTex
+     \\selectlanguage{english}
      \\usepackage[osf]{libertine}  % Libertine fonts with old-style numbers
      \\usepackage{graphicx}
      \\usepackage{minted}
@@ -2613,10 +2614,7 @@ bbdb-merge-records=.
                     ("\\subsection{%s}" . "\\subsection*{%s}")
                     ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                     ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")
-                    )
-                  )
-
+                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
    #+END_SRC
 
 ** Language evaluation support
