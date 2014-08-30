@@ -1379,9 +1379,9 @@ The following sets some default reports and tells ledger to use ISO dates.
                    ;;'rainbow-delimiters
                    'show-paren-mode
                    ;;'highlight-parentheses
-                   (global-set-key "\M-9" 'backward-sexp)
-                   (global-set-key "\M-0" 'forward-sexp)))
-
+;;                   (global-set-key "\M-9" 'backward-sexp)
+;;                   (global-set-key "\M-0" 'forward-sexp)))
+     ))
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
        (add-hook mode
                  'my/general-lisp-hooks))
