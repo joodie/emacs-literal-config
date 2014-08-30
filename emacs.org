@@ -1081,6 +1081,19 @@ works correctly even when a version control system tracks the file.
    =C-x d=, directory editing, mode, you can press =C-x C-q= to edit
    file names like any text. The familiar =C-c C-c= commits the
    changes.
+** Image mode
+   Recent emacsen can show images in directly in buffers. The
+   following code adds the [[http://www.emacswiki.org/emacs/eimp.el][Emacs Image Manipulation Package]] to the
+   image mode (and to the menu). Most importantly, it makes it
+   possible to scale a large image to fit the frame with =S f=, zoom
+   =-/+=, and rotate =</>=.
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (autoload 'eimp-mode "eimp" "Emacs Image Manipulation Package." t)
+    (add-hook 'image-mode-hook 'eimp-mode)
+   #+END_SRC
+
 * Version control
 
   The only version control system worth using is git and [[http://magit.github.io/magit/magit.html][magit]] is the
