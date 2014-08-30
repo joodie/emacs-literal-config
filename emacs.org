@@ -845,7 +845,6 @@ works correctly even when a version control system tracks the file.
 
   #+END_SRC
 
-
 ** Spell Checking
 
   [[http://www.emacswiki.org/emacs/FlySpell][Flyspell]] checks words as you write against the [[http://aspell.net/][GNU aspell]]
@@ -1093,6 +1092,15 @@ works correctly even when a version control system tracks the file.
     (autoload 'eimp-mode "eimp" "Emacs Image Manipulation Package." t)
     (add-hook 'image-mode-hook 'eimp-mode)
    #+END_SRC
+
+** Macros
+
+   Emacs has a powerful [[http://www.emacswiki.org/emacs/KeyboardMacros][keyboard macro]] system. However, it has its own
+   internal notation. The [[https://github.com/Silex/elmacro][elmacro]] minor mode converts these macros in
+   emacs lisp functions. Start elmacro mode (=M-x elmacro-mode=)
+   before recording the macro, and once it has been defined, use =M-x
+   elmacro-show-last-macro= to give the function a name, and see it in
+   a new buffer.
 
 * Version control
 
@@ -3006,12 +3014,11 @@ bbdb-merge-records=.
     <<apps>>
     <<execute-last>>
   #+END_SRC
-* Tools
+
+** Hooks and modes
 
   This section defines some functionality used elsewhere in this
   configuration.
-
-** Hooks and modes
 
    #+name: tools
    #+BEGIN_SRC emacs-lisp
