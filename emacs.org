@@ -2036,7 +2036,9 @@ bbdb-merge-records=.
    opens them in browser. There are no folders but you can filter a
    articles with =s=. Simple substring search with =BBC= works as
    expected, but to filter using tags, you have to precede them with a
-   plus character, e.g. =+emacs=.
+   plus character, e.g. =+emacs=. It possible to invert the query
+   using =!= preposition: i.e. to see feeds that do NOT match the
+   query string.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
