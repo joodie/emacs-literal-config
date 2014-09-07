@@ -9,7 +9,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
@@ -17,9 +19,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -121,16 +127,19 @@
     ("8pound" "£" nil 2)
     ("Flase" "False" nil 4)
     ("abiquity" "ambiguity" nil 0)
+    ("absorbtion" "absorption" nil 0)
     ("albait" "albeit" nil 0)
     ("anf" "and" nil 0)
     ("assosiation" "association" nil 0)
     ("centences" "sentences" nil 0)
     ("colse" "close" nil 0)
+    ("computationla" "computational" nil 0)
     ("daugher" "daughter" nil 0)
     ("flase" "false" nil 4)
     ("forthnight" "fortnight" nil 0)
     ("hayday" "heyday" nil 0)
     ("heikkil" "Heikki Lehväslaiho" nil 4)
+    ("interective" "interactive" nil 0)
     ("legnht" "length" nil 1)
     ("legnth" "length" nil 1)
     ("legth" "length" nil 1)
@@ -139,6 +148,7 @@
     ("ma" "am" nil 4)
     ("mammalial" "mammalian" nil 0)
     ("otehr" "other" nil 0)
+    ("provenanace" "provenance" nil 0)
     ("recepi" "recipe" nil 1)
     ("recepies" "recipes" nil 1)
     ("recepis" "recipes" nil 1)
@@ -178,7 +188,9 @@ use Data::Printer;
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-mode-abbrev-table '())
 
@@ -222,7 +234,9 @@ use Data::Printer;
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -247,7 +261,7 @@ use Data::Printer;
     ("oauthor" "#+AUTHOR: Heikki Lehv\\auml{}slaiho" nil 6)
     ("obibio" "" skel-org-block-bibl 1)
     ("obiblio" "" skel-org-block-bibl 3)
-    ("ocaption" "#+CAPTION: " nil 3)
+    ("ocaption" "#+CAPTION: " nil 4)
     ("odate" "#+DATE:" nil 5)
     ("ofinnish" "#+LaTeX_HEADER: \\selectlanguage{finnish}" nil 9)
     ("oindent" "#+STARTUP: indent" nil 4)
@@ -280,7 +294,9 @@ use Data::Printer;
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
