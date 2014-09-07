@@ -2068,23 +2068,30 @@ bbdb-merge-records=.
           ("http://feeds.bbci.co.uk/news/science_and_environment/rss.xml" news)
           ("http://feeds.bbci.co.uk/news/technology/rss.xml" news)
           ("http://feeds.bbci.co.uk/news/health/rss.xml" news)
+
           ("http://kimmo.suominen.com/stuff/vw.xml" comics)
           ("http://kimmo.suominen.com/stuff/fingerpori.xml" comics)
           ("http://xkcd.com/atom.xml" comics)
+
           ("http://soloalgunaspalabras.wordpress.com/feed/" friends)
           ("http://kaustbirding.blogspot.com/atom.xml" friends)
           ("http://listenlearnread.blogspot.com/feeds/posts/default" friends)
+
           ("http://feeds.nature.com/NatureNewsComment?format=xml" journals)
           ("http://news.sciencemag.org/rss/weekly_news_email.xml" journals)
           ("http://feeds.newscientist.com/science-news" journals)
+
           ("https://www.schneier.com/blog/atom.xml" security)
+
           ("http://mosaicscience.com/feed/rss.xml" science)
+          ("http://epidemic.bio.ed.ac.uk/rss.xml" science epi)
+
           ("http://endlessparentheses.com/atom.xml" emacs)
           ("http://planet.emacsen.org/atom.xml" emacs)
           ("http://perltricks.com/feed/rss" perl)))
    (global-set-key (kbd "C-c f") 'elfeed)
 
-   (setq-default elfeed-search-filter "@1-month-ago +unread ")
+   (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
    #+END_SRC
 
 ** Regex tool
