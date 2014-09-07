@@ -111,7 +111,7 @@
 
    Even compared to good OS X standard [[http://en.wikipedia.org/wiki/Monaco_(typeface)][Monaco]], [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]] ([[http://www.levien.com/type/myfonts/Inconsolata.otf][Download]])
    has a crispier and easier to read feel. Where it is lacking in
-   Unicode support, [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans Mono]] ([[http://dejavu-fonts.org/wiki/index.php?title=Download][Download]]) fills in.
+   Unicode support, [[http://zhm.github.io/symbola/][Symbola]] ([[http://zhm.github.io/symbola/fonts/Symbola.otf][Download]]) fills in.
 
    See also [[http://endlessparentheses.com/manually-choose-a-fallback-font-for-unicode.html][EndlessParentheses]].
 
@@ -122,14 +122,8 @@
                          :height 140
                          :weight 'normal
                          :width 'normal)
-
-     (when (functionp 'set-fontset-font)
-       (set-fontset-font "fontset-default"
-                         'unicode
-                         (font-spec :family "DejaVu Sans Mono"
-                                    :width 'normal
-                                    :size 16
-                                    :weight 'normal)))
+     (set-fontset-font "fontset-default" nil
+                       (font-spec :size 20 :name "Symbola:"))
    #+END_SRC
 
  You can use =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to increase
