@@ -1090,11 +1090,19 @@ works correctly even when a version control system tracks the file.
 ** Macros
 
    Emacs has a powerful [[http://www.emacswiki.org/emacs/KeyboardMacros][keyboard macro]] system. However, it has its own
-   internal notation. The [[https://github.com/Silex/elmacro][elmacro]] minor mode converts these macros in
+   internal notation. The [[https://github.com/Silex/elmacro][elmacro]] minor mode converts these macros into
    emacs lisp functions. Start elmacro mode (=M-x elmacro-mode=)
    before recording the macro, and once it has been defined, use =M-x
    elmacro-show-last-macro= to give the function a name, and see it in
    a new buffer.
+
+   The function key shortcuts for macros are not useful under OS X,
+   but these commands work well:
+
+   - =C-x (= kmacro-start-macro
+   - =C-x )= kmacro-end-macro
+   - =C-x e= kmacro-end-and-call-macro
+   - =e= call macro if pressed right after previous function
 
 * Version control
 
@@ -1229,9 +1237,12 @@ works correctly even when a version control system tracks the file.
 
 ** MarkDown
 
-   Github and especially BitBucket use =markdown mode=, so my emacs
-   knows about it. GitHub knows about =org-mode=, so it is not getting
-   much use.
+   Github and especially BitBucket use =markdown mode= for
+   documentation, so my Emacs knows about it. GitHub knows how to
+   render =org-mode= documents, too, so this mode is not getting much
+   use.
+
+   My =org-mode= is configured to export to markdown format.
 
  #+name: text-files
   #+BEGIN_SRC emacs-lisp
