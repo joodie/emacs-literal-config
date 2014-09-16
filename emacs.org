@@ -2072,8 +2072,10 @@ bbdb-merge-records=.
    articles with =s=. Simple substring search with =BBC= works as
    expected, but to filter using tags, you have to precede them with a
    plus character, e.g. =+emacs=. It possible to invert the query
-   using =!= preposition: i.e. to see feeds that do NOT match the
+   using =!= preposition: i.e. to see feeds that do *not* match the
    query string.
+
+   =y= copies the current entry link URL to the clipboard for note taking.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
