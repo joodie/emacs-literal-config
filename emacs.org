@@ -2066,45 +2066,61 @@ bbdb-merge-records=.
 
 ** News feed reader
 
-   [[https://github.com/skeeto/elfeed][Elfeed]] is a sensible RSS feed reader. =C-c f= starts it and
-   =G= updates the article list. =r= marks things as read and =b=
-   opens them in browser. There are no folders but you can filter a
-   articles with =s=. Simple substring search with =BBC= works as
-   expected, but to filter using tags, you have to precede them with a
-   plus character, e.g. =+emacs=. It possible to invert the query
-   using =!= preposition: i.e. to see feeds that do *not* match the
-   query string.
+   [[https://github.com/skeeto/elfeed][Elfeed]] is a sensible RSS feed reader. =C-c f= starts it and =G=
+   updates the article list. =r= marks things as read and =b= opens
+   them in browser. There are no folders but you can filter a articles
+   with =s=. Simple substring search with =BBC= works as expected, but
+   to filter using tags, you have to precede them with a plus
+   character, e.g. =+emacs=, or =+e= using my abbreviated tags. It
+   possible to invert the query using =!= preposition: i.e. to see
+   feeds that do *not* match the query string.
 
    =y= copies the current entry link URL to the clipboard for note taking.
+
+   Tags have to be written out whole before they match anything, so it
+   is best to keep them short. Here are the mnemonics that work for
+   me:
+
+   | \+tag | name     |
+   |-------+----------|
+   | b     | Biology  |
+   | c     | Comics   |
+   | e     | Emacs    |
+   | f     | Friends  |
+   | j     | Journals |
+   | n     | News     |
+   | p     | Perl     |
+   | s     | Security |
+
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
    (setq elfeed-feeds
-         '(("http://feeds.bbci.co.uk/news/world/rss.xml" news)
-          ("http://feeds.bbci.co.uk/news/science_and_environment/rss.xml" news)
-          ("http://feeds.bbci.co.uk/news/technology/rss.xml" news)
-          ("http://feeds.bbci.co.uk/news/health/rss.xml" news)
+         '(("http://feeds.bbci.co.uk/news/world/rss.xml" n)
+          ("http://feeds.bbci.co.uk/news/science_and_environment/rss.xml" n)
+          ("http://feeds.bbci.co.uk/news/technology/rss.xml" n)
+          ("http://feeds.bbci.co.uk/news/health/rss.xml" n)
 
-          ("http://kimmo.suominen.com/stuff/vw.xml" comics)
-          ("http://kimmo.suominen.com/stuff/fingerpori.xml" comics)
-          ("http://xkcd.com/atom.xml" comics)
+          ("http://kimmo.suominen.com/stuff/vw.xml" c)
+          ("http://kimmo.suominen.com/stuff/fingerpori.xml" c)
+          ("http://xkcd.com/atom.xml" c)
 
-          ("http://soloalgunaspalabras.wordpress.com/feed/" friends)
-          ("http://kaustbirding.blogspot.com/atom.xml" friends)
-          ("http://listenlearnread.blogspot.com/feeds/posts/default" friends)
+          ("http://soloalgunaspalabras.wordpress.com/feed/" f)
+          ("http://kaustbirding.blogspot.com/atom.xml" f)
+          ("http://listenlearnread.blogspot.com/feeds/posts/default" f)
 
-          ("http://feeds.nature.com/NatureNewsComment?format=xml" journals)
-          ("http://news.sciencemag.org/rss/weekly_news_email.xml" journals)
-          ("http://feeds.newscientist.com/science-news" journals)
+          ("http://feeds.nature.com/NatureNewsComment?format=xml" j)
+          ("http://news.sciencemag.org/rss/weekly_news_email.xml" j)
+          ("http://feeds.newscientist.com/science-news" j)
 
-          ("https://www.schneier.com/blog/atom.xml" security)
+          ("https://www.schneier.com/blog/atom.xml" s)
 
-          ("http://mosaicscience.com/feed/rss.xml" science)
-          ("http://epidemic.bio.ed.ac.uk/rss.xml" science epi)
+          ("http://mosaicscience.com/feed/rss.xml" b)
+          ("http://epidemic.bio.ed.ac.uk/rss.xml" b)
 
-          ("http://endlessparentheses.com/atom.xml" emacs)
-          ("http://planet.emacsen.org/atom.xml" emacs)
-          ("http://perltricks.com/feed/rss" perl)))
+          ("http://endlessparentheses.com/atom.xml" e)
+          ("http://planet.emacsen.org/atom.xml" e)
+          ("http://perltricks.com/feed/rss" p)))
    (global-set-key (kbd "C-c f") 'elfeed)
 
    (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
