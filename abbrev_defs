@@ -105,6 +105,8 @@
 
 (define-abbrev-table 'eshell-mode-abbrev-table '())
 
+(define-abbrev-table 'evil-command-window-mode-abbrev-table '())
+
 (define-abbrev-table 'finder-mode-abbrev-table '())
 
 (define-abbrev-table 'fish-mode-abbrev-table '())
@@ -123,6 +125,7 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("" "precise" nil 0)
     ("8eur" "€" nil 8)
     ("8pound" "£" nil 2)
     ("Flase" "False" nil 4)
@@ -131,6 +134,7 @@
     ("albait" "albeit" nil 0)
     ("anf" "and" nil 0)
     ("assosiation" "association" nil 0)
+    ("availble" "available" nil 0)
     ("centences" "sentences" nil 0)
     ("colse" "close" nil 0)
     ("computationla" "computational" nil 0)
@@ -143,7 +147,7 @@
     ("legnht" "length" nil 1)
     ("legnth" "length" nil 1)
     ("legth" "length" nil 1)
-    ("lenght" "length" nil 1)
+    ("lenght" "length" nil 2)
     ("lenth" "length" nil 1)
     ("ma" "am" nil 4)
     ("mammalial" "mammalian" nil 0)
@@ -159,8 +163,10 @@
 use Modern::Perl;
 use Data::Printer;
 " nil 9)
+    ("strenghten" "strengthen" nil 0)
     ("taht" "that" nil 7)
-    ("teh" "the" nil 6)
+    ("techinques" "techniques" nil 0)
+    ("teh" "the" nil 7)
     ("tehm" "them" nil 0)
    ))
 

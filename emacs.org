@@ -498,6 +498,31 @@
     (setq warning-suppress-types (quote ((undo discard-info))))
   #+END_SRC
 
+* Key maps
+
+   The EndlessParentheses blog shows how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic
+   keymaps]] to [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][toggle narrow and widen]] . You just do the incantation
+   "Emacs, toggle narrowing" by pressing =C-x t n=!
+
+   The code code defines the prefix command for keymaps, but the keys
+   are assigned in their corresponding sections.
+
+   The table lists all keymaps assigned using this schema:
+
+   | Prefix C-x t | toggle function |
+   |--------------+-----------------|
+   | f            | folding         |
+   | n            | narrowing       |
+   | l            | linum, relative |
+
+   #+name: key-bindings
+   #+BEGIN_SRC emacs-lisp
+
+     ;; define the keymap C-x t for toggles
+     (define-prefix-command 'endless/toggle-map)
+     (define-key ctl-x-map "t" 'endless/toggle-map)
+   #+END_SRC
+
 * Evil mode
 
   I am trying out [[http://gitorious.org/evil/pages/Home][evil mode]] that adds vi-like modal editing and moving
@@ -1314,6 +1339,8 @@ The following sets some default reports and tells ledger to use ISO dates.
        (lambda () (my/pair-programming-mode 1)))
 
      (global-set-key "\C-cp" 'my/global-pair-programming-mode)
+     ;; toggle linum C-x t l
+     (define-key endless/toggle-map "l" 'my/global-pair-programming-mode)
 
    #+END_SRC
 ** Perl
@@ -1622,6 +1649,9 @@ The following sets some default reports and tells ledger to use ISO dates.
     (defalias 'qrr 'query-replace-regexp)  ; M-C-S %
   #+END_SRC
 
+   *Folding of uses =set-selective-display= to show a high level
+   outline of you document. Useful to get an [[http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/][overview of long code
+   documents]].
 
  #+name: local-navigation
   #+BEGIN_SRC emacs-lisp
@@ -1631,7 +1661,8 @@ The following sets some default reports and tells ledger to use ISO dates.
       (interactive)
       (set-selective-display (if selective-display nil 1)))
 
-    (global-set-key [f7] 'toggle-selective-display)
+    ;; toggle folding C-x t f
+    (define-key endless/toggle-map "f" 'toggle-selective-display)
   #+END_SRC
 
    Key =M-j= joins the next line with the current one. Copied from
@@ -1706,16 +1737,12 @@ The following sets some default reports and tells ledger to use ISO dates.
    | subtree | (narrow-to-subtree) | C-x n s |
    | all     | (widen)             | C-x n w |
 
-   Now the EndlessParentheses blog is showing how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic
-   keymaps]] to [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][toggle narrow and widen]] . You just do the incantation
-   "Emacs, toggle narrowing" by pressing =C-x t n=!
+   The EndlessParentheses blog defines function how to [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][toggle narrow
+   and widen]] . You just do the incantation "Emacs, toggle narrowing"
+   by pressing =C-x t n=!
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
-
-     ;; define the keymap C-x t
-     (define-prefix-command 'endless/toggle-map)
-     (define-key ctl-x-map "t" 'endless/toggle-map)
 
      (defun narrow-or-widen-dwim (p)
        "If the buffer is narrowed, it widens. Otherwise, it narrows intelligently.
@@ -1743,8 +1770,6 @@ The following sets some default reports and tells ledger to use ISO dates.
 
      ;; bind this to: C-x t n
      (define-key endless/toggle-map "n" 'narrow-or-widen-dwim)
-     ;; linum discussed in pair programming section
-     (define-key endless/toggle-map "l" 'linum-relative-toggle)
    #+END_SRC
 
 ** Local navigation between windows
@@ -3038,6 +3063,7 @@ bbdb-merge-records=.
     <<tools>>
     <<customize-config>>
     <<look-and-feel>>
+    <<key-bindings>>
     <<formatting>>
     <<abbreviations>>
     <<version-control>>
