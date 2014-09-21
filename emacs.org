@@ -92,12 +92,16 @@
    show the available ones and select the ones to include. The new
    ones are automatically added to your [[file:Cask][Cask]] file for tracking.
 
+*** Paradox
+
    Emacs module *[[https://github.com/Bruce-Connor/paradox][paradox]]* adds package ratings to the listing, new
-   shortcuts, and customization to package listings. After run,
-   =list-packages= is same as =paradox-list-packages=
+   shortcuts, and customization to package listings. Invoke by =C-x l p=
+   to run =paradox-list-packages=. Press =h= to see all keys. Tip: =h=
+   opens the package's home page.
 
    You can give feedback if you set up the =paradox-github-token=
-   variable to your github token.
+   variable to your github token. The variable's info (=C-h v=) for
+   instructions.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
