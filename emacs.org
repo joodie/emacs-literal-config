@@ -413,7 +413,7 @@
 * Start up
 
   Start with the scratch buffer; no start up screen. Restore previous
-  window and file setup inlcuding window placement.
+  window and file setup including window placement.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
@@ -500,12 +500,12 @@
 
 * Key maps
 
-   The EndlessParentheses blog shows how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic
-   keymaps]] to [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][toggle narrow and widen]] . You just do the incantation
-   "Emacs, toggle narrowing" by pressing =C-x t n=!
+   The Endless Parentheses blog shows how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic keymaps]].
+   You just do the incantation "Emacs, toggle narrowing" by pressing
+   =C-x t n=!
 
-   The code code defines the prefix command for keymaps, but the keys
-   are assigned in their corresponding sections.
+   The code here defines the prefix command for toggle keymaps, but
+   the keys are assigned in their corresponding sections.
 
    The table lists all keymaps assigned using this schema:
 
@@ -517,10 +517,35 @@
 
    #+name: key-bindings
    #+BEGIN_SRC emacs-lisp
-
      ;; define the keymap C-x t for toggles
-     (define-prefix-command 'endless/toggle-map)
-     (define-key ctl-x-map "t" 'endless/toggle-map)
+     (define-prefix-command 'my/toggle-map)
+     (define-key ctl-x-map "t" 'my/toggle-map)
+   #+END_SRC
+
+
+   The second key map is for launching [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]]
+
+   | Prefix C-x t | toggle function       |
+   |--------------+-----------------------|
+   | 2            | 2048-game             |
+   | c            | calc                  |
+   | d            | ediff-buffers         |
+   | h            | howdoi-query          |
+   | p            | paradox-list-packages |
+   | r            | re-builder            |
+   | s            | shell                 |
+
+
+   #+name: key-bindings
+   #+BEGIN_SRC emacs-lisp
+     (define-prefix-command 'my/launcher-map)
+     ;; C-x l is `count-lines-page' by default.
+     (define-key ctl-x-map "l" 'my/launcher-map)
+     ;; examples
+     (define-key my/launcher-map "c" #'calc)
+     (define-key my/launcher-map "d" #'ediff-buffers)
+     (define-key my/launcher-map "p" #'paradox-list-packages)
+     (define-key my/launcher-map "s" #'shell)
    #+END_SRC
 
 * Evil mode
@@ -1340,7 +1365,7 @@ The following sets some default reports and tells ledger to use ISO dates.
 
      (global-set-key "\C-cp" 'my/global-pair-programming-mode)
      ;; toggle linum C-x t l
-     (define-key endless/toggle-map "l" 'my/global-pair-programming-mode)
+     (define-key my/toggle-map "l" 'my/global-pair-programming-mode)
 
    #+END_SRC
 ** Perl
@@ -1662,7 +1687,7 @@ The following sets some default reports and tells ledger to use ISO dates.
       (set-selective-display (if selective-display nil 1)))
 
     ;; toggle folding C-x t f
-    (define-key endless/toggle-map "f" 'toggle-selective-display)
+    (define-key my/toggle-map "f" 'toggle-selective-display)
   #+END_SRC
 
    Key =M-j= joins the next line with the current one. Copied from
@@ -1737,8 +1762,8 @@ The following sets some default reports and tells ledger to use ISO dates.
    | subtree | (narrow-to-subtree) | C-x n s |
    | all     | (widen)             | C-x n w |
 
-   The EndlessParentheses blog defines function how to [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][toggle narrow
-   and widen]] . You just do the incantation "Emacs, toggle narrowing"
+   The Endless Parentheses blog defines function how to [[http://endlessparentheses.com/emacs-narrow-or-widen-dwim.html][toggle narrow
+   and widen]]. You just do the incantation "Emacs, toggle narrowing"
    by pressing =C-x t n=!
 
    #+name: local-navigation
@@ -1769,7 +1794,7 @@ The following sets some default reports and tells ledger to use ISO dates.
              (t (narrow-to-defun))))
 
      ;; bind this to: C-x t n
-     (define-key endless/toggle-map "n" 'narrow-or-widen-dwim)
+     (define-key my/toggle-map "n" 'narrow-or-widen-dwim)
    #+END_SRC
 
 ** Local navigation between windows
@@ -2153,12 +2178,14 @@ bbdb-merge-records=.
 
 ** Regex tool
 
-   Coming from perl regexps, I find emacs regexps confusing. I have
-   installed a package =regexp-tool= that can be invoked by =M-x
-   regexp-tool=. It will open a new frame with three windows: Regex,
-   Text and Groups. This allows me to tune my regexps. The variable
-   =regex-tool-backend= defaults to =emacs=, but can be changed to
-   =perl=.
+   Coming from perl regexps, I find emacs regexps confusing. Launch
+   =re-builder= to match anything in your current buffer. The shortcut
+   is "Emacs, launch re-builder", =C-x l r=.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (define-key my/launcher-map "r" #'re-builder)
+   #+END_SRC
 
    =M-x qrr= runs =query-replace-regexp= that by default has a really
    complicated key binding =M-C-S %=.
@@ -2198,6 +2225,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (require 'howdoi)
+     (define-key my/launcher-map "h" #'howdoi-query)
    #+END_SRC
 
 ** Toys
@@ -2230,6 +2258,7 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (require '2048-game)
      (global-set-key (kbd "C-c 2") '2048-game)
+     (define-key my/launcher-map "2" #'2048-game)
    #+END_SRC
 
 * Org Mode

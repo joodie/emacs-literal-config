@@ -7,11 +7,11 @@
 
 (define-abbrev-table 'Info-edit-mode-abbrev-table '())
 
+(define-abbrev-table 'Man-mode-abbrev-table '())
+
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
@@ -19,13 +19,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -125,7 +121,6 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("precice" "precise" nil 0)
     ("8eur" "€" nil 8)
     ("8pound" "£" nil 2)
     ("Flase" "False" nil 4)
@@ -143,6 +138,7 @@
     ("forthnight" "fortnight" nil 0)
     ("hayday" "heyday" nil 0)
     ("heikkil" "Heikki Lehväslaiho" nil 4)
+    ("inlcuding" "including" nil 0)
     ("interective" "interactive" nil 0)
     ("legnht" "length" nil 1)
     ("legnth" "length" nil 1)
@@ -152,6 +148,7 @@
     ("ma" "am" nil 4)
     ("mammalial" "mammalian" nil 0)
     ("otehr" "other" nil 0)
+    ("precice" "precise" nil 0)
     ("provenanace" "provenance" nil 0)
     ("recepi" "recipe" nil 1)
     ("recepies" "recipes" nil 1)
@@ -194,9 +191,7 @@ use Data::Printer;
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-mode-abbrev-table '())
 
@@ -240,9 +235,7 @@ use Data::Printer;
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -300,9 +293,7 @@ use Data::Printer;
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
@@ -315,6 +306,10 @@ use Data::Printer;
 (define-abbrev-table 'python-mode-skeleton-abbrev-table
   '(
    ))
+
+(define-abbrev-table 'reb-lisp-mode-abbrev-table '())
+
+(define-abbrev-table 'reb-mode-abbrev-table '())
 
 (define-abbrev-table 'ruby-compilation-mode-abbrev-table '())
 
