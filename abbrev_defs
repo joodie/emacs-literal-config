@@ -125,7 +125,7 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("" "precise" nil 0)
+    ("precice" "precise" nil 0)
     ("8eur" "€" nil 8)
     ("8pound" "£" nil 2)
     ("Flase" "False" nil 4)
