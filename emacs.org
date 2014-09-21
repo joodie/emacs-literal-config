@@ -513,11 +513,11 @@
 
    The table lists all keymaps assigned using this schema:
 
-   | Prefix C-x t | toggle function |
-   |--------------+-----------------|
-   | f            | folding         |
-   | n            | narrowing       |
-   | l            | linum, relative |
+   | prefix C-x t | toggle function | link                         |
+   |--------------+-----------------+------------------------------|
+   | f            | folding         | [[Local navigation in a buffer]] |
+   | n            | narrowing       | [[Narrowing]]                    |
+   | l            | linum, relative | [[Pair programming]]             |
 
    #+name: key-bindings
    #+BEGIN_SRC emacs-lisp
@@ -527,17 +527,18 @@
    #+END_SRC
 
 
-   The second key map is for launching [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]]
+   The second key map is for launching [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]].
+   This is like casting a spell "Emacs, launch shell", =C-x l s=.
 
-   | Prefix C-x t | toggle function       |
-   |--------------+-----------------------|
-   | 2            | 2048-game             |
-   | c            | calc                  |
-   | d            | ediff-buffers         |
-   | h            | howdoi-query          |
-   | p            | paradox-list-packages |
-   | r            | re-builder            |
-   | s            | shell                 |
+   | prefix C-x l | launch function       | link       |
+   |--------------+-----------------------+------------|
+   | 2            | 2048-game             | [[2048-game]]  |
+   | c            | calc                  |            |
+   | d            | ediff-buffers         |            |
+   | h            | howdoi-query          | [[How Do I?]]  |
+   | p            | paradox-list-packages | [[Paradox]]    |
+   | r            | re-builder            | [[Regex tool]] |
+   | s            | shell                 |            |
 
 
    #+name: key-bindings
