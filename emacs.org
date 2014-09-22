@@ -3249,10 +3249,18 @@ bbdb-merge-records=.
 
    A commandline alias *em* (=alias em=emacsclient=) then calls
    emacsclient instead of emacs on the terminal. This will open a new
-   emacs window with the text to edit. To finish editing, save and
+   emacs frame with the text to edit. To finish editing, save and
    press =C-x #=. This works beautifully with fish shell command
    =funced=.
 
    Additionally, for those quick and dirty editing jobs on terminal, I
    have installed *zile*, [[http://www.gnu.org/software/zile/][a lightweight emacs clone]] with homebrew, and
    aliased it to *e*.
+
+   This content goes into =~/.zile= so that zile backups go in the
+   same place with emacs:
+
+   #+BEGIN_SRC emacs-lisp
+     (setq make-backup-files t)
+     (setq backup-directory "~/.emacs.d/backups")
+   #+END_SRC
