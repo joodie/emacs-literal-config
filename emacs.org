@@ -95,9 +95,9 @@
 *** Paradox
 
    Emacs module *[[https://github.com/Bruce-Connor/paradox][paradox]]* adds package ratings to the listing, new
-   shortcuts, and customization to package listings. Invoke by =C-x l p=
-   to run =paradox-list-packages=. Press =h= to see all keys. Tip: =h=
-   opens the package's home page.
+   shortcuts, and customization to package listings. Invoke by =C-x l
+   p= ("Emacs, launch paradox") to run =paradox-list-packages=. Press
+   =h= to see all keys. Tip: =v= opens the package's home page.
 
    You can give feedback if you set up the =paradox-github-token=
    variable to your github token. The variable's info (=C-h v=) for
@@ -516,6 +516,7 @@
    | prefix C-x t | toggle function | link                         |
    |--------------+-----------------+------------------------------|
    | f            | folding         | [[Local navigation in a buffer]] |
+   | i            | iedit-mode      | [[iedit mode]]                   |
    | n            | narrowing       | [[Narrowing]]                    |
    | l            | linum, relative | [[Pair programming]]             |
 
@@ -530,15 +531,17 @@
    The second key map is for launching [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]].
    This is like casting a spell "Emacs, launch shell", =C-x l s=.
 
-   | prefix C-x l | launch function       | link       |
-   |--------------+-----------------------+------------|
-   | 2            | 2048-game             | [[2048-game]]  |
-   | c            | calc                  |            |
-   | d            | ediff-buffers         |            |
-   | h            | howdoi-query          | [[How Do I?]]  |
-   | p            | paradox-list-packages | [[Paradox]]    |
-   | r            | re-builder            | [[Regex tool]] |
-   | s            | shell                 |            |
+   | prefix C-x l | launch function       | link            |
+   |--------------+-----------------------+-----------------|
+   | 2            | 2048-game             | [[2048-game]]       |
+   | c            | calc                  |                 |
+   | d            | ediff-buffers         |                 |
+   | h            | howdoi-query          | [[How Do I?]]       |
+   | p            | paradox-list-packages | [[Paradox]]         |
+   | r            | re-builder            | [[Regex tool]]      |
+   | s            | shell                 |                 |
+   | t            | git-timemachine       | [[git-timemachine]] |
+   |              |                       |                 |
 
 
    #+name: key-bindings
@@ -552,6 +555,61 @@
      (define-key my/launcher-map "p" #'paradox-list-packages)
      (define-key my/launcher-map "s" #'shell)
    #+END_SRC
+
+The following tables lists all other additions or modifications to
+standard key bindings.
+
+   | prefix |                                          |                              |
+   | C-c    | function                                 | link                         |
+   |--------+------------------------------------------+------------------------------|
+   | esc    | evil-normal-state                        | [[Evil mode]]                    |
+   | =      | er/expand-region                         | [[Expand region]]                |
+   | a      | org-agenda                               | [[Org Mode]]                     |
+   | c      | org-capture                              | [[Org Mode]]                     |
+   | d      | delete-file-and-buffer                   | [[Abbreviations]]                |
+   | e      | my/edit-emacs-configuration              | [[Global navigation]]            |
+   | f      | elfeed                                   | [[News feed reader]]             |
+   | g      | magit-status                             | [[Magit]]                        |
+   | i      | my/org-babel-untangle                    | [[Org-Babel]]                    |
+   | k      | my/aspell-word-then-abbrev               | [[Spell checking]]               |
+   | l      | org-store-link                           | [[Org Mode]]                     |
+   | n      | my/clean-buffer-formatting               | [[Formatting and white-space]]   |
+   | o      | org-info                                 | [[Org Mode]]                     |
+   | p      | my/global-pair-programming-mode          | [[Pair programming]]             |
+   | q      | delete-indentation                       | [[Local navigation in a buffer]] |
+   | r      | recentf-ido-find-file                    | [[Global navigation]]            |
+   | u      | underline-text                           | [[Underline current line]]       |
+   | 2      | 2048-game                                | [[2048-game]]                    |
+   | w      | writegood-mode                           | [[Writing style]]                |
+   | x      | xkcd                                     | [[xkcd comics]]                  |
+   | y      | scroll-other-window down                 | [[Scroll other window]]          |
+   | Y      | scroll-other-window up                   | [[Scroll other window]]          |
+   |        |                                          |                              |
+   |        |                                          |                              |
+   | C-d b  | flyspell-buffer                          | [[Spell checking]]               |
+   | C-d s  | cycle-ispell-languages                   | [[Spell checking]]               |
+   | C-d p  | flyspell-check-previous-highlighted-word | [[Spell checking]]               |
+   | C-d n  | flyspell-check-next-highlighted-word     | [[Spell checking]]               |
+   |        |                                          |                              |
+   |        |                                          |                              |
+   | C-g g  | writegood-grade-level                    | [[Writing style]]                |
+   | C-g e  | writegood-reading-ease                   | [[Writing style]]                |
+   |        |                                          |                              |
+
+
+   | prefix |                    |                              |
+   | C-x    | function           | link                         |
+   |--------+--------------------+------------------------------|
+   | ,      | goto-line          | [[Local navigation in a buffer]] |
+   | C-r    | recentf-open-files | [[Global navigation]]            |
+
+
+   | All other   | function                       | link                         |
+   |-------------+--------------------------------+------------------------------|
+   | C-backspace | kill-line 0                    | [[Local navigation in a buffer]] |
+   | M-j         | (join-line -1)                 | [[Local navigation in a buffer]] |
+   | C-a         | smarter-move-beginning-of-line | [[Local navigation in a buffer]] |
+   | s-p         | mac-print-buffer               | [[Printing]]                 |
 
 * Evil mode
 
@@ -894,7 +952,7 @@ works correctly even when a version control system tracks the file.
 
   #+END_SRC
 
-** Spell Checking
+** Spell checking
 
   [[http://www.emacswiki.org/emacs/FlySpell][Flyspell]] checks words as you write against the [[http://aspell.net/][GNU aspell]]
   dictionaries.
@@ -975,17 +1033,16 @@ works correctly even when a version control system tracks the file.
      (global-set-key (kbd "C-c k") 'my/aspell-word-then-abbrev)
    #+END_SRC
 
-** TODO iedit mode
+** iedit mode
 
    Activate the [[http://www.emacswiki.org/emacs/Iedit][Iedit]] mode by placing the cursor to a word and
-   pressing =C-c ;=. All occurrences of that word in the buffer are
+   pressing =C-x t i=. All occurrences of that word in the buffer are
    selected and can be simultaneously edited.
-
-   Fix: Key binding overruled by org mode
 
   #+name: global-keys
   #+BEGIN_SRC emacs-lisp
-    (global-set-key (kbd "C-c ;") 'iedit-mode)
+    ;; toggle iedit-mode C-x t i
+    (define-key my/toggle-map "i" 'iedit-mode)
   #+END_SRC
 
 ** Count words in a buffer
@@ -1033,13 +1090,13 @@ works correctly even when a version control system tracks the file.
        "Invoke the Markdown algorithm on region."
        (interactive "r")
        (shell-command-on-region start end "Markdown.pl" t t))
-     (global-set-key "\C-cm" 'do-mark-down)
+     ;;(global-set-key "\C-cm" 'do-mark-down)
 
     (defun do-smarty-pants (start end)
        "Invoke the SmartyPants algorithm on region."
        (interactive "r")
        (shell-command-on-region start end "SmartyPants.pl" t t))
-     (global-set-key "\C-cs" 'do-smarty-pants)
+     ;;(global-set-key "\C-cs" 'do-smarty-pants)
   #+END_SRC
 
 ** Copy and comment a region or line
@@ -1161,6 +1218,8 @@ works correctly even when a version control system tracks the file.
 
 * Version control
 
+** Magit
+
   The only version control system worth using is git and [[http://magit.github.io/magit/magit.html][magit]] is the
   emacs interface to it. Most important files in git have their
   dedicated modes: git-commit-mode, gitconfig-mode, git-rebase-mode,
@@ -1187,8 +1246,10 @@ works correctly even when a version control system tracks the file.
       (jump-to-register :magit-fullscreen))
   #+END_SRC
 
+** git-timemachine
+
   [[https://github.com/pidu/git-timemachine][git-timemachine] lets you
-  browse previous versions of a file. Start it with =C-x
+  browse previous versions of a file. Start it with =C-x l t= or =C-x
   git-timemachine=.
 
   | key | description                 |
@@ -1198,6 +1259,13 @@ works correctly even when a version control system tracks the file.
   | w   | copy the short version hash |
   | W   | copy the full version hash  |
   | q   | quit                        |
+
+  #+name: version-control
+  #+BEGIN_SRC emacs-lisp
+    ;; C-x l t
+    (define-key my/launcher-map "t" #'git-timemachine)
+  #+END_SRC
+
 
 * Text files
 ** Writing style
@@ -1626,17 +1694,16 @@ The following sets some default reports and tells ledger to use ISO dates.
      ;; Treat .h files as C++ files (instead of C)
      (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
      ;; Run compile when you press F5
-     (global-set-key (kbd "<f5>") 'compile)
+     ;;(global-set-key (kbd "<f5>") 'compile)
    #+END_SRC
 
-* TODO Auto Complete
+* Auto Complete
 
   Getting auto completion to work right tends to be a messy process of
   trial and error, though in recent years the situation has improved,
-  with =auto-complete= mode being more or less the defacto standard.
+  with =auto-complete= mode being more or less the /de facto/ standard.
 
-  - Fuzzy matching isn't working the way I expected, though. Need to
-    work on that.
+  - Fuzzy matching might work in unexpected ways.
 
   #+NAME: auto-complete
   #+BEGIN_SRC emacs-lisp
@@ -1646,7 +1713,6 @@ The following sets some default reports and tells ledger to use ISO dates.
           ac-quick-help-delay 0.5
           ac-use-fuzzy t)
     (global-auto-complete-mode +1)
-
   #+END_SRC
 
 * Navigation
@@ -2335,7 +2401,6 @@ bbdb-merge-records=.
      (global-set-key "\C-ca" 'org-agenda)
      (global-set-key "\C-cc" 'org-capture)
      (global-set-key "\C-cl" 'org-store-link)
-     ;;(global-set-key "\C-cb" 'org-iswitchb)
    #+END_SRC
 
    In addition, use =C-c C-l= to paste the link stored with =C-c l=.
