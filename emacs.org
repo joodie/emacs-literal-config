@@ -100,8 +100,8 @@
    =h= to see all keys. Tip: =v= opens the package's home page.
 
    You can give feedback if you set up the =paradox-github-token=
-   variable to your github token. The variable's info (=C-h v=) for
-   instructions.
+   variable to your github token. See the variable's info (=C-h v=)
+   for instructions.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
@@ -519,6 +519,8 @@
    | i            | iedit-mode      | [[iedit mode]]                   |
    | n            | narrowing       | [[Narrowing]]                    |
    | l            | linum, relative | [[Pair programming]]             |
+   | w            | writegood-mode  | [[Writing style]]                |
+
 
    #+name: key-bindings
    #+BEGIN_SRC emacs-lisp
@@ -559,42 +561,42 @@
 The following tables lists all other additions or modifications to
 standard key bindings.
 
-   | prefix |                                          |                              |
-   | C-c    | function                                 | link                         |
-   |--------+------------------------------------------+------------------------------|
-   | esc    | evil-normal-state                        | [[Evil mode]]                    |
-   | =      | er/expand-region                         | [[Expand region]]                |
-   | a      | org-agenda                               | [[Org Mode]]                     |
-   | c      | org-capture                              | [[Org Mode]]                     |
-   | d      | delete-file-and-buffer                   | [[Abbreviations]]                |
-   | e      | my/edit-emacs-configuration              | [[Global navigation]]            |
-   | f      | elfeed                                   | [[News feed reader]]             |
-   | g      | magit-status                             | [[Magit]]                        |
-   | i      | my/org-babel-untangle                    | [[Org-Babel]]                    |
-   | k      | my/aspell-word-then-abbrev               | [[Spell checking]]               |
-   | l      | org-store-link                           | [[Org Mode]]                     |
-   | n      | my/clean-buffer-formatting               | [[Formatting and white-space]]   |
-   | o      | org-info                                 | [[Org Mode]]                     |
-   | p      | my/global-pair-programming-mode          | [[Pair programming]]             |
-   | q      | delete-indentation                       | [[Local navigation in a buffer]] |
-   | r      | recentf-ido-find-file                    | [[Global navigation]]            |
-   | u      | underline-text                           | [[Underline current line]]       |
-   | 2      | 2048-game                                | [[2048-game]]                    |
-   | w      | writegood-mode                           | [[Writing style]]                |
-   | x      | xkcd                                     | [[xkcd comics]]                  |
-   | y      | scroll-other-window down                 | [[Scroll other window]]          |
-   | Y      | scroll-other-window up                   | [[Scroll other window]]          |
-   |        |                                          |                              |
-   |        |                                          |                              |
-   | C-d b  | flyspell-buffer                          | [[Spell checking]]               |
-   | C-d s  | cycle-ispell-languages                   | [[Spell checking]]               |
-   | C-d p  | flyspell-check-previous-highlighted-word | [[Spell checking]]               |
-   | C-d n  | flyspell-check-next-highlighted-word     | [[Spell checking]]               |
-   |        |                                          |                              |
-   |        |                                          |                              |
-   | C-g g  | writegood-grade-level                    | [[Writing style]]                |
-   | C-g e  | writegood-reading-ease                   | [[Writing style]]                |
-   |        |                                          |                              |
+   | prefix |                                           |                              |
+   | C-c    | function                                  | link                         |
+   |--------+-------------------------------------------+------------------------------|
+   | esc    | evil-normal-state                         | [[Evil mode]]                    |
+   | 2      | 2048-game                                 | [[2048-game]]                    |
+   | =      | er/expand-region                          | [[Expand region]]                |
+   | a      | org-agenda                                | [[Org Mode]]                     |
+   | c      | org-capture                               | [[Org Mode]]                     |
+   | d      | delete-file-and-buffer                    | [[Abbreviations]]                |
+   | e      | my/edit-emacs-configuration               | [[Global navigation]]            |
+   | f      | elfeed                                    | [[News feed reader]]             |
+   | g      | magit-status                              | [[Magit]]                        |
+   | i      | my/org-babel-untangle                     | [[Org-Babel]]                    |
+   | k      | my/aspell-word-then-abbrev                | [[Spell checking]]               |
+   | l      | org-store-link                            | [[Org Mode]]                     |
+   | n      | my/clean-buffer-formatting                | [[Formatting and white-space]]   |
+   | o      | org-info                                  | [[Org Mode]]                     |
+   | p      | my/global-pair-programming-mode           | [[Pair programming]]             |
+   | q      | delete-indentation                        | [[Local navigation in a buffer]] |
+   | r      | recentf-ido-find-file                     | [[Global navigation]]            |
+   | u      | set-buffer-file-coding-system 'utf-8-unix | [[Character encoding]]           |
+   | w      | writegood-mode                            | [[Writing style]]                |
+   | x      | xkcd                                      | [[xkcd comics]]                  |
+   | y      | scroll-other-window down                  | [[Scroll other window]]          |
+   | Y      | scroll-other-window up                    | [[Scroll other window]]          |
+   |        |                                           |                              |
+   |        |                                           |                              |
+   | C-d b  | flyspell-buffer                           | [[Spell checking]]               |
+   | C-d s  | cycle-ispell-languages                    | [[Spell checking]]               |
+   | C-d p  | flyspell-check-previous-highlighted-word  | [[Spell checking]]               |
+   | C-d n  | flyspell-check-next-highlighted-word      | [[Spell checking]]               |
+   |        |                                           |                              |
+   |        |                                           |                              |
+   | C-g g  | writegood-grade-level                     | [[Writing style]]                |
+   | C-g e  | writegood-reading-ease                    | [[Writing style]]                |
+   |        |                                           |                              |
 
 
    | prefix |                    |                              |
@@ -609,12 +611,12 @@ standard key bindings.
    | C-backspace | kill-line 0                    | [[Local navigation in a buffer]] |
    | M-j         | (join-line -1)                 | [[Local navigation in a buffer]] |
    | C-a         | smarter-move-beginning-of-line | [[Local navigation in a buffer]] |
-   | s-p         | mac-print-buffer               | [[Printing]]                 |
+   | s-p         | mac-print-buffer               | [[Printing]]                     |
 
 * Evil mode
 
-  I am trying out [[http://gitorious.org/evil/pages/Home][evil mode]] that adds vi-like modal editing and moving
-  to emacs.
+  I am trying out [[http://gitorious.org/evil/pages/Home][evil mode]] that adds vi-like modal editing and cursor
+  moving to emacs.
 
   Evil mode uses [[https://elpa.gnu.org/packages/undo-tree-readme.txt][undo-tree]] but I disable it to keep emacs' own powerful
   albeit sometimes confusing cyclic undo system.
@@ -734,14 +736,22 @@ standard key bindings.
 
 * Formatting and white-space
 
+** Character encoding
+
   [[http://ergoemacs.org/emacs/emacs_encoding_decoding_faq.html][Character encoding]] in files and emacs buffers is an important topic
   for anyone dealing with anything other than plain ASCII English. The
   best approach is to assume UTF-8 and deal with anything else
   (Latin-1, UTF-16) only if absolutely have to.
 
+
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
     (set-language-environment "UTF-8")
+    (global-set-key (kbd "\C-cu") (lambda ()
+                                            (interactive)
+                                            (set-buffer-file-coding-system 'utf-8-unix t)))
+  #+END_SRC
+
   #+END_SRC
 
   Tabs are automatically converted to spaces and trailing white space
@@ -1134,35 +1144,6 @@ works correctly even when a version control system tracks the file.
 
   #+END_SRC
 
-** Underline current line
-
-   From [[https://gist.github.com/n3mo/5366507]]
-
-   #+name: text-files
-   #+BEGIN_SRC emacs-lisp
-     (defun underline-text (prefixArgCode)
-       "Underlines the current line and moves point to the beginning
-     of the line directly following the underlining. If
-     `universal-argument' is called, prompts user for underline
-     character, otherwise uses the = character."
-       (interactive "P")
-       (let ((selection (buffer-substring-no-properties
-                 (line-beginning-position)
-                         (line-end-position)))
-             (under-char
-              (if (equal prefixArgCode nil)
-                  "="
-                (read-key-sequence "Char?"))))
-         (end-of-line)
-         (newline-and-indent)
-         (insert (apply 'concat (make-list (length selection) under-char)))
-         (next-line 1)
-         (beginning-of-line)))
-
-     ;; I use the following binding: C-c u (think C-c "underline")
-     (global-set-key (kbd "C-c u") 'underline-text)
-   #+END_SRC
-
 ** Editing as root
 
   If you open a file that you do not have permissions to edit, you can
@@ -1277,6 +1258,7 @@ works correctly even when a version control system tracks the file.
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
+     (define-key my/toggle-map "w" 'writegood-mode)
      (global-set-key "\C-cw" 'writegood-mode)
      (global-set-key "\C-c\C-gg" 'writegood-grade-level)
      (global-set-key "\C-c\C-ge" 'writegood-reading-ease)

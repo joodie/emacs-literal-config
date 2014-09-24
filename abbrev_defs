@@ -133,6 +133,7 @@
     ("centences" "sentences" nil 0)
     ("colse" "close" nil 0)
     ("computationla" "computational" nil 0)
+    ("consistant" "consistent" nil 0)
     ("daugher" "daughter" nil 0)
     ("flase" "false" nil 4)
     ("forthnight" "fortnight" nil 0)
@@ -161,7 +162,7 @@ use Modern::Perl;
 use Data::Printer;
 " nil 9)
     ("strenghten" "strengthen" nil 0)
-    ("taht" "that" nil 7)
+    ("taht" "that" nil 8)
     ("techinques" "techniques" nil 0)
     ("teh" "the" nil 7)
     ("tehm" "them" nil 0)
