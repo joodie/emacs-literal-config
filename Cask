@@ -40,6 +40,7 @@
 (depends-on "fish-mode")
 (depends-on "flycheck")
 (depends-on "flycheck-ledger")
+(depends-on "framemove")
 (depends-on "fringe-helper")
 (depends-on "fuzzy")
 (depends-on "git")

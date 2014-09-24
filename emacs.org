@@ -1868,12 +1868,20 @@ The following sets some default reports and tells ledger to use ISO dates.
      (define-key my/toggle-map "n" 'narrow-or-widen-dwim)
    #+END_SRC
 
-** Local navigation between windows
+** Navigation between windows and frames
 
    Emacs standard way of moving between windows opened in a frame is
-   =C-x o=. It jumps the cursor through all windows one by one. I like
-   to have a bit more control and use the built in *windmove* package.
-   With it, =shift-<arrow>= moves the focus.
+   =C-x o=. It jumps the cursor through all windows one by one and can
+   not move between frames. I like to have a bit more control and use
+   the built in *windmove* package augmented with *framemove*. With
+   them, =shift-<arrow>= moves the focus to any window and even does
+   wraparound.
+
+   While framemove provides a consistent interface to moving focus, do
+   not forget that Emacs behaves exactly like any other application
+   with multiple windows: you move between frames (windows belonging
+   to the same application) using OS specific keys. On OS X, this is
+   =⌘-`=.
 
    The package description for windmove is good place to start
    reading about it:
@@ -1890,8 +1898,10 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    #+name: execute-last
    #+BEGIN_SRC emacs-lisp
+     (require 'framemove)
      (windmove-default-keybindings)
      (setq windmove-wrap-around t)
+     (setq framemove-hook-into-windmove t)
 
      ;; Make windmove work in org-mode:
      (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -1899,12 +1909,6 @@ The following sets some default reports and tells ledger to use ISO dates.
      (add-hook 'org-shiftdown-final-hook 'windmove-down)
      (add-hook 'org-shiftright-final-hook 'windmove-right)
    #+END_SRC
-
-** Local navigation between frames
-
-   Emacs should behave exactly like any other application with
-   multiple windows: you move between frames (windows belonging to the
-   same application) using OS specific keys. On OS X, this is =⌘-`=.
 
 ** External navigation
 
@@ -1925,19 +1929,19 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+END_SRC
 ** Global navigation
 
-   This file org configuration file has a shortcut =C-c e=.
+   This org configuration file has a shortcut =C-c e=.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (defun my/edit-emacs-configuration ()
        (interactive)
        (find-file "~/.emacs.d/emacs.org"))
-
      (global-set-key "\C-ce" 'my/edit-emacs-configuration)
    #+END_SRC
 
    I like emacs to remember files that I have visited. The =recentf=
-   package allows you to see the list using  =C-x C-r=.
+   package allows you to see the list using  =C-x C-r=. It comes handy
+   when Emacs desktop save looses your file.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
@@ -1948,7 +1952,6 @@ The following sets some default reports and tells ledger to use ISO dates.
           recentf-max-menu-items 35)
     (global-set-key "\C-x\ \C-r" 'recentf-open-files)
    #+END_SRC
-
 
    I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
    etc. The ido mode is also used to give better interface to
