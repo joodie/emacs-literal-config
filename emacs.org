@@ -608,6 +608,7 @@ standard key bindings.
 
    | All other   | function                       | link                         |
    |-------------+--------------------------------+------------------------------|
+   | M-;         | comment-dwim-2                 | [[Commenting]]                   |
    | C-backspace | kill-line 0                    | [[Local navigation in a buffer]] |
    | M-j         | (join-line -1)                 | [[Local navigation in a buffer]] |
    | C-a         | smarter-move-beginning-of-line | [[Local navigation in a buffer]] |
@@ -1247,8 +1248,21 @@ works correctly even when a version control system tracks the file.
     (define-key my/launcher-map "t" #'git-timemachine)
   #+END_SRC
 
-
 * Text files
+** Commenting
+
+   The default emacs line commenting leaves a lot of things out. A
+   replacement package [[https://github.com/remyferre/comment-dwim-2][comment-dwim-2]] allows uncommenting and cycling
+   of different behaviors. The default comment key is =C-;=.
+
+   Note to self: [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] is recommended for the evil mode.
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key (kbd "M-;") 'comment-dwim-2)
+   #+END_SRC
+
+
 ** Writing style
 
    [[https://github.com/bnbeckwith/writegood-mode][Writegood mode]] highlights common writing problems in English text.

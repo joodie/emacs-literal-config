@@ -130,6 +130,7 @@
     ("anf" "and" nil 0)
     ("assosiation" "association" nil 0)
     ("availble" "available" nil 0)
+    ("behavious" "behaviors" nil 0)
     ("centences" "sentences" nil 0)
     ("colse" "close" nil 0)
     ("computationla" "computational" nil 0)
@@ -304,9 +305,7 @@ use Data::Printer;
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 

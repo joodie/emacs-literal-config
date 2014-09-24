@@ -12,6 +12,7 @@
 (depends-on "cider-tracing")
 (depends-on "clojure-mode")
 (depends-on "clojure-test-mode")
+(depends-on "comment-dwim-2")
 (depends-on "company")
 (depends-on "concurrent")
 (depends-on "creole")
