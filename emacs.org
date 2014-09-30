@@ -1955,7 +1955,10 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
+     ;; display any item that contains the chars you typed
      (setq ido-enable-flex-matching t)
+     ;; make ido display choices vertically
+     (setq ido-separator "\n")
      (ido-mode (quote both))
      ;;(ido-yes-or-no-mode +1)
      (setq ido-everywhere t)
