@@ -2228,6 +2228,7 @@ bbdb-merge-records=.
           ("http://soloalgunaspalabras.wordpress.com/feed/" f)
           ("http://kaustbirding.blogspot.com/atom.xml" f)
           ("http://listenlearnread.blogspot.com/feeds/posts/default" f)
+          ("http://madebytamarak.blogspot.com.es/atom.xml" f)
 
           ("http://feeds.nature.com/NatureNewsComment?format=xml" j)
           ("http://news.sciencemag.org/rss/weekly_news_email.xml" j)
@@ -2240,11 +2241,31 @@ bbdb-merge-records=.
 
           ("http://endlessparentheses.com/atom.xml" e)
           ("http://planet.emacsen.org/atom.xml" e)
+          ("http://emacsworld.blogspot.com/feeds/posts/default" e)
           ("http://perltricks.com/feed/rss" p)))
    (global-set-key (kbd "C-c f") 'elfeed)
 
    (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
    #+END_SRC
+
+** Phonetic alphabet
+
+   [[http://en.wikipedia.org/wiki/NATO_phonetic_alphabet][NATO
+   phonetic alphabet] is an invaluable help in passing names and IDs
+   through bad telephone or slow network lines. Next time you call the
+   airline with your reservation number, write it down, select it and
+   apply function =M-x nato-region=.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (define-key my/launcher-map "n" #'nato-region)
+     (define-key my/launcher-map "N" #'denato-region)
+   #+END_SRC
+
+   Note: =nato-region= does not place the cursor at the end of the
+   converted region if the last character has been converted. This
+   prevents you direct application of =denato-region= to reverse the
+   change.
 
 ** Regex tool
 
