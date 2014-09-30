@@ -71,6 +71,7 @@
 (depends-on "nose")
 (depends-on "org")
 (depends-on "org-plus-contrib")
+(depends-on "package-build")
 (depends-on "pallet")
 (depends-on "paradox")
 (depends-on "paredit")
