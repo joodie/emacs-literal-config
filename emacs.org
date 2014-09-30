@@ -2414,10 +2414,19 @@ bbdb-merge-records=.
    I prefer agenda listing for a fortnight and warnings 5 days
    before deadline.
 
+   With line =%%(diary-lunar-phases)= in the calendar.org file, the
+   phases are displayed -- now with symbols.
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-agenda-span 14)
      (setq org-deadline-warning-days 5)
+
+     (setq lunar-phase-names
+           '("● New Moon"
+             "☽ First Quarter Moon"
+             "○ Full Moon"
+             "☾ Last Quarter Moon"))
    #+END_SRC
 
 ** Capture templates
