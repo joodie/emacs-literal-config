@@ -504,52 +504,53 @@
 
 * Key maps
 
-   The Endless Parentheses blog shows how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic keymaps]].
-   You just do the incantation "Emacs, toggle narrowing" by pressing
-   =C-x t n=!
+  The Endless Parentheses blog shows how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic keymaps]].
+  You just do the incantation "Emacs, toggle narrowing" by pressing
+  =C-x t n=!
 
-   The code here defines the prefix command for toggle keymaps, but
-   the keys are assigned in their corresponding sections.
+  The code here defines the prefix command for toggle keymaps, but
+  the keys are assigned in their corresponding sections.
 
-   The table lists all keymaps assigned using this schema:
+  The table lists all keymaps assigned using this schema:
 
-   | prefix C-x t | toggle function | link                         |
-   |--------------+-----------------+------------------------------|
-   | f            | folding         | [[Local navigation in a buffer]] |
-   | i            | iedit-mode      | [[iedit mode]]                   |
-   | n            | narrowing       | [[Narrowing]]                    |
-   | l            | linum, relative | [[Pair programming]]             |
-   | w            | writegood-mode  | [[Writing style]]                |
+  | prefix C-x t | toggle function | link                         |
+  |--------------+-----------------+------------------------------|
+  | f            | folding         | [[Local navigation in a buffer]] |
+  | i            | iedit-mode      | [[iedit mode]]                   |
+  | n            | narrowing       | [[Narrowing]]                    |
+  | l            | linum, relative | [[Pair programming]]             |
+  | w            | writegood-mode  | [[Writing style]]                |
 
 
-   #+name: key-bindings
-   #+BEGIN_SRC emacs-lisp
+  #+name: key-bindings
+  #+BEGIN_SRC emacs-lisp
      ;; define the keymap C-x t for toggles
      (define-prefix-command 'my/toggle-map)
      (define-key ctl-x-map "t" 'my/toggle-map)
-   #+END_SRC
+  #+END_SRC
 
 
-   The second key map is for launching [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]].
-   This is like casting a spell "Emacs, launch shell", =C-x l s=.
+  The second key map is for *launching* [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]].
+  This is like casting a spell "Emacs, launch shell", =C-x l s=.
 
-   | prefix C-x l | launch function       | link              |
-   |--------------+-----------------------+-------------------|
-   | 2            | 2048-game             | [[2048-game]]         |
-   | c            | calc                  |                   |
-   | d            | ediff-buffers         |                   |
-   | h            | howdoi-query          | [[How Do I?]]         |
-   | n            | nato-region           | [[Phonetic alphabet]] |
-   | N            | denato-region         | [[Phonetic alphabet]] |
-   | p            | paradox-list-packages | [[Paradox]]           |
-   | r            | re-builder            | [[Regex tool]]        |
-   | s            | shell                 |                   |
-   | t            | git-timemachine       | [[git-timemachine]]   |
-   |              |                       |                   |
+  | prefix C-x l | launch function       | link              |
+  |--------------+-----------------------+-------------------|
+  | 2            | 2048-game             | [[2048-game]]         |
+  | c            | calc                  |                   |
+  | d            | ediff-buffers         |                   |
+  | h            | howdoi-query          | [[How Do I?]]         |
+  | n            | nato-region           | [[Phonetic alphabet]] |
+  | N            | denato-region         | [[Phonetic alphabet]] |
+  | p            | paradox-list-packages | [[Paradox]]           |
+  | r            | re-builder            | [[Regex tool]]        |
+  | s            | shell                 |                   |
+  | t            | git-timemachine       | [[git-timemachine]]   |
+  | w            | browse-url-at-point   | [[w3m]]               |
+  |              |                       |                   |
 
 
-   #+name: key-bindings
-   #+BEGIN_SRC emacs-lisp
+  #+name: key-bindings
+  #+BEGIN_SRC emacs-lisp
      (define-prefix-command 'my/launcher-map)
      ;; C-x l is `count-lines-page' by default.
      (define-key ctl-x-map "l" 'my/launcher-map)
@@ -558,63 +559,104 @@
      (define-key my/launcher-map "d" #'ediff-buffers)
      (define-key my/launcher-map "p" #'paradox-list-packages)
      (define-key my/launcher-map "s" #'shell)
-   #+END_SRC
+  #+END_SRC
 
-The following tables lists all other additions or modifications to
-standard key bindings.
+  Naturally, we can extend the [[http://endlessparentheses.com/keymap-for-launching-external-applications-and-websites.html][same approach]] to standalone apps:
 
-   | prefix |                                           |                              |
-   | C-c    | function                                  | link                         |
-   |--------+-------------------------------------------+------------------------------|
-   | esc    | evil-normal-state                         | [[Evil mode]]                    |
-   | 2      | 2048-game                                 | [[2048-game]]                    |
-   | =      | er/expand-region                          | [[Expand region]]                |
-   | a      | org-agenda                                | [[Org Mode]]                     |
-   | c      | org-capture                               | [[Org Mode]]                     |
-   | d      | delete-file-and-buffer                    | [[Abbreviations]]                |
-   | e      | my/edit-emacs-configuration               | [[Global navigation]]            |
-   | f      | elfeed                                    | [[News feed reader]]             |
-   | g      | magit-status                              | [[Magit]]                        |
-   | i      | my/org-babel-untangle                     | [[Org-Babel]]                    |
-   | k      | my/aspell-word-then-abbrev                | [[Spell checking]]               |
-   | l      | org-store-link                            | [[Org Mode]]                     |
-   | n      | my/clean-buffer-formatting                | [[Formatting and white-space]]   |
-   | o      | org-info                                  | [[Org Mode]]                     |
-   | p      | my/global-pair-programming-mode           | [[Pair programming]]             |
-   | q      | delete-indentation                        | [[Local navigation in a buffer]] |
-   | r      | recentf-ido-find-file                     | [[Global navigation]]            |
-   | u      | set-buffer-file-coding-system 'utf-8-unix | [[Character encoding]]           |
-   | w      | writegood-mode                            | [[Writing style]]                |
-   | x      | xkcd                                      | [[xkcd comics]]                  |
-   | y      | scroll-other-window down                  | [[Scroll other window]]          |
-   | Y      | scroll-other-window up                    | [[Scroll other window]]          |
-   |        |                                           |                              |
-   |        |                                           |                              |
-   | C-d b  | flyspell-buffer                           | [[Spell checking]]               |
-   | C-d s  | cycle-ispell-languages                    | [[Spell checking]]               |
-   | C-d p  | flyspell-check-previous-highlighted-word  | [[Spell checking]]               |
-   | C-d n  | flyspell-check-next-highlighted-word      | [[Spell checking]]               |
-   |        |                                           |                              |
-   |        |                                           |                              |
-   | C-g g  | writegood-grade-level                     | [[Writing style]]                |
-   | C-g e  | writegood-reading-ease                    | [[Writing style]]                |
-   |        |                                           |                              |
+  #+name: key-bindings
+  #+BEGIN_SRC emacs-lisp
+    (defmacro run (exec)
+      "Return a function that runs the executable EXEC."
+      (let ((func-name (intern (concat "my/run-" exec))))
+        `(progn
+           (defun ,func-name ()
+             ,(format "Run the %s executable." exec)
+             (interactive)
+             (start-process "" nil ,exec))
+           ',func-name)))
+
+    ;;(define-key my/launcher-map "m" (run "Mathematica"))
+    ;;(define-key my/launcher-map "k" (run "keepass"))
+    ;;(define-key my/launcher-map "v" (run "steam"))
+  #+END_SRC
 
 
-   | prefix |                    |                              |
-   | C-x    | function           | link                         |
-   |--------+--------------------+------------------------------|
-   | ,      | goto-line          | [[Local navigation in a buffer]] |
-   | C-r    | recentf-open-files | [[Global navigation]]            |
+  and web sites in the browser
+
+  #+name: key-bindings
+  #+BEGIN_SRC emacs-lisp
+    (defmacro browse (url)
+      "Return a function that calls `browse-url' on URL."
+      (let ((func-name (intern (concat "endless/browse-" url))))
+        `(progn
+           (defun ,func-name ()
+             ,(format "Browse to the url %s." url)
+             (interactive)
+             (browse-url ,url))
+           ',func-name)))
+
+    ;;(define-key my/launcher-map "r" (browse "http://www.reddit.com/r/emacs/"))
+    ;;(define-key my/launcher-map "w" (browse "http://www.emacswiki.org/"))
+    (define-key my/launcher-map "?" (browse "http://emacs.stackexchange.com/"))
+    (define-key my/launcher-map "+" (browse "https://plus.google.com/communities/114815898697665598016"))
+  #+END_SRC
 
 
-   | All other   | function                       | link                         |
-   |-------------+--------------------------------+------------------------------|
-   | M-;         | comment-dwim-2                 | [[Commenting]]                   |
-   | C-backspace | kill-line 0                    | [[Local navigation in a buffer]] |
-   | M-j         | (join-line -1)                 | [[Local navigation in a buffer]] |
-   | C-a         | smarter-move-beginning-of-line | [[Local navigation in a buffer]] |
-   | s-p         | mac-print-buffer               | [[Printing]]                     |
+  The following tables lists all other additions or modifications to
+  standard key bindings.
+
+  | prefix |                                           |                              |
+  | C-c    | function                                  | link                         |
+  |--------+-------------------------------------------+------------------------------|
+  | esc    | evil-normal-state                         | [[Evil mode]]                    |
+  | 2      | 2048-game                                 | [[2048-game]]                    |
+  | =      | er/expand-region                          | [[Expand region]]                |
+  | a      | org-agenda                                | [[Org Mode]]                     |
+  | c      | org-capture                               | [[Org Mode]]                     |
+  | d      | delete-file-and-buffer                    | [[Abbreviations]]                |
+  | e      | my/edit-emacs-configuration               | [[Global navigation]]            |
+  | f      | elfeed                                    | [[News feed reader]]             |
+  | g      | magit-status                              | [[Magit]]                        |
+  | i      | my/org-babel-untangle                     | [[Org-Babel]]                    |
+  | k      | my/aspell-word-then-abbrev                | [[Spell checking]]               |
+  | l      | org-store-link                            | [[Org Mode]]                     |
+  | n      | my/clean-buffer-formatting                | [[Formatting and white-space]]   |
+  | o      | org-info                                  | [[Org Mode]]                     |
+  | p      | my/global-pair-programming-mode           | [[Pair programming]]             |
+  | q      | delete-indentation                        | [[Local navigation in a buffer]] |
+  | r      | recentf-ido-find-file                     | [[Global navigation]]            |
+  | u      | set-buffer-file-coding-system 'utf-8-unix | [[Character encoding]]           |
+  | w      | writegood-mode                            | [[Writing style]]                |
+  | x      | xkcd                                      | [[xkcd comics]]                  |
+  | y      | scroll-other-window down                  | [[Scroll other window]]          |
+  | Y      | scroll-other-window up                    | [[Scroll other window]]          |
+  |        |                                           |                              |
+  |        |                                           |                              |
+  | C-d b  | flyspell-buffer                           | [[Spell checking]]               |
+  | C-d s  | cycle-ispell-languages                    | [[Spell checking]]               |
+  | C-d p  | flyspell-check-previous-highlighted-word  | [[Spell checking]]               |
+  | C-d n  | flyspell-check-next-highlighted-word      | [[Spell checking]]               |
+  |        |                                           |                              |
+  |        |                                           |                              |
+  | C-g g  | writegood-grade-level                     | [[Writing style]]                |
+  | C-g e  | writegood-reading-ease                    | [[Writing style]]                |
+  |        |                                           |                              |
+
+
+  | prefix |                    |                              |
+  | C-x    | function           | link                         |
+  |--------+--------------------+------------------------------|
+  | ,      | goto-line          | [[Local navigation in a buffer]] |
+  | C-r    | recentf-open-files | [[Global navigation]]            |
+
+
+  | All other   | function                       | link                         |
+  |-------------+--------------------------------+------------------------------|
+  | M-;         | comment-dwim-2                 | [[Commenting]]                   |
+  | C-backspace | kill-line 0                    | [[Local navigation in a buffer]] |
+  | M-j         | (join-line -1)                 | [[Local navigation in a buffer]] |
+  | C-a         | smarter-move-beginning-of-line | [[Local navigation in a buffer]] |
+  | s-p         | mac-print-buffer               | [[Printing]]                     |
 
 * Evil mode
 
