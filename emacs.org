@@ -2275,6 +2275,7 @@ bbdb-merge-records=.
           ("http://kaustbirding.blogspot.com/atom.xml" f)
           ("http://listenlearnread.blogspot.com/feeds/posts/default" f)
           ("http://madebytamarak.blogspot.com.es/atom.xml" f)
+          ("http://blogandgogo.weebly.com/1/feed" f)
 
           ("http://feeds.nature.com/NatureNewsComment?format=xml" j)
           ("http://news.sciencemag.org/rss/weekly_news_email.xml" j)
