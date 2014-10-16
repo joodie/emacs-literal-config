@@ -2295,6 +2295,26 @@ bbdb-merge-records=.
    (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
    #+END_SRC
 
+** Web browsing
+
+*** w3m
+
+   The emacs package [[http://www.emacswiki.org/emacs/emacs-w3m][emacs-w3m]] gives access to the commandline
+   programme w3m. The [[http://wiki.titan2x.com/index.php?title=W3m_cheat_sheet][w3m cheat sheet]].
+
+   Put the cursor inside an URL and incant: Emacs, lauch web =C-x l w=.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (setq browse-url-browser-function 'w3m-browse-url)
+     (setq browse-url-browser-function 'browse-url-default-browser)
+     (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+     (setq w3m-use-cookies t)
+     ;; keyboard short-cut
+     (define-key my/launcher-map "w" #'browse-url-at-point)
+
+   #+END_SRC
+
 ** Phonetic alphabet
 
    [[http://en.wikipedia.org/wiki/NATO_phonetic_alphabet][NATO
