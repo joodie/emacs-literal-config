@@ -2276,11 +2276,13 @@ bbdb-merge-records=.
           ("http://listenlearnread.blogspot.com/feeds/posts/default" f)
           ("http://madebytamarak.blogspot.com.es/atom.xml" f)
           ("http://blogandgogo.weebly.com/1/feed" f)
+          ("http://metallome.blogspot.com/atom.xml" f)
 
           ("http://feeds.nature.com/NatureNewsComment?format=xml" j)
           ("http://news.sciencemag.org/rss/weekly_news_email.xml" j)
           ("http://feeds.newscientist.com/science-news" j)
 
+          ("http://nowheremag.com/feed/" t)
           ("https://www.schneier.com/blog/atom.xml" s)
 
           ("http://mosaicscience.com/feed/rss.xml" b)
@@ -2289,6 +2291,7 @@ bbdb-merge-records=.
           ("http://endlessparentheses.com/atom.xml" e)
           ("http://planet.emacsen.org/atom.xml" e)
           ("http://emacsworld.blogspot.com/feeds/posts/default" e)
+          ("http://shallowsky.com/blog/index.rss" p)
           ("http://perltricks.com/feed/rss" p)))
    (global-set-key (kbd "C-c f") 'elfeed)
 
