@@ -1557,7 +1557,8 @@ The following sets some default reports and tells ledger to use ISO dates.
 
 ** Lisps
 
-   For lisp code, I want ParEdit plus general highlighting etc.
+   For lisp code, I want ParEdit plus general highlighting and
+   realtime "aggressive" indenting.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -1568,10 +1569,9 @@ The following sets some default reports and tells ledger to use ISO dates.
        (my/turn-on 'paredit
                    ;;'rainbow-delimiters
                    'show-paren-mode
+                   'aggressive-indent-mode
                    ;;'highlight-parentheses
-;;                   (global-set-key "\M-9" 'backward-sexp)
-;;                   (global-set-key "\M-0" 'forward-sexp)))
-     ))
+                   ))
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
        (add-hook mode
                  'my/general-lisp-hooks))

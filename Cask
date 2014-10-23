@@ -1,8 +1,9 @@
+(source "melpa" "http://milkbox.org/packages/")
 (source gnu)
-(source melpa)
 (source org)
 
 (depends-on "2048-game")
+(depends-on "aggressive-indent")
 (depends-on "auto-complete")
 (depends-on "bbdb")
 (depends-on "bind-key")
