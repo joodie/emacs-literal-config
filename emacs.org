@@ -1346,6 +1346,25 @@ works correctly even when a version control system tracks the file.
    add =(latex-preview-pane-enable)= here but it I can enable it  on
    the fly with =M-x latex-preview-pane-mode=
 
+*** Long lines
+
+   [[http://endlessparentheses.com/longlines-mode-in-latex.html][Endless Parentheses]] tackles long lines by modifying the longlines
+   mode to make emacs more compatible with other LaTeX editors.
+
+   [[http://stackoverflow.com/questions/13559061/emacs-how-to-keep-the-indentation-level-of-a-very-long-wrapped-line][StackExchange]] gives a solution below using the package adaptive-wrap.
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+
+     (when (fboundp 'adaptive-wrap-prefix-mode)
+       (defun my-activate-adaptive-wrap-prefix-mode ()
+         "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' simultaneously."
+         (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1)))
+       (add-hook 'visual-line-mode-hook 'my-activate-adaptive-wrap-prefix-mode))
+   #+END_SRC
+
+
 ** Zsh and fish
 
    [[http://www.zsh.org/][Zsh]] is a command line shell that is a superset of Bash. Tell emacs
