@@ -113,19 +113,18 @@
 
 ** Font
 
-   Even compared to good OS X standard [[http://en.wikipedia.org/wiki/Monaco_(typeface)][Monaco]], [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]] ([[http://www.levien.com/type/myfonts/Inconsolata.otf][Download]])
-   has a crispier and easier to read feel. Where it is lacking in
-   Unicode support, [[http://zhm.github.io/symbola/][Symbola]] ([[http://zhm.github.io/symbola/fonts/Symbola.otf][Download]]) fills in.
+   The new OS X standard front, Menlo, is amazingly good to eye. It is
+   almost [[http://9-bits.com/post/123940811/menlo-font-macosx][the same]] as DejaVu Sans Mono. I have suspended the use of
+   [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]] ([[http://www.levien.com/type/myfonts/Inconsolata.otf][Download]]) while keeping [[http://zhm.github.io/symbola/][Symbola]] ([[http://zhm.github.io/symbola/fonts/Symbola.otf][Download]]) as a
+   Unicode backup (see [[http://endlessparentheses.com/manually-choose-a-fallback-font-for-unicode.html][EndlessParentheses]]).
 
-   See also [[http://endlessparentheses.com/manually-choose-a-fallback-font-for-unicode.html][EndlessParentheses]].
-
-   #+name: look-and-feel
+  #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (set-face-attribute 'default nil
-                         :family "Inconsolata"
-                         :height 140
-                         :weight 'normal
-                         :width 'normal)
+     ;;(set-face-attribute 'default nil
+     ;;                    :family "Inconsolata"
+     ;;                    :height 140
+     ;;                    :weight 'normal
+     ;;                    :width 'normal)
      (set-fontset-font "fontset-default" nil
                        (font-spec :size 20 :name "Symbola:"))
    #+END_SRC
