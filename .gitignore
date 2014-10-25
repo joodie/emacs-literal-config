@@ -21,3 +21,4 @@ url
 .emacs.desktop*
 .python-environments
 /bbdb
+image-dired
