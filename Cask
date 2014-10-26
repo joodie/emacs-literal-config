@@ -69,6 +69,7 @@
 (depends-on "linum-relative")
 (depends-on "magit")
 (depends-on "markdown-mode")
+(depends-on "names")
 (depends-on "noflet")
 (depends-on "nose")
 (depends-on "org")

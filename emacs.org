@@ -518,6 +518,7 @@
   | i            | iedit-mode      | [[iedit mode]]                   |
   | n            | narrowing       | [[Narrowing]]                    |
   | l            | linum, relative | [[Pair programming]]             |
+  | s            | whitespace-mode |                              |
   | w            | writegood-mode  | [[Writing style]]                |
 
 
@@ -1319,6 +1320,29 @@ works correctly even when a version control system tracks the file.
      (global-set-key "\C-c\C-gg" 'writegood-grade-level)
      (global-set-key "\C-c\C-ge" 'writegood-reading-ease)
    #+END_SRC
+
+** Whitespace
+
+   [[http://ergoemacs.org/emacs/whitespace-mode.html][Whitespace mode]] makes whitespace chracters visible in a buffer.
+   This tones down the colors and uses good looking Unicode characters.
+   Toggle it with "Emacs, toggle (white)Space" =C-x t s=.
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     ;; make whitespace-mode use just basic coloring
+     (setq whitespace-style
+           (quote (spaces tabs newline space-mark tab-mark newline-mark)))
+     ;; use better unicode characters for whitespace
+     (setq whitespace-display-mappings
+           ;; all numbers are Unicode codepoint in decimal. try (insert-char 182 ) to see it
+           '((space-mark 32 [183] [46]) ; 32 SPACE, 183 MIDDLE DOT 「·」, 46 FULL STOP 「.」
+             (newline-mark 10 [182 10]) ; 10 LINE FEED
+             (tab-mark 9 [9655 9] [92 9]) ; 9 TAB, 9655 WHITE RIGHT-POINTING TRIANGLE 「▷」
+             ))
+     (define-key my/toggle-map "s" 'whitespace-mode)
+   #+END_SRC
+
+
 
 ** LaTeX
 
