@@ -652,6 +652,7 @@
 
   | All other   | function                       | link                         |
   |-------------+--------------------------------+------------------------------|
+  | M-Q         | unfill-paragraph               | [[Text (non-code) formatting]]   |
   | M-;         | comment-dwim-2                 | [[Commenting]]                   |
   | C-backspace | kill-line 0                    | [[Local navigation in a buffer]] |
   | M-j         | (join-line -1)                 | [[Local navigation in a buffer]] |
@@ -854,7 +855,26 @@
                'my/text-formatting-hooks)
    #+END_SRC
 
-** Understand compressed formats
+   If the line wrapping (explicitely =M-q=) needs to be [[http://www.emacswiki.org/emacs/UnfillParagraph][reversed]], use
+   =unfill-paragraph= that is bound to =M-Q=.
+
+   #+name: formatting
+   #+BEGIN_SRC emacs-lisp
+     ;; Opposite of fill-paragraph
+     (defun unfill-paragraph ()
+       "Takes a multi-line paragraph and makes it into a single line of text."
+       (interactive)
+       (let ((fill-column (point-max)))
+         (fill-paragraph nil)))
+
+     ;; Handy key definition
+     (define-key global-map "\M-Q" 'unfill-paragraph)
+
+   #+END_SRC
+
+
+
+** Understand compressed files
 
  This allows emacs to handle opening and saving .gz files
  automatically.
@@ -1342,51 +1362,46 @@ works correctly even when a version control system tracks the file.
      (define-key my/toggle-map "s" 'whitespace-mode)
    #+END_SRC
 
-
-
 ** LaTeX
 
    Use AUCTex for all LaTeX.
-
-   #+name: text-files
-   #+BEGIN_SRC emacs-lisp
-     (setq TeX-auto-save t)
-         (setq TeX-parse-self t)
-         (setq-default TeX-master nil)
-         (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-         (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-         (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-         (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-         (setq reftex-plug-into-AUCTeX t)
-
-     ;; default processing to pdflatex
-     (setq TeX-PDF-mode t)
-
-     (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
-   #+END_SRC
 
    [[http://www.emacswiki.org/emacs/LaTeXPreviewPane][latex-preview-panel]] package enables preview within Emacs. I could
    add =(latex-preview-pane-enable)= here but it I can enable it  on
    the fly with =M-x latex-preview-pane-mode=
 
-*** Long lines
-
    [[http://endlessparentheses.com/longlines-mode-in-latex.html][Endless Parentheses]] tackles long lines by modifying the longlines
    mode to make emacs more compatible with other LaTeX editors.
-
    [[http://stackoverflow.com/questions/13559061/emacs-how-to-keep-the-indentation-level-of-a-very-long-wrapped-line][StackExchange]] gives a solution below using the package adaptive-wrap.
+
+   My setup links wraps long lines at the end of a word on window edge
+   (visual-line-mode on) and prevents automatic word wrapping using
+   hard newlines (auto-fill-mode off) when buffer is in LaTeX mode.
+   This is exactly opposite to behaviors of general text modes.
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-
      (when (fboundp 'adaptive-wrap-prefix-mode)
        (defun my-activate-adaptive-wrap-prefix-mode ()
-         "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' simultaneously."
-         (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1)))
+         "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' together,
+     and auto-fill-mode the opposite way."
+         (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1))
+         (auto-fill-mode (if visual-line-mode -1 1)))
        (add-hook 'visual-line-mode-hook 'my-activate-adaptive-wrap-prefix-mode))
-   #+END_SRC
 
+     (setq TeX-auto-save t)
+     (setq TeX-parse-self t)
+     (setq-default TeX-master nil)           ;
+     (setq reftex-plug-into-AUCTeX t)        ;
+     (setq TeX-PDF-mode t)                   ; default processing to pdflatex
+
+     ;; removed auto-fill
+     (defun my/latex-hooks ()
+       (my/turn-on 'visual-line-mode         ; now turns off auto-fill
+                   'flyspell-mode))
+     (add-hook 'latex-mode-hook 'my/latex-hooks) ; needs testing!!!
+     (add-hook 'latex-mode-hook 'turn-on-reftex) ; no -mode in the end
+   #+END_SRC
 
 ** Zsh and fish
 
