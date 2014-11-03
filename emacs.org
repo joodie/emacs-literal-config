@@ -2902,14 +2902,15 @@ bbdb-merge-records=.
          (error nil)))
    #+END_SRC
 
-** Markdown export
+** Org export
 
-   Org mode does not give markdown as an export option before you
-   tell it to.
+   I add a formats to org export menu =C-c C-e=: markdown for
+   bitbucket and odt for libreoffice.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (require 'ox-md)
+     (require 'ox-odt)
    #+END_SRC
 
 ** Latex export
