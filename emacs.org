@@ -2902,15 +2902,22 @@ bbdb-merge-records=.
          (error nil)))
    #+END_SRC
 
-** Markdown export
+** Org export
 
-   Org mode does not give markdown as an export option before you
-   tell it to.
+   I add a formats to org export menu =C-c C-e=: markdown for
+   bitbucket and odt for libreoffice.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (require 'ox-md)
+     ;; ~/.emacs.d/elpa/org-20141027/etc/styles/ ?
+     ;; /Applications/Emacs.app/Contents/Resources/etc/org/
+     (setq org-odt-data-dir "/usr/local/Cellar/emacs/24.4/share/emacs/24.4/etc/org")
+     (require 'ox-odt)
    #+END_SRC
+
+   Setting the =org-odt-data-dir= is a hack. Why does not emacs find
+   the files in any of my locations by itself?
 
 ** Latex export
 
