@@ -2551,9 +2551,11 @@ bbdb-merge-records=.
      (global-set-key "\C-ca" 'org-agenda)
      (global-set-key "\C-cc" 'org-capture)
      (global-set-key "\C-cl" 'org-store-link)
+     (setq org-return-follows-link t)
    #+END_SRC
 
    In addition, use =C-c C-l= to paste the link stored with =C-c l=.
+   Links on org-mode are now followed by pressing return on a link.
 
    Org-agenda needs to load before calling =org-agenda=.
 
