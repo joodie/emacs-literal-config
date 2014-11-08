@@ -2337,6 +2337,7 @@ bbdb-merge-records=.
           ("http://madebytamarak.blogspot.com.es/atom.xml" f)
           ("http://blogandgogo.weebly.com/1/feed" f)
           ("http://metallome.blogspot.com/atom.xml" f)
+          ("http://dakotakollective.wordpress.com/feed/" f)
 
           ("http://feeds.nature.com/NatureNewsComment?format=xml" j)
           ("http://news.sciencemag.org/rss/weekly_news_email.xml" j)
