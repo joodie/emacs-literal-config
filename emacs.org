@@ -2352,6 +2352,7 @@ bbdb-merge-records=.
           ("http://endlessparentheses.com/atom.xml" e)
           ("http://planet.emacsen.org/atom.xml" e)
           ("http://emacsworld.blogspot.com/feeds/posts/default" e)
+          ("http://sachachua.com/blog/feed/" e)
           ("http://shallowsky.com/blog/index.rss" p)
           ("http://perltricks.com/feed/rss" p)))
    (global-set-key (kbd "C-c f") 'elfeed)
