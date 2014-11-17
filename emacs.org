@@ -612,6 +612,7 @@
   | 2      | 2048-game                                 | [[2048-game]]                    |
   | =      | er/expand-region                          | [[Expand region]]                |
   | a      | org-agenda                                | [[Org Mode]]                     |
+  | b      |                                           |                              |
   | c      | org-capture                               | [[Org Mode]]                     |
   | d      | delete-file-and-buffer                    | [[Abbreviations]]                |
   | e      | my/edit-emacs-configuration               | [[Global navigation]]            |
@@ -684,13 +685,13 @@
   and delete triggers. These triggers can be characters (like quotes
   and brackets) or tags (HTML) around strings.
 
-  | function | syntax                                |
-  |----------+---------------------------------------|
-  | add      | ys<textobject><trigger>               |
-  | change   | cs<old-trigger><new-trigger>.         |
-  | delete   | ds<trigger>                           |
-  | function | select argument & sf<function name>   |
-  |          |                                       |
+  | function | syntax                                 |
+  |----------+----------------------------------------|
+  | add      | y s <textobject> <trigger>             |
+  | change   | c s <old-trigger> <new-trigger>.       |
+  | delete   | d s <trigger>                          |
+  | function | [select argument]: s f <function name> |
+  |          |                                        |
 
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
@@ -798,8 +799,6 @@
                                             (set-buffer-file-coding-system 'utf-8-unix t)))
   #+END_SRC
 
-  #+END_SRC
-
   Tabs are automatically converted to spaces and trailing white space
   is shown. Global key =C-c n= indents and removes trailing white
   space from the buffer.
@@ -871,7 +870,6 @@
      (define-key global-map "\M-Q" 'unfill-paragraph)
 
    #+END_SRC
-
 
 
 ** Understand compressed files
@@ -1377,10 +1375,10 @@ works correctly even when a version control system tracks the file.
    mode to make emacs more compatible with other LaTeX editors.
    [[http://stackoverflow.com/questions/13559061/emacs-how-to-keep-the-indentation-level-of-a-very-long-wrapped-line][StackExchange]] gives a solution below using the package adaptive-wrap.
 
-   My setup links wraps long lines at the end of a word on window edge
+   My LaTeX setup wraps long lines at the word boundary on window edge
    (visual-line-mode on) and prevents automatic word wrapping using
    hard newlines (auto-fill-mode off) when buffer is in LaTeX mode.
-   This is exactly opposite to behaviors of general text modes.
+   This is exactly opposite to behaviors in most other text modes.
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
