@@ -1404,6 +1404,20 @@ works correctly even when a version control system tracks the file.
      (add-hook 'latex-mode-hook 'turn-on-reftex) ; no -mode in the end
    #+END_SRC
 
+** XML
+
+    I am using the builtin nXML mode for XML editing and turning off
+    automatic line wrapping.
+
+    #+name: text-files
+    #+BEGIN_SRC emacs-lisp
+     (defun my/nXML-hooks ()
+       (auto-fill-mode -1))
+
+     (add-hook 'nXML-mode-hook 'my/nXML-hooks)
+
+    #+END_SRC
+
 ** Zsh and fish
 
    [[http://www.zsh.org/][Zsh]] is a command line shell that is a superset of Bash. Tell emacs
