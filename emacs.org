@@ -536,7 +536,7 @@
   | prefix C-x l | launch function       | link              |
   |--------------+-----------------------+-------------------|
   | 2            | 2048-game             | [[2048-game]]         |
-  | c            | calc                  |                   |
+  | c            | cider-jack-in         |                   |
   | d            | ediff-buffers         |                   |
   | h            | howdoi-query          | [[How Do I?]]         |
   | n            | nato-region           | [[Phonetic alphabet]] |
@@ -1663,48 +1663,31 @@ The following sets some default reports and tells ledger to use ISO dates.
 
 ** Clojure
 
-   I'm using [[https://github.com/clojure-emacs/cider/commits/master][CIDER]] (formerly ~nrepl.el~) for clojure source/repl
-   interaction.
+   I'm using [[https://github.com/clojure-emacs/cider/commits/master][CIDER]] for clojure source/repl interaction. Start it with
+   incantation "Emacs, launch cider" =C-x l c=.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+     (define-key my/launcher-map "c" #'cider-jack-in)
+
      (defun my/cider-mode-hooks ()
        "Clojure specific setup code that should only be run when we
        have a CIDER REPL connection"
-       (cider-turn-on-eldoc-mode))
+       (setq nrepl-log-messages t)
+       (setq nrepl-hide-special-buffers t))
 
      (add-hook 'cider-mode-hook
                'my/cider-mode-hooks)
    #+END_SRC
 
-   Also, I want ~clojure-test-mode~ available in source
-   buffers.
-
-   #+NAME: programming-setup
-   #+BEGIN_SRC emacs-lisp
-     (defun my/clojure-mode-hooks ()
-       (my/turn-on 'clojure-test))
-
-     (add-hook 'clojure-mode-hook
-               'my/clojure-mode-hooks)
-   #+END_SRC
-
-   Clojure-test-mode =<C-c '>= key binding conflicts with org-tangle, so
-   I bind that to another key.
-
-   #+NAME: programming-setup
-   #+BEGIN_SRC emacs-lisp
-     (defun my/fix-org-tangle-clojure-test-mode-conflict ()
-       (define-key clojure-test-mode-map "\C-c\"" 'clojure-test-show-result)
-       (define-key clojure-test-mode-map "\C-c'" nil))
-
-     (eval-after-load "clojure-test-mode"
-       '(my/fix-org-tangle-clojure-test-mode-conflict))
-   #+END_SRC
-
    I treat the REPL mode specially, since certain hooks that work in
    ~clojure-mode~ won't make sense or break functionality in
    ~cider-repl-mode~.
+
+   Meta-up and -down to move in the REPL history are taken by paredit,
+   so I bind the functions to Command (Super) key: =s-up>= and
+   =s-down=.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -1717,6 +1700,14 @@ The following sets some default reports and tells ledger to use ISO dates.
      (add-hook 'cider-repl-mode-hook
                'my/cider-repl-mode-hooks)
 
+     (eval-after-load 'cider-repl-mode
+       '(progn
+          ;; M-up -> s-up
+          (define-key cider-repl-mode-map (kbd "s-<up>")
+            'cider-repl-previous-input)
+          ;; M-down -> s-down
+          (define-key cider-repl-mode-map (kbd "s-<down>")
+            'cider-repl-next-input)))
    #+END_SRC
 
 ** TODO Python
