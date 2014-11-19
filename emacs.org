@@ -1970,6 +1970,19 @@ The following sets some default reports and tells ledger to use ISO dates.
      (define-key my/toggle-map "n" 'narrow-or-widen-dwim)
    #+END_SRC
 
+** DocView
+
+[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Document-View.html#Document-View][DocView]] is for displaying PDF and other document files. It works by
+creating an PNG image for each page of the document. Arrow keys work
+within a page and =n/p= change the page. I set the mouse wheel to change
+pages, too.
+
+#+name: local-navigation
+#+BEGIN_SRC emacs-lisp
+  (setq doc-view-continuous nil)
+#+END_SRC
+
+#+END_SRC
 ** Navigation between windows and frames
 
    Emacs standard way of moving between windows opened in a frame is
