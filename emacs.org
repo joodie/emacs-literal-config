@@ -871,25 +871,24 @@
 
    #+END_SRC
 
-
 ** Understand compressed files
 
- This allows emacs to handle opening and saving .gz files
- automatically.
-
-   #+name: formatting
-   #+BEGIN_SRC emacs-lisp
-     (setq auto-compression-mode t)
-   #+END_SRC
-
-** Auto refresh buffers
-
-   The buffer for a file that has changed on disk gets updated
+   This allows emacs to handle opening and saving .gz files
    automatically.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
-     (setq global-auto-revert-mode 1)
+     (auto-compression-mode)
+   #+END_SRC
+
+** Auto refresh buffers
+
+   The file-associated buffer gets updated automatically on file
+   change.
+
+   #+name: formatting
+   #+BEGIN_SRC emacs-lisp
+     (global-auto-revert-mode)
    #+END_SRC
 
    Also, auto refresh dired files, but be quiet about it.
@@ -961,7 +960,7 @@
 
   #+name: abbreviations
   #+BEGIN_SRC emacs-lisp
-    (setq default-abbrev-mode t)
+    (abbrev-mode)
     (cond ((file-exists-p "~/.emacs.d/abbrev_defs")
            (read-abbrev-file "~/.emacs.d/abbrev_defs")))
 
