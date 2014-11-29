@@ -785,26 +785,26 @@
 
 ** Character encoding
 
-  [[http://ergoemacs.org/emacs/emacs_encoding_decoding_faq.html][Character encoding]] in files and emacs buffers is an important topic
-  for anyone dealing with anything other than plain ASCII English. The
-  best approach is to assume UTF-8 and deal with anything else
-  (Latin-1, UTF-16) only if absolutely have to.
+   [[http://ergoemacs.org/emacs/emacs_encoding_decoding_faq.html][Character encoding]] in files and emacs buffers is an important topic
+   for anyone dealing with anything other than plain ASCII English. The
+   best approach is to assume UTF-8 and deal with anything else
+   (Latin-1, UTF-16) only if absolutely have to.
 
 
-  #+name: formatting
-  #+BEGIN_SRC emacs-lisp
+   #+name: formatting
+   #+BEGIN_SRC emacs-lisp
     (set-language-environment "UTF-8")
     (global-set-key (kbd "\C-cu") (lambda ()
                                             (interactive)
                                             (set-buffer-file-coding-system 'utf-8-unix t)))
-  #+END_SRC
+   #+END_SRC
 
-  Tabs are automatically converted to spaces and trailing white space
-  is shown. Global key =C-c n= indents and removes trailing white
-  space from the buffer.
+   Tabs are automatically converted to spaces and trailing white space
+   is shown. Global key =C-c n= indents and removes trailing white
+   space from the buffer.
 
-  #+name: formatting
-  #+BEGIN_SRC emacs-lisp
+   #+name: formatting
+   #+BEGIN_SRC emacs-lisp
     (setq-default indent-tabs-mode nil)
 
     (defun my/clean-buffer-formatting ()
@@ -820,25 +820,25 @@
 
     (dolist (mode-hook (my/normal-mode-hooks))
       (add-hook mode-hook 'my/general-formatting-hooks))
-  #+END_SRC
+   #+END_SRC
 
-  UNIXy text files should always end in a newline character. This
-  tells emacs to take care of it so that you do not have to.
+   UNIXy text files should always end in a newline character. This
+   tells emacs to take care of it so that you do not have to.
 
-  #+name: formatting
-  #+BEGIN_SRC emacs-lisp
+   #+name: formatting
+   #+BEGIN_SRC emacs-lisp
    (setq require-final-newline t)
-  #+END_SRC
+   #+END_SRC
 
-  Emacs knows about text sentences and can navigate and mark them. The
-  default emacs expects sentences that are separated by double space like in old
-  typewriter text. Not any more. Note that this leads to some ambiguity in
-  detecting sentences.
+   Emacs knows about text sentences and can navigate and mark them.
+   The default emacs expects sentences that are separated by double
+   space like in old typewriter text. Not any more. Note that this
+   leads to some ambiguity in detecting sentences.
 
-  #+name: formatting
-  #+BEGIN_SRC emacs-lisp
+   #+name: formatting
+   #+BEGIN_SRC emacs-lisp
    (setq sentence-end-double-space nil)
-  #+END_SRC
+   #+END_SRC
 
 ** Text (non-code) formatting
 
@@ -1974,8 +1974,9 @@ The following sets some default reports and tells ledger to use ISO dates.
 
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Document-View.html#Document-View][DocView]] is for displaying PDF and other document files. It works by
 creating an PNG image for each page of the document. Arrow keys work
-within a page and =n/p= change the page. I set the mouse wheel to change
-pages, too.
+within a page. Pressing =n= or =<SPC>= moves forward, and =p= or
+=<DEL>= change the page. I set the mouse wheel to scroll over pages,
+too.
 
 #+name: local-navigation
 #+BEGIN_SRC emacs-lisp
