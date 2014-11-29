@@ -2542,7 +2542,7 @@ bbdb-merge-records=.
 
   #+name: org-config
    #+BEGIN_SRC emacs-lisp
-    (setq org-tag-alist (quote (("ATORP" . ?a)
+    (setq org-tag-alist (quote (("ATORP"  . ?a)
                                ("BIO"     . ?b)
                                ("COMP"    . ?c)
                                ("EMACS"   . ?e)
@@ -2554,11 +2554,10 @@ bbdb-merge-records=.
                                ("MAP"     . ?m)
                                ("ORG"     . ?o)
                                ("PERL"    . ?p)
-                               ("SECURITY" . ?s)
-                               ("WORK"    . ?w)
+                               ("SECURITY". ?s)
+                               ("WRITING" . ?w)
                                ("PYTHON"  . ?y)
-                               ("ZSH"     . ?z)
-                               )))
+                               ("ZSH"     . ?z))))
    #+END_SRC
 
    The agenda command pulls all active events and todos from files
