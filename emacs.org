@@ -1352,7 +1352,7 @@ works correctly even when a version control system tracks the file.
    #+BEGIN_SRC emacs-lisp
      ;; make whitespace-mode use just basic coloring
      (setq whitespace-style
-           (quote (spaces tabs newline space-mark tab-mark newline-mark)))
+           (quote (face spaces tabs newline space-mark tab-mark newline-mark trailing)))
      ;; use better unicode characters for whitespace
      (setq whitespace-display-mappings
            ;; all numbers are Unicode codepoint in decimal. try (insert-char 182 ) to see it
