@@ -37,6 +37,18 @@
 
 (define-abbrev-table 'change-log-mode-abbrev-table '())
 
+(define-abbrev-table 'checkdoc-output-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-docview-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-repl-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-stacktrace-mode-abbrev-table '())
+
+(define-abbrev-table 'cider-test-report-mode-abbrev-table '())
+
+(define-abbrev-table 'clojure-mode-abbrev-table '())
+
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
@@ -63,15 +75,15 @@
     ("=pod" "=pod" cperl-electric-pod 0)
     ("continue" "continue" cperl-electric-else 0)
     ("do" "do" cperl-electric-keyword 0)
-    ("else" "else" cperl-electric-else 0)
+    ("else" "else" cperl-electric-else 1)
     ("elsif" "elsif" cperl-electric-keyword 0)
-    ("for" "for" cperl-electric-keyword 0)
+    ("for" "for" cperl-electric-keyword 2)
     ("foreach" "foreach" cperl-electric-keyword 0)
     ("foreachmy" "foreachmy" cperl-electric-keyword 0)
     ("formy" "formy" cperl-electric-keyword 0)
-    ("head1" "head1" cperl-electric-pod 0)
+    ("head1" "head1" cperl-electric-pod 1)
     ("head2" "head2" cperl-electric-pod 0)
-    ("if" "if" cperl-electric-keyword 0)
+    ("if" "if" cperl-electric-keyword 4)
     ("over" "over" cperl-electric-pod 0)
     ("pod" "pod" cperl-electric-pod 0)
     ("unless" "unless" cperl-electric-keyword 0)
@@ -95,6 +107,8 @@
 
 (define-abbrev-table 'doctex-mode-abbrev-table '())
 
+(define-abbrev-table 'edebug-eval-mode-abbrev-table '())
+
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
@@ -106,6 +120,10 @@
 (define-abbrev-table 'epa-key-list-mode-abbrev-table '())
 
 (define-abbrev-table 'epa-key-mode-abbrev-table '())
+
+(define-abbrev-table 'ert-results-mode-abbrev-table '())
+
+(define-abbrev-table 'ert-simple-view-mode-abbrev-table '())
 
 (define-abbrev-table 'eshell-mode-abbrev-table '())
 
@@ -145,6 +163,7 @@
     ("assosiation" "association" nil 0)
     ("availble" "available" nil 0)
     ("behavious" "behaviors" nil 0)
+    ("ccc" "°C" nil 11)
     ("centences" "sentences" nil 0)
     ("colse" "close" nil 0)
     ("computationla" "computational" nil 0)
@@ -157,6 +176,7 @@
     ("heikkil" "Heikki Lehväslaiho" nil 4)
     ("inlcuding" "including" nil 0)
     ("interective" "interactive" nil 0)
+    ("latex" "LaTeX" nil 1)
     ("legnht" "length" nil 1)
     ("legnth" "length" nil 1)
     ("legth" "length" nil 1)
@@ -164,6 +184,7 @@
     ("lenth" "length" nil 1)
     ("ma" "am" nil 4)
     ("mammalial" "mammalian" nil 0)
+    ("negigable" "negligible" nil 0)
     ("otehr" "other" nil 0)
     ("precice" "precise" nil 0)
     ("provenanace" "provenance" nil 0)
@@ -172,19 +193,22 @@
     ("recepis" "recipes" nil 1)
     ("revieled" "revealed" nil 0)
     ("rigourous" "rigorous" nil 0)
-    ("sentance" "sentence" nil 1)
+    ("scholary" "scholarly" nil 0)
+    ("sentance" "sentence" nil 3)
     ("sperl" "#!/usr/bin/env perl
 use Modern::Perl;
 use Data::Printer;
-" nil 9)
+" nil 11)
     ("strenghten" "strengthen" nil 0)
-    ("taht" "that" nil 8)
+    ("taht" "that" nil 9)
     ("techinques" "techniques" nil 0)
     ("teh" "the" nil 7)
     ("tehm" "them" nil 0)
    ))
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
+
+(define-abbrev-table 'gnus-article-mode-abbrev-table '())
 
 (define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
@@ -207,6 +231,8 @@ use Data::Printer;
 (define-abbrev-table 'image-dired-display-image-mode-abbrev-table '())
 
 (define-abbrev-table 'image-dired-thumbnail-mode-abbrev-table '())
+
+(define-abbrev-table 'inferior-lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
@@ -256,6 +282,10 @@ use Data::Printer;
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
 
+(define-abbrev-table 'nrepl-connections-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'nrepl-messages-mode-abbrev-table '())
+
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
 (define-abbrev-table 'objc-mode-abbrev-table
@@ -270,13 +300,13 @@ use Data::Printer;
 
 (define-abbrev-table 'org-mode-abbrev-table
   '(
-    ("lblk" "" skel-org-block-elisp 0)
+    ("lblk" "" skel-org-block-elisp 1)
     ("legnht" "length" nil 1)
     ("legnth" "length" nil 1)
     ("legth" "length" nil 1)
     ("lenght" "length" nil 1)
     ("lenth" "length" nil 1)
-    ("ma" "am" nil 3)
+    ("ma" "am" nil 5)
     ("oabstract" "#+BEGIN_ABSTRACT
 
 #+END_ABSTRACT
@@ -341,6 +371,8 @@ use Data::Printer;
 (define-abbrev-table 'ruby-compilation-mode-abbrev-table '())
 
 (define-abbrev-table 'ruby-mode-abbrev-table '())
+
+(define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
 (define-abbrev-table 'sgml-mode-abbrev-table '())
 
