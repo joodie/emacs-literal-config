@@ -170,6 +170,7 @@
     ("consistant" "consistent" nil 0)
     ("daugher" "daughter" nil 0)
     ("excamples" "examples" nil 0)
+    ("explicitely" "explicitly" nil 0)
     ("flase" "false" nil 4)
     ("forthnight" "fortnight" nil 0)
     ("hayday" "heyday" nil 0)
@@ -202,7 +203,7 @@ use Data::Printer;
     ("strenghten" "strengthen" nil 0)
     ("taht" "that" nil 9)
     ("techinques" "techniques" nil 0)
-    ("teh" "the" nil 7)
+    ("teh" "the" nil 8)
     ("tehm" "them" nil 0)
    ))
 
