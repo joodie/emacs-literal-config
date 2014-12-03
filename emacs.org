@@ -1568,7 +1568,7 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+BEGIN_SRC emacs-lisp
      (require 'plenv)
      (condition-case nil
-         (plenv-global "5.18.1")
+         (plenv-global "5.20.1")
        (error (message "ERROR: unknown perl version. Is your plenv configured right?")))
    #+END_SRC
 
