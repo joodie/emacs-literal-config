@@ -2143,18 +2143,29 @@ too.
 ** Geographical location
 
   Calendar functions like to know your geographical coordinates to
-  display celestial movements correctly. I am at KAUST in Saudi
-  Arabia.
+  display celestial movements correctly.
+
+  My Linux box is at KAUST in Saudi Arabia, so the location defaults
+  there. On my Mac laptop, the [[https://github.com/purcell/osx-location][osx-location]] package gives the changing
+  location automatically.
 
   #+name: location
   #+BEGIN_SRC emacs-lisp
-    (setq calendar-latitude 22.3)
-    (setq calendar-longitude 39.1)
-    (setq calendar-location-name "KAUST")
-  #+END_SRC
+    (osx-location-watch)
 
-  It is possible (see package =osx-location=) to link emacs to location
-  information from the operating system.
+    (defun osx-location-changed-hook ()
+      "Set calendar location from OS X. Variables osx-location-latitude
+       and osx-location-longitude are set by osx-location."
+      (interactive)
+      (setq calendar-latitude osx-location-latitude)
+      (setq calendar-longitude osx-location-longitude)
+      (setq calendar-location-name "Dynamic"))
+
+    (unless (boundp 'calendar-latitude)
+      (setq calendar-latitude 22.3)
+      (setq calendar-longitude 39.1)
+      (setq calendar-location-name "KAUST"))
+  #+END_SRC
 
 * Applications
 
