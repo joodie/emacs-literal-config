@@ -626,6 +626,7 @@
   | p      | my/global-pair-programming-mode           | [[Pair programming]]             |
   | q      | delete-indentation                        | [[Local navigation in a buffer]] |
   | r      | recentf-ido-find-file                     | [[Global navigation]]            |
+  | t      | languagetool-mode                         | [[Writing style]]                |
   | u      | set-buffer-file-coding-system 'utf-8-unix | [[Character encoding]]           |
   | w      | writegood-mode                            | [[Writing style]]                |
   | x      | xkcd                                      | [[xkcd comics]]                  |
@@ -1344,9 +1345,28 @@
      (global-set-key "\C-c\C-ge" 'writegood-reading-ease)
    #+END_SRC
 
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     ;;(require 'languagetool-mode)
+     (setq languagetool-language-tool-jar
+       "/usr/local/Cellar/languagetool/2.6/libexec/languagetool-commandline.jar")
+
+     (setq languagetool-disabled-rules '("WHITESPACE_RULE"
+                                     "EN_UNPAIRED_BRACKETS"
+                                     "COMMA_PARENTHESIS_WHITESPACE"
+                                     "EN_QUOTES"))
+     (define-key my/toggle-map "t" 'languagetool-mode)
+
+     ;;(global-set-key "\C-x4w" 'langtool-check)
+     ;;(global-set-key "\C-x4W" 'langtool-check-done)
+     ;;(global-set-key "\C-x4l" 'langtool-switch-default-language)
+     ;;(global-set-key "\C-x44" 'langtool-show-message-at-point)
+     ;;(global-set-key "\C-x4c" 'langtool-correct-buffer)
+   #+END_SRC
+
 ** Whitespace
 
-   [[http://ergoemacs.org/emacs/whitespace-mode.html][Whitespace mode]] makes whitespace chracters visible in a buffer.
+   [[http://ergoemacs.org/emacs/whitespace-mode.html][Whitespace mode]] makes whitespace characters visible in a buffer.
    This tones down the colors and uses good looking Unicode characters.
    Toggle it with "Emacs, toggle (white)Space" =C-x t s=.
 
