@@ -1748,7 +1748,7 @@ The following sets some default reports and tells ledger to use ISO dates.
        "Custom command to setup python-mode"
        (interactive)
        (let ((max-column 99))
-         (setq python-shell-interpreter "python"
+         (setq python-shell-interpreter "/Users/lehvasho/miniconda3/bin/python"
                python-shell-interpreter-args "-i"
                ;;venv-location "~/.virtualenvs"
                whitespace-line-column max-column
@@ -2824,6 +2824,16 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-confirm-babel-evaluate nil)
+   #+END_SRC
+
+   If you have more than one interpreter for any of the languages in
+   code blocks, you better set it explicitly. My main python with all
+   modern libraries is Anaconda python version 3.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     ;; Alternative python interpreter for babel blocks
+     (setq org-babel-python-command "/Users/lehvasho/miniconda3/bin/python")
    #+END_SRC
 
    Use syntax highlighting ("fontification") in org-mode source
