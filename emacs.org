@@ -518,7 +518,7 @@
   | i            | iedit-mode      | [[iedit mode]]                   |
   | n            | narrowing       | [[Narrowing]]                    |
   | l            | linum, relative | [[Pair programming]]             |
-  | s            | whitespace-mode |                              |
+  | s            | whitespace-mode | [[Whitespace]]                   |
   | w            | writegood-mode  | [[Writing style]]                |
 
 
@@ -793,10 +793,11 @@
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
-    (set-language-environment "UTF-8")
-    (global-set-key (kbd "\C-cu") (lambda ()
-                                            (interactive)
-                                            (set-buffer-file-coding-system 'utf-8-unix t)))
+     (set-language-environment "UTF-8")
+     (global-set-key
+      (kbd "\C-cu")
+      (lambda () (interactive)
+        (set-buffer-file-coding-system 'utf-8-unix t)))
    #+END_SRC
 
    Tabs are automatically converted to spaces and trailing white space
@@ -830,10 +831,10 @@
    (setq require-final-newline t)
    #+END_SRC
 
-   Emacs knows about text sentences and can navigate and mark them.
-   The default emacs expects sentences that are separated by double
-   space like in old typewriter text. Not any more. Note that this
-   leads to some ambiguity in detecting sentences.
+   Emacs knows about natural language sentences and can navigate and
+   mark them. The default emacs expects sentences that are separated
+   by double space like in old typewriter text. Not any more. Note
+   that this leads to some ambiguity in detecting sentences.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
@@ -883,8 +884,7 @@
 
 ** Auto refresh buffers
 
-   The file-associated buffer gets updated automatically on file
-   change.
+   Automatically update file-associated buffers on file change.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
@@ -917,7 +917,7 @@
 
   I am now using OS X in my main laptop computer and this choice had
   knock-on effects. By default, =C-<space>= pops up the Spotlight
-  search field. To circumvent that, I've changed Spotlight key
+  search field. To circumvent that, I've changed Spotlight key to
   =Cmnd-<space>=. That, in turn, disabled the default key for toggling
   of the active keyboard languages, so the key for that is now
   =Cmnd-alt-<space>=.
@@ -953,13 +953,13 @@
 
 ** Abbreviations
 
-  Emacs comes with =abbrev-mode= that is able to replace typed strings
-  in context sensitive way. I use it to correct typos (teh -> the) and
-  replace short strings with long, multiline texts in modes that
-  I use frequently.
+   Emacs comes with =abbrev-mode= that is able to replace typed strings
+   in context sensitive way. I use it to correct typos (teh -> the) and
+   replace short strings with long, multiline texts in modes that
+   I use frequently.
 
-  #+name: abbreviations
-  #+BEGIN_SRC emacs-lisp
+   #+name: abbreviations
+   #+BEGIN_SRC emacs-lisp
     (abbrev-mode)
     (cond ((file-exists-p "~/.emacs.d/abbrev_defs")
            (read-abbrev-file "~/.emacs.d/abbrev_defs")))
@@ -970,46 +970,46 @@
     (if (file-exists-p abbrev-file-name) ; reads the abbreviations file
         (quietly-read-abbrev-file))      ;  on startup if the file exists
 
-  #+END_SRC
+   #+END_SRC
 
-  A special form of abbreviation is a time stamp in a file. I do not
-  want to see AM/PM time stamps.
+   A special form of abbreviation is a time stamp in a file. I do not
+   want to see AM/PM time stamps.
 
-  #+name: abbreviations
-  #+BEGIN_SRC emacs-lisp
+   #+name: abbreviations
+   #+BEGIN_SRC emacs-lisp
     (add-hook 'before-save-hook 'time-stamp)
     (setq display-time-24hr-format t)
-  #+END_SRC
+   #+END_SRC
 
-  To use it, you place a template using bracket or quotes in the first
-  8 lines of a file. The time stamp value will be automatically added
-  and updated between these delimiters. Typically, the line can start
-  with a comment character to mask it from the program processing the
-  file.
+   To use it, you place a template using bracket or quotes in the first
+   8 lines of a file. The time stamp value will be automatically added
+   and updated between these delimiters. Typically, the line can start
+   with a comment character to mask it from the program processing the
+   file.
 
-  #+BEGIN_EXAMPLE
+   #+BEGIN_EXAMPLE
     Time-stamp: <>
     # Time-stamp: " "
-  #+END_EXAMPLE
+   #+END_EXAMPLE
 
-  =insert-buffer-name= does what the name says. This sort of
-  metafunction does not really fix in any other category, so I list it
-  here among abbreviations.
+   =insert-buffer-name= does what the name says. This sort of
+   metafunction does not really fix in any other category, so I list it
+   here among abbreviations.
 
-  #+name: abbreviations
-  #+BEGIN_SRC emacs-lisp
+   #+name: abbreviations
+   #+BEGIN_SRC emacs-lisp
     (defun insert-buffer-name ()
       "Inserts file name of the buffer on the current buffer."
       (interactive)
       (insert (buffer-name)))
-  #+END_SRC
+   #+END_SRC
 
-Similarly, you might want to remove both the current buffer and its
-file (from [[http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/][Emacs Redux]]). =C-c d= now does it for you in one step and it
-works correctly even when a version control system tracks the file.
+   Similarly, you might want to remove both the current buffer and its
+   file (from [[http://emacsredux.com/blog/2013/04/03/delete-file-and-buffer/][Emacs Redux]]). =C-c d= now does it for you in one step and it
+   works correctly even when a version control system tracks the file.
 
-  #+name: abbreviations
-  #+BEGIN_SRC emacs-lisp
+   #+name: abbreviations
+   #+BEGIN_SRC emacs-lisp
     (defun delete-file-and-buffer ()
       "Kill the current buffer and deletes the file it is visiting."
       (interactive)
@@ -1023,7 +1023,7 @@ works correctly even when a version control system tracks the file.
               (kill-buffer))))))
     (global-set-key (kbd "C-c d")  'delete-file-and-buffer)
 
-  #+END_SRC
+   #+END_SRC
 
 ** Spell checking
 
@@ -1067,7 +1067,7 @@ works correctly even when a version control system tracks the file.
               (lang (ring-ref lang-ring -1)))
          (ring-insert lang-ring lang)
          (ispell-change-dictionary lang)
-         (message "Dictionary switched fron %s to %s" dict lang)))
+         (message "Dictionary switched from %s to %s" dict lang)))
 
      (defun flyspell-check-next-highlighted-word ()
        "Custom function to spell check next highlighted word"
@@ -1083,9 +1083,10 @@ works correctly even when a version control system tracks the file.
 
    #+END_SRC
 
-  Alternatively, you can press =C-c k= to select the correct word from
-  dictionary and write it to abbreviations for automatic correction
-  permanently. Adapted from [[http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html][Endless Parentheses]].
+  Alternatively, call flyspell-goto-next-error by pressing =C-,= and
+  press =C-c k= to select the correct word from dictionary and write
+  it to abbreviations for automatic correction permanently. Adapted
+  from [[http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html][Endless Parentheses]].
 
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
@@ -1226,10 +1227,12 @@ works correctly even when a version control system tracks the file.
    #+END_SRC
 
 ** Editing file lists with wdired
+
    [[http://www.masteringemacs.org/articles/2013/10/10/wdired-editable-dired-buffers/][Editable dired]] is part of standard emacs. Once you are in dired
    =C-x d=, directory editing, mode, you can press =C-x C-q= to edit
    file names like any text. The familiar =C-c C-c= commits the
    changes.
+
 ** Image mode
    Recent emacsen can show images in directly in buffers. The
    following code adds the [[http://www.emacswiki.org/emacs/eimp.el][Emacs Image Manipulation Package]] to the
@@ -1328,10 +1331,10 @@ works correctly even when a version control system tracks the file.
 
 ** Writing style
 
-   [[https://github.com/bnbeckwith/writegood-mode][Writegood mode]] highlights common writing problems in English text.
-   It highlights weasel words, passive voice, and duplicate words.
-   Additionally, it can show [[http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests][Flesch-Kincaid scoring and grade-level
-   estimates]].
+   [[https://github.com/bnbeckwith/writegood-mode][Writegood mode]], =C-x t w=, highlights common writing problems in
+   English text. It highlights weasel words, passive voice, and
+   duplicate words. Additionally, it can show [[http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests][Flesch-Kincaid scoring
+   and grade-level estimates]].
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
@@ -1367,7 +1370,7 @@ works correctly even when a version control system tracks the file.
    Use AUCTex for all LaTeX.
 
    [[http://www.emacswiki.org/emacs/LaTeXPreviewPane][latex-preview-panel]] package enables preview within Emacs. I could
-   add =(latex-preview-pane-enable)= here but it I can enable it  on
+   add =(latex-preview-pane-enable)= here but it I can enable it on
    the fly with =M-x latex-preview-pane-mode=
 
    [[http://endlessparentheses.com/longlines-mode-in-latex.html][Endless Parentheses]] tackles long lines by modifying the longlines
@@ -1821,37 +1824,37 @@ The following sets some default reports and tells ledger to use ISO dates.
 
    My fingers still know this old shortcut for jumping to a line number.
 
-  #+name: local-navigation
-  #+BEGIN_SRC emacs-lisp
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
     (global-set-key "\C-x\," 'goto-line)
-  #+END_SRC
+   #+END_SRC
 
    Delete a word at a time: =M-backspace=.
 
    Kill line backward from cursor is =C-0 C-k= but it easier to
    remember when redefined as =C-backspace=.
 
-  #+name: local-navigation
-  #+BEGIN_SRC emacs-lisp
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
     (global-set-key (kbd "C-<backspace>") (lambda ()
                                             (interactive)
                                             (kill-line 0)))
-  #+END_SRC
+   #+END_SRC
 
    The most complex replace key combination made little bit easier to
    remember:
 
-  #+name: local-navigation
-  #+BEGIN_SRC emacs-lisp
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
     (defalias 'qrr 'query-replace-regexp)  ; M-C-S %
-  #+END_SRC
+   #+END_SRC
 
    *Folding of uses =set-selective-display= to show a high level
    outline of you document. Useful to get an [[http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/][overview of long code
    documents]].
 
- #+name: local-navigation
-  #+BEGIN_SRC emacs-lisp
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
     ;; folding of code
     ;; http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/
     (defun toggle-selective-display ()
@@ -1860,18 +1863,18 @@ The following sets some default reports and tells ledger to use ISO dates.
 
     ;; toggle folding C-x t f
     (define-key my/toggle-map "f" 'toggle-selective-display)
-  #+END_SRC
+   #+END_SRC
 
    Key =M-j= joins the next line with the current one. Copied from
    [[http://whattheemacsd.com/key-bindings.el-03.html][WhatTheEmacs!?]] The is an alternative to =M-^= or =C-c q= for joining
    current line to previous one.
 
-  #+name: local-navigation
-  #+BEGIN_SRC emacs-lisp
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
     (global-set-key (kbd "M-j")
                     (lambda () (interactive) (join-line -1)))
     (global-set-key "\C-cq" 'delete-indentation)
-  #+END_SRC
+   #+END_SRC
 
    When editing indented text, you seldom want to go to the first
    column of the line. Instead the following modifies =C-a= to move
@@ -1882,8 +1885,8 @@ The following sets some default reports and tells ledger to use ISO dates.
    Effectively toggle between the first non-whitespace character and
    the beginning of the line.
 
-  #+name: local-navigation
-  #+BEGIN_SRC emacs-lisp
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
     (defun smarter-move-beginning-of-line (arg)
       "Move point back to indentation of beginning of line.
 
@@ -1911,7 +1914,7 @@ The following sets some default reports and tells ledger to use ISO dates.
     (global-set-key [remap move-beginning-of-line]
                     'smarter-move-beginning-of-line)
 
-  #+END_SRC
+   #+END_SRC
 
 ** Narrowing
 
@@ -2540,7 +2543,7 @@ bbdb-merge-records=.
    them from a list. At the agenda item header, hit =C-c C-q= to see the
    list and select any subset of tags by pressing the shortcut key(s).
 
-  #+name: org-config
+   #+name: org-config
    #+BEGIN_SRC emacs-lisp
     (setq org-tag-alist (quote (("ATORP"  . ?a)
                                ("BIO"     . ?b)
@@ -2837,7 +2840,7 @@ bbdb-merge-records=.
    #+END_SRC
 
    Use the =minted= package for syntax highlighting source blocks in
-   LaTeX / PDF exports. It needs the python =Pygments= library.
+   LaTeX/PDF exports. It needs the python =Pygments= library.
    Install it e.g. =sudo easy_install Pygments=.  Configuration copied
    from a blog post by [[http://joat-programmer.blogspot.nl/2013/07/org-mode-version-8-and-pdf-export-with.html][Florian Bergmann]].  Check also the blog entry by
    [[ http://praveen.kumar.in/2012/03/10/org-mode-latex-and-minted-syntax-highlighting/][Praveen Kumar]].
@@ -2856,7 +2859,6 @@ bbdb-merge-records=.
      ;; This obviously can be dangerous!
      (setq org-latex-pdf-process
            '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
    #+END_SRC
 
 
