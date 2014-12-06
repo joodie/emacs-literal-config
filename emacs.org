@@ -469,6 +469,10 @@
   number of backups kept, and directs them all into
   =$HOME/.emacs.d/backups/= directory.
 
+  Lockfiles with names prefixed with ".#" are an other type of Emacs
+  clutter. I am not afraid of double editing, so I disable that.
+
+
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
     (setq make-backup-files t) ;; Enable backup files
@@ -480,6 +484,9 @@
     (setq delete-old-versions t)
     ;; Save all backup file in this directory.
     (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
+
+    ;; disable lockfiles
+    (setq create-lockfiles nil)
   #+END_SRC
 
 * Confirmations and quitting emacs
