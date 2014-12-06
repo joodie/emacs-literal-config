@@ -2585,7 +2585,7 @@ bbdb-merge-records=.
                                ("GIT"     . ?g)
                                ("HOME"    . ?h)
                                ("LATEX"   . ?l)
-                               ("MAP"     . ?m)
+                               ("MOVIE"   . ?m)
                                ("ORG"     . ?o)
                                ("PERL"    . ?p)
                                ("SECURITY". ?s)
