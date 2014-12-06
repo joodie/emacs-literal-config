@@ -1753,9 +1753,7 @@ The following sets some default reports and tells ledger to use ISO dates.
 
 ** TODO Python
 
-   Python has joined the other scripting languages in having a *env
-   version manager. Point the emacs to current stable python 2 for
-   global setting. Initial setup is [[https://github.com/ikame/.emacs.d/blob/master/setup-python.org][copied from here]] .
+   Python setup is [[https://github.com/ikame/.emacs.d/blob/master/setup-python.org][copied from here]]. Work in progress.
 
    First make sure you have installed your python dependencies runtime
    environment:
@@ -1782,9 +1780,9 @@ The following sets some default reports and tells ledger to use ISO dates.
                fill-column max-column
                flycheck-flake8-maximum-line-length max-column
                elpy-rpc-backend "jedi"
+               ;;elpy-rpc-backend "rope"
                ;;elpy-default-minor-modes '(eldoc-mode)
-               ;;elpy-rpc-project-specific t)
-         )
+               elpy-rpc-project-specific t))
        (setq python-indent-offset 4)
        (setq jedi:complete-on-dot t)
        (flycheck-mode)
@@ -1794,16 +1792,15 @@ The following sets some default reports and tells ledger to use ISO dates.
        ;;(highlight-lines-matching-regexp "i?pdb.set_trace()")
        (turn-on-fci-mode)  ; fill-column-indicator
        (elpy-enable)
-       (highlight-indentation-mode)
        ;;(elpy-mode)
        ;;(elpy-clean-modeline)
-     ))
+       (highlight-indentation-mode))
 
      (add-hook 'python-mode-hook 'my/setup-python-mode)
      (add-hook 'python-mode-hook 'jedi:ac-setup)
      (add-hook 'python-mode-hook (lambda ()
-                                  (require 'sphinx-doc)
-                                  (sphinx-doc-mode t)))
+                                   (require 'sphinx-doc)
+                                   (sphinx-doc-mode t)))
    #+END_SRC
 
    [[https://github.com/naiquevin/sphinx-doc.el][Sphinx-doc]] adds a function inserting docstring skeleton for Python
