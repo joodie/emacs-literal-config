@@ -48,12 +48,54 @@
     starting with "ERROR: ". Read the corresponding section below for
     instructions to install the dependencies.
 
-** Upgrading emacs packages
+** Upgrading and installing emacs packages
 
    You should be periodically upgrading you emacs packages. Some
    packages get almost daily fixes. It should be enough to update them
    once a month with =M-x pallet-update=. Do restart emacs after
    the update.
+
+   Every time you make major changes to this document (see [Editing
+   this Document]) or upgrade your packages, you are strongly advised to
+   note it down to a changelog file (see [ChangeLog mode]).
+
+   New packages are usually installed using command =list-packages= to
+   show the available ones and select the ones to include. The new
+   ones are automatically added to your [[file:Cask][Cask]] file for tracking.
+
+*** Paradox
+
+   Emacs module *[[https://github.com/Bruce-Connor/paradox][paradox]]* adds package ratings to the listing, new
+   shortcuts, and customization to package listings. Invoke by =C-x l
+   p= ("Emacs, launch paradox") to run =paradox-list-packages=. Press
+   =h= to see all keys. Tip: =v= opens the package's home page.
+
+   This is also a convenient place to update packages with =U x=.
+
+   You can give feedback if you set up the =paradox-github-token=
+   variable to your github token. See the variable's info (=C-h v=)
+   for instructions.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     ;;(fset 'list-packages 'paradox-list-packages)
+     (setq paradox-github-token t)
+   #+END_SRC
+
+*** Upgrading Org
+
+    The core org-mode package can not be upgraded when it is in use.
+    Do it monthly by starting bare emacs at the command line:
+
+   #+BEGIN_SRC sh
+     /usr/local/bin/emacs -Q
+     M-x package-list-packages
+     U x # upgrade & execute
+     yes # do upgrade org
+     yes # to delete old org
+     C-x C-c  # quit emacs
+     # restart graphical emacs
+   #+END_SRC
 
 ** Editing this document
 
@@ -81,33 +123,6 @@
    If you want to get a better understanding what any lisp code below
    do, view it in a lisp buffer, place the cursor at the word, and
    press =C-h f= on a function or =C-h v= on a variable.
-
-** Installing new packages
-
-   Every time you make major changes to this document (see [Editing
-   this Document]) or upgrade your packages, you are strongly advised to
-   note it down to a changelog file (see [ChangeLog mode]).
-
-   New packages are usually installed using command =list-packages= to
-   show the available ones and select the ones to include. The new
-   ones are automatically added to your [[file:Cask][Cask]] file for tracking.
-
-*** Paradox
-
-   Emacs module *[[https://github.com/Bruce-Connor/paradox][paradox]]* adds package ratings to the listing, new
-   shortcuts, and customization to package listings. Invoke by =C-x l
-   p= ("Emacs, launch paradox") to run =paradox-list-packages=. Press
-   =h= to see all keys. Tip: =v= opens the package's home page.
-
-   You can give feedback if you set up the =paradox-github-token=
-   variable to your github token. See the variable's info (=C-h v=)
-   for instructions.
-
-   #+NAME: environment
-   #+BEGIN_SRC emacs-lisp
-     ;;(fset 'list-packages 'paradox-list-packages)
-     (setq paradox-github-token t)
-   #+END_SRC
 
 * Graphics and looks
 
