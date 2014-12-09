@@ -2708,7 +2708,7 @@ bbdb-merge-records=.
                      ("lm" "MasterCard" plain
                       (file "~/Documents/ledger/refile.led")
                       "
-     %(org-read-date) %^{Payee}
+     %(org-read-date)  %^{Payee}
           ; entered: %U
           Liabilities:MasterCard
           Expenses:%^{Account}              € %^{Amount}
