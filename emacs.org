@@ -892,8 +892,15 @@
 
      ;; Handy key definition
      (define-key global-map "\M-Q" 'unfill-paragraph)
-
    #+END_SRC
+
+   Filling, either manual or automatic using =auto-fill-mode= wraps
+   lines that are longer than =fill-column=. This is usually modified
+   by function =set-fill-column= that is bound to =C-x f=. This key
+   combination is close to other common keys that I've frequently
+   found myself accidentally modifying the fill-column value from its
+   default 70. Hopefully this paragraph helps me to remember how to
+   reset it.
 
 ** Understand compressed files
 
