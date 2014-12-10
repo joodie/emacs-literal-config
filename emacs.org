@@ -1912,8 +1912,9 @@ The following sets some default reports and tells ledger to use ISO dates.
    #+END_SRC
 
    Key =M-j= joins the next line with the current one. Copied from
-   [[http://whattheemacsd.com/key-bindings.el-03.html][WhatTheEmacs!?]] The is an alternative to =M-^= or =C-c q= for joining
-   current line to previous one.
+   [[http://whattheemacsd.com/key-bindings.el-03.html][WhatTheEmacs!?]] The is an alternative to =M-^= or =C-c q= for
+   joining current line to previous one. Unfortunately it does not
+   work in org-mode that overrides it.
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
