@@ -428,9 +428,9 @@
    bindings to start with =C-c [lower case letter]=. Implementations are
    in appropriate sections below.
 
-* Start up
+* Start-up
 
-  Start with the scratch buffer; no start up screen. Restore previous
+  Start with the scratch buffer; no start-up screen. Restore previous
   window and file setup including window placement.
 
   #+NAME: startup
@@ -2248,8 +2248,7 @@ bbdb-merge-records=.
    gnus-sum-thread-tree-vertical "|")
 
   (setq gnus-thread-sort-functions
-        '(
-          (not gnus-thread-sort-by-date)
+        '((not gnus-thread-sort-by-date)
           (not gnus-thread-sort-by-number)))
 
   ;; NO 'passive
