@@ -2418,14 +2418,12 @@ bbdb-merge-records=.
           ("http://mosaicscience.com/feed/rss.xml" b)
           ("http://epidemic.bio.ed.ac.uk/rss.xml" b)
 
-          ("http://endlessparentheses.com/atom.xml" e)
           ("http://planet.emacsen.org/atom.xml" e)
           ("http://emacsworld.blogspot.com/feeds/posts/default" e)
-          ("http://sachachua.com/blog/feed/" e)
           ("http://shallowsky.com/blog/index.rss" p)
           ("http://perltricks.com/feed/rss" p)))
-   (global-set-key (kbd "C-c f") 'elfeed)
 
+   (global-set-key (kbd "C-c f") 'elfeed)
    (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
    #+END_SRC
 
