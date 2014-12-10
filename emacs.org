@@ -2122,16 +2122,29 @@ too.
    etc. The ido mode is also used to give better interface to
    =recentf=, =C-c r=.
 
+   [[https://github.com/lewang/flx][flx-ido]] gives sparse matching to finding a file or buffer. Try
+   giving the first letter of several words in a filename to pull that
+   file to the top of the list of suggestions. [[https://github.com/emacsmirror/ido-vertical-mode][ido-vertical-mode]]
+   replaces deprecated setting I had before. These two mods are also
+   mentioned in the [[http://irreal.org/blog/?p=2305][Irreal]] blog.
+
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
+     ;;(ido-mode (quote both))
+     ;;(ido-yes-or-no-mode +1)
+     ;;(require 'flx-ido)
+     (ido-mode 1)
+     (flx-ido-mode 1)
+     (setq ido-everywhere t)
+     ;; make ido display choices vertically
+     (ido-vertical-mode 1)
      ;; display any item that contains the chars you typed
      (setq ido-enable-flex-matching t)
-     ;; make ido display choices vertically
-     (setq ido-separator "\n")
-     (ido-mode (quote both))
-     ;;(ido-yes-or-no-mode +1)
-     (setq ido-everywhere t)
-     ;;(global-set-key "\M-x" 'smex)
+     ;; disable ido faces to see flx highlights.
+     (setq ido-use-faces nil)
+
+     ;; reduce garbage collection overhead by giving it more memory
+     (setq gc-cons-threshold 20000000)
 
      (defun recentf-ido-find-file ()
        "Find a recent file using ido."
