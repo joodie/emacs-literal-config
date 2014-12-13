@@ -2772,6 +2772,17 @@ bbdb-merge-records=.
             org-capture-templates))
    #+END_SRC
 
+** Org Dropbox
+
+   [[https://t.co/rhSgJ6zrjD][org-dropbox]] is my own package that is now available in MELPA. It
+   creates a minor mode that syncs DropBox notes from mobile devices
+   into an org datetree file that is part of my org agenda. The minor
+   mode starts a daemon that periodically scans the note directory.
+
+   With this org-dropbox-mode on, I can browse news in my phone, add
+   interesting articles to Dropbox, and these notes will automatically
+   pop into a file that is searchable using org agenda commands.
+
 ** Refile
 
    Captured notes should be kept in a temporary file and periodically
