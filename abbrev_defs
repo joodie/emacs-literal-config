@@ -11,7 +11,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bbdb-mode-abbrev-table '())
 
@@ -21,9 +23,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -69,21 +75,23 @@
     ("=pod" "=pod" cperl-electric-pod 0)
     ("continue" "continue" cperl-electric-else 0)
     ("do" "do" cperl-electric-keyword 0)
-    ("else" "else" cperl-electric-else 1)
+    ("else" "else" cperl-electric-else 0)
     ("elsif" "elsif" cperl-electric-keyword 0)
-    ("for" "for" cperl-electric-keyword 2)
+    ("for" "for" cperl-electric-keyword 0)
     ("foreach" "foreach" cperl-electric-keyword 0)
     ("foreachmy" "foreachmy" cperl-electric-keyword 0)
     ("formy" "formy" cperl-electric-keyword 0)
-    ("head1" "head1" cperl-electric-pod 1)
+    ("head1" "head1" cperl-electric-pod 0)
     ("head2" "head2" cperl-electric-pod 0)
-    ("if" "if" cperl-electric-keyword 4)
+    ("if" "if" cperl-electric-keyword 0)
     ("over" "over" cperl-electric-pod 0)
     ("pod" "pod" cperl-electric-pod 0)
     ("unless" "unless" cperl-electric-keyword 0)
     ("until" "until" cperl-electric-keyword 0)
     ("while" "while" cperl-electric-keyword 0)
    ))
+
+(define-abbrev-table 'css-mode-abbrev-table '())
 
 (define-abbrev-table 'data-debug-mode-abbrev-table '())
 
@@ -191,12 +199,13 @@
     ("rigourous" "rigorous" nil 0)
     ("scholary" "scholarly" nil 0)
     ("sentance" "sentence" nil 3)
+    ("sparce" "sparse" nil 0)
     ("sperl" "#!/usr/bin/env perl
 use Modern::Perl;
 use Data::Printer;
 " nil 11)
     ("strenghten" "strengthen" nil 0)
-    ("taht" "that" nil 9)
+    ("taht" "that" nil 10)
     ("techinques" "techniques" nil 0)
     ("teh" "the" nil 8)
     ("tehm" "them" nil 0)
@@ -232,7 +241,9 @@ use Data::Printer;
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-mode-abbrev-table '())
 
@@ -282,7 +293,9 @@ use Data::Printer;
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -292,7 +305,7 @@ use Data::Printer;
 
 (define-abbrev-table 'org-mode-abbrev-table
   '(
-    ("lblk" "" skel-org-block-elisp 1)
+    ("lblk" "" skel-org-block-elisp 3)
     ("legnht" "length" nil 1)
     ("legnth" "length" nil 1)
     ("legth" "length" nil 1)
@@ -318,12 +331,12 @@ use Data::Printer;
     ("oscale" "#+ATTR_LaTeX: scale=0.75" nil 1)
     ("oshebang" "#+PROPERTY: :shebang \"#!/usr/bin/env perl\"" nil 1)
     ("osize" "#+ATTR_LaTeX: width=0.70\\textwidth" nil 1)
-    ("otitle" "#+TITLE: " nil 9)
+    ("otitle" "#+TITLE: " nil 10)
     ("otname" "#+TBLNAME:" nil 6)
     ("otoc" "#+OPTIONS: toc:nil" nil 8)
-    ("pblk" "" skel-org-block-perl 2)
+    ("pblk" "" skel-org-block-perl 3)
     ("rblk" "" skel-org-block-r 1)
-    ("sblk" "" skel-org-block 1)
+    ("sblk" "" skel-org-block-source 0)
     ("sditaa" "" skel-org-block-ditaa 0)
     ("sdot" "" skel-org-block-dot 0)
     ("selisp" "" skel-org-block-elisp 0)
@@ -340,7 +353,9 @@ use Data::Printer;
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 

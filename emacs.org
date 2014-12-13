@@ -1560,6 +1560,20 @@ The following sets some default reports and tells ledger to use ISO dates.
 
   #+END_SRC
 
+** Ssh config
+
+   Ssh-config-mode highlights valid keys in ssh configuration files.
+
+  #+name: text-files
+#+BEGIN_SRC emacs-lisp
+  (autoload 'ssh-config-mode "ssh-config-mode" t)
+  (add-to-list 'auto-mode-alist '(".ssh/config\\'"       . ssh-config-mode))
+  (add-to-list 'auto-mode-alist '("sshd?_config\\'"      . ssh-config-mode))
+  (add-to-list 'auto-mode-alist '("known_hosts\\'"       . ssh-known-hosts-mode))
+  (add-to-list 'auto-mode-alist '("authorized_keys2?\\'" . ssh-authorized-keys-mode))
+  (add-hook 'ssh-config-mode-hook 'turn-on-font-lock)
+#+END_SRC
+
 * Programming
 ** Pair programming
 
