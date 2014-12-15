@@ -2787,7 +2787,14 @@ bbdb-merge-records=.
 
    With this org-dropbox-mode on, I can browse news in my phone, add
    interesting articles to Dropbox, and these notes will automatically
-   pop into a file that is searchable using org agenda commands.
+   pop into my main capture file =reference.org= that is searchable
+   using org agenda commands.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+      (org-dropbox-mode)
+   #+END_SRC
+
 
 ** Refile
 
