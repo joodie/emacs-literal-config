@@ -2420,6 +2420,7 @@ bbdb-merge-records=.
    | e     | Emacs    |
    | f     | Friends  |
    | j     | Journals |
+   | l     | Language |
    | n     | News     |
    | p     | Perl     |
    | s     | Security |
@@ -2448,6 +2449,8 @@ bbdb-merge-records=.
           ("http://feeds.nature.com/NatureNewsComment?format=xml" j)
           ("http://news.sciencemag.org/rss/weekly_news_email.xml" j)
           ("http://feeds.newscientist.com/science-news" j)
+
+          ("http://languagetool.wikidot.com/feed/site-changes.xml" l)
 
           ("http://nowheremag.com/feed/" t)
           ("https://www.schneier.com/blog/atom.xml" s)
