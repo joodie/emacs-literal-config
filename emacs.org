@@ -1736,7 +1736,16 @@ The following sets some default reports and tells ledger to use ISO dates.
             (define-key paredit-mode-map (kbd "M-s-<right>")
                         'paredit-backward-barf-sexp)
           )))
-#+END_SRC
+   #+END_SRC
+
+   In my emacs lisp programming I am using the *Names* package that
+   enables namespaces. The following sets debugging tools up to
+   recognize these namespaces:
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (require 'names-dev)
+   #+END_SRC
 
 ** Clojure
 
