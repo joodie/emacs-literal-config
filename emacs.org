@@ -2136,9 +2136,12 @@ too.
    etc. The ido mode is also used to give better interface to
    =recentf=, =C-c r=.
 
-   [[https://github.com/lewang/flx][flx-ido]] gives sparse matching to finding a file or buffer. Try
-   giving the first letter of several words in a filename to pull that
-   file to the top of the list of suggestions. [[https://github.com/emacsmirror/ido-vertical-mode][ido-vertical-mode]]
+   [[https://github.com/lewang/flx][flx-ido]] gives sparse matching to finding a file or buffer. It puts
+   =.*= (match any and any length) between every letter you type. Try
+   giving the first letter of all words in the filename to pull that
+   file to the top of the list of suggestions.
+
+   [[https://github.com/emacsmirror/ido-vertical-mode][ido-vertical-mode]]
    replaces deprecated setting I had before. These two mods are also
    mentioned in the [[http://irreal.org/blog/?p=2305][Irreal]] blog.
 
