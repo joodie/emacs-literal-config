@@ -63,7 +63,6 @@
 (depends-on "ido-vertical-mode")
 (depends-on "idomenu")
 (depends-on "iedit")
-(depends-on "javap-mode")
 (depends-on "jedi")
 (depends-on "key-chord")
 (depends-on "kv")

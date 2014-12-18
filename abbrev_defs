@@ -155,7 +155,7 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("8eur" "€" nil 8)
+    ("8eur" "€" nil 18)
     ("8pound" "£" nil 2)
     ("Flase" "False" nil 4)
     ("abiquity" "ambiguity" nil 0)
@@ -164,6 +164,7 @@
     ("anf" "and" nil 0)
     ("assosiation" "association" nil 0)
     ("availble" "available" nil 0)
+    ("beacuse" "because" nil 0)
     ("behavious" "behaviors" nil 0)
     ("ccc" "°C" nil 11)
     ("centences" "sentences" nil 0)
@@ -365,9 +366,7 @@ use Data::Printer;
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 

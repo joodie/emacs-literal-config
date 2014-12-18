@@ -144,10 +144,15 @@
                        (font-spec :size 20 :name "Symbola:"))
    #+END_SRC
 
- You can use =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to increase
- or decrease the buffer text size in the current buffer (=C-+= or
- =C--= to repeat). To restore the default (global) face height, type
- =C-x C-0=. (From [[http://www.emacswiki.org/emacs/SetFonts][EmacsWiki]])
+   You can use =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to
+   increase or decrease the buffer text size in the current buffer
+   (=C-+= or =C--= to repeat). To restore the default (global) face
+   height, type =C-x C-0=. (From [[http://www.emacswiki.org/emacs/SetFonts][EmacsWiki]])
+
+   The best way to get information about cursor location is to run
+   =what-cursor-position= with prefix argument: *C-u C-x =*. It will
+   open a *Help* window and show information about character,
+   encoding, fonts and highlights. Also, see =M-x what-face=.
 
 *** TODO Unicode
 
@@ -497,7 +502,7 @@
     (setq kept-new-versions 6)
     (setq kept-old-versions 2)
     (setq delete-old-versions t)
-    ;; Save all backup file in this directory.
+    ;; Save all backup files in this directory.
     (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
 
     ;; disable lockfiles
@@ -869,10 +874,14 @@
    For writing text, I prefer Emacs to do line wrapping for me. Also,
    superfluous white-space should needs to be visible.
 
+   [[Abbreviations]] are an important emacs proctivity enhancement
+   feature. They need to be available in all text buffers.
+
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
      (defun my/text-formatting-hooks ()
-       (my/turn-on 'auto-fill)) ; turn on automatic hard line wraps
+       (my/turn-on 'auto-fill ; turn on automatic hard line wraps
+                   'abbrev))  ;; abbrev-mode on 
 
      (add-hook 'text-mode-hook
                'my/text-formatting-hooks)
@@ -986,7 +995,8 @@
    Emacs comes with =abbrev-mode= that is able to replace typed strings
    in context sensitive way. I use it to correct typos (teh -> the) and
    replace short strings with long, multiline texts in modes that
-   I use frequently.
+   I use frequently. I turn this mode on in all modes that are based
+   in text-mode.
 
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
@@ -2794,7 +2804,7 @@ bbdb-merge-records=.
    into an org datetree file that is part of my org agenda. The minor
    mode starts a daemon that periodically scans the note directory.
 
-   With this org-dropbox-mode on, I can browse news in my phone, add
+   With org-dropbox-mode on, I can browse news in my phone, add
    interesting articles to Dropbox, and these notes will automatically
    pop into my main capture file =reference.org= that is searchable
    using org agenda commands.
@@ -3585,7 +3595,7 @@ bbdb-merge-records=.
    3. Install latest version of [[http://hmdt.jp/coral/][Coral]] (1.3)
       - Download and open the image file
       - =cp -r /Volumes/Coral1.3/bin/coral.app /Applications/=
-      - =cp /Volumes/Coral1.3/bin/bin/coral /usr/local/bin/=
+      - =cp /Volumes/Coral1.3/bin/coral /usr/local/bin/=
         and edit it so that it calls /Applications/coral.app/Contents/MacOS/coral
    4. Run the following code:
 
