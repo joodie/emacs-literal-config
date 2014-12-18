@@ -98,6 +98,7 @@
 (depends-on "smex")
 (depends-on "sphinx-doc")
 (depends-on "ssh-config-mode")
+(depends-on "string-inflection")
 (depends-on "suomalainen-kalenteri")
 (depends-on "undo-tree")
 (depends-on "w3m")

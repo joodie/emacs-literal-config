@@ -539,14 +539,15 @@
 
   The table lists all keymaps assigned using this schema:
 
-  | prefix C-x t | toggle function | link                         |
-  |--------------+-----------------+------------------------------|
-  | f            | folding         | [[Local navigation in a buffer]] |
-  | i            | iedit-mode      | [[iedit mode]]                   |
-  | n            | narrowing       | [[Narrowing]]                    |
-  | l            | linum, relative | [[Pair programming]]             |
-  | s            | whitespace-mode | [[Whitespace]]                   |
-  | w            | writegood-mode  | [[Writing style]]                |
+  | prefix C-x t | toggle function          | link                         |
+  |--------------+--------------------------+------------------------------|
+  | f            | folding                  | [[Local navigation in a buffer]] |
+  | i            | iedit-mode               | [[iedit mode]]                   |
+  | n            | narrowing                | [[Narrowing]]                    |
+  | l            | linum, relative          | [[Pair programming]]             |
+  | s            | whitespace-mode          | [[Whitespace]]                   |
+  | v            | string-inflections-cycle | [[String inflection]]            |
+  | w            | writegood-mode           | [[Writing style]]                |
 
 
   #+name: key-bindings
@@ -1063,6 +1064,17 @@
               (kill-buffer))))))
     (global-set-key (kbd "C-c d")  'delete-file-and-buffer)
 
+   #+END_SRC
+
+** String inflection
+
+   [[http://github.com/akicho8/string-inflection][String inflection]] cycles variable names between camel case and
+   underscore-separated states. The mnemonic is "Emacs, toggle
+   variable", =C-x t v=.
+
+   #+BEGIN_SRC emacs-lisp
+     (require 'string-inflection)
+     (define-key ctl-x-map "v" 'my/toggle-map)
    #+END_SRC
 
 ** Spell checking
@@ -1627,6 +1639,7 @@ The following sets some default reports and tells ledger to use ISO dates.
      (define-key my/toggle-map "l" 'my/global-pair-programming-mode)
 
    #+END_SRC
+
 ** Perl
 
    I recently moved from [[http://perlbrew.pl/][perlbrew]] to [[https://github.com/tokuhirom/plenv][plenv]] as a system that provides
