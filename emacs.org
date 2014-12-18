@@ -1561,9 +1561,17 @@
 
 ** Ledger
 
-Ledger is a command line accounting program with strong emacs support.
+   Ledger is a command line accounting program with strong emacs
+   support.
 
-The following sets some default reports and tells ledger to use ISO dates.
+   The following tells ledger to use ISO dates and sets some default
+   reports. There does not seem to be consensus on ledger file
+   extension. I am using =led=.
+
+   The ledger mode has been getting a lot of bug fixes recently. These
+   changes are affecting font coloring, too. Many of the font faces
+   are inherited which are good in principle, but at the moment they
+   clash badly. I try to set them back to somewhat calmer palette.
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
@@ -1572,13 +1580,24 @@ The following sets some default reports and tells ledger to use ISO dates.
     (setq auto-mode-alist
           (cons '("\\.led" . ledger-mode) auto-mode-alist))
 
-    (setq ledger-reports
-          (quote (("test" "ledger ")
-                  ("bal" "ledger -f %(ledger-file) bal")
-                  ("reg" "ledger -f %(ledger-file) reg")
-                  ("payee" "ledger -f %(ledger-file) reg @%(payee)")
-                  ("account" "ledger -f %(ledger-file) reg %(account)"))))
-    (setq ledger-use-iso-dates t)
+    (defun my/ledger-mode-hooks ()
+      "Ledger mode settings"
+      ;; date format
+      (setq ledger-use-iso-dates t)
+      ;; font changes
+      ;;(setq ledger-font-comment-face ((t (:foreground "dark gray"))))
+      (set-face-attribute 'ledger-font-comment-face nil :foreground "gray40")
+      (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "cornsilk")
+      ;; reports
+      (setq ledger-reports
+            (quote (("test" "ledger ")
+                    ("bal" "ledger -f %(ledger-file) bal")
+                    ("reg" "ledger -f %(ledger-file) reg")
+                    ("payee" "ledger -f %(ledger-file) reg @%(payee)")
+                    ("account" "ledger -f %(ledger-file) reg %(account)")))))
+
+    (add-hook 'ledger-mode-hook
+              'my/ledger-mode-hooks)
 
   #+END_SRC
 
