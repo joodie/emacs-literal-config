@@ -75,6 +75,7 @@
 (depends-on "noflet")
 (depends-on "nose")
 (depends-on "org")
+(depends-on "org-autolist")
 (depends-on "org-dropbox")
 (depends-on "org-plus-contrib")
 (depends-on "osx-location")

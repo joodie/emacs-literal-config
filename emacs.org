@@ -2650,10 +2650,16 @@ bbdb-merge-records=.
   Lets bind the org mode online info to =C-c o= since
   it is so useful.
 
+  [[https://github.com/calvinwyoung/org-autolist][org-autolist]] makes org lists behave more like you'd expect: =Return=
+  inserts a new list item and =backspace= removes the bulletpoint and
+  backs up to previous list item.
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
      (global-set-key "\C-co" 'org-info)
+
+     (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
    #+END_SRC
 
 ** Agenda
