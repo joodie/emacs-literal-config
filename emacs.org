@@ -71,6 +71,8 @@
    =h= to see all keys. Tip: =v= opens the package's home page.
 
    This is also a convenient place to update packages with =U x=.
+   Paradox is now able to use the =async= package to run updates
+   without locking the whole emacs.
 
    You can give feedback if you set up the =paradox-github-token=
    variable to your github token. See the variable's info (=C-h v=)
@@ -78,8 +80,8 @@
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     ;;(fset 'list-packages 'paradox-list-packages)
      (setq paradox-github-token t)
+     (setq paradox-execute-asynchronously t)
    #+END_SRC
 
 *** Upgrading Org
