@@ -1558,6 +1558,8 @@
       ;;(setq ledger-font-comment-face ((t (:foreground "dark gray"))))
       (set-face-attribute 'ledger-font-comment-face nil :foreground "gray40")
       (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "cornsilk")
+      ;; use flycheck
+      (flycheck-mode)
       ;; reports
       (setq ledger-reports
             (quote (("test" "ledger ")
@@ -1569,6 +1571,8 @@
     (add-hook 'ledger-mode-hook
               'my/ledger-mode-hooks)
 
+    ;; flycheck-ledger does syntax checking
+    (eval-after-load 'ledger-mode '(require 'flycheck-ledger))
   #+END_SRC
 
 ** Ssh config
