@@ -410,12 +410,15 @@
 
 ** Cursor
 
-   The cursor shows the location between characters.
+   The cursor shows the location between characters except in [[Evil
+   mode]] when it becomes a transparent box.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
       (modify-all-frames-parameters (list (cons 'cursor-type 'bar)))
       (setq blink-cursor-mode nil)
+      ;; show tab length
+      (setq-default x-stretch-cursor t)
    #+END_SRC
 
 ** Current line
