@@ -877,14 +877,14 @@
    For writing text, I prefer Emacs to do line wrapping for me. Also,
    superfluous white-space should needs to be visible.
 
-   [[Abbreviations]] are an important emacs proctivity enhancement
+   [[Abbreviations]] are an important emacs productivity enhancement
    feature. They need to be available in all text buffers.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
      (defun my/text-formatting-hooks ()
        (my/turn-on 'auto-fill ; turn on automatic hard line wraps
-                   'abbrev))  ;; abbrev-mode on 
+                   'abbrev))  ;; abbrev-mode on
 
      (add-hook 'text-mode-hook
                'my/text-formatting-hooks)

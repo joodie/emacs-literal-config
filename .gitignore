@@ -23,3 +23,5 @@ url
 .python-environments
 /bbdb
 image-dired
+/eshell/history
+/eshell/lastdir

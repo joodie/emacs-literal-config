@@ -163,7 +163,7 @@
     ("albait" "albeit" nil 0)
     ("anf" "and" nil 0)
     ("assosiation" "association" nil 0)
-    ("availble" "available" nil 0)
+    ("availble" "available" nil 2)
     ("beacuse" "because" nil 0)
     ("behavious" "behaviors" nil 0)
     ("ccc" "°C" nil 11)
@@ -190,25 +190,27 @@
     ("mammalial" "mammalian" nil 0)
     ("negigable" "negligible" nil 0)
     ("occatinally" "occasionally" nil 0)
-    ("otehr" "other" nil 0)
+    ("otehr" "other" nil 1)
     ("precice" "precise" nil 0)
     ("provenanace" "provenance" nil 0)
     ("recepi" "recipe" nil 1)
     ("recepies" "recipes" nil 1)
     ("recepis" "recipes" nil 1)
+    ("reciliant" "resilient" nil 0)
     ("revieled" "revealed" nil 0)
     ("rigourous" "rigorous" nil 0)
     ("scholary" "scholarly" nil 0)
     ("sentance" "sentence" nil 3)
     ("sparce" "sparse" nil 0)
+    ("specialised" "specialized" nil 0)
     ("sperl" "#!/usr/bin/env perl
 use Modern::Perl;
 use Data::Printer;
 " nil 11)
     ("strenghten" "strengthen" nil 0)
-    ("taht" "that" nil 10)
+    ("taht" "that" nil 13)
     ("techinques" "techniques" nil 0)
-    ("teh" "the" nil 8)
+    ("teh" "the" nil 13)
     ("tehm" "them" nil 0)
    ))
 
@@ -321,7 +323,7 @@ use Data::Printer;
     ("oauthor" "#+AUTHOR: Heikki Lehv\\auml{}slaiho" nil 6)
     ("obibio" "" skel-org-block-bibl 1)
     ("obiblio" "" skel-org-block-bibl 3)
-    ("ocaption" "#+CAPTION: " nil 4)
+    ("ocaption" "#+CAPTION: " nil 5)
     ("odate" "#+DATE:" nil 5)
     ("ofinnish" "#+LaTeX_HEADER: \\selectlanguage{finnish}" nil 9)
     ("oindent" "#+STARTUP: indent" nil 4)
@@ -366,7 +368,9 @@ use Data::Printer;
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
