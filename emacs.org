@@ -1227,40 +1227,20 @@
      ;;(global-set-key "\C-cs" 'do-smarty-pants)
   #+END_SRC
 
-** Copy and comment a region or line
+** Commenting
 
-  #+name: text-files
-  #+BEGIN_SRC emacs-lisp
-    (defun copy-and-comment-region (beg end)
-      "Insert a copy of the lines in region and comment them.
-    When transient-mark-mode is enabled, if no region is active then only the
-    current line is acted upon.
+   The default emacs line commenting leaves a lot of things out. A
+   replacement package [[https://github.com/remyferre/comment-dwim-2][comment-dwim-2]] allows uncommenting and cycling
+   of different behaviors. The default comment key is =C-;=.
 
-    If the region begins or ends in the middle of a line, that entire line is
-    copied, even if the region is narrowed to the middle of a line.
-    The copied lines are commented according to mode.
+   Note to self: [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] is recommended for the evil mode.
 
-    Current position is preserved."
-      (interactive "r")
-      (let ((orig-pos (point-marker)))
-        (save-restriction
-          (widen)
-          (when (and transient-mark-mode (not (use-region-p)))
-            (setq beg (line-beginning-position)
-                  end (line-beginning-position 2)))
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key (kbd "M-;") 'comment-dwim-2)
+   #+END_SRC
 
-          (goto-char beg)
-          (setq beg (line-beginning-position))
-          (goto-char end)
-          (unless (= (point) (line-beginning-position))
-            (setq end (line-beginning-position 2)))
-
-          (goto-char beg)
-          (insert-before-markers (buffer-substring-no-properties beg end))
-          (comment-region beg end)
-          (goto-char orig-pos))))
-
-  #+END_SRC
+   Remember: =C-x ;= sets the comment column (comment-set-column)
 
 ** Editing as root
 
@@ -1368,21 +1348,6 @@
   #+END_SRC
 
 * Text files
-** Commenting
-
-   The default emacs line commenting leaves a lot of things out. A
-   replacement package [[https://github.com/remyferre/comment-dwim-2][comment-dwim-2]] allows uncommenting and cycling
-   of different behaviors. The default comment key is =C-;=.
-
-   Note to self: [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] is recommended for the evil mode.
-
-   #+name: text-files
-   #+BEGIN_SRC emacs-lisp
-     (global-set-key (kbd "M-;") 'comment-dwim-2)
-   #+END_SRC
-
-   Remember: =C-x ;= sets the comment column (comment-set-column)
-
 ** Writing style
 
    [[https://github.com/bnbeckwith/writegood-mode][Writegood mode]], =C-x t w=, highlights common writing problems in
