@@ -177,14 +177,14 @@
     ("flase" "false" nil 4)
     ("forthnight" "fortnight" nil 0)
     ("hayday" "heyday" nil 0)
-    ("heikkil" "Heikki Lehväslaiho" nil 4)
+    ("heikkil" "Heikki Lehväslaiho" nil 6)
     ("inlcuding" "including" nil 0)
     ("interective" "interactive" nil 0)
-    ("latex" "LaTeX" nil 1)
+    ("latex" "LaTeX" nil 4)
     ("legnht" "length" nil 1)
     ("legnth" "length" nil 1)
     ("legth" "length" nil 1)
-    ("lenght" "length" nil 2)
+    ("lenght" "length" nil 3)
     ("lenth" "length" nil 1)
     ("ma" "am" nil 4)
     ("mammalial" "mammalian" nil 0)
@@ -206,13 +206,16 @@
     ("sperl" "#!/usr/bin/env perl
 use Modern::Perl;
 use Data::Printer;
-" nil 11)
+" nil 13)
     ("strenghten" "strengthen" nil 0)
     ("taht" "that" nil 13)
     ("techinques" "techniques" nil 0)
     ("teh" "the" nil 13)
     ("tehm" "them" nil 0)
+    ("wiht" "with" nil 1)
    ))
+
+(define-abbrev-table 'gnuplot-comint-mode-abbrev-table '())
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
 
@@ -334,7 +337,7 @@ use Data::Printer;
     ("oscale" "#+ATTR_LaTeX: scale=0.75" nil 1)
     ("oshebang" "#+PROPERTY: :shebang \"#!/usr/bin/env perl\"" nil 1)
     ("osize" "#+ATTR_LaTeX: width=0.70\\textwidth" nil 1)
-    ("otitle" "#+TITLE: " nil 10)
+    ("otitle" "#+TITLE: " nil 11)
     ("otname" "#+TBLNAME:" nil 6)
     ("otoc" "#+OPTIONS: toc:nil" nil 8)
     ("pblk" "" skel-org-block-perl 3)
