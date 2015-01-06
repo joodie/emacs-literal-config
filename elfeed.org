@@ -20,6 +20,7 @@
 **** http://emacsworld.blogspot.com/feeds/posts/default
 **** entry-title: \(emacs\|org-mode\)
 **** http://planet.emacsen.org/atom.xml
+**** http://whattheemacsd.com/
 *** Perl                                                                  :p:
 **** http://shallowsky.com/blog/index.rss
 **** http://perltricks.com/feed/rss
