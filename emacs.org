@@ -1583,7 +1583,7 @@
               'my/ledger-mode-hooks)
 
     ;; flycheck-ledger does syntax checking
-    (eval-after-load 'ledger-mode '(require 'flycheck-ledger))
+    ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
   #+END_SRC
 
 ** Ssh config
