@@ -1434,12 +1434,14 @@
    hard newlines (auto-fill-mode off) when buffer is in LaTeX mode.
    This is exactly opposite to behaviors in most other text modes.
 
+   More [[http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor/][AUCTeX]] tips.
+
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
      (when (fboundp 'adaptive-wrap-prefix-mode)
        (defun my-activate-adaptive-wrap-prefix-mode ()
          "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' together,
-     and auto-fill-mode the opposite way."
+               and auto-fill-mode the opposite way."
          (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1))
          (auto-fill-mode (if visual-line-mode -1 1)))
        (add-hook 'visual-line-mode-hook 'my-activate-adaptive-wrap-prefix-mode))
@@ -1449,13 +1451,18 @@
      (setq-default TeX-master nil)           ;
      (setq reftex-plug-into-AUCTeX t)        ;
      (setq TeX-PDF-mode t)                   ; default processing to pdflatex
+     (setq TeX-electric-sub-and-superscript t) ;Inserts {} automatically on _ and ^
 
      ;; removed auto-fill
      (defun my/latex-hooks ()
-       (my/turn-on 'visual-line-mode         ; now turns off auto-fill
-                   'flyspell-mode))
+       (my/turn-on 'visual-line         ; now turns off auto-fill
+                   'flyspell))
      (add-hook 'latex-mode-hook 'my/latex-hooks) ; needs testing!!!
      (add-hook 'latex-mode-hook 'turn-on-reftex) ; no -mode in the end
+
+     ;; spell checking on LaTeX buffers
+     (add-hook 'latex-mode-hook 'flyspell-mode)
+     (add-hook 'latex-mode-hook 'flyspell-buffer)
    #+END_SRC
 
 ** XML
