@@ -1,0 +1,48 @@
+#+STARTUP: indent
+* Blogs
+:PROPERTIES: 
+ :ID: elfeed
+ :END:
+** News                                                                    :n:
+*** http://feeds.bbci.co.uk/news/science_and_environment/rss.xml
+*** http://feeds.bbci.co.uk/news/world/rss.xml
+*** http://feeds.bbci.co.uk/news/technology/rss.xml
+*** http://feeds.bbci.co.uk/news/health/rss.xml
+** Journals in Science                                                     :j:
+*** http://feeds.nature.com/NatureNewsComment?format=xml
+*** http://news.sciencemag.org/rss/weekly_news_email.xml
+*** http://feeds.newscientist.com/science-news
+** Computers
+*** Security                                                              :s:
+**** https://www.schneier.com/blog/atom.xml
+*** Emacs                                                                 :e:
+**** http://planet.emacsen.org/atom.xml
+**** http://emacsworld.blogspot.com/feeds/posts/default
+**** entry-title: \(emacs\|org-mode\)
+**** http://planet.emacsen.org/atom.xml
+*** Perl                                                                  :p:
+**** http://shallowsky.com/blog/index.rss
+**** http://perltricks.com/feed/rss
+** Biology                                                                 :b:
+*** http://mosaicscience.com/feed/rss.xml
+*** http://epidemic.bio.ed.ac.uk/rss.xml
+** Writing and text
+*** Language                                                              :l:
+**** http://languagetool.wikidot.com/feed/site-changes.xml
+*** Travel                                                                :t:
+**** http://nowheremag.com/feed/
+** Design                                                                  :d:
+*** http://feeds.feedburner.com/InformationIsBeautiful
+** Comics                                                                  :c:
+*** http://kimmo.suominen.com/stuff/vw.xml
+*** http://kimmo.suominen.com/stuff/fingerpori.xml
+*** http://xkcd.com/atom.xml
+*** http://english.bouletcorp.com/feed/
+** Friends                                                                 :f:
+*** http://soloalgunaspalabras.wordpress.com/feed/
+*** http://kaustbirding.blogspot.com/atom.xml
+*** http://listenlearnread.blogspot.com/feeds/posts/default
+*** http://madebytamarak.blogspot.com.es/atom.xml
+*** http://blogandgogo.weebly.com/1/feed
+*** http://metallome.blogspot.com/atom.xml
+*** http://dakotakollective.wordpress.com/feed/

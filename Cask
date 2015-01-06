@@ -24,6 +24,7 @@
 (depends-on "dkmisc")
 (depends-on "eimp")
 (depends-on "elfeed")
+(depends-on "elfeed-org")
 (depends-on "elmacro")
 (depends-on "elnode")
 (depends-on "elpy")

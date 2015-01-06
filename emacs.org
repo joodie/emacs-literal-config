@@ -2469,46 +2469,19 @@ bbdb-merge-records=.
    | s     | Security |
 
 
+    [[https://github.com/remyhonig/elfeed-org/][elfeed-org]] package that makes elfeed to read the file [[file:elfeed.org][./elfeed.org]]
+    for RSS URLs and loads them at runtime. This is more convinient
+    than editing the lisp list and evaluating the statement.
+
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-   (setq elfeed-feeds
-         '(("http://feeds.bbci.co.uk/news/world/rss.xml" n)
-          ("http://feeds.bbci.co.uk/news/science_and_environment/rss.xml" n)
-          ("http://feeds.bbci.co.uk/news/technology/rss.xml" n)
-          ("http://feeds.bbci.co.uk/news/health/rss.xml" n)
+     ;; Initialize elfeed-org
+     (elfeed-org)
 
-          ("http://kimmo.suominen.com/stuff/vw.xml" c)
-          ("http://kimmo.suominen.com/stuff/fingerpori.xml" c)
-          ("http://xkcd.com/atom.xml" c)
-
-          ("http://soloalgunaspalabras.wordpress.com/feed/" f)
-          ("http://kaustbirding.blogspot.com/atom.xml" f)
-          ("http://listenlearnread.blogspot.com/feeds/posts/default" f)
-          ("http://madebytamarak.blogspot.com.es/atom.xml" f)
-          ("http://blogandgogo.weebly.com/1/feed" f)
-          ("http://metallome.blogspot.com/atom.xml" f)
-          ("http://dakotakollective.wordpress.com/feed/" f)
-
-          ("http://feeds.nature.com/NatureNewsComment?format=xml" j)
-          ("http://news.sciencemag.org/rss/weekly_news_email.xml" j)
-          ("http://feeds.newscientist.com/science-news" j)
-
-          ("http://languagetool.wikidot.com/feed/site-changes.xml" l)
-
-          ("http://nowheremag.com/feed/" t)
-          ("https://www.schneier.com/blog/atom.xml" s)
-
-          ("http://mosaicscience.com/feed/rss.xml" b)
-          ("http://epidemic.bio.ed.ac.uk/rss.xml" b)
-
-          ("http://planet.emacsen.org/atom.xml" e)
-          ("http://emacsworld.blogspot.com/feeds/posts/default" e)
-          ("http://shallowsky.com/blog/index.rss" p)
-          ("http://perltricks.com/feed/rss" p)))
-
-   (global-set-key (kbd "C-c f") 'elfeed)
-   (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
+     (global-set-key (kbd "C-c f") 'elfeed)
+     (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
    #+END_SRC
+
 
 ** Web browsing
 
