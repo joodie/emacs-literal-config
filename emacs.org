@@ -815,6 +815,11 @@
 
   #+END_SRC
 
+
+** TODO evil tutor
+
+   Install [[https://github.com/syl20bnr/evil-tutor][evil-tutor]] to learn. It is adapted from vim's =:h= text.
+
 * Formatting and white-space
 
 ** Character encoding
@@ -1163,6 +1168,12 @@
 
      (global-set-key (kbd "C-c k") 'my/aspell-word-then-abbrev)
    #+END_SRC
+
+** TODO wcheck mode
+
+  A level up in spell checking abstractions is [[https://github.com/tlikonen/wcheck-mode][Wcheck Mode]] that
+  understands programs for proper inflection of words in Finnish in
+  addition to standard flyspell.
 
 ** iedit mode
 
