@@ -204,6 +204,8 @@
      (setq-default indicate-buffer-boundaries 'left)
      (setq-default indicate-empty-lines +1)
 
+     ;; hide mode line indicator
+     (diminish 'git-gutter-mode)
    #+END_SRC
 
 ** Mode line
@@ -213,6 +215,10 @@
    bonus.  Some might argue that the amount of code used is excessive
    for such a small feature, but since I was able to copy, paste and
    modify, why not.
+
+   Futher, package *diminish* makes it easy to remove or change any minor
+   mode indicators on the mode line. The code is where the the minor
+   mode is set up.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
@@ -1098,6 +1104,8 @@
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
 
+     (diminish 'flyspell-mode " ✓")
+
      ;; Set aspell as spell program
      (setq ispell-program-name "aspell")
 
@@ -1324,6 +1332,9 @@
   enter magit status window. Pressing =q= restores the previous
   window(s).
 
+  Magit automatically updates the buffer of each file that changes at
+  commit. I do not have to see the default /MRev/ mode line indicator.
+
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
     (global-set-key "\C-cg" 'magit-status)
@@ -1339,6 +1350,9 @@
       (interactive)
       (kill-buffer)
       (jump-to-register :magit-fullscreen))
+
+    ;; hide MREv mode line indicator
+    (diminish 'magit-auto-revert-mode)
   #+END_SRC
 
 ** git-timemachine

@@ -20,6 +20,7 @@
 (depends-on "dash")
 (depends-on "db")
 (depends-on "deferred")
+(depends-on "diminish")
 (depends-on "dklrt")
 (depends-on "dkmisc")
 (depends-on "eimp")
