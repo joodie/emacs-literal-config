@@ -1104,8 +1104,6 @@
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
 
-     (diminish 'flyspell-mode " ✓")
-
      ;; Set aspell as spell program
      (setq ispell-program-name "aspell")
 
@@ -1114,7 +1112,8 @@
 
      ;; Flyspell activation for text mode
      (add-hook 'text-mode-hook
-               (lambda () (flyspell-mode 1)))
+               (lambda () (flyspell-mode 1)
+                 (diminish 'flyspell-mode " ✓")))
 
      ;; Remove Flyspell from some sub modes of text mode
      (dolist (hook '(change-log-mode-hook
@@ -1352,7 +1351,9 @@
       (jump-to-register :magit-fullscreen))
 
     ;; hide MREv mode line indicator
-    (diminish 'magit-auto-revert-mode)
+    (add-hook 'magit-status-mode-hook
+              (lambda () (diminish 'magit-auto-revert-mode " ✓")))
+
   #+END_SRC
 
 ** git-timemachine
