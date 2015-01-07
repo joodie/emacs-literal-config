@@ -532,11 +532,17 @@
   #+END_SRC
 
   Emacs pops up an annoying buffer when big chunks of text get
-  replaced overflowing the undo buffer. Prevent that:
+  replaced overflowing the undo buffer. Prevent that.
+
+  Emacs can crash if it tries to open a too large file. If it detects
+  a one, it will ask: "file foo is large (12MB); really open?". My
+  elfeed index is regularly over the default 10MB, so lets increase
+  the limit to 100 MB. Modern computers can easily handle that.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
     (setq warning-suppress-types (quote ((undo discard-info))))
+    (setq large-file-warning-threshold 100000000)
   #+END_SRC
 
 * Key maps
