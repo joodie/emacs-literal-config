@@ -1352,7 +1352,7 @@
 
     ;; hide MREv mode line indicator
     (add-hook 'magit-status-mode-hook
-              (lambda () (diminish 'magit-auto-revert-mode " ✓")))
+              (lambda () (diminish 'magit-auto-revert-mode)))
 
   #+END_SRC
 
