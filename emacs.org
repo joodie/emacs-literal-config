@@ -1194,7 +1194,7 @@
    pressing =C-x t i=. All occurrences of that word in the buffer are
    selected and can be simultaneously edited.
 
-  #+name: global-keys
+  #+name: global-navigation
   #+BEGIN_SRC emacs-lisp
     ;; toggle iedit-mode C-x t i
     (define-key my/toggle-map "i" 'iedit-mode)
