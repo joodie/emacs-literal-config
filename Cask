@@ -76,6 +76,7 @@
 (depends-on "magit")
 (depends-on "markdown-mode")
 (depends-on "names")
+(depends-on "neotree")
 (depends-on "noflet")
 (depends-on "nose")
 (depends-on "org")

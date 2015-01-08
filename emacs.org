@@ -563,6 +563,7 @@
   | n            | narrowing                | [[Narrowing]]                    |
   | l            | linum, relative          | [[Pair programming]]             |
   | s            | whitespace-mode          | [[Whitespace]]                   |
+  | t            | neotree-toggle           | [[Global navigation]]            |
   | v            | string-inflections-cycle | [[String inflection]]            |
   | w            | writegood-mode           | [[Writing style]]                |
 
@@ -2181,6 +2182,27 @@ too.
        (find-file "~/.emacs.d/emacs.org"))
      (global-set-key "\C-ce" 'my/edit-emacs-configuration)
    #+END_SRC
+
+   [[http://www.emacswiki.org/emacs/NeoTree_%E4%B8%AD%E6%96%87wiki][NeoTree]] is a file browser plugin that I am trying out. Toggle its
+   panel: Emacs, Toggle neoTree =C-x t t=.
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     ;; bind this to: C-x t n
+     (define-key my/toggle-map "t" 'neotree-toggle)
+
+     ;; always change focus to current buffer
+     (setq neo-smart-open t)
+
+     ;; fix evil mode key conflicts
+     (add-hook 'neotree-mode-hook
+               ( lambda ()
+                 (define-key evil-normal-state-local-map (kbd "TAB" ) 'neotree-enter)
+                 (define-key evil-normal-state-local-map (kbd "SPC" ) 'neotree-enter)
+                 (define-key evil-normal-state-local-map (kbd "q" )   'neotree-hide)
+                 (define-key evil-normal-state-local-map (kbd "RET" ) 'neotree-enter)))
+   #+END_SRC
+
 
    I like emacs to remember files that I have visited. The =recentf=
    package allows you to see the list using  =C-x C-r=. It comes handy
