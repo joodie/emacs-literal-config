@@ -2670,7 +2670,7 @@ bbdb-merge-records=.
      (require 'suomalainen-kalenteri)
    #+END_SRC
 
-   You can add tags to any agenda item  manually or preferebly by pulling
+   You can add tags to any agenda item  manually or preferably by pulling
    them from a list. At the agenda item header, hit =C-c C-q= to see the
    list and select any subset of tags by pressing the shortcut key(s).
 
