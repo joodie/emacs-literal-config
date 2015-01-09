@@ -1424,10 +1424,22 @@
 
 ** LaTeX
 
-   Use AUCTex for all LaTeX.
+   Use AUCTex for all LaTeX. There is an extensive info documentation
+   that you do not read to get started =C-h i m auctax=.
+
+   [[https://github.com/Bruce-Connor/latex-extra][LaTeX-extra]] gives additional features like code folding. The
+   AUXTeX-latexmk package uses the latexmk to compile. Set it to
+   produce PDF by running the following code block:
+
+   #+BEGIN_SRC sh
+     cat > ~/.latexmkrc
+     # .latexmkrc starts
+     $pdf_mode = 1;
+     # .latexmkrc ends
+  #+END_SRC
 
    [[http://www.emacswiki.org/emacs/LaTeXPreviewPane][latex-preview-panel]] package enables preview within Emacs. I could
-   add =(latex-preview-pane-enable)= here but it I can enable it on
+   add =(latex-preview-panel-enable)= here but it I can enable it on
    the fly with =M-x latex-preview-pane-mode=
 
    [[http://endlessparentheses.com/longlines-mode-in-latex.html][Endless Parentheses]] tackles long lines by modifying the longlines
@@ -1439,10 +1451,18 @@
    hard newlines (auto-fill-mode off) when buffer is in LaTeX mode.
    This is exactly opposite to behaviors in most other text modes.
 
-   More [[http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor/][AUCTeX]] tips.
+   Hit =C-c C-c= to compile, =C-c C-v= to view.
+
+   More [[http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor/][AUCTeX]] tips. [[http://irreal.org/blog/?p=3577][Irreal blog]].
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
+
+    ;; (global-set-key "\C-ct" 'org-info)
+
+    (auctex-latexmk-setup)
+    (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
+
      (when (fboundp 'adaptive-wrap-prefix-mode)
        (defun my-activate-adaptive-wrap-prefix-mode ()
          "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' together,
@@ -1458,7 +1478,7 @@
      (setq TeX-PDF-mode t)                   ; default processing to pdflatex
      (setq TeX-electric-sub-and-superscript t) ;Inserts {} automatically on _ and ^
 
-     ;; removed auto-fill
+     ;; remove auto-fill
      (defun my/latex-hooks ()
        (my/turn-on 'visual-line         ; now turns off auto-fill
                    'flyspell))
