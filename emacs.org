@@ -476,23 +476,6 @@
     (setq user-mail-address "heikki.lehvaslaiho@gmail.com")
    #+END_SRC
 
-** Options set using the customize interface
-
-   By default, Emacs saves the options you set via the `customize-*`
-   functions in the user init file, which is "~/.emacs.d/init.el" in
-   this setup. I prefer to have these data in a separate file,
-   =custom.el= that gets created if it does not exist. In this setup
-   customizations are only collected to =custom.el= and you should
-   later move and reorganize them to this main document.
-
-   #+name: customize-config
-   #+BEGIN_SRC emacs-lisp
-     (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-     (unless (file-exists-p custom-file)
-       (write-region "" nil custom-file))
-     (load custom-file)
-   #+END_SRC
-
 * Backups
 
   Default emacs behaviour is to clutter document directories with its
@@ -3572,7 +3555,6 @@ bbdb-merge-records=.
 
     <<environment>>
     <<tools>>
-    <<customize-config>>
     <<look-and-feel>>
     <<key-bindings>>
     <<formatting>>
@@ -3635,6 +3617,23 @@ bbdb-merge-records=.
    #+END_SRC
 
 * Environment
+
+** Options set using the customize interface
+
+   By default, Emacs saves the options you set via the `customize-*`
+   functions in the user init file, which is "~/.emacs.d/init.el" in
+   this setup. I prefer to have these data in a separate file,
+   =custom.el= that gets created if it does not exist. In this setup
+   customizations are only collected to =custom.el= and you should
+   later move and reorganize them to this main document.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+     (unless (file-exists-p custom-file)
+       (write-region "" nil custom-file))
+     (load custom-file)
+   #+END_SRC
 
 ** OS X
 
