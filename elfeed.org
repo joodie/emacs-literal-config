@@ -44,6 +44,6 @@
 *** http://kaustbirding.blogspot.com/atom.xml
 *** http://listenlearnread.blogspot.com/feeds/posts/default
 *** http://madebytamarak.blogspot.com.es/atom.xml
-*** http://blogandgogo.weebly.com/1/feed
+#*** http://blogandgogo.weebly.com/1/feed
 *** http://metallome.blogspot.com/atom.xml
 *** http://dakotakollective.wordpress.com/feed/
