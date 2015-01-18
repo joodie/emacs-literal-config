@@ -566,7 +566,7 @@
   |--------------+-----------------------+-------------------|
   | 2            | 2048-game             | [[2048-game]]         |
   | c            | cider-jack-in         |                   |
-  | d            | ediff-buffers         |                   |
+  | d            | ediff-buffers         | [[Ediff]]             |
   | h            | howdoi-query          | [[How Do I?]]         |
   | n            | nato-region           | [[Phonetic alphabet]] |
   | N            | denato-region         | [[Phonetic alphabet]] |
@@ -585,7 +585,6 @@
      (define-key ctl-x-map "l" 'my/launcher-map)
      ;; examples
      (define-key my/launcher-map "c" #'calc)
-     (define-key my/launcher-map "d" #'ediff-buffers)
      (define-key my/launcher-map "p" #'paradox-list-packages)
      (define-key my/launcher-map "s" #'shell)
   #+END_SRC
@@ -2592,6 +2591,37 @@ bbdb-merge-records=.
      ;; keyboard short-cut
      (define-key my/launcher-map "w" #'browse-url-at-point)
 
+   #+END_SRC
+
+** TODO Ediff
+
+   [[http://oremacs.com/2015/01/17/setting-up-ediff/][Better defaults]] for ediff.
+
+   Remember the spell "Emacs, Launch eDiff", =C-x l d=.
+
+   This setting activates [[http://www.emacswiki.org/emacs/WinnerMode][winner mode]] to return the previous window
+   setup by =C-c left=.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (define-key my/launcher-map "d" #'ediff-buffers)
+
+     ;; custom macro for changing custom values
+     (defmacro csetq (variable value)
+       `(funcall (or (get ',variable 'custom-set)
+                     'set-default)
+                 ',variable ,value))
+
+     ;; no separate frame for the control panel
+     (csetq ediff-window-setup-function 'ediff-setup-windows-plain)
+     ;; split horizontally
+     (csetq ediff-split-window-function 'split-window-horizontally)
+     ;; ignore whitespace
+     (csetq ediff-diff-options "-w")
+
+     ;; remove ediff buffers and restore previous window settings
+     (winner-mode)
+     (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
    #+END_SRC
 
 ** Phonetic alphabet
