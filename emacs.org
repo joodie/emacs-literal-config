@@ -2568,6 +2568,10 @@ bbdb-merge-records=.
      (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
    #+END_SRC
 
+*** TODO Yank URL
+
+    Pressing =y= should copy the URL of the entry. However, I can not
+    paste it in my  OS X laptop. Figure out why
 
 ** Web browsing
 
