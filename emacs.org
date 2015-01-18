@@ -1633,6 +1633,16 @@
 #+END_SRC
 
 * Programming
+
+   This applies to any scripting language file that starts with a
+   shebang: the code make those files executable on saving.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'after-save-hook
+               'executable-make-buffer-file-executable-if-script-p)
+   #+END_SRC
+
 ** Pair programming
 
    Normally, I think line numbers in code editors just take up space,
