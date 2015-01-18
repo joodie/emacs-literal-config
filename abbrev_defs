@@ -9,11 +9,13 @@
 
 (define-abbrev-table 'Man-mode-abbrev-table '())
 
+(define-abbrev-table 'TeX-error-overview-mode-abbrev-table '())
+
+(define-abbrev-table 'TeX-output-mode-abbrev-table '())
+
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bbdb-mode-abbrev-table '())
 
@@ -23,13 +25,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -170,6 +168,7 @@
     ("centences" "sentences" nil 0)
     ("colse" "close" nil 0)
     ("computationla" "computational" nil 0)
+    ("consice" "concise" nil 1)
     ("consistant" "consistent" nil 0)
     ("daugher" "daughter" nil 0)
     ("excamples" "examples" nil 0)
@@ -247,9 +246,7 @@ use Data::Printer;
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-mode-abbrev-table '())
 
@@ -293,15 +290,15 @@ use Data::Printer;
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
 
+(define-abbrev-table 'neotree-mode-abbrev-table '())
+
 (define-abbrev-table 'nrepl-connections-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'nrepl-messages-mode-abbrev-table '())
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -317,7 +314,7 @@ use Data::Printer;
     ("legth" "length" nil 1)
     ("lenght" "length" nil 1)
     ("lenth" "length" nil 1)
-    ("ma" "am" nil 5)
+    ("ma" "am" nil 6)
     ("oabstract" "#+BEGIN_ABSTRACT
 
 #+END_ABSTRACT
@@ -359,9 +356,7 @@ use Data::Printer;
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 

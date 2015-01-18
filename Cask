@@ -18,6 +18,7 @@
 (depends-on "comment-dwim-2")
 (depends-on "company")
 (depends-on "concurrent")
+(depends-on "cperl-mode")
 (depends-on "creole")
 (depends-on "dash")
 (depends-on "db")
