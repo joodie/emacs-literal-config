@@ -1172,6 +1172,36 @@
   understands programs for proper inflection of words in Finnish in
   addition to standard flyspell.
 
+  Sources:
+  - http://www.hillenius.com/blog/2013/11/09_writers-need-spell-checkers-wcheck-mode.html
+  - 
+
+  #+NAME: spell-checker_________inactive
+  #+BEGIN_SRC emacs-lisp
+
+    (setq ispell-program-name "aspell")
+
+    (defvar my-finnish-syntax-table
+      (copy-syntax-table text-mode-syntax-table))
+
+    (modify-syntax-entry ?- "w" my-finnish-syntax-table)
+
+    (setq wcheck-language-data
+          '(("British English"
+             (program . "/usr/local/bin/aspell")
+             (args "-a"  "-l" "-d" "british")
+             (action-program . "/usr/local/bin/aspell")
+             (action-args "-a" "-d" "british")
+             (action-parser . wcheck-parser-ispell-suggestions))
+            ("Finnish"
+             (program . "/usr/bin/enchant")
+             (args "-l" "-d" "fi")
+             (syntax . my-finnish-syntax-table)
+             (action-program . "/usr/bin/enchant")
+             (action-args "-a" "-d" "fi")
+             (action-parser . wcheck-parser-ispell-suggestions))))
+  #+END_SRC
+
 ** iedit mode
 
    Activate the [[http://www.emacswiki.org/emacs/Iedit][Iedit]] mode by placing the cursor to a word and
