@@ -1353,6 +1353,8 @@
   Magit automatically updates the buffer of each file that changes at
   commit. I do not have to see the default /MRev/ mode line indicator.
 
+  See [[http://shingofukuyama.github.io/emacs-magit-reword-commit-messages/][this post]] for a tutorial of commit message editing with magit.
+
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
     (global-set-key "\C-cg" 'magit-status)
