@@ -3004,13 +3004,13 @@ bbdb-merge-records=.
    Tell emacs where to find external dependencies. Ditaa and PlantUML
    are java jar files. Ditaa is part of org-mode git repository but
    you have to download [[http://sourceforge.net/projects/plantuml/files/plantuml.jar/download][PlantUML]] and place somewhere where Emacs can
-   find it.
+   find it. I am using [[http://brew.sh/][homebrew]] to maintain a recent copy of both.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (setq org-ditaa-jar-path "~/src/org-mode/contrib/scripts/ditaa.jar")
+     (setq org-ditaa-jar-path "/usr/local/bin/ditaa")
      ; needed by plantuml-mode
-     (setq plantuml-jar-path (expand-file-name "~/.emacs.d/bin/plantuml.jar"))
+     (setq plantuml-jar-path (expand-file-name "/usr/local/bin/plantuml"))
      (setq org-plantuml-jar-path plantuml-jar-path)
      ;; Use fundamental mode when editing plantuml blocks with C-c '
      ;;(add-to-list 'org-src-lang-modes (quote ("plantuml" . fundamental)))
