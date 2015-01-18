@@ -2733,10 +2733,16 @@ bbdb-merge-records=.
    according to Saudi Arabian custom. Also, I need reminders of
    holidays in Finland.
 
+
+   I learned ways to speed up agenda generation from [[http://punchagan.muse-amuse.in/posts/how-i-learnt-to-use-emacs-profiler.html][learn profiler]].
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-agenda-start-on-weekday 7)
      (require 'suomalainen-kalenteri)
+     ;; speed-ups
+     (setq org-agenda-inhibit-startup t)
+     (setq org-agenda-use-tag-inheritance nil)
    #+END_SRC
 
    You can add tags to any agenda item  manually or preferably by pulling
