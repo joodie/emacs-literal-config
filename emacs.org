@@ -3785,13 +3785,19 @@ bbdb-merge-records=.
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (server-start)
-    #+END_SRC
+   #+END_SRC
 
    A commandline alias *em* (=alias em=emacsclient=) then calls
    emacsclient instead of emacs on the terminal. This will open a new
    emacs frame with the text to edit. To finish editing, save and
-   press =C-x #=. This works beautifully with fish shell command
-   =funced=.
+   press =C-x #= or =C-x C-3=. This works beautifully with fish shell
+   command =funced=.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key (kbd "C-x C-3") 'server-edit)
+   #+END_SRC
+
 
    Additionally, for those quick and dirty editing jobs on terminal, I
    have installed *zile*, [[http://www.gnu.org/software/zile/][a lightweight emacs clone]] with homebrew, and
