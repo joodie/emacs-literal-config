@@ -568,6 +568,7 @@
   | c            | cider-jack-in         |                   |
   | d            | ediff-buffers         | [[Ediff]]             |
   | h            | howdoi-query          | [[How Do I?]]         |
+  | l            | org-mac-grab-link     | [[URL copying]]       |
   | n            | nato-region           | [[Phonetic alphabet]] |
   | N            | denato-region         | [[Phonetic alphabet]] |
   | p            | paradox-list-packages | [[Paradox]]           |
@@ -575,7 +576,6 @@
   | s            | shell                 |                   |
   | t            | git-timemachine       | [[git-timemachine]]   |
   | w            | browse-url-at-point   | [[w3m]]               |
-  |              |                       |                   |
 
 
   #+name: key-bindings
@@ -3802,6 +3802,27 @@ bbdb-merge-records=.
 
    Command-p now exports the current page as HTML and prints using the
    system dialog.
+
+*** URL copying
+
+    The package [[http://orgmode.org/worg/org-contrib/org-mac-link.html][org-mac-link]] grabs links from open applications and
+    pastes them to current org-buffer. Great for org capture notes
+    =C-c c n=. Type the note title,  move the cursor to the body, and
+    press =C-x l l c= "Emacs, launch link chrome". The other options I
+    have left active are =F= finder, =f= firefox, and =s= safari.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (require 'org-mac-link)
+     (add-hook 'org-mode-hook
+               (lambda () (define-key my/launcher-map "l" #'org-mac-grab-link)))
+     ;; disable unused applications
+     (setq org-mac-grab-Mail-app-p nil
+           org-mac-grab-Outlook-app-p nil
+           org-mac-grab-devonthink-app-p nil
+           org-mac-grab-Addressbook-app-p nil
+           org-mac-grab-Skim-app-p nil)
+   #+END_SRC
 
 ** Custom lisp package directory
 
