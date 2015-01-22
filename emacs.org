@@ -99,6 +99,12 @@
      # restart graphical emacs
    #+END_SRC
 
+**** TODO Automatic org upgades
+
+     Last time I upgraded emacs packages the org package was there in
+     the list and got upgraded without any problems. I have not seen
+     anything announcing this so let's see how things develop.
+
 ** Editing this document
 
    Use emacs and version >8 of org-mode for editing. To do that
@@ -216,9 +222,9 @@
    for such a small feature, but since I was able to copy, paste and
    modify, why not.
 
-   Futher, package *diminish* makes it easy to remove or change any minor
-   mode indicators on the mode line. The code is where the the minor
-   mode is set up.
+   Futher, package *diminish* makes it easy to remove or change any
+   minor mode indicators on the mode line. The code using diminish is
+   placed where the corresponding minor mode is set up.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
