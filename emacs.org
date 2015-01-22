@@ -323,18 +323,17 @@
                          :weight 'bold)
      (set-face-attribute 'mode-line-position-face nil
                          :inherit 'mode-line-face
-                         ;;:family "Menlo"
                          :height 130)
      (set-face-attribute 'mode-line-mode-face nil
                          :inherit 'mode-line-face
                          :foreground "gray80")
      (set-face-attribute 'mode-line-minor-mode-face nil
                          :inherit 'mode-line-mode-face
-                         :foreground "gray40"
-                         :height 110)
+                         :foreground "gray60"
+                         :height 100)
      (set-face-attribute 'mode-line-process-face nil
                          :inherit 'mode-line-face
-                         :foreground "#718c00")
+                         :foreground "grey80")
      (set-face-attribute 'mode-line-80col-face nil
                          :inherit 'mode-line-position-face
                          :foreground "black" :background "#eab700")
@@ -2203,6 +2202,19 @@ too.
      (add-hook 'org-shiftleft-final-hook 'windmove-left)
      (add-hook 'org-shiftdown-final-hook 'windmove-down)
      (add-hook 'org-shiftright-final-hook 'windmove-right)
+   #+END_SRC
+
+*** wn-mode
+
+    Let's try yet an other package [[https://github.com/luismbo/wn-mode][wn-mode]] to change between windows.
+
+    Each window within the active frame gets a number that indicated
+    in the mode line among the minor modes. =M-1= and so on move point
+    to that window.
+
+   #+name: execute-last
+   #+BEGIN_SRC emacs-lisp
+     (wn-mode)
    #+END_SRC
 
 ** External navigation
