@@ -3033,14 +3033,34 @@ bbdb-merge-records=.
    find it. I am using [[http://brew.sh/][homebrew]] to maintain a recent copy of both with
    a shell script wrapper.
 
+   The org code seems to require the direct access to the jar file.
+   Run this perl code create a symbolic link after installation or upgrade.
+
+   #+HEADERS: :results output :exports both :shebang "#!/usr/bin/env perl"
+   #+BEGIN_SRC perl :tangle yes
+     use strict;
+     use warnings;
+
+     my $file = '/usr/local/bin/plantuml';
+     my $data;
+     {
+         open my $fh, '<', $file or die;
+         $/ = undef;
+         $data = <$fh>;
+         close $fh;
+     }
+     my ($jar) = $data =~ /jar +([^ ]+)/;
+     `ln -s $jar "${file}.jar"`;
+   #+END_SRC
+
    The [[https://github.com/zwz/plantuml-mode][plantuml-mode]] helps editing the code.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      ;; ditaa
-     (setq org-ditaa-jar-path "/usr/local/bin/ditaa")
+     (setq org-ditaa-jar-path "/usr/local/bin/ditaa.jar")
      ; plantuml-mode
-     (setq plantuml-jar-path (expand-file-name "/usr/local/bin/plantuml"))
+     (setq plantuml-jar-path (expand-file-name "/usr/local/bin/plantuml.jar"))
      (setq org-plantuml-jar-path plantuml-jar-path)
    #+END_SRC
 
