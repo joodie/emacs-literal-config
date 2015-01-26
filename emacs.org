@@ -597,7 +597,7 @@
      ;; C-x l is `count-lines-page' by default.
      (define-key ctl-x-map "l" 'my/launcher-map)
      ;; examples
-     (define-key my/launcher-map "c" #'calc)
+     ;;(define-key my/launcher-map "c" #'calc)
      (define-key my/launcher-map "p" #'paradox-list-packages)
      (define-key my/launcher-map "s" #'shell)
   #+END_SRC
