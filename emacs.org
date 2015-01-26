@@ -350,8 +350,8 @@
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      ;; nice little alternative visual bell; Miles Bader <miles /at/ gnu.org>
-     (defcustom echo-area-bell-string "♪"
-       "Message displayed in mode-line by `echo-area-bell' function."
+     (defcustom echo-area-bell-string "♪ ♪ ♪"
+       "Message displayed in echo area by `echo-area-bell' function."
        :group 'user)
 
      (defcustom echo-area-bell-delay 0.1
@@ -374,7 +374,7 @@
                (propertize
                 (concat
                  (propertize
-                  "x"
+                  "*DING* "
                   'display
                   `(space :align-to (- right ,(+ 2 (length echo-area-bell-string)))))
                  echo-area-bell-string)
