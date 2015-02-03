@@ -2613,6 +2613,19 @@ bbdb-merge-records=.
     for RSS URLs and loads them at runtime. This is more convinient
     than editing the lisp list and evaluating the statement.
 
+    The package author recommended binding filters to unused keys in
+    elfeed window. My new keys bind to functions that do all the hard
+    work in making selecting tags ever easier:
+
+    | key | function                 | note                                 |
+    |-----+--------------------------+--------------------------------------|
+    |   0 | elfeed-read-all          | resets to my default filter          |
+    |   1 | elfeed-read-news         | world news, removes pesky sport news |
+    |   2 | elfeed-read-journals     | science news                         |
+    |   R | elfeed--mark-all-as-read | one key to mark all visible articles |
+
+    The read functions report their action in the echo field.
+
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      ;; Initialize elfeed-org
@@ -2620,6 +2633,42 @@ bbdb-merge-records=.
 
      (global-set-key (kbd "C-c f") 'elfeed)
      (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
+
+     (defun elfeed-read-all ()
+       (interactive)
+       (setq elfeed-search-filter "@1-month-ago +unread !sport")
+       (elfeed-search-update :force)
+       (message "elfeed: show all"))
+     (define-key elfeed-search-mode-map (kbd "0") 'elfeed-read-all)
+
+     (defun elfeed-mark-all-as-read ()
+       (interactive)
+       (mark-whole-buffer)
+       (elfeed-search-untag-all-unread))
+     (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
+
+     (defun elfeed-remove-sports ()
+       (interactive)
+       (setq elfeed-search-filter "@1-month-ago +unread +n sport")
+       (elfeed-search-update :force)
+       (elfeed-mark-all-as-read)
+       (message "elfeed: sports removed"))
+
+     (defun elfeed-read-news ()
+       (interactive)
+       (elfeed-remove-sports)
+       (setq elfeed-search-filter "@1-month-ago +unread +n")
+       (elfeed-search-update :force)
+       (message "elfeed: show news"))
+     (define-key elfeed-search-mode-map (kbd "1") 'elfeed-read-news)
+
+     (defun elfeed-read-journals ()
+       (interactive)
+       (setq elfeed-search-filter "@1-month-ago +unread +j")
+       (elfeed-search-update :force)
+       (message "elfeed: show journals"))
+     (define-key elfeed-search-mode-map (kbd "2") 'elfeed-read-journals)
+
    #+END_SRC
 
 *** TODO Yank URL
