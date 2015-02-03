@@ -842,6 +842,7 @@
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
      (set-language-environment "UTF-8")
+     (prefer-coding-system 'utf-8) ; same thing as above? in practice?
      (global-set-key
       (kbd "\C-cu")
       (lambda () (interactive)
@@ -2310,7 +2311,7 @@ too.
     (require 'recentf)
     (setq recentf-auto-cleanup 'never) ;; cleanup interfers with tramp mode
     (recentf-mode 1)
-    (setq recentf-max-saved-items 200
+    (setq recentf-max-saved-items 400
           recentf-max-menu-items 35)
     (global-set-key "\C-x\ \C-r" 'recentf-open-files)
    #+END_SRC
