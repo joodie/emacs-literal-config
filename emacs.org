@@ -1765,7 +1765,9 @@
              cperl-close-paren-offset -4
              cperl-continued-statement-offset 4
              cperl-indent-parens-as-block t
-             cperl-tab-always-indent t))
+             cperl-tab-always-indent t)
+       (my/turn-on 'show-paren-mode
+                   'aggressive-indent-mode))
    #+END_SRC
 
    Call perltidy with =C-c t= from emacs to indent and beautify perl code in the
