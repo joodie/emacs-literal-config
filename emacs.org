@@ -1086,6 +1086,15 @@
 
    #+END_SRC
 
+*** Yasnipppet
+
+    Add your own snippets to ~/.emacs.d/snippets by placing files
+    there or invoking yas-new-snippet.
+
+   #+BEGIN_SRC emacs-lisp
+     (yas-global-mode 1)
+   #+END_SRC
+
 ** String inflection
 
    [[http://github.com/akicho8/string-inflection][String inflection]] cycles variable names between camel case and
