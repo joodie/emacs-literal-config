@@ -15,6 +15,7 @@
   (warn "Org-Mode is out of date. We expect org 8 or higher, but instead we have %s" (org-version)))
 
 (require 'pallet)
+(pallet-mode t)
 
 (org-babel-load-file "~/.emacs.d/emacs.org")
 
