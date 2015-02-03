@@ -3235,6 +3235,20 @@ bbdb-merge-records=.
      (setq org-log-done 'time)
    #+END_SRC
 
+** Checkboxes in HTML
+
+   This snippet (from [[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org][Sacha.org]]) turns - [X] into ☑ and - [ ] into ☐,
+   but leaves [-] alone i HTML export.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-html-checkbox-type 'unicode)
+     (setq org-html-checkbox-types
+      '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
+                 (off . "<span class=\"task-todo\">&#x2610;</span>")
+                 (trans . "<span class=\"task-in-progress\">[-]</span>"))))
+   #+END_SRC
+
 ** Org Babel
 
    Run code with a block by =C-c C-c= without confirmation. This is a
