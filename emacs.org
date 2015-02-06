@@ -2644,39 +2644,50 @@ bbdb-merge-records=.
      (global-set-key (kbd "C-c f") 'elfeed)
      (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
 
-     (defun elfeed-read-all ()
-       (interactive)
-       (setq elfeed-search-filter "@1-month-ago +unread !sport")
-       (elfeed-search-update :force)
-       (message "elfeed: show all"))
-     (define-key elfeed-search-mode-map (kbd "0") 'elfeed-read-all)
-
      (defun elfeed-mark-all-as-read ()
+       "Mark currently shown articles read"
        (interactive)
        (mark-whole-buffer)
        (elfeed-search-untag-all-unread))
      (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
 
-     (defun elfeed-remove-sports ()
+     (defun elfeed--read-tag (filter tag)
+       "Template for filtering various feed categories.
+
+     FILTER is the filter string to apply, and TAG is a short name of
+     the displayed category.
+
+     The cursor is moved to the beginning of the first feed line."
+       (setq elfeed-search-filter filter)
+       (elfeed-search-update :force)
+       (goto-char (point-min))
+       (forward-line)
+       (message (concat "elfeed: show " tag)))
+
+     (defun elfeed-read-all ()
+       "Show all new titles (except sport)"
        (interactive)
+       (elfeed--read-tag "@1-month-ago +unread !sport" "all"))
+     (define-key elfeed-search-mode-map (kbd "0") 'elfeed-read-all)
+
+     (defun elfeed--remove-sports ()
+       "Remove sports articles from world news"
        (setq elfeed-search-filter "@1-month-ago +unread +n sport")
        (elfeed-search-update :force)
        (elfeed-mark-all-as-read)
        (message "elfeed: sports removed"))
 
      (defun elfeed-read-news ()
+       "Show global news articles"
        (interactive)
-       (elfeed-remove-sports)
-       (setq elfeed-search-filter "@1-month-ago +unread +n")
-       (elfeed-search-update :force)
-       (message "elfeed: show news"))
+       (elfeed--remove-sports)
+       (elfeed--read-tag "@1-month-ago +unread +n" "news"))
      (define-key elfeed-search-mode-map (kbd "1") 'elfeed-read-news)
 
      (defun elfeed-read-journals ()
+       "Show scientific news from major journals"
        (interactive)
-       (setq elfeed-search-filter "@1-month-ago +unread +j")
-       (elfeed-search-update :force)
-       (message "elfeed: show journals"))
+       (elfeed--read-tag "@1-month-ago +unread +j" "journals"))
      (define-key elfeed-search-mode-map (kbd "2") 'elfeed-read-journals)
 
    #+END_SRC
