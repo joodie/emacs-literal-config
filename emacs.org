@@ -1879,6 +1879,14 @@
    I'm using [[https://github.com/clojure-emacs/cider/commits/master][CIDER]] for clojure source/repl interaction. Start it with
    incantation "Emacs, launch cider" =C-x l c=.
 
+   Cider installation requires that the current version =M-x
+   cider-version=is passed through leiningen to clojure. Minimal
+   =~/.lein/profiles.clj= file:
+
+   #+BEGIN_EXAMPLE
+   {:user {:plugins [[cider/cider-nrepl "0.9.0-SNAPSHOT"]]}}
+   #+END_EXAMPLE
+
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
 
