@@ -2787,8 +2787,13 @@ bbdb-merge-records=.
    =re-builder= to match anything in your current buffer. The shortcut
    is "Emacs, launch re-builder", =C-x l r=.
 
+   As recommened in [[http://www.masteringemacs.org/article/re-builder-interactive-regexp-builder][Mastering emacs]], I've set the syntax to "string"
+   that escaped one set of backlashes. =C-c C-w= will copy the created
+   regexp *and* correct the syntax to be pasted into elisp.
+
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+     (setq reb-re-syntax 'string)
      (define-key my/launcher-map "r" #'re-builder)
    #+END_SRC
 
