@@ -2695,6 +2695,14 @@ bbdb-merge-records=.
    I have the prerequisites installed from homebrew: gnutls, GnuPG,
    ImageMagick, gzip.
 
+   Common keys:
+   - start =C-x l i=
+   - next =j=, previous =k= article
+   - open URL in browser =<TAB>...<Enter>=
+   - open user timeline =v=
+   - next =f=, previous =b= timeline
+   - top of page =H=
+
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (setq twittering-use-master-password t)
@@ -2708,8 +2716,9 @@ bbdb-merge-records=.
 
      ;; key map C-x l i
      (define-key my/launcher-map "i" #'twit)
+     (add-hook 'twittering-mode-hook
+               '(lambda () (setq mode-name "♪")))
    #+END_SRC
-
 
 ** Web browsing
 
