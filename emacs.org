@@ -2759,6 +2759,46 @@ bbdb-merge-records=.
 
    #+END_SRC
 
+** TODO Blogging
+
+   Nikola is a static web page creator with an easy org mode exporter
+   emacs package.
+
+   You first have to install nikola and start a start a blog: =nikola
+   init --demo mysite=.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (require 'org2nikola)
+     (setq org2nikola-output-root-directory "~/.config/nikola")
+
+
+     (defun org2nikola-after-hook-setup (title slug)
+       "see https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/ for setup
+      run `ln -s ~/src/heikkil.github.io ~/.config/nikola/output`, btw"
+       (let ((url (concat "http://heikkil.github.io/posts/" slug ".html"))
+             (nikola-dir (file-truename "~/.config/nikola"))
+             cmd)
+         ;; copy the blog url into kill-ring
+         (kill-new url)
+         (message "%s => kill-ring" url)
+         ;; nikola is building posts ...
+         (shell-command (format "cd %s; nikola build" nikola-dir))
+         (setq cmd "cd ~/projs/heikkil.github.io;git add .;git commit -m 'updated';git push origin master")
+         (shell-command cmd)))
+
+     (add-hook 'org2nikola-after-hook 'org2nikola-after-hook-setup)
+   #+END_SRC
+
+   Every time contents change, run:
+
+   #+BEGIN_SRC sh
+     cd ~/.config/nikola
+     nikola build
+   #+END_SRC
+
+   ... and then export the generated pages to the server.
+
 ** TODO Ediff
 
    [[http://oremacs.com/2015/01/17/setting-up-ediff/][Better defaults]] for ediff.
