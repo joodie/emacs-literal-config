@@ -8,6 +8,7 @@
 *** http://feeds.bbci.co.uk/news/world/rss.xml
 *** http://feeds.bbci.co.uk/news/technology/rss.xml
 *** http://feeds.bbci.co.uk/news/health/rss.xml
+*** http://www.bbc.com/culture/feed.rss
 ** News in Science Journals                                               :j:
 *** http://feeds.nature.com/NatureNewsComment?format=xml
 *** http://news.sciencemag.org/rss/weekly_news_email.xml
