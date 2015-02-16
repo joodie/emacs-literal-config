@@ -3435,8 +3435,8 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-;     (setq org-latex-pdf-process
-;       '("/usr/texbin/latexmk -interaction=nonstopmode -shell-escape -pdflatex=/usr/texbin/xelatex -gg -f -pdf %f"))
+    ;;(setq org-latex-pdf-process
+    ;;'("/usr/texbin/latexmk -interaction=nonstopmode -shell-escape -pdflatex=/usr/texbin/xelatex -gg -f -pdf %f"))
    #+END_SRC
 
 
@@ -3472,15 +3472,23 @@ bbdb-merge-records=.
 
    #+END_SRC
 
-   Display images created by a source block in the same document.
+   Display  and refresh images created by a source block in the same document.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'org-babel-after-execute-hook 'my/display-inline-images 'append)
-     (defun my/display-inline-images ()
-       (condition-case nil
-           (org-display-inline-images)
-         (error nil)))
+    (setq org-startup-with-inline-images t)
+    (add-hook 'org-babel-after-execute-hook
+          (lambda () (org-redisplay-inline-images)))
+   #+END_SRC
+
+  Enable flycheck in org-buffer  ([[http://www.wisdomandwonder.com/link/9573/how-to-correctly-enable-flycheck-in-babel-source-blocks][from here]])
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (defadvice org-edit-src-code (around set-buffer-file-name activate compile)
+       (let ((file-name (buffer-file-name)))
+         ad-do-it
+         (setq buffer-file-name file-name)))
    #+END_SRC
 
 ** Org export
