@@ -87,6 +87,7 @@
 (depends-on "org-autolist")
 (depends-on "org-dropbox")
 (depends-on "org-mac-link")
+(depends-on "org-page")
 (depends-on "org-plus-contrib")
 (depends-on "osx-location")
 (depends-on "package-build")
