@@ -2269,6 +2269,20 @@ too.
      (wn-mode)
    #+END_SRC
 
+** Resize windows
+
+  Buffer windows within frames can be resized but the default keys are
+  cumbersome. I have mapped these commands to Apple command key-arrow
+  key combinations for ease of use in my Apple laptop.
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (global-set-key (kbd "s-<left>") 'shrink-window-horizontally)
+     (global-set-key (kbd "s-<right>") 'enlarge-window-horizontally)
+     (global-set-key (kbd "s-<down>") 'shrink-window)
+     (global-set-key (kbd "s-<up>") 'enlarge-window)
+   #+END_SRC
+
 ** External navigation
 
    This allows you to google the selected region from local emacs buffer. Defines
