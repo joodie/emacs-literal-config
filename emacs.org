@@ -2761,6 +2761,34 @@ bbdb-merge-records=.
 
 ** TODO Blogging
 
+*** TODO org-page
+
+    Seems to reguire emacs v.25 to run properly.
+
+    [[https://github.com/kelvinh/org-page][org-page]] is simple static page website generator.
+    [[https://github.com/kelvinh/org-page/blob/master/doc/quick-guide.org][Quick guide]] gives more details.
+
+    After the setup, I ran command =op/new-repository=.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (require 'org-page)
+     (setq op/repository-directory "~/src/blog/heikkil.github.io")
+     (setq op/site-domain "http://heikkil.github.io")
+     ;;; for commenting
+     ;;(setq op/personal-disqus-shortname "your_disqus_shortname")
+     ;;; analytics
+     ;;(setq op/personal-google-analytics-id "your_google_analytics_id")
+     (setq op/personal-github-link "https://github.com/heikkil")
+     ;; slogans
+     (setq op/site-main-title "your main slogan")
+     (setq op/site-sub-title "your sub slogan")
+   #+END_SRC
+
+*** TODO Nikola
+
+    My python 3.4 installation does not work with Nikola although it should.
+
    Nikola is a static web page creator with an easy org mode exporter
    emacs package.
 
