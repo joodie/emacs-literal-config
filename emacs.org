@@ -78,6 +78,10 @@
    variable to your github token. See the variable's info (=C-h v=)
    for instructions.
 
+   Paradox now does asynchronous background updates. You do not even
+   have to call up the par-pageadox window to upgrade packages with
+   =paradox-upgrade-packages=.
+
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (setq paradox-github-token t)
