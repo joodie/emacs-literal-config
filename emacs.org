@@ -2805,57 +2805,31 @@ bbdb-merge-records=.
      (require 'org-page)
      (setq op/repository-directory "~/src/blog/heikkil.github.io")
      (setq op/site-domain "http://heikkil.github.io")
+     (setq op/personal-avatar "https://avatars0.githubusercontent.com/u/75674?v=3&s=460")
      ;;; for commenting
      ;;(setq op/personal-disqus-shortname "your_disqus_shortname")
-     ;;; analytics
-     ;;(setq op/personal-google-analytics-id "your_google_analytics_id")
+     ;;
+     ;;; analytics set up at ~/.emacs.secrets.el file
+     ;;(setq op/personal-google-analytics-id "UA-NNNNNNNN-N")
+     ;;
      (setq op/personal-github-link "https://github.com/heikkil")
      ;; slogans
-     (setq op/site-main-title "your main slogan")
-     (setq op/site-sub-title "your sub slogan")
+     (setq op/site-main-title "Notes from Heikki Lehväslaiho")
+     (setq op/site-sub-title "Loose leaves from a tree")
+     ;;
+     ;; my own theme since a sans option does not exist
+     (setq op/theme-root-directory "~/src/blog/heikkil.github.io/themes")
+     (setq op/theme 'sans)  ; mdo is default, phaer is simpler and uses serif fonts
    #+END_SRC
 
-*** TODO Nikola
+    Run this command after changing the theme.
 
-    My python 3.4 installation does not work with Nikola although it should.
-
-   Nikola is a static web page creator with an easy org mode exporter
-   emacs package.
-
-   You first have to install nikola and start a start a blog: =nikola
-   init --demo mysite=.
-
-   #+name: apps
    #+BEGIN_SRC emacs-lisp
-     (require 'org2nikola)
-     (setq org2nikola-output-root-directory "~/.config/nikola")
-
-
-     (defun org2nikola-after-hook-setup (title slug)
-       "see https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/ for setup
-      run `ln -s ~/src/heikkil.github.io ~/.config/nikola/output`, btw"
-       (let ((url (concat "http://heikkil.github.io/posts/" slug ".html"))
-             (nikola-dir (file-truename "~/.config/nikola"))
-             cmd)
-         ;; copy the blog url into kill-ring
-         (kill-new url)
-         (message "%s => kill-ring" url)
-         ;; nikola is building posts ...
-         (shell-command (format "cd %s; nikola build" nikola-dir))
-         (setq cmd "cd ~/projs/heikkil.github.io;git add .;git commit -m 'updated';git push origin master")
-         (shell-command cmd)))
-
-     (add-hook 'org2nikola-after-hook 'org2nikola-after-hook-setup)
+     (progn
+       (setq op/item-cache nil)
+       (op/do-publication t nil nil t t))
    #+END_SRC
 
-   Every time contents change, run:
-
-   #+BEGIN_SRC sh
-     cd ~/.config/nikola
-     nikola build
-   #+END_SRC
-
-   ... and then export the generated pages to the server.
 
 ** TODO Ediff
 
@@ -3216,7 +3190,6 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
       (org-dropbox-mode)
    #+END_SRC
-
 
 ** Refile
 
@@ -4143,6 +4116,18 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'load-path "~/.emacs.d/elisp")
    #+END_SRC
+
+** Load secrets
+
+   I keep slightly more sensitive information in a separate file so
+   that I can easily publish my main configuration.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (load "~/.emacs.secrets" t)
+   #+END_SRC
+
+
 
 ** Emacsclient
 
