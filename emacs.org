@@ -2028,6 +2028,18 @@
   #+END_SRC
 
 * Navigation
+** TRAMP mode
+
+   TRAMP mode allows opening remote files. It knows about ssh and
+   aliases defined in the ssh config file. You can even use tab completion.
+   Setting the default method frees you from typing it. Just open
+   file, give '/', and start typing the name of the remote computer.
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (setq tramp-default-method "ssh")
+   #+END_SRC
+
 ** Local navigation in a buffer
 
    My fingers still know this old shortcut for jumping to a line number.
