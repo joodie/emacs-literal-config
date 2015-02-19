@@ -948,20 +948,16 @@
 
 ** Auto refresh buffers
 
-   Automatically update file-associated buffers on file change.
+   Automatically update file-associated buffers on file change. Also,
+   auto refresh dired files, but be quiet about it.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
      (global-auto-revert-mode)
-   #+END_SRC
-
-   Also, auto refresh dired files, but be quiet about it.
-
-   #+name: formatting
-   #+BEGIN_SRC emacs-lisp
      (setq global-auto-revert-non-file-buffers t)
      (setq auto-revert-verbose nil)
    #+END_SRC
+
 * Editing
 
 ** Selecting text
