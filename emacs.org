@@ -545,11 +545,14 @@
     (setq large-file-warning-threshold 100000000)
   #+END_SRC
 
-* Key maps
+* Key bindings
 
   The Endless Parentheses blog shows how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic keymaps]].
   You just do the incantation "Emacs, toggle narrowing" by pressing
   =C-x t n=!
+
+  The same thing is now done even better with [[https://github.com/abo-abo/hydra][hydra]], a package to
+  create sticky key bindings with help displayed in the echo area.
 
   The code here defines the prefix command for toggle keymaps, but
   the keys are assigned in their corresponding sections.
@@ -570,6 +573,33 @@
 
   #+name: key-bindings
   #+BEGIN_SRC emacs-lisp
+  ;; (setq hydra-is-helpful t) ; default
+   (setq hydra-lv t)
+
+(defhydra hydra-toggle (:color blue)
+  "toggle"
+  ("a" abbrev-mode "abbrev")
+  ("d" toggle-debug-on-error "debug")
+  ("f" toggle-selective-display "fold")
+  ("n" narrow-or-widen-dwim "narrow")
+  ("l" my/global-linum-mode "linum")
+  ("r" toggle-truncate-lines "truncate")
+  ("s" whitespace-mode "wspace")
+  ("t" neotree-toggle "neotree")
+  ("w" whitegood-mode "whitegood")
+  ("q" nil "cancel"))
+(global-set-key (kbd "C-c C-v") 'hydra-toggle/body)
+
+
+(defhydra hydra-zoom (global-map "C-x C-0")
+  "zoom"
+  ("g" text-scale-increase "in")
+  ("=" text-scale-increase "in")
+  ("l" text-scale-decrease "out")
+  ("-" text-scale-decrease "out"))
+
+
+
      ;; define the keymap C-x t for toggles
      (define-prefix-command 'my/toggle-map)
      (define-key ctl-x-map "t" 'my/toggle-map)
