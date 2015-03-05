@@ -2810,11 +2810,11 @@ bbdb-merge-records=.
      ;;
      (setq op/personal-github-link "https://github.com/heikkil")
      ;; slogans
-     (setq op/site-main-title "Notes from Heikki Lehväslaiho")
-     (setq op/site-sub-title "Loose leaves from a tree")
+     (setq op/site-main-title "Heikki @ home")
+     (setq op/site-sub-title "Loose leaves from my tree")
      ;;
-     ;; my own theme since a sans option does not exist
-     (setq op/theme-root-directory "~/src/blog/heikkil.github.io/themes")
+     ;; set up my own theme since a sans option does not exist
+     (setq op/theme-root-directory "~/src/org-page/heikkil.github.io/themes")
      (setq op/theme 'sans)  ; mdo is default, phaer is simpler and uses serif fonts
    #+END_SRC
 
