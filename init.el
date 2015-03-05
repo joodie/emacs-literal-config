@@ -1,6 +1,10 @@
 ;; start recording loading time
 (defconst emacs-start-time (current-time))
 
+(require 'use-package)
+;;(require 'bind-key)
+;;(setq use-package-verbose t)
+
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 

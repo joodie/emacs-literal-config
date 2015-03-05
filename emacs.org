@@ -551,7 +551,7 @@
   You just do the incantation "Emacs, toggle narrowing" by pressing
   =C-x t n=!
 
-  The same thing is now done even better with [[https://github.com/abo-abo/hydra][hydra]], a package to
+  This is now done even better with [[https://github.com/abo-abo/hydra][hydra]], a package to
   create sticky key bindings with help displayed in the echo area.
 
   The code here defines the prefix command for toggle keymaps, but
@@ -573,36 +573,33 @@
 
   #+name: key-bindings
   #+BEGIN_SRC emacs-lisp
-  ;; (setq hydra-is-helpful t) ; default
-   (setq hydra-lv t)
+    (setq hydra-lv t)
 
-(defhydra hydra-toggle (:color blue)
-  "toggle"
-  ("a" abbrev-mode "abbrev")
-  ("d" toggle-debug-on-error "debug")
-  ("f" toggle-selective-display "fold")
-  ("n" narrow-or-widen-dwim "narrow")
-  ("l" my/global-linum-mode "linum")
-  ("r" toggle-truncate-lines "truncate")
-  ("s" whitespace-mode "wspace")
-  ("t" neotree-toggle "neotree")
-  ("w" whitegood-mode "whitegood")
-  ("q" nil "cancel"))
-(global-set-key (kbd "C-c C-v") 'hydra-toggle/body)
+    (global-set-key
+     (kbd "C-x t")
+     (defhydra hydra-toggle (:color blue)
+       "toggle"
+       ("a" abbrev-mode "abbrev")
+       ("d" toggle-debug-on-error "debug")
+       ("f" toggle-selective-display "fold")
+       ("i" iedit-mode "iedit")
+       ("n" narrow-or-widen-dwim "narrow")
+       ("l" my/global-linum-mode "linum")
+       ("r" toggle-truncate-lines "truncate")
+       ("s" whitespace-mode "wspace")
+       ("t" neotree-toggle "neotree")
+       ("v" string-inflection-cycle "inflection")
+       ("w" whitegood-mode "whitegood")
+       ("q" nil "cancel")))
 
-
-(defhydra hydra-zoom (global-map "C-x C-0")
-  "zoom"
-  ("g" text-scale-increase "in")
-  ("=" text-scale-increase "in")
-  ("l" text-scale-decrease "out")
-  ("-" text-scale-decrease "out"))
-
-
-
-     ;; define the keymap C-x t for toggles
-     (define-prefix-command 'my/toggle-map)
-     (define-key ctl-x-map "t" 'my/toggle-map)
+    (global-set-key
+     (kbd "C-x C-0")
+     (defhydra hydra-zoom ()
+       "zoom"
+       ("g" text-scale-increase "in")
+       ("=" text-scale-increase "in")
+       ("l" text-scale-decrease "out")
+       ("-" text-scale-decrease "out")))
   #+END_SRC
 
 
@@ -628,55 +625,27 @@
 
   #+name: key-bindings
   #+BEGIN_SRC emacs-lisp
-     (define-prefix-command 'my/launcher-map)
-     ;; C-x l is `count-lines-page' by default.
-     (define-key ctl-x-map "l" 'my/launcher-map)
-     ;; examples
-     ;;(define-key my/launcher-map "c" #'calc)
-     (define-key my/launcher-map "p" #'paradox-list-packages)
-     (define-key my/launcher-map "s" #'shell)
+
+    (global-set-key
+     (kbd "C-x l")
+       (defhydra hydra-launch (:color blue)
+         "launch"
+         ("2" 2048-game "2048")
+         ("e" ediff-buffers "ediff")
+         ("h" howdoi-query "howdoi")
+         ("l" org-mac-chrome-insert-frontmost-url "chrome-link")
+         ("n" nato-region "nato")
+         ("N" denato-region "denato")
+         ("r" re-builder "re-builder")
+         ("p" paradox-list-packages "paradox")
+         ("t" git-timemachine "git-tmach")
+         ("c" cider-jack-in "clojure")
+         ("i" twit "twitter")
+         ("w" browse-url-at-point "w3m")
+         ("?" (browse "http://emacs.stackexchange.com/") "emacsExchange")
+         ("+" (browse "https://plus.google.com/communities/114815898697665598016" "g+")
+         ("q" nil "cancel"))))
   #+END_SRC
-
-  Naturally, we can extend the [[http://endlessparentheses.com/keymap-for-launching-external-applications-and-websites.html][same approach]] to standalone apps:
-
-  #+name: key-bindings
-  #+BEGIN_SRC emacs-lisp
-    (defmacro run (exec)
-      "Return a function that runs the executable EXEC."
-      (let ((func-name (intern (concat "my/run-" exec))))
-        `(progn
-           (defun ,func-name ()
-             ,(format "Run the %s executable." exec)
-             (interactive)
-             (start-process "" nil ,exec))
-           ',func-name)))
-
-    ;;(define-key my/launcher-map "m" (run "Mathematica"))
-    ;;(define-key my/launcher-map "k" (run "keepass"))
-    ;;(define-key my/launcher-map "v" (run "steam"))
-  #+END_SRC
-
-
-  and web sites in the browser
-
-  #+name: key-bindings
-  #+BEGIN_SRC emacs-lisp
-    (defmacro browse (url)
-      "Return a function that calls `browse-url' on URL."
-      (let ((func-name (intern (concat "endless/browse-" url))))
-        `(progn
-           (defun ,func-name ()
-             ,(format "Browse to the url %s." url)
-             (interactive)
-             (browse-url ,url))
-           ',func-name)))
-
-    ;;(define-key my/launcher-map "r" (browse "http://www.reddit.com/r/emacs/"))
-    ;;(define-key my/launcher-map "w" (browse "http://www.emacswiki.org/"))
-    (define-key my/launcher-map "?" (browse "http://emacs.stackexchange.com/"))
-    (define-key my/launcher-map "+" (browse "https://plus.google.com/communities/114815898697665598016"))
-  #+END_SRC
-
 
   The following tables lists all other additions or modifications to
   standard key bindings.
@@ -737,6 +706,33 @@
   | C-a         | smarter-move-beginning-of-line | [[Local navigation in a buffer]] |
   | s-p         | mac-print-buffer               | [[Printing]]                     |
 
+
+  And finally, to here is definition to =keys-describe-prefixes=
+  function from [[http://oremacs.com/2015/02/11/elisp-newbie-style/][Elisp newbie-style]] blog to print out all key bindings
+  in the current buffer. I do not use greek letters in keys, so I've removed them
+
+  #+name: key-bindings
+  #+BEGIN_SRC emacs-lisp
+    ;;;###autoload
+    (defun keys-describe-prefixes ()
+      (interactive)
+      (with-output-to-temp-buffer "*Bindings*"
+        (dolist (letter-group (list
+                               (cl-loop for c from ?a to ?z
+                                        collect (string c))
+                               (cl-loop for c from ?A to ?Z
+                                        collect (string c))))
+          (dolist (prefix '("" "C-" "M-" "C-M-"))
+            (princ (mapconcat
+                    (lambda (letter)
+                      (let ((key (concat prefix letter)))
+                        (format ";; (global-set-key (kbd \"%s\") '%S)"
+                                key
+                                (key-binding (kbd key)))))
+                    letter-group
+                    "\n"))
+            (princ "\n\n")))))
+  #+END_SRC
 * Evil mode
 
   I am trying out [[http://gitorious.org/evil/pages/Home][evil mode]] that adds vi-like modal editing and cursor
@@ -1133,7 +1129,6 @@
 
    #+BEGIN_SRC emacs-lisp
      (require 'string-inflection)
-     (define-key ctl-x-map "v" 'my/toggle-map)
    #+END_SRC
 
 ** Spell checking
@@ -1260,12 +1255,6 @@
    Activate the [[http://www.emacswiki.org/emacs/Iedit][Iedit]] mode by placing the cursor to a word and
    pressing =C-x t i=. All occurrences of that word in the buffer are
    selected and can be simultaneously edited.
-
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
-    ;; toggle iedit-mode C-x t i
-    (define-key my/toggle-map "i" 'iedit-mode)
-  #+END_SRC
 
 ** Count words in a buffer
 
@@ -1445,12 +1434,6 @@
   | W   | copy the full version hash  |
   | q   | quit                        |
 
-  #+name: version-control
-  #+BEGIN_SRC emacs-lisp
-    ;; C-x l t
-    (define-key my/launcher-map "t" #'git-timemachine)
-  #+END_SRC
-
 * Text files
 ** Writing style
 
@@ -1461,8 +1444,6 @@
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
-     (define-key my/toggle-map "w" 'writegood-mode)
-     (global-set-key "\C-cw" 'writegood-mode)
      (global-set-key "\C-c\C-gg" 'writegood-grade-level)
      (global-set-key "\C-c\C-ge" 'writegood-reading-ease)
    #+END_SRC
@@ -1477,7 +1458,6 @@
                                      "EN_UNPAIRED_BRACKETS"
                                      "COMMA_PARENTHESIS_WHITESPACE"
                                      "EN_QUOTES"))
-     (define-key my/toggle-map "t" 'languagetool-mode)
 
      ;;(global-set-key "\C-x4w" 'langtool-check)
      ;;(global-set-key "\C-x4W" 'langtool-check-done)
@@ -1504,7 +1484,6 @@
              (newline-mark 10 [182 10]) ; 10 LINE FEED
              (tab-mark 9 [9655 9] [92 9]) ; 9 TAB, 9655 WHITE RIGHT-POINTING TRIANGLE 「▷」
              ))
-     (define-key my/toggle-map "s" 'whitespace-mode)
    #+END_SRC
 
 ** Line numbers
@@ -1514,7 +1493,7 @@
    line numbers display relative to the current line.
 
    I wrapped this in a global minor mode so turning that stuff on and
-   off is easy.
+   off is easy using =C-x t l=.
 
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -1536,10 +1515,6 @@
      (define-global-minor-mode my/global-linum-mode
        my/linum-mode
        (lambda () (my/linum-mode 1)))
-
-     ;; toggle linum C-x t l
-     (define-key my/toggle-map "l" 'my/global-linum-mode)
-
    #+END_SRC
 
 ** LaTeX
@@ -1911,9 +1886,6 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-
-     (define-key my/launcher-map "c" #'cider-jack-in)
-
      (defun my/cider-mode-hooks ()
        "Clojure specific setup code that should only be run when we
        have a CIDER REPL connection"
@@ -2089,7 +2061,7 @@
 
    *Folding of uses =set-selective-display= to show a high level
    outline of you document. Useful to get an [[http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/][overview of long code
-   documents]].
+   documents]]. Launch it with =C-x t f=.
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
@@ -2098,9 +2070,6 @@
     (defun toggle-selective-display ()
       (interactive)
       (set-selective-display (if selective-display nil 1)))
-
-    ;; toggle folding C-x t f
-    (define-key my/toggle-map "f" 'toggle-selective-display)
    #+END_SRC
 
    Key =M-j= joins the next line with the current one. Copied from
@@ -2206,9 +2175,6 @@
                      (org-narrow-to-block))
                     (t (org-narrow-to-subtree))))
              (t (narrow-to-defun))))
-
-     ;; bind this to: C-x t n
-     (define-key my/toggle-map "n" 'narrow-or-widen-dwim)
    #+END_SRC
 
 ** DocView
@@ -2351,9 +2317,6 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
-     ;; bind this to: C-x t n
-     (define-key my/toggle-map "t" 'neotree-toggle)
-
      ;; always change focus to current buffer
      (setq neo-smart-open t)
 
@@ -2781,8 +2744,6 @@ bbdb-merge-records=.
      (setq twittering-status-format
         "%FOLD{%RT{%FACE[bold]{RT}}%i%s  %r %@{}\n%FILL[          ]{%T%RT{\nretweeted by %s @%C{%Y-%m-%d %H:%M:%S}}}}")
 
-     ;; key map C-x l i
-     (define-key my/launcher-map "i" #'twit)
      (add-hook 'twittering-mode-hook
                '(lambda () (setq mode-name "♪")))
    #+END_SRC
@@ -2802,9 +2763,6 @@ bbdb-merge-records=.
      (setq browse-url-browser-function 'browse-url-default-browser)
      (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
      (setq w3m-use-cookies t)
-     ;; keyboard short-cut
-     (define-key my/launcher-map "w" #'browse-url-at-point)
-
    #+END_SRC
 
 ** Buffer sharing
@@ -2821,12 +2779,13 @@ bbdb-merge-records=.
 
 *** TODO org-page
 
-    Seems to reguire emacs v.25 to run properly.
+    Seems to require emacs v.25 to run properly.
 
     [[https://github.com/kelvinh/org-page][org-page]] is simple static page website generator.
     [[https://github.com/kelvinh/org-page/blob/master/doc/quick-guide.org][Quick guide]] gives more details.
 
-    After the setup, I ran command =op/new-repository=.
+    After the setup, I ran command =op/new-repository=. =C-c p=
+    displays a hydra key bindings for org-page.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
@@ -2834,20 +2793,34 @@ bbdb-merge-records=.
      (setq op/repository-directory "~/src/org-page/heikkil.github.io")
      (setq op/site-domain "http://heikkil.github.io")
      (setq op/personal-avatar "https://avatars0.githubusercontent.com/u/75674?v=3&s=460")
-     ;;; for commenting; disabled now
+     ;; for commenting; disabled now
      ;;(setq op/personal-disqus-shortname "your_disqus_shortname")
-     ;;
-     ;;; analytics set up at ~/.emacs.secrets.el file
+
+     ;; analytics set up at ~/.emacs.secrets file
      ;;(setq op/personal-google-analytics-id "UA-NNNNNNNN-N")
-     ;;
+
      (setq op/personal-github-link "https://github.com/heikkil")
      ;; slogans
      (setq op/site-main-title "Heikki @ home")
      (setq op/site-sub-title "Loose leaves from my tree")
-     ;;
+
      ;; set up my own theme since a sans option does not exist
      (setq op/theme-root-directory "~/src/org-page/heikkil.github.io/themes")
      (setq op/theme 'sans)  ; mdo is default, phaer is simpler and uses serif fonts
+
+     (defun op/cache-reset ()
+       "Reset org-page cache (after CSS changes)"
+       (setq op/item-cache nil))
+
+     (global-set-key
+      (kbd "C-c p")
+      (defhydra hydra-blog ()
+        "blog"
+        ("n" op/new-post "new")
+        ("p" op/do-publication "publish")
+        ("r" op/cache-reset "reset")
+        ("q" nil "quit")))
+
    #+END_SRC
 
     Run this command after changing the theme.
@@ -2869,8 +2842,6 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-     (define-key my/launcher-map "d" #'ediff-buffers)
-
      ;; custom macro for changing custom values
      (defmacro csetq (variable value)
        `(funcall (or (get ',variable 'custom-set)
@@ -2895,15 +2866,9 @@ bbdb-merge-records=.
    phonetic alphabet] is an invaluable help in passing names and IDs
    through bad telephone or slow network lines. Next time you call the
    airline with your reservation number, write it down, select it and
-   apply function =M-x nato-region=.
+   apply function =M-x nato-region= or =C-x l n=.
 
-   #+name: apps
-   #+BEGIN_SRC emacs-lisp
-     (define-key my/launcher-map "n" #'nato-region)
-     (define-key my/launcher-map "N" #'denato-region)
-   #+END_SRC
-
-   Note: =nato-region= does not place the cursor at the end of the
+   *Note*: =nato-region= does not place the cursor at the end of the
    converted region if the last character has been converted. This
    prevents you direct application of =denato-region= to reverse the
    change.
@@ -2921,7 +2886,6 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (setq reb-re-syntax 'string)
-     (define-key my/launcher-map "r" #'re-builder)
    #+END_SRC
 
    =M-x qrr= runs =query-replace-regexp= that by default has a really
@@ -2962,7 +2926,6 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (require 'howdoi)
-     (define-key my/launcher-map "h" #'howdoi-query)
    #+END_SRC
 
 ** Toys
@@ -2989,13 +2952,11 @@ bbdb-merge-records=.
 *** 2048-game
 
     Start a pure emacs and text-only version of the [[http://gabrielecirulli.github.io/2048/][2048]] game with
-    =C-c 2=.
+    =C-x l 2=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (require '2048-game)
-     (global-set-key (kbd "C-c 2") '2048-game)
-     (define-key my/launcher-map "2" #'2048-game)
    #+END_SRC
 
 * Org Mode
@@ -3145,13 +3106,15 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, and org-protocol
      (setq org-capture-templates
-            (quote (
-                    ("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
-                     "* %?\nEntered on %U\n  %i")
-                    ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
-                     "* TODO %?\n     SCHEDULED: %t\n%i\nEntered on %U")
-                    ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
-                     "* %?\n     %T\n%i\nEntered on %U")
+           (quote (
+                   ("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
+                    "* %?\nEntered on %U\n  %i")
+                   ("i" "link-note" entry (file+datetree "~/Dropbox/org/reference.org")
+                    "* %?\n%(org-mac-chrome-insert-frontmost-url)\nEntered on %U\n  %i")
+                   ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
+                    "* TODO %?\n     SCHEDULED: %t\n%i\nEntered on %U")
+                   ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
+                    "* %?\n     %T\n%i\nEntered on %U")
                    )))
    #+END_SRC
 
@@ -4128,20 +4091,12 @@ bbdb-merge-records=.
     The package [[http://orgmode.org/worg/org-contrib/org-mac-link.html][org-mac-link]] grabs links from open applications and
     pastes them to current org-buffer. Great for org capture notes
     =C-c c n=. Type the note title,  move the cursor to the body, and
-    press =C-x l l c= "Emacs, launch link chrome". The other options I
-    have left active are =F= finder, =f= firefox, and =s= safari.
+    press =C-x l l= "Emacs, launch link". I only use chrome, so I
+    ignore other apps and use directly the chrome link.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (require 'org-mac-link)
-     (add-hook 'org-mode-hook
-               (lambda () (define-key my/launcher-map "l" #'org-mac-grab-link)))
-     ;; disable unused applications
-     (setq org-mac-grab-Mail-app-p nil
-           org-mac-grab-Outlook-app-p nil
-           org-mac-grab-devonthink-app-p nil
-           org-mac-grab-Addressbook-app-p nil
-           org-mac-grab-Skim-app-p nil)
    #+END_SRC
 
 ** Custom lisp package directory
