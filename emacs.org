@@ -2446,9 +2446,9 @@ too.
       (setq calendar-location-name "Dynamic"))
 
     (unless (boundp 'calendar-latitude)
-      (setq calendar-latitude 22.3)
-      (setq calendar-longitude 39.1)
-      (setq calendar-location-name "KAUST"))
+      (setq calendar-latitude 60.47)
+      (setq calendar-longitude 25.73)
+      (setq calendar-location-name "Atorp"))
   #+END_SRC
 
 * Applications
