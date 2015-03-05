@@ -161,6 +161,7 @@
   '(
     ("8eur" "€" nil 18)
     ("8pound" "£" nil 2)
+    ("8ar" "→" nil 2)
     ("Flase" "False" nil 4)
     ("abiquity" "ambiguity" nil 0)
     ("absorbtion" "absorption" nil 0)

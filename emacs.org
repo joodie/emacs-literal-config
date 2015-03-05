@@ -489,7 +489,7 @@
 
    #+NAME: startup
    #+BEGIN_SRC emacs-lisp
-    (setq user-full-name "Heikki Lehvaslaiho")
+    (setq user-full-name "Heikki Lehväslaiho")
     (setq user-mail-address "heikki.lehvaslaiho@gmail.com")
    #+END_SRC
 
@@ -2857,7 +2857,6 @@ bbdb-merge-records=.
        (setq op/item-cache nil)
        (op/do-publication t nil nil t t))
    #+END_SRC
-
 
 ** TODO Ediff
 
