@@ -3227,6 +3227,17 @@ bbdb-merge-records=.
 
    #+END_SRC
 
+** Time tracking
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (setq org-clock-persist 'history)
+     (org-clock-persistence-insinuate)
+   #+END_SRC
+
+   See [[http://orgmode.org/manual/Clocking-work-time.html][Clocking work time]].
+
+
 ** TODO MobileOrg
    Use Dropbox for syncing my agenda files with my Android
    phone. Worry about the security implications later.
