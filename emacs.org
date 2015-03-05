@@ -561,7 +561,7 @@
   | f            | folding                  | [[Local navigation in a buffer]] |
   | i            | iedit-mode               | [[iedit mode]]                   |
   | n            | narrowing                | [[Narrowing]]                    |
-  | l            | linum, relative          | [[Pair programming]]             |
+  | l            | linum, relative          | [[Line numbers]]                 |
   | s            | whitespace-mode          | [[Whitespace]]                   |
   | t            | neotree-toggle           | [[Global navigation]]            |
   | v            | string-inflections-cycle | [[String inflection]]            |
@@ -669,7 +669,7 @@
   | l      | org-store-link                            | [[Org Mode]]                     |
   | n      | my/clean-buffer-formatting                | [[Formatting and white-space]]   |
   | o      | org-info                                  | [[Org Mode]]                     |
-  | p      | my/global-pair-programming-mode           | [[Pair programming]]             |
+  | p      |                                           |                              |
   | q      | delete-indentation                        | [[Local navigation in a buffer]] |
   | r      | recentf-ido-find-file                     | [[Global navigation]]            |
   | t      | languagetool-mode                         | [[Writing style]]                |
@@ -1477,6 +1477,41 @@
      (define-key my/toggle-map "s" 'whitespace-mode)
    #+END_SRC
 
+** Line numbers
+
+   Line numbers are useful in pair programming and when editing with
+   modal commands like evil mode. To help working with evil, I display
+   line numbers display relative to the current line.
+
+   I wrapped this in a global minor mode so turning that stuff on and
+   off is easy.
+
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+
+     (require 'linum-relative)
+     (define-minor-mode my/linum-mode
+     "Toggle showing of line numbers.
+
+     Interactively with no argument, this command toggles the mode.  A
+     positive prefix argument enables the mode, any other prefix
+     argument disables it.  From Lisp, argument omitted or nil enables
+     the mode, `toggle' toggles the state."
+       nil           ; The initial value.
+       " lnum"       ; The indicator for the mode line
+       '()           ; The minor mode bindings.
+       :group 'my/linum
+       (linum-mode (if my/linum-mode 1 -1)))
+
+     (define-global-minor-mode my/global-linum-mode
+       my/linum-mode
+       (lambda () (my/linum-mode 1)))
+
+     ;; toggle linum C-x t l
+     (define-key my/toggle-map "l" 'my/global-linum-mode)
+
+   #+END_SRC
+
 ** LaTeX
 
    Use AUCTex for all LaTeX. There is an extensive info documentation
@@ -1697,49 +1732,6 @@
    #+BEGIN_SRC emacs-lisp
      (add-hook 'after-save-hook
                'executable-make-buffer-file-executable-if-script-p)
-   #+END_SRC
-
-** Pair programming
-
-   Normally, I think line numbers in code editors just take up space,
-   but they can be useful when pair programming; calling out a line
-   number is probably more efficient than pointing at the screen.
-
-   I wrapped this in a global minor mode so turning that stuff on and
-   off is easy.
-
-   To help working with evil, the line numbers displayed are now
-   relative to current line.
-
-   #+name: programming-setup
-   #+BEGIN_SRC emacs-lisp
-
-     (require 'linum-relative)
-
-     (define-minor-mode my/pair-programming-mode
-       "Toggle visualizations for pair programming.
-
-     Interactively with no argument, this command toggles the mode.  A
-     positive prefix argument enables the mode, any other prefix
-     argument disables it.  From Lisp, argument omitted or nil enables
-     the mode, `toggle' toggles the state."
-       ;; The initial value.
-       nil
-       ;; The indicator for the mode line.
-       " Pairing"
-       ;; The minor mode bindings.
-       '()
-       :group 'my/pairing
-       (linum-mode (if my/pair-programming-mode 1 -1)))
-
-     (define-global-minor-mode my/global-pair-programming-mode
-       my/pair-programming-mode
-       (lambda () (my/pair-programming-mode 1)))
-
-     (global-set-key "\C-cp" 'my/global-pair-programming-mode)
-     ;; toggle linum C-x t l
-     (define-key my/toggle-map "l" 'my/global-pair-programming-mode)
-
    #+END_SRC
 
 ** Perl
