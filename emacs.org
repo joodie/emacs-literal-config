@@ -1441,7 +1441,7 @@
    #+BEGIN_SRC emacs-lisp
      ;;(require 'languagetool-mode)
      (setq languagetool-language-tool-jar
-       "/usr/local/Cellar/languagetool/2.6/libexec/languagetool-commandline.jar")
+       "/usr/local/Cellar/languagetool/2.8/libexec/languagetool-commandline.jar")
 
      (setq languagetool-disabled-rules '("WHITESPACE_RULE"
                                      "EN_UNPAIRED_BRACKETS"
