@@ -2701,7 +2701,7 @@ bbdb-merge-records=.
      (defun elfeed-read-all ()
        "Show all new titles (except sport)"
        (interactive)
-       (elfeed--read-tag "@1-month-ago +unread !sport" "all"))
+       (elfeed--read-tag elfeed-search-filter "all"))
      (define-key elfeed-search-mode-map (kbd "0") 'elfeed-read-all)
 
      (defun elfeed--remove-sports ()
@@ -2715,13 +2715,13 @@ bbdb-merge-records=.
        "Show global news articles"
        (interactive)
        (elfeed--remove-sports)
-       (elfeed--read-tag "@1-month-ago +unread +n" "news"))
+       (elfeed--read-tag "@1-month-ago +unread +n " "news"))
      (define-key elfeed-search-mode-map (kbd "1") 'elfeed-read-news)
 
      (defun elfeed-read-journals ()
        "Show scientific news from major journals"
        (interactive)
-       (elfeed--read-tag "@1-month-ago +unread +j" "journals"))
+       (elfeed--read-tag "@1-month-ago +unread +j " "journals"))
      (define-key elfeed-search-mode-map (kbd "2") 'elfeed-read-journals)
 
    #+END_SRC
@@ -2799,10 +2799,10 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (require 'org-page)
-     (setq op/repository-directory "~/src/blog/heikkil.github.io")
+     (setq op/repository-directory "~/src/org-page/heikkil.github.io")
      (setq op/site-domain "http://heikkil.github.io")
      (setq op/personal-avatar "https://avatars0.githubusercontent.com/u/75674?v=3&s=460")
-     ;;; for commenting
+     ;;; for commenting; disabled now
      ;;(setq op/personal-disqus-shortname "your_disqus_shortname")
      ;;
      ;;; analytics set up at ~/.emacs.secrets.el file
