@@ -3028,7 +3028,7 @@ bbdb-merge-records=.
                                ("FOOD"    . ?d)
                                ("PHOTO"   . ?f)
                                ("GIT"     . ?g)
-                               ("HOME"    . ?h)
+                               ("HUMEVO"  . ?h)
                                ("LATEX"   . ?l)
                                ("MOVIE"   . ?m)
                                ("ORG"     . ?o)
