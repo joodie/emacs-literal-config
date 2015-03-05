@@ -2785,6 +2785,16 @@ bbdb-merge-records=.
 
    #+END_SRC
 
+** Buffer sharing
+
+[[http://sachachua.com/blog/2015/02/emacs-peer-peer-coaching-easier-use-impatient-mode-share-buffer/][sacha chua: impatient-mode to share your buffer]]
+
+1. Install the impatient-mode package.
+2. Call M-x httpd-start.
+3. Configure the firewall to allow incoming connections.
+4. Put the selected buffer into impatient-mode.
+5. Share the link with my IP address (form: http://my.ip.ad.dress:8080/imp/)
+
 ** TODO Blogging
 
 *** TODO org-page
