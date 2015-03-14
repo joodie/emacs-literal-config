@@ -2921,9 +2921,7 @@ bbdb-merge-records=.
 4. Put the selected buffer into impatient-mode.
 5. Share the link with my IP address (form: http://my.ip.ad.dress:8080/imp/)
 
-** TODO Blogging
-
-*** TODO org-page
+** Blogging with org-page
 
     Seems to require emacs v.25 to run properly.
 
@@ -2977,7 +2975,7 @@ bbdb-merge-records=.
        (op/do-publication t nil nil t t))
    #+END_SRC
 
-** TODO Ediff
+** Ediff
 
    [[http://oremacs.com/2015/01/17/setting-up-ediff/][Better defaults]] for ediff.
 
