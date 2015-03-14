@@ -3690,7 +3690,7 @@ bbdb-merge-records=.
      ;; tufte export from https://github.com/smadhueagle/prelude/blob/master/personal/org-latex-custom.el
      ;; tufte-book class for writing classy books
      (add-to-list 'org-latex-classes
-                  '("tuftebook"
+                  '("tufte-book"
                     "\\documentclass{tufte-book}
      \\usepackage{color}
      \\usepackage{amssymb}
@@ -3708,7 +3708,7 @@ bbdb-merge-records=.
      ;; tufte-handout class for writing classy handouts and papers
      (require 'ox-latex)
      (add-to-list 'org-latex-classes
-                  '("tuftehandout"
+                  '("tufte-handout"
                     "\\documentclass{tufte-handout}
      \\usepackage{color}
      \\usepackage{amssymb}
@@ -3716,6 +3716,8 @@ bbdb-merge-records=.
      \\usepackage{gensymb}
      \\usepackage{nicefrac}
      \\usepackage{units}"
+     \\usepackage[a4paper]{geometry}
+
                     ("\\section{%s}" . "\\section*{%s}")
                     ("\\subsection{%s}" . "\\subsection*{%s}")
                     ("\\paragraph{%s}" . "\\paragraph*{%s}")

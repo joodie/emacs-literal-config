@@ -15,9 +15,7 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bbdb-mode-abbrev-table '())
 
@@ -27,13 +25,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -117,6 +111,8 @@
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
 
+(define-abbrev-table 'elisp-byte-code-mode-abbrev-table '())
+
 (define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
@@ -159,9 +155,10 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("->" "→" nil 2)
+    ("8ar" "→" nil 3)
     ("8eur" "€" nil 18)
     ("8pound" "£" nil 2)
-    ("8ar" "→" nil 2)
     ("Flase" "False" nil 4)
     ("abiquity" "ambiguity" nil 0)
     ("absorbtion" "absorption" nil 0)
@@ -197,13 +194,14 @@
     ("mammalial" "mammalian" nil 0)
     ("negigable" "negligible" nil 0)
     ("occatinally" "occasionally" nil 0)
-    ("otehr" "other" nil 1)
+    ("otehr" "other" nil 3)
     ("precice" "precise" nil 0)
     ("provenanace" "provenance" nil 0)
     ("recepi" "recipe" nil 1)
     ("recepies" "recipes" nil 1)
     ("recepis" "recipes" nil 1)
     ("reciliant" "resilient" nil 0)
+    ("reguire" "require" nil 0)
     ("revieled" "revealed" nil 0)
     ("rigourous" "rigorous" nil 0)
     ("scholary" "scholarly" nil 0)
@@ -254,9 +252,7 @@ use Data::Printer;
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-mode-abbrev-table '())
 
@@ -308,9 +304,7 @@ use Data::Printer;
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -332,6 +326,7 @@ use Data::Printer;
 #+END_ABSTRACT
 " nil 5)
     ("oarticle" "#+LATEX_CLASS: fu-org-article" nil 9)
+    ("otufte" "#+LATEX_CLASS: tuftehandout" nil 9)
     ("oauthor" "#+AUTHOR: Heikki Lehv\\auml{}slaiho" nil 6)
     ("obibio" "" skel-org-block-bibl 1)
     ("obiblio" "" skel-org-block-bibl 3)
@@ -368,9 +363,7 @@ use Data::Printer;
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
@@ -389,6 +382,8 @@ use Data::Printer;
 (define-abbrev-table 'ruby-compilation-mode-abbrev-table '())
 
 (define-abbrev-table 'ruby-mode-abbrev-table '())
+
+(define-abbrev-table 'scss-mode-abbrev-table '())
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
@@ -425,6 +420,8 @@ use Data::Printer;
 (define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
 
 (define-abbrev-table 'xkcd-mode-abbrev-table '())
 
