@@ -2445,6 +2445,15 @@ too.
      (global-set-key "\C-ce" 'my/edit-emacs-configuration)
    #+END_SRC
 
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (defun my/work-timesheet ()
+       (interactive)
+       (find-file "~/Dropbox/org/work.org"))
+     (global-set-key "\C-cw" 'my/work-timesheet)
+   #+END_SRC
+
+
    [[http://www.emacswiki.org/emacs/NeoTree_%E4%B8%AD%E6%96%87wiki][NeoTree]] is a file browser plugin that I am trying out. Toggle its
    panel: Emacs, Toggle neoTree =C-x t t=.
 
