@@ -1102,15 +1102,32 @@
 
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
-    (abbrev-mode)
-    (cond ((file-exists-p "~/.emacs.d/abbrev_defs")
-           (read-abbrev-file "~/.emacs.d/abbrev_defs")))
+;;     (use-package abbrev
+;;       :disabled t
+;;       :commands abbrev-mode
+;;       :diminish abbrev-mode
+;;       :init
+;;       (hook-into-modes #'abbrev-mode '(text-mode-hook))
+;; 
+;;       :config
+;;       (progn
+;;         (if (file-exists-p abbrev-file-name)
+;;             (quietly-read-abbrev-file))
+;;         (setq save-abbrevs t)
+;;         (add-hook 'expand-load-hook
+;;                   (lambda ()
+;;                     (add-hook 'expand-expand-hook 'indent-according-to-mode)
+;;                     (add-hook 'expand-jump-hook 'indent-according-to-mode)))))
 
-    (setq save-abbrevs t)                ; save abbrevs when files are saved
-                                         ; you will be asked before saving
+     (abbrev-mode)
+     (cond ((file-exists-p "~/.emacs.d/abbrev_defs")
+            (read-abbrev-file "~/.emacs.d/abbrev_defs")))
 
-    (if (file-exists-p abbrev-file-name) ; reads the abbreviations file
-        (quietly-read-abbrev-file))      ;  on startup if the file exists
+     (setq save-abbrevs t)                ; save abbrevs when files are saved
+                                          ; you will be asked before saving
+
+     (if (file-exists-p abbrev-file-name) ; reads the abbreviations file
+         (quietly-read-abbrev-file))      ;  on startup if the file exists
 
    #+END_SRC
 
@@ -1998,38 +2015,73 @@
 
      (add-to-list 'auto-mode-alist '("/requirements\\.txt\\'" . conf-mode))
 
-     (defun my/setup-python-mode ()
-       "Custom command to setup python-mode"
-       (interactive)
-       (let ((max-column 99))
-         (setq python-shell-interpreter "/Users/lehvasho/miniconda3/bin/python"
-               python-shell-interpreter-args "-i"
-               ;;venv-location "~/.virtualenvs"
-               whitespace-line-column max-column
-               fill-column max-column
-               flycheck-flake8-maximum-line-length max-column
-               elpy-rpc-backend "jedi"
-               ;;elpy-rpc-backend "rope"
-               ;;elpy-default-minor-modes '(eldoc-mode)
-               elpy-rpc-project-specific t))
-       (setq python-indent-offset 4)
-       (setq jedi:complete-on-dot t)
-       (flycheck-mode)
-       ;;(pyenv-mode)
-       ;;(add-hook 'focus-out-hook 'save-buffer)
-       ;;(highlight-lines-matching-regexp "import i?pdb")
-       ;;(highlight-lines-matching-regexp "i?pdb.set_trace()")
-       (turn-on-fci-mode)  ; fill-column-indicator
-       (elpy-enable)
-       ;;(elpy-mode)
-       ;;(elpy-clean-modeline)
-       (highlight-indentation-mode))
+;;     (use-package python-mode
+;;       :mode ("\\.py\\'" . python-mode)
+;;       :interpreter ("python" . python-mode)
+;;       :config
+;;       (progn
+;;         (defvar python-mode-initialized nil)
+;; 
+;;         (defun my-python-mode-hook ()
+;;           (unless python-mode-initialized
+;;             (setq python-mode-initialized t)
+;; 
+;;             (info-lookup-add-help
+;;              :mode 'python-mode
+;;              :regexp "[a-zA-Z_0-9.]+"
+;;              :doc-spec
+;;              '(("(python)Python Module Index" )
+;;                ("(python)Index"
+;;                 (lambda
+;;                   (item)
+;;                   (cond
+;;                    ((string-match
+;;                      "\\([A-Za-z0-9_]+\\)() (in module \\([A-Za-z0-9_.]+\\))" item)
+;;                     (format "%s.%s" (match-string 2 item)
+;;                             (match-string 1 item)))))))))
+;; 
+;;           (setq indicate-empty-lines t)
+;;           (set (make-local-variable 'parens-require-spaces) nil)
+;;           (setq indent-tabs-mode nil)
+;; 
+;;           (bind-key "C-c C-z" 'python-shell python-mode-map)
+;;           (unbind-key "C-c c" python-mode-map))
+;; 
+;;         (add-hook 'python-mode-hook 'my-python-mode-hook)))
 
-     (add-hook 'python-mode-hook 'my/setup-python-mode)
-     (add-hook 'python-mode-hook 'jedi:ac-setup)
-     (add-hook 'python-mode-hook (lambda ()
-                                   (require 'sphinx-doc)
-                                   (sphinx-doc-mode t)))
+
+          (defun my/setup-python-mode ()
+            "Custom command to setup python-mode"
+            (interactive)
+            (let ((max-column 99))
+              (setq python-shell-interpreter "/Users/lehvasho/miniconda3/bin/python"
+                    python-shell-interpreter-args "-i"
+                    ;;venv-location "~/.virtualenvs"
+                    whitespace-line-column max-column
+                    fill-column max-column
+                    flycheck-flake8-maximum-line-length max-column
+                    elpy-rpc-backend "jedi"
+                    ;;elpy-rpc-backend "rope"
+                    ;;elpy-default-minor-modes '(eldoc-mode)
+                    elpy-rpc-project-specific t))
+            (setq python-indent-offset 4)
+            (setq jedi:complete-on-dot t)
+            (flycheck-mode)
+            ;;(pyenv-mode)
+            ;;(add-hook 'focus-out-hook 'save-buffer)
+            ;;(highlight-lines-matching-regexp "import i?pdb")
+            ;;(highlight-lines-matching-regexp "i?pdb.set_trace()")
+            (turn-on-fci-mode)  ; fill-column-indicator
+            (elpy-enable)
+            ;;(elpy-mode)
+            ;;(elpy-clean-modeline)
+            (highlight-indentation-mode))
+
+          (add-hook 'python-mode-hook 'my/setup-python-mode)
+          (add-hook 'python-mode-hook 'jedi:ac-setup)
+          (add-hook 'python-mode-hook (lambda ()
+                                        (require 'sphinx-doc)
+                                        (sphinx-doc-mode t)))
    #+END_SRC
 
    [[https://github.com/naiquevin/sphinx-doc.el][Sphinx-doc]] adds a function inserting docstring skeleton for Python
@@ -2391,12 +2443,22 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
-    (require 'recentf)
-    (setq recentf-auto-cleanup 'never) ;; cleanup interfers with tramp mode
-    (recentf-mode 1)
-    (setq recentf-max-saved-items 400
-          recentf-max-menu-items 35)
-    (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+;;     (use-package recentf
+;;       :if (not noninteractive)
+;;       :init
+;;       (progn
+;;         (recentf-mode 1)
+;;         (setq recentf-auto-cleanup 'never) ;; cleanup interfers with tramp mode
+;;         (setq recentf-max-saved-items 400
+;;               recentf-max-menu-items 35)
+;;         (bind-key "\C-x\ \C-r" 'recentf-open-files)))
+
+         (require 'recentf)
+         (setq recentf-auto-cleanup 'never) ;; cleanup interfers with tramp mode
+         (recentf-mode 1)
+         (setq recentf-max-saved-items 400
+               recentf-max-menu-items 35)
+         (global-set-key "\C-x\ \C-r" 'recentf-open-files)
    #+END_SRC
 
    I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
