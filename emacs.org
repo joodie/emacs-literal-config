@@ -2165,13 +2165,6 @@
 
 ** Local navigation in a buffer
 
-   My fingers still know this old shortcut for jumping to a line number.
-
-   #+name: local-navigation
-   #+BEGIN_SRC emacs-lisp
-    (global-set-key "\C-x\," 'goto-line)
-   #+END_SRC
-
    Delete a word at a time: =M-backspace=.
 
    Kill line backward from cursor is =C-0 C-k= but it easier to
