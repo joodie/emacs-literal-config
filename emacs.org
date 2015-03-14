@@ -1592,6 +1592,29 @@
        (lambda () (my/linum-mode 1)))
    #+END_SRC
 
+   My fingers still know this old shortcut for jumping to a line
+   number. The function =goto-line-with-feedback= turns line numbers
+   on and shows them in normal mode for the duration of the command.
+   It assumes that line numbers are off to start with.
+
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
+
+     (defun goto-line-with-feedback ()
+       "Show line numbers temporarily, while prompting for the line number input"
+       (interactive)
+       (unwind-protect
+           (progn
+             (linum-relative-toggle)
+             (linum-mode 1)
+             (goto-line (read-number "Goto line: ")))
+         (linum-mode -1)
+         (linum-relative-toggle)))
+
+     (global-set-key "\C-x\," 'goto-line)
+     (global-set-key [remap goto-line] 'goto-line-with-feedback)
+   #+END_SRC
+
 ** LaTeX
 
    Use AUCTex for all LaTeX. There is an extensive info documentation
