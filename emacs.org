@@ -2764,7 +2764,7 @@ bbdb-merge-records=.
 
    [[https://github.com/skeeto/elfeed][Elfeed]] is a sensible RSS feed reader. =C-c f= starts it and =G=
    updates the article list. =r= marks things as read and =b= opens
-   them in browser. There are no folders but you can filter a articles
+   them in browser. There are no folders but you can filter articles
    with =s=. Simple substring search with =BBC= works as expected, but
    to filter using tags, you have to precede them with a plus
    character, e.g. =+emacs=, or =+e= using my abbreviated tags. It
@@ -2813,7 +2813,8 @@ bbdb-merge-records=.
      (elfeed-org)
 
      (global-set-key (kbd "C-c f") 'elfeed)
-     (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
+     (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
+     (setq-default elfeed-search-filter my/default-elfeed-search-filter)
 
      (defun elfeed-mark-all-as-read ()
        "Mark currently shown articles read"
@@ -2838,7 +2839,7 @@ bbdb-merge-records=.
      (defun elfeed-read-all ()
        "Show all new titles (except sport)"
        (interactive)
-       (elfeed--read-tag elfeed-search-filter "all"))
+       (elfeed--read-tag my/default-elfeed-search-filter "all"))
      (define-key elfeed-search-mode-map (kbd "0") 'elfeed-read-all)
 
      (defun elfeed--remove-sports ()
