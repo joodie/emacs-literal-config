@@ -1520,7 +1520,10 @@
      (global-set-key "\C-c\C-ge" 'writegood-reading-ease)
    #+END_SRC
 
-   #+name: text-files
+   *Do not require languagetool!* Version 2.8 spans huge amount of
+   java processes that causes the system to grind to a halt.
+
+   ##+name: text-files
    #+BEGIN_SRC emacs-lisp
      ;;(require 'languagetool-mode)
      (setq languagetool-language-tool-jar
