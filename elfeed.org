@@ -43,7 +43,9 @@
 *** http://english.bouletcorp.com/feed/
 *** https://nensarjakuvat.wordpress.com/feed/atom/
 ** Friends                                                                 :f:
+*** http://heikkil.github.io/rss.xml
 *** http://soloalgunaspalabras.wordpress.com/feed/
+*** http://tamara-kulikova.blogspot.coqm/feeds/posts/default
 *** http://kaustbirding.blogspot.com/atom.xml
 *** http://listenlearnread.blogspot.com/feeds/posts/default
 *** http://madebytamarak.blogspot.com.es/atom.xml
