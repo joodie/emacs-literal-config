@@ -747,7 +747,7 @@
   | p      |                                           |                              |
   | q      | delete-indentation                        | [[Local navigation in a buffer]] |
   | r      | recentf-ido-find-file                     | [[Global navigation]]            |
-  | t      | languagetool-mode                         | [[Writing style]]                |
+  | (t)    | languagetool-mode (disabled)              | [[Writing style]]                |
   | u      | set-buffer-file-coding-system 'utf-8-unix | [[Character encoding]]           |
   | w      | writegood-mode                            | [[Writing style]]                |
   | x      | xkcd                                      | [[xkcd comics]]                  |
