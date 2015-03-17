@@ -605,12 +605,12 @@
     ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
     (defhydra hydra-org-template (:color blue :hint nil)
       "
-    _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
-    _l_atex   _E_xample   _p_erl          _i_ndex:
-    _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
-    _s_rc     ^ ^         plant_u_ml      _H_TML:
-    _h_tml    ^ ^         ^ ^             _A_SCII:
-    "
+        _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
+        _l_atex   _E_xample   _p_erl          _i_ndex:
+        _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
+        _s_rc     ^ ^         plant_u_ml      _H_TML:
+        _h_tml    ^ ^         ^ ^             _A_SCII:
+        "
       ("s" (hot-expand "<s"))
       ("E" (hot-expand "<e"))
       ("q" (hot-expand "<q"))
@@ -656,6 +656,27 @@
         (if (looking-back "^")
             (hydra-org-template/body)
           (self-insert-command 1))))
+
+    ;; http://oremacs.com/2015/03/15/search-with-apropos/
+    (defhydra hydra-apropos (:color blue
+                                    :hint nil)
+      "
+    _a_propos        _c_ommand
+    _d_ocumentation  _l_ibrary
+    _v_ariable       _u_ser-option
+    ^ ^          valu_e_"
+      ("a" apropos)
+      ("d" apropos-documentation)
+      ("v" apropos-variable)
+      ("c" apropos-command)
+      ("l" apropos-library)
+      ("u" apropos-user-option)
+      ("e" apropos-value))
+
+    ;;I recommend to bind it like this:
+
+    (global-set-key (kbd "C-c h") 'hydra-apropos/body)
+
   #+END_SRC
 
   The second key map is for *launching* [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]].
