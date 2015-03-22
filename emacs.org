@@ -175,8 +175,8 @@
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (defun my/insert-unicode (unicode-name)
-        (interactive)
-     (insert-char (cdr (assoc-string unicode-name (ucs-names)))))
+       "Same as C-x 8 enter UNICODE-NAME."
+       (insert-char (cdr (assoc-string unicode-name (ucs-names)))))
 
      (global-set-key
       (kbd "C-x 9")
