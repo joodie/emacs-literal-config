@@ -170,7 +170,30 @@
 
     - Xah Lee's [[http://ergoemacs.org/emacs/emacs_n_unicode.html][Unicode]] page for easy copy and paste.
     - Draw Unicode characters [[http://shapecatcher.com/][online]].
-    - Enter Unicode characters in hexadecimal: =C-x 8<Enter>=.
+    - Enter Unicode characters in hexadecimal or named: =C-x 8<Enter>=.
+
+   #+name: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (defun my/insert-unicode (unicode-name)
+        (interactive)
+     (insert-char (cdr (assoc-string unicode-name (ucs-names)))))
+
+     (global-set-key
+      (kbd "C-x 9")
+      (defhydra hydra-unicode (:hint nil)
+        "
+        Unicode  _e_ €  _s_ ZERO WIDTH SPACE
+                 _f_ ♀  _o_ °   _m_ µ
+                 _r_ ♂  _a_ →
+        "
+        ("e" (my/insert-unicode "EURO SIGN"))
+        ("r" (my/insert-unicode "MALE SIGN"))
+        ("f" (my/insert-unicode "FEMALE SIGN"))
+        ("s" (my/insert-unicode "ZERO WIDTH SPACE"))
+        ("o" (my/insert-unicode "DEGREE SIGN"))
+        ("a" (my/insert-unicode "RIGHTWARDS ARROW"))
+        ("m" (my/insert-unicode "MICRO SIGN"))))
+   #+END_SRC
 
 ** Reduce clutter
 
