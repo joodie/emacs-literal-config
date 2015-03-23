@@ -2976,7 +2976,7 @@ bbdb-merge-records=.
     [[https://github.com/kelvinh/org-page/blob/master/doc/quick-guide.org][Quick guide]] gives more details.
 
     After the setup, I ran command =op/new-repository=. =C-c p=
-    displays a hydra key bindings for org-page.
+    displays my hydra key bindings for org-page.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
@@ -3005,12 +3005,15 @@ bbdb-merge-records=.
 
      (global-set-key
       (kbd "C-c p")
-      (defhydra hydra-blog ()
-        "blog"
-        ("n" op/new-post "new")
-        ("p" op/do-publication "publish")
-        ("r" op/cache-reset "reset")
-        ("q" nil "quit")))
+      (defhydra hydra-blog (:color blue :hint nil)
+        "
+       blog  _n_ew post     _l_ast commit publish
+             _r_eset cache  _p_ublish interactively
+             "
+        ("n" op/new-post)
+        ("r" op/cache-reset)
+        ("l" (op/do-publication nil "HEAD~1" nil t t))
+        ("p" op/do-publication)))
 
    #+END_SRC
 
@@ -3019,7 +3022,7 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (progn
        (setq op/item-cache nil)
-       (op/do-publication t nil nil t t))
+       (op/do-publication t nil nil t t)
    #+END_SRC
 
 ** Ediff
