@@ -1468,16 +1468,15 @@
    changes.
 
 ** Image mode
+
    Recent emacsen can show images in directly in buffers. The
-   following code adds the [[http://www.emacswiki.org/emacs/eimp.el][Emacs Image Manipulation Package]] to the
-   image mode (and to the menu). Most importantly, it makes it
-   possible to scale a large image to fit the frame with =S f=, zoom
-   =-/+=, and rotate =</>=.
+   following code adds the [[https://github.com/mhayashi1120/Emacs-imagex][image+]] minor mode to any image buffer and
+   scales the picture to the current frame.
 
   #+name: global-navigation
   #+BEGIN_SRC emacs-lisp
-    (autoload 'eimp-mode "eimp" "Emacs Image Manipulation Package." t)
-    (add-hook 'image-mode-hook 'eimp-mode)
+    (eval-after-load 'image '(require 'image+))
+    (eval-after-load 'image+ '(imagex-auto-adjust-mode 1))
    #+END_SRC
 
 ** Macros
