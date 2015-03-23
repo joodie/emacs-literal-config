@@ -1197,7 +1197,8 @@
 
    =insert-buffer-name= does what the name says. This sort of
    metafunction does not really fix in any other category, so I list it
-   here among abbreviations.
+   here among abbreviations. Incidently, renaming a buffer is simply
+   =M-x rename-buffer=.
 
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
