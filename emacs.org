@@ -1496,6 +1496,8 @@
    - =C-x )= kmacro-end-macro
    - =C-x e= kmacro-end-and-call-macro
    - =e= call macro if pressed right after previous function
+   - =C-u n C-x e= run the macro n times
+   - =C-x C-k C-e= edit last macro
 
 * Version control
 
