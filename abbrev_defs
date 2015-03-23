@@ -15,7 +15,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'bbdb-mode-abbrev-table '())
 
@@ -25,9 +27,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -133,6 +139,8 @@
 
 (define-abbrev-table 'eww-bookmark-mode-abbrev-table '())
 
+(define-abbrev-table 'eww-buffers-mode-abbrev-table '())
+
 (define-abbrev-table 'eww-history-mode-abbrev-table '())
 
 (define-abbrev-table 'eww-mode-abbrev-table '())
@@ -155,10 +163,10 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("->" "→" nil 2)
     ("8ar" "→" nil 3)
     ("8eur" "€" nil 18)
     ("8pound" "£" nil 2)
+    ("8zws" "​" nil 3)
     ("Flase" "False" nil 4)
     ("abiquity" "ambiguity" nil 0)
     ("absorbtion" "absorption" nil 0)
@@ -252,7 +260,9 @@ use Data::Printer;
 
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'js-mode-abbrev-table '())
 
@@ -304,7 +314,9 @@ use Data::Printer;
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -325,8 +337,7 @@ use Data::Printer;
 
 #+END_ABSTRACT
 " nil 5)
-    ("oarticle" "#+LATEX_CLASS: fu-org-article" nil 9)
-    ("otufte" "#+LATEX_CLASS: tuftehandout" nil 9)
+    ("oarticle" "#+LATEX_CLASS: fu-org-article" nil 10)
     ("oauthor" "#+AUTHOR: Heikki Lehv\\auml{}slaiho" nil 6)
     ("obibio" "" skel-org-block-bibl 1)
     ("obiblio" "" skel-org-block-bibl 3)
@@ -341,9 +352,10 @@ use Data::Printer;
     ("oscale" "#+ATTR_LaTeX: scale=0.75" nil 1)
     ("oshebang" "#+PROPERTY: :shebang \"#!/usr/bin/env perl\"" nil 1)
     ("osize" "#+ATTR_LaTeX: width=0.70\\textwidth" nil 1)
-    ("otitle" "#+TITLE: " nil 11)
+    ("otitle" "#+TITLE: " nil 12)
     ("otname" "#+TBLNAME:" nil 6)
     ("otoc" "#+OPTIONS: toc:nil" nil 8)
+    ("otufte" "#+LATEX_CLASS: tuftehandout" nil 9)
     ("pblk" "" skel-org-block-perl 3)
     ("rblk" "" skel-org-block-r 1)
     ("sblk" "" skel-org-block-source 0)
@@ -363,7 +375,9 @@ use Data::Printer;
 
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
@@ -373,7 +387,9 @@ use Data::Printer;
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
