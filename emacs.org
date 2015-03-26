@@ -2940,8 +2940,6 @@ bbdb-merge-records=.
 
 ** Blogging with org-page
 
-    Seems to require emacs v.25 to run properly.
-
     [[https://github.com/kelvinh/org-page][org-page]] is simple static page website generator.
     [[https://github.com/kelvinh/org-page/blob/master/doc/quick-guide.org][Quick guide]] gives more details.
 
@@ -2969,30 +2967,20 @@ bbdb-merge-records=.
      (setq op/theme-root-directory "~/src/org-page/heikkil.github.io/themes")
      (setq op/theme 'sans)  ; mdo is default, phaer is simpler and uses serif fonts
 
-     (defun op/cache-reset ()
-       "Reset org-page cache (after CSS changes)"
-       (setq op/item-cache nil))
-
      (global-set-key
       (kbd "C-c p")
       (defhydra hydra-blog (:color blue :hint nil)
         "
-       blog  _n_ew post     _l_ast commit publish
-             _r_eset cache  _p_ublish interactively
-             "
+     blog  _n_ew post             publish _l_ast commit    n_e_w-repository
+           _r_eset & publish all  _p_ublish interactively
+           "
         ("n" op/new-post)
-        ("r" op/cache-reset)
+        ("r" (progn
+               (setq op/item-cache nil)
+               (op/do-publication t nil nil t t)))
         ("l" (op/do-publication nil "HEAD~1" nil t t))
-        ("p" op/do-publication)))
-
-   #+END_SRC
-
-    Run this command after changing the theme.
-
-   #+BEGIN_SRC emacs-lisp
-     (progn
-       (setq op/item-cache nil)
-       (op/do-publication t nil nil t t)
+        ("p" op/do-publication)
+        ("e" op/new-repository)))
    #+END_SRC
 
 ** Ediff
