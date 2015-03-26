@@ -694,46 +694,36 @@
 
   The second key map is for *launching* [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]].
   This is like casting a spell "Emacs, launch shell", =C-x l s=.
-
-  | prefix C-x l | launch function       | link              |
-  |--------------+-----------------------+-------------------|
-  | 2            | 2048-game             | [[2048-game]]         |
-  | c            | cider-jack-in         |                   |
-  | d            | ediff-buffers         | [[Ediff]]             |
-  | h            | howdoi-query          | [[How Do I?]]         |
-  | i            | twit                  | [[Twitter]]           |
-  | l            | org-mac-grab-link     | [[URL copying]]       |
-  | n            | nato-region           | [[Phonetic alphabet]] |
-  | N            | denato-region         | [[Phonetic alphabet]] |
-  | p            | paradox-list-packages | [[Paradox]]           |
-  | r            | re-builder            | [[Regex tool]]        |
-  | s            | shell                 |                   |
-  | t            | git-timemachine       | [[git-timemachine]]   |
-  | w            | browse-url-at-point   | [[w3m]]               |
-
+  The hydra implementing this is self-documenting.
 
   #+name: key-bindings
   #+BEGIN_SRC emacs-lisp
 
     (global-set-key
      (kbd "C-x l")
-       (defhydra hydra-launch (:color blue)
-         "launch"
-         ("2" 2048-game "2048")
-         ("e" ediff-buffers "ediff")
-         ("h" howdoi-query "howdoi")
-         ("l" org-mac-chrome-insert-frontmost-url "chrome-link")
-         ("n" nato-region "nato")
-         ("N" denato-region "denato")
-         ("r" re-builder "re-builder")
-         ("p" paradox-list-packages "paradox")
-         ("t" git-timemachine "git-tmach")
-         ("c" cider-jack-in "clojure")
-         ("i" twit "twitter")
-         ("w" browse-url-at-point "w3m")
-         ("?" (browse "http://emacs.stackexchange.com/") "emacsExchange")
-         ("+" (browse "https://plus.google.com/communities/114815898697665598016" "g+")
-         ("q" nil "cancel"))))
+       (defhydra hydra-launch (:color blue :hint nil)
+         "
+  launch _2_048           _l_ink chrome   _p_aradox
+         _c_lojure        _n_ato-region   _t_imemachine git
+         _e_diff-buffers  de_N_ato        _w_3m at point
+         _h_owdoi         _r_e-builder    _?_: emacsExchange
+         tw_i_tter        e_s_hell        G_\+_ emacs
+        "
+         ("2" 2048-game)
+         ("e" ediff-buffers)
+         ("h" howdoi-query)
+         ("l" org-mac-chrome-insert-frontmost-url)
+         ("n" nato-region)
+         ("N" denato-region)
+         ("r" re-builder)
+         ("s" eshell)
+         ("p" paradox-list-packages)
+         ("t" git-timemachine)
+         ("c" cider-jack-in)
+         ("i" twit)
+         ("w" browse-url-at-point)
+         ("?" (browse-url "http://emacs.stackexchange.com/"))
+         ("+" (browse-url "https://plus.google.com/communities/114815898697665598016"))))
   #+END_SRC
 
   The following tables lists all other additions or modifications to
