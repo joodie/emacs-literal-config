@@ -2515,9 +2515,8 @@ too.
    giving the first letter of all words in the filename to pull that
    file to the top of the list of suggestions.
 
-   [[https://github.com/emacsmirror/ido-vertical-mode][ido-vertical-mode]]
-   replaces deprecated setting I had before. These two mods are also
-   mentioned in the [[http://irreal.org/blog/?p=2305][Irreal]] blog.
+   [[https://github.com/emacsmirror/ido-vertical-mode][ido-vertical-mode]] replaces deprecated setting I had before. These
+   two mods are also mentioned in the [[http://irreal.org/blog/?p=2305][Irreal]] blog.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
