@@ -718,12 +718,16 @@
   launch _2_048           _l_ink chrome   _p_aradox
          _c_lojure        _n_ato-region   _t_imemachine git
          _e_diff-buffers  de_N_ato        _w_3m at point
-         _h_owdoi         _r_e-builder    _?_: emacsExchange
-         tw_i_tter        e_s_hell        G_\+_ emacs
+         _g_scholar-bib   _r_e-builder    _?_: emacsExchange
+         _h_owdoi         e_s_hell        G_\+_ emacs
+         tw_i_tter
         "
          ("2" 2048-game)
+         ("c" cider-jack-in)
          ("e" ediff-buffers)
+         ("g" gscholar-bibtex)
          ("h" howdoi-query)
+         ("i" twit)
          ("l" org-mac-chrome-insert-frontmost-url)
          ("n" nato-region)
          ("N" denato-region)
@@ -731,8 +735,6 @@
          ("s" eshell)
          ("p" paradox-list-packages)
          ("t" git-timemachine)
-         ("c" cider-jack-in)
-         ("i" twit)
          ("w" browse-url-at-point)
          ("?" (browse-url "http://emacs.stackexchange.com/"))
          ("+" (browse-url "https://plus.google.com/communities/114815898697665598016"))))
@@ -1127,7 +1129,6 @@
       (require 'expand-region)
       (global-set-key (kbd "C-=") 'er/expand-region)
     #+END_SRC
-
 ** Abbreviations
 
    Emacs comes with =abbrev-mode= that is able to replace typed strings
@@ -4014,13 +4015,19 @@ bbdb-merge-records=.
 
 ** References
 
-   I have one master bib file for references.
+   I have one master bib file for references. Package [[https://github.com/cute-jumper/gscholar-bibtex][gscholar-bibtex]]
+   can retrieve bibtex entries into it from several sources. Launch it
+   with =C-x l g=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq reftex-default-bibliography
-           (quote
-            ("/Users/lehvasho/Documents/latex/all.bib")))
+           (quote ("/Users/lehvasho/Documents/latex/all.bib")))
+
+     (setq gscholar-bibtex-database-file "/Users/lehvasho/Documents/latex/all.bib")
+     (set-face-attribute 'gscholar-bibtex-title nil
+                         :height 1.1
+                         :foreground "blue")
    #+END_SRC
 
    The RefTex package that manages citations needs configuration. =C-c
