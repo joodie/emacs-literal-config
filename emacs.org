@@ -3795,8 +3795,8 @@ bbdb-merge-records=.
      \\usepackage{amsmath}
      \\usepackage{gensymb}
      \\usepackage{nicefrac}
-     \\usepackage{units}"
-     \\usepackage[a4paper]{geometry}
+     \\usepackage{units}
+     \\usepackage[a4paper]{geometry}"
 
                     ("\\section{%s}" . "\\section*{%s}")
                     ("\\subsection{%s}" . "\\subsection*{%s}")
