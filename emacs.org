@@ -440,6 +440,18 @@
      (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
    #+END_SRC
 
+   The other aspect of scrolling is centering. =C-l= is bound to
+   command recenter-top-bottom that places the current line vertically
+   in the center of the page. A less known feature of it is that you
+   cycle the placement between middle, top, and bottom. This can be
+   [[http://oremacs.com/2015/03/28/recenter/][reordered]] and I've followed the suggestion to place the current
+   line first to the top of the frame.
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (setq recenter-positions '(top middle bottom))
+   #+END_SRC
+
 *** Scroll other window
 
     Often you are working in one window and reading instructions from
