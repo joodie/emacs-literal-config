@@ -771,13 +771,6 @@
   | y      | scroll-other-window down                  | [[Scroll other window]]          |
   | Y      | scroll-other-window up                    | [[Scroll other window]]          |
   |        |                                           |                              |
-  |        |                                           |                              |
-  | C-d b  | flyspell-buffer                           | [[Spell checking]]               |
-  | C-d s  | cycle-ispell-languages                    | [[Spell checking]]               |
-  | C-d p  | flyspell-check-previous-highlighted-word  | [[Spell checking]]               |
-  | C-d n  | flyspell-check-next-highlighted-word      | [[Spell checking]]               |
-  |        |                                           |                              |
-  |        |                                           |                              |
   | C-g g  | writegood-grade-level                     | [[Writing style]]                |
   | C-g e  | writegood-reading-ease                    | [[Writing style]]                |
   |        |                                           |                              |
@@ -1243,20 +1236,30 @@
 
 ** Spell checking
 
-  [[http://www.emacswiki.org/emacs/FlySpell][Flyspell]] checks words as you write against the [[http://aspell.net/][GNU aspell]]
-  dictionaries.
+   [[http://www.emacswiki.org/emacs/FlySpell][Flyspell]] checks words as I write against the [[http://aspell.net/][GNU aspell]]
+   dictionaries.
 
-  You might have to install aspell for your computer. For OS X, do it
-  using [[http://brew.sh/][Homebrew]] =brew install aspell= .
+   You might have to install aspell for your computer. For OS X, do it
+   using [[http://brew.sh/][Homebrew]] =brew install aspell=. This installes several
+   varieties of English. To add more languages, you have to specify
+   them as aguments.
+
+   Words added to personal word list are stored in =~/.aspell.{LANG}.pws=,
+   e.g. =~/.aspell.en.pws=.
+
+
+  Alternatively, call flyspell-goto-next-error by pressing =C-,= and
+  press =C-c k= to select the correct word from dictionary and write
+  it to abbreviations for automatic correction permanently. Adapted
+  from [[http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html][Endless Parentheses]].
 
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
-
-     ;; Set aspell as spell program
+     ;; Set aspell as the spell program
      (setq ispell-program-name "aspell")
 
      ;; Speed up aspell: ultra | fast | normal
-     (setq ispell-extra-args '("--sug-mode=normal"))
+     (setq ispell-extra-args '("--sug-mode=ultra"))
 
      ;; Flyspell activation for text mode
      (add-hook 'text-mode-hook
@@ -1270,11 +1273,10 @@
 
      ;; switching languages
      ;; code adapted from http://www.emacswiki.org/emacs/FlySpell
-
-     ;; default is same as 'american'
+     ;; default is 'american'
      (setq ispell-dictionary "american")
 
-     (let ((langs '( "finnish" "english" "american" )))
+     (let ((langs '( "english" "finnish" "american" )))
        (setq lang-ring (make-ring (length langs)))
        (dolist (elem langs) (ring-insert lang-ring elem)))
 
@@ -1286,27 +1288,6 @@
          (ispell-change-dictionary lang)
          (message "Dictionary switched from %s to %s" dict lang)))
 
-     (defun flyspell-check-next-highlighted-word ()
-       "Custom function to spell check next highlighted word"
-       (interactive)
-       (flyspell-goto-next-error)
-       (ispell-word))
-
-     ;; custom key bindings
-     (global-set-key (kbd "C-c C-d b")  'flyspell-buffer)
-     (global-set-key (kbd "C-c C-d s")  'cycle-ispell-languages)
-     (global-set-key (kbd "C-c C-d p")  'flyspell-check-previous-highlighted-word)
-     (global-set-key (kbd "C-c C-d n")  'flyspell-check-next-highlighted-word)
-
-   #+END_SRC
-
-  Alternatively, call flyspell-goto-next-error by pressing =C-,= and
-  press =C-c k= to select the correct word from dictionary and write
-  it to abbreviations for automatic correction permanently. Adapted
-  from [[http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html][Endless Parentheses]].
-
-   #+NAME: spell-checker
-   #+BEGIN_SRC emacs-lisp
      (defun my/aspell-word-then-abbrev (p)
        "Call `ispell-word'. Then create an abbrev for the correction made.
      With prefix P, create local abbrev. Otherwise it will be global."
@@ -1322,6 +1303,49 @@
              bef aft))))
 
      (global-set-key (kbd "C-c k") 'my/aspell-word-then-abbrev)
+
+     ;; original copied from
+     ;; http://stackoverflow.com/questions/22107182/in-emacs-flyspell-mode-how-to-add-new-word-to-dictionary
+     (defun my/flyspell-save-word (&optional save-lowercase)
+       "Save word to a personal dictionary.
+
+           The dictionary file depends on the used spell program. If the the first
+           argument SAVE-LOWERCASE is non-nil, save also lowercased word.
+          "
+       (interactive)
+       (let ((current-location (point))
+             (word (flyspell-get-word)))
+         (when (consp word)
+           (when (boundp save-lowercase)
+               (flyspell-do-correct
+                'save nil (downcase (car word)) current-location (cadr word)
+                (downcase (caddr word)) current-location))
+             (flyspell-do-correct
+              'save nil (car word) current-location (cadr word)
+              (caddr word) current-location))))
+
+     (setq flyspell-issue-message-flag nil)
+
+     (global-set-key
+      (kbd "C-x '")
+      (defhydra hydra-flyspell (:color pink :hint nil)
+        "
+       ^Flyspell^             ^Check^      [Language: %`ispell-current-dictionary]
+     ^^-----------------------------------------------------------
+       _n_: next error        _c_: correct
+       _t_: cycle languages   _k_: correct and add to abbrev
+       _q_uit                 _i_: insert to personal list
+       ^ ^                    _u_: insert, uncapitalize and insert
+     "
+        ("n" flyspell-goto-next-error)
+        ("t" cycle-ispell-languages)
+        ("q" nil :color blue)
+
+        ("c" ispell-word)
+        ("k" my/aspell-word-then-abbrev)
+        ("i" my/flyspell-save-word)
+        ("u" (my/flyspell-save-word t))))
+
    #+END_SRC
 
 ** TODO wcheck mode
