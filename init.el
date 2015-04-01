@@ -5,7 +5,10 @@
 ;;(require 'bind-key)
 ;;(setq use-package-verbose t)
 
-(require 'cask "~/.cask/cask.el")
+;; standalone cask
+;;(require 'cask "~/.cask/cask.el")
+;; OSX: cask from homebrew
+(require 'cask "/usr/local/share/emacs/site-lisp/cask.el")
 (cask-initialize)
 
 (when (not (cl-remove-if-not
