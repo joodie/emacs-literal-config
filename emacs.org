@@ -2930,8 +2930,11 @@ bbdb-merge-records=.
    - next =j=, previous =k= article
    - open URL in browser =<TAB>...<Enter>=
    - open user timeline =v=
+   - interactive timeline =V=
+     - e.g. =V #emacs <Enter>= to follow tweets with hashtag #emacs
    - next =f=, previous =b= timeline
    - top of page =H=
+   - =u= post new tweet in current timeline
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
