@@ -1927,7 +1927,6 @@
      (add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
      (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
 
-     (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t)
      (defun n-cperl-mode-hook ()
        (setq cperl-indent-level 4
              cperl-close-paren-offset -4
@@ -1935,7 +1934,9 @@
              cperl-indent-parens-as-block t
              cperl-tab-always-indent t)
        (my/turn-on 'show-paren-mode
-                   'aggressive-indent-mode))
+                   'aggressive-indent-mode
+                   'flyspell-prog-mode))
+     (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t)
    #+END_SRC
 
    Call perltidy with =C-c t= from emacs to indent and beautify perl code in the
