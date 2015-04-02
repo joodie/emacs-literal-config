@@ -3022,9 +3022,9 @@ bbdb-merge-records=.
       (kbd "C-c p")
       (defhydra hydra-blog (:color blue :hint nil)
         "
-     blog  _n_ew post             publish _l_ast commit    n_e_w-repository
-           _r_eset & publish all  _p_ublish interactively
-           _t_: reset & publish to /tmp/blog
+     blog  _n_: new post                        _l_: publish last commit
+           _r_: reset & publish all             _p_: publish interactively
+           _t_: reset & publish to /tmp/blog    _e_: new-repository
            "
         ("n" op/new-post)
         ("r" (progn
@@ -3441,10 +3441,10 @@ bbdb-merge-records=.
       (defhydra hydra-org-time (:color blue :hint nil)
         "
    Clock  _i_n           _t_odo
-          _o_ut          _j_ump to head
-          _x_ in-last    _d_isplay
-          _e_dit         _r_eport
-          _q_uit         _w_ork file
+          _x_ in-last    _j_ump to head
+          _o_ut          _d_isplay
+          _q_uit         _r_eport
+          _e_dit         _w_ork file open
         "
         ("i" org-clock-in)
         ("o" org-clock-out)
