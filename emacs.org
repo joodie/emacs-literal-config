@@ -4068,6 +4068,7 @@ bbdb-merge-records=.
            (quote ("/Users/lehvasho/Documents/latex/all.bib")))
 
      (setq gscholar-bibtex-database-file "/Users/lehvasho/Documents/latex/all.bib")
+     (setq gscholar-bibtex-default-source "Google Scholar")
      (set-face-attribute 'gscholar-bibtex-title nil
                          :height 1.1
                          :foreground "blue")
