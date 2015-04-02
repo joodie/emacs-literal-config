@@ -479,6 +479,17 @@
       (setq-default x-stretch-cursor t)
    #+END_SRC
 
+   [[http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html][Stop cursor going into minibuffer prompt]]
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     ;; don't let the cursor go into minibuffer prompt
+     (setq minibuffer-prompt-properties
+           (quote (read-only t point-entered minibuffer-avoid-prompt
+                             face minibuffer-prompt)))
+   #+END_SRC
+
+
 ** Current line
 
    Current line is subtly highlighted in pale blue.
