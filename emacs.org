@@ -1133,6 +1133,7 @@
       (require 'expand-region)
       (global-set-key (kbd "C-=") 'er/expand-region)
     #+END_SRC
+
 ** Abbreviations
 
    Emacs comes with =abbrev-mode= that is able to replace typed strings
@@ -4384,7 +4385,6 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (global-set-key (kbd "C-x C-3") 'server-edit)
    #+END_SRC
-
 
    Additionally, for those quick and dirty editing jobs on terminal, I
    have installed *zile*, [[http://www.gnu.org/software/zile/][a lightweight emacs clone]] with homebrew, and
