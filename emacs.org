@@ -4337,13 +4337,25 @@ bbdb-merge-records=.
 
     The package [[http://orgmode.org/worg/org-contrib/org-mac-link.html][org-mac-link]] grabs links from open applications and
     pastes them to current org-buffer. Great for org capture notes
-    =C-c c n=. Type the note title,  move the cursor to the body, and
+    =C-c c n=. Type the note title, move the cursor to the body, and
     press =C-x l l= "Emacs, launch link". I only use chrome, so I
-    ignore other apps and use directly the chrome link.
+    ignore other apps and use directly the chrome link through command
+    =org-mac-chrome-insert-frontmost-url=.
+
+    I've combined those all commands and bound them to =C-c b=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (require 'org-mac-link)
+
+     (global-set-key
+      (kbd "C-c b")
+      (defun my/quick-url-note ()
+        "Fastest way to capture a web page link"
+        (interactive)
+        (org-capture nil "n")
+        (org-mac-chrome-insert-frontmost-url)
+        (org-capture-finalize)))
    #+END_SRC
 
 ** Custom lisp package directory
