@@ -4067,6 +4067,7 @@ bbdb-merge-records=.
      (setq reftex-default-bibliography
            (quote ("/Users/lehvasho/Documents/latex/all.bib")))
 
+     (require 'gscholar-bibtex)
      (setq gscholar-bibtex-database-file "/Users/lehvasho/Documents/latex/all.bib")
      (setq gscholar-bibtex-default-source "Google Scholar")
      (set-face-attribute 'gscholar-bibtex-title nil
