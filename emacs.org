@@ -1265,6 +1265,8 @@
   it to abbreviations for automatic correction permanently. Adapted
   from [[http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html][Endless Parentheses]].
 
+   =C-., (flyspell-auto-correct-word)=
+
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
      ;; Set aspell as the spell program
