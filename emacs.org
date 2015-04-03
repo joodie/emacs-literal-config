@@ -761,26 +761,31 @@
   | 2      | 2048-game                                 | [[2048-game]]                    |
   | =      | er/expand-region                          | [[Expand region]]                |
   | a      | org-agenda                                | [[Org Mode]]                     |
-  | b      |                                           |                              |
+  | b      | my/quick-url-note                         | [[URL copying]]                  |
   | c      | org-capture                               | [[Org Mode]]                     |
   | d      | delete-file-and-buffer                    | [[Abbreviations]]                |
   | e      | my/edit-emacs-configuration               | [[Global navigation]]            |
   | f      | elfeed                                    | [[News feed reader]]             |
   | g      | magit-status                              | [[Magit]]                        |
+  | h      | hydra-apropos/body                        |                              |
   | i      | my/org-babel-untangle                     | [[Org-Babel]]                    |
+  | j      |                                           |                              |
   | k      | my/aspell-word-then-abbrev                | [[Spell checking]]               |
   | l      | org-store-link                            | [[Org Mode]]                     |
+  | m      |                                           |                              |
   | n      | my/clean-buffer-formatting                | [[Formatting and white-space]]   |
   | o      | org-info                                  | [[Org Mode]]                     |
-  | p      |                                           |                              |
+  | p      | org-page                                  | [[Blogging with org-page]]       |
   | q      | delete-indentation                        | [[Local navigation in a buffer]] |
   | r      | recentf-ido-find-file                     | [[Global navigation]]            |
+  | s      |                                           |                              |
   | (t)    | languagetool-mode (disabled)              | [[Writing style]]                |
   | u      | set-buffer-file-coding-system 'utf-8-unix | [[Character encoding]]           |
   | w      | writegood-mode                            | [[Writing style]]                |
   | x      | xkcd                                      | [[xkcd comics]]                  |
   | y      | scroll-other-window down                  | [[Scroll other window]]          |
   | Y      | scroll-other-window up                    | [[Scroll other window]]          |
+  | z      |                                           |                              |
   |        |                                           |                              |
   | C-g g  | writegood-grade-level                     | [[Writing style]]                |
   | C-g e  | writegood-reading-ease                    | [[Writing style]]                |
