@@ -496,8 +496,9 @@
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+    (when (window-system)
      (global-hl-line-mode 1)
-     (set-face-background hl-line-face "AliceBlue")
+     (set-face-background hl-line-face "AliceBlue"))
    #+END_SRC
 
 ** Global key bindings
@@ -515,7 +516,9 @@
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
     (setq inhibit-startup-screen +1)
-    (desktop-save-mode 1) ; emacs 24.4 feature
+    ; emacs 24.4 feature, call on main windowed emacs
+    (when (window-system)
+      (desktop-save-mode 1))
   #+END_SRC
 
 ** Identify yourself
@@ -4391,7 +4394,8 @@ bbdb-merge-records=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     (server-start)
+    (when (window-system)
+      (server-start))
    #+END_SRC
 
    A commandline alias *em* (=alias em=emacsclient=) then calls
