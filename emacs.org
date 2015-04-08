@@ -79,13 +79,14 @@
    for instructions.
 
    Paradox now does asynchronous background updates. You do not even
-   have to call up the par-pageadox window to upgrade packages with
+   have to call up the paradox window to upgrade packages with
    =paradox-upgrade-packages=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (setq paradox-github-token t)
      (setq paradox-execute-asynchronously t)
+     (setq paradox-automatically-star t)
    #+END_SRC
 
 *** Upgrading Org
