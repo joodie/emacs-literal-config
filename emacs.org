@@ -1661,6 +1661,8 @@
    #+BEGIN_SRC emacs-lisp
 
      (require 'linum-relative)
+     ;; show absolute line number for the current line
+     (setq linum-relative-current-symbol "")
      (define-minor-mode my/linum-mode
      "Toggle showing of line numbers.
 
