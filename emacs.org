@@ -717,7 +717,6 @@
     ;;I recommend to bind it like this:
 
     (global-set-key (kbd "C-c h") 'hydra-apropos/body)
-
   #+END_SRC
 
   The second key map is for *launching* [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]].
@@ -1737,9 +1736,6 @@
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
-
-    ;; (global-set-key "\C-ct" 'org-info)
-
     (auctex-latexmk-setup)
     (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
 
@@ -2518,12 +2514,38 @@ too.
 
    This org configuration file has a shortcut =C-c e=.
 
+   This and more files can be reached with my hydra-files by =C-z=.
+
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
-     (defun my/edit-emacs-configuration ()
+      (defun my/edit-emacs-configuration ()
+        (interactive)
+        (find-file "~/.emacs.d/emacs.org"))
+      (global-set-key "\C-ce" 'my/edit-emacs-configuration)
+
+     ;; I often want to add more comments to the last note
+     (defun my/last-captured-org-note ()
+       "Move to the end of penultimate line of the last org capture note."
        (interactive)
-       (find-file "~/.emacs.d/emacs.org"))
-     (global-set-key "\C-ce" 'my/edit-emacs-configuration)
+       (find-file "~/Dropbox/org/reference.org")
+       (end-of-buffer)
+       (forward-line -2)
+       (org-end-of-line))
+
+     (global-set-key
+      (kbd "C-c z")
+      (defhydra hydra-goto (:color blue :hint nil)
+        "
+       goto   file                        info
+              --------------------------------------
+              _e_macs.org                 _o_rg
+              _r_eference.org: last note
+              _w_ork.org
+           "
+        ("e" (find-file "~/.emacs.d/emacs.org"))
+        ("r" my/last-captured-org-note)
+        ("w" (find-file "~/Dropbox/org/work.org"))
+        ("o" org-info)))
    #+END_SRC
 
    [[http://www.emacswiki.org/emacs/NeoTree_%E4%B8%AD%E6%96%87wiki][NeoTree]] is a file browser plugin that I am trying out. Toggle its
