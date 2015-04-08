@@ -1671,7 +1671,7 @@
      argument disables it.  From Lisp, argument omitted or nil enables
      the mode, `toggle' toggles the state."
        nil           ; The initial value.
-       " lnum"       ; The indicator for the mode line
+       nil           ; The indicator for the mode line
        '()           ; The minor mode bindings.
        :group 'my/linum
        (linum-mode (if my/linum-mode 1 -1)))
