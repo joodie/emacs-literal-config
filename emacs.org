@@ -3794,6 +3794,7 @@ bbdb-merge-records=.
      (add-to-list 'org-latex-classes
                   '("tufte-book"
                     "\\documentclass{tufte-book}
+     \\usepackage[T1]{fontenc}
      \\usepackage{color}
      \\usepackage{amssymb}
      \\usepackage{gensymb}
@@ -3812,6 +3813,7 @@ bbdb-merge-records=.
      (add-to-list 'org-latex-classes
                   '("tufte-handout"
                     "\\documentclass{tufte-handout}
+     \\usepackage[T1]{fontenc}
      \\usepackage{color}
      \\usepackage{amssymb}
      \\usepackage{amsmath}
