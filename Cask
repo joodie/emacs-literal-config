@@ -25,6 +25,7 @@
 (depends-on "diminish")
 (depends-on "dklrt")
 (depends-on "dkmisc")
+(depends-on "edit-server")
 (depends-on "elfeed")
 (depends-on "elfeed-org")
 (depends-on "elmacro")

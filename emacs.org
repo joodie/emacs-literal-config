@@ -4392,10 +4392,21 @@ bbdb-merge-records=.
    =man emacsclient=). The emacs needs to run in server mode for the
    emacsclient to open a new frame to edit the file.
 
+   [[https://github.com/stsquad/emacs_chrome][Edit-server]] is the emacs code for the Chrome/Chromium extension for
+   editing text areas in better environment.
+
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
     (when (window-system)
       (server-start))
+
+     (use-package edit-server
+       :ensure t
+       :if window-system
+       :init
+       (add-hook 'after-init-hook 'server-start t)
+       (add-hook 'after-init-hook 'edit-server-start t))
+
    #+END_SRC
 
    A commandline alias *em* (=alias em=emacsclient=) then calls
