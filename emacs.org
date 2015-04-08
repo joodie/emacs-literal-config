@@ -610,14 +610,14 @@
      (kbd "C-x t")
      (defhydra hydra-toggle (:color blue :hint nil)
        "
-  toggle _a_bbrev-mode      t_r_uncate-lines
-         _d_ebug-on-error   white_s_pace-mode
-         _f_olding          neo_t_ree
-         _i_edit            _v_: string inflection
-         _n_arrowing        _w_ritegood-mode
-         _l_inum-mode       _q_uit
-         _k_: spelling language
-       "
+         toggle _a_bbrev-mode             _p_retty entities
+                _d_ebug-on-error          t_r_uncate-lines
+                _f_olding                 white_s_pace-mode
+                _i_edit                   neo_t_ree
+                _n_arrowing               _v_: string inflection
+                _l_inum-mode              _w_ritegood-mode
+                _k_: spelling language    _q_uit
+              "
        ("a" abbrev-mode )
        ("d" toggle-debug-on-error)
        ("f" toggle-selective-display)
@@ -625,6 +625,7 @@
        ("n" narrow-or-widen-dwim)
        ("l" my/global-linum-mode)
        ("k" cycle-ispell-languages :color red)
+       ("p" org-toggle-pretty-entities)
        ("r" toggle-truncate-lines)
        ("s" whitespace-mode)
        ("t" neotree-toggle)
@@ -3190,12 +3191,23 @@ bbdb-merge-records=.
   inserts a new list item and =backspace= removes the bulletpoint and
   backs up to previous list item.
 
+  Org mode has a large selected special symbols (like \=alpha=) to
+  enter characters into the text. Exporting converts them to the
+  proper Unicode character or symbol for that output. I my org mode,
+  the entities are rendered as symbols. You can toggle that with =C-c
+  C-x \=. The list of all entities can be seen in a buffer with =M-x
+  org-entities-help=.
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
      (global-set-key "\C-co" 'org-info)
 
      (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
+
+     ;; to have \alpha, \to and others display as utf8
+     ;; http://orgmode.org/manual/Special-symbols.html
+     (setq org-pretty-entities t)
    #+END_SRC
 
 ** Agenda
