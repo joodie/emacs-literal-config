@@ -731,14 +731,14 @@
        (defhydra hydra-launch (:color blue :hint nil)
          "
   launch _2_048           _l_ink chrome   _p_aradox
-         _c_lojure        _n_ato-region   _t_imemachine git
-         _e_diff-buffers  de_N_ato        _w_3m at point
-         _g_scholar-bib   _r_e-builder    _?_: emacsExchange
-         _h_owdoi         e_s_hell        G_\+_ emacs
-         tw_i_tter
+         _c_: quick-calc  _n_ato-region   _q_: paradox upgrade
+         _e_diff-buffers  de_N_ato        _t_imemachine git
+         _g_scholar-bib   _r_e-builder    _w_3m at point
+         _h_owdoi         e_s_hell        _?_: emacsExchange
+         tw_i_tter        ^ ^             G_\+_ emacs
         "
          ("2" 2048-game)
-         ("c" cider-jack-in)
+         ("c" quick-calc)
          ("e" ediff-buffers)
          ("g" gscholar-bibtex)
          ("h" howdoi-query)
@@ -749,6 +749,7 @@
          ("r" re-builder)
          ("s" eshell)
          ("p" paradox-list-packages)
+         ("q" paradox-upgrade-packages)
          ("t" git-timemachine)
          ("w" browse-url-at-point)
          ("?" (browse-url "http://emacs.stackexchange.com/"))
