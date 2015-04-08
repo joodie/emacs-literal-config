@@ -2534,7 +2534,7 @@ too.
 
      ;; fix evil mode key conflicts
      (add-hook 'neotree-mode-hook
-               ( lambda ()
+               (lambda ()
                  (define-key evil-normal-state-local-map (kbd "TAB" ) 'neotree-enter)
                  (define-key evil-normal-state-local-map (kbd "SPC" ) 'neotree-enter)
                  (define-key evil-normal-state-local-map (kbd "q" )   'neotree-hide)
@@ -3441,6 +3441,9 @@ bbdb-merge-records=.
 
 ** Time tracking
 
+   This combines all commands I know about time management under org
+   mode to one that can be launched with =C-c w= /endash w for work.
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-clock-persist 'history)
@@ -3470,7 +3473,6 @@ bbdb-merge-records=.
    #+END_SRC
 
    See [[http://orgmode.org/manual/Clocking-work-time.html][Clocking work time]].
-
 
 ** TODO MobileOrg
    Use Dropbox for syncing my agenda files with my Android
