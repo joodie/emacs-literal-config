@@ -2490,10 +2490,27 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
-     (global-set-key (kbd "s-<left>") 'shrink-window-horizontally)
-     (global-set-key (kbd "s-<right>") 'enlarge-window-horizontally)
-     (global-set-key (kbd "s-<down>") 'shrink-window)
-     (global-set-key (kbd "s-<up>") 'enlarge-window)
+     (setq my/window-resize-step 10)
+
+     (global-set-key
+      (kbd "s-<left>")
+      (lambda () (interactive)
+        (shrink-window-horizontally my/window-resize-step)))
+
+     (global-set-key
+      (kbd "s-<right>")
+      (lambda () (interactive)
+        (enlarge-window-horizontally my/window-resize-step)))
+
+     (global-set-key
+      (kbd "s-<down>")
+      (lambda () (interactive)
+        (shrink-window my/window-resize-step)))
+
+     (global-set-key
+      (kbd "s-<up>")
+      (lambda () (interactive)
+        (enlarge-window my/window-resize-step)))
    #+END_SRC
 
 ** External navigation
