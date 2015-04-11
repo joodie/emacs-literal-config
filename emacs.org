@@ -84,9 +84,11 @@
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     (setq paradox-github-token t)
-     (setq paradox-execute-asynchronously t)
-     (setq paradox-automatically-star t)
+     (use-package paradox
+       :config
+       (setq paradox-github-token t)
+       (setq paradox-execute-asynchronously t)
+       (setq paradox-automatically-star t))
    #+END_SRC
 
 *** Upgrading Org
@@ -232,14 +234,12 @@
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (when (window-system)
-       (require 'git-gutter-fringe))
-
-     (global-git-gutter-mode +1)
-     (setq-default indicate-buffer-boundaries 'left)
-     (setq-default indicate-empty-lines +1)
-
-     ;; hide mode line indicator
-     (diminish 'git-gutter-mode)
+       (use-package git-gutter-fringe
+         :config
+         (global-git-gutter-mode +1)
+         (setq-default indicate-buffer-boundaries 'left)
+         (setq-default indicate-empty-lines +1)
+         :diminish git-gutter-mode))
    #+END_SRC
 
 ** Mode line
@@ -1140,8 +1140,8 @@
 
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
-      (require 'expand-region)
-      (global-set-key (kbd "C-=") 'er/expand-region)
+      (use-package expand-region
+        :bind ("C-=" . er/expand-region))
     #+END_SRC
 
 ** Abbreviations
@@ -1154,33 +1154,22 @@
 
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
-;;     (use-package abbrev
-;;       :disabled t
-;;       :commands abbrev-mode
-;;       :diminish abbrev-mode
-;;       :init
-;;       (hook-into-modes #'abbrev-mode '(text-mode-hook))
-;; 
-;;       :config
-;;       (progn
-;;         (if (file-exists-p abbrev-file-name)
-;;             (quietly-read-abbrev-file))
-;;         (setq save-abbrevs t)
-;;         (add-hook 'expand-load-hook
-;;                   (lambda ()
-;;                     (add-hook 'expand-expand-hook 'indent-according-to-mode)
-;;                     (add-hook 'expand-jump-hook 'indent-according-to-mode)))))
+     (use-package abbrev
+       :disabled nil
+       :commands abbrev-mode
+       :diminish Abbr
+       :init
+       (hook-into-modes #'abbrev-mode '(text-mode-hook cperl-mode-hook))
 
-     (abbrev-mode)
-     (cond ((file-exists-p "~/.emacs.d/abbrev_defs")
-            (read-abbrev-file "~/.emacs.d/abbrev_defs")))
-
-     (setq save-abbrevs t)                ; save abbrevs when files are saved
-                                          ; you will be asked before saving
-
-     (if (file-exists-p abbrev-file-name) ; reads the abbreviations file
-         (quietly-read-abbrev-file))      ;  on startup if the file exists
-
+       :config
+       (progn
+         (if (file-exists-p abbrev-file-name)
+             (quietly-read-abbrev-file))
+         (setq save-abbrevs t)
+         (add-hook 'expand-load-hook
+                   (lambda ()
+                     (add-hook 'expand-expand-hook 'indent-according-to-mode)
+                     (add-hook 'expand-jump-hook 'indent-according-to-mode)))))
    #+END_SRC
 
    A special form of abbreviation is a time stamp in a file. I do not
@@ -1243,7 +1232,9 @@
     there or invoking yas-new-snippet.
 
    #+BEGIN_SRC emacs-lisp
-     (yas-global-mode 1)
+     (use-package yasnippet
+       :config
+       (yas-global-mode 1))
    #+END_SRC
 
 ** String inflection
@@ -1253,7 +1244,7 @@
    variable", =C-x t v=.
 
    #+BEGIN_SRC emacs-lisp
-     (require 'string-inflection)
+     (use-package string-inflection)
    #+END_SRC
 
 ** Spell checking
@@ -1418,9 +1409,18 @@
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
-    ;; word-count
-    (defun word-count nil "Count words in buffer" (interactive)
-      (shell-command-on-region (point-min) (point-max) "wc -w"))
+        ;; word-count
+        (defun word-count nil "Count words in buffer" (interactive)
+          (shell-command-on-region (point-min) (point-max) "wc -w"))
+
+    (defun count-words (start end)
+      "Print number of words in the region."
+      (interactive "r")
+      (save-excursion
+        (save-restriction
+          (narrow-to-region start end)
+          (goto-char (point-min))
+          (count-matches "\\sw+"))))
   #+END_SRC
 
 ** Text editing done by external programs
@@ -1935,31 +1935,31 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (require 'plenv)
-     (condition-case nil
-         (plenv-global "5.20.1")
-       (error (message "ERROR: unknown perl version. Is your plenv configured right?")))
+     (use-package plenv
+       :config
+       (condition-case nil
+           (plenv-global "5.20.1")
+         (error (message "ERROR: unknown perl version. Is your plenv configured right?"))))
    #+END_SRC
 
    Use the built-in =cperl-mode= instead of the default =perl-mode=
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
-     (add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
-     (add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
-     (add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
-
-     (defun n-cperl-mode-hook ()
-       (setq cperl-indent-level 4
-             cperl-close-paren-offset -4
-             cperl-continued-statement-offset 4
-             cperl-indent-parens-as-block t
-             cperl-tab-always-indent t)
-       (my/turn-on 'show-paren-mode
-                   'aggressive-indent-mode
-                   'flyspell-prog-mode))
-     (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t)
+     (use-package cperl-mode
+       :mode "\\.\\([pP][Llm]\\|al\\)\\'"
+       :interpreter ("perl" "perl5" "miniperl")
+       :config
+       (defun n-cperl-mode-hook ()
+         (setq cperl-indent-level 4
+               cperl-close-paren-offset -4
+               cperl-continued-statement-offset 4
+               cperl-indent-parens-as-block t
+               cperl-tab-always-indent t)
+         (my/turn-on 'show-paren-mode
+                     'aggressive-indent-mode
+                     'flyspell-prog-mode))
+       (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t))
    #+END_SRC
 
    Call perltidy with =C-c t= from emacs to indent and beautify perl code in the
@@ -2054,7 +2054,7 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (require 'names-dev)
+     (use-package names-dev)
    #+END_SRC
 
 ** Clojure
@@ -2230,12 +2230,14 @@
 
   #+NAME: auto-complete
   #+BEGIN_SRC emacs-lisp
-    (require 'fuzzy)
-    (require 'auto-complete)
-    (setq ac-auto-show-menu t
-          ac-quick-help-delay 0.5
-          ac-use-fuzzy t)
-    (global-auto-complete-mode +1)
+    (use-package fuzzy
+      :defer t)
+
+    (use-package auto-complete
+      :init (setq ac-auto-show-menu t
+                  ac-quick-help-delay 0.5
+                  ac-use-fuzzy t)
+      :config (global-auto-complete-mode +1))
   #+END_SRC
 
 * Navigation
@@ -2458,7 +2460,8 @@ too.
 
    #+name: execute-last
    #+BEGIN_SRC emacs-lisp
-     (require 'framemove)
+     (use-package framemove)
+
      (windmove-default-keybindings)
      (setq windmove-wrap-around t)
      (setq framemove-hook-into-windmove t)
@@ -2575,17 +2578,17 @@ too.
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      ;; always change focus to current buffer
-     (setq neo-smart-open t)
-
-     ;; fix evil mode key conflicts
-     (add-hook 'neotree-mode-hook
-               (lambda ()
-                 (define-key evil-normal-state-local-map (kbd "TAB" ) 'neotree-enter)
-                 (define-key evil-normal-state-local-map (kbd "SPC" ) 'neotree-enter)
-                 (define-key evil-normal-state-local-map (kbd "q" )   'neotree-hide)
-                 (define-key evil-normal-state-local-map (kbd "RET" ) 'neotree-enter)))
+     (use-package neotree
+       :init (setq neo-smart-open t)
+       :config
+       ;; fix evil mode key conflicts
+       (add-hook 'neotree-mode-hook
+                 (lambda ()
+                   (define-key evil-normal-state-local-map (kbd "TAB" ) 'neotree-enter)
+                   (define-key evil-normal-state-local-map (kbd "SPC" ) 'neotree-enter)
+                   (define-key evil-normal-state-local-map (kbd "q" )   'neotree-hide)
+                   (define-key evil-normal-state-local-map (kbd "RET" ) 'neotree-enter))))
    #+END_SRC
-
 
    I like emacs to remember files that I have visited. The =recentf=
    package allows you to see the list using  =C-x C-r=. It comes handy
@@ -2593,22 +2596,15 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
-;;     (use-package recentf
-;;       :if (not noninteractive)
-;;       :init
-;;       (progn
-;;         (recentf-mode 1)
-;;         (setq recentf-auto-cleanup 'never) ;; cleanup interfers with tramp mode
-;;         (setq recentf-max-saved-items 400
-;;               recentf-max-menu-items 35)
-;;         (bind-key "\C-x\ \C-r" 'recentf-open-files)))
-
-         (require 'recentf)
-         (setq recentf-auto-cleanup 'never) ;; cleanup interfers with tramp mode
+     (use-package recentf
+       :if (not noninteractive)
+       :bind ( "C-x C-r" . recentf-open-files)
+       :init
+       (progn
          (recentf-mode 1)
+         (setq recentf-auto-cleanup 'never) ;; cleanup interfers with tramp mode
          (setq recentf-max-saved-items 400
-               recentf-max-menu-items 35)
-         (global-set-key "\C-x\ \C-r" 'recentf-open-files)
+               recentf-max-menu-items 35)))
    #+END_SRC
 
    I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
@@ -2671,8 +2667,8 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
-     (setq-default save-place t)
-     (require 'saveplace)
+     (use-package saveplace
+       :init (setq-default save-place t))
    #+END_SRC
 
 ** Geographical location
@@ -2732,146 +2728,146 @@ bbdb-merge-records=.
 
 #+name: apps
 #+BEGIN_SRC emacs-lisp
-  (require 'nnir)
 
-  ;; ask encyption password once
-  (setq epa-file-cache-passphrase-for-symmetric-encryption t)
+  (use-package nnir
+    :config
+    ;; ask encyption password once
+    (setq epa-file-cache-passphrase-for-symmetric-encryption t)
+    (setq smtpmail-auth-credentials "~/.authinfo.gpg")
+    (setq send-mail-function (quote smtpmail-send-it))
+    ;;@see http://gnus.org/manual/gnus_397.html
+    (setq gnus-select-method
+          '(nnimap "gmail"
+                   (nnimap-address "imap.gmail.com")
+                   (nnimap-server-port 993)
+                   (nnimap-stream ssl)
+                   (nnir-search-engine imap)
+                   (nnimap-authinfo-file "~/.authinfo.gpg")
+                   ;; @see http://www.gnu.org/software/emacs/manual/html_node/gnus/Expiring-Mail.html
+                   ;; press 'E' to expire email
+                   (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
+                   (nnmail-expiry-wait 90)))
 
-  (setq smtpmail-auth-credentials "~/.authinfo.gpg")
-  (setq send-mail-function (quote smtpmail-send-it))
-  ;;@see http://gnus.org/manual/gnus_397.html
-  (setq gnus-select-method
-               '(nnimap "gmail"
-                        (nnimap-address "imap.gmail.com")
-                        (nnimap-server-port 993)
-                        (nnimap-stream ssl)
-                        (nnir-search-engine imap)
-                        (nnimap-authinfo-file "~/.authinfo.gpg")
-                        ;; @see http://www.gnu.org/software/emacs/manual/html_node/gnus/Expiring-Mail.html
-                        ;; press 'E' to expire email
-                        (nnmail-expiry-target "nnimap+gmail:[Gmail]/Trash")
-                        (nnmail-expiry-wait 90)))
+    (setq-default
+     gnus-summary-line-format "%U%R%z %(%&user-date;  %-15,15f  %B%s%)\n"
+     gnus-user-date-format-alist '((t . "%Y-%m-%d %H:%M"))
+     gnus-summary-thread-gathering-function 'gnus-gather-threads-by-references
+     gnus-sum-thread-tree-false-root ""
+     gnus-sum-thread-tree-indent ""
+     gnus-sum-thread-tree-leaf-with-other "-> "
+     gnus-sum-thread-tree-root ""
+     gnus-sum-thread-tree-single-leaf "|_ "
+     gnus-sum-thread-tree-vertical "|")
 
-  (setq-default
-   gnus-summary-line-format "%U%R%z %(%&user-date;  %-15,15f  %B%s%)\n"
-   gnus-user-date-format-alist '((t . "%Y-%m-%d %H:%M"))
-   gnus-summary-thread-gathering-function 'gnus-gather-threads-by-references
-   gnus-sum-thread-tree-false-root ""
-   gnus-sum-thread-tree-indent ""
-   gnus-sum-thread-tree-leaf-with-other "-> "
-   gnus-sum-thread-tree-root ""
-   gnus-sum-thread-tree-single-leaf "|_ "
-   gnus-sum-thread-tree-vertical "|")
+    (setq gnus-thread-sort-functions
+          '((not gnus-thread-sort-by-date)
+            (not gnus-thread-sort-by-number)))
 
-  (setq gnus-thread-sort-functions
-        '((not gnus-thread-sort-by-date)
-          (not gnus-thread-sort-by-number)))
+    ;; NO 'passive
+    (setq gnus-use-cache t)
+    (setq gnus-use-adaptive-scoring t)
+    (setq gnus-save-score t)
+    (add-hook 'mail-citation-hook 'sc-cite-original)
+    (add-hook 'message-sent-hook 'gnus-score-followup-article)
+    (add-hook 'message-sent-hook 'gnus-score-followup-thread)
+    ;; @see http://stackoverflow.com/questions/945419/how-dont-use-gnus-adaptive-scoring-in-some-newsgroups
+    (setq gnus-parameters
+          '(("nnimap.*"
+             (gnus-use-scoring nil))))
 
-  ;; NO 'passive
-  (setq gnus-use-cache t)
-  (setq gnus-use-adaptive-scoring t)
-  (setq gnus-save-score t)
-  (add-hook 'mail-citation-hook 'sc-cite-original)
-  (add-hook 'message-sent-hook 'gnus-score-followup-article)
-  (add-hook 'message-sent-hook 'gnus-score-followup-thread)
-  ;; @see http://stackoverflow.com/questions/945419/how-dont-use-gnus-adaptive-scoring-in-some-newsgroups
-  (setq gnus-parameters
-        '(("nnimap.*"
-           (gnus-use-scoring nil))))
+    (defvar gnus-default-adaptive-score-alist
+      '((gnus-kill-file-mark (from -10))
+        (gnus-unread-mark)
+        (gnus-read-mark (from 10) (subject 30))
+        (gnus-catchup-mark (subject -10))
+        (gnus-killed-mark (from -1) (subject -30))
+        (gnus-del-mark (from -2) (subject -15))
+        (gnus-ticked-mark (from 10))
+        (gnus-dormant-mark (from 5))))
 
-  (defvar gnus-default-adaptive-score-alist
-    '((gnus-kill-file-mark (from -10))
-      (gnus-unread-mark)
-      (gnus-read-mark (from 10) (subject 30))
-      (gnus-catchup-mark (subject -10))
-      (gnus-killed-mark (from -1) (subject -30))
-      (gnus-del-mark (from -2) (subject -15))
-      (gnus-ticked-mark (from 10))
-      (gnus-dormant-mark (from 5))))
+    (setq  gnus-score-find-score-files-function
+           '(gnus-score-find-hierarchical gnus-score-find-bnews bbdb/gnus-score))
 
-  (setq  gnus-score-find-score-files-function
-         '(gnus-score-find-hierarchical gnus-score-find-bnews bbdb/gnus-score))
+    ;; BBDB: Address list
+    (when (file-exists-p "/usr/share/emacs/site-lisp/bbdb")
+      (add-to-list 'load-path "/usr/share/emacs/site-lisp/bbdb")
+      (require 'bbdb)
+      (bbdb-initialize 'message 'gnus 'sendmail)
+      (setq bbdb-file "~/emacs.d/bbdb")
+      (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+      (setq bbdb/mail-auto-create-p t
+            bbdb/news-auto-create-p t)
+      (defvar bbdb-time-internal-format "%Y-%m-%d"
+        "The internal date format.")
+           ;;;###autoload
+      (defun bbdb-timestamp-hook (record)
+        "For use as a `bbdb-change-hook'; maintains a notes-field called `timestamp'
+             for the given record which contains the time when it was last modified.  If
+             there is such a field there already, it is changed, otherwise it is added."
+        (bbdb-record-putprop record 'timestamp (format-time-string
+                                                bbdb-time-internal-format
+                                                (current-time)))))
 
-  ;; BBDB: Address list
-  (when (file-exists-p "/usr/share/emacs/site-lisp/bbdb")
-    (add-to-list 'load-path "/usr/share/emacs/site-lisp/bbdb")
-    (require 'bbdb)
-    (bbdb-initialize 'message 'gnus 'sendmail)
-    (setq bbdb-file "~/emacs.d/bbdb")
-    (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
-    (setq bbdb/mail-auto-create-p t
-          bbdb/news-auto-create-p t)
-    (defvar bbdb-time-internal-format "%Y-%m-%d"
-      "The internal date format.")
-         ;;;###autoload
-    (defun bbdb-timestamp-hook (record)
-      "For use as a `bbdb-change-hook'; maintains a notes-field called `timestamp'
-           for the given record which contains the time when it was last modified.  If
-           there is such a field there already, it is changed, otherwise it is added."
-      (bbdb-record-putprop record 'timestamp (format-time-string
-                                              bbdb-time-internal-format
-                                              (current-time)))))
+    (add-hook 'message-mode-hook
+              '(lambda ()
+                 (flyspell-mode t)
+                 (local-set-key "<TAB>" 'bbdb-complete-name)))
 
-  (add-hook 'message-mode-hook
-            '(lambda ()
-               (flyspell-mode t)
-               (local-set-key "<TAB>" 'bbdb-complete-name)))
+    ;; Fetch only part of the article if we can.  I saw this in someone
+    ;; else's .gnus
+    (setq gnus-read-active-file 'some)
 
-  ;; Fetch only part of the article if we can.  I saw this in someone
-  ;; else's .gnus
-  (setq gnus-read-active-file 'some)
+    ;; Tree view for groups.  I like the organisational feel this has.
+    (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
 
-  ;; Tree view for groups.  I like the organisational feel this has.
-  (add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+    ;; Threads!  I hate reading un-threaded email -- especially mailing
+    ;; lists.  This helps a ton!
+    (setq gnus-summary-thread-gathering-function
+          'gnus-gather-threads-by-subject)
 
-  ;; Threads!  I hate reading un-threaded email -- especially mailing
-  ;; lists.  This helps a ton!
-  (setq gnus-summary-thread-gathering-function
-        'gnus-gather-threads-by-subject)
-
-  ;; Also, I prefer to see only the top level message.  If a message has
-  ;; several replies or is part of a thread, only show the first
-  ;; message.  'gnus-thread-ignore-subject' will ignore the subject and
-  ;; look at 'In-Reply-To:' and 'References:' headers.
-  (setq gnus-thread-hide-subtree t)
-  (setq gnus-thread-ignore-subject t)
-
-
-  ;; Change email address for work folder.  This is one of the most
-  ;; interesting features of Gnus.  I plan on adding custom .sigs soon
-  ;; for different mailing lists.
-  ;; Usage, FROM: My Name <work>
-  (setq gnus-posting-styles
-        '((".*"
-           (name "Heikki Lehväslaiho"
-                 (address "heikki.lehvaslaiho@gmail.com"
-                          (organization "KAUST")
-                          (signature-file "~/.signature")
-                          ("X-Troll" "Emacs is better than Vi")
-                          )))))
-
-  ;; You need install the command line brower 'w3m' and Emacs plugin 'w3m'
-  (setq mm-text-html-renderer 'w3m)
-
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-        smtpmail-auth-credentials '(("smtp.gmail.com" 587 "heikki.lehvaslaiho@gmail.com" nil))
-        smtpmail-default-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587
-        smtpmail-local-domain "laptop")
-  ;;http://www.gnu.org/software/emacs/manual/html_node/gnus/_005b9_002e2_005d.html
-  (setq gnus-use-correct-string-widths nil)
+    ;; Also, I prefer to see only the top level message.  If a message has
+    ;; several replies or is part of a thread, only show the first
+    ;; message.  'gnus-thread-ignore-subject' will ignore the subject and
+    ;; look at 'In-Reply-To:' and 'References:' headers.
+    (setq gnus-thread-hide-subtree t)
+    (setq gnus-thread-ignore-subject t)
 
 
-  (defun my-gnus-group-list-subscribed-groups ()
-    "List all subscribed groups with or without un-read messages"
-    (interactive)
-    (gnus-group-list-all-groups 5))
+    ;; Change email address for work folder.  This is one of the most
+    ;; interesting features of Gnus.  I plan on adding custom .sigs soon
+    ;; for different mailing lists.
+    ;; Usage, FROM: My Name <work>
+    (setq gnus-posting-styles
+          '((".*"
+             (name "Heikki Lehväslaiho"
+                   (address "heikki.lehvaslaiho@gmail.com"
+                            (organization "KAUST")
+                            (signature-file "~/.signature")
+                            ("X-Troll" "Emacs is better than Vi")
+                            )))))
 
-  (add-hook 'gnus-group-mode-hook
-            ;; list all the subscribed groups even they contain zero un-read messages
-            (lambda () (local-set-key "o" 'my-gnus-group-list-subscribed-groups )))
+    ;; You need install the command line brower 'w3m' and Emacs plugin 'w3m'
+    (setq mm-text-html-renderer 'w3m)
+
+    (setq message-send-mail-function 'smtpmail-send-it
+          smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+          smtpmail-auth-credentials '(("smtp.gmail.com" 587 "heikki.lehvaslaiho@gmail.com" nil))
+          smtpmail-default-smtp-server "smtp.gmail.com"
+          smtpmail-smtp-server "smtp.gmail.com"
+          smtpmail-smtp-service 587
+          smtpmail-local-domain "laptop")
+    ;;http://www.gnu.org/software/emacs/manual/html_node/gnus/_005b9_002e2_005d.html
+    (setq gnus-use-correct-string-widths nil)
+
+
+    (defun my-gnus-group-list-subscribed-groups ()
+      "List all subscribed groups with or without un-read messages"
+      (interactive)
+      (gnus-group-list-all-groups 5))
+
+    (add-hook 'gnus-group-mode-hook
+              ;; list all the subscribed groups even they contain zero un-read messages
+              (lambda () (local-set-key "o" 'my-gnus-group-list-subscribed-groups ))))
 #+END_SRC
 
 ** News feed reader
@@ -2923,65 +2919,60 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-     ;; Initialize elfeed-org
-     (elfeed-org)
 
-     (global-set-key (kbd "C-c f") 'elfeed)
-     (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
-     (setq-default elfeed-search-filter my/default-elfeed-search-filter)
+     (use-package elfeed
+       :bind ("C-c f" . elfeed)
+       :init
+       (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
+       (setq-default elfeed-search-filter my/default-elfeed-search-filter)
+       :config
+       (elfeed-org)
+       (defun elfeed-mark-all-as-read ()
+         "Mark currently shown articles read"
+         (interactive)
+         (mark-whole-buffer)
+         (elfeed-search-untag-all-unread))
+       (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
 
-     (defun elfeed-mark-all-as-read ()
-       "Mark currently shown articles read"
-       (interactive)
-       (mark-whole-buffer)
-       (elfeed-search-untag-all-unread))
-     (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
+       (defun elfeed--read-tag (filter tag)
+         "Template for filtering various feed categories.
 
-     (defun elfeed--read-tag (filter tag)
-       "Template for filtering various feed categories.
+          FILTER is the filter string to apply, and TAG is a short name of
+          the displayed category.
 
-     FILTER is the filter string to apply, and TAG is a short name of
-     the displayed category.
+          The cursor is moved to the beginning of the first feed line."
+         (setq elfeed-search-filter filter)
+         (elfeed-search-update :force)
+         (goto-char (point-min))
+         (forward-line)
+         (message (concat "elfeed: show " tag)))
 
-     The cursor is moved to the beginning of the first feed line."
-       (setq elfeed-search-filter filter)
-       (elfeed-search-update :force)
-       (goto-char (point-min))
-       (forward-line)
-       (message (concat "elfeed: show " tag)))
+       (defun elfeed-read-all ()
+         "Show all new titles (except sport)"
+         (interactive)
+         (elfeed--read-tag my/default-elfeed-search-filter "all"))
+       (define-key elfeed-search-mode-map (kbd "0") 'elfeed-read-all)
 
-     (defun elfeed-read-all ()
-       "Show all new titles (except sport)"
-       (interactive)
-       (elfeed--read-tag my/default-elfeed-search-filter "all"))
-     (define-key elfeed-search-mode-map (kbd "0") 'elfeed-read-all)
+       (defun elfeed--remove-sports ()
+         "Remove sports articles from world news"
+         (setq elfeed-search-filter "@1-month-ago +unread +n sport")
+         (elfeed-search-update :force)
+         (elfeed-mark-all-as-read)
+         (message "elfeed: sports removed"))
 
-     (defun elfeed--remove-sports ()
-       "Remove sports articles from world news"
-       (setq elfeed-search-filter "@1-month-ago +unread +n sport")
-       (elfeed-search-update :force)
-       (elfeed-mark-all-as-read)
-       (message "elfeed: sports removed"))
+       (defun elfeed-read-news ()
+         "Show global news articles"
+         (interactive)
+         (elfeed--remove-sports)
+         (elfeed--read-tag "@1-month-ago +unread +n " "news"))
+       (define-key elfeed-search-mode-map (kbd "1") 'elfeed-read-news)
 
-     (defun elfeed-read-news ()
-       "Show global news articles"
-       (interactive)
-       (elfeed--remove-sports)
-       (elfeed--read-tag "@1-month-ago +unread +n " "news"))
-     (define-key elfeed-search-mode-map (kbd "1") 'elfeed-read-news)
-
-     (defun elfeed-read-journals ()
-       "Show scientific news from major journals"
-       (interactive)
-       (elfeed--read-tag "@1-month-ago +unread +j " "journals"))
-     (define-key elfeed-search-mode-map (kbd "2") 'elfeed-read-journals)
-
+       (defun elfeed-read-journals ()
+         "Show scientific news from major journals"
+         (interactive)
+         (elfeed--read-tag "@1-month-ago +unread +j " "journals"))
+       (define-key elfeed-search-mode-map (kbd "2") 'elfeed-read-journals))
    #+END_SRC
-
-*** TODO Yank URL
-
-    Pressing =y= should copy the URL of the entry. However, I can not
-    paste it in my  OS X laptop. Figure out why
 
 ** Twitter
 
@@ -3055,43 +3046,43 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-     (require 'org-page)
-     (setq op/repository-directory "~/src/org-page/heikkil.github.io")
-     (setq op/site-domain "http://heikkil.github.io")
-     (setq op/personal-avatar "https://avatars0.githubusercontent.com/u/75674?v=3&s=460")
-     ;; for commenting; disabled now
-     ;;(setq op/personal-disqus-shortname "your_disqus_shortname")
+     (use-package org-page
+       :init
+       (setq op/repository-directory "~/src/org-page/heikkil.github.io")
+       (setq op/site-domain "http://heikkil.github.io")
+       (setq op/personal-avatar "https://avatars0.githubusercontent.com/u/75674?v=3&s=460")
+       ;; for commenting; disabled now
+       ;;(setq op/personal-disqus-shortname "your_disqus_shortname")
 
-     ;; analytics set up at ~/.emacs.secrets file
-     ;;(setq op/personal-google-analytics-id "UA-NNNNNNNN-N")
+       ;; analytics set up at ~/.emacs.secrets file
+       ;;(setq op/personal-google-analytics-id "UA-NNNNNNNN-N")
 
-     (setq op/personal-github-link "https://github.com/heikkil")
-     ;; slogans
-     (setq op/site-main-title "Heikki @ home")
-     (setq op/site-sub-title "Loose leaves from my tree")
+       (setq op/personal-github-link "https://github.com/heikkil")
+       ;; slogans
+       (setq op/site-main-title "Heikki @ home")
+       (setq op/site-sub-title "Loose leaves from my tree")
 
-     ;; set up my own theme since a sans option does not exist
-     (setq op/theme-root-directory "~/src/org-page/heikkil.github.io/themes")
-     (setq op/theme 'sans)  ; mdo is default, phaer is simpler and uses serif fonts
-
-     (global-set-key
-      (kbd "C-c p")
-      (defhydra hydra-blog (:color blue :hint nil)
-        "
-     blog  _n_: new post                        _l_: publish last commit
-           _r_: reset & publish all             _p_: publish interactively
-           _t_: reset & publish to /tmp/blog    _e_: new-repository
-           "
-        ("n" op/new-post)
-        ("r" (progn
-               (setq op/item-cache nil)
-               (op/do-publication t nil nil t t)))
-        ("t" (progn
-               (setq op/item-cache nil)
-               (op/do-publication t "/tmp/blog" nil t nil)))
-        ("l" (op/do-publication nil "HEAD~1" nil t t))
-        ("p" op/do-publication)
-        ("e" op/new-repository)))
+       ;; set up my own theme since a sans option does not exist
+       (setq op/theme-root-directory "~/src/org-page/heikkil.github.io/themes")
+       (setq op/theme 'sans)  ; mdo is default, phaer is simpler and uses serif fonts
+       :config
+       (defhydra hydra-blog (:color blue :hint nil)
+         "
+          blog  _n_: new post                        _l_: publish last commit
+                _r_: reset & publish all             _p_: publish interactively
+                _t_: reset & publish to /tmp/blog    _e_: new-repository
+                "
+         ("n" op/new-post)
+         ("r" (progn
+                (setq op/item-cache nil)
+                (op/do-publication t nil nil t t)))
+         ("t" (progn
+                (setq op/item-cache nil)
+                (op/do-publication t "/tmp/blog" nil t nil)))
+         ("l" (op/do-publication nil "HEAD~1" nil t t))
+         ("p" op/do-publication)
+         ("e" op/new-repository))
+       :bind ("C-c p" . hydra-blog/body))
    #+END_SRC
 
 ** Ediff
@@ -3119,8 +3110,10 @@ bbdb-merge-records=.
      (csetq ediff-diff-options "-w")
 
      ;; remove ediff buffers and restore previous window settings
-     (winner-mode)
-     (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
+     (use-package winner
+       :ensure t
+       :config (winner-mode 1)
+       (add-hook 'ediff-after-quit-hook-internal 'winner-undo))
    #+END_SRC
 
 ** Phonetic alphabet
@@ -3148,7 +3141,10 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-     (setq reb-re-syntax 'string)
+     (use-package re-builder
+       :defer 5
+       :init
+       (setq reb-re-syntax 'string))
    #+END_SRC
 
    =M-x qrr= runs =query-replace-regexp= that by default has a really
@@ -3188,7 +3184,8 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-     (require 'howdoi)
+     (use-package howdoi
+       :defer 5)
    #+END_SRC
 
 ** Toys
@@ -3209,7 +3206,8 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-     (global-set-key (kbd "C-c x") 'xkcd)
+     (use-package xkcd
+       :bind ("C-c x" . xkcd))
    #+END_SRC
 
 *** 2048-game
@@ -3219,7 +3217,8 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-     (require '2048-game)
+     (use-package 2048-game
+       :defer 5)
    #+END_SRC
 
 * Org Mode
@@ -4387,10 +4386,12 @@ bbdb-merge-records=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     (when (eq system-type 'darwin)
-       (when (require 'mac-print-mode nil t)
-         (mac-print-mode 1)
-         (global-set-key (kbd "s-p") 'mac-print-buffer)))
+     (use-package mac-print-mode
+       :disabled t
+       :if (eq system-type 'darwin)
+       :bind ("s-p" . mac-print-buffer)
+       :config
+       (mac-print-mode 1))
    #+END_SRC
 
    Command-p now exports the current page as HTML and prints using the
@@ -4409,16 +4410,18 @@ bbdb-merge-records=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     (require 'org-mac-link)
-
-     (global-set-key
-      (kbd "C-c b")
-      (defun my/quick-url-note ()
-        "Fastest way to capture a web page link"
-        (interactive)
-        (org-capture nil "n")
-        (org-mac-chrome-insert-frontmost-url)
-        (org-capture-finalize)))
+     (require 'org-mac-link) ;; ?
+     (use-package org-mac-link
+       :ensure t
+       :if (eq system-type 'darwin)
+       :bind ("C-c b" . my/quick-url-note)
+       :config
+       (defun my/quick-url-note ()
+         "Fastest way to capture a web page link"
+         (interactive)
+         (org-capture nil "n")
+         (org-mac-chrome-insert-frontmost-url)
+         (org-capture-finalize)))
    #+END_SRC
 
 ** Custom lisp package directory
@@ -4442,8 +4445,6 @@ bbdb-merge-records=.
      (load "~/.emacs.secrets" t)
    #+END_SRC
 
-
-
 ** Emacsclient
 
    In OS X commandline and GUI versions of emacs are not the same
@@ -4464,7 +4465,6 @@ bbdb-merge-records=.
        :ensure t
        :if window-system
        :init
-       (add-hook 'after-init-hook 'server-start t)
        (add-hook 'after-init-hook 'edit-server-start t))
 
    #+END_SRC
@@ -4477,7 +4477,7 @@ bbdb-merge-records=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     (global-set-key (kbd "C-x C-3") 'server-edit)
+     (bind-key "C-x C-3" 'server-edit)
    #+END_SRC
 
    Additionally, for those quick and dirty editing jobs on terminal, I
