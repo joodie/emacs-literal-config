@@ -2016,6 +2016,7 @@
                    ;;'rainbow-delimiters
                    'show-paren-mode
                    'aggressive-indent-mode
+                   'eldoc
                    ;;'highlight-parentheses
                    ))
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
