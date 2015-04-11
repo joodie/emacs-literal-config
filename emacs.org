@@ -1581,7 +1581,7 @@
 
 ** git-timemachine
 
-  [[https://github.com/pidu/git-timemachine][git-timemachine] lets you
+  [[https://github.com/pidu/git-timemachine][git-timemachine]] lets you
   browse previous versions of a file. Start it with =C-x l t= or =C-x
   git-timemachine=.
 
