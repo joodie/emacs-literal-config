@@ -20,6 +20,7 @@
   (require 'use-package))
 (require 'diminish)                ;; if you use :diminish
 (require 'bind-key)                ;; if you use any :bind variant
+(require 'cl)
 
 ;;load the main configuration
 (org-babel-load-file "~/.emacs.d/emacs.org")

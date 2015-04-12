@@ -181,9 +181,9 @@
        "Same as C-x 8 enter UNICODE-NAME."
        (insert-char (cdr (assoc-string unicode-name (ucs-names)))))
 
-     (global-set-key
-      (kbd "C-x 9")
-      (defhydra hydra-unicode (:hint nil)
+     (bind-key
+      "C-x 9"
+      '(defhydra hydra-unicode (:hint nil)
         "
         Unicode  _e_ €  _s_ ZERO WIDTH SPACE
                  _f_ ♀  _o_ °   _m_ µ
@@ -456,16 +456,19 @@
 *** Scroll other window
 
     Often you are working in one window and reading instructions from
-    an other window. This defines key bindings =C-c y= to scroll the other
-    window down and =C-c Y= up without moving the cursor.
+    an other window. This defines key bindings to scroll this and the
+    other window using =M-s-<arrow>=.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (global-set-key "\C-cy" 'scroll-other-window)
-     (global-set-key "\C-cY" (lambda () (interactive) (scroll-other-window '-)))
+     (bind-key "M-s-<down>" 'scroll-down)
+     (bind-key "M-s-<up>" 'scroll-up)
+     (bind-key "M-s-<right>" 'scroll-other-window)
+     (bind-key "M-s-<left>" #'(lambda () (interactive) (scroll-other-window '-)))
    #+END_SRC
 
-    The default keybindings are complex or do not work under OS X.
+    The default keybindings are complex or do not work under OS X and
+    a laptop keyboard.
 
 ** Cursor
 
@@ -604,10 +607,12 @@
   This is now done even better with [[https://github.com/abo-abo/hydra][hydra]], a package to
   create sticky key bindings with help displayed in the echo area.
 
+  Using =bind-key= function adds the key bindings to a list that can
+  be shown with =M-x describe-personal-keybindings=.
+
   #+name: key-bindings
   #+BEGIN_SRC emacs-lisp
-    (global-set-key
-     (kbd "C-x t")
+    (bind-key "C-x t" 'hydra-toggle/body)
      (defhydra hydra-toggle (:color blue :hint nil)
        "
          toggle _a_bbrev-mode             _p_retty entities
@@ -631,16 +636,15 @@
        ("t" neotree-toggle)
        ("v" string-inflection-toggle :color red)
        ("w" writegood-mode)
-       ("q" nil)))
+      ("q" nil))
 
-    (global-set-key
-     (kbd "C-x C-0")
+    (bind-key "C-x C-0" 'hydra-zoom/body)
      (defhydra hydra-zoom ()
        "zoom"
        ("g" text-scale-increase "in")
        ("=" text-scale-increase "in")
        ("l" text-scale-decrease "out")
-       ("-" text-scale-decrease "out")))
+      ("-" text-scale-decrease "out"))
 
     ;; http://oremacs.com/2015/03/07/hydra-org-templates/
     ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
@@ -699,8 +703,8 @@
           (self-insert-command 1))))
 
     ;; http://oremacs.com/2015/03/15/search-with-apropos/
-    (defhydra hydra-apropos (:color blue
-                                    :hint nil)
+    (bind-key "C-c h" 'hydra-apropos/body)
+    (defhydra hydra-apropos (:color blue :hint nil)
       "
       apropos   _a_propos        _c_ommand
                 _d_ocumentation  _l_ibrary
@@ -713,10 +717,6 @@
       ("l" apropos-library)
       ("u" apropos-user-option)
       ("e" apropos-value))
-
-    ;;I recommend to bind it like this:
-
-    (global-set-key (kbd "C-c h") 'hydra-apropos/body)
   #+END_SRC
 
   The second key map is for *launching* [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]].
@@ -725,9 +725,7 @@
 
   #+name: key-bindings
   #+BEGIN_SRC emacs-lisp
-
-    (global-set-key
-     (kbd "C-x l")
+    (bind-key "C-x l" 'hydra-launch/body)
        (defhydra hydra-launch (:color blue :hint nil)
          "
   launch _2_048           _l_ink chrome   _p_aradox
@@ -753,7 +751,7 @@
          ("t" git-timemachine)
          ("w" browse-url-at-point)
          ("?" (browse-url "http://emacs.stackexchange.com/"))
-         ("+" (browse-url "https://plus.google.com/communities/114815898697665598016"))))
+      ("+" (browse-url "https://plus.google.com/communities/114815898697665598016")))
   #+END_SRC
 
   The following tables lists all other additions or modifications to
@@ -777,7 +775,7 @@
   | j      |                                           |                              |
   | k      | my/aspell-word-then-abbrev                | [[Spell checking]]               |
   | l      | org-store-link                            | [[Org Mode]]                     |
-  | m      |                                           |                              |
+  | m      | macrostep-expand                          | [[Lisps]]                        |
   | n      | my/clean-buffer-formatting                | [[Formatting and white-space]]   |
   | o      | org-info                                  | [[Org Mode]]                     |
   | p      | org-page                                  | [[Blogging with org-page]]       |
@@ -875,8 +873,16 @@
 
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
-  (require 'evil)
+    (use-package evil
+      :init
   (setq evil-default-state 'normal)
+      (setq evil-emacs-state-cursor    '("red" bar))
+      (setq evil-normal-state-cursor   '("red" hollow))
+      (setq evil-visual-state-cursor   '("green" hollow))
+      (setq evil-insert-state-cursor   '("blue" bar))
+      (setq evil-replace-state-cursor  '("red" bar))
+      (setq evil-operator-state-cursor '("red" hollow))
+      :config
   ;; I like the cyclic emacs undo
   (global-undo-tree-mode -1)
 
@@ -913,9 +919,9 @@
   (setq evil-esc-delay 0)
 
   ;; double comma pressed rapidly returns to normal state, too
-  (require 'key-chord)
-  (key-chord-mode 1)
-  (key-chord-define-global ",," 'evil-normal-state)
+      ;;(require 'key-chord)
+      ;;(key-chord-mode 1)
+      ;;(key-chord-define-global ",," 'evil-normal-state)
 
   ;; fix selection anomaly
   (setq evil-want-visual-char-semi-exclusive t)
@@ -936,7 +942,6 @@
   ;; change mode-line color for the evil insert state
   ;; original from http://www.emacswiki.org/emacs/Evil#toc16
   ;; also, change cursor to indicate state
-  (require 'cl)
   (lexical-let ((default-color (cons (face-background 'mode-line)
                                      (face-foreground 'mode-line))))
     (add-hook 'post-command-hook
@@ -949,18 +954,10 @@
                   (set-face-background 'mode-line (car color))
                   (set-face-foreground 'mode-line (cdr color))))))
 
-(setq evil-emacs-state-cursor    '("red" bar))
-(setq evil-normal-state-cursor   '("red" hollow))
-(setq evil-visual-state-cursor   '("green" hollow))
-(setq evil-insert-state-cursor   '("blue" bar))
-(setq evil-replace-state-cursor  '("red" bar))
-(setq evil-operator-state-cursor '("red" hollow))
-
-(require 'evil-surround)
-(global-evil-surround-mode 1)
-
+      (use-package evil-surround
+        :config
+        (global-evil-surround-mode 1)))
   #+END_SRC
-
 
 ** TODO evil tutor
 
@@ -980,8 +977,7 @@
    #+BEGIN_SRC emacs-lisp
      (set-language-environment "UTF-8")
      (prefer-coding-system 'utf-8) ; same thing as above? in practice?
-     (global-set-key
-      (kbd "\C-cu")
+     (bind-key "C-c u"
       (lambda () (interactive)
         (set-buffer-file-coding-system 'utf-8-unix t)))
    #+END_SRC
@@ -1000,7 +996,7 @@
       (indent-region (point-min) (point-max))
       (whitespace-cleanup))
 
-    (global-set-key "\C-cn" 'my/clean-buffer-formatting)
+    (bind-key "C-c n" 'my/clean-buffer-formatting)
 
     (defun my/general-formatting-hooks ()
       (setq show-trailing-whitespace 't))
@@ -1058,7 +1054,7 @@
          (fill-paragraph nil)))
 
      ;; Handy key definition
-     (define-key global-map "\M-Q" 'unfill-paragraph)
+     (bind-key "\M-Q" 'unfill-paragraph)
    #+END_SRC
 
    Filling, either manual or automatic using =auto-fill-mode= wraps
@@ -1222,7 +1218,7 @@
               (delete-file filename)
               (message "Deleted file %s" filename)
               (kill-buffer))))))
-    (global-set-key (kbd "C-c d")  'delete-file-and-buffer)
+     (bind-key "C-c d" 'delete-file-and-buffer)
 
    #+END_SRC
 
@@ -1317,7 +1313,7 @@
              (if p local-abbrev-table global-abbrev-table)
              bef aft))))
 
-     (global-set-key (kbd "C-c k") 'my/aspell-word-then-abbrev)
+     (bind-key "C-c k" 'my/aspell-word-then-abbrev)
 
      ;; original copied from
      ;; http://stackoverflow.com/questions/22107182/in-emacs-flyspell-mode-how-to-add-new-word-to-dictionary
@@ -1341,8 +1337,7 @@
 
      (setq flyspell-issue-message-flag nil)
 
-     (global-set-key
-      (kbd "C-x '")
+     (bind-key "C-x '" 'hydra-flyspell/body)
       (defhydra hydra-flyspell (:color pink :hint nil)
         "
        ^Flyspell^             ^Check^      [Language: %`ispell-current-dictionary]
@@ -1359,8 +1354,7 @@
         ("c" ispell-word)
         ("k" my/aspell-word-then-abbrev)
         ("i" my/flyspell-save-word)
-        ("u" (my/flyspell-save-word t))))
-
+        ("u" (my/flyspell-save-word t)))
    #+END_SRC
 
 ** TODO wcheck mode
@@ -1478,7 +1472,8 @@
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
-     (global-set-key (kbd "M-;") 'comment-dwim-2)
+     (use-package comment-dwim-2
+       :bind "M-;")
    #+END_SRC
 
    Remember: =C-x ;= sets the comment column (comment-set-column)
@@ -1559,8 +1554,10 @@
 
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
-    (global-set-key "\C-cg" 'magit-status)
-
+    (use-package magit
+      :bind ("C-c g" . magit-status)
+      :config
+      (setq magit-diff-options '("-b")) ; ignore whitespace
     ;; full screen magit-status
     (defadvice magit-status (around magit-fullscreen activate)
       (window-configuration-to-register :magit-fullscreen)
@@ -1575,15 +1572,13 @@
 
     ;; hide MREv mode line indicator
     (add-hook 'magit-status-mode-hook
-              (lambda () (diminish 'magit-auto-revert-mode)))
-
+                (lambda () (diminish 'magit-auto-revert-mode))))
   #+END_SRC
 
 ** git-timemachine
 
-  [[https://github.com/pidu/git-timemachine][git-timemachine]] lets you
-  browse previous versions of a file. Start it with =C-x l t= or =C-x
-  git-timemachine=.
+  [[https://github.com/pidu/git-timemachine][git-timemachine]] lets you browse previous versions of a file. Start
+  it with =C-x l t= or =C-x git-timemachine=.
 
   | key | description                 |
   |-----+-----------------------------|
@@ -1603,8 +1598,10 @@
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
-     (global-set-key "\C-c\C-gg" 'writegood-grade-level)
-     (global-set-key "\C-c\C-ge" 'writegood-reading-ease)
+     (use-package writegood-mode
+       :bind
+       ("C-c C-g g" . writegood-grade-level)
+       ("C-c C-g e" . writegood-reading-ease))
    #+END_SRC
 
    *Do not require languagetool!* Version 2.8 spans huge amount of
@@ -1612,20 +1609,20 @@
 
    ##+name: text-files
    #+BEGIN_SRC emacs-lisp
-     ;;(require 'languagetool-mode)
+     (use-package languagetool-mode
+       :disabled t
+       :bind (("C-x 4 w" . langtool-check)
+              ("C-x 4 W" . langtool-check-done)
+              ("C-x 4 l" . langtool-switch-default-language)
+              ("C-x 4 4" . langtool-show-message-at-point)
+              ("C-x 4 c" . langtool-correct-buffer))
+       :init
      (setq languagetool-language-tool-jar
        "/usr/local/Cellar/languagetool/2.8/libexec/languagetool-commandline.jar")
-
      (setq languagetool-disabled-rules '("WHITESPACE_RULE"
                                      "EN_UNPAIRED_BRACKETS"
                                      "COMMA_PARENTHESIS_WHITESPACE"
-                                     "EN_QUOTES"))
-
-     ;;(global-set-key "\C-x4w" 'langtool-check)
-     ;;(global-set-key "\C-x4W" 'langtool-check-done)
-     ;;(global-set-key "\C-x4l" 'langtool-switch-default-language)
-     ;;(global-set-key "\C-x44" 'langtool-show-message-at-point)
-     ;;(global-set-key "\C-x4c" 'langtool-correct-buffer)
+                                           "EN_QUOTES")))
    #+END_SRC
 
 ** Whitespace
@@ -1637,6 +1634,7 @@
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
      ;; make whitespace-mode use just basic coloring
+
      (setq whitespace-style
            (quote (face spaces tabs newline space-mark tab-mark newline-mark trailing)))
      ;; use better unicode characters for whitespace
@@ -1700,8 +1698,8 @@
          (linum-mode -1)
          (linum-relative-toggle)))
 
-     (global-set-key "\C-x\," 'goto-line)
-     (global-set-key [remap goto-line] 'goto-line-with-feedback)
+     (bind-key "C-x ," 'goto-line)
+     (bind-key [remap goto-line] 'goto-line-with-feedback)
    #+END_SRC
 
 ** LaTeX
@@ -1781,7 +1779,6 @@
        (auto-fill-mode -1))
 
      (add-hook 'nXML-mode-hook 'my/nXML-hooks)
-
     #+END_SRC
 
 ** Zsh and fish
@@ -1797,16 +1794,8 @@
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
-     (setq auto-mode-alist
-           (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
-
-     ;;(setq auto-mode-alist
-     ;;      (cons '("\\.load$" . shell-script-mode) auto-mode-alist))
-     ;;(setq auto-mode-alist
-     ;;      (cons '("\\.fish$" . shell-script-mode) auto-mode-alist))
-     ;;(require 'fish-mode)
-     ;; specify major mode by file extension .load (.fish is already defined)
-     (add-to-list 'auto-mode-alist '("\\.load$'" . fish-mode))
+     (use-package fish-mode
+       :mode ("\\.load$'" "\\.zsh$"))
    #+END_SRC
 
 ** NEURON
@@ -1832,7 +1821,6 @@
 
      (autoload 'nmodl-mode "nmodl" "Enter NMODL mode." t)
      (setq auto-mode-alist (cons '("\\.mod\\'" . nmodl-mode) auto-mode-alist))
-
    #+END_SRC
 
 ** MarkDown
@@ -1846,10 +1834,8 @@
 
  #+name: text-files
   #+BEGIN_SRC emacs-lisp
-    (autoload 'markdown-mode "markdown-mode.el"
-       "Major mode for editing Markdown files" t)
-    (setq auto-mode-alist
-       (cons '("\\.md" . markdown-mode) auto-mode-alist))
+    (use-package markdown-mode
+          :mode  ("\\.md" "\\.markdown"))
   #+END_SRC
 
 ** Ledger
@@ -1962,9 +1948,9 @@
        (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t))
    #+END_SRC
 
-   Call perltidy with =C-c t= from emacs to indent and beautify perl code in the
-   current buffer. This code calls the command line [[http://metacpan.org/author/SHANCOCK][perltidy]]
-   utility that is part of [[http://metacpan.org/pod/Perl::Tidy][Perl::Tidy]] module.
+   Call perltidy with =C-c t= from emacs to indent and beautify perl
+   code in the current buffer. This code calls the command line
+   [[http://metacpan.org/author/SHANCOCK][perltidy]] utility that is part of [[http://metacpan.org/pod/Perl::Tidy][Perl::Tidy]] CPAN module.
 
    The =C-c t= key for perltidy is defined in the most efficient way:
    the code is loaded only once when the cperl-mode is first called.
@@ -1981,7 +1967,7 @@
            (goto-char orig-point)))
 
      (eval-after-load 'cperl-mode
-       '(define-key cperl-mode-map "\C-ct" 'perltidy))
+       '(bind-key  "C-c t" 'perltidy cperl-mode-map))
 
    #+END_SRC
 
@@ -2030,22 +2016,18 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (when (eq system-type 'darwin)
-       (eval-after-load 'paredit
-         '(progn
+     (use-package paredit
+       :if (eq system-type 'darwin)
+       :no-require t
+       :config
             ;; C-left
-            (define-key paredit-mode-map (kbd "s-<left>")
-                        'paredit-forward-barf-sexp)
+       (bind-key "s-<left>" 'paredit-forward-barf-sexp paredit-mode-map)
             ;; C-right
-            (define-key paredit-mode-map (kbd "s-<right>")
-                        'paredit-forward-slurp-sexp)
-            ;; ESC-C-left
-            (define-key paredit-mode-map (kbd "M-s-<left>")
-                        'paredit-backward-slurp-sexp)
-            ;; ESC-C-right
-            (define-key paredit-mode-map (kbd "M-s-<right>")
-                        'paredit-backward-barf-sexp)
-          )))
+       (bind-key"s-<right>" 'paredit-forward-slurp-sexp paredit-mode-map)
+       ;; Alt-C-left
+       (bind-key "M-s-<left>" 'paredit-backward-slurp-sexp paredit-mode-map)
+       ;; Alt-C-right
+       (bind-key"M-s-<right>" 'paredit-backward-barf-sexp paredit-mode-map))
    #+END_SRC
 
    In my emacs lisp programming I am using the *Names* package that
@@ -2056,6 +2038,26 @@
    #+BEGIN_SRC emacs-lisp
      (use-package names-dev)
    #+END_SRC
+
+   Now that I am using =use-package= macro to configure packages, it
+   is useful to see what the configuration macro actually does.
+   [[https://github.com/joddie/macrostep][Macrostep]] package defined keys to expand and collapse macros one
+   level at a time. Run =macrostep-expand= with =C-c m=.
+
+   | Keys       | Desckription          |
+   |------------+-----------------------|
+   | e, =, RET  | expand                |
+   | c, u, DEL  | collapse              |
+   | q, C-c C-c | collapse all and exit |
+   | n, TAB     | next macro            |
+   | p, M-TAB   | previous macro        |
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (use-package macrostep
+       :bind ("C-c m" . macrostep-expand))
+   #+END_SRC
+
 
 ** Clojure
 
@@ -2070,18 +2072,6 @@
    {:user {:plugins [[cider/cider-nrepl "0.9.0-SNAPSHOT"]]}}
    #+END_EXAMPLE
 
-   #+NAME: programming-setup
-   #+BEGIN_SRC emacs-lisp
-     (defun my/cider-mode-hooks ()
-       "Clojure specific setup code that should only be run when we
-       have a CIDER REPL connection"
-       (setq nrepl-log-messages t)
-       (setq nrepl-hide-special-buffers t))
-
-     (add-hook 'cider-mode-hook
-               'my/cider-mode-hooks)
-   #+END_SRC
-
    I treat the REPL mode specially, since certain hooks that work in
    ~clojure-mode~ won't make sense or break functionality in
    ~cider-repl-mode~.
@@ -2092,6 +2082,17 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+     (use-package cider
+       :config
+     (defun my/cider-mode-hooks ()
+       "Clojure specific setup code that should only be run when we
+       have a CIDER REPL connection"
+       (setq nrepl-log-messages t)
+       (setq nrepl-hide-special-buffers t))
+
+     (add-hook 'cider-mode-hook
+               'my/cider-mode-hooks)
+
      (defun my/cider-repl-mode-hooks ()
        (my/turn-on 'paredit
                    ;;'rainbow-delimiters
@@ -2101,14 +2102,11 @@
      (add-hook 'cider-repl-mode-hook
                'my/cider-repl-mode-hooks)
 
-     (eval-after-load 'cider-repl-mode
-       '(progn
           ;; M-up -> s-up
-          (define-key cider-repl-mode-map (kbd "s-<up>")
-            'cider-repl-previous-input)
+       (bind-key "s-<up>" 'cider-repl-previous-input cider-repl-mode-map)
           ;; M-down -> s-down
-          (define-key cider-repl-mode-map (kbd "s-<down>")
-            'cider-repl-next-input)))
+       (bind-key "s-<down>" 'cider-repl-next-input cider-repl-mode-map))
+
    #+END_SRC
 
 ** TODO Python
@@ -2129,39 +2127,39 @@
 
      (add-to-list 'auto-mode-alist '("/requirements\\.txt\\'" . conf-mode))
 
-;;     (use-package python-mode
-;;       :mode ("\\.py\\'" . python-mode)
-;;       :interpreter ("python" . python-mode)
-;;       :config
-;;       (progn
-;;         (defvar python-mode-initialized nil)
-;; 
-;;         (defun my-python-mode-hook ()
-;;           (unless python-mode-initialized
-;;             (setq python-mode-initialized t)
-;; 
-;;             (info-lookup-add-help
-;;              :mode 'python-mode
-;;              :regexp "[a-zA-Z_0-9.]+"
-;;              :doc-spec
-;;              '(("(python)Python Module Index" )
-;;                ("(python)Index"
-;;                 (lambda
-;;                   (item)
-;;                   (cond
-;;                    ((string-match
-;;                      "\\([A-Za-z0-9_]+\\)() (in module \\([A-Za-z0-9_.]+\\))" item)
-;;                     (format "%s.%s" (match-string 2 item)
-;;                             (match-string 1 item)))))))))
-;; 
-;;           (setq indicate-empty-lines t)
-;;           (set (make-local-variable 'parens-require-spaces) nil)
-;;           (setq indent-tabs-mode nil)
-;; 
-;;           (bind-key "C-c C-z" 'python-shell python-mode-map)
-;;           (unbind-key "C-c c" python-mode-map))
-;; 
-;;         (add-hook 'python-mode-hook 'my-python-mode-hook)))
+     ;;     (use-package python-mode
+     ;;       :mode ("\\.py\\'" . python-mode)
+     ;;       :interpreter ("python" . python-mode)
+     ;;       :config
+     ;;       (progn
+     ;;         (defvar python-mode-initialized nil)
+     ;; 
+     ;;         (defun my-python-mode-hook ()
+     ;;           (unless python-mode-initialized
+     ;;             (setq python-mode-initialized t)
+     ;; 
+     ;;             (info-lookup-add-help
+     ;;              :mode 'python-mode
+     ;;              :regexp "[a-zA-Z_0-9.]+"
+     ;;              :doc-spec
+     ;;              '(("(python)Python Module Index" )
+     ;;                ("(python)Index"
+     ;;                 (lambda
+     ;;                   (item)
+     ;;                   (cond
+     ;;                    ((string-match
+     ;;                      "\\([A-Za-z0-9_]+\\)() (in module \\([A-Za-z0-9_.]+\\))" item)
+     ;;                     (format "%s.%s" (match-string 2 item)
+     ;;                             (match-string 1 item)))))))))
+     ;; 
+     ;;           (setq indicate-empty-lines t)
+     ;;           (set (make-local-variable 'parens-require-spaces) nil)
+     ;;           (setq indent-tabs-mode nil)
+     ;; 
+     ;;           (bind-key "C-c C-z" 'python-shell python-mode-map)
+     ;;           (unbind-key "C-c c" python-mode-map))
+     ;; 
+     ;;         (add-hook 'python-mode-hook 'my-python-mode-hook)))
 
 
           (defun my/setup-python-mode ()
@@ -2194,8 +2192,9 @@
           (add-hook 'python-mode-hook 'my/setup-python-mode)
           (add-hook 'python-mode-hook 'jedi:ac-setup)
           (add-hook 'python-mode-hook (lambda ()
-                                        (require 'sphinx-doc)
-                                        (sphinx-doc-mode t)))
+                                   (use-package sphinx-doc
+                                     :config
+                                     (sphinx-doc-mode t))))
    #+END_SRC
 
    [[https://github.com/naiquevin/sphinx-doc.el][Sphinx-doc]] adds a function inserting docstring skeleton for Python
@@ -2213,7 +2212,7 @@
      ;; Try to make completions when not typing
      (global-semantic-idle-completions-mode 1)
      ;; Use the Semantic speedbar additions
-     (add-hook 'speedbar-load-hook (lambda () (require 'semantic/sb)))
+     (add-hook 'speedbar-load-hook (lambda () (use-package semantic/sb)))
      ;; Treat .h files as C++ files (instead of C)
      (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
      ;; Run compile when you press F5
@@ -2262,8 +2261,8 @@
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
-    (global-set-key (kbd "C-<backspace>") (lambda ()
-                                            (interactive)
+     (bind-key "C-<backspace>"
+               #'(lambda () (interactive)
                                             (kill-line 0)))
    #+END_SRC
 
@@ -2275,7 +2274,7 @@
     (defalias 'qrr 'query-replace-regexp)  ; M-C-S %
    #+END_SRC
 
-   *Folding of uses =set-selective-display= to show a high level
+   Folding uses =set-selective-display= to show a high level
    outline of you document. Useful to get an [[http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/][overview of long code
    documents]]. Launch it with =C-x t f=.
 
@@ -2295,9 +2294,8 @@
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
-    (global-set-key (kbd "M-j")
-                    (lambda () (interactive) (join-line -1)))
-    (global-set-key "\C-cq" 'delete-indentation)
+     (bind-key  "M-j"  #'(lambda () (interactive) (join-line -1)))
+     (bind-key "C-c q" 'delete-indentation)
    #+END_SRC
 
    When editing indented text, you seldom want to go to the first
@@ -2335,7 +2333,7 @@
           (move-beginning-of-line 1))))
 
     ;; remap C-a to `smarter-move-beginning-of-line'
-    (global-set-key [remap move-beginning-of-line]
+     (bind-key [remap move-beginning-of-line]
                     'smarter-move-beginning-of-line)
 
    #+END_SRC
@@ -2428,8 +2426,8 @@ too.
        (other-window 1 nil)
        (if (= prefix 1) (switch-to-next-buffer)))
 
-     (global-set-key (kbd "\C-x2") 'my/vsplit-last-buffer)
-     (global-set-key (kbd "\C-x3") 'my/hsplit-last-buffer)
+     (bind-key "C-x 2" 'my/vsplit-last-buffer)
+     (bind-key "C-x 3" 'my/hsplit-last-buffer)
    #+END_SRC
 
    Emacs standard way of moving between windows opened in a frame is
@@ -2496,23 +2494,16 @@ too.
    #+BEGIN_SRC emacs-lisp
      (setq my/window-resize-step 10)
 
-     (global-set-key
-      (kbd "s-<left>")
+     (bind-key "s-<left>"
       (lambda () (interactive)
         (shrink-window-horizontally my/window-resize-step)))
-
-     (global-set-key
-      (kbd "s-<right>")
+     (bind-key "s-<right>"
       (lambda () (interactive)
         (enlarge-window-horizontally my/window-resize-step)))
-
-     (global-set-key
-      (kbd "s-<down>")
+     (bind-key "s-<down>"
       (lambda () (interactive)
         (shrink-window my/window-resize-step)))
-
-     (global-set-key
-      (kbd "s-<up>")
+     (bind-key "s-<up>"
       (lambda () (interactive)
         (enlarge-window my/window-resize-step)))
    #+END_SRC
@@ -2545,7 +2536,7 @@ too.
       (defun my/edit-emacs-configuration ()
         (interactive)
         (find-file "~/.emacs.d/emacs.org"))
-      (global-set-key "\C-ce" 'my/edit-emacs-configuration)
+     (bind-key "C-c e" 'my/edit-emacs-configuration)
 
      ;; I often want to add more comments to the last note
      (defun my/last-captured-org-note ()
@@ -2556,8 +2547,7 @@ too.
        (forward-line -2)
        (org-end-of-line))
 
-     (global-set-key
-      (kbd "C-c z")
+     (bind-key "C-c z" 'hydra-goto/body)
       (defhydra hydra-goto (:color blue :hint nil)
         "
        goto   file                        info
@@ -2569,25 +2559,27 @@ too.
         ("e" (find-file "~/.emacs.d/emacs.org"))
         ("r" my/last-captured-org-note)
         ("w" (find-file "~/Dropbox/org/work.org"))
-        ("o" org-info)))
+       ("o" org-info))
+
    #+END_SRC
 
    [[http://www.emacswiki.org/emacs/NeoTree_%E4%B8%AD%E6%96%87wiki][NeoTree]] is a file browser plugin that I am trying out. Toggle its
    panel: Emacs, Toggle neoTree =C-x t t=.
 
+
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
-     ;; always change focus to current buffer
      (use-package neotree
-       :init (setq neo-smart-open t)
+       :init (setq neo-smart-open t) ; always change focus to current buffer
        :config
        ;; fix evil mode key conflicts
-       (add-hook 'neotree-mode-hook
+       (add-hook
+        'neotree-mode-hook
                  (lambda ()
-                   (define-key evil-normal-state-local-map (kbd "TAB" ) 'neotree-enter)
-                   (define-key evil-normal-state-local-map (kbd "SPC" ) 'neotree-enter)
-                   (define-key evil-normal-state-local-map (kbd "q" )   'neotree-hide)
-                   (define-key evil-normal-state-local-map (kbd "RET" ) 'neotree-enter))))
+          (bind-key "TAB" 'neotree-enter evil-normal-state-local-map)
+          (bind-key "SPC" 'neotree-enter evil-normal-state-local-map)
+          (bind-key "q"   'neotree-hide  evil-normal-state-local-map)
+          (bind-key "RET" 'neotree-enter evil-normal-state-local-map))))
    #+END_SRC
 
    I like emacs to remember files that I have visited. The =recentf=
@@ -2644,7 +2636,7 @@ too.
          (when file
            (find-file file))))
 
-     (global-set-key (kbd "C-c r") 'recentf-ido-find-file)
+     (bind-key "C-c r" 'recentf-ido-find-file)
    #+END_SRC
 
    Tell smex that [[http://www.emacswiki.org/emacs/Smex][space inserts '-']] like is customary when typing
@@ -2728,7 +2720,6 @@ bbdb-merge-records=.
 
 #+name: apps
 #+BEGIN_SRC emacs-lisp
-
   (use-package nnir
     :config
     ;; ask encyption password once
@@ -2789,16 +2780,20 @@ bbdb-merge-records=.
            '(gnus-score-find-hierarchical gnus-score-find-bnews bbdb/gnus-score))
 
     ;; BBDB: Address list
-    (when (file-exists-p "/usr/share/emacs/site-lisp/bbdb")
-      (add-to-list 'load-path "/usr/share/emacs/site-lisp/bbdb")
-      (require 'bbdb)
-      (bbdb-initialize 'message 'gnus 'sendmail)
+    (use-package bbdb
+      :if (file-exists-p "/usr/share/emacs/site-lisp/bbdb")
+      :load-path "/usr/share/emacs/site-lisp/bbdb"
+      :init
       (setq bbdb-file "~/emacs.d/bbdb")
-      (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
       (setq bbdb/mail-auto-create-p t
             bbdb/news-auto-create-p t)
       (defvar bbdb-time-internal-format "%Y-%m-%d"
         "The internal date format.")
+      :config
+      (bbdb-initialize 'message 'gnus 'sendmail)
+
+      (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+
            ;;;###autoload
       (defun bbdb-timestamp-hook (record)
         "For use as a `bbdb-change-hook'; maintains a notes-field called `timestamp'
@@ -2832,7 +2827,6 @@ bbdb-merge-records=.
     (setq gnus-thread-hide-subtree t)
     (setq gnus-thread-ignore-subject t)
 
-
     ;; Change email address for work folder.  This is one of the most
     ;; interesting features of Gnus.  I plan on adding custom .sigs soon
     ;; for different mailing lists.
@@ -2848,7 +2842,8 @@ bbdb-merge-records=.
 
     ;; You need install the command line brower 'w3m' and Emacs plugin 'w3m'
     (setq mm-text-html-renderer 'w3m)
-
+    (use-package w3m
+      :ensure t)
     (setq message-send-mail-function 'smtpmail-send-it
           smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
           smtpmail-auth-credentials '(("smtp.gmail.com" 587 "heikki.lehvaslaiho@gmail.com" nil))
@@ -2919,7 +2914,6 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-
      (use-package elfeed
        :bind ("C-c f" . elfeed)
        :init
@@ -2932,7 +2926,7 @@ bbdb-merge-records=.
          (interactive)
          (mark-whole-buffer)
          (elfeed-search-untag-all-unread))
-       (define-key elfeed-search-mode-map (kbd "R") 'elfeed-mark-all-as-read)
+       (bind-key "R" 'elfeed-mark-all-as-read elfeed-search-mode-map)
 
        (defun elfeed--read-tag (filter tag)
          "Template for filtering various feed categories.
@@ -2951,7 +2945,7 @@ bbdb-merge-records=.
          "Show all new titles (except sport)"
          (interactive)
          (elfeed--read-tag my/default-elfeed-search-filter "all"))
-       (define-key elfeed-search-mode-map (kbd "0") 'elfeed-read-all)
+       (binnd-key "0" 'elfeed-read-all elfeed-search-mode-map)
 
        (defun elfeed--remove-sports ()
          "Remove sports articles from world news"
@@ -2965,13 +2959,13 @@ bbdb-merge-records=.
          (interactive)
          (elfeed--remove-sports)
          (elfeed--read-tag "@1-month-ago +unread +n " "news"))
-       (define-key elfeed-search-mode-map (kbd "1") 'elfeed-read-news)
+       (bind-key "1" 'elfeed-read-news elfeed-search-mode-map)
 
        (defun elfeed-read-journals ()
          "Show scientific news from major journals"
          (interactive)
          (elfeed--read-tag "@1-month-ago +unread +j " "journals"))
-       (define-key elfeed-search-mode-map (kbd "2") 'elfeed-read-journals))
+       (bind-key "2" 'elfeed-read-journals elfeed-search-mode-map))
    #+END_SRC
 
 ** Twitter
@@ -2996,17 +2990,19 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+     (use-package twittering-mode
+       :init
      (setq twittering-use-master-password t)
      (setq twittering-icon-mode t)           ; show icons
      (setq twittering-use-icon-storage t)    ; cache icons
      (setq twittering-timer-interval 120)    ; default 90
-
+       :config
      ;; better status format
      (setq twittering-status-format
         "%FOLD{%RT{%FACE[bold]{RT}}%i%s  %r %@{}\n%FILL[          ]{%T%RT{\nretweeted by %s @%C{%Y-%m-%d %H:%M:%S}}}}")
-
+       ;; mode line symbol
      (add-hook 'twittering-mode-hook
-               '(lambda () (setq mode-name "♪")))
+                 '(lambda () (setq mode-name "♪"))))
    #+END_SRC
 
 ** Web browsing
@@ -3022,8 +3018,10 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (setq browse-url-browser-function 'w3m-browse-url)
      (setq browse-url-browser-function 'browse-url-default-browser)
-     (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
-     (setq w3m-use-cookies t)
+     (use-package w3m
+       :defer t
+       :init (setq w3m-use-cookies t)
+       :config (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t))
    #+END_SRC
 
 ** Buffer sharing
@@ -3243,7 +3241,7 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
-     (global-set-key "\C-co" 'org-info)
+     (bind-key "C-c o" 'org-info)
 
      (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
 
@@ -3268,13 +3266,12 @@ bbdb-merge-records=.
    according to Saudi Arabian custom. Also, I need reminders of
    holidays in Finland.
 
-
    I learned ways to speed up agenda generation from [[http://punchagan.muse-amuse.in/posts/how-i-learnt-to-use-emacs-profiler.html][learn profiler]].
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (setq org-agenda-start-on-weekday 7)
-     (require 'suomalainen-kalenteri)
+     (use-package suomalainen-kalenteri
+       :init (setq org-agenda-start-on-weekday 1)) ;; 1 is default
      ;; speed-ups
      (setq org-agenda-inhibit-startup t)
      (setq org-agenda-use-tag-inheritance nil)
@@ -3309,9 +3306,9 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (global-set-key "\C-ca" 'org-agenda)
-     (global-set-key "\C-cc" 'org-capture)
-     (global-set-key "\C-cl" 'org-store-link)
+     (bind-key "C-c a" 'org-agenda)
+     (bind-key "C-c c" 'org-capture)
+     (bind-key "C-c l" 'org-store-link)
      (setq org-return-follows-link t)
    #+END_SRC
 
@@ -3322,7 +3319,7 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (require 'org-agenda)
+     (use-package org-agenda)
    #+END_SRC
 
    I prefer agenda listing for a fortnight and warnings 5 days
@@ -3377,18 +3374,14 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, and org-protocol
+     ;; Capture templates for: general notes, TODO tasks, events
      (setq org-capture-templates
-           (quote (
-                   ("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
+           (quote(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
                     "* %?\nEntered on %U\n  %i")
-                   ("i" "link-note" entry (file+datetree "~/Dropbox/org/reference.org")
-                    "* %?\n%(org-mac-chrome-insert-frontmost-url)\nEntered on %U\n  %i")
                    ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
                     "* TODO %?\n     SCHEDULED: %t\n%i\nEntered on %U")
                    ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
-                    "* %?\n     %T\n%i\nEntered on %U")
-                   )))
+                   "* %?\n     %T\n%i\nEntered on %U"))))
    #+END_SRC
 
    Todos can have additional keywords with dates: =DEADLINE= =C-c C-d=
@@ -3451,7 +3444,9 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-      (org-dropbox-mode)
+     (use-package org-dropbox
+       :defer 5
+       :config (org-dropbox-mode))
    #+END_SRC
 
 ** Refile
@@ -3505,8 +3500,6 @@ bbdb-merge-records=.
      (org-clock-persistence-insinuate)
      (setq org-log-note-clock-out t)
 
-     (global-set-key
-      (kbd "C-c w")
       (defhydra hydra-org-time (:color blue :hint nil)
         "
    Clock  _i_n           _t_odo
@@ -3524,7 +3517,8 @@ bbdb-merge-records=.
         ("j" org-clock-goto)
         ("d" org-clock-display)
         ("r" org-clock-report)
-        ("w" (find-file "~/Dropbox/org/work.org"))))
+       ("w" (find-file "~/Dropbox/org/work.org")))
+     (bind-key "C-c w" 'hydra-org-time/body)
    #+END_SRC
 
    See [[http://orgmode.org/manual/Clocking-work-time.html][Clocking work time]].
@@ -3539,7 +3533,7 @@ bbdb-merge-records=.
    #+END_SRC
 ** External jars
 
-   Tell emacs where to find external dependencies. Ditaa and PlantUML
+   Tell org where to find external dependencies. Ditaa and PlantUML
    executable are java jar files. Ditaa is part of org-mode git repository but
    you have to download [[http://sourceforge.net/projects/plantuml/files/plantuml.jar/download][PlantUML]] and place somewhere where Emacs can
    find it. I am using [[http://brew.sh/][homebrew]] to maintain a recent copy of both with
@@ -3640,7 +3634,7 @@ bbdb-merge-records=.
 ** Checkboxes in HTML
 
    This snippet (from [[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org][Sacha.org]]) turns - [X] into ☑ and - [ ] into ☐,
-   but leaves [-] alone i HTML export.
+   but leaves [-] alone in HTML export.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -3693,7 +3687,7 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      ;; Include the latex-exporter
-     (require 'ox-latex)
+     (use-package ox-latex)
      ;; Add minted to the defaults packages to include when exporting.
      (add-to-list 'org-latex-packages-alist '("" "minted"))
      ;; Tell the latex export to use the minted package for source
@@ -3713,7 +3707,7 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-      (require 'ox-beamer)
+      (use-package ox-beamer)
    #+END_SRC
 
    Slower but more robust latex-to-PDF processing uses =latexmk=. I
@@ -3731,7 +3725,7 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (global-set-key "\C-ci" 'my/org-babel-untangle)
+     (bind-key "C-c i" 'my/org-babel-untangle)
 
      (defun my/org-babel-untangle (path)
        (interactive "fFile to include: ")
@@ -3786,7 +3780,7 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (require 'ox-md)
+     (use-package ox-md)
      ;; /Applications/Emacs.app/Contents/Resources/etc/org/
      ;;(setq org-odt-data-dir "~/.emacs.d/etc/")
      ;;(require 'ox-odt)
@@ -3866,7 +3860,7 @@ bbdb-merge-records=.
 
 
      ;; tufte-handout class for writing classy handouts and papers
-     (require 'ox-latex)
+     (use-package ox-latex)
      (add-to-list 'org-latex-classes
                   '("tufte-handout"
                     "\\documentclass{tufte-handout}
@@ -4137,12 +4131,14 @@ bbdb-merge-records=.
      (setq reftex-default-bibliography
            (quote ("/Users/lehvasho/Documents/latex/all.bib")))
 
-     (require 'gscholar-bibtex)
+     (use-package gscholar-bibtex
+       :init
      (setq gscholar-bibtex-database-file "/Users/lehvasho/Documents/latex/all.bib")
      (setq gscholar-bibtex-default-source "Google Scholar")
+       :config
      (set-face-attribute 'gscholar-bibtex-title nil
                          :height 1.1
-                         :foreground "blue")
+                           :foreground "blue"))
    #+END_SRC
 
    The RefTex package that manages citations needs configuration. =C-c
@@ -4158,8 +4154,8 @@ bbdb-merge-records=.
               ;enable auto-revert-mode to update reftex when bibtex file changes
               (global-auto-revert-mode t)
             (reftex-parse-all))
-       (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
-       (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
+       (bind-key "C-c )" 'reftex-citation org-mode-map)
+       (bind-key "C-c (" 'org-mode-reftex-search org-mode-map))
        )
      (add-hook 'org-mode-hook 'org-mode-reftex-setup)
    #+END_SRC
@@ -4203,9 +4199,8 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-reveal-root "/Users/lehvasho/src/reveal.js")
-     (if (file-exists-p org-reveal-root)
-         (require 'ox-reveal)
-       (message "ERROR: Can not find reveal.js directory"))
+     (use-package ox-reveal
+       :if (file-exists-p org-reveal-root))
    #+END_SRC
 
 ** Master file fix
@@ -4230,8 +4225,8 @@ bbdb-merge-records=.
             (progn
           (reftex-parse-all)
           (reftex-set-cite-format "[[cite:%l][%l]]")))
-       (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
-       (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
+       (bind-key "C-c )" 'reftex-citation org-mode-map)
+       (bind-key "C-c (" 'org-mode-reftex-search org-mode-map))
      (add-hook 'org-mode-hook 'org-mode-reftex-setup)
 
    #+END_SRC
@@ -4410,7 +4405,6 @@ bbdb-merge-records=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     (require 'org-mac-link) ;; ?
      (use-package org-mac-link
        :ensure t
        :if (eq system-type 'darwin)
@@ -4447,14 +4441,16 @@ bbdb-merge-records=.
 
 ** Emacsclient
 
-   In OS X commandline and GUI versions of emacs are not the same
+   In OS X command line and GUI versions of emacs are not the same
    thing and opening a file in a running GUI program is not automatic.
    In the case of emacs, the way around this is *emacsclient* (see
    =man emacsclient=). The emacs needs to run in server mode for the
-   emacsclient to open a new frame to edit the file.
+   emacsclient to open a new frame to edit the file. Only one instance
+   of the server can run, so it is best that only the GUI emacs
+   launches it.
 
    [[https://github.com/stsquad/emacs_chrome][Edit-server]] is the emacs code for the Chrome/Chromium extension for
-   editing text areas in better environment.
+   editing text areas in a better environment.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
@@ -4465,7 +4461,18 @@ bbdb-merge-records=.
        :ensure t
        :if window-system
        :init
-       (add-hook 'after-init-hook 'edit-server-start t))
+       (add-hook 'after-init-hook 'edit-server-start t)
+       :config
+       (use-package edit-server-htmlize
+         :ensure t
+         :config
+         ;; gmail fix
+         (autoload 'edit-server-maybe-dehtmlize-buffer
+           "edit-server-htmlize" "edit-server-htmlize" t)
+         (autoload 'edit-server-maybe-htmlize-buffer
+           "edit-server-htmlize" "edit-server-htmlize" t))
+       (add-hook 'edit-server-start-hook 'edit-server-maybe-dehtmlize-buffer)
+       (add-hook 'edit-server-done-hook  'edit-server-maybe-htmlize-buffer))
 
    #+END_SRC
 
