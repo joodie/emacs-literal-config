@@ -972,7 +972,6 @@
    best approach is to assume UTF-8 and deal with anything else
    (Latin-1, UTF-16) only if absolutely have to.
 
-
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
      (set-language-environment "UTF-8")
@@ -1249,9 +1248,9 @@
    dictionaries.
 
    You might have to install aspell for your computer. For OS X, do it
-   using [[http://brew.sh/][Homebrew]] =brew install aspell=. This installes several
+   using [[http://brew.sh/][Homebrew]] =brew install aspell=. This installs several
    varieties of English. To add more languages, you have to specify
-   them as aguments.
+   them as arguments.
 
    Words added to personal word list are stored in =~/.aspell.{LANG}.pws=,
    e.g. =~/.aspell.en.pws=.
@@ -3039,6 +3038,8 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
        :bind ("C-c f" . elfeed)
+       ;; :bind-keymap (:map elfeed-search-mode-map
+       ;;                    ("1" . elfeed-read-news ))
        :init
        (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
        (setq-default elfeed-search-filter my/default-elfeed-search-filter)
@@ -3068,7 +3069,7 @@ bbdb-merge-records=.
          "Show all new titles (except sport)"
          (interactive)
          (elfeed--read-tag my/default-elfeed-search-filter "all"))
-       (binnd-key "0" 'elfeed-read-all elfeed-search-mode-map)
+       (bind-key "0" 'elfeed-read-all elfeed-search-mode-map)
 
        (defun elfeed--remove-sports ()
          "Remove sports articles from world news"
