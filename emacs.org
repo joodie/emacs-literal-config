@@ -184,18 +184,18 @@
      (bind-key
       "C-x 9"
       '(defhydra hydra-unicode (:hint nil)
-        "
-        Unicode  _e_ €  _s_ ZERO WIDTH SPACE
-                 _f_ ♀  _o_ °   _m_ µ
-                 _r_ ♂  _a_ →
-        "
-        ("e" (my/insert-unicode "EURO SIGN"))
-        ("r" (my/insert-unicode "MALE SIGN"))
-        ("f" (my/insert-unicode "FEMALE SIGN"))
-        ("s" (my/insert-unicode "ZERO WIDTH SPACE"))
-        ("o" (my/insert-unicode "DEGREE SIGN"))
-        ("a" (my/insert-unicode "RIGHTWARDS ARROW"))
-        ("m" (my/insert-unicode "MICRO SIGN"))))
+         "
+             Unicode  _e_ €  _s_ ZERO WIDTH SPACE
+                      _f_ ♀  _o_ °   _m_ µ
+                      _r_ ♂  _a_ →
+             "
+         ("e" (my/insert-unicode "EURO SIGN"))
+         ("r" (my/insert-unicode "MALE SIGN"))
+         ("f" (my/insert-unicode "FEMALE SIGN"))
+         ("s" (my/insert-unicode "ZERO WIDTH SPACE"))
+         ("o" (my/insert-unicode "DEGREE SIGN"))
+         ("a" (my/insert-unicode "RIGHTWARDS ARROW"))
+         ("m" (my/insert-unicode "MICRO SIGN"))))
    #+END_SRC
 
 ** Reduce clutter
@@ -613,8 +613,8 @@
   #+name: key-bindings
   #+BEGIN_SRC emacs-lisp
     (bind-key "C-x t" 'hydra-toggle/body)
-     (defhydra hydra-toggle (:color blue :hint nil)
-       "
+    (defhydra hydra-toggle (:color blue :hint nil)
+      "
          toggle _a_bbrev-mode             _p_retty entities
                 _d_ebug-on-error          t_r_uncate-lines
                 _f_olding                 white_s_pace-mode
@@ -623,27 +623,27 @@
                 _l_inum-mode              _w_ritegood-mode
                 _k_: spelling language    _q_uit
               "
-       ("a" abbrev-mode )
-       ("d" toggle-debug-on-error)
-       ("f" toggle-selective-display)
-       ("i" iedit-mode)
-       ("n" narrow-or-widen-dwim)
-       ("l" my/global-linum-mode)
-       ("k" cycle-ispell-languages :color red)
-       ("p" org-toggle-pretty-entities)
-       ("r" toggle-truncate-lines)
-       ("s" whitespace-mode)
-       ("t" neotree-toggle)
-       ("v" string-inflection-toggle :color red)
-       ("w" writegood-mode)
+      ("a" abbrev-mode )
+      ("d" toggle-debug-on-error)
+      ("f" toggle-selective-display)
+      ("i" iedit-mode)
+      ("n" narrow-or-widen-dwim)
+      ("l" my/global-linum-mode)
+      ("k" cycle-ispell-languages :color red)
+      ("p" org-toggle-pretty-entities)
+      ("r" toggle-truncate-lines)
+      ("s" whitespace-mode)
+      ("t" neotree-toggle)
+      ("v" string-inflection-toggle :color red)
+      ("w" writegood-mode)
       ("q" nil))
 
     (bind-key "C-x C-0" 'hydra-zoom/body)
-     (defhydra hydra-zoom ()
-       "zoom"
-       ("g" text-scale-increase "in")
-       ("=" text-scale-increase "in")
-       ("l" text-scale-decrease "out")
+    (defhydra hydra-zoom ()
+      "zoom"
+      ("g" text-scale-increase "in")
+      ("=" text-scale-increase "in")
+      ("l" text-scale-decrease "out")
       ("-" text-scale-decrease "out"))
 
     ;; http://oremacs.com/2015/03/07/hydra-org-templates/
@@ -726,31 +726,31 @@
   #+name: key-bindings
   #+BEGIN_SRC emacs-lisp
     (bind-key "C-x l" 'hydra-launch/body)
-       (defhydra hydra-launch (:color blue :hint nil)
-         "
-  launch _2_048           _l_ink chrome   _p_aradox
-         _c_: quick-calc  _n_ato-region   _q_: paradox upgrade
-         _e_diff-buffers  de_N_ato        _t_imemachine git
-         _g_scholar-bib   _r_e-builder    _w_3m at point
-         _h_owdoi         e_s_hell        _?_: emacsExchange
-         tw_i_tter        ^ ^             G_\+_ emacs
-        "
-         ("2" 2048-game)
-         ("c" quick-calc)
-         ("e" ediff-buffers)
-         ("g" gscholar-bibtex)
-         ("h" howdoi-query)
-         ("i" twit)
-         ("l" org-mac-chrome-insert-frontmost-url)
-         ("n" nato-region)
-         ("N" denato-region)
-         ("r" re-builder)
-         ("s" eshell)
-         ("p" paradox-list-packages)
-         ("q" paradox-upgrade-packages)
-         ("t" git-timemachine)
-         ("w" browse-url-at-point)
-         ("?" (browse-url "http://emacs.stackexchange.com/"))
+    (defhydra hydra-launch (:color blue :hint nil)
+      "
+    launch _2_048           _l_ink chrome   _p_aradox
+           _c_: quick-calc  _n_ato-region   _q_: paradox upgrade
+           _e_diff-buffers  de_N_ato        _t_imemachine git
+           _g_scholar-bib   _r_e-builder    _w_3m at point
+           _h_owdoi         e_s_hell        _?_: emacsExchange
+           tw_i_tter        ^ ^             G_\+_ emacs
+          "
+      ("2" 2048-game)
+      ("c" quick-calc)
+      ("e" ediff-buffers)
+      ("g" gscholar-bibtex)
+      ("h" howdoi-query)
+      ("i" twit)
+      ("l" org-mac-chrome-insert-frontmost-url)
+      ("n" nato-region)
+      ("N" denato-region)
+      ("r" re-builder)
+      ("s" eshell)
+      ("p" paradox-list-packages)
+      ("q" paradox-upgrade-packages)
+      ("t" git-timemachine)
+      ("w" browse-url-at-point)
+      ("?" (browse-url "http://emacs.stackexchange.com/"))
       ("+" (browse-url "https://plus.google.com/communities/114815898697665598016")))
   #+END_SRC
 
@@ -875,7 +875,7 @@
   #+BEGIN_SRC emacs-lisp
     (use-package evil
       :init
-  (setq evil-default-state 'normal)
+      (setq evil-default-state 'normal)
       (setq evil-emacs-state-cursor    '("red" bar))
       (setq evil-normal-state-cursor   '("red" hollow))
       (setq evil-visual-state-cursor   '("green" hollow))
@@ -883,76 +883,76 @@
       (setq evil-replace-state-cursor  '("red" bar))
       (setq evil-operator-state-cursor '("red" hollow))
       :config
-  ;; I like the cyclic emacs undo
-  (global-undo-tree-mode -1)
+      ;; I like the cyclic emacs undo
+      (global-undo-tree-mode -1)
 
-  ;; Clear the insert state keymap to unadulterated Emacs behavior
-  (setcdr evil-insert-state-map nil)
-  (define-key evil-insert-state-map
-    (read-kbd-macro evil-toggle-key) 'evil-emacs-state)
+      ;; Clear the insert state keymap to unadulterated Emacs behavior
+      (setcdr evil-insert-state-map nil)
+      (define-key evil-insert-state-map
+        (read-kbd-macro evil-toggle-key) 'evil-emacs-state)
 
-  (evil-set-initial-state 'magit-log-edit-mode 'emacs)
-  (evil-set-initial-state 'elfeed-search 'emacs)
+      (evil-set-initial-state 'magit-log-edit-mode 'emacs)
+      (evil-set-initial-state 'elfeed-search 'emacs)
 
-  ;;; ESC quits always
-  (defun minibuffer-keyboard-quit ()
-    "Abort recursive edit.
-  In Delete Selection mode, if the mark is active, just deactivate it;
-  then it takes a second \\[keyboard-quit] to abort the minibuffer."
-    (interactive)
-    (if (and delete-selection-mode transient-mark-mode mark-active)
-        (setq deactivate-mark  t)
-      (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
-      (abort-recursive-edit)))
+      ;;; ESC quits always
+      (defun minibuffer-keyboard-quit ()
+        "Abort recursive edit.
+      In Delete Selection mode, if the mark is active, just deactivate it;
+      then it takes a second \\[keyboard-quit] to abort the minibuffer."
+        (interactive)
+        (if (and delete-selection-mode transient-mark-mode mark-active)
+            (setq deactivate-mark  t)
+          (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
+          (abort-recursive-edit)))
 
-  (define-key evil-normal-state-map [escape] 'keyboard-quit)
-  (define-key evil-visual-state-map [escape] 'keyboard-quit)
-  (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-  (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
+      (define-key evil-normal-state-map [escape] 'keyboard-quit)
+      (define-key evil-visual-state-map [escape] 'keyboard-quit)
+      (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
+      (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
+      (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
+      (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
+      (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
 
-  (global-set-key [escape] 'evil-normal-state)
+      (global-set-key [escape] 'evil-normal-state)
 
-  ;; Don't wait for any other keys after escape is pressed.
-  (setq evil-esc-delay 0)
+      ;; Don't wait for any other keys after escape is pressed.
+      (setq evil-esc-delay 0)
 
-  ;; double comma pressed rapidly returns to normal state, too
+      ;; double comma pressed rapidly returns to normal state, too
       ;;(use-package key-chord
       ;;  (key-chord-mode 1)
       ;;  (key-chord-define-global ",," 'evil-normal-state))
 
-  ;; fix selection anomaly
-  (setq evil-want-visual-char-semi-exclusive t)
+      ;; fix selection anomaly
+      (setq evil-want-visual-char-semi-exclusive t)
 
-  ;; Remap org-mode meta keys for convenience
-  (mapcar (lambda (state)
-            (evil-declare-key state org-mode-map
-              (kbd "M-l") 'org-metaright
-              (kbd "M-h") 'org-metaleft
-              (kbd "M-k") 'org-metaup
-              (kbd "M-j") 'org-metadown
-              (kbd "M-L") 'org-shiftmetaright
-              (kbd "M-H") 'org-shiftmetaleft
-              (kbd "M-K") 'org-shiftmetaup
-              (kbd "M-J") 'org-shiftmetadown))
-          '(normal insert))
+      ;; Remap org-mode meta keys for convenience
+      (mapcar (lambda (state)
+                (evil-declare-key state org-mode-map
+                  (kbd "M-l") 'org-metaright
+                  (kbd "M-h") 'org-metaleft
+                  (kbd "M-k") 'org-metaup
+                  (kbd "M-j") 'org-metadown
+                  (kbd "M-L") 'org-shiftmetaright
+                  (kbd "M-H") 'org-shiftmetaleft
+                  (kbd "M-K") 'org-shiftmetaup
+                  (kbd "M-J") 'org-shiftmetadown))
+              '(normal insert))
 
-  ;; change mode-line color for the evil insert state
-  ;; original from http://www.emacswiki.org/emacs/Evil#toc16
-  ;; also, change cursor to indicate state
-  (lexical-let ((default-color (cons (face-background 'mode-line)
-                                     (face-foreground 'mode-line))))
-    (add-hook 'post-command-hook
-              (lambda ()
-                (let ((color (cond ((minibufferp) default-color)
-                                   ((evil-insert-state-p) '("#444488" . "#ffffff"))
-                                   ((evil-emacs-state-p)  '("blue" . "#ffffff"))
-                                   ((evil-visual-state-p) '("#025a2b" . "#ffffff"))
-                                   (t default-color))))
-                  (set-face-background 'mode-line (car color))
-                  (set-face-foreground 'mode-line (cdr color))))))
+      ;; change mode-line color for the evil insert state
+      ;; original from http://www.emacswiki.org/emacs/Evil#toc16
+      ;; also, change cursor to indicate state
+      (lexical-let ((default-color (cons (face-background 'mode-line)
+                                         (face-foreground 'mode-line))))
+        (add-hook 'post-command-hook
+                  (lambda ()
+                    (let ((color (cond ((minibufferp) default-color)
+                                       ((evil-insert-state-p) '("#444488" . "#ffffff"))
+                                       ((evil-emacs-state-p)  '("blue" . "#ffffff"))
+                                       ((evil-visual-state-p) '("#025a2b" . "#ffffff"))
+                                       (t default-color))))
+                      (set-face-background 'mode-line (car color))
+                      (set-face-foreground 'mode-line (cdr color))))))
 
       (use-package evil-surround
         :config
@@ -977,8 +977,8 @@
      (set-language-environment "UTF-8")
      (prefer-coding-system 'utf-8) ; same thing as above? in practice?
      (bind-key "C-c u"
-      (lambda () (interactive)
-        (set-buffer-file-coding-system 'utf-8-unix t)))
+               (lambda () (interactive)
+                 (set-buffer-file-coding-system 'utf-8-unix t)))
    #+END_SRC
 
    Tabs are automatically converted to spaces and trailing white space
@@ -1206,17 +1206,17 @@
 
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
-    (defun delete-file-and-buffer ()
-      "Kill the current buffer and deletes the file it is visiting."
-      (interactive)
-      (let ((filename (buffer-file-name)))
-        (when filename
-          (if (vc-backend filename)
-              (vc-delete-file filename)
-            (progn
-              (delete-file filename)
-              (message "Deleted file %s" filename)
-              (kill-buffer))))))
+     (defun delete-file-and-buffer ()
+       "Kill the current buffer and deletes the file it is visiting."
+       (interactive)
+       (let ((filename (buffer-file-name)))
+         (when filename
+           (if (vc-backend filename)
+               (vc-delete-file filename)
+             (progn
+               (delete-file filename)
+               (message "Deleted file %s" filename)
+               (kill-buffer))))))
      (bind-key "C-c d" 'delete-file-and-buffer)
 
    #+END_SRC
@@ -1685,20 +1685,20 @@
       :bind ("C-c g" . magit-status)
       :config
       (setq magit-diff-options '("-b")) ; ignore whitespace
-    ;; full screen magit-status
-    (defadvice magit-status (around magit-fullscreen activate)
-      (window-configuration-to-register :magit-fullscreen)
-      ad-do-it
-      (delete-other-windows))
+      ;; full screen magit-status
+      (defadvice magit-status (around magit-fullscreen activate)
+        (window-configuration-to-register :magit-fullscreen)
+        ad-do-it
+        (delete-other-windows))
 
-    (defun magit-quit-session ()
-      "Restores the previous window configuration and kills the magit buffer"
-      (interactive)
-      (kill-buffer)
-      (jump-to-register :magit-fullscreen))
+      (defun magit-quit-session ()
+        "Restores the previous window configuration and kills the magit buffer"
+        (interactive)
+        (kill-buffer)
+        (jump-to-register :magit-fullscreen))
 
-    ;; hide MREv mode line indicator
-    (add-hook 'magit-status-mode-hook
+      ;; hide MREv mode line indicator
+      (add-hook 'magit-status-mode-hook
                 (lambda () (diminish 'magit-auto-revert-mode))))
   #+END_SRC
 
@@ -1744,11 +1744,11 @@
               ("C-x 4 4" . langtool-show-message-at-point)
               ("C-x 4 c" . langtool-correct-buffer))
        :init
-     (setq languagetool-language-tool-jar
-       "/usr/local/Cellar/languagetool/2.8/libexec/languagetool-commandline.jar")
-     (setq languagetool-disabled-rules '("WHITESPACE_RULE"
-                                     "EN_UNPAIRED_BRACKETS"
-                                     "COMMA_PARENTHESIS_WHITESPACE"
+       (setq languagetool-language-tool-jar
+             "/usr/local/Cellar/languagetool/2.8/libexec/languagetool-commandline.jar")
+       (setq languagetool-disabled-rules '("WHITESPACE_RULE"
+                                           "EN_UNPAIRED_BRACKETS"
+                                           "COMMA_PARENTHESIS_WHITESPACE"
                                            "EN_QUOTES")))
    #+END_SRC
 
@@ -1791,7 +1791,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package linum-relative
        :init
-     ;; show absolute line number for the current line
+       ;; show absolute line number for the current line
        (setq linum-relative-current-symbol ""))
 
      (define-minor-mode my/linum-mode
@@ -2144,9 +2144,9 @@
        :if (eq system-type 'darwin)
        :no-require t
        :config
-            ;; C-left
+       ;; C-left
        (bind-key "s-<left>" 'paredit-forward-barf-sexp paredit-mode-map)
-            ;; C-right
+       ;; C-right
        (bind-key"s-<right>" 'paredit-forward-slurp-sexp paredit-mode-map)
        ;; Alt-C-left
        (bind-key "M-s-<left>" 'paredit-backward-slurp-sexp paredit-mode-map)
@@ -2208,27 +2208,27 @@
    #+BEGIN_SRC emacs-lisp
      (use-package cider
        :config
-     (defun my/cider-mode-hooks ()
-       "Clojure specific setup code that should only be run when we
+       (defun my/cider-mode-hooks ()
+         "Clojure specific setup code that should only be run when we
        have a CIDER REPL connection"
-       (setq nrepl-log-messages t)
-       (setq nrepl-hide-special-buffers t))
+         (setq nrepl-log-messages t)
+         (setq nrepl-hide-special-buffers t))
 
-     (add-hook 'cider-mode-hook
-               'my/cider-mode-hooks)
+       (add-hook 'cider-mode-hook
+                 'my/cider-mode-hooks)
 
-     (defun my/cider-repl-mode-hooks ()
-       (my/turn-on 'paredit
-                   ;;'rainbow-delimiters
-                   'show-paren-mode
-                   'highlight-parentheses))
+       (defun my/cider-repl-mode-hooks ()
+         (my/turn-on 'paredit
+                     ;;'rainbow-delimiters
+                     'show-paren-mode
+                     'highlight-parentheses))
 
-     (add-hook 'cider-repl-mode-hook
-               'my/cider-repl-mode-hooks)
+       (add-hook 'cider-repl-mode-hook
+                 'my/cider-repl-mode-hooks)
 
-          ;; M-up -> s-up
+       ;; M-up -> s-up
        (bind-key "s-<up>" 'cider-repl-previous-input cider-repl-mode-map)
-          ;; M-down -> s-down
+       ;; M-down -> s-down
        (bind-key "s-<down>" 'cider-repl-next-input cider-repl-mode-map))
 
    #+END_SRC
@@ -2286,36 +2286,36 @@
      ;;         (add-hook 'python-mode-hook 'my-python-mode-hook)))
 
 
-          (defun my/setup-python-mode ()
-            "Custom command to setup python-mode"
-            (interactive)
-            (let ((max-column 99))
-              (setq python-shell-interpreter "/Users/lehvasho/miniconda3/bin/python"
-                    python-shell-interpreter-args "-i"
-                    ;;venv-location "~/.virtualenvs"
-                    whitespace-line-column max-column
-                    fill-column max-column
-                    flycheck-flake8-maximum-line-length max-column
-                    elpy-rpc-backend "jedi"
-                    ;;elpy-rpc-backend "rope"
-                    ;;elpy-default-minor-modes '(eldoc-mode)
-                    elpy-rpc-project-specific t))
-            (setq python-indent-offset 4)
-            (setq jedi:complete-on-dot t)
-            (flycheck-mode)
-            ;;(pyenv-mode)
-            ;;(add-hook 'focus-out-hook 'save-buffer)
-            ;;(highlight-lines-matching-regexp "import i?pdb")
-            ;;(highlight-lines-matching-regexp "i?pdb.set_trace()")
-            (turn-on-fci-mode)  ; fill-column-indicator
-            (elpy-enable)
-            ;;(elpy-mode)
-            ;;(elpy-clean-modeline)
-            (highlight-indentation-mode))
+     (defun my/setup-python-mode ()
+       "Custom command to setup python-mode"
+       (interactive)
+       (let ((max-column 99))
+         (setq python-shell-interpreter "/Users/lehvasho/miniconda3/bin/python"
+               python-shell-interpreter-args "-i"
+               ;;venv-location "~/.virtualenvs"
+               whitespace-line-column max-column
+               fill-column max-column
+               flycheck-flake8-maximum-line-length max-column
+               elpy-rpc-backend "jedi"
+               ;;elpy-rpc-backend "rope"
+               ;;elpy-default-minor-modes '(eldoc-mode)
+               elpy-rpc-project-specific t))
+       (setq python-indent-offset 4)
+       (setq jedi:complete-on-dot t)
+       (flycheck-mode)
+       ;;(pyenv-mode)
+       ;;(add-hook 'focus-out-hook 'save-buffer)
+       ;;(highlight-lines-matching-regexp "import i?pdb")
+       ;;(highlight-lines-matching-regexp "i?pdb.set_trace()")
+       (turn-on-fci-mode)  ; fill-column-indicator
+       (elpy-enable)
+       ;;(elpy-mode)
+       ;;(elpy-clean-modeline)
+       (highlight-indentation-mode))
 
-          (add-hook 'python-mode-hook 'my/setup-python-mode)
-          (add-hook 'python-mode-hook 'jedi:ac-setup)
-          (add-hook 'python-mode-hook (lambda ()
+     (add-hook 'python-mode-hook 'my/setup-python-mode)
+     (add-hook 'python-mode-hook 'jedi:ac-setup)
+     (add-hook 'python-mode-hook (lambda ()
                                    (use-package sphinx-doc
                                      :config
                                      (sphinx-doc-mode t))))
@@ -2387,7 +2387,7 @@
    #+BEGIN_SRC emacs-lisp
      (bind-key "C-<backspace>"
                #'(lambda () (interactive)
-                                            (kill-line 0)))
+                   (kill-line 0)))
    #+END_SRC
 
    The most complex replace key combination made little bit easier to
@@ -2433,34 +2433,56 @@
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
-    (defun smarter-move-beginning-of-line (arg)
-      "Move point back to indentation of beginning of line.
+     (defun smarter-move-beginning-of-line (arg)
+       "Move point back to indentation of beginning of line.
 
-      Move point to the first non-whitespace character on this line.
-      If point is already there, move to the beginning of the line.
-      Effectively toggle between the first non-whitespace character and
-      the beginning of the line.
+       Move point to the first non-whitespace character on this line.
+       If point is already there, move to the beginning of the line.
+       Effectively toggle between the first non-whitespace character and
+       the beginning of the line.
 
-      If ARG is not nil or 1, move forward ARG - 1 lines first.  If
-      point reaches the beginning or end of the buffer, stop there."
-      (interactive "^p")
-      (setq arg (or arg 1))
+       If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+       point reaches the beginning or end of the buffer, stop there."
+       (interactive "^p")
+       (setq arg (or arg 1))
 
-      ;; Move lines first
-      (when (/= arg 1)
-        (let ((line-move-visual nil))
-          (forward-line (1- arg))))
+       ;; Move lines first
+       (when (/= arg 1)
+         (let ((line-move-visual nil))
+           (forward-line (1- arg))))
 
-      (let ((orig-point (point)))
-        (back-to-indentation)
-        (when (= orig-point (point))
-          (move-beginning-of-line 1))))
+       (let ((orig-point (point)))
+         (back-to-indentation)
+         (when (= orig-point (point))
+           (move-beginning-of-line 1))))
 
-    ;; remap C-a to `smarter-move-beginning-of-line'
+     ;; remap C-a to `smarter-move-beginning-of-line'
      (bind-key [remap move-beginning-of-line]
-                    'smarter-move-beginning-of-line)
+               'smarter-move-beginning-of-line)
 
    #+END_SRC
+
+** Projects
+
+   [[https://github.com/bbatsov/projectile][Projectile]] automatically defines a project for any git repository.
+   It indexes files and makes it possible to search files and contents
+   within a project.
+
+#+name: local-navigation
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :defer t
+    :diminish projectile-mode
+    ;;:init (setq projectile-keymap-prefix (kbd "C-c p"))
+    :config
+    ;;(setq projectile-completion-system 'default)
+    (setq projectile-enable-caching t)
+    (projectile-global-mode))
+#+END_SRC
+
+
+
 
 ** Narrowing
 
@@ -2619,17 +2641,17 @@ too.
      (setq my/window-resize-step 10)
 
      (bind-key "s-<left>"
-      (lambda () (interactive)
-        (shrink-window-horizontally my/window-resize-step)))
+               (lambda () (interactive)
+                 (shrink-window-horizontally my/window-resize-step)))
      (bind-key "s-<right>"
-      (lambda () (interactive)
-        (enlarge-window-horizontally my/window-resize-step)))
+               (lambda () (interactive)
+                 (enlarge-window-horizontally my/window-resize-step)))
      (bind-key "s-<down>"
-      (lambda () (interactive)
-        (shrink-window my/window-resize-step)))
+               (lambda () (interactive)
+                 (shrink-window my/window-resize-step)))
      (bind-key "s-<up>"
-      (lambda () (interactive)
-        (enlarge-window my/window-resize-step)))
+               (lambda () (interactive)
+                 (enlarge-window my/window-resize-step)))
    #+END_SRC
 
 ** External navigation
@@ -2657,9 +2679,9 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
-      (defun my/edit-emacs-configuration ()
-        (interactive)
-        (find-file "~/.emacs.d/emacs.org"))
+     (defun my/edit-emacs-configuration ()
+       (interactive)
+       (find-file "~/.emacs.d/emacs.org"))
      (bind-key "C-c e" 'my/edit-emacs-configuration)
 
      ;; I often want to add more comments to the last note
@@ -2672,17 +2694,17 @@ too.
        (org-end-of-line))
 
      (bind-key "C-c z" 'hydra-goto/body)
-      (defhydra hydra-goto (:color blue :hint nil)
-        "
+     (defhydra hydra-goto (:color blue :hint nil)
+       "
        goto   file                        info
               --------------------------------------
               _e_macs.org                 _o_rg
               _r_eference.org: last note
               _w_ork.org
            "
-        ("e" (find-file "~/.emacs.d/emacs.org"))
-        ("r" my/last-captured-org-note)
-        ("w" (find-file "~/Dropbox/org/work.org"))
+       ("e" (find-file "~/.emacs.d/emacs.org"))
+       ("r" my/last-captured-org-note)
+       ("w" (find-file "~/Dropbox/org/work.org"))
        ("o" org-info))
 
    #+END_SRC
@@ -2699,7 +2721,7 @@ too.
        ;; fix evil mode key conflicts
        (add-hook
         'neotree-mode-hook
-                 (lambda ()
+        (lambda ()
           (bind-key "TAB" 'neotree-enter evil-normal-state-local-map)
           (bind-key "SPC" 'neotree-enter evil-normal-state-local-map)
           (bind-key "q"   'neotree-hide  evil-normal-state-local-map)
@@ -2739,15 +2761,15 @@ too.
    #+BEGIN_SRC emacs-lisp
      (use-package ido
        :init
-     (setq ido-everywhere t)
+       (setq ido-everywhere t)
        ;; disable ido faces to see flx highlights.
        (setq ido-use-faces nil)
        :config
-     ;; make ido display choices vertically
-     (ido-vertical-mode 1)
+       ;; make ido display choices vertically
+       (ido-vertical-mode 1)
        (ido-mode 1)
        (use-package flx-ido
-     ;; display any item that contains the chars you typed
+         ;; display any item that contains the chars you typed
          :init (setq ido-enable-flex-matching t)
          (flx-ido-mode 1)))
 
@@ -2916,7 +2938,7 @@ bbdb-merge-records=.
 
       (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
 
-           ;;;###autoload
+             ;;;###autoload
       (defun bbdb-timestamp-hook (record)
         "For use as a `bbdb-change-hook'; maintains a notes-field called `timestamp'
              for the given record which contains the time when it was last modified.  If
@@ -3055,10 +3077,10 @@ bbdb-merge-records=.
        (defun elfeed--read-tag (filter tag)
          "Template for filtering various feed categories.
 
-          FILTER is the filter string to apply, and TAG is a short name of
-          the displayed category.
+              FILTER is the filter string to apply, and TAG is a short name of
+              the displayed category.
 
-          The cursor is moved to the beginning of the first feed line."
+              The cursor is moved to the beginning of the first feed line."
          (setq elfeed-search-filter filter)
          (elfeed-search-update :force)
          (goto-char (point-min))
@@ -3116,16 +3138,16 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (use-package twittering-mode
        :init
-     (setq twittering-use-master-password t)
-     (setq twittering-icon-mode t)           ; show icons
-     (setq twittering-use-icon-storage t)    ; cache icons
-     (setq twittering-timer-interval 120)    ; default 90
+       (setq twittering-use-master-password t)
+       (setq twittering-icon-mode t)           ; show icons
+       (setq twittering-use-icon-storage t)    ; cache icons
+       (setq twittering-timer-interval 120)    ; default 90
        :config
-     ;; better status format
-     (setq twittering-status-format
-        "%FOLD{%RT{%FACE[bold]{RT}}%i%s  %r %@{}\n%FILL[          ]{%T%RT{\nretweeted by %s @%C{%Y-%m-%d %H:%M:%S}}}}")
+       ;; better status format
+       (setq twittering-status-format
+             "%FOLD{%RT{%FACE[bold]{RT}}%i%s  %r %@{}\n%FILL[          ]{%T%RT{\nretweeted by %s @%C{%Y-%m-%d %H:%M:%S}}}}")
        ;; mode line symbol
-     (add-hook 'twittering-mode-hook
+       (add-hook 'twittering-mode-hook
                  '(lambda () (setq mode-name "♪"))))
    #+END_SRC
 
@@ -3204,7 +3226,7 @@ bbdb-merge-records=.
          ("l" (op/do-publication nil "HEAD~1" nil t t))
          ("p" op/do-publication)
          ("e" op/new-repository))
-       :bind ("C-c p" . hydra-blog/body))
+       :bind ("C-c o" . hydra-blog/body))
    #+END_SRC
 
 ** Ediff
@@ -3348,7 +3370,7 @@ bbdb-merge-records=.
   [[http://orgmode.org/][Org mode]] is for all writing of plain text. Use org mode rather than
   plain text mode even when the file extension is =.txt=.
 
-  Lets bind the org mode online info to =C-c o= since
+  Let's bind the org mode online info into hydra-goto =C-c z o= since
   it is so useful.
 
   [[https://github.com/calvinwyoung/org-autolist][org-autolist]] makes org lists behave more like you'd expect: =Return=
@@ -3365,7 +3387,6 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
-     (bind-key "C-c o" 'org-info)
 
      (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
 
@@ -3501,10 +3522,10 @@ bbdb-merge-records=.
      ;; Capture templates for: general notes, TODO tasks, events
      (setq org-capture-templates
            (quote(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
-                    "* %?\nEntered on %U\n  %i")
-                   ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
-                    "* TODO %?\n     SCHEDULED: %t\n%i\nEntered on %U")
-                   ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
+                   "* %?\nEntered on %U\n  %i")
+                  ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
+                   "* TODO %?\n     SCHEDULED: %t\n%i\nEntered on %U")
+                  ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
                    "* %?\n     %T\n%i\nEntered on %U"))))
    #+END_SRC
 
@@ -3624,23 +3645,23 @@ bbdb-merge-records=.
      (org-clock-persistence-insinuate)
      (setq org-log-note-clock-out t)
 
-      (defhydra hydra-org-time (:color blue :hint nil)
-        "
-   Clock  _i_n           _t_odo
-          _x_ in-last    _j_ump to head
-          _o_ut          _d_isplay
-          _q_uit         _r_eport
-          _e_dit         _w_ork file open
-        "
-        ("i" org-clock-in)
-        ("o" org-clock-out)
-        ("x" org-clock-in-last)
-        ("e" org-clock-modify-effort-estimate)
-        ("t" org-todo)
-        ("q" org-clock-cancel)
-        ("j" org-clock-goto)
-        ("d" org-clock-display)
-        ("r" org-clock-report)
+     (defhydra hydra-org-time (:color blue :hint nil)
+       "
+     Clock  _i_n           _t_odo
+            _x_ in-last    _j_ump to head
+            _o_ut          _d_isplay
+            _q_uit         _r_eport
+            _e_dit         _w_ork file open
+          "
+       ("i" org-clock-in)
+       ("o" org-clock-out)
+       ("x" org-clock-in-last)
+       ("e" org-clock-modify-effort-estimate)
+       ("t" org-todo)
+       ("q" org-clock-cancel)
+       ("j" org-clock-goto)
+       ("d" org-clock-display)
+       ("r" org-clock-report)
        ("w" (find-file "~/Dropbox/org/work.org")))
      (bind-key "C-c w" 'hydra-org-time/body)
    #+END_SRC
@@ -4257,11 +4278,11 @@ bbdb-merge-records=.
 
      (use-package gscholar-bibtex
        :init
-     (setq gscholar-bibtex-database-file "/Users/lehvasho/Documents/latex/all.bib")
-     (setq gscholar-bibtex-default-source "Google Scholar")
+       (setq gscholar-bibtex-database-file "/Users/lehvasho/Documents/latex/all.bib")
+       (setq gscholar-bibtex-default-source "Google Scholar")
        :config
-     (set-face-attribute 'gscholar-bibtex-title nil
-                         :height 1.1
+       (set-face-attribute 'gscholar-bibtex-title nil
+                           :height 1.1
                            :foreground "blue"))
    #+END_SRC
 
@@ -4589,8 +4610,8 @@ bbdb-merge-records=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-    (when (window-system)
-      (server-start))
+     (when (window-system)
+       (server-start))
 
      (use-package edit-server
        :ensure t
