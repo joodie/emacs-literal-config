@@ -11,20 +11,17 @@
 
 * How to use this configuration
 
-  I copied this section directly from Joost except the section /Editing this
-  document/ ([[Editing this document]]) is new.
-
 ** Obtaining the source
 
-   You can find the latest public version of the configuration in [[https://github.com/heikkil/emacs-literal-config/][the
+   You can find the latest public version of the configuration in [[https://github.com/heikkil/emacs-literal-config/][my
    Github repository]]. The meat of it (and the source of this
    document) is the ~emacs.org~ file.
 
 ** Installation
 
-   This configuration can be to be installable from scratch. It
-   uses [[https://github.com/cask/cask][Cask]] to specify the package dependencies. [[https://github.com/rdallasgray/pallet][Pallet]] syncs the
-   actual installed packages with the dependency spec.
+   This configuration is installable from scratch. It uses [[https://github.com/cask/cask][Cask]] to
+   specify the package dependencies. [[https://github.com/rdallasgray/pallet][Pallet]] syncs the actual installed
+   packages with the dependency spec.
 
 ** Installation procedure
 
@@ -33,6 +30,7 @@
   - Clone [[https://github.com/heikkil/emacs-literal-config][the repository]] as ~$HOME/.emacs.d~ (or symlink it to that
     directory).
   - Run ~cask install~ in ~$HOME/.emacs.d~
+  - Make sure ~$HOME/.emacs.el~ does not exist
   - Start Emacs
 
 ** Issues installing
@@ -43,10 +41,6 @@
 
   - Emacs should load this configuration without errors in a vanilla
     environment. Let me know it this is not the case.
-
-  - The =*Messages*= buffer shows missing dependencies with lines
-    starting with "ERROR: ". Read the corresponding section below for
-    instructions to install the dependencies.
 
 ** Upgrading and installing emacs packages
 
@@ -59,9 +53,15 @@
    this Document]) or upgrade your packages, you are strongly advised to
    note it down to a changelog file (see [ChangeLog mode]).
 
-   New packages are usually installed using command =list-packages= to
-   show the available ones and select the ones to include. The new
-   ones are automatically added to your [[file:Cask][Cask]] file for tracking.
+   New packages are usually installed using command =package-install=
+   that is given the package name as an argument. This automatically
+   adds them to the [[file:Cask][Cask]] file for tracking.
+
+   A new version of this file is detected by emacs at start up. The
+   file =~/.emacs.d/init.el= contains the code for using cask and
+   converting this org file to the corresponding emacs listp file,
+   =~/emacs.d/emacs.el=. Conversion takes some time, but it is only
+   done when the file has changed.
 
 *** Paradox
 
@@ -131,9 +131,9 @@
    code blocks.
 
    The best way to edit existing code blocks is to open a separate
-   buffer for it by placing the cursor in it and pressing C-c '.
+   buffer for it by placing the cursor in it and pressing =C-c '​=.
    After editing, activate the code =M-x eval-buffer= and exit
-   the buffer with C-c '.
+   the buffer with =C-c '​=.
 
    If you want to get a better understanding what any lisp code below
    do, view it in a lisp buffer, place the cursor at the word, and
@@ -170,7 +170,6 @@
    encoding, fonts and highlights. Also, see =M-x what-face=.
 
 *** TODO Unicode
-
     - Xah Lee's [[http://ergoemacs.org/emacs/emacs_n_unicode.html][Unicode]] page for easy copy and paste.
     - Draw Unicode characters [[http://shapecatcher.com/][online]].
     - Enter Unicode characters in hexadecimal or named: =C-x 8<Enter>=.
@@ -762,7 +761,7 @@
   |--------+-------------------------------------------+------------------------------|
   | esc    | evil-normal-state                         | [[Evil mode]]                    |
   | 2      | 2048-game                                 | [[2048-game]]                    |
-  | =      | er/expand-region                          | [[Expand region]]                |
+  | =      |                                           |                                  |
   | a      | org-agenda                                | [[Org Mode]]                     |
   | b      | my/quick-url-note                         | [[URL copying]]                  |
   | c      | org-capture                               | [[Org Mode]]                     |
@@ -808,6 +807,7 @@
   | M-;         | comment-dwim-2                 | [[Commenting]]                   |
   | C-backspace | kill-line 0                    | [[Local navigation in a buffer]] |
   | M-j         | (join-line -1)                 | [[Local navigation in a buffer]] |
+  | C-=         | er/expand-region               | [[Expand region]]                |
   | C-a         | smarter-move-beginning-of-line | [[Local navigation in a buffer]] |
   | s-p         | mac-print-buffer               | [[Printing]]                     |
 
@@ -1373,7 +1373,7 @@
        "
         ^Wcheck^             ^Check^      [Language: %`ispell-current-dictionary]
       ^^-----------------------------------------------------------
-        _t_: toggle            _n_: next exx
+        _t_: toggle            _n_: next error
         _c_: change language   _k_: correct and add to abbrev
          a   actions           _i_: insert to personal list
         _q_uit                 _u_: insert, uncapitalize and insert
@@ -1390,8 +1390,7 @@
 
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
-     ;; Set aspell as the spell program
-     (setq ispell-program-name "aspell")
+     (setq ispell-program-name "aspell") ;; checker engine
 
      ;; Speed up aspell: ultra | fast | normal
      (setq ispell-extra-args '("--sug-mode=ultra"))
@@ -2113,8 +2112,8 @@
 
 ** Lisps
 
-   For lisp code, I want ParEdit plus general highlighting and
-   realtime "aggressive" indenting.
+   For lisp code, I want ParEdit and realtime "aggressive" indenting.
+   ElDoc shows arguments to function under cursor.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -2165,10 +2164,10 @@
 
    Now that I am using =use-package= macro to configure packages, it
    is useful to see what the configuration macro actually does.
-   [[https://github.com/joddie/macrostep][Macrostep]] package defined keys to expand and collapse macros one
+   [[https://github.com/joddie/macrostep][Macrostep]] package defines keys to expand and collapse macros one
    level at a time. Run =macrostep-expand= with =C-c m=.
 
-   | Keys       | Desckription          |
+   | Keys       | Description           |
    |------------+-----------------------|
    | e, =, RET  | expand                |
    | c, u, DEL  | collapse              |
@@ -2181,7 +2180,6 @@
      (use-package macrostep
        :bind ("C-c m" . macrostep-expand))
    #+END_SRC
-
 
 ** Clojure
 
