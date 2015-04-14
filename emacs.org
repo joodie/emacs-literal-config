@@ -180,11 +180,10 @@
        "Same as C-x 8 enter UNICODE-NAME."
        (insert-char (cdr (assoc-string unicode-name (ucs-names)))))
 
-     (bind-key
-      "C-x 9"
-      '(defhydra hydra-unicode (:hint nil)
+     (bind-key "C-x 9" 'hydra-unicode/body)
+     (defhydra hydra-unicode (:hint nil)
          "
-             Unicode  _e_ €  _s_ ZERO WIDTH SPACE
+      Unicode  _e_ €  _s_ 0W SPACE
                       _f_ ♀  _o_ °   _m_ µ
                       _r_ ♂  _a_ →
              "
@@ -194,7 +193,7 @@
          ("s" (my/insert-unicode "ZERO WIDTH SPACE"))
          ("o" (my/insert-unicode "DEGREE SIGN"))
          ("a" (my/insert-unicode "RIGHTWARDS ARROW"))
-         ("m" (my/insert-unicode "MICRO SIGN"))))
+       ("m" (my/insert-unicode "MICRO SIGN")))
    #+END_SRC
 
 ** Reduce clutter
@@ -3639,6 +3638,7 @@ bbdb-merge-records=.
      (org-clock-persistence-insinuate)
      (setq org-log-note-clock-out t)
 
+     (bind-key "C-c w" 'hydra-org-time/body)
      (defhydra hydra-org-time (:color blue :hint nil)
        "
      Clock  _i_n           _t_odo
@@ -3657,7 +3657,6 @@ bbdb-merge-records=.
        ("d" org-clock-display)
        ("r" org-clock-report)
        ("w" (find-file "~/Dropbox/org/work.org")))
-     (bind-key "C-c w" 'hydra-org-time/body)
    #+END_SRC
 
    See [[http://orgmode.org/manual/Clocking-work-time.html][Clocking work time]].
