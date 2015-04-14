@@ -2466,7 +2466,7 @@
 
    [[https://github.com/bbatsov/projectile][Projectile]] automatically defines a project for any git repository.
    It indexes files and makes it possible to search files and contents
-   within a project.
+   within a project. See it's list of commands with =C-c p ?=
 
 #+name: local-navigation
 #+BEGIN_SRC emacs-lisp
@@ -2474,15 +2474,11 @@
     :ensure t
     :defer t
     :diminish projectile-mode
-    ;;:init (setq projectile-keymap-prefix (kbd "C-c p"))
+    :init
+    (setq projectile-file-exists-remote-cache-expire nil)
     :config
-    ;;(setq projectile-completion-system 'default)
-    (setq projectile-enable-caching t)
     (projectile-global-mode))
 #+END_SRC
-
-
-
 
 ** Narrowing
 

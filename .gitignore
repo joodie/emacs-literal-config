@@ -28,3 +28,5 @@ image-dired
 /speed-type/
 /target/
 /org-clock-save.el
+/projectile-bookmarks.eld
+/projectile.cache
