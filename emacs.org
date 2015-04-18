@@ -3053,7 +3053,7 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
        :bind ("C-c f" . elfeed)
-       ;; :bind-keymap (:map elfeed-search-mode-map
+       ;;:bind-keymap (:map elfeed-search-mode-map
        ;;                    ("1" . elfeed-read-news ))
        :init
        (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
@@ -3065,7 +3065,6 @@ bbdb-merge-records=.
          (interactive)
          (mark-whole-buffer)
          (elfeed-search-untag-all-unread))
-       (bind-key "R" 'elfeed-mark-all-as-read elfeed-search-mode-map)
 
        (defun elfeed--read-tag (filter tag)
          "Template for filtering various feed categories.
@@ -3084,7 +3083,6 @@ bbdb-merge-records=.
          "Show all new titles (except sport)"
          (interactive)
          (elfeed--read-tag my/default-elfeed-search-filter "all"))
-       (bind-key "0" 'elfeed-read-all elfeed-search-mode-map)
 
        (defun elfeed--remove-sports ()
          "Remove sports articles from world news"
@@ -3098,13 +3096,31 @@ bbdb-merge-records=.
          (interactive)
          (elfeed--remove-sports)
          (elfeed--read-tag "@1-month-ago +unread +n " "news"))
-       (bind-key "1" 'elfeed-read-news elfeed-search-mode-map)
 
        (defun elfeed-read-journals ()
          "Show scientific news from major journals"
          (interactive)
          (elfeed--read-tag "@1-month-ago +unread +j " "journals"))
-       (bind-key "2" 'elfeed-read-journals elfeed-search-mode-map))
+
+       (defun elfeed-show-link-title ()
+         "Copy the current entry title and URL as org link to the clipboard."
+         (interactive)
+         (let* ((link (elfeed-entry-link elfeed-show-entry))
+               (title (elfeed-entry-title elfeed-show-entry))
+               (titlelink (concat "[[" link "][" title "]]")))
+           (when titlelink
+             (kill-new titlelink)
+             (x-set-selection 'PRIMARY titlelink)
+             (message "Yanked: %s" titlelink))))
+
+       (bind-keys :map elfeed-search-mode-map
+                  ("R" . elfeed-mark-all-as-read)
+                  ("0" . elfeed-read-all)
+                  ("1" . elfeed-read-news)
+                  ("2" . elfeed-read-journals))
+       (bind-keys :map elfeed-show-mode-map
+                  ("l" . elfeed-show-link-title)))
+
    #+END_SRC
 
 ** Twitter
