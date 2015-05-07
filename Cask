@@ -91,6 +91,7 @@
 (depends-on "noflet")
 (depends-on "nose")
 (depends-on "org-autolist")
+(depends-on "org-bullets")
 (depends-on "org-dropbox")
 (depends-on "org-mac-link")
 (depends-on "org-page")

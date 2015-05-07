@@ -3787,8 +3787,11 @@ bbdb-merge-records=.
 
 ** Checkboxes in HTML
 
-   This snippet (from [[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org][Sacha.org]]) turns - [X] into ☑ and - [ ] into ☐,
+   The first snippet (from [[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org][Sacha.org]]) turns - [X] into ☑ and - [ ] into ☐,
    but leaves [-] alone in HTML export.
+
+   The second uses [[https://github.com/sabof/org-bullets][org-bullets]] to beautify org header bullets with
+   pretty UTF-8 characters.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -3797,7 +3800,11 @@ bbdb-merge-records=.
       '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
                  (off . "<span class=\"task-todo\">&#x2610;</span>")
                  (trans . "<span class=\"task-in-progress\">[-]</span>"))))
-   #+END_SRC
+
+     (use-package org-bullets
+       :ensure t
+       :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+END_SRC
 
 ** Org Babel
 
