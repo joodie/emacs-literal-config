@@ -562,7 +562,7 @@
     (setq version-control t)  ;; make numbered backups
     (setq backup-by-copying t)
     (setq kept-new-versions 6)
-    (setq kept-old-versions 2)
+    (setq kept-old-versions 10)
     (setq delete-old-versions t)
     ;; Save all backup files in this directory.
     (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
