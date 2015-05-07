@@ -3725,22 +3725,21 @@ bbdb-merge-records=.
      (bind-key "C-c w" 'hydra-org-time/body)
      (defhydra hydra-org-time (:color blue :hint nil)
        "
-     Clock  _i_n           _t_odo
-            _x_ in-last    _j_ump to head
-            _o_ut          _d_isplay
-            _q_uit         _r_eport
-            _e_dit         _w_ork file open
+    Clock   In/out^     ^Edit^   ^Summary     (_?_)
+    -----------------------------------------
+            _i_n         _e_dit   _g_oto entry
+            _c_ontinue   _q_uit   _d_isplay
+            _o_ut        ^ ^      _r_eport
           "
        ("i" org-clock-in)
        ("o" org-clock-out)
-       ("x" org-clock-in-last)
+       ("c" org-clock-in-last)
        ("e" org-clock-modify-effort-estimate)
-       ("t" org-todo)
        ("q" org-clock-cancel)
-       ("j" org-clock-goto)
+       ("g" org-clock-goto)
        ("d" org-clock-display)
        ("r" org-clock-report)
-       ("w" (find-file "~/Dropbox/org/work.org")))
+       ("?" (org-info "Clocking commands")))
    #+END_SRC
 
    See [[http://orgmode.org/manual/Clocking-work-time.html][Clocking work time]].
