@@ -1713,6 +1713,17 @@
    - =C-u n C-x e= run the macro n times
    - =C-x C-k C-e= edit last macro
 
+** Buffers
+
+   A more functional buffer listing comes from =ibuffer=. The
+   following makes normal =list-buffer= or =C-x C-b= call ibuffer. Check
+   the new menu lists Operate, View and Mark.
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (defalias 'list-buffers 'ibuffer) ; make ibuffer default
+  #+END_SRC
+
 * Version control
 
 ** Magit
