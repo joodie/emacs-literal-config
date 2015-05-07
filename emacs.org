@@ -3419,13 +3419,16 @@ bbdb-merge-records=.
     | q          | Kill buffer                     | (xkcd-kill-buffer)              |
     | <right>    | Load next xkcd                  | (xkcd-next)                     |
     | <left>     | Load previous xkcd              | (xkcd-prev)                     |
-    | o          | Show strip in browser           | (xkcd-open-browser)             |
+    | o/b        | Show strip in browser           | (xkcd-open-browser)             |
     | e          | Show explanation to strip       | (xkcd-open-explanation-browser) |
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package xkcd
        :bind ("C-c x" . xkcd))
+       :config
+       (bind-keys :map xkcd-mode-map
+                  ("b" . xkcd-open-browser))
    #+END_SRC
 
 *** 2048-game
