@@ -1679,6 +1679,19 @@
    file names like any text. The familiar =C-c C-c= commits the
    changes.
 
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    ;;http://mbork.pl/2015-04-25_Some_Dired_goodies
+    ;;
+    ;; file type association to a program
+    (setq dired-guess-shell-alist-user
+          '(("\\.pdf\\'" "skim")
+            ("\\.tex\\'" "pdflatex")
+            ("\\.ods\\'\\|\\.xlsx?\\'\\|\\.docx?\\'\\|\\.csv\\'" "libreoffice")))
+    ;; open a file replacing the current dired buffer
+    (put 'dired-find-alternate-file 'disabled nil)
+  #+END_SRC
+
 ** Image mode
 
    Recent emacsen can show images in directly in buffers. The
