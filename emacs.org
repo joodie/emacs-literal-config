@@ -50,7 +50,7 @@
          (when (not (equal 'default f))
            (set-face-attribute f nil :height 1.0))))
 
-     (load-theme 'leuven t)
+     (load-theme 'leuven)
      (add-hook 'after-init-hook
                'single-font-size)
 
@@ -65,7 +65,7 @@
    #+BEGIN_SRC emacs-lisp
      (set-face-attribute 'default nil
                          :family "Inconsolata"
-                         :height 130
+                         :height 150
                          :weight 'normal
                          :width 'normal)
 
@@ -74,7 +74,7 @@
                          'unicode
                          (font-spec :family "DejaVu Sans Mono"
                                     :width 'normal
-                                    :size 12.4
+                                    :size 15.5
                                     :weight 'normal)))
 
    #+END_SRC
@@ -110,8 +110,9 @@
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (when (window-system)
-       (require 'git-gutter-fringe)
-       (global-git-gutter-mode +1))
+       (require 'git-gutter-fringe))
+
+     (global-git-gutter-mode +1)
 
      (setq-default indicate-buffer-boundaries 'left)
      (setq-default indicate-empty-lines +1)
@@ -134,6 +135,15 @@
    #+BEGIN_SRC emacs-lisp
      (setq display-time-24hr-format t)
      (display-time-mode +1)
+   #+END_SRC
+
+   There's a lot of modes that I don't need to see.
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'after-init-hook
+                  (lambda ()
+                    (dolist (m '(projectile company git-gutter eldoc paredit))
+                               (diminish (my/->mode m) ""))))
    #+END_SRC
 
 ** Scrolling behavior
@@ -196,6 +206,12 @@
        (xterm-mouse-mode +1))
    #+END_SRC
 
+** Prefer single frames
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+   #+END_SRC
+
 * Start up
 
   Start with an empty scratch buffer in org mode; no start up screen.
@@ -227,11 +243,21 @@
 
     (global-set-key "\C-cn" 'my/clean-buffer-formatting)
 
+    ;; by default,
+    ;; highlight trailing whitespace
+    ;; and show form-feed chars as horizontal rules
+
     (defun my/general-formatting-hooks ()
-      (setq show-trailing-whitespace 't))
+      (setq show-trailing-whitespace 't)
+      (my/turn-on 'form-feed))
 
     (dolist (mode-hook (my/normal-mode-hooks))
       (add-hook mode-hook 'my/general-formatting-hooks))
+
+    (defun fixup-json ()
+      "Re-indent json buffers with broken literal strings. Needs jsonpp installed (available using homebrew)"
+      (interactive)
+      (shell-command-on-region (point-min) (point-max) "sed -e ':a' -e 'N' -e '$!ba' -e 's/\\n/ /g'|jsonpp"  nil t))
   #+END_SRC
 
 ** Text (non-code) formatting
@@ -248,6 +274,20 @@
                'my/text-formatting-hooks)
    #+END_SRC
 
+* Folding
+  #+name: folding
+  #+BEGIN_SRC emacs-lisp
+
+    (require 'outshine)
+    (setq outshine-use-speed-commands t)
+    (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
+    (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
+    (add-hook 'clojure-mode-hook 'outline-minor-mode)
+
+    (require 'poporg)
+    (global-set-key "\C-c'" 'poporg-dwim)
+
+  #+END_SRC
 * Programming
 ** General programming
 
@@ -319,10 +359,21 @@
      (setq my/lisps
            '(emacs-lisp lisp clojure))
 
+     ;;  Install local bindings for paredit that work under ssh/terminal
+     (require 'paredit)
+     (define-key paredit-mode-map
+       (kbd "C-c s <right>")
+       'paredit-forward-slurp-sexp)
+
+     (define-key paredit-mode-map
+       (kbd "C-c s <left>")
+       'paredit-forward-barf-sexp)
+
      (defun my/general-lisp-hooks ()
        (my/turn-on 'paredit
                    'rainbow-delimiters
-                   'highlight-parentheses))
+                   'highlight-parentheses
+                   'aggressive-indent))
 
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
        (add-hook mode
@@ -446,8 +497,14 @@
      (setq js-indent-level 2)
    #+END_SRC
 
-   
 
+** CSS
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'css-mode-hook
+               'rainbow-mode)
+
+   #+END_SRC
 ** Compilation mode improvements
 
 *** ANSI Colors
@@ -470,6 +527,13 @@
     #+BEGIN_SRC emacs-lisp
      (setq compilation-scroll-output t)
     #+END_SRC
+* Dired
+   #+name: dired
+  Make dired-move and friends default to "other dired window" if there
+  is one.
+   #+BEGIN_SRC emacs-lisp
+     (setq dired-dwim-target t)
+   #+END_SRC
 * TODO Auto Complete
 
   Getting auto completion to work right tends to be a messy process of
@@ -511,34 +575,6 @@
     (global-set-key "\C-cx" 'er/expand-region)
     (global-set-key "\C-ct" 'git-timemachine)
     (global-set-key "\C-s" 'isearch-forward-regexp)
-  #+END_SRC
-* God Mode
-  See https://github.com/chrisdone/god-mode
-
-  
-  #+name: global-keys
-  #+BEGIN_SRC emacs-lisp
-    ;; let's try god mode!
-    (require 'god-mode)
-
-    (global-set-key (kbd "<escape>") 'god-mode-all)
-    (define-key god-local-mode-map (kbd "i") 'god-mode-all)
-    (global-set-key (kbd "C-x C-1") 'delete-other-windows)
-    (global-set-key (kbd "C-x C-2") 'split-window-below)
-    (global-set-key (kbd "C-x C-3") 'split-window-right)
-    (global-set-key (kbd "C-x C-0") 'delete-window)
-
-    (defun my/update-god-mode-indicator ()
-      (if god-local-mode
-          (progn (set-face-background 'mode-line "yellow"))
-        (progn (set-face-background 'mode-line "#ccc"))))
-
-    (add-hook 'god-mode-enabled-hook 'my/update-god-mode-indicator)
-    (add-hook 'god-mode-disabled-hook 'my/update-god-mode-indicator)
-
-    (add-to-list 'god-exempt-major-modes 'cider-repl-mode)
-
-    (god-mode)
   #+END_SRC
 * Magit
   When tracking a branch from a remote, use the same name.
@@ -680,7 +716,7 @@
 
 *** Fontifying source blocks
 
-    Enable yntax highlighting in src blocks.
+    Enable syntax highlighting in src blocks.
     #+name: org-config
     #+BEGIN_SRC emacs-lisp
       (setq-default org-src-fontify-natively t)
@@ -792,6 +828,12 @@
      (add-to-list 'my/org-babel-evaluated-languages 'plantuml)
    #+END_SRC
 
+** Exporting to slides
+   #+BEGIN_SRC emacs-lisp
+     (require 'ox-latex)
+     (require 'ox-beamer)
+   #+END_SRC
+   
 * Configuration file layout
 
   Here I define the emacs.el file that gets generated by the code in
@@ -805,12 +847,15 @@
     ;;;; If you cannot find the `emacs.org` file, see the source
     ;;;; repository at https://github.com/joodie/emacs-literal-config
 
+    (defvar outline-minor-mode-prefix "\M-#")
     <<environment>>
     <<tools>>
+    <<folding>>
     <<customize-config>>
     <<look-and-feel>>
     <<formatting>>
     <<programming-setup>>
+    <<dired>>
     <<auto-complete>>
     <<global-keys>>
     <<global-navigation>>
@@ -847,7 +892,9 @@
 
      (defun my/set-modes (arg mode-list)
        (dolist (m mode-list)
-         (funcall (my/->mode m) arg)))
+         (if (fboundp (my/->mode m))
+             (funcall (my/->mode m) arg)
+           (message "No mode %s found" m))))
 
      (defun my/turn-on (&rest mode-list)
        "Turn on the given (minor) modes."
