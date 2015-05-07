@@ -1,25 +1,15 @@
 ;;-*-coding: utf-8;-*-
-(define-abbrev-table '2048-mode-abbrev-table '())
-
 (define-abbrev-table 'Buffer-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'Custom-mode-abbrev-table '())
-
 (define-abbrev-table 'Info-edit-mode-abbrev-table '())
-
-(define-abbrev-table 'Man-mode-abbrev-table '())
 
 (define-abbrev-table 'TeX-error-overview-mode-abbrev-table '())
 
 (define-abbrev-table 'TeX-output-mode-abbrev-table '())
 
-(define-abbrev-table 'apropos-mode-abbrev-table '())
-
 (define-abbrev-table 'awk-mode-abbrev-table
   '(
    ))
-
-(define-abbrev-table 'bbdb-mode-abbrev-table '())
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
@@ -40,8 +30,6 @@
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
 (define-abbrev-table 'change-log-mode-abbrev-table '())
-
-(define-abbrev-table 'checkdoc-output-mode-abbrev-table '())
 
 (define-abbrev-table 'cider-docview-mode-abbrev-table '())
 
@@ -107,8 +95,6 @@
 
 (define-abbrev-table 'diff-mode-abbrev-table '())
 
-(define-abbrev-table 'dig-mode-abbrev-table '())
-
 (define-abbrev-table 'display-time-world-mode-abbrev-table '())
 
 (define-abbrev-table 'doctex-mode-abbrev-table '())
@@ -116,8 +102,6 @@
 (define-abbrev-table 'edebug-eval-mode-abbrev-table '())
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
-
-(define-abbrev-table 'elisp-byte-code-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
 
@@ -272,15 +256,7 @@ use Data::Printer;
 
 (define-abbrev-table 'latex-mode-abbrev-table '())
 
-(define-abbrev-table 'ledger-mode-abbrev-table '())
-
-(define-abbrev-table 'ledger-reconcile-mode-abbrev-table '())
-
-(define-abbrev-table 'ledger-report-mode-abbrev-table '())
-
 (define-abbrev-table 'lisp-mode-abbrev-table '())
-
-(define-abbrev-table 'load-path-shadows-mode-abbrev-table '())
 
 (define-abbrev-table 'log-edit-mode-abbrev-table '())
 
@@ -304,8 +280,6 @@ use Data::Printer;
 
 (define-abbrev-table 'magit-wazzup-mode-abbrev-table '())
 
-(define-abbrev-table 'markdown-mode-abbrev-table '())
-
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
@@ -315,8 +289,6 @@ use Data::Printer;
 (define-abbrev-table 'nrepl-connections-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'nrepl-messages-mode-abbrev-table '())
-
-(define-abbrev-table 'nxml-mode-abbrev-table '())
 
 (define-abbrev-table 'objc-mode-abbrev-table
   '(
@@ -384,8 +356,6 @@ use Data::Printer;
   '(
    ))
 
-(define-abbrev-table 'plain-tex-mode-abbrev-table '())
-
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
@@ -400,12 +370,6 @@ use Data::Printer;
 
 (define-abbrev-table 'reb-mode-abbrev-table '())
 
-(define-abbrev-table 'ruby-compilation-mode-abbrev-table '())
-
-(define-abbrev-table 'ruby-mode-abbrev-table '())
-
-(define-abbrev-table 'scss-mode-abbrev-table '())
-
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
 (define-abbrev-table 'sgml-mode-abbrev-table '())
@@ -414,25 +378,11 @@ use Data::Printer;
 
 (define-abbrev-table 'shell-mode-abbrev-table '())
 
-(define-abbrev-table 'slitex-mode-abbrev-table '())
-
-(define-abbrev-table 'smime-mode-abbrev-table '())
-
-(define-abbrev-table 'snippet-mode-abbrev-table '())
-
 (define-abbrev-table 'special-mode-abbrev-table '())
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
-
-(define-abbrev-table 'tar-mode-abbrev-table '())
-
-(define-abbrev-table 'term-mode-abbrev-table '())
-
-(define-abbrev-table 'tex-mode-abbrev-table '())
-
-(define-abbrev-table 'tex-shell-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 
@@ -443,8 +393,6 @@ use Data::Printer;
 (define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
-
-(define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
 
 (define-abbrev-table 'xkcd-mode-abbrev-table '())
 
