@@ -4695,14 +4695,14 @@ bbdb-merge-records=.
     ignore other apps and use directly the chrome link through command
     =org-mac-chrome-insert-frontmost-url=.
 
-    I've combined those all commands and bound them to =C-c b=.
+    I've combined those all commands and bound them to =C-c v=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (use-package org-mac-link
        :ensure t
        :if (eq system-type 'darwin)
-       :bind ("C-c b" . my/quick-url-note)
+       :bind ("C-c v" . my/quick-url-note)
        :config
        (defun my/quick-url-note ()
          "Fastest way to capture a web page link"
