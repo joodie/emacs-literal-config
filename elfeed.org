@@ -38,6 +38,7 @@
 **** http://nowheremag.com/feed/
 ** Design                                                                  :d:
 *** http://feeds.feedburner.com/InformationIsBeautiful
+*** http://causticcovercritic.blogspot.co.uk/feeds/posts/default
 ** Comics                                                                  :c:
 *** http://kimmo.suominen.com/stuff/vw.xml
 *** http://kimmo.suominen.com/stuff/fingerpori.xml
@@ -47,7 +48,7 @@
 ** Friends                                                                 :f:
 *** http://heikkil.github.io/rss.xml
 *** http://soloalgunaspalabras.wordpress.com/feed/
-*** http://tamara-kulikova.blogspot.coqm/feeds/posts/default
+*** http://tamara-kulikova.blogspot.com/feeds/posts/default
 *** http://kaustbirding.blogspot.com/atom.xml
 *** http://listenlearnread.blogspot.com/feeds/posts/default
 *** http://madebytamarak.blogspot.com.es/atom.xml
