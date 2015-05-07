@@ -459,8 +459,8 @@
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (bind-key "M-s-<down>" 'scroll-down)
-     (bind-key "M-s-<up>" 'scroll-up)
+     (bind-key "M-s-<up>" 'scroll-down)
+     (bind-key "M-s-<down>" 'scroll-up)
      (bind-key "M-s-<right>" 'scroll-other-window)
      (bind-key "M-s-<left>" #'(lambda () (interactive) (scroll-other-window '-)))
    #+END_SRC
