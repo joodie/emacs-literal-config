@@ -182,17 +182,17 @@
 
      (bind-key "C-x 9" 'hydra-unicode/body)
      (defhydra hydra-unicode (:hint nil)
-         "
+       "
       Unicode  _e_ €  _s_ 0W SPACE
-                      _f_ ♀  _o_ °   _m_ µ
-                      _r_ ♂  _a_ →
+               _f_ ♀  _o_ °   _m_ µ
+               _r_ ♂  _a_ →
              "
-         ("e" (my/insert-unicode "EURO SIGN"))
-         ("r" (my/insert-unicode "MALE SIGN"))
-         ("f" (my/insert-unicode "FEMALE SIGN"))
-         ("s" (my/insert-unicode "ZERO WIDTH SPACE"))
-         ("o" (my/insert-unicode "DEGREE SIGN"))
-         ("a" (my/insert-unicode "RIGHTWARDS ARROW"))
+       ("e" (my/insert-unicode "EURO SIGN"))
+       ("r" (my/insert-unicode "MALE SIGN"))
+       ("f" (my/insert-unicode "FEMALE SIGN"))
+       ("s" (my/insert-unicode "ZERO WIDTH SPACE"))
+       ("o" (my/insert-unicode "DEGREE SIGN"))
+       ("a" (my/insert-unicode "RIGHTWARDS ARROW"))
        ("m" (my/insert-unicode "MICRO SIGN")))
    #+END_SRC
 
@@ -760,7 +760,7 @@
   |--------+-------------------------------------------+------------------------------|
   | esc    | evil-normal-state                         | [[Evil mode]]                    |
   | 2      | 2048-game                                 | [[2048-game]]                    |
-  | =      |                                           |                                  |
+  | =      |                                           |                              |
   | a      | org-agenda                                | [[Org Mode]]                     |
   | b      | my/quick-url-note                         | [[URL copying]]                  |
   | c      | org-capture                               | [[Org Mode]]                     |
@@ -3132,8 +3132,6 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
        :bind ("C-c f" . elfeed)
-       ;;:bind-keymap (:map elfeed-search-mode-map
-       ;;                    ("1" . elfeed-read-news ))
        :init
        (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
        (setq-default elfeed-search-filter my/default-elfeed-search-filter)
@@ -3148,10 +3146,10 @@ bbdb-merge-records=.
        (defun elfeed--read-tag (filter tag)
          "Template for filtering various feed categories.
 
-              FILTER is the filter string to apply, and TAG is a short name of
-              the displayed category.
+                    FILTER is the filter string to apply, and TAG is a short name of
+                    the displayed category.
 
-              The cursor is moved to the beginning of the first feed line."
+                    The cursor is moved to the beginning of the first feed line."
          (setq elfeed-search-filter filter)
          (elfeed-search-update :force)
          (goto-char (point-min))
@@ -3195,7 +3193,7 @@ bbdb-merge-records=.
          (interactive)
          (let* ((link (elfeed-entry-link entry))
                 (title (elfeed-entry-title entry))
-               (titlelink (concat "[[" link "][" title "]]")))
+                (titlelink (concat "[[" link "][" title "]]")))
            (when titlelink
              (kill-new titlelink)
              (x-set-selection 'PRIMARY titlelink)
@@ -3219,7 +3217,7 @@ bbdb-merge-records=.
        (bind-keys :map elfeed-show-mode-map
                   ("b" . elfeed-show-visit)
                   ("l" . elfeed-show-link-title)
-                  ("v" . elfeed-show-quick-url-note)))
+                  ("v" . elfeed-show-quick-url-note))
 
        ;; search mode
 
@@ -3253,7 +3251,7 @@ bbdb-merge-records=.
                   ("2" . elfeed-read-journals)
                   ("3" . elfeed-read-archaeology)
                   ("l" . elfeed-search-link-title)
-                  ("v" . elfeed-search-quick-url-note))
+                  ("v" . elfeed-search-quick-url-note)))
    #+END_SRC
 
 ** Twitter
@@ -3493,10 +3491,10 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package xkcd
-       :bind ("C-c x" . xkcd))
+       :bind ("C-c x" . xkcd)
        :config
        (bind-keys :map xkcd-mode-map
-                  ("b" . xkcd-open-browser))
+                  ("b" . xkcd-open-browser)))
    #+END_SRC
 
 *** 2048-game
@@ -3790,8 +3788,8 @@ bbdb-merge-records=.
      (org-clock-persistence-insinuate)
      (setq org-log-note-clock-out t)
 
-     (bind-key "C-c w" 'hydra-org-time/body)
-     (defhydra hydra-org-time (:color blue :hint nil)
+     (bind-key "C-c w" 'hydra-org-clock/body)
+     (defhydra hydra-org-clock (:color blue :hint nil)
        "
     Clock   In/out^     ^Edit^   ^Summary     (_?_)
     -----------------------------------------
@@ -3932,9 +3930,9 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (setq org-html-checkbox-type 'unicode)
      (setq org-html-checkbox-types
-      '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
-                 (off . "<span class=\"task-todo\">&#x2610;</span>")
-                 (trans . "<span class=\"task-in-progress\">[-]</span>"))))
+           '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
+                      (off . "<span class=\"task-todo\">&#x2610;</span>")
+                      (trans . "<span class=\"task-in-progress\">[-]</span>"))))
 
      (use-package org-bullets
        :ensure t
