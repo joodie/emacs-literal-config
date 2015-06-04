@@ -1659,6 +1659,25 @@
 
    Remember: =C-x ;= sets the comment column (comment-set-column)
 
+   This draws a comment box to that is the width of the fill column
+   around the selected region.
+
+   #+BEGIN_SRC emacs-lisp
+     ;;http://irreal.org/blog/?p=374
+     (defun jcs-comment-boxs (b e)
+       "Draw a box comment around the region but arrange for the region
+     to extend to at least the fill column. Place the point after the
+     comment box."
+       (interactive "r")
+       (let ((e (copy-marker e t)))
+         (goto-char b)
+         (end-of-line)
+         (insert-char ?  (- fill-column (current-column)))
+         (comment-box b e 1)
+         (goto-char e)
+         (set-marker e nil)))
+   #+END_SRC
+
 ** Editing as root
 
   If you open a file that you do not have permissions to edit, you can
