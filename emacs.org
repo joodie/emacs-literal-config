@@ -3305,6 +3305,7 @@ bbdb-merge-records=.
            (unless (use-region-p) (forward-line))))
 
        (bind-keys :map elfeed-search-mode-map
+                  ("=" . elfeed-update)
                   ("R" . elfeed-mark-all-as-read)
                   ("0" . elfeed-read-all)
                   ("1" . elfeed-read-news)
