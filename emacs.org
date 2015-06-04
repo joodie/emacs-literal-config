@@ -613,13 +613,14 @@
     (bind-key "C-x t" 'hydra-toggle/body)
     (defhydra hydra-toggle (:color blue :hint nil)
       "
-         toggle _a_bbrev-mode             _p_retty entities
-                _d_ebug-on-error          t_r_uncate-lines
-                _f_olding                 white_s_pace-mode
-                _i_edit                   neo_t_ree
-                _n_arrowing               _v_: string inflection
-                _l_inum-mode              _w_ritegood-mode
-                _k_: spelling language    _q_uit
+         toggle _a_bbrev-mode             _o_rg link display
+                _d_ebug-on-error          _p_retty entities
+                _f_olding                 t_r_uncate-lines
+                _i_edit                   white_s_pace-mode
+                _n_arrowing               neo_t_ree
+                _l_inum-mode              _v_: string inflection
+                _k_: spelling language    _w_ritegood-mode
+                                          _q_uit
               "
       ("a" abbrev-mode )
       ("d" toggle-debug-on-error)
@@ -628,6 +629,7 @@
       ("n" narrow-or-widen-dwim)
       ("l" my/global-linum-mode)
       ("k" cycle-ispell-languages :color red)
+      ("o" org-toggle-link-display)
       ("p" org-toggle-pretty-entities)
       ("r" toggle-truncate-lines)
       ("s" whitespace-mode)
