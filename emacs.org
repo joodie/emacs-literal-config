@@ -1664,7 +1664,7 @@
 
    #+BEGIN_SRC emacs-lisp
      ;;http://irreal.org/blog/?p=374
-     (defun jcs-comment-boxs (b e)
+     (defun jcs-comment-box (b e)
        "Draw a box comment around the region but arrange for the region
      to extend to at least the fill column. Place the point after the
      comment box."
@@ -2255,7 +2255,7 @@
    #+END_SRC
 
    In my emacs lisp programming I am using the *Names* package that
-   enables namespaces. The following sets debugging tools up to
+   enables namespaces. The following sets up debugging tools to
    recognize these namespaces:
 
    #+NAME: programming-setup
