@@ -3461,6 +3461,18 @@ bbdb-merge-records=.
        (add-hook 'ediff-after-quit-hook-internal 'winner-undo))
    #+END_SRC
 
+** Word definition
+
+   [[http://oremacs.com/2015/05/22/define-word/][Define-word]] ([[http://oremacs.com/2015/05/22/define-word/][blog]]) gives English definitions to words under cursor.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (use-package define-word
+       :ensure t
+       :bind (("C-c j" . define-word-at-point)
+              ("C-c J" . define-word)))
+   #+END_SRC
+
 ** Phonetic alphabet
 
    [[http://en.wikipedia.org/wiki/NATO_phonetic_alphabet][NATO
