@@ -729,14 +729,14 @@
     (defhydra hydra-launch (:color blue :hint nil)
       "
     launch _2_048           _l_ink chrome   _p_aradox
-           _c_: quick-calc  _n_ato-region   _q_: paradox upgrade
+           _c_: calfw       _n_ato-region    _q_: paradox upgrade
            _e_diff-buffers  de_N_ato        _t_imemachine git
            _g_scholar-bib   _r_e-builder    _w_3m at point
            _h_owdoi         e_s_hell        _?_: emacsExchange
-           tw_i_tter        ^ ^             G_\+_ emacs
+           tw_i_tter        _=_: quick-calc  G_\+_ emacs
           "
       ("2" 2048-game)
-      ("c" quick-calc)
+      ("c" my/calendar)
       ("e" ediff-buffers)
       ("g" gscholar-bibtex)
       ("h" howdoi-query)
@@ -750,6 +750,7 @@
       ("q" paradox-upgrade-packages)
       ("t" git-timemachine)
       ("w" browse-url-at-point)
+      ("=" quick-calc)
       ("?" (browse-url "http://emacs.stackexchange.com/"))
       ("+" (browse-url "https://plus.google.com/communities/114815898697665598016")))
   #+END_SRC
@@ -3081,6 +3082,42 @@ bbdb-merge-records=.
               ;; list all the subscribed groups even they contain zero un-read messages
               (lambda () (local-set-key "o" 'my-gnus-group-list-subscribed-groups ))))
 #+END_SRC
+
+** Calender
+   [[ttps://github.com/kiwanami/emacs-calfw][Emacs-calf]] gives the look of Google Calendar as well as links to it
+   and integrates org agenda entries.
+
+   My private function =my/calendar= is bound to incantation "Emacs,
+   launch calendar" =C-x l c=.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (use-package calfw
+       :ensure t
+       :init
+       (setq cfw:fchar-junction ?╬
+             cfw:fchar-vertical-line ?║
+             cfw:fchar-horizontal-line ?═
+             cfw:fchar-left-junction ?╠
+             cfw:fchar-right-junction ?╣
+             cfw:fchar-top-junction ?╦
+             cfw:fchar-top-left-corner ?╔
+             cfw:fchar-top-right-corner ?╗)
+        ;; First day of the week
+        (setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
+       :config
+       (use-package calfw-org)
+       (use-package calfw-ical)
+       (defun my/calendar ()
+         (interactive)
+         (cfw:open-calendar-buffer
+          :contents-sources
+          (list
+           (cfw:org-create-source "Blue")  ; org-mode source
+           (cfw:ical-create-source "TripIt" my-tripit-ical "Green")  ; TripIt ICS, set in ~/.emacs.secrets.el
+           (cfw:ical-create-source "gcal" my-gcal-ical "IndianRed")  ; google calendar ICS, set in ~/.emacs.secrets.el
+           ))))
+   #+END_SRC
 
 ** News feed reader
 
