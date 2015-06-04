@@ -3430,6 +3430,21 @@ bbdb-merge-records=.
        :bind ("C-c o" . hydra-blog/body))
    #+END_SRC
 
+** Process management
+
+   The package [[https://github.com/emacsmirror/vkill][vkill]] makes it possible to kill UNIX processes from
+   emacs. This package works under OS X, too.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (use-package vkill
+       :ensure t
+       :config
+       (autoload 'vkill "vkill" nil t)
+       (autoload 'list-unix-processes "vkill" nil t))
+   #+END_SRC
+
+
 ** Ediff
 
    [[http://oremacs.com/2015/01/17/setting-up-ediff/][Better defaults]] for ediff.
