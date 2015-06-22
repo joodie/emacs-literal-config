@@ -50,7 +50,7 @@
          (when (not (equal 'default f))
            (set-face-attribute f nil :height 1.0))))
 
-     (load-theme 'leuven)
+     (load-theme 'leuven t)
      (add-hook 'after-init-hook
                'single-font-size)
 
@@ -128,6 +128,9 @@
      (sml/apply-theme 'light)
      (setq sml/shorten-directory t)
      (setq sml/shorten-modes t)
+     (nyan-mode +1)
+     (setq nyan-wavy-trail nil)
+     (setq nyan-animate-nyancat t)
    #+END_SRC
 
    I like to see the current time.
@@ -178,20 +181,6 @@
    #+BEGIN_SRC emacs-lisp
      (require 'uniquify)
      (setq uniquify-buffer-name-style 'forward)
-   #+END_SRC
-
-** Window configuration
-   Using sticky windows means I can keep a selected window visible
-   (using "C-x 9") when deleting windows (with "C-x 0" and "C-x 1").
-
-   #+NAME: look-and-feel
-   #+BEGIN_SRC emacs-lisp
-     (require 'sticky-windows)
-
-     (global-set-key     [(control x) (?0)]        'sticky-window-delete-window)
-     (global-set-key     [(control x) (?1)]        'sticky-window-delete-other-windows)
-     (global-set-key     [(control x) (?9)]        'sticky-window-keep-window-visible)
-
    #+END_SRC
 
 ** Window systems and terminals.
@@ -274,20 +263,6 @@
                'my/text-formatting-hooks)
    #+END_SRC
 
-* Folding
-  #+name: folding
-  #+BEGIN_SRC emacs-lisp
-
-    (require 'outshine)
-    (setq outshine-use-speed-commands t)
-    (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
-    (add-hook 'emacs-lisp-mode-hook 'outline-minor-mode)
-    (add-hook 'clojure-mode-hook 'outline-minor-mode)
-
-    (require 'poporg)
-    (global-set-key "\C-c'" 'poporg-dwim)
-
-  #+END_SRC
 * Programming
 ** General programming
 
@@ -527,6 +502,14 @@
     #+BEGIN_SRC emacs-lisp
      (setq compilation-scroll-output t)
     #+END_SRC
+* Database client
+Don't wrap lines (query rows) when working with a database.
+#+NAME: databases
+#+BEGIN_SRC emacs-lisp
+(add-hook 'sql-interactive-mode-hook
+          (lambda ()
+            (toggle-truncate-lines t)))
+#+END_SRC
 * Dired
    #+name: dired
   Make dired-move and friends default to "other dired window" if there
@@ -578,9 +561,10 @@
   #+END_SRC
 * Magit
   When tracking a branch from a remote, use the same name.
-  #+name: magit
+  #+name: programming-setup
   #+BEGIN_SRC emacs-lisp
-    (setq magit-default-tracking-name-function #'magit-default-tracking-name-branch-only)
+        (setq magit-default-tracking-name-function #'magit-default-tracking-name-branch-only)
+    (setq magit-last-seen-setup-instructions "1.4.0")
   #+END_SRC
 * Global navigation
 
@@ -788,9 +772,9 @@
 
    #+name: org-config :noweb no-export
    #+BEGIN_SRC emacs-lisp
-     (defvar my/org-babel-evaluated-languages
-       '(emacs-lisp)
-       "List of languages that may be evaluated in Org documents")
+     ;; List of languages that may be evaluated in Org documents
+     (setq my/org-babel-evaluated-languages
+       '(emacs-lisp sh))
 
      <<org-config-languages>>
 
@@ -850,7 +834,7 @@
     (defvar outline-minor-mode-prefix "\M-#")
     <<environment>>
     <<tools>>
-    <<folding>>
+    <<databases>>
     <<customize-config>>
     <<look-and-feel>>
     <<formatting>>
