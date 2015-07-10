@@ -1775,7 +1775,7 @@
   window(s).
 
   Magit automatically updates the buffer of each file that changes at
-  commit. I do not have to see the default /MRev/ mode line indicator.
+  commit.
 
   See [[http://shingofukuyama.github.io/emacs-magit-reword-commit-messages/][this post]] for a tutorial of commit message editing with magit.
 
@@ -1785,21 +1785,7 @@
       :bind ("C-c g" . magit-status)
       :config
       (setq magit-diff-options '("-b")) ; ignore whitespace
-      ;; full screen magit-status
-      (defadvice magit-status (around magit-fullscreen activate)
-        (window-configuration-to-register :magit-fullscreen)
-        ad-do-it
-        (delete-other-windows))
-
-      (defun magit-quit-session ()
-        "Restores the previous window configuration and kills the magit buffer"
-        (interactive)
-        (kill-buffer)
-        (jump-to-register :magit-fullscreen))
-
-      ;; hide MREv mode line indicator
-      (add-hook 'magit-status-mode-hook
-                (lambda () (diminish 'magit-auto-revert-mode))))
+      )
   #+END_SRC
 
 ** git-timemachine
