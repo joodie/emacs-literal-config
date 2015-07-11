@@ -2004,10 +2004,12 @@
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
+     (setq auto-mode-alist
+           (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
      (use-package fish-mode
-       :mode ("\\.load$'" "\\.zsh$"))
+       :mode ("\\.load$'"))
    #+END_SRC
-
+shell-script
 ** NEURON
 
    NEURON is a high level programming language for computational
