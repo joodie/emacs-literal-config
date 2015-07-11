@@ -1770,7 +1770,7 @@
   dedicated modes: git-commit-mode, gitconfig-mode, git-rebase-mode,
   and gitignore-mode.
 
-  From any buffer linked to git controlled file, press =C-c g= to
+  From any buffer linked to a git controlled file, press =C-c g= to
   enter magit status window. Pressing =q= restores the previous
   window(s).
 
@@ -3397,7 +3397,7 @@ bbdb-merge-records=.
 
        ;; set up my own theme since a sans option does not exist
        (setq op/theme-root-directory "~/src/org-page/heikkil.github.io/themes")
-       (setq op/theme 'sans)  ; mdo is default, phaer is simpler and uses serif fonts
+       (setq op/theme 'sans) ; mdo is default, phaer is simpler and uses serif fonts
        :config
        (defhydra hydra-blog (:color blue :hint nil)
          "
