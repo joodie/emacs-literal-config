@@ -2088,14 +2088,19 @@
    Github and especially BitBucket use =markdown mode= for
    documentation, so my Emacs knows about it. GitHub knows how to
    render =org-mode= documents, too, so this mode is not getting much
-   use.
+   use. [[http://joostkremers.github.io/pandoc-mode/][pandoc-mode]] is a general purpose export formatter and uses hydra =C-c /=.
 
    My =org-mode= is configured to export to markdown format.
 
  #+name: text-files
   #+BEGIN_SRC emacs-lisp
+    (use-package pandoc-mode
+          :ensure t)
     (use-package markdown-mode
-          :mode  ("\\.md" "\\.markdown"))
+          :ensure t
+          :mode  ("\\.md" "\\.markdown")
+          :config
+          (add-hook 'markdown-mode-hook 'pandoc-mode))
   #+END_SRC
 
 ** Ledger
