@@ -85,6 +85,7 @@
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (use-package paradox
+       :ensure t
        :config
        (setq paradox-github-token t)
        (setq paradox-execute-asynchronously t)
@@ -233,6 +234,7 @@
    #+BEGIN_SRC emacs-lisp
      (when (window-system)
        (use-package git-gutter-fringe
+         :ensure t
          :config
          (global-git-gutter-mode +1)
          (setq-default indicate-buffer-boundaries 'left)
@@ -895,6 +897,7 @@
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
     (use-package evil
+      :ensure t
       :init
       (setq evil-default-state 'normal)
       (setq evil-emacs-state-cursor    '("red" bar))
@@ -976,6 +979,7 @@
                       (set-face-foreground 'mode-line (cdr color))))))
 
       (use-package evil-surround
+        :ensure t
         :config
         (global-evil-surround-mode 1)))
   #+END_SRC
@@ -1170,6 +1174,7 @@
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
       (use-package expand-region
+        :ensure t
         :bind ("C-=" . er/expand-region))
     #+END_SRC
 
@@ -1359,7 +1364,8 @@
    variable", =C-x t v=.
 
    #+BEGIN_SRC emacs-lisp
-     (use-package string-inflection)
+     (use-package string-inflection
+       :ensure t)
    #+END_SRC
 
 ** TODO Spell checking
@@ -1718,6 +1724,7 @@
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
      (use-package comment-dwim-2
+       :ensure t
        :bind "M-;")
    #+END_SRC
 
@@ -1878,6 +1885,12 @@
   | W   | copy the full version hash  |
   | q   | quit                        |
 
+  #+name: version-control
+  #+BEGIN_SRC emacs-lisp
+    (use-package git-timemachine
+      :ensure t)
+  #+END_SRC
+
 * Text files
 ** Writing style
 
@@ -1889,6 +1902,7 @@
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
      (use-package writegood-mode
+       :ensure t
        :bind
        ("C-c C-g g" . writegood-grade-level)
        ("C-c C-g e" . writegood-reading-ease))
@@ -1901,6 +1915,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package languagetool-mode
        :disabled t
+       :ensure t
        :bind (("C-x 4 w" . langtool-check)
               ("C-x 4 W" . langtool-check-done)
               ("C-x 4 l" . langtool-switch-default-language)
@@ -1953,6 +1968,7 @@
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package linum-relative
+       :ensure t
        :init
        ;; show absolute line number for the current line
        (setq linum-relative-current-symbol ""))
@@ -2242,6 +2258,7 @@
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package plenv
+       :ensure t
        :config
        (condition-case nil
            (plenv-global "5.20.1")
@@ -2253,6 +2270,7 @@
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package cperl-mode
+       :ensure t
        :mode "\\.\\([pP][Llm]\\|al\\)\\'"
        :interpreter ("perl" "perl5" "miniperl")
        :config
@@ -2338,6 +2356,7 @@
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package paredit
+       :ensure t
        :if (eq system-type 'darwin)
        :no-require t
        :config
@@ -2377,6 +2396,7 @@
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package macrostep
+       :ensure t
        :bind ("C-c m" . macrostep-expand))
    #+END_SRC
 
@@ -2404,6 +2424,7 @@
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package cider
+       :ensure t
        :config
        (defun my/cider-mode-hooks ()
          "Clojure specific setup code that should only be run when we
@@ -2533,7 +2554,9 @@
      ;; Try to make completions when not typing
      (global-semantic-idle-completions-mode 1)
      ;; Use the Semantic speedbar additions
-     (add-hook 'speedbar-load-hook (lambda () (use-package semantic/sb)))
+     (add-hook 'speedbar-load-hook
+               (lambda () (use-package semantic/sb
+                       :ensure t)))
      ;; Treat .h files as C++ files (instead of C)
      (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
      ;; Run compile when you press F5
@@ -2551,9 +2574,11 @@
   #+NAME: auto-complete
   #+BEGIN_SRC emacs-lisp
     (use-package fuzzy
-      :defer t)
+       :ensure t
+       :defer t)
 
     (use-package auto-complete
+      :ensure t
       :init (setq ac-auto-show-menu t
                   ac-quick-help-delay 0.5
                   ac-use-fuzzy t)
@@ -2797,7 +2822,8 @@ too.
 
    #+name: execute-last
    #+BEGIN_SRC emacs-lisp
-     (use-package framemove)
+     (use-package framemove
+       :ensure t)
 
      (windmove-default-keybindings)
      (setq windmove-wrap-around t)
@@ -2911,6 +2937,7 @@ too.
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package neotree
+       :ensure t
        :init (setq neo-smart-open t) ; always change focus to current buffer
        :config
        ;; fix evil mode key conflicts
@@ -2930,6 +2957,7 @@ too.
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package recentf
+       :ensure t
        :if (not noninteractive)
        :bind ( "C-x C-r" . recentf-open-files)
        :init
@@ -2955,6 +2983,7 @@ too.
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package ido
+       :ensure t
        :init
        (setq ido-everywhere t)
        ;; disable ido faces to see flx highlights.
@@ -2965,6 +2994,7 @@ too.
        (ido-mode 1)
        (use-package flx-ido
          ;; display any item that contains the chars you typed
+         :ensure t
          :init (setq ido-enable-flex-matching t)
          (flx-ido-mode 1)))
 
@@ -3046,6 +3076,8 @@ bbdb-merge-records=.
 #+name: apps
 #+BEGIN_SRC emacs-lisp
   (use-package nnir
+    :disabled t
+    :ensure t
     :config
     ;; ask encyption password once
     (setq epa-file-cache-passphrase-for-symmetric-encryption t)
@@ -3106,6 +3138,7 @@ bbdb-merge-records=.
 
     ;; BBDB: Address list
     (use-package bbdb
+      :ensure t
       :if (file-exists-p "/usr/share/emacs/site-lisp/bbdb")
       :load-path "/usr/share/emacs/site-lisp/bbdb"
       :init
@@ -3277,11 +3310,14 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
+       :ensure t
        :bind ("C-c f" . elfeed)
        :init
        (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
        (setq-default elfeed-search-filter my/default-elfeed-search-filter)
        :config
+       (use-package elfeed-org
+         :ensure t)
        (elfeed-org)
        (defun elfeed-mark-all-as-read ()
          "Mark currently shown articles read"
@@ -3424,6 +3460,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package twittering-mode
+       :ensure t
        :init
        (setq twittering-use-master-password t)
        (setq twittering-icon-mode t)           ; show icons
@@ -3452,6 +3489,7 @@ bbdb-merge-records=.
      (setq browse-url-browser-function 'w3m-browse-url)
      (setq browse-url-browser-function 'browse-url-default-browser)
      (use-package w3m
+       :ensure t
        :defer t
        :init (setq w3m-use-cookies t)
        :config (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t))
@@ -3478,6 +3516,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package org-page
+       :ensure t
        :init
        (setq op/repository-directory "~/src/org-page/heikkil.github.io")
        (setq op/site-domain "http://heikkil.github.io")
@@ -3569,7 +3608,10 @@ bbdb-merge-records=.
        :ensure t
        :bind (("C-c j" . define-word-at-point)
               ("C-c J" . define-word)))
-   #+END_SRC
+
+     (use-package osx-dictionary
+       :ensure t)
+ #+END_SRC
 
 ** Phonetic alphabet
 
@@ -3597,6 +3639,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package re-builder
+       :ensure t
        :defer 5
        :init
        (setq reb-re-syntax 'string))
@@ -3640,6 +3683,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package howdoi
+       :ensure t
        :defer 5)
    #+END_SRC
 
@@ -3662,6 +3706,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package xkcd
+       :ensure t
        :bind ("C-c x" . xkcd)
        :config
        (bind-keys :map xkcd-mode-map
@@ -3676,6 +3721,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package 2048-game
+       :ensure t
        :defer 5)
    #+END_SRC
 
@@ -3730,6 +3776,7 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (use-package suomalainen-kalenteri
+       :ensure t
        :init (setq org-agenda-start-on-weekday 1)) ;; 1 is default
      ;; speed-ups
      (setq org-agenda-inhibit-startup t)
@@ -4595,6 +4642,7 @@ bbdb-merge-records=.
            (quote ("/Users/lehvasho/Documents/latex/all.bib")))
 
      (use-package gscholar-bibtex
+       :ensure t
        :init
        (setq gscholar-bibtex-database-file "/Users/lehvasho/Documents/latex/all.bib")
        (setq gscholar-bibtex-default-source "Google Scholar")
@@ -4872,6 +4920,7 @@ bbdb-merge-records=.
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (use-package mac-print-mode
+       :ensure t
        :disabled t
        :if (eq system-type 'darwin)
        :bind ("s-p" . mac-print-buffer)
