@@ -2051,9 +2051,13 @@
      (setq auto-mode-alist
            (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
      (use-package fish-mode
-       :mode ("\\.load$'"))
+       :ensure t)
+     ;;:mode ("\\.load$'")
    #+END_SRC
-shell-script
+
+   Note: Setting fish/mode for =.load= configuration files unexplicably
+   messes up org captures. Removed the setting for now.
+
 ** NEURON
 
    NEURON is a high level programming language for computational
