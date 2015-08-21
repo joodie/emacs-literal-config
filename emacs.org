@@ -2174,6 +2174,28 @@
                'executable-make-buffer-file-executable-if-script-p)
    #+END_SRC
 
+   [[https://github.com/Malabarba/aggressive-indent-mode][Malabarba/aggressive-indent-mode]] continuously updates indentation
+   as you type. I've enabled this only on some programming languages.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (use-package aggressive-indent
+       :ensure t)
+   #+END_SRC
+
+   [[https://github.com/flycheck/flycheck][Flycheck]] does global syntax checking for most programming
+   languages. See [[https://www.masteringemacs.org/article/spotlight-flycheck-a-flymake-replacement][MasterEmacs]] for a good article.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (use-package flycheck
+       :ensure t
+       :config
+       (add-hook 'after-init-hook #'global-flycheck-mode))
+   #+END_SRC
+
+(add-hook? 'after-init-hook #'global-flycheck-mode)
+
 ** Perl
 
    I recently moved from [[http://perlbrew.pl/][perlbrew]] to [[https://github.com/tokuhirom/plenv][plenv]] as a system that provides
