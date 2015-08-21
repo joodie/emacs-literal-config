@@ -1325,7 +1325,7 @@
        (yas-global-mode 1))
    #+END_SRC
 
-** TODO Fixing DOuble capitals
+** Fixing DOuble capitals
 
    Painless way to avoid double capitals in the beginning of words
    from [[http://endlessparentheses.com/fixing-double-capitals-as-you-type.html][Endless Parentheses] and [[http://emacs.stackexchange.com/questions/13970/fixing-double-capitals-as-i-type/13975#13975][Emacs StackExchange]].
