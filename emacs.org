@@ -1241,12 +1241,8 @@
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
      (use-package abbrev
-       :disabled nil
        :commands abbrev-mode
-       :diminish Abbr
-       :init
-       (hook-into-modes #'abbrev-mode '(text-mode-hook cperl-mode-hook))
-
+       ;;:diminish Abbr
        :config
        (progn
          (if (file-exists-p abbrev-file-name)
@@ -2190,6 +2186,7 @@ shell-script
                cperl-indent-parens-as-block t
                cperl-tab-always-indent t)
          (my/turn-on 'show-paren-mode
+                     'abbrev-mode
                      'aggressive-indent-mode
                      'flyspell-prog-mode))
        (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t))
