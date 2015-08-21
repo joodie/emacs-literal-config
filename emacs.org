@@ -1810,13 +1810,26 @@
 
   See [[http://shingofukuyama.github.io/emacs-magit-reword-commit-messages/][this post]] for a tutorial of commit message editing with magit.
 
+  [[Iiral][http://irreal.org/blog/?p=4279]] gives hints how to configure the
+  latest (2.1) magit.
+
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
     (use-package magit
+      :ensure t
       :bind ("C-c g" . magit-status)
       :config
+      ;;(add-to-list 'magit-no-confirm 'stage-all-changes)
+      (setq magit-push-always-verify nil)
       (setq magit-diff-options '("-b")) ; ignore whitespace
-      )
+      (setq magit-last-seen-setup-instructions "2.1.0"))
+
+    (use-package git-commit)
+    (use-package git-gutter)
+    (use-package git-gutter-fringe)
+    (use-package gitattributes-mode)
+    (use-package gitconfig-mode)
+    (use-package gitignore-mode)
   #+END_SRC
 
 ** git-timemachine
