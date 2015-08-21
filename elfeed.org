@@ -9,6 +9,7 @@
 *** http://feeds.bbci.co.uk/news/technology/rss.xml
 *** http://feeds.bbci.co.uk/news/health/rss.xml
 *** http://www.bbc.com/culture/feed.rss
+*** http://bruxelles.blogs.liberation.fr/feeds/
 ** News in Science Journals                                               :j:
 *** http://feeds.nature.com/NatureNewsComment?format=xml
 *** http://news.sciencemag.org/rss/weekly_news_email.xml
@@ -37,7 +38,6 @@
 *** Travel                                                                :t:
 **** http://nowheremag.com/feed/
 ** Design                                                                  :d:
-*** http://feeds.feedburner.com/InformationIsBeautiful
 *** http://causticcovercritic.blogspot.co.uk/feeds/posts/default
 ** Comics                                                                  :c:
 *** http://kimmo.suominen.com/stuff/vw.xml
