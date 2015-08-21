@@ -2907,7 +2907,7 @@ too.
                recentf-max-menu-items 35)))
    #+END_SRC
 
-   I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
+   I like ~ido~ for narrowing down files, commands, buffers
    etc. The ido mode is also used to give better interface to
    =recentf=, =C-c r=.
 
@@ -2945,27 +2945,13 @@ too.
      (bind-key "C-c r" 'recentf-ido-find-file)
    #+END_SRC
 
-   Tell smex that [[http://www.emacswiki.org/emacs/Smex][space inserts '-']] like is customary when typing
-   function names in the echo space.
-
-   #+name: global-navigation
-   #+BEGIN_SRC emacs-lisp
-     (defadvice smex (around space-inserts-hyphen activate compile)
-           (let ((ido-cannot-complete-command
-                  `(lambda ()
-                     (interactive)
-                     (if (string= " " (this-command-keys))
-                         (insert ?-)
-                       (funcall ,ido-cannot-complete-command)))))
-             ad-do-it))
-   #+END_SRC
-
    When I open a file again, I like emacs to show me the place I
    was last time.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package saveplace
+       :ensure t
        :init (setq-default save-place t))
    #+END_SRC
 
