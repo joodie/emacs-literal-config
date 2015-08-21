@@ -4372,7 +4372,7 @@ bbdb-merge-records=.
 
    #+name: org-config-languages
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'R)
+     ;;(add-to-list 'my/org-babel-evaluated-languages 'R)
    #+END_SRC
 
 *** Diagramming
