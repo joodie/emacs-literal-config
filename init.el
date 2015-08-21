@@ -5,7 +5,10 @@
 ;;standalone cask
 ;;(require 'cask "~/.cask/cask.el")
 ;; OSX: cask from homebrew
-(require 'cask "/usr/local/share/emacs/site-lisp/cask.el")
+;;(require 'cask "/usr/local/share/emacs/site-lisp/cask.el")
+(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
+(require 'cask)
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
