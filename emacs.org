@@ -4109,8 +4109,6 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-src-fontify-natively 't)
-     (set-face-attribute 'org-block-background nil
-                         :background "#f0f0e8")
    #+END_SRC
 
    Use the =minted= package for syntax highlighting source blocks in
