@@ -1265,9 +1265,9 @@
 
    To use it, you place a template using bracket or quotes in the first
    8 lines of a file. The time stamp value will be automatically added
-   and updated between these delimiters. Typically, the line can start
+   and updated between these delimiters. Often, the line is started
    with a comment character to mask it from the program processing the
-   file.
+   file, e.g.:
 
    #+BEGIN_EXAMPLE
     Time-stamp: <>
@@ -1275,7 +1275,7 @@
    #+END_EXAMPLE
 
    =insert-buffer-name= does what the name says. This sort of
-   metafunction does not really fix in any other category, so I list it
+   metafunction does not really fit in any other category, so I list it
    here among abbreviations. Incidently, renaming a buffer is simply
    =M-x rename-buffer=.
 
@@ -2166,7 +2166,7 @@
 * Programming
 
    This applies to any scripting language file that starts with a
-   shebang: the code make those files executable on saving.
+   shebang: the code makes those files executable on saving.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -3177,8 +3177,8 @@ bbdb-merge-records=.
              cfw:fchar-top-junction ?╦
              cfw:fchar-top-left-corner ?╔
              cfw:fchar-top-right-corner ?╗)
-        ;; First day of the week
-        (setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
+       ;; First day of the week
+       (setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
        :config
        (use-package calfw-org)
        (use-package calfw-ical)
