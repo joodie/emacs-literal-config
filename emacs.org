@@ -598,6 +598,25 @@
 
 * Key bindings
 
+  Emacs commands are defined by their names. Many interactive commands
+  have default keybindings but they can are supposed to be modified by
+  the user. [[https://github.com/justbur/emacs-which-key][which-key]] is a package that shows currently available key
+  bindings interactively after a delay of 1 second.
+
+  My settings use a large separate frame to show the key bindings. If
+  keys exceed available space, =C-h= scrolls the list.
+
+  #+name: key-bindings
+  #+BEGIN_SRC emacs-lisp
+    (use-package which-key
+      :ensure t
+      :config
+      (which-key-mode)
+      (setq which-key-popup-type 'frame)
+      (setq which-key-frame-max-width 160)  ; number of columns
+      (setq which-key-frame-max-height 40)) ; number of lines
+  #+END_SRC
+
   The Endless Parentheses blog shows how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic keymaps]].
   You just do the incantation "Emacs, toggle narrowing" by pressing
   =C-x t n=!

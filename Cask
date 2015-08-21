@@ -133,6 +133,8 @@
 (depends-on "w3m")
 (depends-on "wcheck-mode")
 (depends-on "web")
+(depends-on "which-key")
+(depends-on "with-editor")
 (depends-on "wn-mode")
 (depends-on "writegood-mode")
 (depends-on "xkcd")
