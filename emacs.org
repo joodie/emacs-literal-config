@@ -1109,6 +1109,19 @@
 
 * Editing
 
+** White-space
+
+   The default binding of =M-Space= is ==, but that function can be
+   replaced by =shrink-whitespace= to include cycling through removing
+   multiple new-lines.
+
+    #+name: text-files
+    #+BEGIN_SRC emacs-lisp
+      (use-package shrink-whitespace
+        :ensure t
+        :bind ("M-SPC" . shrink-whitespace))
+    #+END_SRC
+
 ** Selecting text
 
    Usually, you can selected ("mark") text by =S-<arrow>= keys, but in

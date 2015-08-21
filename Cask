@@ -118,6 +118,7 @@
 (depends-on "regex-tool")
 (depends-on "reveal-in-finder")
 (depends-on "s")
+(depends-on "shrink-whitespace")
 (depends-on "shut-up")
 (depends-on "simple-httpd")
 (depends-on "smex")
