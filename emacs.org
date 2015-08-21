@@ -2324,7 +2324,8 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (use-package names-dev)
+     (use-package names
+       :ensure t)
    #+END_SRC
 
    Now that I am using =use-package= macro to configure packages, it
