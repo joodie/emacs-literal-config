@@ -2842,28 +2842,30 @@ too.
      (defun my/edit-emacs-configuration ()
        (interactive)
        (find-file "~/.emacs.d/emacs.org"))
-     (bind-key "C-c e" 'my/edit-emacs-configuration)
+          (bind-key "C-c e" 'my/edit-emacs-configuration)
 
-     ;; I often want to add more comments to the last note
-     (defun my/last-captured-org-note ()
-       "Move to the end of penultimate line of the last org capture note."
-       (interactive)
-       (find-file "~/Dropbox/org/reference.org")
-       (end-of-buffer)
-       (forward-line -2)
-       (org-end-of-line))
+          ;; I often want to add more comments to the last note
+          (defun my/last-captured-org-note ()
+            "Move to the end of penultimate line of the last org capture note."
+            (interactive)
+            (find-file "~/Dropbox/org/reference.org")
+            (end-of-buffer)
+            (forward-line -2)
+            (org-end-of-line))
 
      (bind-key "C-c z" 'hydra-goto/body)
      (defhydra hydra-goto (:color blue :hint nil)
        "
-       goto   file                        info
-              --------------------------------------
-              _e_macs.org                 _o_rg
-              _r_eference.org: last note
-              _w_ork.org
-           "
+            goto   buffer                      info
+                   --------------------------------------
+                   _e_macs.org                 _o_rg
+                   _r_eference.org: last note
+                   _s_cratch
+                   _w_ork.org
+                "
        ("e" (find-file "~/.emacs.d/emacs.org"))
        ("r" my/last-captured-org-note)
+       ("s" (switch-to-buffer "*scratch*"))
        ("w" (find-file "~/Dropbox/org/work.org"))
        ("o" org-info))
 
