@@ -1227,6 +1227,9 @@
        (bind-key "s-c" 'xah-copy-line-or-region))
    #+END_SRC
 
+   TODO: An other way of doing the same:
+   http://pragmaticemacs.com/emacs/cut-or-copy-current-line-with-easy-kill/
+
 ** Abbreviations
 
    Emacs comes with =abbrev-mode= that is able to replace typed strings
