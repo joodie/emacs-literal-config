@@ -3491,10 +3491,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package vkill
-       :ensure t
-       :config
-       (autoload 'vkill "vkill" nil t)
-       (autoload 'list-unix-processes "vkill" nil t))
+       :ensure t)
    #+END_SRC
 
 
