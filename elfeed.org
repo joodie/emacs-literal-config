@@ -1,8 +1,5 @@
 #+STARTUP: indent
-* Blogs
-:PROPERTIES: 
- :ID: elfeed
- :END:
+* Blogs                                                              :elfeed:
 ** Daily News                                                             :n:
 *** http://feeds.bbci.co.uk/news/science_and_environment/rss.xml
 *** http://feeds.bbci.co.uk/news/world/rss.xml
@@ -31,6 +28,7 @@
 *** http://epidemic.bio.ed.ac.uk/rss.xml
 ** Archeology                                                              :a:
 *** http://feeds.feedburner.com/AncientOrigins?format=xml
+*** https://twilightbeasts.wordpress.com/feed/
 ** Writing and text
 *** Language                                                              :l:
 **** http://feeds.feedburner.com/nybooks
