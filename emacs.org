@@ -2613,6 +2613,44 @@
   #+END_SRC
 
 * Navigation
+
+** Searching
+
+   [[https://github.com/abo-abo/swiper][Swiper]] is a replacement for isearch that faster and easier to configure.
+
+   [[https://github.com/nonsequitur/smex][smex]] shows a list of most relevant and recent commands on =M-x=.
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (use-package swiper
+       :ensure t
+       :init
+       (setq ivy-use-virtual-buffers t)
+       (setq ivy-display-style 'fancy)
+       :config
+       (ivy-mode 1)
+       (bind-key "C-s" 'swiper)
+       (bind-key "C-r" 'swiper)
+       (bind-key "C-c C-r" 'ivy-resume)
+       (custom-set-faces
+        '(swiper-minibuffer-match-face-1
+          ((t :background "#dddddd")))
+        '(swiper-minibuffer-match-face-2
+          ((t :background "#bbbbbb" :weight bold)))
+        '(swiper-minibuffer-match-face-3
+          ((t :background "#bbbbff" :weight bold)))
+        '(swiper-minibuffer-match-face-4
+          ((t :background "#ffbbff" :weight bold)))))
+
+     (use-package swiper
+       :ensure counsel)
+
+     (use-package smex
+       :ensure t
+       :init
+       (bind-key "M-x" 'smex))
+   #+END_SRC
+
 ** TRAMP mode
 
    TRAMP mode allows opening remote files. It knows about ssh and
@@ -2724,6 +2762,7 @@
     :defer t
     :diminish projectile-mode
     :init
+    (setq projectile-completion-system 'ivy)
     (setq projectile-file-exists-remote-cache-expire nil)
     :config
     (projectile-global-mode))
@@ -3010,6 +3049,7 @@ too.
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package ido
+       :disabled t
        :ensure t
        :init
        (setq ido-everywhere t)
@@ -3025,14 +3065,14 @@ too.
          :init (setq ido-enable-flex-matching t)
          (flx-ido-mode 1)))
 
-     (defun recentf-ido-find-file ()
-       "Find a recent file using ido."
-       (interactive)
-       (let ((file (ido-completing-read
-                    "Choose recent file: " recentf-list nil t)))
-         (when file
-           (find-file file))))
-     (bind-key "C-c r" 'recentf-ido-find-file)
+     ;;defun recentf-ido-find-file ()
+     ;; "Find a recent file using ido."
+     ;; (interactive)
+     ;; (let ((file (ido-completing-read
+     ;;              "Choose recent file: " recentf-list nil t)))
+     ;;   (when file
+     ;;     (find-file file))))
+     ;;bind-key "C-c r" 'recentf-ido-find-file)
    #+END_SRC
 
    When I open a file again, I like emacs to show me the place I
@@ -4007,10 +4047,10 @@ bbdb-merge-records=.
      (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
      ;; Use IDO for both buffer and file completion and ido-everywhere to t
-     (setq org-completion-use-ido t)
-     (setq ido-everywhere t)
-     (setq ido-max-directory-size 100000)
-     (ido-mode (quote both))
+     ;;setq org-completion-use-ido t)
+     ;;setq ido-everywhere t)
+     ;;setq ido-max-directory-size 100000)
+     ;;ido-mode (quote both))
 
      ;; Refile settings
      ;; Exclude DONE state tasks from refile targets
