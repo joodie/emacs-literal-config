@@ -41,6 +41,7 @@
 (depends-on "ess")
 (depends-on "esup")
 (depends-on "evil")
+(depends-on "evil-matchit")
 (depends-on "evil-surround")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")

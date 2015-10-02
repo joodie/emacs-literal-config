@@ -890,6 +890,11 @@
   and delete triggers. These triggers can be characters (like quotes
   and brackets) or tags (HTML) around strings.
 
+  [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] adds binding of =%= to jump between any tags. It comes
+  with huge collection of recognized languages. =va%= selects lines
+  within tags, =da%= deletes, =3%= will jump to a line 3 percentage
+  down the file.
+
   | function | syntax                                 |
   |----------+----------------------------------------|
   | add      | y s <textobject> <trigger>             |
@@ -985,7 +990,13 @@
       (use-package evil-surround
         :ensure t
         :config
-        (global-evil-surround-mode 1)))
+        (global-evil-surround-mode 1))
+
+      (use-package evil-matchit
+        :ensure t
+        :config
+        (global-evil-matchit-mode 1)))
+
   #+END_SRC
 
 ** TODO evil tutor
