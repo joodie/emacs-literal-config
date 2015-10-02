@@ -2576,14 +2576,15 @@
      ;; Use the GDB visual debugging mode
      (setq gdb-many-windows t)
      ;; Turn Semantic on
+     ;;(require 'semantic/sb)
      (semantic-mode 1)
      ;; Try to make completions when not typing
      (global-semantic-idle-completions-mode 1)
      ;; Use the Semantic speedbar additions
-     (add-hook 'speedbar-load-hook
-               (lambda () (use-package semantic/sb
-                       :ensure t)))
-     ;; Treat .h files as C++ files (instead of C)
+     ;; (add-hook 'speedbar-load-hook
+     ;;           (lambda () (use-package semantic/sb
+     ;;                       :ensure t)))
+     ;; treat .h files as C++ files (instead of C)
      (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
      ;; Run compile when you press F5
      ;;(global-set-key (kbd "<f5>") 'compile)
