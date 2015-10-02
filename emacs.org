@@ -4920,6 +4920,8 @@ bbdb-merge-records=.
     somewhat limited in the BSD version in OS X. Install GNU programs
     with homebrew and point dired to =gls=.
 
+    Also, I prefer human readable file sizes.
+
     #+BEGIN_SRC sh
       brew install coreutils
     #+END_SRC
@@ -4928,6 +4930,7 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (when (eq system-type 'darwin)
        (setq insert-directory-program (executable-find "gls")))
+       (setq dired-listing-switches "-alh")
    #+END_SRC
 
 *** Printing
