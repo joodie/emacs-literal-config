@@ -11,6 +11,8 @@
 *** http://feeds.nature.com/NatureNewsComment?format=xml
 *** http://news.sciencemag.org/rss/weekly_news_email.xml
 *** http://feeds.newscientist.com/science-news
+*** http://www.technologyreview.com/biomedicine/rss/
+*** http://www.technologyreview.com/topnews.rss
 ** Computers
 *** Security                                                              :s:
 **** https://www.schneier.com/blog/atom.xml
