@@ -1550,7 +1550,7 @@
 
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
-     (setq ispell-program-name "aspell") ;; checker engine
+     (setq ispell-program-name "aspell") ; checker engine
 
      ;; Speed up aspell: ultra | fast | normal
      (setq ispell-extra-args '("--sug-mode=ultra"))
@@ -1595,7 +1595,7 @@
 
      (defun my/aspell-word-then-abbrev (p)
        "Call `ispell-word'. Then create an abbrev for the correction made.
-     With prefix P, create local abbrev. Otherwise it will be global."
+          With prefix P, create local abbrev. Otherwise it will be global."
        (interactive "P")
        (let ((bef (downcase (or (thing-at-point 'word) ""))) aft)
          (call-interactively 'ispell-word)
@@ -1614,41 +1614,84 @@
      (defun my/flyspell-save-word (&optional save-lowercase)
        "Save word to a personal dictionary.
 
-           The dictionary file depends on the used spell program. If the the first
-           argument SAVE-LOWERCASE is non-nil, save also lowercased word.
-          "
+                The dictionary file depends on the used spell program. If the the first
+                argument SAVE-LOWERCASE is non-nil, save also lowercased word.
+               "
        (interactive)
        (let ((current-location (point))
              (word (flyspell-get-word)))
          (when (consp word)
            (when (boundp save-lowercase)
-               (flyspell-do-correct
-                'save nil (downcase (car word)) current-location (cadr word)
-                (downcase (caddr word)) current-location))
              (flyspell-do-correct
-              'save nil (car word) current-location (cadr word)
-              (caddr word) current-location))))
+              'save nil (downcase (car word)) current-location (cadr word)
+              (downcase (caddr word)) current-location))
+           (flyspell-do-correct
+            'save nil (car word) current-location (cadr word)
+            (caddr word) current-location))))
+
+
+;; move point to previous error
+;; based on code by hatschipuh at
+;; http://emacs.stackexchange.com/a/14912/2017
+(defun flyspell-goto-previous-error (arg)
+  "Go to arg previous spelling error."
+  (interactive "p")
+  (while (not (= 0 arg))
+    (let ((pos (point))
+          (min (point-min)))
+      (if (and (eq (current-buffer) flyspell-old-buffer-error)
+               (eq pos flyspell-old-pos-error))
+          (progn
+            (if (= flyspell-old-pos-error min)
+                ;; goto beginning of buffer
+                (progn
+                  (message "Restarting from end of buffer")
+                  (goto-char (point-max)))
+              (backward-word 1))
+            (setq pos (point))))
+      ;; seek the next error
+      (while (and (> pos min)
+                  (let ((ovs (overlays-at pos))
+                        (r '()))
+                    (while (and (not r) (consp ovs))
+                      (if (flyspell-overlay-p (car ovs))
+                          (setq r t)
+                        (setq ovs (cdr ovs))))
+                    (not r)))
+        (backward-word 1)
+        (setq pos (point)))
+      ;; save the current location for next invocation
+      (setq arg (1- arg))
+      (setq flyspell-old-pos-error pos)
+      (setq flyspell-old-buffer-error (current-buffer))
+      (goto-char pos)
+      (if (= pos min)
+          (progn
+            (message "No more miss-spelled word!")
+            (setq arg 0))
+        (forward-word)))))
+     (bind-key "C-," 'flyspell-goto-previous-error)
 
      (setq flyspell-issue-message-flag nil)
 
      (bind-key "C-x '" 'hydra-flyspell/body)
-      (defhydra hydra-flyspell (:color pink :hint nil)
-        "
-       ^Flyspell^             ^Check^      [Language: %`ispell-current-dictionary]
-     ^^-----------------------------------------------------------
-       _n_: next error        _c_: correct
-       _t_: cycle languages   _k_: correct and add to abbrev
-       _q_uit                 _i_: insert to personal list
-       ^ ^                    _u_: insert, uncapitalize and insert
-     "
-        ("n" flyspell-goto-next-error)
-        ("t" cycle-ispell-languages)
-        ("q" nil :color blue)
+     (defhydra hydra-flyspell (:color pink :hint nil)
+       "
+            ^Flyspell^             ^Check^      [Language: %`ispell-current-dictionary]
+          ^^-----------------------------------------------------------
+            _n_: next error        _c_: correct
+            _t_: cycle languages   _k_: correct and add to abbrev
+            _q_uit                 _i_: insert to personal list
+            ^ ^                    _u_: insert, uncapitalize and insert
+          "
+       ("n" flyspell-goto-next-error)
+       ("t" cycle-ispell-languages)
+       ("q" nil :color blue)
 
-        ("c" ispell-word)
-        ("k" my/aspell-word-then-abbrev)
-        ("i" my/flyspell-save-word)
-        ("u" (my/flyspell-save-word t)))
+       ("c" ispell-word)
+       ("k" my/aspell-word-then-abbrev)
+       ("i" my/flyspell-save-word)
+       ("u" (my/flyspell-save-word t)))
    #+END_SRC
 
 ** TODO wcheck mode
@@ -1658,8 +1701,7 @@
   addition to standard flyspell.
 
   Sources:
-  - http://www.hillenius.com/blog/2013/11/09_writers-need-spell-checkers-wcheck-mode.html
-  - 
+ - http://www.hillenius.com/blog/2013/11/09_writers-need-spell-checkers-wcheck-mode.html
 
   #+NAME: spell-checker_________inactive
   #+BEGIN_SRC emacs-lisp
@@ -1773,7 +1815,7 @@
 
    Remember: =C-x ;= sets the comment column (comment-set-column)
 
-   This draws a comment box to that is the width of the fill column
+   This draws a comment box that is the width of the fill column
    around the selected region.
 
    #+BEGIN_SRC emacs-lisp
@@ -2083,13 +2125,14 @@
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
-    (auctex-latexmk-setup)
-    (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
+   ;;(use-package tex-site
+  ;;  :ensure auctex)
+     (auctex-latexmk-setup)
 
      (when (fboundp 'adaptive-wrap-prefix-mode)
        (defun my-activate-adaptive-wrap-prefix-mode ()
          "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' together,
-               and auto-fill-mode the opposite way."
+                and auto-fill-mode the opposite way."
          (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1))
          (auto-fill-mode (if visual-line-mode -1 1)))
        (add-hook 'visual-line-mode-hook 'my-activate-adaptive-wrap-prefix-mode))
@@ -2112,6 +2155,12 @@
      ;; spell checking on LaTeX buffers
      (add-hook 'latex-mode-hook 'flyspell-mode)
      (add-hook 'latex-mode-hook 'flyspell-buffer)
+
+     ;; latex-extra
+     (use-package latex-extra
+       :config
+       (add-hook 'LaTeX-mode-hook #'latex-extra-mode))
+
    #+END_SRC
 
 ** XML
@@ -2286,7 +2335,19 @@
        (add-hook 'after-init-hook #'global-flycheck-mode))
    #+END_SRC
 
-(add-hook? 'after-init-hook #'global-flycheck-mode)
+   [[https://github.com/syohex/emacs-quickrun][quickrun]]-package makes it easy to run any buffer with code in it.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (use-package quickrun
+       :ensure t
+       :config
+       (quickrun-add-command "perl"
+                             '((:command . "~/.plenv/shims/perl")
+                               '((:exec . ("%c -wc %s")))
+                               :override t)))
+   #+END_SRC
+
 
 ** Perl
 
@@ -3650,7 +3711,6 @@ bbdb-merge-records=.
        :ensure t)
    #+END_SRC
 
-
 ** Ediff
 
    [[http://oremacs.com/2015/01/17/setting-up-ediff/][Better defaults]] for ediff.
@@ -3684,18 +3744,27 @@ bbdb-merge-records=.
 
 ** Word definition
 
-   [[http://oremacs.com/2015/05/22/define-word/][Define-word]] ([[http://oremacs.com/2015/05/22/define-word/][blog]]) gives English definitions to words under cursor.
+   [[http://oremacs.com/2015/05/22/define-word/][Define-word]] ([[http://oremacs.com/2015/05/22/define-word/][blog]]) gives English definitions to words under cursor
+   using on-line Wordnik service. Use =C-c j= to search the word unde
+   the cursor. =M-x define-word= lets you type a word in.
+
+   For situations without net, [[https://github.com/xuchunyang/osx-dictionary.el][osx-dictionary]] accesses the local OS X
+   Dictionary application. Use =C-c j=, or =M-x osx-dictionary-search-pointer=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package define-word
        :ensure t
-       :bind (("C-c j" . define-word-at-point)
-              ("C-c J" . define-word)))
+       :bind (("C-c j" . define-word-at-point)))
 
-     (use-package osx-dictionary
-       :ensure t)
- #+END_SRC
+     (when (eq system-type 'darwin)
+       (use-package osx-dictionary
+         :bind (("C-c J" . osx-dictionary-search-pointer))
+         :ensure t))
+   #+END_SRC
+
+   Note to self: Using =j= as a key is not at all mnemonic but I am
+   running out of letters.
 
 ** Phonetic alphabet
 
@@ -4148,7 +4217,8 @@ bbdb-merge-records=.
      `ln -s $jar "${file}.jar"`;
    #+END_SRC
 
-   The [[https://github.com/zwz/plantuml-mode][plantuml-mode]] helps editing the code.
+   The [[https://github.com/zwz/plantuml-mode][plantuml-mode]] helps editing the code. Also, check the new
+   [[https://github.com/skuro/puml-mode][puml-mode]].
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -4276,7 +4346,7 @@ bbdb-merge-records=.
    LaTeX/PDF exports. It needs the python =Pygments= library.
    Install it e.g. =sudo easy_install Pygments=.  Configuration copied
    from a blog post by [[http://joat-programmer.blogspot.nl/2013/07/org-mode-version-8-and-pdf-export-with.html][Florian Bergmann]].  Check also the blog entry by
-   [[ http://praveen.kumar.in/2012/03/10/org-mode-latex-and-minted-syntax-highlighting/][Praveen Kumar]].
+   [[http://praveen.kumar.in/2012/03/10/org-mode-latex-and-minted-syntax-highlighting/][Praveen Kumar]].
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
