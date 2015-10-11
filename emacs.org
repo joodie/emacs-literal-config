@@ -1372,6 +1372,23 @@
 
   #+END_SRC
 
+** Transposing characters
+
+   [[http://pragmaticemacs.com/emacs/transpose-characters/][Pragmatic
+   Emacs]] has an improvement on character transposing function. The
+   original function transposes characters on both sides of the
+   cursor. The new one acts on two previous characters.
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+    (defun my/transpose-chars ()
+      "Transpose two previous characters"
+      (interactive)
+      (backward-char)
+      (transpose-chars 1))
+    (bind-key "C-t" 'my/transpose-chars)
+  #+END_SRC
+
 ** String inflection
 
    [[http://github.com/akicho8/string-inflection][String inflection]] cycles variable names between camel case and
