@@ -7,12 +7,15 @@
 *** http://feeds.bbci.co.uk/news/health/rss.xml
 *** http://www.bbc.com/culture/feed.rss
 *** http://bruxelles.blogs.liberation.fr/feeds/
+*** http://www.hs.fi/uutiset/rss/
+*** http://www.hs.fi/rss/?osastot=kulttuuri
 ** News in Science Journals                                               :j:
 *** http://feeds.nature.com/NatureNewsComment?format=xml
 *** http://news.sciencemag.org/rss/weekly_news_email.xml
 *** http://feeds.newscientist.com/science-news
 *** http://www.technologyreview.com/biomedicine/rss/
 *** http://www.technologyreview.com/topnews.rss
+*** http://www.hs.fi/rss/?osastot=tiede
 ** Computers
 *** Security                                                              :s:
 **** https://www.schneier.com/blog/atom.xml
