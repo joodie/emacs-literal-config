@@ -753,12 +753,12 @@
     (bind-key "C-x l" 'hydra-launch/body)
     (defhydra hydra-launch (:color blue :hint nil)
       "
-    launch _2_048           _l_ink chrome    _p_aradox
-           _c_: calfw       _n_ato-region    _q_: paradox upgrade
-           _e_diff-buffers  de_N_ato         _t_imemachine git
-           _g_scholar-bib   _r_e-builder     _w_3m at point
-           _h_owdoi         e_s_hell         _?_: emacsExchange
-           tw_i_tter        _=_: quick-calc  G_\+_ emacs
+    launch _2_048           _l_ink chrome    _p_aradox             _w_3m at point
+           _c_: calfw       _n_ato-region    _q_: paradox upgrade  G_\+_ emacs
+           _e_diff-buffers  de_N_ato         _t_imemachine git     _?_: emacsExchange
+           _g_scholar-bib   _r_e-builder     _z_: timezones
+           _h_owdoi         e_s_hell
+           tw_i_tter        _=_: quick-calc
           "
       ("2" 2048-game)
       ("c" my/calendar)
@@ -775,6 +775,7 @@
       ("q" paradox-upgrade-packages)
       ("t" git-timemachine)
       ("w" browse-url-at-point)
+      ("z" display-time-world)
       ("=" quick-calc)
       ("?" (browse-url "http://emacs.stackexchange.com/"))
       ("+" (browse-url "https://plus.google.com/communities/114815898697665598016")))
@@ -3639,6 +3640,32 @@ bbdb-merge-records=.
        :init (setq w3m-use-cookies t)
        :config (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t))
    #+END_SRC
+
+** World Clock
+
+   The built-in command =display-time-world= opens a new buffer with
+   current time in a selection of time zones. The values displayed can be
+   modified using a variable =display-time-world-list=.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (setq display-time-world-list
+           '(("America/Los_Angeles" "Seattle")
+            ("America/New_York" "New York")
+            ("Europe/London" "London")
+            ("Africa/Johannesburg" "Cape Town")
+            ("Europe/Paris" "Paris")
+            ("Europe/Amsterdam" "Amsterdam")
+            ("Europe/Zurich" "Geneva")
+            ("Europe/Helsinki" "Helsinki")
+            ("Indian/Mauritius" "Mauritius")
+            ("Asia/Kolkata" "Bangalore")
+            ("Asia/Kathmandu" "Kathmandu")
+            ("Asia/Tokyo" "Tokyo")))
+   #+END_SRC
+
+   I have added command =display-time-world= in my launch hydra to use
+   the incantation "Emacs, launch time Zones". =C-x l z=.
 
 ** Buffer sharing
 
