@@ -2693,56 +2693,65 @@
 
 * Navigation
 
-** Searching
-
-   [[https://github.com/abo-abo/swiper][Swiper]] is a replacement for isearch that faster and easier to configure.
-
-   [[https://github.com/nonsequitur/smex][smex]] shows a list of most relevant and recent commands on =M-x=.
-
-   #+name: global-navigation
-   #+BEGIN_SRC emacs-lisp
-     (use-package swiper
-       :ensure t
-       :init
-       (setq ivy-use-virtual-buffers t)
-       (setq ivy-display-style 'fancy)
-       :config
-       (ivy-mode 1)
-       (bind-key "C-s" 'swiper)
-       (bind-key "C-r" 'swiper)
-       (bind-key "C-c C-r" 'ivy-resume)
-       (custom-set-faces
-        '(swiper-minibuffer-match-face-1
-          ((t :background "#dddddd")))
-        '(swiper-minibuffer-match-face-2
-          ((t :background "#bbbbbb" :weight bold)))
-        '(swiper-minibuffer-match-face-3
-          ((t :background "#bbbbff" :weight bold)))
-        '(swiper-minibuffer-match-face-4
-          ((t :background "#ffbbff" :weight bold)))))
-
-     (use-package swiper
-       :ensure counsel)
-
-     (use-package smex
-       :ensure t
-       :init
-       (bind-key "M-x" 'smex))
-   #+END_SRC
-
-** TRAMP mode
-
-   TRAMP mode allows opening remote files. It knows about ssh and
-   aliases defined in the ssh config file. You can even use tab completion.
-   Setting the default method frees you from typing it. Just open
-   file, give '/', and start typing the name of the remote computer.
-
-   #+name: global-navigation
-   #+BEGIN_SRC emacs-lisp
-     (setq tramp-default-method "ssh")
-   #+END_SRC
-
 ** Local navigation in a buffer
+
+   [[http://kitchingroup.cheme.cmu.edu/blog/2015/09/27/Upping-my-Emacs-navigation-game/?utm_source=feedburner&utm_medium=twitter&utm_campaign=Feed:+TheKitchinResearchGroup+(The+Kitchin+Research+Group)][John Kitchin's navigation hydra]] is a starting point to combine
+   almost all naviagation tasks:
+
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
+     (global-subword-mode +1)
+     (defhydra hydra-navigate (:color red
+                               :hint nil)
+       "
+     _f_: forward-char       _w_: forward-word       _n_: next-line
+     _b_: backward-char      _W_: backward-word      _p_: previous-line
+     ^ ^                     _o_: subword-right      _,_: beginning-of-line
+     ^ ^                     _O_: subword-left       _._: end-of-line
+
+     _s_: forward sentence   _a_: forward paragraph  _g_: forward page
+     _S_: backward sentence  _A_: backward paragraph _G_: backward page
+
+     _r_: recent files _B_: buffer list
+     _<left>_: previous buffer   _<right>_: next buffer
+     _<up>_: scroll-up           _<down>_: scroll-down
+
+     _[_: backward-sexp _]_: forward-sexp
+     _<_ beginning of buffer _>_ end of buffer _m_: set mark _/_: jump to mark
+     "
+
+       ("f" forward-char)
+       ("b" backward-char)
+       ("w" forward-word)
+       ("W" backward-word)
+       ("n" next-line)
+       ("p" previous-line)
+       ("o" subword-right)
+       ("O" subword-left)
+       ("s" forward-sentence)
+       ("S" backward-sentence)
+       ("a" forward-paragraph)
+       ("A" backward-paragraph)
+       ("g" forward-page)
+       ("G" backward-page)
+       ("<right>" next-buffer)
+       ("<left>" previous-buffer)
+       ("r" recentf-open-files :color blue)
+       ("m" org-mark-ring-push)
+       ("/" org-mark-ring-goto :color blue)
+       ("B" list-buffers)
+       ("<up>" scroll-up)
+       ("<down>" scroll-down)
+       ("<" beginning-of-buffer)
+       (">" end-of-buffer)
+       ("." end-of-line)
+       ("[" backward-sexp)
+       ("]" forward-sexp)
+       ("," beginning-of-line)
+       ("q" nil "quit" :color blue))
+     (bind-key "M-n" 'hydra-navigate/body)
+   #+END_SRC
+
 
    Delete a word at a time: =M-backspace=.
 
@@ -2826,6 +2835,61 @@
      (bind-key [remap move-beginning-of-line]
                'smarter-move-beginning-of-line)
 
+   #+END_SRC
+
+** Searching
+
+   [[https://github.com/abo-abo/swiper][Swiper]] is a replacement for isearch that faster and easier to configure.
+
+   [[https://github.com/nonsequitur/smex][smex]] shows a list of most relevant and recent commands on =M-x=.
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (use-package swiper
+       :ensure t
+       :init
+       (setq ivy-use-virtual-buffers t)
+       (setq ivy-display-style 'fancy)
+       :config
+       (ivy-mode 1)
+       (bind-key "C-s" 'swiper)
+       (bind-key "C-r" 'swiper)
+       (bind-key "C-c C-r" 'ivy-resume)
+       (custom-set-faces
+        '(swiper-minibuffer-match-face-1
+          ((t :background "#dddddd")))
+        '(swiper-minibuffer-match-face-2
+          ((t :background "#bbbbbb" :weight bold)))
+        '(swiper-minibuffer-match-face-3
+          ((t :background "#bbbbff" :weight bold)))
+        '(swiper-minibuffer-match-face-4
+          ((t :background "#ffbbff" :weight bold))))
+       ;; advise swiper to recenter on exit
+       ;; from http://pragmaticemacs.com/emacs/dont-search-swipe/
+       (defun my/swiper-recenter (&rest args)
+         "recenter display after swiper"
+         (recenter))
+       (advice-add 'swiper :after #'my/swiper-recenter))
+
+     (use-package swiper
+       :ensure counsel)
+
+     (use-package smex
+       :ensure t
+       :init
+       (bind-key "M-x" 'smex))
+   #+END_SRC
+
+** TRAMP mode
+
+   TRAMP mode allows opening remote files. It knows about ssh and
+   aliases defined in the ssh config file. You can even use tab completion.
+   Setting the default method frees you from typing it. Just open
+   file, give '/', and start typing the name of the remote computer.
+
+   #+name: global-navigation
+   #+BEGIN_SRC emacs-lisp
+     (setq tramp-default-method "ssh")
    #+END_SRC
 
 ** Projects
