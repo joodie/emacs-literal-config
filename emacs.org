@@ -4035,27 +4035,28 @@ bbdb-merge-records=.
    #+END_SRC
 
    You can add tags to any agenda item  manually or preferably by pulling
-   them from a list. At the agenda item header, hit =C-c C-q= to see the
+   them from a list. At the agenda item header, hit =C-c C-c= to see the
    list and select any subset of tags by pressing the shortcut key(s).
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-    (setq org-tag-alist (quote (("ATORP"  . ?a)
-                               ("BIO"     . ?b)
-                               ("COMP"    . ?c)
-                               ("EMACS"   . ?e)
-                               ("FOOD"    . ?d)
-                               ("PHOTO"   . ?f)
-                               ("GIT"     . ?g)
-                               ("HUMEVO"  . ?h)
-                               ("LATEX"   . ?l)
-                               ("MOVIE"   . ?m)
-                               ("ORG"     . ?o)
-                               ("PERL"    . ?p)
-                               ("SECURITY". ?s)
-                               ("WRITING" . ?w)
-                               ("PYTHON"  . ?y)
-                               ("ZSH"     . ?z))))
+     (setq org-tag-alist '(("ATORP"  . ?a)
+                           ("BIO"     . ?b)
+                           ("COMP"    . ?c)
+                           ("EMACS"   . ?e)
+                           ("FOOD"    . ?d)
+                           ("PHOTO"   . ?f)
+                           ("GIT"     . ?g)
+                           ("HUMEVO"  . ?h)
+                           ("BOOK"    . ?k)
+                           ("LATEX"   . ?l)
+                           ("MOVIE"   . ?m)
+                           ("ORG"     . ?o)
+                           ("PERL"    . ?p)
+                           ("SECURITY". ?s)
+                           ("WRITING" . ?w)
+                           ("PYTHON"  . ?y)
+                           ("ZSH"     . ?z)))
    #+END_SRC
 
    The agenda command pulls all active events and todos from files
