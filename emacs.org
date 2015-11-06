@@ -497,6 +497,20 @@
                              face minibuffer-prompt)))
    #+END_SRC
 
+   The [[https://github.com/Malabarba/beacon][beacon]] package flashes colored light to the cursor when it
+   changes place and window scrolls.
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (use-package beacon
+       :ensure t
+       :config
+       (setq beacon-color "firebrick")
+       (setq beacon-size 20)         ; smaller than default 40
+       (setq beacon-blink-delay 0.1) ; faster than default 0.3 ms
+       (setq beacon-blink-when-focused t)
+       (beacon-mode 1))
+   #+END_SRC
 
 ** Current line
 

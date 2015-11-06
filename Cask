@@ -10,6 +10,7 @@
 (depends-on "auctex-latexmk")
 (depends-on "auto-complete")
 (depends-on "bbdb")
+(depends-on "beacon")
 (depends-on "bind-key")
 (depends-on "calfw")
 (depends-on "cask")
