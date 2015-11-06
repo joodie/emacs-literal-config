@@ -2752,7 +2752,6 @@
      (bind-key "M-n" 'hydra-navigate/body)
    #+END_SRC
 
-
    Delete a word at a time: =M-backspace=.
 
    Kill line backward from cursor is =C-0 C-k= but it easier to
@@ -3110,16 +3109,16 @@ too.
      (defun my/edit-emacs-configuration ()
        (interactive)
        (find-file "~/.emacs.d/emacs.org"))
-          (bind-key "C-c e" 'my/edit-emacs-configuration)
+     (bind-key "C-c e" 'my/edit-emacs-configuration)
 
-          ;; I often want to add more comments to the last note
-          (defun my/last-captured-org-note ()
-            "Move to the end of penultimate line of the last org capture note."
-            (interactive)
-            (find-file "~/Dropbox/org/reference.org")
-            (end-of-buffer)
-            (forward-line -2)
-            (org-end-of-line))
+     ;; I often want to add more comments to the last note
+     (defun my/last-captured-org-note ()
+       "Move to the end of penultimate line of the last org capture note."
+       (interactive)
+       (find-file "~/Dropbox/org/reference.org")
+       (end-of-buffer)
+       (forward-line -2)
+       (org-end-of-line))
 
      (bind-key "C-c z" 'hydra-goto/body)
      (defhydra hydra-goto (:color blue :hint nil)
@@ -3986,7 +3985,7 @@ bbdb-merge-records=.
   it is so useful.
 
   [[https://github.com/calvinwyoung/org-autolist][org-autolist]] makes org lists behave more like you'd expect: =Return=
-  inserts a new list item and =backspace= removes the bulletpoint and
+  inserts a new list item and =backspace= removes the bullet and
   backs up to previous list item.
 
   Org mode has a large selected special symbols (like \=alpha=) to
@@ -4389,7 +4388,7 @@ bbdb-merge-records=.
      (setq org-log-done 'time)
    #+END_SRC
 
-** Checkboxes in HTML
+** Prettify with Unicode characters
 
    The first snippet (from [[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org][Sacha.org]]) turns - [X] into ☑ and - [ ] into ☐,
    but leaves [-] alone in HTML export.
