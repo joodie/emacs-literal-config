@@ -4397,6 +4397,8 @@ bbdb-merge-records=.
    The second uses [[https://github.com/sabof/org-bullets][org-bullets]] to beautify org header bullets with
    pretty UTF-8 characters.
 
+   The third replaces ASCII ellipsis with a Unicode character.
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-html-checkbox-type 'unicode)
@@ -4408,6 +4410,10 @@ bbdb-merge-records=.
      (use-package org-bullets
        :ensure t
        :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+     ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
+     ;;(setq org-ellipsis "…")
+     (setq org-ellipsis "⤵")
 #+END_SRC
 
 ** Org Babel
