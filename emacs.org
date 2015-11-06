@@ -4134,11 +4134,11 @@ bbdb-merge-records=.
      ;; Capture templates for: general notes, TODO tasks, events
      (setq org-capture-templates
            '(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
-                   "* %?\nEntered on %U\n  %i")
+                   "* %?\n  Entered on %U\n  %i")
                   ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
-                   "* TODO %?\n     SCHEDULED: %t\n%i\nEntered on %U")
+                   "* TODO %?\n     SCHEDULED: %t\n%i\n  Entered on %U")
                   ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
-                   "* %?\n     %T\n%i\nEntered on %U")))
+                   "* %?\n     %T\n%i\n  Entered on %U")))
    #+END_SRC
 
    Todos can have additional keywords with dates: =DEADLINE= =C-c C-d=
