@@ -2534,7 +2534,7 @@
 
    I treat the REPL mode specially, since certain hooks that work in
    ~clojure-mode~ won't make sense or break functionality in
-   ~cider-repl-mode~.
+   ~cider-repl-mode~. See [[http://ccann.github.io/2015/10/18/cider/][here]] for more configuration options.
 
    Meta-up and -down to move in the REPL history are taken by paredit,
    so I bind the functions to Command (Super) key: =s-up>= and
@@ -2544,29 +2544,36 @@
    #+BEGIN_SRC emacs-lisp
      (use-package cider
        :ensure t
+       :init (add-hook 'cider-mode-hook #'clj-refactor-mode)
        :config
-       (defun my/cider-mode-hooks ()
-         "Clojure specific setup code that should only be run when we
-       have a CIDER REPL connection"
-         (setq nrepl-log-messages t)
-         (setq nrepl-hide-special-buffers t))
-
-       (add-hook 'cider-mode-hook
-                 'my/cider-mode-hooks)
+       (setq nrepl-log-messages t
+             cider-repl-display-in-current-window t
+             cider-repl-use-clojure-font-lock t
+             cider-prompt-save-file-on-load 'always-save
+             cider-font-lock-dynamically '(macro core function var)
+             nrepl-hide-special-buffers t
+             cider-overlays-use-font-lock t)
+       (cider-repl-toggle-pretty-printing)
 
        (defun my/cider-repl-mode-hooks ()
          (my/turn-on 'paredit
                      ;;'rainbow-delimiters
                      'show-paren-mode
-                     'highlight-parentheses))
+                     'highlight-parentheses)
 
-       (add-hook 'cider-repl-mode-hook
-                 'my/cider-repl-mode-hooks)
+         (add-hook 'cider-repl-mode-hook
+                   'my/cider-repl-mode-hooks)
 
-       ;; M-up -> s-up
-       (bind-key "s-<up>" 'cider-repl-previous-input cider-repl-mode-map)
-       ;; M-down -> s-down
-       (bind-key "s-<down>" 'cider-repl-next-input cider-repl-mode-map))
+         (use-package clj-refactor
+           :defer t
+           :ensure t
+           :diminish clj-refactor-mode
+           :config (cljr-add-keybindings-with-prefix "C-c C-m"))
+
+         ;; M-up -> s-up
+         (bind-key "s-<up>" 'cider-repl-previous-input cider-repl-mode-map)
+         ;; M-down -> s-down
+         (bind-key "s-<down>" 'cider-repl-next-input cider-repl-mode-map))
 
    #+END_SRC
 
