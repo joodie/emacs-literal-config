@@ -765,7 +765,7 @@
   #+name: key-bindings
   #+BEGIN_SRC emacs-lisp
     (bind-key "C-x l" 'hydra-launch/body)
-    (defhydra hydra-launch (:color blue :hint nil)
+    (defhydra hydra-launch (:color blue :hint nil :idle 1.0)
       "
     launch _2_048           _l_ink chrome    _p_aradox             _w_3m at point
            _c_: calfw       _n_ato-region    _q_: paradox upgrade  G_\+_ emacs
