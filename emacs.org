@@ -3922,6 +3922,20 @@ bbdb-merge-records=.
          ("e" op/new-repository))
        :bind ("C-c o" . hydra-blog/body))
    #+END_SRC
+** Password management
+
+   Command =pass= gives access to similarly named command line
+   utility.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (use-package pass
+       :ensure t
+       :config
+       (use-package password-store
+         :ensure t))
+   #+END_SRC
+
 
 ** Process management
 

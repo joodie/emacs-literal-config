@@ -113,6 +113,7 @@
 (depends-on "pandoc-mode")
 (depends-on "paradox")
 (depends-on "paredit")
+(depends-on "pass")
 (depends-on "password-store")
 (depends-on "pkg-info")
 (depends-on "plantuml-mode")
