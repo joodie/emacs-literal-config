@@ -3846,18 +3846,19 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (setq display-time-world-list
-           '(("America/Los_Angeles" "Seattle")
-            ("America/New_York" "New York")
-            ("Europe/London" "London")
-            ("Africa/Johannesburg" "Cape Town")
-            ("Europe/Paris" "Paris")
-            ("Europe/Amsterdam" "Amsterdam")
-            ("Europe/Zurich" "Geneva")
-            ("Europe/Helsinki" "Helsinki")
-            ("Indian/Mauritius" "Mauritius")
-            ("Asia/Kolkata" "Bangalore")
-            ("Asia/Kathmandu" "Kathmandu")
-            ("Asia/Tokyo" "Tokyo")))
+           '(("Europe/London" "London")
+             ("Africa/Johannesburg" "Cape Town")
+             ("Europe/Paris" "Paris")
+             ("Europe/Amsterdam" "Amsterdam")
+             ("Europe/Zurich" "Geneva")
+             ("Europe/Helsinki" "Helsinki")
+             ("Asia/Riyadh" "Jeddah")
+             ("Indian/Mauritius" "Mauritius")
+             ("Asia/Kolkata" "Delhi")
+             ("Asia/Kathmandu" "Kathmandu")
+             ("Asia/Tokyo" "Tokyo")
+             ("America/New_York" "New York")
+             ("America/Los_Angeles" "Seattle")))
    #+END_SRC
 
    I have added command =display-time-world= in my launch hydra to use
@@ -3934,6 +3935,19 @@ bbdb-merge-records=.
        :config
        (use-package password-store
          :ensure t))
+   #+END_SRC
+
+** eshell
+
+   Eshell is a shell written in elisp that integrates with with emacs
+   environment. My shortcut incantation is "Emacs, launch shell", =C-x l s=.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (use-package eshell
+       :config
+       (defun eshell/d (&rest args)
+         (dired (pop args) ".")))
    #+END_SRC
 
 
