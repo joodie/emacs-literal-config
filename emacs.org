@@ -638,7 +638,7 @@ Don't wrap lines (query rows) when working with a database.
    Store new notes in ~/org/notes.org
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (setq org-default-notes-file (concat org-directory "/notes.org"))
+     (setq org-default-notes-file (concat org-directory "/gtd.org"))
 
    #+END_SRC
 
@@ -692,8 +692,24 @@ Don't wrap lines (query rows) when working with a database.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-refile-targets '((nil :level . 1)
-                                (org-agenda-files :level . 1)))
+                                (org-agenda-files :maxlevel . 3)))
 
+     (setq org-capture-templates
+           '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Inbox")
+              "* TODO %?\nEntered on %U\n  %i\n  %a")
+             ("j" "Journal" entry (file+datetree "~/org/journal.org")
+              "* %?\nEntered on %U\n  %i\n  %a")))
+
+     (setq org-agenda-custom-commands
+           '(("g" "Plan today"
+              ((agenda "" ((org-agenda-span 14)))))))
+
+     ;; These settings ensure that items SCHEDULED in the future are not shown
+     ;; until that date
+     (setq org-agenda-todo-ignore-scheduled 'future)
+     (setq org-agenda-tags-todo-honor-ignore-options t)
+
+     (setq org-modules '(org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-habit))
    #+END_SRC
 
 ** Org-Babel
