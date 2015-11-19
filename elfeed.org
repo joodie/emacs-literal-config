@@ -41,6 +41,7 @@
 *** Travel                                                                :t:
 **** http://nowheremag.com/feed/
 ** Design                                                                  :d:
+*** http://mobiili.fi/feed/
 *** http://causticcovercritic.blogspot.co.uk/feeds/posts/default
 ** Comics                                                                  :c:
 *** http://kimmo.suominen.com/stuff/vw.xml
