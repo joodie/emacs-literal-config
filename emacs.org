@@ -1416,6 +1416,27 @@
     (bind-key "C-t" 'my/transpose-chars)
   #+END_SRC
 
+** Adding comma before space
+
+   In natural languages a comma separates sentences or list items but
+   it always comes before any space. This [[code]] automatically moves
+   cursor to the right place when the comma key is pressed.
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+    (defun my/smart-self-insert-punctuation (count)
+      "If COUNT=1 and the point is after a space, insert the relevant
+    character before any spaces."
+      (interactive "p")
+      (if (and (= count 1)
+               (eq (char-before) ?\s))
+          (save-excursion
+            (skip-chars-backward " ")
+            (self-insert-command 1))
+        (self-insert-command count)))
+    (bind-key "," #'my/smart-self-insert-punctuation)
+  #+END_SRC
+
 ** String inflection
 
    [[http://github.com/akicho8/string-inflection][String inflection]] cycles variable names between camel case and
