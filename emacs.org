@@ -1036,6 +1036,18 @@
                  (set-buffer-file-coding-system 'utf-8-unix t)))
    #+END_SRC
 
+
+** Whitespace
+
+   There is but [[https://www.reddit.com/r/emacs/comments/3sqvoy/good_key_combo_for_whitespacecleanup/][one case]] where *trailing whitespace* is syntactically
+   important (in markdown). Since I do not use it, I can always strip
+   whitespace on save.
+
+   #+name: formatting
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'before-save-hook 'delete-trailing-whitespace)
+   #+END_SRC
+
    Tabs are automatically converted to spaces and trailing white space
    is shown. Global key =C-c n= indents and removes trailing white
    space from the buffer.
