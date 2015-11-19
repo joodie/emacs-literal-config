@@ -3946,6 +3946,7 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (use-package eshell
        :config
+       (setenv "PAGER" "cat")
        (defun eshell/d (&rest args)
          (dired (pop args) ".")))
    #+END_SRC
