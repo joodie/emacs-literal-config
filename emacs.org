@@ -540,7 +540,7 @@
     (setq inhibit-startup-screen +1)
     ; emacs 24.4 feature, call on main windowed emacs
     (when (window-system)
-      (desktop-save-mode 1))
+      (desktop-save-mode t))
   #+END_SRC
 
 ** Identify yourself
