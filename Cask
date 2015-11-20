@@ -1,5 +1,7 @@
+(source org)
 (source gnu)
 (source melpa)
+
 
 (depends-on "aggressive-indent")
 (depends-on "auctex")
