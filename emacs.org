@@ -2592,22 +2592,21 @@
          (my/turn-on 'paredit
                      ;;'rainbow-delimiters
                      'show-paren-mode
-                     'highlight-parentheses)
+                     'highlight-parentheses))
 
-         (add-hook 'cider-repl-mode-hook
-                   'my/cider-repl-mode-hooks)
+       (add-hook 'cider-repl-mode-hook
+                 'my/cider-repl-mode-hooks)
 
-         (use-package clj-refactor
-           :defer t
-           :ensure t
-           :diminish clj-refactor-mode
-           :config (cljr-add-keybindings-with-prefix "C-c C-m"))
+       (use-package clj-refactor
+         :defer t
+         :ensure t
+         :diminish clj-refactor-mode
+         :config (cljr-add-keybindings-with-prefix "C-c C-m"))
 
-         ;; M-up -> s-up
-         (bind-key "s-<up>" 'cider-repl-previous-input cider-repl-mode-map)
-         ;; M-down -> s-down
-         (bind-key "s-<down>" 'cider-repl-next-input cider-repl-mode-map))
-
+       ;; M-up -> s-up
+       (bind-key "s-<up>" 'cider-repl-previous-input cider-repl-mode-map)
+       ;; M-down -> s-down
+       (bind-key "s-<down>" 'cider-repl-next-input cider-repl-mode-map))
    #+END_SRC
 
 ** TODO Python

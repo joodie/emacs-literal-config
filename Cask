@@ -17,6 +17,7 @@
 (depends-on "chinese-word-at-point")
 (depends-on "cider")
 (depends-on "cider-decompile")
+(depends-on "clj-refactor")
 (depends-on "clojure-mode")
 (depends-on "comment-dwim-2")
 (depends-on "company")
