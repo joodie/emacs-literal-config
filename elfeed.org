@@ -37,7 +37,6 @@
 ** Writing and text
 *** Language                                                              :l:
 **** http://feeds.feedburner.com/nybooks
-**** http://languagetool.wikidot.com/feed/site-changes.xml
 *** Travel                                                                :t:
 **** http://nowheremag.com/feed/
 ** Design                                                                  :d:
