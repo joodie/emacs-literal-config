@@ -1120,7 +1120,7 @@
          (fill-paragraph nil)))
 
      ;; Handy key definition
-     (bind-key "\M-Q" 'unfill-paragraph)
+     (bind-key "M-Q" 'unfill-paragraph)
    #+END_SRC
 
    Filling, either manual or automatic using =auto-fill-mode= wraps
@@ -3542,6 +3542,7 @@ bbdb-merge-records=.
    | b     | Biology  |
    | c     | Comics   |
    | e     | Emacs    |
+   | d     | Mobile   |
    | f     | Friends  |
    | j     | Journals |
    | l     | Language |
@@ -3565,6 +3566,7 @@ bbdb-merge-records=.
     |   2 | elfeed-read-news         | world news, removes pesky sport news             |
     |   3 | elfeed-read-journals     | science news                                     |
     |   4 | elfeed-read-archeology   | archeology news                                  |
+    |   5 | elfeed-read-mobile       | mobile device news                               |
     |   R | elfeed--mark-all-as-read | one key to mark all visible articles             |
 
     The read functions report their action in the echo field.
@@ -3634,6 +3636,11 @@ bbdb-merge-records=.
          (interactive)
          (elfeed--read-tag "@1-month-ago +unread +a " "archaeology"))
 
+       (defun elfeed-read-mobile ()
+         "Show mobile device news"
+         (interactive)
+         (elfeed--read-tag "@1-month-ago +unread +d " "mobile"))
+
        ;;
        ;; linking and capturing
        ;;
@@ -3702,6 +3709,7 @@ bbdb-merge-records=.
                   ("2" . elfeed-read-news)
                   ("3" . elfeed-read-journals)
                   ("4" . elfeed-read-archaeology)
+                  ("5" . elfeed-read-mobile)
                   ("l" . elfeed-search-link-title)
                   ("v" . elfeed-search-quick-url-note)))
    #+END_SRC
