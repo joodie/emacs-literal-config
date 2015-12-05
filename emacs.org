@@ -3599,7 +3599,6 @@ bbdb-merge-records=.
          (setq elfeed-search-filter filter)
          (elfeed-search-update :force)
          (goto-char (point-min))
-         (forward-line)
          (message (concat "elfeed: show " tag)))
 
        (defun elfeed-read-all ()
