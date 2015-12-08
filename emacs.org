@@ -812,6 +812,7 @@
   |--------+-------------------------------------------+------------------------------|
   | esc    | evil-normal-state                         | [[Evil mode]]                    |
   | 2      | 2048-game                                 | [[2048-game]]                    |
+  | 4      | pandoc-main-hydra/body                    | [[MarkDown]]                     |
   | =      |                                           |                              |
   | a      | org-agenda                                | [[Org Mode]]                     |
   | b      | my/quick-url-note                         | [[URL copying]]                  |
@@ -2297,14 +2298,17 @@
    Github and especially BitBucket use =markdown mode= for
    documentation, so my Emacs knows about it. GitHub knows how to
    render =org-mode= documents, too, so this mode is not getting much
-   use. [[http://joostkremers.github.io/pandoc-mode/][pandoc-mode]] is a general purpose export formatter and uses hydra =C-c /=.
+   use. [[http://joostkremers.github.io/pandoc-mode/][pandoc-mode]] is a general purpose export formatter and uses
+   hydra =C-c /=.
 
    My =org-mode= is configured to export to markdown format.
 
  #+name: text-files
   #+BEGIN_SRC emacs-lisp
     (use-package pandoc-mode
-          :ensure t)
+          :ensure t
+          :bind ("C-c 4" . pandoc-main-hydra/body))
+
     (use-package markdown-mode
           :ensure t
           :mode  ("\\.md" "\\.markdown")
