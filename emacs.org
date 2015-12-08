@@ -823,7 +823,7 @@
   | g      | magit-status                              | [[Magit]]                        |
   | h      | hydra-apropos/body                        |                              |
   | i      | my/org-babel-untangle                     | [[Org-Babel]]                    |
-  | j      |                                           |                              |
+  | j      | define-word-at-point                      | [[Word definition]]              |
   | k      | my/aspell-word-then-abbrev                | [[Spell checking]]               |
   | l      | org-store-link                            | [[Org Mode]]                     |
   | m      | macrostep-expand                          | [[Lisps]]                        |
@@ -2004,8 +2004,7 @@
 
   See [[http://shingofukuyama.github.io/emacs-magit-reword-commit-messages/][this post]] for a tutorial of commit message editing with magit.
 
-  [[Iiral][http://irreal.org/blog/?p=4279]] gives hints how to configure the
-  latest (2.1) magit.
+  [[http://irreal.org/blog/?p=4279][Irreal]] gives hints how to configure the latest (2.1) magit.
 
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
@@ -2868,7 +2867,9 @@
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
-     (bind-key  "M-j"  #'(lambda () (interactive) (join-line -1)))
+     (bind-key  "M-j"  #'(lambda ()
+                           (interactive)
+                           (join-line -1)))
      (bind-key "C-c q" 'delete-indentation)
    #+END_SRC
 
