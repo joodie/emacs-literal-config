@@ -533,7 +533,8 @@
 * Start-up
 
   Start with the scratch buffer; no start-up screen. Restore previous
-  window and file setup including window placement.
+  window and file setup including window placement. Restore cursor
+  position and minibuffer history.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
@@ -541,6 +542,14 @@
     ; emacs 24.4 feature, call on main windowed emacs
     (when (window-system)
       (desktop-save-mode t))
+
+    ;; save cursor position
+    (use-package saveplace
+      :config
+      (setq-default save-place t))
+
+    ;; Save minibuffer history
+    (savehist-mode)﻿
   #+END_SRC
 
 ** Identify yourself
