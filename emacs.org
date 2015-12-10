@@ -549,7 +549,7 @@
       (setq-default save-place t))
 
     ;; Save minibuffer history
-    (savehist-mode)﻿
+    ;;(savehist-mode)﻿
   #+END_SRC
 
 ** Identify yourself
