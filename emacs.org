@@ -4244,19 +4244,10 @@ bbdb-merge-records=.
 
 ** Agenda
 
-   First you have to tell org-mode which files contain your agenda
-   items. The following setup adds all files from a given directory. I
-   am using DropBox to get one more way to backup these important
-   files.
 
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-     (setq org-agenda-files '("~/Dropbox/org"))
-   #+END_SRC
-
-   Next I set the agenda calendar work week to start on Sunday
-   according to Saudi Arabian custom. Also, I need reminders of
-   holidays in Finland.
+   I set the agenda calendar work week to start on Sunday according to
+   Saudi Arabian custom. Also, I need reminders of holidays in
+   Finland.
 
    I learned ways to speed up agenda generation from [[http://punchagan.muse-amuse.in/posts/how-i-learnt-to-use-emacs-profiler.html][learn profiler]].
 
@@ -4296,11 +4287,18 @@ bbdb-merge-records=.
    #+END_SRC
 
    The agenda command pulls all active events and todos from files
-   together.
+   together. Org-agenda needs to load before calling =org-agenda=.
+
+   You have to tell org-mode which files contain your agenda items.
+   The following setup adds all files from a given directory. I am
+   using DropBox to get one more way to backup these important files.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (bind-key "C-c a" 'org-agenda)
+     (use-package org-agenda
+       :bind ("C-c a" . org-agenda)
+       :init (setq org-agenda-files '("~/Dropbox/org")))
+
      (bind-key "C-c c" 'org-capture)
      (bind-key "C-c l" 'org-store-link)
      (setq org-return-follows-link t)
@@ -4308,13 +4306,6 @@ bbdb-merge-records=.
 
    In addition, use =C-c C-l= to paste the link stored with =C-c l=.
    Links on org-mode are now followed by pressing return on a link.
-
-   Org-agenda needs to load before calling =org-agenda=.
-
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-     (use-package org-agenda)
-   #+END_SRC
 
    I prefer agenda listing for a fortnight and warnings 5 days
    before deadline.
