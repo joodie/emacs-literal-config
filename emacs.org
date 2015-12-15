@@ -3202,12 +3202,16 @@ too.
        "
             goto   buffer                      info
                    --------------------------------------
-                   _e_macs.org                 _o_rg
+                   _c_hangeLog                 _o_rg
+                   _e_macs.org
+                   _h_ome.gpg
                    _r_eference.org: last note
                    _s_cratch
                    _w_ork.org
                 "
+       ("c" (find-file "~/installation.notes/balamac/ChangeLog"))
        ("e" (find-file "~/.emacs.d/emacs.org"))
+       ("h" (find-file "~/Documents/documents/details/home.gpg"))
        ("r" my/last-captured-org-note)
        ("s" (switch-to-buffer "*scratch*"))
        ("w" (find-file "~/Dropbox/org/work.org"))
