@@ -2772,7 +2772,7 @@
 ** Local navigation in a buffer
 
    [[http://kitchingroup.cheme.cmu.edu/blog/2015/09/27/Upping-my-Emacs-navigation-game/?utm_source=feedburner&utm_medium=twitter&utm_campaign=Feed:+TheKitchinResearchGroup+(The+Kitchin+Research+Group)][John Kitchin's navigation hydra]] is a starting point to combine
-   almost all naviagation tasks:
+   almost all navigation tasks:
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
@@ -3608,6 +3608,7 @@ bbdb-merge-records=.
        (use-package elfeed-org
          :ensure t)
        (elfeed-org)
+
        (defun elfeed-mark-all-as-read ()
          "Mark currently shown articles read"
          (interactive)
