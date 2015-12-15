@@ -3596,6 +3596,8 @@ bbdb-merge-records=.
     |   3 | elfeed-read-journals     | science news                                     |
     |   4 | elfeed-read-archeology   | archeology news                                  |
     |   5 | elfeed-read-mobile       | mobile device news                               |
+    |   6 | elfeed-read-comics       | latest comics                                    |
+    |   7 | elfeed-read-emacs        | emacs news                                       |
     |   R | elfeed--mark-all-as-read | one key to mark all visible articles             |
 
     The read functions report their action in the echo field.
@@ -3670,6 +3672,16 @@ bbdb-merge-records=.
          (interactive)
          (elfeed--read-tag "@1-month-ago +unread +d " "mobile"))
 
+       (defun elfeed-read-comics ()
+         "Show latest online comics"
+         (interactive)
+         (elfeed--read-tag "@1-month-ago +unread +c " "comics"))
+
+       (defun elfeed-read-emacs ()
+         "Show news on emacs"
+         (interactive)
+         (elfeed--read-tag "@1-month-ago +unread +e " "emacs"))
+
        ;;
        ;; linking and capturing
        ;;
@@ -3739,6 +3751,8 @@ bbdb-merge-records=.
                   ("3" . elfeed-read-journals)
                   ("4" . elfeed-read-archaeology)
                   ("5" . elfeed-read-mobile)
+                  ("6" . elfeed-read-comics)
+                  ("7" . elfeed-read-emacs)
                   ("l" . elfeed-search-link-title)
                   ("v" . elfeed-search-quick-url-note)))
    #+END_SRC
