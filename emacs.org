@@ -5296,6 +5296,21 @@ bbdb-merge-records=.
 
 * Environment
 
+** Lisp libraries
+
+   [[https://github.com/magnars/dash.el][dash.el]] is a library of modern list functions.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (use-package dash
+       :ensure t)
+     (if (>= emacs-major-version 24)
+         (use-package dash-functional
+           :ensure t)
+       (message "Warning: dash-functional needs Emacs v24"))
+   #+END_SRC
+
+
 ** Options set using the customize interface
 
    By default, Emacs saves the options you set via the `customize-*`
