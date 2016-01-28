@@ -5370,12 +5370,15 @@ bbdb-merge-records=.
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (when (eq system-type 'darwin)
+       (use-package exec-path-from-shell
+         :ensure t
+         :config
        (if (equal (file-name-nondirectory (getenv "SHELL")) "fish")
            (progn
              (setq path-separator " ")
              (exec-path-from-shell-initialize)
              (setq path-separator ":"))
-         (exec-path-from-shell-initialize)))
+         (exec-path-from-shell-initialize))))
    #+END_SRC
 
 *** locate
