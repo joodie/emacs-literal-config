@@ -3308,7 +3308,7 @@ too.
        :init (setq-default save-place t))
    #+END_SRC
 
-** Geographical location
+** TODO Geographical location
 
   Calendar functions like to know your geographical coordinates to
   display celestial movements correctly.
@@ -3317,7 +3317,9 @@ too.
   there. On my Mac laptop, the [[https://github.com/purcell/osx-location][osx-location]] package gives the changing
   location automatically.
 
-  #+name: location
+  Package osx-location disabled!
+
+  #+name: location-disabled
   #+BEGIN_SRC emacs-lisp
     (osx-location-watch)
 
