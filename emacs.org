@@ -4879,136 +4879,27 @@ bbdb-merge-records=.
 
 ** Language evaluation support
 
-   #+name: org-config :noweb no-export
+   Org-Babel needs to know which languages to evaluate within code
+   blocks Each language evaluation package can be loaded in a very
+   simple way:
+
+   #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (defvar my/org-babel-evaluated-languages
-       '(emacs-lisp)
-       "List of languages that may be evaluated in Org documents")
-
-     <<org-config-languages>>
-
-     (org-babel-do-load-languages
-      'org-babel-load-languages
-      (mapcar (lambda (lang)
-                (cons lang t))
-              my/org-babel-evaluated-languages))
-   #+END_SRC
-
-   Org-Babel needs to know which languages to evaluate. I collect all
-   languages here, then enable all of them at the end of the section.
-
-*** General programming languages
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'perl)
-   #+END_SRC
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'clojure)
-   #+END_SRC
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'ruby)
-   #+END_SRC
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'sh)
-   #+END_SRC
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'python)
-   #+END_SRC
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'emacs-lisp)
-   #+END_SRC
-
-*** Statistics
-
-    [[http://www.r-project.org/][R]] has been the new S for a long time.
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     ;;(add-to-list 'my/org-babel-evaluated-languages 'R)
-   #+END_SRC
-
-*** Diagramming
-
-   I like [[http://www.graphviz.org/][Graphviz]] for generating graphs. It takes a few lines of code
-   to link graphviz's =dot= mode to =org-babel= so I can include dot
-   source in org mode and export with nice looking diagrams.
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
-     (add-to-list 'my/org-babel-evaluated-languages 'dot)
-   #+END_SRC
-
-   [[http://ditaa.sourceforge.net/][Ditaa]] is another nice package for turning ASCII art into PNG/EPS
-   diagrams. Turn that on, too.
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'ditaa)
-   #+END_SRC
-
-   [[http://plantuml.sourceforge.net/][PlantUML]] uses Graphviz and therefore needs it installed.
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'plantuml)
-   #+END_SRC
-
-   The lowest thing around is [[http://www.gnuplot.info/][gnuplot]].
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'gnuplot)
-   #+END_SRC
-
-*** Databases
-
-    SQL is relational database language.
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'sql)
-   #+END_SRC
-
-    SQLite is a common variant of SQL.
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'sqlite)
-   #+END_SRC
-
-*** Typesetting
-
-   Org code itself can be out into code blocks and evaluated.
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'org)
-   #+END_SRC
-
-    [[http://latex-project.org/][Latex]] is always needed.
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'latex)
-   #+END_SRC
-
-   Lilypond is a [[http://www.lilypond.org/][music typesetting language]].
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'lilypond)
+     (use-package ob-perl)
+     (use-package ob-clojure)
+     (use-package ob-ruby)
+     (use-package ob-sh)
+     (use-package ob-python)
+     (use-package ob-emacs-lisp)
+     (use-package ob-dot)
+     (use-package ob-ditaa)
+     (use-package ob-plantuml)
+     (use-package ob-gnuplot)
+     (use-package ob-sql)
+     (use-package ob-sqlite)
+     (use-package ob-org)
+     (use-package ob-latex)
+     (use-package ob-lilypond)
    #+END_SRC
 
 ** Shortcuts for some language blocks
