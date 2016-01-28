@@ -3745,7 +3745,7 @@ bbdb-merge-records=.
          "Show global news articles in Finnish"
          (interactive)
          (elfeed--remove-sports)
-         (elfeed--read-tag "@1-month-ago +unread +n HS" "Finnish news"))
+         (elfeed--read-tag "@1-month-ago +unread +n HS.fi" "Finnish news"))
 
        (defun elfeed-read-news ()
          "Show global news articles"
