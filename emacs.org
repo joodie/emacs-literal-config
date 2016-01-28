@@ -3705,6 +3705,7 @@ bbdb-merge-records=.
        :init
        (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
        (setq-default elfeed-search-filter my/default-elfeed-search-filter)
+       (setq elfeed-sort-order 'ascending)
        :config
        (use-package elfeed-org
          :ensure t)
