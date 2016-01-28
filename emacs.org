@@ -1266,6 +1266,20 @@
         :bind ("M-SPC" . shrink-whitespace))
     #+END_SRC
 
+    The Pragmatic Emacs blog has a nifty function for [[http://pragmaticemacs.com/emacs/aligning-text/][aligning text]].
+    to columns. This is easy to modify for any separator character:
+    For example, change the final =\\s-= into a comma to work on
+    comma separated fields. An =&= is used in LaTeX tables.
+
+    #+name: text-files
+    #+BEGIN_SRC emacs-lisp
+      (defun align-whitespace (start end)
+        "Align columns by whitespace"
+        (interactive "r")
+        (align-regexp start end
+                      "\\(\\s-*\\)\\s-" 1 0 t))
+    #+END_SRC
+
 ** Selecting text
 
    Usually, you can selected ("mark") text by =S-<arrow>= keys, but in
