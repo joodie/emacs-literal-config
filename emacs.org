@@ -3287,7 +3287,7 @@ too.
        "Move to the end of penultimate line of the last org capture note."
        (interactive)
        (find-file "~/Dropbox/org/reference.org")
-       (end-of-buffer)
+       (goto-char (point-max))
        (forward-line -2)
        (org-end-of-line))
 
