@@ -1211,11 +1211,23 @@
 
 * Editing
 
+** Saving automatically
+
+   The [[https://github.com/bbatsov/super-save][super-save]] package saves files when the buffer looses focus.
+   You never have to save manually.
+
+    #+name: text-files
+    #+BEGIN_SRC emacs-lisp
+      (use-package super-save
+        :ensure t
+        :config (super-save-initialize))
+    #+END_SRC
+
 ** White-space
 
    The default binding of =M-Space= is ==, but that function can be
-   replaced by =shrink-whitespace= to include cycling through removing
-   multiple new-lines.
+   replaced by =shrink-whitespace= to progressively removing
+   multiple new-lines or spaces to one or none.
 
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
