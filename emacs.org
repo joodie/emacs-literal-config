@@ -1069,7 +1069,12 @@
    [[http://ergoemacs.org/emacs/emacs_encoding_decoding_faq.html][Character encoding]] in files and emacs buffers is an important topic
    for anyone dealing with anything other than plain ASCII English. The
    best approach is to assume UTF-8 and deal with anything else
-   (Latin-1, UTF-16) only if absolutely have to.
+   (Latin-1, UTF-16) only if you absolutely have to.
+
+   I have been having problems with pasting Finnish non-ascii text
+   into org capture buffer and having the whole buffer inadvertently
+   converted to iso-latin-1. This page ([[http://stackoverflow.com/questions/24904208/emacs-windows-org-mode-encoding][Emacs Windows org-mode
+   encoding - Stack Overflow]]) gives a solution.
 
    In cases where text files come from Windows environment, it is
    useful to [[http://www.emacswiki.org/emacs/DosToUnix][strip carriage returns]] from line endings to view the file
@@ -1080,6 +1085,7 @@
    #+BEGIN_SRC emacs-lisp
      (set-language-environment "UTF-8")
      (prefer-coding-system 'utf-8) ; same thing as above? in practice?
+     (modify-coding-system-alist 'file "" 'utf-8-unix)
      (bind-key "C-c u"
                (lambda () (interactive)
                  (set-buffer-file-coding-system 'utf-8-unix t)))
@@ -1091,6 +1097,24 @@
        (set-buffer-file-coding-system 'unix 't) )
    #+END_SRC
 
+*** Fixing wrong character encodings
+
+    It happens now and then that the character encoding is wrong in
+    buffer. The main thing is not to panic and start doing global
+    replacements to make non-ASCII characters look like they should.
+    All the information is there; the character encoding just needs to
+    be changed. See [[http://superuser.com/questions/549497/how-to-switch-back-text-encoding-to-utf-8-with-emacs][How to switch back text encoding to UTF-8 with emacs?]]
+
+    The most common wrong encoding shows =\344= instead of =ä=. Then
+    your encoding is *latin-1*. Run =M-x
+    revert-buffer-with-coding-system=,
+    and select e.g. =utf-8-auto-mac=.
+
+    If you still see strange characters after conversion, you have
+    continued writing using latin-1 encoding and that portion of your
+    text needs to be converted again. Select that text, and run
+    =M-x recode-region= and give =iso-latin-1= at the first prompt and
+    =utf-8-mac= as the second.
 
 ** Whitespace
 
