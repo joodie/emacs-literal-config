@@ -3133,6 +3133,13 @@
              (t (narrow-to-defun))))
    #+END_SRC
 
+** Multiple views
+
+   To have an other view into the same buffer run
+   =clone-indirect-buffer-other-window= or =C-x 4 c=. This is great if
+   you need to keep an outline in the first window and narrow to one
+   section in the other.
+
 ** DocView
 
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Document-View.html#Document-View][DocView]] is for displaying PDF and other document files. It works by
