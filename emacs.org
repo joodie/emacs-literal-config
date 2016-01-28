@@ -5553,19 +5553,6 @@ bbdb-merge-records=.
          (org-capture-finalize)))
    #+END_SRC
 
-*** Open in Finder
-
-If M-x reveal-in-finder is invoked in a buffer not associated with a file,
-it will open the folder defined in the default-directory variable.
-In a dired buffer, this should open the current folder in the OS X Finder.
-
-   #+NAME: environment
-   #+BEGIN_SRC emacs-lisp
-     (use-package reveal-in-finder
-       :ensure t
-       :if (eq system-type 'darwin))
-   #+END_SRC
-
 ** Custom lisp package directory
 
    There are still lisp packages that you have to copy manually and
