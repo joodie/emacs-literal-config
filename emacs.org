@@ -530,6 +530,41 @@
    bindings to start with =C-c [lower case letter]=. Implementations are
    in appropriate sections below.
 
+** TODO Themes
+
+   I find the emacs default white background the best. I've installed
+   [[https://github.com/bbatsov/solarized-emacs][bbatsov's solarized-emacs]] theme since I read that it has a good org
+   mode support. [[https://emacsthemes.com/themes/paper-theme.html][Paper theme]] an other one geared for org mode users.
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (use-package solarized-theme
+       :ensure t
+       :init (setq solarized-scale-org-headlines nil))
+     (use-package paper-theme
+       :ensure t
+       :init (setq paper-tint-factor 85))
+   #+END_SRC
+
+   You are supposed to invoke themes with =M-x load-theme=. Strangely,
+   loading a theme does not disable the previous one. You have to
+   manually disable them all one by one using =disable-theme=. My own
+   function =theme= first disables existing ones and then
+   interactively calls load-theme.
+
+   TODO: Write a function that loads a theme but first disables all
+   active themes.
+
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lis
+     (defun theme ()
+       "Disable all active themes and then load one interactively.
+       Needs dash.el."
+       (interactive)
+       (--map (disable-theme it) custom-enabled-themes)
+       (call-interactively 'load-theme))
+   #+END_SRC
+
 * Start-up
 
   Start with the scratch buffer; no start-up screen. Restore previous
