@@ -60,6 +60,8 @@
 (depends-on "flycheck")
 (depends-on "flycheck-ledger")
 (depends-on "flycheck-package")
+(depends-on "flycheck-perl6")
+(depends-on "flymake-go")
 (depends-on "framemove")
 (depends-on "fringe-helper")
 (depends-on "fuzzy")

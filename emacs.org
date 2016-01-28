@@ -2443,14 +2443,17 @@
    #+END_SRC
 
    [[https://github.com/flycheck/flycheck][Flycheck]] does global syntax checking for most programming
-   languages. See [[https://www.masteringemacs.org/article/spotlight-flycheck-a-flymake-replacement][MasterEmacs]] for a good article.
+   languages. See [[https://www.masteringemacs.org/article/spotlight-flycheck-a-flymake-replacement][MasterEmacs]] for a good article. This code adds
+   support for perl6.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package flycheck
        :ensure t
        :config
-       (add-hook 'after-init-hook #'global-flycheck-mode))
+       (add-hook 'after-init-hook #'global-flycheck-mode)
+       (use-package flycheck-perl6
+         :ensure t))
    #+END_SRC
 
    [[https://github.com/syohex/emacs-quickrun][quickrun]]-package makes it easy to run any buffer with code in it.
@@ -2464,7 +2467,14 @@
                              '((:command . "~/.plenv/shims/perl")
                                '((:exec . ("%c -wc %s")))
                                :override t)))
+     (eval-after-load 'cperl-mode
+       '(bind-key  "C-c C-c" 'quickrun cperl-mode-map))
+     (eval-after-load 'perl6-mode
+       '(bind-key  "C-c C-c" 'quickrun perl6-mode-map))
    #+END_SRC
+
+   #+RESULTS: programming-setup
+   : quickrun
 
 
 ** Perl
@@ -2530,6 +2540,21 @@
 
      (eval-after-load 'cperl-mode
        '(bind-key  "C-c t" 'perltidy cperl-mode-map))
+   #+END_SRC
+
+*** perl6
+
+    The major mode will be autoloaded whenever a Perl 6 file is
+    visited. This includes any file with perl6 in the shebang, as well
+    as any file with a .p6, .pm6, or .pl6 extension. It also applies
+    to any .pm, .pl, and .t files whose first line of code looks like
+    Perl 6.
+
+  #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+(use-package perl6-mode
+  :ensure t
+  :defer t)
 
    #+END_SRC
 
