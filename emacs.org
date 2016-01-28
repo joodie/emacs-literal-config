@@ -1212,6 +1212,11 @@
    default 70. Hopefully this paragraph helps me to remember how to
    reset it.
 
+   An other confusing feature is the =fill-prefix= variable that can be
+   set as buffer-local by function =set-fill-prefix= or =C-x .=. To
+   return it to its default nil value, call the function on a empty
+   line.
+
 ** Understand compressed files
 
    This allows emacs to handle opening and saving .gz files
