@@ -4513,6 +4513,20 @@ bbdb-merge-records=.
              "☾ Last Quarter Moon"))
    #+END_SRC
 
+** worf -- modal editing
+
+   Adds vi-like modal key bindings to org mode by adding a new minor
+   mode.[[http://oremacs.com/worf/README.html][ Documentation]]
+
+   Note: Depends on helm
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (use-package worf
+       :ensure t
+       :config (add-hook 'org-mode-hook (lambda () (worf-mode 1))))
+   #+END_SRC
+
 ** Capture templates
 
    First we have to tell emacs where we want to store all captured
