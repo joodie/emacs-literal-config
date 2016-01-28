@@ -2838,6 +2838,59 @@
      ;;(global-set-key (kbd "<f5>") 'compile)
    #+END_SRC
 
+** go
+
+   See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][dotemacs/go-config.el]]
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (defun load-file-from-gopath (fname)
+       (let ((gopath-items (split-string (getenv "GOPATH") ":")))
+         (loop for prefix in gopath-items
+               if (file-exists-p (concat prefix "/src/" fname))
+               return (load-file (concat prefix "/src/" fname)))))
+
+     (defun load-file-from-gopath-or-download (pkg file)
+       (let ((fname (concat pkg "/" file)))
+         (unless (load-file-from-gopath fname)
+         (progn
+           (mkdir pkg)
+           (shell-command (format "go get -u %s" pkg)))
+           (load-file-from-gopath fname))))
+
+     ;;(use-package company-mode
+     ;;  :ensure t)
+
+     (use-package company-go
+       :config (setq company-go-show-annotation t)
+       :ensure t)
+
+     (use-package go-mode
+       :ensure t
+       :config
+       ;;(load-file-from-gopath-or-download "goflymake" "go-flymake.el")
+       ;;(load-file-from-gopath-or-download "lint" "misc/emacs/golint.el")
+
+       (bind-key "M-." 'godef-jump go-mode-map)
+
+       (use-package go-flymake
+         :config
+         ;; Use goimports instead of go-fmt
+         (setq gofmt-command "goimports")
+         ;; Call Gofmt before saving
+         (add-hook 'before-save-hook 'gofmt-before-save t)
+
+         ;; Customize compile command to run go build
+         (if (not (and (stringp compile-command)
+                       (string-match "go" compile-command)))
+             (set (make-local-variable 'compile-command)
+                  "go build -v && go test -v && go vet && golint")))
+
+       (use-package go-eldoc
+         :ensure t
+         :config (go-eldoc-setup)))
+   #+END_SRC
+
 * Auto Complete
 
   Getting auto completion to work right tends to be a messy process of
