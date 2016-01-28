@@ -160,8 +160,8 @@
      ;;                    :width 'normal)
      (set-fontset-font "fontset-default" nil
                        (font-spec :size 20 :name "Symbola:"))
-     (when (eq system-type 'darwin)
-      (set-default-font "-*-Hack-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1"))
+     ;;(when (eq system-type 'darwin)
+     ;;(set-default-font "-*-Hack-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1"))
    #+END_SRC
 
    You can use =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to
