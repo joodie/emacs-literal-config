@@ -2448,13 +2448,14 @@
        :ensure t
        :mode "\\.\\([pP][Llm]\\|al\\)\\'"
        :interpreter ("perl" "perl5" "miniperl")
+       :init
+       (setq cperl-indent-level 4
+             cperl-close-paren-offset -4
+             cperl-continued-statement-offset 4
+             cperl-indent-parens-as-block t
+             cperl-tab-always-indent t)
        :config
        (defun n-cperl-mode-hook ()
-         (setq cperl-indent-level 4
-               cperl-close-paren-offset -4
-               cperl-continued-statement-offset 4
-               cperl-indent-parens-as-block t
-               cperl-tab-always-indent t)
          (my/turn-on 'show-paren-mode
                      'abbrev-mode
                      'aggressive-indent-mode
