@@ -2883,7 +2883,7 @@
      ;;(global-set-key (kbd "<f5>") 'compile)
    #+END_SRC
 
-** go
+** TODO go
 
    See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][dotemacs/go-config.el]]
 
