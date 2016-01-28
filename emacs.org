@@ -1174,10 +1174,12 @@
    superfluous white-space should needs to be visible.
 
    [[Abbreviations]] are an important emacs productivity enhancement
-   feature. They need to be available in all text buffers.
+   feature. They need to be available in all text buffers. Any changes
+   to abbrevs are silently saved.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+     (setq save-abbrevs 'silently)
      (defun my/text-formatting-hooks ()
        (my/turn-on 'auto-fill ; turn on automatic hard line wraps
                    'abbrev))  ;; abbrev-mode on
