@@ -4329,9 +4329,11 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
-
-     (add-hook 'org-mode-hook (lambda () (org-autolist-mode)))
+     (use-package org-autolist
+       :ensure t
+       :config
+       (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
+       (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
 
      ;; to have \alpha, \to and others display as utf8
      ;; http://orgmode.org/manual/Special-symbols.html
