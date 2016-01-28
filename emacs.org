@@ -2307,7 +2307,7 @@
    #+BEGIN_SRC emacs-lisp
    ;;(use-package tex-site
   ;;  :ensure auctex)
-     (auctex-latexmk-setup)
+   ;;  (auctex-latexmk-setup)
 
      (when (fboundp 'adaptive-wrap-prefix-mode)
        (defun my-activate-adaptive-wrap-prefix-mode ()
