@@ -91,6 +91,7 @@
 (depends-on "idomenu")
 (depends-on "iedit")
 (depends-on "image+")
+(depends-on "imenu-anywhere")
 (depends-on "impatient-mode")
 (depends-on "javap-mode")
 (depends-on "kv")
