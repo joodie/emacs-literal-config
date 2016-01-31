@@ -1144,7 +1144,7 @@
     (bind-key "C-c n" 'my/clean-buffer-formatting)
 
     (defun my/general-formatting-hooks ()
-      (setq show-trailing-whitespace 't))
+      ;;(setq show-trailing-whitespace 't))
 
     (dolist (mode-hook (my/normal-mode-hooks))
       (add-hook mode-hook 'my/general-formatting-hooks))
