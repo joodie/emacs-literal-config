@@ -2560,7 +2560,7 @@
        :ensure t
        :config
        (condition-case nil
-           (plenv-global "5.20.1")
+           (plenv-global "5.22.1")
          (error (message "ERROR: unknown perl version. Is your plenv configured right?"))))
    #+END_SRC
 
