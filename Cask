@@ -96,6 +96,7 @@
 (depends-on "javap-mode")
 (depends-on "kv")
 (depends-on "langtool")
+(depends-on "latex-extra")
 (depends-on "ledger-mode")
 (depends-on "let-alist")
 (depends-on "linum-relative")
