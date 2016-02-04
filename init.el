@@ -16,6 +16,9 @@
   (normal-top-level-add-subdirs-to-load-path))
 (require 'cask)
 (cask-initialize)
+(unless (package-installed-p 'pallet)
+  (package-refresh-contents)
+  (package-install 'pallet))
 (require 'pallet)
 (pallet-mode t)
 
@@ -25,6 +28,9 @@
   (message "Loading %s...done (%.3fs)" "cask&pallet" elapsed))
 
 ;; use-package
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 (eval-when-compile
   (require 'use-package))
 (require 'diminish)                ;; if you use :diminish

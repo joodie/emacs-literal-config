@@ -3517,8 +3517,6 @@ too.
        :bind ("C-." . imenu-anywhere))
    #+END_SRC
 
-
-
 ** Geographical location
 
   Calendar functions like to know your geographical coordinates to
