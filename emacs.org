@@ -4118,6 +4118,22 @@ bbdb-merge-records=.
        :config (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t))
    #+END_SRC
 
+** Calculator
+
+   For a long time I used python interactive command line mode to do
+   simple calculations. I now use mostly =quick-calc= which has key
+   binding =C-x l == as part of my launch hydra. The default calc has
+   strange setup that gives multiplication a higher precedence than
+   division. The following fixes it.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (setq-default calc-multiplication-has-precedence nil)
+   #+END_SRC
+
+   The full blown =calc= has facinating possibilities that I explore
+   occasionally but not often enough to learn to use it effectively.
+
 ** World Clock
 
    The built-in command =display-time-world= opens a new buffer with
