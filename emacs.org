@@ -2131,12 +2131,12 @@
       (setq magit-diff-options '("-b")) ; ignore whitespace
       (setq magit-last-seen-setup-instructions "2.1.0"))
 
-    (use-package git-commit)
-    (use-package git-gutter)
-    (use-package git-gutter-fringe)
-    (use-package gitattributes-mode)
-    (use-package gitconfig-mode)
-    (use-package gitignore-mode)
+    (use-package git-commit :ensure t)
+    (use-package git-gutter :ensure t)
+    (use-package git-gutter-fringe :ensure t)
+    (use-package gitattributes-mode :ensure t)
+    (use-package gitconfig-mode :ensure t)
+    (use-package gitignore-mode :ensure t)
   #+END_SRC
 
 ** git-timemachine
@@ -5439,11 +5439,12 @@ bbdb-merge-records=.
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (use-package dash
-       :ensure t)
-     (if (>= emacs-major-version 24)
-         (use-package dash-functional
-           :ensure t)
-       (message "Warning: dash-functional needs Emacs v24"))
+       :ensure t
+       :config
+       (if (>= emacs-major-version 24)
+           (use-package dash-functional
+             :ensure t)
+         (message "Warning: dash-functional needs Emacs v24")))
    #+END_SRC
 
 
