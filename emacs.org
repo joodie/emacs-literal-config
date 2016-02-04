@@ -4822,9 +4822,7 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (setq org-refile-targets '((nil :level . 3)
-                                (org-agenda-files :level . 3)))
-
+     (setq org-refile-targets '(("reference.org" :level . 4)))
    #+END_SRC
 
    Add timestamp to all DONE items.
