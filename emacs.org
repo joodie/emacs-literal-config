@@ -218,12 +218,13 @@
 
    Show written out symbols as they should be. This is available only
    in emacs 24.4 and above. The replacements are in variable
-   =prettify-symbols-alist=. Currently it only displays “lambda” as
-   "λ" in lisp code.
+   =prettify-symbols-alist=. Currently it displays “lambda” as
+   "λ" in lisp code and hundreds of symbols in LaTeX mode.
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (global-prettify-symbols-mode 1)
+     (setq prettify-symbols-unprettify-at-point 'right-edge)
    #+END_SRC
 
 ** Fringe decorations
