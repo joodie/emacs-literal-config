@@ -2301,7 +2301,7 @@
 
    Hit =C-c C-c= to compile, =C-c C-v= to view.
 
-   More [[http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor/][AUCTeX]] tips. [[http://irreal.org/blog/?p=3577][Irreal blog]].
+   More [[http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor/][AUCTeX]] tips. [[http://irreal.org/blog/?p=3577][Irreal blog]]. [[https://github.com/Schnouki/dotfiles/blob/master/emacs/init-20-tex.el][A conf example]].
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
