@@ -4446,6 +4446,10 @@ bbdb-merge-records=.
   Let's bind the org mode online info into hydra-goto =C-c z o= since
   it is so useful.
 
+  Two minor modes =visual-line-mode= and =org-indent-mode= combined
+  make org buffers automatically to wrap long lines at word boundary
+  adn indent the next line.
+
   [[https://github.com/calvinwyoung/org-autolist][org-autolist]] makes org lists behave more like you'd expect: =Return=
   inserts a new list item and =backspace= removes the bullet and
   backs up to previous list item.
