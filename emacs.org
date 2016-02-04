@@ -4214,6 +4214,7 @@ bbdb-merge-records=.
           blog  _n_: new post                        _l_: publish last commit
                 _r_: reset & publish all             _p_: publish interactively
                 _t_: reset & publish to /tmp/blog    _e_: new-repository
+                _s_: reset & preview in ~/.op-tmp
                 "
          ("n" op/new-post)
          ("r" (progn
@@ -4222,6 +4223,9 @@ bbdb-merge-records=.
          ("t" (progn
                 (setq op/item-cache nil)
                 (op/do-publication t "/tmp/blog" nil t nil)))
+         ("s" (progn
+                (setq op/item-cache nil)
+                (op/do-publication-and-preview-site)))
          ("l" (op/do-publication nil "HEAD~1" nil t t))
          ("p" op/do-publication)
          ("e" op/new-repository))
