@@ -4426,21 +4426,24 @@ bbdb-merge-records=.
   Org mode has a large selected special symbols (like \=alpha=) to
   enter characters into the text. Exporting converts them to the
   proper Unicode character or symbol for that output. I my org mode,
-  the entities are rendered as symbols. You can toggle that with =C-c
+  [[ http://orgmode.org/manual/Special-symbols.html][the entities are rendered as symbols]]. You can toggle that with =C-c
   C-x \=. The list of all entities can be seen in a buffer with =M-x
   org-entities-help=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (use-package org-autolist
+     (use-package org
        :ensure t
        :config
        (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
+       (setq org-pretty-entities t)
+       (add-hook 'org-mode-hook (lambda ()
+                                  (visual-line-mode)
+                                  (org-indent-mode))))
+     (use-package org-autolist
+       :ensure t
+       :config
        (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
-
-     ;; to have \alpha, \to and others display as utf8
-     ;; http://orgmode.org/manual/Special-symbols.html
-     (setq org-pretty-entities t)
    #+END_SRC
 
 ** Agenda
