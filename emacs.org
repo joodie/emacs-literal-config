@@ -5578,7 +5578,7 @@ bbdb-merge-records=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'load-path "~/.emacs.d/elisp")
+     (add-to-list 'load-path "~/.emacs.d/elisp/")
    #+END_SRC
 
 ** Load secrets
