@@ -1875,9 +1875,6 @@
             ("u" (my/flyspell-save-word t)))
    #+END_SRC
 
-   #+RESULTS: spell-checker
-   : hydra-flyspell/body
-
 ** TODO wcheck mode
 
   A level up in spell checking abstractions is [[https://github.com/tlikonen/wcheck-mode][Wcheck Mode]] that
@@ -2287,7 +2284,7 @@
      # .latexmkrc starts
      $pdf_mode = 1;
      # .latexmkrc ends
-  #+END_SRC
+   #+END_SRC
 
    [[http://www.emacswiki.org/emacs/LaTeXPreviewPane][latex-preview-panel]] package enables preview within Emacs. I could
    add =(latex-preview-panel-enable)= here but it I can enable it on
@@ -2530,7 +2527,10 @@
          :ensure t))
    #+END_SRC
 
-   [[https://github.com/syohex/emacs-quickrun][quickrun]]-package makes it easy to run any buffer with code in it.
+   [[https://github.com/syohex/emacs-quickrun][quickrun]]-package makes it easy to run any buffer with code in it. I
+   do not use system perl, so I redefine the perl command to use
+   plenv-installed perl. As avid org user, I map =C-c C-c= to run
+   quickrun in modes that use frequently.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -3545,7 +3545,7 @@ too.
 Functionality that otherwise require external applications and are not
 really something a normal text editor would do.
 
-** GMail
+** Mail: gmail
 
 The gmail setup used is from [[http://blog.binchen.org/posts/notes-on-using-gnus.html][Practical guide to use Gnus with Gmail]].
 
@@ -3754,7 +3754,7 @@ bbdb-merge-records=.
            ))))
    #+END_SRC
 
-** News feed reader
+** News feed reader: elfeed
 
    [[https://github.com/skeeto/elfeed][Elfeed]] is a sensible RSS feed reader. =C-c f= starts it and =G=
    updates the article list. =r= marks things as read and =b= opens
@@ -4258,7 +4258,6 @@ bbdb-merge-records=.
        (defun eshell/d (&rest args)
          (dired (pop args) ".")))
    #+END_SRC
-
 
 ** Process management
 
