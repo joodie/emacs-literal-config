@@ -4607,7 +4607,7 @@ bbdb-merge-records=.
      ;; Capture templates for: general notes, TODO tasks, events
      (setq org-capture-templates
            '(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
-                   "* %?\n  Entered on %U\n  %i")
+                   "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n%i")
                   ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
                    "* TODO %?\n     SCHEDULED: %t\n%i\n  Entered on %U")
                   ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
