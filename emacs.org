@@ -2568,7 +2568,21 @@
        :config
        (condition-case nil
            (plenv-global "5.22.1")
-         (error (message "ERROR: unknown perl version. Is your plenv configured right?"))))
+         (error (message "ERROR: unknown perl version. Is your plenv configured right?")))
+       (use-package flymake
+         :ensure t
+         :config
+         (defun flymake-perl-init ()
+           (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                              'flymake-create-temp-with-folder-structure))
+                  (local-file (file-relative-name
+                               temp-file
+                               (file-name-directory buffer-file-name))))
+             (list (guess-plenv-perl-path) (list "-wc" local-file))))
+
+         (push '(".+\\.p[ml]$" flymake-perl-init) flymake-allowed-file-name-masks)
+         (push '(".+\\.psgi$" flymake-perl-init) flymake-allowed-file-name-masks)
+         (push '(".+\\.t$" flymake-perl-init) flymake-allowed-file-name-masks)))
    #+END_SRC
 
    Use the built-in =cperl-mode= instead of the default =perl-mode=
