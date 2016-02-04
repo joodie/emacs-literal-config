@@ -3122,7 +3122,6 @@
        :config
        (ivy-mode 1)
        (bind-key "C-s" 'swiper)
-       (bind-key "C-r" 'swiper)
        (bind-key "C-c C-r" 'ivy-resume)
        (custom-set-faces
         '(swiper-minibuffer-match-face-1
@@ -3139,6 +3138,10 @@
          "recenter display after swiper"
          (recenter))
        (advice-add 'swiper :after #'my/swiper-recenter))
+
+     ;; restore key bindings to isearch due to character folding in emacs 25.1
+     (bind-key "C-`" 'isearch-forward)
+     (bind-key "C-r" 'isearch-backward)
 
      (use-package swiper
        :ensure counsel)
