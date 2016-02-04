@@ -4840,7 +4840,8 @@ bbdb-merge-records=.
    but leaves [-] alone in HTML export.
 
    The second uses [[https://github.com/sabof/org-bullets][org-bullets]] to beautify org header bullets with
-   pretty UTF-8 characters.
+   pretty UTF-8 characters. Custom bullets icons are from
+   [[http://puntoblogspot.blogspot.fi/2016/01/pointy-org-bullets.html][puntoblogspot]].
 
    The third replaces ASCII ellipsis with a Unicode character.
 
@@ -4854,7 +4855,9 @@ bbdb-merge-records=.
 
      (use-package org-bullets
        :ensure t
-       :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+       :init (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●" ))
+       ;; :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+       )
 
      ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
      ;;(setq org-ellipsis "…")
