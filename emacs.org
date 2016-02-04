@@ -1251,6 +1251,7 @@
     #+BEGIN_SRC emacs-lisp
       (use-package super-save
         :ensure t
+        :init (setq super-save-auto-save-when-idle t)  ; def 5 sec
         :config (super-save-initialize))
     #+END_SRC
 
