@@ -870,7 +870,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
   | h      | hydra-apropos/body                        |                              |
   | i      | my/org-babel-untangle                     | [[Org-Babel]]                    |
   | j      | define-word-at-point                      | [[Word definition]]              |
-  | k      | my/aspell-word-then-abbrev                | [[Spell checking]]               |
+  | k      | my/ispell-word-then-abbrev                | [[Spell checking]]               |
   | l      | org-store-link                            | [[Org Mode]]                     |
   | m      | macrostep-expand                          | [[Lisps]]                        |
   | n      | my/clean-buffer-formatting                | [[Formatting and white-space]]   |
@@ -1717,7 +1717,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
        ("q" nil :color blue)
 
        ("c" ispell-word)
-       ("k" my/aspell-word-then-abbrev)
+       ("k" my/ispell-word-then-abbrev)
        ("i" my/flyspell-save-word)
        ("u" (my/flyspell-save-word t)))
    #+END_SRC
@@ -1768,38 +1768,38 @@ package. Use it instead of =package-install=: =M-x try some-package=.
          (message "Dictionary switched from %s to %s" dict lang)))
 
      ;; from http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html
-     (defun endless/ispell-word-then-abbrev (p)
-       "Call `ispell-word', then create an abbrev for it.
-     With prefix P, create local abbrev. Otherwise it will
-     be global.
-     If there's nothing wrong with the word at point, keep
-     looking for a typo until the beginning of buffer. You can
-     skip typos you don't want to fix with `SPC', and you can
-     abort completely with `C-g'."
-     (interactive "P")
-       (let (bef aft)
-         (save-excursion
-           (while (if (setq bef (thing-at-point 'word))
-                      ;; Word was corrected or used quit.
-                      (if (ispell-word nil 'quiet)
-                          nil ; End the loop.
-                        ;; Also end if we reach `bob'.
-                        (not (bobp)))
-                    ;; If there's no word at point, keep looking
-                    ;; until `bob'.
-                    (not (bobp)))
-             (backward-word))
-           (setq aft (thing-at-point 'word)))
-         (if (and aft bef (not (equal aft bef)))
-             (let ((aft (downcase aft))
-                   (bef (downcase bef)))
-               (define-abbrev
-                 (if p local-abbrev-table global-abbrev-table)
-                 bef aft)
-               (message "\"%s\" now expands to \"%s\" %sally"
-                        bef aft (if p "loc" "glob")))
-           (user-error "No typo at or before point"))))
-     (bind-key "C-c k" 'my/aspell-word-then-abbrev)
+     (defun my/ispell-word-then-abbrev (p)
+  "Call `ispell-word', then create an abbrev for it.
+With prefix P, create local abbrev. Otherwise it will
+be global.
+If there's nothing wrong with the word at point, keep
+looking for a typo until the beginning of buffer. You can
+skip typos you don't want to fix with `SPC', and you can
+abort completely with `C-g'."
+  (interactive "P")
+  (let (bef aft)
+    (save-excursion
+      (while (if (setq bef (thing-at-point 'word))
+                 ;; Word was corrected or used quit.
+                 (if (ispell-word nil 'quiet)
+                     nil ; End the loop.
+                   ;; Also end if we reach `bob'.
+                   (not (bobp)))
+               ;; If there's no word at point, keep looking
+               ;; until `bob'.
+               (not (bobp)))
+        (backward-word))
+      (setq aft (thing-at-point 'word)))
+    (if (and aft bef (not (equal aft bef)))
+        (let ((aft (downcase aft))
+              (bef (downcase bef)))
+          (define-abbrev
+            (if p local-abbrev-table global-abbrev-table)
+            bef aft)
+          (message "\"%s\" now expands to \"%s\" %sally"
+                   bef aft (if p "loc" "glob")))
+      (user-error "No typo at or before point"))))
+     (bind-key "C-c k" 'my/ispell-word-then-abbrev)
 
      ;; original copied from
      ;; http://stackoverflow.com/questions/22107182/in-emacs-flyspell-mode-how-to-add-new-word-to-dictionary
@@ -1881,10 +1881,13 @@ package. Use it instead of =package-install=: =M-x try some-package=.
             ("q" nil :color blue)
 
             ("c" ispell-word)
-            ("k" my/aspell-word-then-abbrev)
+            ("k" my/ispell-word-then-abbrev)
             ("i" my/flyspell-save-word)
             ("u" (my/flyspell-save-word t)))
    #+END_SRC
+
+   #+RESULTS: spell-checker
+   : hydra-flyspell/body
 
 ** TODO wcheck mode
 
@@ -4472,7 +4475,7 @@ bbdb-merge-records=.
 
   Two minor modes =visual-line-mode= and =org-indent-mode= combined
   make org buffers automatically to wrap long lines at word boundary
-  adn indent the next line.
+  and indent the next line.
 
   [[https://github.com/calvinwyoung/org-autolist][org-autolist]] makes org lists behave more like you'd expect: =Return=
   inserts a new list item and =backspace= removes the bullet and
