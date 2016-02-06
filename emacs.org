@@ -3947,11 +3947,6 @@ bbdb-merge-records=.
              (yank)
              (org-capture-finalize))
 
-           ;;(bind-keys :map elfeed-show-mode-map
-           ;;           ("b" . elfeed-show-visit)
-           ;;           ("l" . elfeed-show-link-title)
-           ;;           ("v" . elfeed-show-quick-url-note))
-
            ;; search mode
 
            (defun elfeed-search-link-title ()
@@ -3977,7 +3972,7 @@ bbdb-merge-records=.
                         (mapc #'elfeed-search-update-entry entries))
                (unless (use-region-p) (forward-line))))
 
-          ;; needs emacs 24.4
+         ;; needs emacs 24.4
          (with-eval-after-load "elfeed"
            (bind-keys :map elfeed-show-mode-map
                       ("b" . elfeed-show-visit)
