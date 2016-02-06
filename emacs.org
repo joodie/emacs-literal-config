@@ -113,6 +113,17 @@
      the list and got upgraded without any problems. I have not seen
      anything announcing this so let's see how things develop.
 
+**** Trying packaged without installing
+
+You can try out a package without changing you setup by using the [[https://github.com/larstvei/Try][try]]
+package. Use it instead of =package-install=: =M-x try some-package=.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (use-package try
+       :ensure t)
+   #+END_SRC
+
 ** Editing this document
 
    Use emacs and version >8 of org-mode for editing. To do that

@@ -154,6 +154,7 @@
 (depends-on "suomalainen-kalenteri")
 (depends-on "super-save")
 (depends-on "swiper")
+(depends-on "try")
 (depends-on "twittering-mode")
 (depends-on "undo-tree")
 (depends-on "use-package")
