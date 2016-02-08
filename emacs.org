@@ -4495,7 +4495,6 @@ bbdb-merge-records=.
 
 ** Agenda
 
-
    I set the agenda calendar work week to start on Sunday according to
    Saudi Arabian custom. Also, I need reminders of holidays in
    Finland.
@@ -4516,9 +4515,13 @@ bbdb-merge-records=.
    them from a list. At the agenda item header, hit =C-c C-c= to see the
    list and select any subset of tags by pressing the shortcut key(s).
 
+   Tags can be added automatically at org-capture. This [[http://stackoverflow.com/questions/29788639/automatically-assigning-tags-in-org-mode][solution]]
+   works, but only if capitalization is right. All my tags are in
+   upper case, it was necessary to add =upcase=.
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (setq org-tag-alist '(("ATORP"  . ?a)
+     (setq org-tag-alist '(("ATORP"   . ?a)
                            ("BIO"     . ?b)
                            ("COMP"    . ?c)
                            ("EMACS"   . ?e)
@@ -4633,6 +4636,25 @@ bbdb-merge-records=.
                    "* TODO %?\n     SCHEDULED: %t\n%i\n  Entered on %U")
                   ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
                    "* %?\n     %T\n%i\n  Entered on %U")))
+   #+END_SRC
+
+   Captured notes can be tagged just like any other org headings.
+   However, Key combination =C-c C-c= finalizes the capture, so you
+   have to use =C-c C-q= to call up the capture interface. Tags that
+   match words in the header are automatically added at the end of the
+   capture.
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (defun org-auto-tag ()
+       (interactive)
+       (let ((alltags (append org-tag-persistent-alist org-tag-alist))
+             (headline-words  (split-string (upcase (org-get-heading t t)))))
+         (mapcar (lambda (word)
+                   (if (assoc word alltags)
+                       (org-toggle-tag word 'on)))
+                 headline-words)))
+     (add-hook 'org-capture-before-finalize-hook 'org-auto-tag)
    #+END_SRC
 
    Todos can have additional keywords with dates: =DEADLINE= =C-c C-d=
