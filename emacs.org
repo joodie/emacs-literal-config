@@ -82,6 +82,9 @@
    have to call up the paradox window to upgrade packages with
    =paradox-upgrade-packages=.
 
+   Lastly, org-mode is now part of emacs and having to restart or
+   reload org-mode after upgrade seems to be thing of the past.
+
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (use-package paradox
@@ -92,28 +95,7 @@
        (setq paradox-automatically-star t))
    #+END_SRC
 
-*** Upgrading Org
-
-    The core org-mode package can not be upgraded when it is in use.
-    Do it monthly by starting bare emacs at the command line:
-
-   #+BEGIN_SRC sh
-     /usr/local/bin/emacs -Q
-     M-x package-list-packages
-     U x # upgrade & execute
-     yes # do upgrade org
-     yes # to delete old org
-     C-x C-c  # quit emacs
-     # restart graphical emacs
-   #+END_SRC
-
-**** TODO Automatic org upgades
-
-     Last time I upgraded emacs packages the org package was there in
-     the list and got upgraded without any problems. I have not seen
-     anything announcing this so let's see how things develop.
-
-**** Trying packaged without installing
+** Trying packages without installing
 
 You can try out a package without changing you setup by using the [[https://github.com/larstvei/Try][try]]
 package. Use it instead of =package-install=: =M-x try some-package=.
