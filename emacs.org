@@ -2114,9 +2114,9 @@ abort completely with `C-g'."
 
   [[http://irreal.org/blog/?p=4279][Irreal]] gives hints how to configure the latest (2.1) magit.
 
-  One of the best features of magit is its ablility to show changes in
-  a single file in chunks. Even better is thatyou can discard the
-  chunk from the file by pressing key =k=. Great for discading
+  One of the best features of magit is its ability to show changes in
+  a single file in chunks. Even better is that you can discard the
+  chunk from the file by pressing key =k=. Great for discarding
   accidental typos.
 
   #+name: version-control
