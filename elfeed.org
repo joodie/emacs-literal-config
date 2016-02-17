@@ -61,3 +61,5 @@
 #*** http://blogandgogo.weebly.com/1/feed
 *** http://metallome.blogspot.com/atom.xml
 *** http://dakotakollective.wordpress.com/feed/
+*** http://websta.me/rss/n/dr
+*** http://websta.me/rss/n/ohmauritiusbaby
