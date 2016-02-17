@@ -2295,7 +2295,7 @@ l s= for "Emacs, launch synonyms".
        nil           ; The indicator for the mode line
        '()           ; The minor mode bindings.
        :group 'my/linum
-       (linum-mode (if my/linum-mode 1 -1)))
+       (nlinum-mode (if my/linum-mode 1 -1)))
 
      (define-global-minor-mode my/global-linum-mode
        my/linum-mode
@@ -2307,9 +2307,9 @@ l s= for "Emacs, launch synonyms".
        (unwind-protect
            (progn
              (linum-relative-toggle)
-             (linum-mode 1)
+             (nlinum-mode 1)
              (goto-line (read-number "Goto line: ")))
-         (linum-mode -1)
+         (nlinum-mode -1)
          (linum-relative-toggle)))
 
      (bind-key "C-x ," 'goto-line)

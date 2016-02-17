@@ -107,6 +107,7 @@
 (depends-on "mustache")
 (depends-on "names")
 (depends-on "neotree")
+(depends-on "nlinum")
 (depends-on "noflet")
 (depends-on "nose")
 (depends-on "org")
