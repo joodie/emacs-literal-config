@@ -1969,10 +1969,12 @@ package. Use it instead of =package-install=: =M-x try some-package=.
      ;; Speed up aspell: ultra | fast | normal
      (setq ispell-extra-args '("--sug-mode=ultra"))
 
-     ;; Flyspell activation for text mode
+     ;; Flyspell activation for text modes
      (add-hook 'text-mode-hook
                (lambda () (flyspell-mode 1)
                  (diminish 'flyspell-mode " ✓")))
+     ;; Flyspell activation for programming modes
+     (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
      ;; fix ispell for org mode
      ;; http://endlessparentheses.com/ispell-and-org-mode.html
@@ -2383,7 +2385,7 @@ l s= for "Emacs, launch synonyms".
        (add-hook 'latex-mode-hook 'turn-on-reftex) ; no -mode in the end
 
        ;; spell checking on LaTeX buffers
-       (add-hook 'latex-mode-hook 'flyspell-mode)
+       ;;(add-hook 'latex-mode-hook 'flyspell-mode)
        (add-hook 'latex-mode-hook 'flyspell-buffer)
 
        ;; latex-extra
@@ -2647,8 +2649,7 @@ l s= for "Emacs, launch synonyms".
        (defun n-cperl-mode-hook ()
          (my/turn-on 'show-paren-mode
                      'abbrev-mode
-                     'aggressive-indent-mode
-                     'flyspell-prog-mode))
+                     'aggressive-indent-mode))
        (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t))
    #+END_SRC
 
