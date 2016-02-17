@@ -2582,22 +2582,18 @@ l s= for "Emacs, launch synonyms".
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (use-package quickrun
-       :ensure t
-       :config
-       (quickrun-add-command "perl"
-                             '((:command . "~/.plenv/shims/perl")
-                               '((:exec . ("%c -wc %s")))
-                               :override t)))
-     (eval-after-load 'cperl-mode
-       '(bind-key  "C-c C-c" 'quickrun cperl-mode-map))
-     (eval-after-load 'perl6-mode
-       '(bind-key  "C-c C-c" 'quickrun perl6-mode-map))
+       (use-package quickrun
+         :ensure t
+         :config
+         (quickrun-add-command "perl"
+                               '((:command . "~/.plenv/shims/perl")
+                                 '((:exec . ("%c -wc %s")))
+                                 :override t))
+         (eval-after-load 'cperl-mode
+           '(bind-key  "C-c C-c" 'quickrun cperl-mode-map))
+         (eval-after-load 'perl6-mode
+           '(bind-key  "C-c C-c" 'quickrun perl6-mode-map)))
    #+END_SRC
-
-   #+RESULTS: programming-setup
-   : quickrun
-
 
 ** Perl
 
@@ -5553,7 +5549,6 @@ bbdb-merge-records=.
              :ensure t)
          (message "Warning: dash-functional needs Emacs v24")))
    #+END_SRC
-
 
 ** Options set using the customize interface
 
