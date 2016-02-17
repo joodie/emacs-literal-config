@@ -5,6 +5,7 @@
 (depends-on "2048-game")
 (depends-on "adaptive-wrap")
 (depends-on "aggressive-indent")
+(depends-on "alda-mode")
 (depends-on "async")
 (depends-on "auctex")
 (depends-on "auctex-latexmk")

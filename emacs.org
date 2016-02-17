@@ -3002,6 +3002,21 @@ l s= for "Emacs, launch synonyms".
          :config (go-eldoc-setup)))
    #+END_SRC
 
+** alda
+
+[[https://github.com/alda-lang/alda/][alda]] - A music programming language for musicians. Needs binary
+installed first.
+
+#+NAME: programming-setup
+#+BEGIN_SRC emacs-lisp
+  (use-package alda-mode
+    :ensure t
+    :bind
+    :config
+    (eval-after-load 'alda-mode
+      '(bind-key  "C-c C-c" 'alda-play-region alda-mode-map)))
+#+END_SRC
+
 * Auto Complete
 
   Getting auto completion to work right tends to be a messy process of
