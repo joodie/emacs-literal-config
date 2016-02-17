@@ -2479,6 +2479,8 @@ l s= for "Emacs, launch synonyms".
           (add-hook 'markdown-mode-hook 'pandoc-mode))
   #+END_SRC
 
+  See [[https://github.com/ancane/markdown-preview-mode][markdown-preview-mode]].
+
 ** Ledger
 
    Ledger is a command line accounting program with strong emacs
