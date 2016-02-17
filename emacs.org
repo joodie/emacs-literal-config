@@ -3174,6 +3174,18 @@ l s= for "Emacs, launch synonyms".
 
    #+END_SRC
 
+   Going to end of buffer with =M->= involves keeping the shift-key
+   down on my American Apple keyboard. I quite often miss the option
+   key and press the command key instead. It turns out shift is not
+   recognized together with the command key, so I create a key binding
+   for =s-.= to move to end of the buffer. Logically, =s-,= then moves
+   to the beginning of the buffer.
+
+   #+name: local-navigation
+   #+BEGIN_SRC emacs-lisp
+     (bind-key "s-." 'end-of-buffer)
+     (bind-key "s-," 'beginning-of-buffer)
+   #+END_SRC
 ** Searching
 
    [[https://github.com/abo-abo/swiper][Swiper]] is a replacement for isearch that faster and easier to configure.
