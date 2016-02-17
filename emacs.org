@@ -804,28 +804,31 @@ package. Use it instead of =package-install=: =M-x try some-package=.
     (bind-key "C-x l" 'hydra-launch/body)
     (defhydra hydra-launch (:color blue :hint nil :idle 1.0)
       "
-    launch _2_048           _l_ink chrome    _p_aradox             _w_3m at point
-           _c_: calfw       _n_ato-region    _q_: paradox upgrade  G_\+_ emacs
-           _e_diff-buffers  de_N_ato         _t_imemachine git     _?_: emacsExchange
-           _g_scholar-bib   _r_e-builder     _z_: timezones
-           _h_owdoi         e_s_hell
-           tw_i_tter        _=_: quick-calc
+    launch _2_048            _l_ink chrome    _p_aradox             _w_3m at point
+           _b_: gscholar-bib _n_ato-region    _q_: paradox upgrade  G_\+_ emacs
+           _c_: calfw        de_N_ato         _t_imemachine git     _?_: emacsExchange
+           _e_diff-buffers   _r_e-builder     _z_: timezones
+           _h_owdoi          _s_ynonyms       _x_: eshell
+           tw_i_tter         _=_: quick-calc
           "
+
       ("2" 2048-game)
       ("c" my/calendar)
       ("e" ediff-buffers)
-      ("g" gscholar-bibtex)
+      ("b" gscholar-bibtex)
+      ("g" langtool-correct-buffer)
       ("h" howdoi-query)
       ("i" twit)
       ("l" org-mac-chrome-insert-frontmost-url)
       ("n" nato-region)
       ("N" denato-region)
       ("r" re-builder)
-      ("s" eshell)
+      ("s" synosaurus-choose-and-replace)
       ("p" paradox-list-packages)
       ("q" paradox-upgrade-packages)
       ("t" git-timemachine)
       ("w" browse-url-at-point)
+      ("x" eshell)
       ("z" display-time-world)
       ("=" quick-calc)
       ("?" (browse-url "http://emacs.stackexchange.com/"))
@@ -1556,7 +1559,262 @@ package. Use it instead of =package-install=: =M-x try some-package=.
        :ensure t)
    #+END_SRC
 
-** TODO Spell checking
+** iedit mode
+
+   Activate the [[http://www.emacswiki.org/emacs/Iedit][Iedit]] mode by placing the cursor to a word and
+   pressing =C-x t i=. All occurrences of that word in the buffer are
+   selected and can be simultaneously edited.
+
+** Count words in a buffer
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+        ;; word-count
+        (defun word-count nil "Count words in buffer" (interactive)
+          (shell-command-on-region (point-min) (point-max) "wc -w"))
+
+    (defun count-words (start end)
+      "Print number of words in the region."
+      (interactive "r")
+      (save-excursion
+        (save-restriction
+          (narrow-to-region start end)
+          (goto-char (point-min))
+          (count-matches "\\sw+"))))
+  #+END_SRC
+
+** Text editing done by external programs
+
+  It used to be quicker for me to write perl scripts to format text than
+  do it any other way. These functions demonstrate how a standard command
+  line program that reads from STDIN and write to STDOUT is easily
+  included into emacs workflow. Markdown and SmartyPants are equally
+  antiquated functions.
+
+  Programs need to be available in your shell path. I most often use
+  [[http://gist.github.com/heikkil/7510734][txt2para.pl]] that serves as a good example of these programs.
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+
+    (defun txt2xhtml ()
+      "Turn consecutive non-empty lines of plain text into HTML <p> elements."
+      (interactive)
+      (shell-command-on-region (point)
+             (mark) "txt2xhtml.pl" nil t))
+
+    (defun txt2header ()
+      "Turn consecutive non-empty lines of plain text into HTML <h2> elements."
+      (interactive)
+      (shell-command-on-region (point)
+             (mark) "txt2header.pl" nil t))
+
+    (defun txt2para ()
+      "Turn consecutive non-empty lines of plain text into paragraphs."
+      (interactive)
+      (shell-command-on-region (point)
+             (mark) "txt2para.pl" nil t))
+
+    (defun do-mark-down (start end)
+       "Invoke the Markdown algorithm on region."
+       (interactive "r")
+       (shell-command-on-region start end "Markdown.pl" t t))
+     ;;(global-set-key "\C-cm" 'do-mark-down)
+
+    (defun do-smarty-pants (start end)
+       "Invoke the SmartyPants algorithm on region."
+       (interactive "r")
+       (shell-command-on-region start end "SmartyPants.pl" t t))
+     ;;(global-set-key "\C-cs" 'do-smarty-pants)
+  #+END_SRC
+
+** Commenting
+
+   The default emacs line commenting leaves a lot of things out. A
+   replacement package [[https://github.com/remyferre/comment-dwim-2][comment-dwim-2]] allows uncommenting and cycling
+   of different behaviors. The default comment key is =C-;=.
+
+   Note to self: [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] is recommended for the evil mode.
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+     (use-package comment-dwim-2
+       :ensure t
+       :bind "M-;")
+   #+END_SRC
+
+   Remember: =C-x ;= sets the comment column (comment-set-column)
+
+   This draws a comment box that is the width of the fill column
+   around the selected region.
+
+   #+BEGIN_SRC emacs-lisp
+     ;;http://irreal.org/blog/?p=374
+     (defun jcs-comment-box (b e)
+       "Draw a box comment around the region but arrange for the region
+     to extend to at least the fill column. Place the point after the
+     comment box."
+       (interactive "r")
+       (let ((e (copy-marker e t)))
+         (goto-char b)
+         (end-of-line)
+         (insert-char ?  (- fill-column (current-column)))
+         (comment-box b e 1)
+         (goto-char e)
+         (set-marker e nil)))
+   #+END_SRC
+
+** Editing as root
+
+  If you open a file that you do not have permissions to edit, you can
+  call this function =edit-current-file-as-root= to invoke sudo rights
+  within emacs. Kudos to [[http://wenshanren.org/?p=298][Wenshan]].
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (defun edit-current-file-as-root ()
+      "Edit as root the file associated with the current buffer"
+       (interactive)
+       (if (buffer-file-name)
+           (progn
+             (setq file (concat "/sudo:root@localhost:" (buffer-file-name)))
+             (find-file file))
+         (message "Buffer is not associated to a file.")))
+   #+END_SRC
+
+** Editing file lists with wdired
+
+   [[http://www.masteringemacs.org/articles/2013/10/10/wdired-editable-dired-buffers/][Editable dired]] is part of standard emacs. Once you are in dired
+   =C-x d=, directory editing, mode, you can press =C-x C-q= to edit
+   file names like any text. The familiar =C-c C-c= commits the
+   changes.
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    ;;http://mbork.pl/2015-04-25_Some_Dired_goodies
+    ;;
+    ;; file type association to a program
+    (setq dired-guess-shell-alist-user
+          '(("\\.pdf\\'" "skim")
+            ("\\.tex\\'" "pdflatex")
+            ("\\.ods\\'\\|\\.xlsx?\\'\\|\\.docx?\\'\\|\\.csv\\'" "libreoffice")))
+    ;; open a file replacing the current dired buffer
+    (put 'dired-find-alternate-file 'disabled nil)
+  #+END_SRC
+
+** Image mode
+
+   Recent emacsen can show images in directly in buffers. The
+   following code adds the [[https://github.com/mhayashi1120/Emacs-imagex][image+]] minor mode to any image buffer and
+   scales the picture to the current frame.
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (use-package image
+      :config
+      (use-package image+
+        :ensure t
+        :config (imagex-auto-adjust-mode 1)))
+   #+END_SRC
+
+** Macros
+
+   Emacs has a powerful [[http://www.emacswiki.org/emacs/KeyboardMacros][keyboard macro]] system. However, it has its own
+   internal notation. The [[https://github.com/Silex/elmacro][elmacro]] minor mode converts these macros into
+   emacs lisp functions. Start elmacro mode (=M-x elmacro-mode=)
+   before recording the macro, and once it has been defined, use =M-x
+   elmacro-show-last-macro= to give the function a name, and see it in
+   a new buffer.
+
+   The function key shortcuts for macros are not useful under OS X,
+   but these commands work well:
+
+   - =C-x (= kmacro-start-macro
+   - =C-x )= kmacro-end-macro
+   - =C-x e= kmacro-end-and-call-macro
+   - =e= call macro if pressed right after previous function
+   - =C-u n C-x e= run the macro n times
+   - =C-x C-k C-e= edit last macro
+
+** Buffers
+
+   A more functional buffer listing comes from =ibuffer=. The
+   following makes normal =list-buffer= or =C-x C-b= call ibuffer. Check
+   the new menu lists Operate, View and Mark.
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (defalias 'list-buffers 'ibuffer) ; make ibuffer default
+  #+END_SRC
+
+* Version control
+
+** Magit
+
+  The only version control system worth using is git and [[http://magit.github.io/magit/magit.html][magit]] is the
+  emacs interface to it. Most important files in git have their
+  dedicated modes: git-commit-mode, gitconfig-mode, git-rebase-mode,
+  and gitignore-mode.
+
+  From any buffer linked to a git controlled file, press =C-c g= to
+  enter magit status window. Pressing =q= restores the previous
+  window(s).
+
+  Magit automatically updates the buffer of each file that changes at
+  commit.
+
+  See [[http://shingofukuyama.github.io/emacs-magit-reword-commit-messages/][this post]] for a tutorial of commit message editing with magit.
+
+  [[http://irreal.org/blog/?p=4279][Irreal]] gives hints how to configure the latest (2.1) magit.
+
+  One of the best features of magit is its ability to show changes in
+  a single file in chunks. Even better is that you can discard the
+  chunk from the file by pressing key =k=. Great for discarding
+  accidental typos.
+
+  #+name: version-control
+  #+BEGIN_SRC emacs-lisp
+    (use-package magit
+      :ensure t
+      :bind ("C-c g" . magit-status)
+      :config
+      ;;(add-to-list 'magit-no-confirm 'stage-all-changes)
+      (setq magit-push-always-verify nil)
+      (setq magit-diff-options '("-b")) ; ignore whitespace
+      ;;(setq magit-last-seen-setup-instructions "2.1.0")
+      )
+
+    (use-package git-commit :ensure t)
+    (use-package git-gutter :ensure t)
+    (use-package git-gutter-fringe :ensure t)
+    (use-package gitattributes-mode :ensure t)
+    (use-package gitconfig-mode :ensure t)
+    (use-package gitignore-mode :ensure t)
+  #+END_SRC
+
+** git-timemachine
+
+  [[https://github.com/pidu/git-timemachine][git-timemachine]] lets you browse previous versions of a file. Start
+  it with =C-x l t= or =C-x git-timemachine=.
+
+  | key | description                 |
+  |-----+-----------------------------|
+  | p   | visit previous version      |
+  | n   | visit next version          |
+  | w   | copy the short version hash |
+  | W   | copy the full version hash  |
+  | q   | quit                        |
+
+  #+name: version-control
+  #+BEGIN_SRC emacs-lisp
+    (use-package git-timemachine
+      :ensure t)
+  #+END_SRC
+
+* Text files
+
+** Natural languages
+*** Spell checking
 
    [[http://www.emacswiki.org/emacs/FlySpell][Flyspell]] checks words as I write against the [[http://aspell.net/][GNU aspell]]
    dictionaries.
@@ -1868,10 +2126,7 @@ abort completely with `C-g'."
             ("u" (my/flyspell-save-word t)))
    #+END_SRC
 
-   #+RESULTS: spell-checker
-   : hydra-flyspell/body
-
-** TODO wcheck mode
+*** TODO wcheck mode
 
   A level up in spell checking abstractions is [[https://github.com/tlikonen/wcheck-mode][Wcheck Mode]] that
   understands programs for proper inflection of words in Finnish in
@@ -1906,259 +2161,7 @@ abort completely with `C-g'."
              (action-parser . wcheck-parser-ispell-suggestions))))
   #+END_SRC
 
-** iedit mode
-
-   Activate the [[http://www.emacswiki.org/emacs/Iedit][Iedit]] mode by placing the cursor to a word and
-   pressing =C-x t i=. All occurrences of that word in the buffer are
-   selected and can be simultaneously edited.
-
-** Count words in a buffer
-
-  #+name: text-files
-  #+BEGIN_SRC emacs-lisp
-        ;; word-count
-        (defun word-count nil "Count words in buffer" (interactive)
-          (shell-command-on-region (point-min) (point-max) "wc -w"))
-
-    (defun count-words (start end)
-      "Print number of words in the region."
-      (interactive "r")
-      (save-excursion
-        (save-restriction
-          (narrow-to-region start end)
-          (goto-char (point-min))
-          (count-matches "\\sw+"))))
-  #+END_SRC
-
-** Text editing done by external programs
-
-  It used to be quicker for me to write perl scripts to format text than
-  do it any other way. These functions demonstrate how a standard command
-  line program that reads from STDIN and write to STDOUT is easily
-  included into emacs workflow. Markdown and SmartyPants are equally
-  antiquated functions.
-
-  Programs need to be available in your shell path. I most often use
-  [[http://gist.github.com/heikkil/7510734][txt2para.pl]] that serves as a good example of these programs.
-
-  #+name: text-files
-  #+BEGIN_SRC emacs-lisp
-
-    (defun txt2xhtml ()
-      "Turn consecutive non-empty lines of plain text into HTML <p> elements."
-      (interactive)
-      (shell-command-on-region (point)
-             (mark) "txt2xhtml.pl" nil t))
-
-    (defun txt2header ()
-      "Turn consecutive non-empty lines of plain text into HTML <h2> elements."
-      (interactive)
-      (shell-command-on-region (point)
-             (mark) "txt2header.pl" nil t))
-
-    (defun txt2para ()
-      "Turn consecutive non-empty lines of plain text into paragraphs."
-      (interactive)
-      (shell-command-on-region (point)
-             (mark) "txt2para.pl" nil t))
-
-    (defun do-mark-down (start end)
-       "Invoke the Markdown algorithm on region."
-       (interactive "r")
-       (shell-command-on-region start end "Markdown.pl" t t))
-     ;;(global-set-key "\C-cm" 'do-mark-down)
-
-    (defun do-smarty-pants (start end)
-       "Invoke the SmartyPants algorithm on region."
-       (interactive "r")
-       (shell-command-on-region start end "SmartyPants.pl" t t))
-     ;;(global-set-key "\C-cs" 'do-smarty-pants)
-  #+END_SRC
-
-** Commenting
-
-   The default emacs line commenting leaves a lot of things out. A
-   replacement package [[https://github.com/remyferre/comment-dwim-2][comment-dwim-2]] allows uncommenting and cycling
-   of different behaviors. The default comment key is =C-;=.
-
-   Note to self: [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] is recommended for the evil mode.
-
-   #+name: text-files
-   #+BEGIN_SRC emacs-lisp
-     (use-package comment-dwim-2
-       :ensure t
-       :bind "M-;")
-   #+END_SRC
-
-   Remember: =C-x ;= sets the comment column (comment-set-column)
-
-   This draws a comment box that is the width of the fill column
-   around the selected region.
-
-   #+BEGIN_SRC emacs-lisp
-     ;;http://irreal.org/blog/?p=374
-     (defun jcs-comment-box (b e)
-       "Draw a box comment around the region but arrange for the region
-     to extend to at least the fill column. Place the point after the
-     comment box."
-       (interactive "r")
-       (let ((e (copy-marker e t)))
-         (goto-char b)
-         (end-of-line)
-         (insert-char ?  (- fill-column (current-column)))
-         (comment-box b e 1)
-         (goto-char e)
-         (set-marker e nil)))
-   #+END_SRC
-
-** Editing as root
-
-  If you open a file that you do not have permissions to edit, you can
-  call this function =edit-current-file-as-root= to invoke sudo rights
-  within emacs. Kudos to [[http://wenshanren.org/?p=298][Wenshan]].
-
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
-    (defun edit-current-file-as-root ()
-      "Edit as root the file associated with the current buffer"
-       (interactive)
-       (if (buffer-file-name)
-           (progn
-             (setq file (concat "/sudo:root@localhost:" (buffer-file-name)))
-             (find-file file))
-         (message "Buffer is not associated to a file.")))
-   #+END_SRC
-
-** Editing file lists with wdired
-
-   [[http://www.masteringemacs.org/articles/2013/10/10/wdired-editable-dired-buffers/][Editable dired]] is part of standard emacs. Once you are in dired
-   =C-x d=, directory editing, mode, you can press =C-x C-q= to edit
-   file names like any text. The familiar =C-c C-c= commits the
-   changes.
-
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
-    ;;http://mbork.pl/2015-04-25_Some_Dired_goodies
-    ;;
-    ;; file type association to a program
-    (setq dired-guess-shell-alist-user
-          '(("\\.pdf\\'" "skim")
-            ("\\.tex\\'" "pdflatex")
-            ("\\.ods\\'\\|\\.xlsx?\\'\\|\\.docx?\\'\\|\\.csv\\'" "libreoffice")))
-    ;; open a file replacing the current dired buffer
-    (put 'dired-find-alternate-file 'disabled nil)
-  #+END_SRC
-
-** Image mode
-
-   Recent emacsen can show images in directly in buffers. The
-   following code adds the [[https://github.com/mhayashi1120/Emacs-imagex][image+]] minor mode to any image buffer and
-   scales the picture to the current frame.
-
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
-    (use-package image
-      :config
-      (use-package image+
-        :ensure t
-        :config (imagex-auto-adjust-mode 1)))
-   #+END_SRC
-
-** Macros
-
-   Emacs has a powerful [[http://www.emacswiki.org/emacs/KeyboardMacros][keyboard macro]] system. However, it has its own
-   internal notation. The [[https://github.com/Silex/elmacro][elmacro]] minor mode converts these macros into
-   emacs lisp functions. Start elmacro mode (=M-x elmacro-mode=)
-   before recording the macro, and once it has been defined, use =M-x
-   elmacro-show-last-macro= to give the function a name, and see it in
-   a new buffer.
-
-   The function key shortcuts for macros are not useful under OS X,
-   but these commands work well:
-
-   - =C-x (= kmacro-start-macro
-   - =C-x )= kmacro-end-macro
-   - =C-x e= kmacro-end-and-call-macro
-   - =e= call macro if pressed right after previous function
-   - =C-u n C-x e= run the macro n times
-   - =C-x C-k C-e= edit last macro
-
-** Buffers
-
-   A more functional buffer listing comes from =ibuffer=. The
-   following makes normal =list-buffer= or =C-x C-b= call ibuffer. Check
-   the new menu lists Operate, View and Mark.
-
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
-    (defalias 'list-buffers 'ibuffer) ; make ibuffer default
-  #+END_SRC
-
-* Version control
-
-** Magit
-
-  The only version control system worth using is git and [[http://magit.github.io/magit/magit.html][magit]] is the
-  emacs interface to it. Most important files in git have their
-  dedicated modes: git-commit-mode, gitconfig-mode, git-rebase-mode,
-  and gitignore-mode.
-
-  From any buffer linked to a git controlled file, press =C-c g= to
-  enter magit status window. Pressing =q= restores the previous
-  window(s).
-
-  Magit automatically updates the buffer of each file that changes at
-  commit.
-
-  See [[http://shingofukuyama.github.io/emacs-magit-reword-commit-messages/][this post]] for a tutorial of commit message editing with magit.
-
-  [[http://irreal.org/blog/?p=4279][Irreal]] gives hints how to configure the latest (2.1) magit.
-
-  One of the best features of magit is its ability to show changes in
-  a single file in chunks. Even better is that you can discard the
-  chunk from the file by pressing key =k=. Great for discarding
-  accidental typos.
-
-  #+name: version-control
-  #+BEGIN_SRC emacs-lisp
-    (use-package magit
-      :ensure t
-      :bind ("C-c g" . magit-status)
-      :config
-      ;;(add-to-list 'magit-no-confirm 'stage-all-changes)
-      (setq magit-push-always-verify nil)
-      (setq magit-diff-options '("-b")) ; ignore whitespace
-      (setq magit-last-seen-setup-instructions "2.1.0"))
-
-    (use-package git-commit :ensure t)
-    (use-package git-gutter :ensure t)
-    (use-package git-gutter-fringe :ensure t)
-    (use-package gitattributes-mode :ensure t)
-    (use-package gitconfig-mode :ensure t)
-    (use-package gitignore-mode :ensure t)
-  #+END_SRC
-
-** git-timemachine
-
-  [[https://github.com/pidu/git-timemachine][git-timemachine]] lets you browse previous versions of a file. Start
-  it with =C-x l t= or =C-x git-timemachine=.
-
-  | key | description                 |
-  |-----+-----------------------------|
-  | p   | visit previous version      |
-  | n   | visit next version          |
-  | w   | copy the short version hash |
-  | W   | copy the full version hash  |
-  | q   | quit                        |
-
-  #+name: version-control
-  #+BEGIN_SRC emacs-lisp
-    (use-package git-timemachine
-      :ensure t)
-  #+END_SRC
-
-* Text files
-** Writing style
+*** Writing style: writegood
 
    [[https://github.com/bnbeckwith/writegood-mode][Writegood mode]], =C-x t w=, highlights common writing problems in
    English text. It highlights weasel words, passive voice, and
@@ -2174,13 +2177,17 @@ abort completely with `C-g'."
        ("C-c C-g e" . writegood-reading-ease))
    #+END_SRC
 
-   *Do not require languagetool!* Version 2.8 spans huge amount of
-   java processes that causes the system to grind to a halt.
+*** Grammar: [[https://github.com/mhayashi1120/Emacs-langtool][languagetool]]
+
+LanguageTool now works with the latest release. I start with British
+English, but that can be changed when needed. I've disabled spell
+checking that gives too many spurious hits in org mode. Besides,
+flyspell does it better anyway. The main way to launch langtool is to
+hit =C-x l g= that is short for "Emacs, launch grammar".
 
    ##+name: text-files
    #+BEGIN_SRC emacs-lisp
-     (use-package languagetool-mode
-       :disabled t
+     (use-package langtool
        :ensure t
        :bind (("C-x 4 w" . langtool-check)
               ("C-x 4 W" . langtool-check-done)
@@ -2188,12 +2195,48 @@ abort completely with `C-g'."
               ("C-x 4 4" . langtool-show-message-at-point)
               ("C-x 4 c" . langtool-correct-buffer))
        :init
-       (setq languagetool-language-tool-jar
-             "/usr/local/Cellar/languagetool/2.8/libexec/languagetool-commandline.jar")
-       (setq languagetool-disabled-rules '("WHITESPACE_RULE"
-                                           "EN_UNPAIRED_BRACKETS"
-                                           "COMMA_PARENTHESIS_WHITESPACE"
-                                           "EN_QUOTES")))
+       (setq langtool-language-tool-jar
+             "/usr/local/Cellar/languagetool/3.2/libexec/languagetool-commandline.jar")
+       (setq langtool-default-language "en")
+       (setq langtool-mother-tongue "en")
+       (setq langtool-disabled-rules '("WHITESPACE_RULE"
+                                       "EN_UNPAIRED_BRACKETS"
+                                       "COMMA_PARENTHESIS_WHITESPACE"
+                                       "EN_QUOTES"
+                                       "MORFOLOGIK_RULE_EN_GB"
+                                       "MORFOLOGIK_RULE_US")))
+   #+END_SRC
+
+*** Synonyms: synosaurus
+
+[[https://github.com/hpdeifel/synosaurus][Synosaurus]] uses WordNet
+for offline functionality. Install Wordnet first: In OSX =brew install
+wordnet=. The interaction is through command line tool =wn=.
+
+I enable synosaurus-mode in text files and define key combination =C-x
+l s= for "Emacs, launch synonyms".
+
+##+name: text-files
+#+BEGIN_SRC emacs-lisp
+  (use-package synosaurus
+    :ensure t
+    :init
+    ;;(setq synosaurus-backend)
+    (setq synosaurus-choose-method 'popup)
+    :config
+    (add-hook 'text-mode-hook #'synosaurus-mode))
+#+END_SRC
+
+** Poetry mode
+
+   Bob Newell's poetry mode is available from
+   http://www.bobnewell.net/filez/poetry.el .
+
+   #+name: text-files
+   #+BEGIN_SRC emacs-lisp
+   ;;(require 'poetry)
+   ;; (use-package poetry
+   ;;   :ensure t)
    #+END_SRC
 
 ** Whitespace
