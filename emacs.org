@@ -5564,9 +5564,23 @@ bbdb-merge-records=.
    little while ago. I reduce garbage collection overhead by giving it
    more memory. Garbage is purged only when the cache is full.
 
+   According to this [[http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/][blog post]] setting threshold to 100MB is on the
+   limits of noticibility. So my 20MB should be fine. The code
+   below prevents garbage collection during the most interactive part
+   of the emacs, the minibuffer.
+
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (setq gc-cons-threshold 20000000)
+
+     (defun my-minibuffer-setup-hook ()
+     (setq gc-cons-threshold most-positive-fixnum))
+
+     (defun my-minibuffer-exit-hook ()
+     (setq gc-cons-threshold 20000000))
+
+     (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
+     (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
    #+END_SRC
 
 ** OS X
