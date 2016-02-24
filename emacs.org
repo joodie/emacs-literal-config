@@ -2691,29 +2691,32 @@ l s= for "Emacs, launch synonyms".
 
 *** TODO Call =pod-mode= on POD documentation files and enable spell checking.
 
+The pod-mode is outdated and needs to be manually installed to the
+[[Custom lisp package directory]] from [[http://cpansearch.perl.org/src/SCHWIGON/pod-mode-1.03/pod-mode.el][its CPAN repository]].
+
     #+NAME: programming-setup
     #+BEGIN_SRC emacs-lisp
-     (autoload 'pod-mode "pod-mode"
-       "Mode for editing POD files" t)
-     (add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
-     (add-hook 'pod-mode-hook 'font-lock-mode)
-
-     (add-hook 'pod-mode-hook '(lambda ( )
-                                 (progn (font-lock-mode)   ; =syntax highlighting
-                                        (auto-fill-mode 1) ; =wordwrap
-                                        (flyspell-mode 1)  ; =spellchecking
-                                        )))
+      (autoload 'pod-mode "pod-mode"
+        "Mode for editing POD files" t)
+      (add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
+      (add-hook 'pod-mode-hook 'font-lock-mode)
+      (add-hook 'pod-mode-hook
+                '(lambda ( )
+                   (progn (font-lock-mode)   ; =syntax highlighting
+                          (auto-fill-mode 1) ; =wordwrap
+                          (flyspell-mode 1)  ; =spellchecking
+                          )))
     #+END_SRC
 
 ** Lisps
 
    For lisp code, I want ParEdit and realtime "aggressive" indenting.
-   ElDoc shows arguments to function under cursor.
+   ElDoc shows arguments to function under cursor in the minibuffer.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (setq my/lisps
-           '(emacs-lisp lisp clojure))
+           '(emacs-lisp lisp clojure extempore))
 
      (defun my/general-lisp-hooks ()
        (my/turn-on 'paredit
@@ -3002,7 +3005,9 @@ l s= for "Emacs, launch synonyms".
          :config (go-eldoc-setup)))
    #+END_SRC
 
-** alda
+** Music
+
+
 
 [[https://github.com/alda-lang/alda/][alda]] - A music programming language for musicians. Needs binary
 installed first.
@@ -3011,11 +3016,29 @@ installed first.
 #+BEGIN_SRC emacs-lisp
   (use-package alda-mode
     :ensure t
-    :bind
     :config
     (eval-after-load 'alda-mode
       '(bind-key  "C-c C-c" 'alda-play-region alda-mode-map)))
 #+END_SRC
+
+*** Extempore
+
+Audio programming environment, [[https://github.com/digego/extempore][extempore]], has its own major mode.
+
+line 1195
+https://github.com/digego/extempore/blob/master/extras/extempore.el
+;;     (let ((argument-index (1- (eldoc-beginning-of-sexp))))
+https://github.com/clojure-emacs/cider/issues/838
+
+#+NAME: programming-setup
+#+BEGIN_SRC emacs-lisp
+  (use-package extempore-mode
+    :ensure t
+    :config
+    (unless (fboundp 'eldoc-beginning-of-sexp)
+      (defalias 'eldoc-beginning-of-sexp 'elisp--beginning-of-sexp)))
+#+END_SRC
+
 
 * Auto Complete
 

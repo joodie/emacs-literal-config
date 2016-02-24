@@ -52,6 +52,7 @@
 (depends-on "evil-surround")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
+(depends-on "extempore-mode")
 (depends-on "f")
 (depends-on "fakir")
 (depends-on "fill-column-indicator")
