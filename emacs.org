@@ -4653,18 +4653,25 @@ bbdb-merge-records=.
              "☾ Last Quarter Moon"))
    #+END_SRC
 
-** worf -- modal editing
+** worf -- modal editing in org mode
 
    Adds vi-like modal key bindings to org mode by adding a new minor
    mode.[[http://oremacs.com/worf/README.html][ Documentation]]
 
-   Note: Depends on helm
+   Note: While most of the worf key bindings work only in the header
+   asterisk area, there are a number of key bindings that are active
+   everywhere in the buffer. The most surprising are the square
+   brackets =[]= that move the cursor to next or previous special
+   position. While this binding is active, key sequence =C-q [= can be
+   used to enter the characters. I have disabled the =M-j= that
+   opposes my intentions for that binding.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (use-package worf
        :ensure t
-       :config (add-hook 'org-mode-hook (lambda () (worf-mode 1))))
+       :config (add-hook 'org-mode-hook (lambda () (worf-mode 1)))
+       (define-key worf-mode-map (kbd "M-j") nil))
    #+END_SRC
 
 ** Capture templates
