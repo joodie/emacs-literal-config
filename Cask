@@ -106,6 +106,7 @@
 (depends-on "magit")
 (depends-on "magit-popup")
 (depends-on "markdown-mode")
+(depends-on "markdown-preview-mode")
 (depends-on "mustache")
 (depends-on "names")
 (depends-on "neotree")

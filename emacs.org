@@ -2468,18 +2468,23 @@ l s= for "Emacs, launch synonyms".
 
  #+name: text-files
   #+BEGIN_SRC emacs-lisp
-    (use-package pandoc-mode
-          :ensure t
-          :bind ("C-c 4" . pandoc-main-hydra/body))
+   (use-package pandoc-mode
+     :ensure t
+     :bind ("C-c 4" . pandoc-main-hydra/body))
 
-    (use-package markdown-mode
-          :ensure t
-          :mode  ("\\.md" "\\.markdown")
-          :config
-          (add-hook 'markdown-mode-hook 'pandoc-mode))
+   (use-package markdown-mode
+     :ensure t
+     :mode  ("\\.md" "\\.markdown")
+     :config
+     (add-hook 'markdown-mode-hook 'pandoc-mode)
+     (use-package markdown-preview-mode
+       :ensure t
+       :config
+       (add-hook 'markdown-mode-hook 'markdown-preview-mode)))
   #+END_SRC
 
   See [[https://github.com/ancane/markdown-preview-mode][markdown-preview-mode]].
+
 
 ** Ledger
 
