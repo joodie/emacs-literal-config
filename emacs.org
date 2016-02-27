@@ -2209,6 +2209,30 @@ hit =C-x l g= that is short for "Emacs, launch grammar".
                                        "MORFOLOGIK_RULE_US")))
    #+END_SRC
 
+*** Word definition
+
+   [[http://oremacs.com/2015/05/22/define-word/][Define-word]] ([[http://oremacs.com/2015/05/22/define-word/][blog]]) gives English definitions to words under cursor
+   using on-line Wordnik service. Use =C-c j= to search the word unde
+   the cursor. =M-x define-word= lets you type a word in.
+
+   For situations without net, [[https://github.com/xuchunyang/osx-dictionary.el][osx-dictionary]] accesses the local OS X
+   Dictionary application. Use =C-c j=, or =M-x osx-dictionary-search-pointer=.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (use-package define-word
+       :ensure t
+       :bind (("C-c j" . define-word-at-point)))
+
+     (when (eq system-type 'darwin)
+       (use-package osx-dictionary
+         :bind (("C-c J" . osx-dictionary-search-pointer))
+         :ensure t))
+   #+END_SRC
+
+   Note to self: Using =j= as a key is not at all mnemonic but I am
+   running out of letters.
+
 *** Synonyms: synosaurus
 
 [[https://github.com/hpdeifel/synosaurus][Synosaurus]] uses WordNet
@@ -4414,30 +4438,6 @@ bbdb-merge-records=.
        :config (winner-mode 1)
        (add-hook 'ediff-after-quit-hook-internal 'winner-undo))
    #+END_SRC
-
-** Word definition
-
-   [[http://oremacs.com/2015/05/22/define-word/][Define-word]] ([[http://oremacs.com/2015/05/22/define-word/][blog]]) gives English definitions to words under cursor
-   using on-line Wordnik service. Use =C-c j= to search the word unde
-   the cursor. =M-x define-word= lets you type a word in.
-
-   For situations without net, [[https://github.com/xuchunyang/osx-dictionary.el][osx-dictionary]] accesses the local OS X
-   Dictionary application. Use =C-c j=, or =M-x osx-dictionary-search-pointer=.
-
-   #+name: apps
-   #+BEGIN_SRC emacs-lisp
-     (use-package define-word
-       :ensure t
-       :bind (("C-c j" . define-word-at-point)))
-
-     (when (eq system-type 'darwin)
-       (use-package osx-dictionary
-         :bind (("C-c J" . osx-dictionary-search-pointer))
-         :ensure t))
-   #+END_SRC
-
-   Note to self: Using =j= as a key is not at all mnemonic but I am
-   running out of letters.
 
 ** Phonetic alphabet
 
