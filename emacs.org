@@ -3054,20 +3054,11 @@ installed first.
 
 Audio programming environment, [[https://github.com/digego/extempore][extempore]], has its own major mode.
 
-line 1195
-https://github.com/digego/extempore/blob/master/extras/extempore.el
-;;     (let ((argument-index (1- (eldoc-beginning-of-sexp))))
-https://github.com/clojure-emacs/cider/issues/838
-
 #+NAME: programming-setup
 #+BEGIN_SRC emacs-lisp
   (use-package extempore-mode
-    :ensure t
-    :config
-    (unless (fboundp 'eldoc-beginning-of-sexp)
-      (defalias 'eldoc-beginning-of-sexp 'elisp--beginning-of-sexp)))
+    :ensure t)
 #+END_SRC
-
 
 * Auto Complete
 
