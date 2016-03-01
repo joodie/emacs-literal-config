@@ -88,7 +88,7 @@
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (use-package paradox
-       :ensure t
+       :defer t
        :config
        (setq paradox-github-token t)
        (setq paradox-execute-asynchronously t)
@@ -103,7 +103,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (use-package try
-       :ensure t)
+       :defer t)
    #+END_SRC
 
 ** Editing this document
@@ -232,7 +232,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    #+BEGIN_SRC emacs-lisp
      (when (window-system)
        (use-package git-gutter-fringe
-         :ensure t
+         :defer t
          :config
          (global-git-gutter-mode +1)
          (setq-default indicate-buffer-boundaries 'left)
@@ -496,7 +496,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (use-package beacon
-       :ensure t
+       :defer t
        :config
        (setq beacon-color "firebrick")
        (setq beacon-size 20)         ; smaller than default 40
@@ -532,10 +532,10 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (use-package solarized-theme
-       :ensure t
+       :defer t
        :init (setq solarized-scale-org-headlines nil))
      (use-package paper-theme
-       :ensure t
+       :defer t
        :init (setq paper-tint-factor 85))
    #+END_SRC
 
@@ -573,6 +573,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
     ;; save cursor position
     (use-package saveplace
+      :defer t
       :config
       (setq-default save-place t))
 
@@ -666,7 +667,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
   #+name: key-bindings
   #+BEGIN_SRC emacs-lisp
     (use-package which-key
-      :ensure t
+      :defer t
       :config
       (which-key-mode)
       (setq which-key-popup-type 'frame)
@@ -963,7 +964,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
     (use-package evil
-      :ensure t
+      :defer t
       :init
       (setq evil-default-state 'normal)
       (setq evil-emacs-state-cursor    '("red" bar))
@@ -1010,6 +1011,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
       ;; double comma pressed rapidly returns to normal state, too
       ;;(use-package key-chord
+      ;;  :defer t
       ;;  (key-chord-mode 1)
       ;;  (key-chord-define-global ",," 'evil-normal-state))
 
@@ -1045,12 +1047,12 @@ package. Use it instead of =package-install=: =M-x try some-package=.
                       (set-face-foreground 'mode-line (cdr color))))))
 
       (use-package evil-surround
-        :ensure t
+        :defer t
         :config
         (global-evil-surround-mode 1))
 
       (use-package evil-matchit
-        :ensure t
+        :defer t
         :config
         (global-evil-matchit-mode 1)))
 
@@ -1248,7 +1250,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
       (use-package super-save
-        :ensure t
+        :defer t
         :init (setq super-save-auto-save-when-idle t)  ; def 5 sec
         :config (super-save-initialize))
     #+END_SRC
@@ -1262,7 +1264,6 @@ package. Use it instead of =package-install=: =M-x try some-package=.
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
       (use-package shrink-whitespace
-        :ensure t
         :bind ("M-SPC" . shrink-whitespace))
     #+END_SRC
 
@@ -1328,7 +1329,6 @@ package. Use it instead of =package-install=: =M-x try some-package=.
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
       (use-package expand-region
-        :ensure t
         :bind ("C-=" . er/expand-region))
     #+END_SRC
 
@@ -1400,6 +1400,8 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
      (use-package abbrev
+       :ensure nil
+       :defer t
        :commands abbrev-mode
        ;;:diminish Abbr
        :config
@@ -1475,6 +1477,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    #+BEGIN_SRC emacs-lisp
      (use-package yasnippet
        :disabled t
+       :defer t
        :config
        (yas-global-mode 1))
    #+END_SRC
@@ -1557,7 +1560,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
    #+BEGIN_SRC emacs-lisp
      (use-package string-inflection
-       :ensure t)
+       :defer t)
    #+END_SRC
 
 ** iedit mode
@@ -1640,7 +1643,6 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
      (use-package comment-dwim-2
-       :ensure t
        :bind "M-;")
    #+END_SRC
 
@@ -1712,9 +1714,11 @@ package. Use it instead of =package-install=: =M-x try some-package=.
   #+name: global-navigation
   #+BEGIN_SRC emacs-lisp
     (use-package image
+      :ensure nil
+      :defer t
       :config
       (use-package image+
-        :ensure t
+        :defer t
         :config (imagex-auto-adjust-mode 1)))
    #+END_SRC
 
@@ -1776,7 +1780,6 @@ package. Use it instead of =package-install=: =M-x try some-package=.
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
     (use-package magit
-      :ensure t
       :bind ("C-c g" . magit-status)
       :config
       ;;(add-to-list 'magit-no-confirm 'stage-all-changes)
@@ -1785,12 +1788,12 @@ package. Use it instead of =package-install=: =M-x try some-package=.
       ;;(setq magit-last-seen-setup-instructions "2.1.0")
       )
 
-    (use-package git-commit :ensure t)
-    (use-package git-gutter :ensure t)
-    (use-package git-gutter-fringe :ensure t)
-    (use-package gitattributes-mode :ensure t)
-    (use-package gitconfig-mode :ensure t)
-    (use-package gitignore-mode :ensure t)
+    (use-package git-commit :defer t)
+    (use-package git-gutter :defer t)
+    (use-package git-gutter-fringe :defer t)
+    (use-package gitattributes-mode :defer t)
+    (use-package gitconfig-mode :defer t)
+    (use-package gitignore-mode :defer t)
   #+END_SRC
 
 ** git-timemachine
@@ -1809,7 +1812,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
     (use-package git-timemachine
-      :ensure t)
+      :defer t)
   #+END_SRC
 
 * Text files
@@ -2176,10 +2179,8 @@ abort completely with `C-g'."
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
      (use-package writegood-mode
-       :ensure t
-       :bind
-       ("C-c C-g g" . writegood-grade-level)
-       ("C-c C-g e" . writegood-reading-ease))
+       :bind  (("C-c C-g g" . writegood-grade-level)
+               ("C-c C-g e" . writegood-reading-ease)))
    #+END_SRC
 
 *** Grammar: [[https://github.com/mhayashi1120/Emacs-langtool][languagetool]]
@@ -2193,7 +2194,6 @@ hit =C-x l g= that is short for "Emacs, launch grammar".
    ##+name: text-files
    #+BEGIN_SRC emacs-lisp
      (use-package langtool
-       :ensure t
        :bind (("C-x 4 w" . langtool-check)
               ("C-x 4 W" . langtool-check-done)
               ("C-x 4 l" . langtool-switch-default-language)
@@ -2224,13 +2224,11 @@ hit =C-x l g= that is short for "Emacs, launch grammar".
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package define-word
-       :ensure t
        :bind (("C-c j" . define-word-at-point)))
 
      (when (eq system-type 'darwin)
        (use-package osx-dictionary
-         :bind (("C-c J" . osx-dictionary-search-pointer))
-         :ensure t))
+         :bind (("C-c J" . osx-dictionary-search-pointer))))
    #+END_SRC
 
    Note to self: Using =j= as a key is not at all mnemonic but I am
@@ -2248,7 +2246,7 @@ l s= for "Emacs, launch synonyms".
 ##+name: text-files
 #+BEGIN_SRC emacs-lisp
   (use-package synosaurus
-    :ensure t
+    :defer t
     :init
     ;;(setq synosaurus-backend)
     (setq synosaurus-choose-method 'popup)
@@ -2264,8 +2262,6 @@ l s= for "Emacs, launch synonyms".
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
    ;;(require 'poetry)
-   ;; (use-package poetry
-   ;;   :ensure t)
    #+END_SRC
 
 ** Whitespace
@@ -2306,7 +2302,7 @@ l s= for "Emacs, launch synonyms".
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package linum-relative
-       :ensure t
+       :defer t
        :init
        ;; show absolute line number for the current line
        (setq linum-relative-current-symbol ""))
@@ -2379,10 +2375,11 @@ l s= for "Emacs, launch synonyms".
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
      (use-package tex
+       :defer t
        :ensure auctex
        :config
        (use-package auctex-latexmk
-         :ensure t
+         :defer t
          :config
          (auctex-latexmk-setup))
 
@@ -2417,7 +2414,7 @@ l s= for "Emacs, launch synonyms".
 
        ;; latex-extra
        (use-package latex-extra
-         :ensure t
+         :defer t
          :config
          (add-hook 'latex-mode-hook #'latex-extra-mode)))
    #+END_SRC
@@ -2451,7 +2448,7 @@ l s= for "Emacs, launch synonyms".
      (setq auto-mode-alist
            (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
      (use-package fish-mode
-       :ensure t)
+        :defer t)
      ;;:mode ("\\.load$'")
    #+END_SRC
 
@@ -2496,16 +2493,15 @@ l s= for "Emacs, launch synonyms".
  #+name: text-files
   #+BEGIN_SRC emacs-lisp
    (use-package pandoc-mode
-     :ensure t
      :bind ("C-c 4" . pandoc-main-hydra/body))
 
    (use-package markdown-mode
-     :ensure t
+     :defer t
      :mode  ("\\.md" "\\.markdown")
      :config
      (add-hook 'markdown-mode-hook 'pandoc-mode)
      (use-package markdown-preview-mode
-       :ensure t
+       :defer t
        :config
        (add-hook 'markdown-mode-hook 'markdown-preview-mode)))
   #+END_SRC
@@ -2589,7 +2585,7 @@ l s= for "Emacs, launch synonyms".
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package aggressive-indent
-       :ensure t)
+       :defer t)
    #+END_SRC
 
    [[https://github.com/flycheck/flycheck][Flycheck]] does global syntax checking for most programming
@@ -2599,11 +2595,11 @@ l s= for "Emacs, launch synonyms".
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package flycheck
-       :ensure t
+       :defer t
        :config
        (add-hook 'after-init-hook #'global-flycheck-mode)
        (use-package flycheck-perl6
-         :ensure t))
+         :defer t))
    #+END_SRC
 
    [[https://github.com/syohex/emacs-quickrun][quickrun]]-package makes it easy to run any buffer with code in it. I
@@ -2614,7 +2610,7 @@ l s= for "Emacs, launch synonyms".
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
        (use-package quickrun
-         :ensure t
+         :defer t
          :config
          (quickrun-add-command "perl"
                                '((:command . "~/.plenv/shims/perl")
@@ -2639,13 +2635,13 @@ l s= for "Emacs, launch synonyms".
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package plenv
-       :ensure t
+       :defer t
        :config
        (condition-case nil
            (plenv-global "5.22.1")
          (error (message "ERROR: unknown perl version. Is your plenv configured right?")))
        (use-package flymake
-         :ensure t
+         :defer t
          :config
          (defun flymake-perl-init ()
            (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -2665,7 +2661,6 @@ l s= for "Emacs, launch synonyms".
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package cperl-mode
-       :ensure t
        :mode "\\.\\([pP][Llm]\\|al\\)\\'"
        :interpreter ("perl" "perl5" "miniperl")
        :init
@@ -2715,7 +2710,6 @@ l s= for "Emacs, launch synonyms".
   #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
 (use-package perl6-mode
-  :ensure t
   :defer t)
 
    #+END_SRC
@@ -2769,7 +2763,6 @@ The pod-mode is outdated and needs to be manually installed to the
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package paredit
-       :ensure t
        :if (eq system-type 'darwin)
        :no-require t
        :config
@@ -2790,7 +2783,7 @@ The pod-mode is outdated and needs to be manually installed to the
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package names
-       :ensure t)
+        :defer t)
    #+END_SRC
 
    Now that I am using =use-package= macro to configure packages, it
@@ -2809,7 +2802,6 @@ The pod-mode is outdated and needs to be manually installed to the
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package macrostep
-       :ensure t
        :bind ("C-c m" . macrostep-expand))
    #+END_SRC
 
@@ -2837,7 +2829,7 @@ The pod-mode is outdated and needs to be manually installed to the
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package cider
-       :ensure t
+       :defer t
        :init (add-hook 'cider-mode-hook #'clj-refactor-mode)
        :config
        (setq nrepl-log-messages t
@@ -2860,7 +2852,6 @@ The pod-mode is outdated and needs to be manually installed to the
 
        (use-package clj-refactor
          :defer t
-         :ensure t
          :diminish clj-refactor-mode
          :config (cljr-add-keybindings-with-prefix "C-c C-m"))
 
@@ -2954,6 +2945,7 @@ The pod-mode is outdated and needs to be manually installed to the
      (add-hook 'python-mode-hook 'jedi:ac-setup)
      (add-hook 'python-mode-hook (lambda ()
                                    (use-package sphinx-doc
+                                     :defer t
                                      :config
                                      (sphinx-doc-mode t))))
    #+END_SRC
@@ -2975,8 +2967,7 @@ The pod-mode is outdated and needs to be manually installed to the
      (global-semantic-idle-completions-mode 1)
      ;; Use the Semantic speedbar additions
      ;; (add-hook 'speedbar-load-hook
-     ;;           (lambda () (use-package semantic/sb
-     ;;                       :ensure t)))
+     ;;           (lambda () (use-package semantic/sb :defer t)))
      ;; treat .h files as C++ files (instead of C)
      (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
      ;; Run compile when you press F5
@@ -3003,15 +2994,13 @@ The pod-mode is outdated and needs to be manually installed to the
            (shell-command (format "go get -u %s" pkg)))
            (load-file-from-gopath fname))))
 
-     ;;(use-package company-mode
-     ;;  :ensure t)
+     ;;(use-package company-mode :defer t)
 
      (use-package company-go
-       :config (setq company-go-show-annotation t)
-       :ensure t)
+       :defer t
+       :config (setq company-go-show-annotation t))
 
      (use-package go-mode
-       :ensure t
        :config
        ;;(load-file-from-gopath-or-download "goflymake" "go-flymake.el")
        ;;(load-file-from-gopath-or-download "lint" "misc/emacs/golint.el")
@@ -3019,6 +3008,8 @@ The pod-mode is outdated and needs to be manually installed to the
        (bind-key "M-." 'godef-jump go-mode-map)
 
        (use-package go-flymake
+         :disabled t
+         :defer t
          :config
          ;; Use goimports instead of go-fmt
          (setq gofmt-command "goimports")
@@ -3032,7 +3023,7 @@ The pod-mode is outdated and needs to be manually installed to the
                   "go build -v && go test -v && go vet && golint")))
 
        (use-package go-eldoc
-         :ensure t
+         :defer t
          :config (go-eldoc-setup)))
    #+END_SRC
 
@@ -3046,7 +3037,7 @@ installed first.
 #+NAME: programming-setup
 #+BEGIN_SRC emacs-lisp
   (use-package alda-mode
-    :ensure t
+    :defer t
     :config
     (eval-after-load 'alda-mode
       '(bind-key  "C-c C-c" 'alda-play-region alda-mode-map)))
@@ -3059,7 +3050,7 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 #+NAME: programming-setup
 #+BEGIN_SRC emacs-lisp
   (use-package extempore-mode
-    :ensure t)
+    :defer t)
 #+END_SRC
 
 * Auto Complete
@@ -3073,11 +3064,10 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
   #+NAME: auto-complete
   #+BEGIN_SRC emacs-lisp
     (use-package fuzzy
-       :ensure t
        :defer t)
 
     (use-package auto-complete
-      :ensure t
+      :defer t
       :init (setq ac-auto-show-menu t
                   ac-quick-help-delay 0.5
                   ac-use-fuzzy t)
@@ -3251,14 +3241,13 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package swiper
-       :ensure t
        :init
        (setq ivy-use-virtual-buffers t)
        (setq ivy-display-style 'fancy)
+       :bind (("C-s" . swiper)
+              ("C-c C-r" . ivy-resume))
        :config
        (ivy-mode 1)
-       (bind-key "C-s" 'swiper)
-       (bind-key "C-c C-r" 'ivy-resume)
        (custom-set-faces
         '(swiper-minibuffer-match-face-1
           ((t :background "#dddddd")))
@@ -3280,10 +3269,11 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
      (bind-key "C-r" 'isearch-backward)
 
      (use-package swiper
+       :defer t
        :ensure counsel)
 
      (use-package smex
-       :ensure t
+       :defer t
        :init
        (bind-key "M-x" 'smex))
    #+END_SRC
@@ -3309,7 +3299,6 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 #+name: local-navigation
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
-    :ensure t
     :defer t
     :diminish projectile-mode
     :init
@@ -3447,7 +3436,7 @@ too.
    #+name: execute-last
    #+BEGIN_SRC emacs-lisp
      (use-package framemove
-       :ensure t)
+       :defer t)
 
      (windmove-default-keybindings)
      (setq windmove-wrap-around t)
@@ -3565,7 +3554,7 @@ too.
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package neotree
-       :ensure t
+       :defer t
        :init (setq neo-smart-open t) ; always change focus to current buffer
        :config
        ;; fix evil mode key conflicts
@@ -3585,7 +3574,6 @@ too.
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package recentf
-       :ensure t
        :if (not noninteractive)
        :bind ( "C-x C-r" . recentf-open-files)
        :init
@@ -3612,7 +3600,6 @@ too.
    #+BEGIN_SRC emacs-lisp
      (use-package ido
        :disabled t
-       :ensure t
        :init
        (setq ido-everywhere t)
        ;; disable ido faces to see flx highlights.
@@ -3623,7 +3610,6 @@ too.
        (ido-mode 1)
        (use-package flx-ido
          ;; display any item that contains the chars you typed
-         :ensure t
          :init (setq ido-enable-flex-matching t)
          (flx-ido-mode 1)))
 
@@ -3643,7 +3629,7 @@ too.
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package saveplace
-       :ensure t
+       :defer t
        :init (setq-default save-place t))
    #+END_SRC
 
@@ -3653,7 +3639,6 @@ too.
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package imenu-anywhere
-       :ensure t
        :bind ("C-." . imenu-anywhere))
    #+END_SRC
 
@@ -3701,7 +3686,7 @@ bbdb-merge-records=.
 #+BEGIN_SRC emacs-lisp
   (use-package nnir
     :disabled t
-    :ensure t
+    :defer t
     :config
     ;; ask encyption password once
     (setq epa-file-cache-passphrase-for-symmetric-encryption t)
@@ -3762,7 +3747,7 @@ bbdb-merge-records=.
 
     ;; BBDB: Address list
     (use-package bbdb
-      :ensure t
+      :defer t
       :if (file-exists-p "/usr/share/emacs/site-lisp/bbdb")
       :load-path "/usr/share/emacs/site-lisp/bbdb"
       :init
@@ -3825,7 +3810,7 @@ bbdb-merge-records=.
     ;; You need install the command line brower 'w3m' and Emacs plugin 'w3m'
     (setq mm-text-html-renderer 'w3m)
     (use-package w3m
-      :ensure t)
+      :defer t)
     (setq message-send-mail-function 'smtpmail-send-it
           smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
           smtpmail-auth-credentials '(("smtp.gmail.com" 587 "heikki.lehvaslaiho@gmail.com" nil))
@@ -3857,7 +3842,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package calfw
-       :ensure t
+       :defer t
        :init
        (setq cfw:fchar-junction ?╬
              cfw:fchar-vertical-line ?║
@@ -3870,8 +3855,10 @@ bbdb-merge-records=.
        ;; First day of the week
        (setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
        :config
-       (use-package calfw-org)
-       (use-package calfw-ical)
+       (use-package calfw-org
+         :defer t)
+       (use-package calfw-ical
+         :defer t)
        (defun my/calendar ()
          (interactive)
          (cfw:open-calendar-buffer
@@ -3939,7 +3926,6 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
-       :ensure t
        :bind (("C-c f" . elfeed))
        :bind (:map elfeed-show-mode-map
                    ("b" . elfeed-show-visit)
@@ -3965,7 +3951,7 @@ bbdb-merge-records=.
        (setq elfeed-search-title-max-width 100) ; newspaper articles have long titles
        :config
        (use-package elfeed-org
-         :ensure t)
+         :defer t)
        (elfeed-org)
 
        (defun elfeed-mark-all-as-read ()
@@ -4108,8 +4094,7 @@ bbdb-merge-records=.
      ;;             ("6" . elfeed-read-comics)
      ;;             ("7" . elfeed-read-emacs)
      ;;             ("l" . elfeed-search-link-title)
-     ;;             ("v" . elfeed-search-quick-url-note))
-     )
+     ;;             ("v" . elfeed-search-quick-url-note)))
    #+END_SRC
 
 ** Twitter
@@ -4138,7 +4123,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package twittering-mode
-       :ensure t
+       :defer t
        :commands twit
        :init
        (add-hook 'twittering-edit-mode-hook (lambda () (flyspell-mode)))
@@ -4268,7 +4253,6 @@ bbdb-merge-records=.
      (setq browse-url-browser-function 'w3m-browse-url)
      (setq browse-url-browser-function 'browse-url-default-browser)
      (use-package w3m
-       :ensure t
        :defer t
        :init (setq w3m-use-cookies t)
        :config (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t))
@@ -4338,7 +4322,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package org-page
-       :ensure t
+       :defer t
        :init
        (setq op/repository-directory "~/src/org-page/heikkil.github.io")
        (setq op/site-domain "http://heikkil.github.io")
@@ -4388,10 +4372,10 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package pass
-       :ensure t
+       :defer t
        :config
        (use-package password-store
-         :ensure t))
+         :defer t))
    #+END_SRC
 
 ** eshell
@@ -4416,7 +4400,7 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package vkill
-       :ensure t)
+       :defer t)
    #+END_SRC
 
 ** Ediff
@@ -4445,7 +4429,7 @@ bbdb-merge-records=.
 
      ;; remove ediff buffers and restore previous window settings
      (use-package winner
-       :ensure t
+       :defer t
        :config (winner-mode 1)
        (add-hook 'ediff-after-quit-hook-internal 'winner-undo))
    #+END_SRC
@@ -4476,7 +4460,6 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package re-builder
-       :ensure t
        :defer 5
        :init
        (setq reb-re-syntax 'string))
@@ -4520,7 +4503,6 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package howdoi
-       :ensure t
        :defer 5)
    #+END_SRC
 
@@ -4543,7 +4525,6 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package xkcd
-       :ensure t
        :bind ("C-c x" . xkcd)
        :config
        (bind-keys :map xkcd-mode-map
@@ -4558,7 +4539,6 @@ bbdb-merge-records=.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package 2048-game
-       :ensure t
        :defer 5)
    #+END_SRC
 
@@ -4588,7 +4568,6 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (use-package org
-       :ensure t
        :config
        (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
        (setq org-pretty-entities t)
@@ -4596,7 +4575,6 @@ bbdb-merge-records=.
                                   (visual-line-mode)
                                   (org-indent-mode))))
      (use-package org-autolist
-       :ensure t
        :config
        (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
    #+END_SRC
@@ -4612,7 +4590,7 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (use-package suomalainen-kalenteri
-       :ensure t
+       :defer t
        :init (setq org-agenda-start-on-weekday 1)) ;; 1 is default
      ;; speed-ups
      (setq org-agenda-inhibit-startup t)
@@ -4659,6 +4637,7 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (use-package org-agenda
+       :ensure nil
        :bind ("C-c a" . org-agenda)
        :init (setq org-agenda-files '("~/Dropbox/org")))
 
@@ -4708,7 +4687,7 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (use-package worf
-       :ensure t
+       :defer t
        :config (add-hook 'org-mode-hook (lambda () (worf-mode 1)))
        (define-key worf-mode-map (kbd "M-j") nil))
    #+END_SRC
@@ -5037,7 +5016,7 @@ bbdb-merge-records=.
                       (trans . "<span class=\"task-in-progress\">[-]</span>"))))
 
      (use-package org-bullets
-       :ensure t
+       :defer t
        :init (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●" ))
        ;; :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
        )
@@ -5087,7 +5066,8 @@ bbdb-merge-records=.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      ;; Include the latex-exporter
-     (use-package ox-latex)
+     (use-package ox-latex
+       :ensure nil)
      ;; Add minted to the defaults packages to include when exporting.
      (add-to-list 'org-latex-packages-alist '("" "minted"))
      ;; Tell the latex export to use the minted package for source
@@ -5107,7 +5087,8 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-      (use-package ox-beamer)
+      (use-package ox-beamer
+        :ensure nil)
    #+END_SRC
 
    Slower but more robust latex-to-PDF processing uses =latexmk=. I
@@ -5180,10 +5161,11 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (use-package ox-md)
+     (use-package ox-md
+        :ensure nil)
      ;; /Applications/Emacs.app/Contents/Resources/etc/org/
      ;;(setq org-odt-data-dir "~/.emacs.d/etc/")
-     ;;(use-package ox-odt)
+     ;;(use-package ox-odt :ensure nil)
    #+END_SRC
 
    Setting the =org-odt-data-dir= is a hack. Why does not emacs find
@@ -5260,7 +5242,8 @@ bbdb-merge-records=.
 
 
      ;; tufte-handout class for writing classy handouts and papers
-     (use-package ox-latex)
+     (use-package ox-latex
+       :ensure nil)
      (add-to-list 'org-latex-classes
                   '("tufte-handout"
                     "\\documentclass{tufte-handout}
@@ -5289,21 +5272,21 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (use-package ob-perl)
-     (use-package ob-clojure)
-     (use-package ob-ruby)
-     (use-package ob-sh)
-     (use-package ob-python)
-     (use-package ob-emacs-lisp)
-     (use-package ob-dot)
-     (use-package ob-ditaa)
-     (use-package ob-plantuml)
-     (use-package ob-gnuplot)
-     (use-package ob-sql)
-     (use-package ob-sqlite)
-     (use-package ob-org)
-     (use-package ob-latex)
-     (use-package ob-lilypond)
+     (use-package ob-perl :ensure nil)
+     (use-package ob-clojure :ensure nil)
+     (use-package ob-ruby :ensure nil)
+     (use-package ob-sh :ensure nil)
+     (use-package ob-python :ensure nil)
+     (use-package ob-emacs-lisp :ensure nil)
+     (use-package ob-dot :ensure nil)
+     (use-package ob-ditaa :ensure nil)
+     (use-package ob-plantuml :ensure nil)
+     (use-package ob-gnuplot :ensure nil)
+     (use-package ob-sql :ensure nil)
+     (use-package ob-sqlite :ensure nil)
+     (use-package ob-org :ensure nil)
+     (use-package ob-latex :ensure nil)
+     (use-package ob-lilypond :ensure nil)
    #+END_SRC
 
 ** Shortcuts for some language blocks
@@ -5423,7 +5406,7 @@ bbdb-merge-records=.
            (quote ("/Users/lehvasho/Documents/latex/all.bib")))
 
      (use-package gscholar-bibtex
-       :ensure t
+       :defer t
        :init
        (setq gscholar-bibtex-database-file "/Users/lehvasho/Documents/latex/all.bib")
        (setq gscholar-bibtex-default-source "Google Scholar")
@@ -5492,6 +5475,7 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (setq org-reveal-root "/Users/lehvasho/src/reveal.js")
      (use-package ox-reveal
+       :ensure nil
        :if (file-exists-p org-reveal-root))
    #+END_SRC
 
@@ -5603,11 +5587,9 @@ bbdb-merge-records=.
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (use-package dash
-       :ensure t
        :config
        (if (>= emacs-major-version 24)
-           (use-package dash-functional
-             :ensure t)
+           (use-package dash-functional)
          (message "Warning: dash-functional needs Emacs v24")))
    #+END_SRC
 
@@ -5675,7 +5657,6 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (when (eq system-type 'darwin)
        (use-package exec-path-from-shell
-         :ensure t
          :config
        (if (equal (file-name-nondirectory (getenv "SHELL")) "fish")
            (progn
@@ -5731,7 +5712,6 @@ bbdb-merge-records=.
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (use-package mac-print-mode
-       :ensure t
        :disabled t
        :if (eq system-type 'darwin)
        :bind ("s-p" . mac-print-buffer)
@@ -5756,7 +5736,6 @@ bbdb-merge-records=.
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (use-package org-mac-link
-       :ensure t
        :if (eq system-type 'darwin)
        :bind ("C-c v" . my/quick-url-note)
        :config
@@ -5808,13 +5787,12 @@ bbdb-merge-records=.
        (server-start))
 
      (use-package edit-server
-       :ensure t
+       :defer t
        :if window-system
        :init
        (add-hook 'after-init-hook 'edit-server-start t)
        :config
        (use-package edit-server-htmlize
-         :ensure t
          :config
          ;; gmail fix
          (autoload 'edit-server-maybe-dehtmlize-buffer

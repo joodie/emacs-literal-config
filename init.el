@@ -36,6 +36,7 @@
 (require 'diminish)                ;; if you use :diminish
 (require 'bind-key)                ;; if you use any :bind variant
 (require 'cl)
+(setq use-package-always-ensure t) ;; no need for :ensure key
 
 ;;load the main configuration
 (org-babel-load-file "~/.emacs.d/emacs.org")
