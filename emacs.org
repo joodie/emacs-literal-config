@@ -3939,160 +3939,178 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-         (use-package elfeed
-           :ensure t
-           :bind ("C-c f" . elfeed)
-           :init
-           (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
-           (setq-default elfeed-search-filter my/default-elfeed-search-filter)
-           (setq elfeed-sort-order 'ascending)
-           (setq elfeed-search-title-max-width 100) ; newspaper articles have long titles
-           :config
-           (use-package elfeed-org
-             :ensure t)
-           (elfeed-org)
+     (use-package elfeed
+       :ensure t
+       :bind (("C-c f" . elfeed))
+       :bind (:map elfeed-show-mode-map
+                   ("b" . elfeed-show-visit)
+                   ("l" . elfeed-show-link-title)
+                   ("v" . elfeed-show-quick-url-note))
+       :bind (:map elfeed-search-mode-map
+                   ("=" . elfeed-update)
+                   ("R" . elfeed-mark-all-as-read)
+                   ("0" . elfeed-read-all)
+                   ("1" . elfeed-read-news-hs)
+                   ("2" . elfeed-read-news)
+                   ("3" . elfeed-read-journals)
+                   ("4" . elfeed-read-archaeology)
+                   ("5" . elfeed-read-mobile)
+                   ("6" . elfeed-read-comics)
+                   ("7" . elfeed-read-emacs)
+                   ("l" . elfeed-search-link-title)
+                   ("v" . elfeed-search-quick-url-note))
+       :init
+       (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
+       (setq-default elfeed-search-filter my/default-elfeed-search-filter)
+       (setq elfeed-sort-order 'ascending)
+       (setq elfeed-search-title-max-width 100) ; newspaper articles have long titles
+       :config
+       (use-package elfeed-org
+         :ensure t)
+       (elfeed-org)
 
-           (defun elfeed-mark-all-as-read ()
-             "Mark currently shown articles read"
-             (interactive)
-             (mark-whole-buffer)
-             (elfeed-search-untag-all-unread))
+       (defun elfeed-mark-all-as-read ()
+         "Mark currently shown articles read"
+         (interactive)
+         (mark-whole-buffer)
+         (elfeed-search-untag-all-unread))
 
-           (defun elfeed--read-tag (filter tag)
-             "Template for filtering various feed categories.
+       (defun elfeed--read-tag (filter tag)
+         "Template for filtering various feed categories.
 
-                        FILTER is the filter string to apply, and TAG is a short name of
-                        the displayed category.
+                         FILTER is the filter string to apply, and TAG is a short name of
+                         the displayed category.
 
-                        The cursor is moved to the beginning of the first feed line."
-             (setq elfeed-search-filter filter)
-             (elfeed-search-update :force)
-             (goto-char (point-min))
-             (message (concat "elfeed: show " tag)))
+                         The cursor is moved to the beginning of the first feed line."
+         (setq elfeed-search-filter filter)
+         (elfeed-search-update :force)
+         (goto-char (point-min))
+         (message (concat "elfeed: show " tag)))
 
-           (defun elfeed-read-all ()
-             "Show all new titles (except sport)"
-             (interactive)
-             (elfeed--read-tag my/default-elfeed-search-filter "all"))
+       (defun elfeed-read-all ()
+         "Show all new titles (except sport)"
+         (interactive)
+         (elfeed--read-tag my/default-elfeed-search-filter "all"))
 
-           (defun elfeed--remove-sports ()
-             "Remove sports articles from world news"
-             (setq elfeed-search-filter "@1-month-ago +unread +n sport")
-             (elfeed-search-update :force)
-             (elfeed-mark-all-as-read)
-             (message "elfeed: sports removed"))
+       (defun elfeed--remove-sports ()
+         "Remove sports articles from world news"
+         (setq elfeed-search-filter "@1-month-ago +unread +n sport")
+         (elfeed-search-update :force)
+         (elfeed-mark-all-as-read)
+         (message "elfeed: sports removed"))
 
-           (defun elfeed-read-news-hs ()
-             "Show global news articles in Finnish"
-             (interactive)
-             (elfeed--remove-sports)
-             (elfeed--read-tag "@1-month-ago +unread +n HS.fi" "Finnish news"))
+       (defun elfeed-read-news-hs ()
+         "Show global news articles in Finnish"
+         (interactive)
+         (elfeed--remove-sports)
+         (elfeed--read-tag "@1-month-ago +unread +n HS.fi" "Finnish news"))
 
-           (defun elfeed-read-news ()
-             "Show global news articles"
-             (interactive)
-             (elfeed--remove-sports)
-             (elfeed--read-tag "@1-month-ago +unread +n " "news"))
+       (defun elfeed-read-news ()
+         "Show global news articles"
+         (interactive)
+         (elfeed--remove-sports)
+         (elfeed--read-tag "@1-month-ago +unread +n " "news"))
 
-           (defun elfeed-read-journals ()
-             "Show scientific news from major journals"
-             (interactive)
-             (elfeed--read-tag "@1-month-ago +unread +j " "journals"))
+       (defun elfeed-read-journals ()
+         "Show scientific news from major journals"
+         (interactive)
+         (elfeed--read-tag "@1-month-ago +unread +j " "journals"))
 
-           (defun elfeed-read-archaeology ()
-             "Show archeology news"
-             (interactive)
-             (elfeed--read-tag "@1-month-ago +unread +a " "archaeology"))
+       (defun elfeed-read-archaeology ()
+         "Show archeology news"
+         (interactive)
+         (elfeed--read-tag "@1-month-ago +unread +a " "archaeology"))
 
-           (defun elfeed-read-mobile ()
-             "Show mobile device news"
-             (interactive)
-             (elfeed--read-tag "@1-month-ago +unread +d " "mobile"))
+       (defun elfeed-read-mobile ()
+         "Show mobile device news"
+         (interactive)
+         (elfeed--read-tag "@1-month-ago +unread +d " "mobile"))
 
-           (defun elfeed-read-comics ()
-             "Show latest online comics"
-             (interactive)
-             (elfeed--read-tag "@1-month-ago +unread +c " "comics"))
+       (defun elfeed-read-comics ()
+         "Show latest online comics"
+         (interactive)
+         (elfeed--read-tag "@1-month-ago +unread +c " "comics"))
 
-           (defun elfeed-read-emacs ()
-             "Show news on emacs"
-             (interactive)
-             (elfeed--read-tag "@1-month-ago +unread +e " "emacs"))
+       (defun elfeed-read-emacs ()
+         "Show news on emacs"
+         (interactive)
+         (elfeed--read-tag "@1-month-ago +unread +e " "emacs"))
 
-           ;;
-           ;; linking and capturing
-           ;;
+       ;;
+       ;; linking and capturing
+       ;;
 
-           (defun elfeed-link-title (entry)
-             "Copy the entry title and URL as org link to the clipboard."
-             (interactive)
-             (let* ((link (elfeed-entry-link entry))
-                    (title (elfeed-entry-title entry))
-                    (titlelink (concat "[[" link "][" title "]]")))
-               (when titlelink
-                 (kill-new titlelink)
-                 (x-set-selection 'PRIMARY titlelink)
-                 (message "Yanked: %s" titlelink))))
+       (defun elfeed-link-title (entry)
+         "Copy the entry title and URL as org link to the clipboard."
+         (interactive)
+         (let* ((link (elfeed-entry-link entry))
+                (title (elfeed-entry-title entry))
+                (titlelink (concat "[[" link "][" title "]]")))
+           (when titlelink
+             (kill-new titlelink)
+             (x-set-selection 'PRIMARY titlelink)
+             (message "Yanked: %s" titlelink))))
 
-           ;; show mode
+       ;; show mode
 
-           (defun elfeed-show-link-title ()
-             "Copy the current entry title and URL as org link to the clipboard."
-             (interactive)
-             (elfeed-link-title elfeed-show-entry))
+       (defun elfeed-show-link-title ()
+         "Copy the current entry title and URL as org link to the clipboard."
+         (interactive)
+         (elfeed-link-title elfeed-show-entry))
 
-           (defun elfeed-show-quick-url-note ()
-             "Fastest way to capture entry link to org agenda from elfeed show mode"
-             (interactive)
-             (elfeed-link-title elfeed-show-entry)
-             (org-capture nil "n")
-             (yank)
-             (org-capture-finalize))
+       (defun elfeed-show-quick-url-note ()
+         "Fastest way to capture entry link to org agenda from elfeed show mode"
+         (interactive)
+         (elfeed-link-title elfeed-show-entry)
+         (org-capture nil "n")
+         (yank)
+         (org-capture-finalize))
 
-           ;; search mode
+       ;; search mode
 
-           (defun elfeed-search-link-title ()
-             "Copy the current entry title and URL as org link to the clipboard."
-             (interactive)
-             (let ((entries (elfeed-search-selected)))
-               (cl-loop for entry in entries
-                        when (elfeed-entry-link entry)
-                        do (elfeed-link-title entry))))
+       (defun elfeed-search-link-title ()
+         "Copy the current entry title and URL as org link to the clipboard."
+         (interactive)
+         (let ((entries (elfeed-search-selected)))
+           (cl-loop for entry in entries
+                    when (elfeed-entry-link entry)
+                    do (elfeed-link-title entry))))
 
-           (defun elfeed-search-quick-url-note ()
-             "In search mode, capture the title and link for the selected
-         entry or entries in org aganda."
-             (interactive)
-             (let ((entries (elfeed-search-selected)))
-               (cl-loop for entry in entries
-                        do (elfeed-untag entry 'unread)
-                        when (elfeed-entry-link entry)
-                        do (elfeed-link-title entry)
-                        do (org-capture nil "n")
-                        do (yank)
-                        do (org-capture-finalize)
-                        (mapc #'elfeed-search-update-entry entries))
-               (unless (use-region-p) (forward-line))))
+       (defun elfeed-search-quick-url-note ()
+         "In search mode, capture the title and link for the selected
+          entry or entries in org aganda."
+         (interactive)
+         (let ((entries (elfeed-search-selected)))
+           (cl-loop for entry in entries
+                    do (elfeed-untag entry 'unread)
+                    when (elfeed-entry-link entry)
+                    do (elfeed-link-title entry)
+                    do (org-capture nil "n")
+                    do (yank)
+                    do (org-capture-finalize)
+                    (mapc #'elfeed-search-update-entry entries))
+           (unless (use-region-p) (forward-line)))))
 
-         ;; needs emacs 24.4
-         (with-eval-after-load "elfeed"
-           (bind-keys :map elfeed-show-mode-map
-                      ("b" . elfeed-show-visit)
-                      ("l" . elfeed-show-link-title)
-                      ("v" . elfeed-show-quick-url-note))
-           (bind-keys :map elfeed-search-mode-map
-                 ("=" . elfeed-update)
-                 ("R" . elfeed-mark-all-as-read)
-                 ("0" . elfeed-read-all)
-                 ("1" . elfeed-read-news-hs)
-                 ("2" . elfeed-read-news)
-                 ("3" . elfeed-read-journals)
-                 ("4" . elfeed-read-archaeology)
-                 ("5" . elfeed-read-mobile)
-                 ("6" . elfeed-read-comics)
-                 ("7" . elfeed-read-emacs)
-                 ("l" . elfeed-search-link-title)
-                 ("v" . elfeed-search-quick-url-note))))
+
+     ;;(with-eval-after-load "elfeed"
+     ;;  (bind-keys :map elfeed-show-mode-map
+     ;;             ("b" . elfeed-show-visit)
+     ;;             ("l" . elfeed-show-link-title)
+     ;;             ("v" . elfeed-show-quick-url-note))
+     ;;  (bind-keys :map elfeed-search-mode-map
+     ;;             ("=" . elfeed-update)
+     ;;             ("R" . elfeed-mark-all-as-read)
+     ;;             ("0" . elfeed-read-all)
+     ;;             ("1" . elfeed-read-news-hs)
+     ;;             ("2" . elfeed-read-news)
+     ;;             ("3" . elfeed-read-journals)
+     ;;             ("4" . elfeed-read-archaeology)
+     ;;             ("5" . elfeed-read-mobile)
+     ;;             ("6" . elfeed-read-comics)
+     ;;             ("7" . elfeed-read-emacs)
+     ;;             ("l" . elfeed-search-link-title)
+     ;;             ("v" . elfeed-search-quick-url-note))
+     )
    #+END_SRC
 
 ** Twitter
