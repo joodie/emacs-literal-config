@@ -1838,131 +1838,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
   (flyspell-auto-correct-previous-word)= that proposes various
   successive corrections for the current word.
 
-   [[https://github.com/tlikonen/wcheck-mode]] is the next level of
-   abstraction in spell checking. It can work with standard ispell,
-   aspell and hunspell, but also with enchant that can deal with
-   languages that have more complex rules of inflection than typical
-   Germanic languages. Finnish has a freeware program [[http://voikko.puimula.org/][Voikko]] that can
-   deal with its intricacies.
-   - http://www.hillenius.com/blog/2013/11/09_writers-need-spell-checkers-wcheck-mode.html
-   - https://github.com/philc/emacs-config
-
-   #+NAME: spell-checker
-   #+BEGIN_SRC emacs-lisp
-
-     ;; these two sexps set up a functional wcheck
-     (setq-default wcheck-language "english")
-     (setq-default wcheck-language-data
-                   '(("english"
-                      (program . "/usr/local/bin/aspell")
-                      (args "list") ; -l: list only the mispellings.
-                      (face . hi-yellow)
-                      (connection . pty)
-                      ;; Note that I don't use this functionality of providing suggested spelling corrects, and
-                      ;; this config is untested. I just like to highlight mispelled words.
-                      (action-program . "/usr/local/bin/aspell")
-                      (action-args "-a") ; -a: lists alternatives.
-                      (action-parser . wcheck-parser-ispell-suggestions))))
-
-
-
-     (defvar my-finnish-syntax-table
-       (copy-syntax-table text-mode-syntax-table))
-     (modify-syntax-entry ?- "w" my-finnish-syntax-table)
-     (setq-default wcheck-language "finnish")
-
-     (setq wcheck-language-data
-                   '(("english"
-                      (program . "/usr/local/bin/aspell")
-                      (args "list") ; -l: list only the mispellings.
-                      (face . hi-yellow)
-                      (connection . pty)
-                      (action-program . "/usr/local/bin/aspell")
-                      (action-args "-a") ; -a: lists alternatives.
-                      (action-parser . wcheck-parser-ispell-suggestions))
-                     ("british"
-                      (program . "/usr/local/bin/aspell")
-                      (args "list" "-l" "en_BR") ; list: list only the mispellings.
-                      (face . hi-yellow)
-                      (connection . pty)
-                      (action-program . "/usr/local/bin/aspell")
-                      (action-args "-a" "-l" "en_BR") ; -a: lists alternatives.
-                      (action-parser . wcheck-parser-ispell-suggestions))
-                     ("finnish"
-                      (program . "/usr/local/bin/enchant")
-                      (args "-l" "-d" "fi")
-                      (syntax . my-finnish-syntax-table)
-                      (action-program . "/usr/local/bin/enchant")
-                      (action-args "-a" "-d" "fi")
-                      (action-parser . wcheck-parser-ispell-suggestions))
-                     ))
-
-
-
-     ;; Set aspell as the spell program
-     (setq ispell-program-name "aspell")
-
-     ;; Speed up aspell: ultra | fast | normal
-     (setq ispell-extra-args '("--sug-mode=ultra"))
-
-     (setq ispell-dictionary "british")
-
-     (let ((langs '( "english" "finnish" "american" )))
-       (setq lang-ring (make-ring (length langs)))
-       (dolist (elem langs) (ring-insert lang-ring elem)))
-
-     ;;     ("British English"
-     ;;      (program . "/usr/local/bin/enchant")
-     ;;      (args "-l" "-d" "en_GB")
-     ;;      (face . hi-yellow)
-     ;;      (connection . pty)
-     ;;      (action-program . "/usr/local/bin/enchant")
-     ;;      (action-args "-a" "-d" "en_GB")
-     ;;      (action-parser . wcheck-parser-ispell-suggestions))))
-
-
-     (setq wcheck-language-data
-           '(("british"
-              (program . "/usr/local/bin/aspell")
-              (args "-l" "-d" "british")
-              (action-program . "/usr/local/bin/aspell")
-              (action-args "-a" "-d" "british")
-              (action-parser . wcheck-parser-ispell-suggestions))
-             ("Finnish"
-              (program . "/usr/local/bin/enchant")
-              (args "-l" "-d" "fi")
-              (syntax . my-finnish-syntax-table)
-              (action-program . "/usr/local/bin/enchant")
-              (action-args "-a" "-d" "fi")
-              (action-parser . wcheck-parser-ispell-suggestions))
-             ("cat" ((program . "/bin/cat")))))
-
-     (bind-key "C-c s" 'wcheck-mode)
-     (bind-key "C-c l" 'wcheck-change-language)
-     (bind-key "C-c c" 'wcheck-actions)
-     ;;(bind-key "C-c n" 'wcheck-jump-forward)
-     ;;(bind-key "C-c p" 'wcheck-jump-backward)
-
-     (bind-key "C-c w" 'hydra-wcheck/body)
-     (defhydra hydra-wcheck (:color pink :hint nil)
-       "
-        ^Wcheck^             ^Check^      [Language: %`ispell-current-dictionary]
-      ^^-----------------------------------------------------------
-        _t_: toggle            _n_: next error
-        _c_: change language   _k_: correct and add to abbrev
-         a   actions           _i_: insert to personal list
-        _q_uit                 _u_: insert, uncapitalize and insert
-               "
-       ("n" flyspell-goto-next-error)
-       ("t" cycle-ispell-languages)
-       ("q" nil :color blue)
-
-       ("c" ispell-word)
-       ("k" my/ispell-word-then-abbrev)
-       ("i" my/flyspell-save-word)
-       ("u" (my/flyspell-save-word t)))
-   #+END_SRC
-
+**** aspell
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
      (setq ispell-program-name "aspell") ; checker engine
@@ -2129,7 +2005,7 @@ abort completely with `C-g'."
             ("u" (my/flyspell-save-word t)))
    #+END_SRC
 
-*** TODO wcheck mode
+**** TODO wcheck mode
 
   A level up in spell checking abstractions is [[https://github.com/tlikonen/wcheck-mode][Wcheck Mode]] that
   understands programs for proper inflection of words in Finnish in
@@ -2138,7 +2014,7 @@ abort completely with `C-g'."
   Sources:
  - http://www.hillenius.com/blog/2013/11/09_writers-need-spell-checkers-wcheck-mode.html
 
-  #+NAME: spell-checker_________inactive
+  #+NAME: spell-checker_disabled
   #+BEGIN_SRC emacs-lisp
 
     (setq ispell-program-name "aspell")
@@ -2156,13 +2032,139 @@ abort completely with `C-g'."
              (action-args "-a" "-d" "british")
              (action-parser . wcheck-parser-ispell-suggestions))
             ("Finnish"
-             (program . "/usr/bin/enchant")
+             (program . "/usr/local/bin/enchant")
              (args "-l" "-d" "fi")
              (syntax . my-finnish-syntax-table)
-             (action-program . "/usr/bin/enchant")
+             (action-program . "/usr/local/bin/enchant")
              (action-args "-a" "-d" "fi")
              (action-parser . wcheck-parser-ispell-suggestions))))
   #+END_SRC
+
+
+   [[https://github.com/tlikonen/wcheck-mode]] is the next level of
+   abstraction in spell checking. It can work with standard ispell,
+   aspell and hunspell, but also with enchant that can deal with
+   languages that have more complex rules of inflection than typical
+   Germanic languages. Finnish has a freeware program [[http://voikko.puimula.org/][Voikko]] that can
+   deal with its intricacies.
+   - http://www.hillenius.com/blog/2013/11/09_writers-need-spell-checkers-wcheck-mode.html
+   - https://github.com/philc/emacs-config
+
+   #+NAME: spell-checker
+   #+BEGIN_SRC emacs-lisp
+
+     ;; these two sexps set up a functional wcheck
+     (setq-default wcheck-language "english")
+     (setq-default wcheck-language-data
+                   '(("english"
+                      (program . "/usr/local/bin/aspell")
+                      (args "list") ; -l: list only the mispellings.
+                      (face . hi-yellow)
+                      (connection . pty)
+                      ;; Note that I don't use this functionality of providing suggested spelling corrects, and
+                      ;; this config is untested. I just like to highlight mispelled words.
+                      (action-program . "/usr/local/bin/aspell")
+                      (action-args "-a") ; -a: lists alternatives.
+                      (action-parser . wcheck-parser-ispell-suggestions))))
+
+
+
+     (defvar my-finnish-syntax-table
+       (copy-syntax-table text-mode-syntax-table))
+     (modify-syntax-entry ?- "w" my-finnish-syntax-table)
+     (setq-default wcheck-language "finnish")
+
+     (setq wcheck-language-data
+                   '(("english"
+                      (program . "/usr/local/bin/aspell")
+                      (args "list") ; -l: list only the mispellings.
+                      (face . hi-yellow)
+                      (connection . pty)
+                      (action-program . "/usr/local/bin/aspell")
+                      (action-args "-a") ; -a: lists alternatives.
+                      (action-parser . wcheck-parser-ispell-suggestions))
+                     ("british"
+                      (program . "/usr/local/bin/aspell")
+                      (args "list" "-l" "en_BR") ; list: list only the mispellings.
+                      (face . hi-yellow)
+                      (connection . pty)
+                      (action-program . "/usr/local/bin/aspell")
+                      (action-args "-a" "-l" "en_BR") ; -a: lists alternatives.
+                      (action-parser . wcheck-parser-ispell-suggestions))
+                     ("finnish"
+                      (program . "/usr/local/bin/enchant")
+                      (args "-l" "-d" "fi")
+                      (syntax . my-finnish-syntax-table)
+                      (action-program . "/usr/local/bin/enchant")
+                      (action-args "-a" "-d" "fi")
+                      (action-parser . wcheck-parser-ispell-suggestions))
+                     ))
+
+
+
+     ;; Set aspell as the spell program
+     (setq ispell-program-name "aspell")
+
+     ;; Speed up aspell: ultra | fast | normal
+     (setq ispell-extra-args '("--sug-mode=ultra"))
+
+     (setq ispell-dictionary "british")
+
+     (let ((langs '( "english" "finnish" "american" )))
+       (setq lang-ring (make-ring (length langs)))
+       (dolist (elem langs) (ring-insert lang-ring elem)))
+
+     ;;     ("British English"
+     ;;      (program . "/usr/local/bin/enchant")
+     ;;      (args "-l" "-d" "en_GB")
+     ;;      (face . hi-yellow)
+     ;;      (connection . pty)
+     ;;      (action-program . "/usr/local/bin/enchant")
+     ;;      (action-args "-a" "-d" "en_GB")
+     ;;      (action-parser . wcheck-parser-ispell-suggestions))))
+
+
+     (setq wcheck-language-data
+           '(("british"
+              (program . "/usr/local/bin/aspell")
+              (args "-l" "-d" "british")
+              (action-program . "/usr/local/bin/aspell")
+              (action-args "-a" "-d" "british")
+              (action-parser . wcheck-parser-ispell-suggestions))
+             ("Finnish"
+              (program . "/usr/local/bin/enchant")
+              (args "-l" "-d" "fi")
+              (syntax . my-finnish-syntax-table)
+              (action-program . "/usr/local/bin/enchant")
+              (action-args "-a" "-d" "fi")
+              (action-parser . wcheck-parser-ispell-suggestions))
+             ("cat" ((program . "/bin/cat")))))
+
+     (bind-key "C-c s" 'wcheck-mode)
+     (bind-key "C-c l" 'wcheck-change-language)
+     (bind-key "C-c c" 'wcheck-actions)
+     ;;(bind-key "C-c n" 'wcheck-jump-forward)
+     ;;(bind-key "C-c p" 'wcheck-jump-backward)
+
+     (bind-key "C-c w" 'hydra-wcheck/body)
+     (defhydra hydra-wcheck (:color pink :hint nil)
+       "
+        ^Wcheck^             ^Check^      [Language: %`ispell-current-dictionary]
+      ^^-----------------------------------------------------------
+        _t_: toggle            _n_: next error
+        _c_: change language   _k_: correct and add to abbrev
+         a   actions           _i_: insert to personal list
+        _q_uit                 _u_: insert, uncapitalize and insert
+               "
+       ("n" flyspell-goto-next-error)
+       ("t" cycle-ispell-languages)
+       ("q" nil :color blue)
+
+       ("c" ispell-word)
+       ("k" my/ispell-word-then-abbrev)
+       ("i" my/flyspell-save-word)
+       ("u" (my/flyspell-save-word t)))
+   #+END_SRC
 
 *** Writing style: writegood
 
