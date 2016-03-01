@@ -805,11 +805,11 @@ package. Use it instead of =package-install=: =M-x try some-package=.
     (defhydra hydra-launch (:color blue :hint nil :idle 1.0)
       "
     launch _2_048            _l_ink chrome    _p_aradox             _w_3m at point
-           _b_: gscholar-bib _n_ato-region    _q_: paradox upgrade  G_\+_ emacs
-           _c_: calfw        de_N_ato         _t_imemachine git     _?_: emacsExchange
-           _e_diff-buffers   _r_e-builder     _z_: timezones
-           _h_owdoi          _s_ynonyms       _x_: eshell
-           tw_i_tter         _=_: quick-calc
+           _b_: gscholar-bib _k_eybindings    _q_: paradox upgrade  G_\+_ emacs
+           _c_: calfw        _n_ato-region    _t_imemachine git     _?_: emacsExchange
+           _e_diff-buffers   de_N_ato         _z_: timezones
+           _h_owdoi          _r_e-builder     _x_: eshell
+           tw_i_tter         _s_ynonyms                    _=_: quick-calc
           "
 
       ("2" 2048-game)
@@ -819,6 +819,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
       ("g" langtool-correct-buffer)
       ("h" howdoi-query)
       ("i" twit)
+      ("k" personal-key-bindings)
       ("l" org-mac-chrome-insert-frontmost-url)
       ("n" nato-region)
       ("N" denato-region)
