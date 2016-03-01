@@ -656,7 +656,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 * Key bindings
 
   Emacs commands are defined by their names. Many interactive commands
-  have default keybindings but they can are supposed to be modified by
+  have default keybindings but they are supposed to be modified by
   the user. [[https://github.com/justbur/emacs-which-key][which-key]] is a package that shows currently available key
   bindings interactively after a delay of 1 second.
 
@@ -2419,7 +2419,7 @@ l s= for "Emacs, launch synonyms".
        (use-package latex-extra
          :ensure t
          :config
-         (add-hook 'LaTeX-mode-hook #'latex-extra-mode)))
+         (add-hook 'latex-mode-hook #'latex-extra-mode)))
    #+END_SRC
 
 ** XML
@@ -2511,7 +2511,6 @@ l s= for "Emacs, launch synonyms".
   #+END_SRC
 
   See [[https://github.com/ancane/markdown-preview-mode][markdown-preview-mode]].
-
 
 ** Ledger
 
