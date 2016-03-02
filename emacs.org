@@ -19,24 +19,14 @@
 
 ** Installation
 
-   This configuration is intended to be installable from scratch. It
-   uses [[https://github.com/cask/cask][Cask]] to specify the package dependencies. [[https://github.com/rdallasgray/pallet][Pallet]] is installed
-   to sync actual installed packages with the dependency spec.
+   This configuration is intended to auto-install from scratch.
 
 ** Installation procedure
 
   - Install GNU Emacs 24 or higher
-  - Install Cask from https://github.com/cask/cask
   - Clone [[https://github.com/joodie/emacs-literal-config][the repository]] as ~$HOME/.emacs.d~ (or symlink it to that
     directory).
-  - Run ~cask install~ in ~$HOME/.emacs.d~
   - Start Emacs
-
-** Issues installing
-
-  - Emacs failing to load pallet can indicate that ~cask~ is
-    attempting to install packages using a different Emacs version
-    than the one you're starting. Check your ~$PATH~ and/or aliases.
 
 * Graphics and looks
 ** Color theme
@@ -143,6 +133,7 @@
    There's a lot of modes that I don't need to see.
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+     (require 'eldoc)
      (add-to-list 'after-init-hook
                   (lambda ()
                     (dolist (m '(projectile company git-gutter eldoc paredit))
@@ -234,11 +225,9 @@
 
     ;; by default,
     ;; highlight trailing whitespace
-    ;; and show form-feed chars as horizontal rules
 
     (defun my/general-formatting-hooks ()
-      (setq show-trailing-whitespace 't)
-      (my/turn-on 'form-feed))
+      (setq show-trailing-whitespace 't))
 
     (dolist (mode-hook (my/normal-mode-hooks))
       (add-hook mode-hook 'my/general-formatting-hooks))
@@ -372,7 +361,7 @@
    #+BEGIN_SRC emacs-lisp
      (defun my/cider-mode-hooks ()
        "Clojure specific setup code that should only be run when we
-       have a CIDER REPL connection"
+          have a CIDER REPL connection"
        (cider-turn-on-eldoc-mode))
 
      (add-hook 'cider-mode-hook
@@ -381,17 +370,23 @@
      (setq cider-repl-history-file (expand-file-name "~/.emacs.d/.cider-repl-history"))
 
 
+;     (eval-after-load 'flycheck '(flycheck-clojure-setup))
+;     (add-hook 'after-init-hook #'global-flycheck-mode)
+
+     (eval-after-load 'flycheck
+       '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
+
+     (add-hook 'cider-mode-hook 
+               (lambda () (setq next-error-function #'flycheck-next-error-function)))
+
    #+END_SRC
 
    Clojure-specific enhancements to lisp config.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (require 'clojure-mode-extra-font-locking)
-
      (defun my/clojure-mode-hooks ()
        (my/turn-on 'subword)
-       (my/turn-on 'clj-refactor)
        (my/turn-on 'yas-minor)
        (cljr-add-keybindings-with-prefix "C-c r"))
 
@@ -437,7 +432,7 @@
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (global-rinari-mode +1)
+;     (global-rinari-mode +1)
    #+END_SRC
 ** Perl
    I still occasionally need to work on Perl code, so I have a few
@@ -454,10 +449,10 @@
    #+END_SRC
 ** Javascript
 
-   I use JS2-mode for javascript source.
+   I use JS-mode for javascript source.
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . js2-mode))
+     (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . js-mode))
    #+END_SRC
 
 ** JSON
@@ -481,6 +476,13 @@
                'rainbow-mode)
 
    #+END_SRC
+** ASCIIDOC
+
+   #+name: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'auto-mode-alist '("\\.adoc\\'" . adoc-mode))
+   #+END_SRC
+
 ** Compilation mode improvements
 
 *** ANSI Colors
@@ -687,9 +689,17 @@ Don't wrap lines (query rows) when working with a database.
 
      (setq org-capture-templates
            '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Inbox")
-              "* TODO %?\nEntered on %U\n  %i\n  %a")
+              "* NEXT %?\nEntered on %U\n  %i\n  %a")
              ("j" "Journal" entry (file+datetree "~/org/journal.org")
               "* %?\nEntered on %U\n  %i\n  %a")))
+
+    (defun my/get-things-done ()
+      (interactive)
+      (find-file "~/org/gtd.org"))
+
+    (global-set-key "\C-cd" 'my/get-things-done)
+
+
 
      (setq org-agenda-custom-commands
            '(("g" "Plan today"
@@ -704,6 +714,7 @@ Don't wrap lines (query rows) when working with a database.
                (tags-todo "Thuis")
                (tags-todo "Marieke")
                (tags-todo "Remvee")
+               (tags-todo "GeorgeEnRiet")
                (tags-todo "Lezen")))))
 
 
@@ -830,11 +841,16 @@ Don't wrap lines (query rows) when working with a database.
    #+END_SRC
 
 ** Exporting to slides
+   #+name: org-config-languages
    #+BEGIN_SRC emacs-lisp
      (require 'ox-latex)
      (require 'ox-beamer)
    #+END_SRC
-   
+** Exporting to LibreOffice / ODT
+   #+name: org-config-languages
+   #+BEGIN_SRC emacs-lisp
+     (require 'ox-odt)
+   #+END_SRC
 * Configuration file layout
 
   Here I define the emacs.el file that gets generated by the code in
