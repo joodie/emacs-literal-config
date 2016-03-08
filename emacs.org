@@ -336,8 +336,7 @@
      (defun my/general-lisp-hooks ()
        (my/turn-on 'paredit
                    'rainbow-delimiters
-                   'highlight-parentheses
-                   'aggressive-indent))
+                   'highlight-parentheses))
 
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
        (add-hook mode
@@ -376,7 +375,7 @@
      (eval-after-load 'flycheck
        '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
 
-     (add-hook 'cider-mode-hook 
+     (add-hook 'cider-mode-hook
                (lambda () (setq next-error-function #'flycheck-next-error-function)))
 
    #+END_SRC
@@ -603,6 +602,15 @@ Don't wrap lines (query rows) when working with a database.
     (projectile-global-mode +1)
   #+END_SRC
 
+* Backup configuration
+  Store backup files in the system temp directory so I don't leave *~
+  files everywhere.
+
+  #+NAME backup-config
+  #+BEGIN_SRC emacs-lisp
+   (setq backup-directory-alist
+         `((".*" . ,temporary-file-directory)))
+  #+END_SRC
 * Org Mode
 ** Global keys
 
@@ -878,6 +886,7 @@ Don't wrap lines (query rows) when working with a database.
     <<global-navigation>>
     <<org-config>>
     <<libraries>>
+    <<backup-config>>
     <<startup>>
   #+END_SRC
 
