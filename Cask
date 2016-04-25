@@ -133,6 +133,7 @@
 (depends-on "paredit")
 (depends-on "pass")
 (depends-on "password-store")
+(depends-on "peep-dired")
 (depends-on "perl6-mode")
 (depends-on "pkg-info")
 (depends-on "plantuml-mode")

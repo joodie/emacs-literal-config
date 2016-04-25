@@ -5771,6 +5771,12 @@ bbdb-merge-records=.
 
     Also, I prefer human readable file sizes.
 
+    The [[http://pragmaticemacs.com/emacs/dynamically-filter-directory-listing-with-dired-narrow/][dired-narrow]] is bound the =/= key for a handy filter
+    function that can be cancelled with =g=.
+
+    The [[https://github.com/asok/peep-dired][peep-dired]] is bound to =P= to open a(n image) file while in
+    dired.
+
     #+BEGIN_SRC sh
       brew install coreutils
     #+END_SRC
