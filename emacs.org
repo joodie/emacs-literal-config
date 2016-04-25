@@ -3380,6 +3380,14 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
        (bind-key "M-x" 'smex))
    #+END_SRC
 
+Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficient-movement-using-avy/][search using avy]].
+
+#+name: global-navigation
+#+BEGIN_SRC emacs-lisp
+(use-package avy
+  :bind (("M-s" . avy-goto-word-1)))
+#+END_SRC
+
 ** TRAMP mode
 
    TRAMP mode allows opening remote files. It knows about ssh and
