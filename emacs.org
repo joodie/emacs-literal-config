@@ -1384,19 +1384,32 @@ http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
 
 *** Expand region
 
-    You can select text incrementally using semantic units with by
-    using [[https://github.com/magnars/expand-region.el][expand-region]]: e.g. word, sentence, URL, quotes, paragraph,
-    and section. Just press =C-== and expand =\== and contract =-= the
-    selection! This works in all text modes including most programming
-    languages, and is really convenient!
+You can select text incrementally using semantic units with by
+using [[https://github.com/magnars/expand-region.el][expand-region]]: e.g. word, sentence, URL, quotes, paragraph,
+and section. Just press =C-== and expand =\== and contract =-= the
+selection! This works in all text modes including most programming
+languages, and is really convenient!
 
-    [[http://blog.binchen.org/posts/how-to-use-expand-region-efficiently.html][Here]] is an alternative setup for evil.
+Here]] is an alternative setup for evil.
 
-    #+name: text-files
-    #+BEGIN_SRC emacs-lisp
-      (use-package expand-region
-        :bind ("C-=" . er/expand-region))
-    #+END_SRC
+#+name: text-files
+#+BEGIN_SRC emacs-lisp
+  (use-package expand-region
+    :bind ("C-=" . er/expand-region))
+#+END_SRC
+
+*** Change inner
+
+An other Magnar's package [[https://github.com/magnars/change-inner.el][change-inner]] builds on expand-region and
+gives vi-like =change-inner= and =change-outer= commands that are
+recommended to be bound to =M-i= and =M-o=.
+
+#+name: text-files
+#+BEGIN_SRC emacs-lisp
+  (use-package change-inner
+    :bind ("M-i" . change-inner)
+    :bind ("M-o" . change-outer))
+#+END_SRC
 
 ** Cut and copy
 
