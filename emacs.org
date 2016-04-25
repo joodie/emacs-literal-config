@@ -4767,6 +4767,21 @@ bbdb-merge-records=.
              "☾ Last Quarter Moon"))
    #+END_SRC
 
+** Org time stamps
+
+Org time stamps, see =(org-info "Timestamps")=, come in two flavours,
+active and inactive. An active timestamp in a file that is followed by
+the agenda, are visible in the calendar. The commands are
+=org-time-stamp= and =org-time-stamp-inactive=. The key combination
+=C-c .= is the for the active time stamp. =C-c != for inactive ones.
+Prefix arguments are very useful in this context:
+
+| Keys            | Interactive | Action   |
+|-----------------+-------------+----------|
+| =C-c .=         | t           | date     |
+| =C-u C-c .=     | t           | time     |
+| =C-u C-u C-c .= | nil         | time now |
+
 ** worf -- modal editing in org mode
 
    Adds vi-like modal key bindings to org mode by adding a new minor
