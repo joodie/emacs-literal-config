@@ -2770,11 +2770,13 @@ l s= for "Emacs, launch synonyms".
              cperl-indent-parens-as-block t
              cperl-tab-always-indent t)
        :config
-       (defun n-cperl-mode-hook ()
+       (defun my/cperl-mode-hook ()
          (my/turn-on 'show-paren-mode
                      'abbrev-mode
+                     'electric-pair-mode
+                     'electric-operator-mode
                      'aggressive-indent-mode))
-       (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t))
+       (add-hook 'cperl-mode-hook 'my/cperl-mode-hook t))
    #+END_SRC
 
    Call perltidy with =C-c t= from emacs to indent and beautify perl
