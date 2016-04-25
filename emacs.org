@@ -4704,6 +4704,7 @@ bbdb-merge-records=.
                            ("BOOK"    . ?k)
                            ("LATEX"   . ?l)
                            ("MOVIE"   . ?m)
+                           ("NATURE"  . ?n)
                            ("ORG"     . ?o)
                            ("PERL"    . ?p)
                            ("SECURITY". ?s)
