@@ -1725,38 +1725,43 @@ recommended to be bound to =M-i= and =M-o=.
 
 ** Commenting
 
-   The default emacs line commenting leaves a lot of things out. A
-   replacement package [[https://github.com/remyferre/comment-dwim-2][comment-dwim-2]] allows uncommenting and cycling
-   of different behaviors. The default comment key is =C-;=.
+The default emacs line commenting leaves a lot of things out. A
+replacement package [[https://github.com/remyferre/comment-dwim-2][comment-dwim-2]] allows uncommenting and cycling
+of different behaviors. The default comment key is =C-;=.
 
-   Note to self: [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] is recommended for the evil mode.
+Alternative is [[https://github.com/paldepind/smart-comment][smart-comment: Smarter commenting for Emacs]].
 
-   #+name: text-files
-   #+BEGIN_SRC emacs-lisp
-     (use-package comment-dwim-2
-       :bind "M-;")
-   #+END_SRC
+Note to self: [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] is recommended for the evil mode.
 
-   Remember: =C-x ;= sets the comment column (comment-set-column)
+#+name: text-files
+#+BEGIN_SRC emacs-lisp
+  (use-package comment-dwim-2
+    :bind "M-;")
+#+END_SRC
 
-   This draws a comment box that is the width of the fill column
-   around the selected region.
+=C-u M-;= in an empty line adds comment markers to the line. In a line
+with comments, =C-u M-;= removes the whole comment line.
 
-   #+BEGIN_SRC emacs-lisp
-     ;;http://irreal.org/blog/?p=374
-     (defun jcs-comment-box (b e)
-       "Draw a box comment around the region but arrange for the region
-     to extend to at least the fill column. Place the point after the
-     comment box."
-       (interactive "r")
-       (let ((e (copy-marker e t)))
-         (goto-char b)
-         (end-of-line)
-         (insert-char ?  (- fill-column (current-column)))
-         (comment-box b e 1)
-         (goto-char e)
-         (set-marker e nil)))
-   #+END_SRC
+Remember: =C-x ;= sets the comment column (comment-set-column)
+
+This draws a comment box that is the width of the fill column
+around the selected region.
+
+#+BEGIN_SRC emacs-lisp
+  ;;http://irreal.org/blog/?p=374
+  (defun jcs-comment-box (b e)
+    "Draw a box comment around the region but arrange for the region
+  to extend to at least the fill column. Place the point after the
+  comment box."
+    (interactive "r")
+    (let ((e (copy-marker e t)))
+      (goto-char b)
+      (end-of-line)
+      (insert-char ?  (- fill-column (current-column)))
+      (comment-box b e 1)
+      (goto-char e)
+      (set-marker e nil)))
+#+END_SRC
 
 ** Editing as root
 
