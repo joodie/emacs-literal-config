@@ -454,9 +454,13 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    [[http://oremacs.com/2015/03/28/recenter/][reordered]] and I've followed the suggestion to place the current
    line first to the top of the frame.
 
+   When recentering, the default margin is one line. Increasing that
+   to three, shows a little more context around the cursor line.
+
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (setq recenter-positions '(top middle bottom))
+     (setq scroll-margin 3)
    #+END_SRC
 
 *** Scroll other window
