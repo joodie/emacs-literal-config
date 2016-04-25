@@ -58,13 +58,13 @@
    adds them to the [[file:Cask][Cask]] file for tracking.
 
    A new version of this file is detected by emacs at start up. The
-   file =~/.emacs.d/init.el= contains the code for using cask and
+   file file:~/.emacs.d/init.el contains the code for using cask and
    converting this org file to the corresponding emacs listp file,
-   =~/emacs.d/emacs.el=. Conversion takes some time, but it is only
+   file:~/emacs.d/emacs.el. Conversion takes some time, but it is only
    done when the file has changed.
 
    Sometimes you have to manually edit the cask file. It is at
-   =~/.emacs.d/Cask=. There is a major mode for it.
+   file:~/.emacs.d/Cask. There is a major mode for it.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
@@ -602,7 +602,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    You can tell emacs your preferred email address by hard coding it.
    An alternative is to add it to your global shell environment (you
    are using *NIX operating system, aren't you?) where emacs will pick
-   it up (from =~/.zshenv= or =~/.bash_profile=):
+   it up (from file:~/.zshenv or file:~/.bash_profile):
 
    #+BEGIN_SRC sh
      export EMAIL=heikki.lehvaslaiho@gmail.com"
@@ -1562,7 +1562,7 @@ recommended to be bound to =M-i= and =M-o=.
 
 *** Yasnipppet
 
-    Add your own snippets to ~/.emacs.d/snippets by placing files
+    Add your own snippets to file:~/.emacs.d/snippets by placing files
     there or invoking yas-new-snippet.
 
    #+BEGIN_SRC emacs-lisp
@@ -1925,7 +1925,7 @@ around the selected region.
    them as arguments.
 
    Words added to personal word list are stored in =~/.aspell.{LANG}.pws=,
-   e.g. =~/.aspell.en.pws=.
+   e.g. file:~/.aspell.en.pws.
 
 
   Alternatively, call flyspell-goto-next-error by pressing =C-,= and
@@ -2919,7 +2919,7 @@ The pod-mode is outdated and needs to be manually installed to the
 
    Cider installation requires that the current version =M-x
    cider-version=is passed through leiningen to clojure. Minimal
-   =~/.lein/profiles.clj= file:
+   file:~/.lein/profiles.clj file:
 
    #+BEGIN_EXAMPLE
    {:user {:plugins [[cider/cider-nrepl "0.11.0"]]}}
@@ -5728,7 +5728,7 @@ Prefix arguments are very useful in this context:
 ** Options set using the customize interface
 
    By default, Emacs saves the options you set via the `customize-*`
-   functions in the user init file, which is "~/.emacs.d/init.el" in
+   functions in the user init file, which is file:~/.emacs.d/init.el in
    this setup. I prefer to have these data in a separate file,
    =custom.el= that gets created if it does not exist. In this setup
    customizations are only collected to =custom.el= and you should
@@ -5849,7 +5849,7 @@ Prefix arguments are very useful in this context:
    Printing under OS X does not work in default emacs.  [[http://www.emacswiki.org/emacs/MacPrintMode][EmacsWiki]] has
    slightly outdated instructions:
 
-   1. Copy [[ https://raw.github.com/marcora/emacs/master/mac-print-mode.el][mac-print-mode.el]] into =~.emacs.d/elisp= directory
+   1. Copy [[ https://raw.github.com/marcora/emacs/master/mac-print-mode.el][mac-print-mode.el]] into file:~.emacs.d/elisp directory
    2. htmlize pakage should be already installed
    3. Install latest version of [[http://hmdt.jp/coral/][Coral]] (1.3)
       - Download and open the image file
