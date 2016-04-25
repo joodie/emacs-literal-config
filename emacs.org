@@ -5109,6 +5109,8 @@ Prefix arguments are very useful in this context:
 
    The third replaces ASCII ellipsis with a Unicode character.
 
+   Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html][Org as a Word Processor]]
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-html-checkbox-type 'unicode)
@@ -5116,16 +5118,16 @@ Prefix arguments are very useful in this context:
            '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
                       (off . "<span class=\"task-todo\">&#x2610;</span>")
                       (trans . "<span class=\"task-in-progress\">[-]</span>"))))
-
      (use-package org-bullets
+       :disabled t
        :defer t
        :init (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●" ))
-       ;; :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-       )
+       :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
      ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
      ;;(setq org-ellipsis "…")
      (setq org-ellipsis "⤵")
+     (setq org-hide-emphasis-markers t)
 #+END_SRC
 
 ** Org Babel
