@@ -5149,14 +5149,14 @@ Prefix arguments are very useful in this context:
    #+END_SRC
 
    Use syntax highlighting ("fontification") in org-mode source
-   blocks, and use a slightly darker background to visually separate
-   the source block from its surroundings.
-
-   This also highlights source blocks in HTML exports.
+   blocks. This also highlights source blocks in HTML exports.
+   # and use a slightly darker background to visually separate
+   # the source block from its surroundings.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (setq org-src-fontify-natively 't)
+     (setq org-src-fontify-natively t
+           org-src-tab-acts-natively t)
    #+END_SRC
 
    Use the =minted= package for syntax highlighting source blocks in
