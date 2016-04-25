@@ -4678,6 +4678,10 @@ bbdb-merge-records=.
        (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
    #+END_SRC
 
+   Note: =C-c C-j= is =org-goto= and creates a copy of the current
+   org buffer to move around and copy text. Allows moving or
+   returning to current location. Awesome!
+
 ** Agenda
 
    I set the agenda calendar work week to start on Sunday according to
