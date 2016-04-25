@@ -2688,6 +2688,16 @@ l s= for "Emacs, launch synonyms".
            '(bind-key  "C-c C-c" 'quickrun perl6-mode-map)))
    #+END_SRC
 
+   The [[https://github.com/davidshepherd7/electric-operator][electric-operator]] is an emacs minor mode to automatically add
+   spacing around operators. There is no global mode, so it needs to
+   be enabled for each programming language.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (use-package electric-operator
+       :defer t)
+   #+END_SRC
+
 ** Perl
 
    I recently moved from [[http://perlbrew.pl/][perlbrew]] to [[https://github.com/tokuhirom/plenv][plenv]] as a system that provides
