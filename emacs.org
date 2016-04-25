@@ -4008,7 +4008,7 @@ bbdb-merge-records=.
     | key | function                 | note                                             |
     |-----+--------------------------+--------------------------------------------------|
     |   0 | elfeed-read-all          | resets to my default filter                      |
-    |   1 | elfeed-read-news-hs      | world news in Finnish , removes pesky sport news |
+    |   1 | elfeed-read-news-fi      | world news in Finnish , removes pesky sport news |
     |   2 | elfeed-read-news         | world news, removes pesky sport news             |
     |   3 | elfeed-read-journals     | science news                                     |
     |   4 | elfeed-read-archeology   | archeology news                                  |
@@ -4031,13 +4031,14 @@ bbdb-merge-records=.
                    ("=" . elfeed-update)
                    ("R" . elfeed-mark-all-as-read)
                    ("0" . elfeed-read-all)
-                   ("1" . elfeed-read-news-hs)
+                   ("1" . elfeed-read-news-fi)
                    ("2" . elfeed-read-news)
                    ("3" . elfeed-read-journals)
                    ("4" . elfeed-read-archaeology)
                    ("5" . elfeed-read-mobile)
                    ("6" . elfeed-read-comics)
                    ("7" . elfeed-read-emacs)
+                   ("9" . elfeed-read-friends)
                    ("l" . elfeed-search-link-title)
                    ("v" . elfeed-search-quick-url-note))
        :init
@@ -4080,11 +4081,11 @@ bbdb-merge-records=.
          (elfeed-mark-all-as-read)
          (message "elfeed: sports removed"))
 
-       (defun elfeed-read-news-hs ()
+       (defun elfeed-read-news-fi ()
          "Show global news articles in Finnish"
          (interactive)
          (elfeed--remove-sports)
-         (elfeed--read-tag "@1-month-ago +unread +n HS.fi" "Finnish news"))
+         (elfeed--read-tag "@1-month-ago +unread +fi " "Finnish news"))
 
        (defun elfeed-read-news ()
          "Show global news articles"
@@ -4116,6 +4117,11 @@ bbdb-merge-records=.
          "Show news on emacs"
          (interactive)
          (elfeed--read-tag "@1-month-ago +unread +e " "emacs"))
+
+       (defun elfeed-read-friends ()
+         "Show news from friends"
+         (interactive)
+         (elfeed--read-tag "@1-month-ago +unread +f " "friends"))
 
        ;;
        ;; linking and capturing
@@ -4171,26 +4177,6 @@ bbdb-merge-records=.
                     do (org-capture-finalize)
                     (mapc #'elfeed-search-update-entry entries))
            (unless (use-region-p) (forward-line)))))
-
-
-     ;;(with-eval-after-load "elfeed"
-     ;;  (bind-keys :map elfeed-show-mode-map
-     ;;             ("b" . elfeed-show-visit)
-     ;;             ("l" . elfeed-show-link-title)
-     ;;             ("v" . elfeed-show-quick-url-note))
-     ;;  (bind-keys :map elfeed-search-mode-map
-     ;;             ("=" . elfeed-update)
-     ;;             ("R" . elfeed-mark-all-as-read)
-     ;;             ("0" . elfeed-read-all)
-     ;;             ("1" . elfeed-read-news-hs)
-     ;;             ("2" . elfeed-read-news)
-     ;;             ("3" . elfeed-read-journals)
-     ;;             ("4" . elfeed-read-archaeology)
-     ;;             ("5" . elfeed-read-mobile)
-     ;;             ("6" . elfeed-read-comics)
-     ;;             ("7" . elfeed-read-emacs)
-     ;;             ("l" . elfeed-search-link-title)
-     ;;             ("v" . elfeed-search-quick-url-note)))
    #+END_SRC
 
 ** Twitter

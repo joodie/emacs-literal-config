@@ -7,15 +7,15 @@
 *** http://feeds.bbci.co.uk/news/health/rss.xml
 *** http://www.bbc.com/culture/feed.rss
 *** http://bruxelles.blogs.liberation.fr/feeds/
-*** http://www.hs.fi/uutiset/rss/
-*** http://www.hs.fi/rss/?osastot=kulttuuri
+*** Suomi                                                                :fi:
+**** http://www.hs.fi/uutiset/rss/
+**** http://yle.fi/uutiset/rss/paauutiset.rss
 ** News in Science Journals                                               :j:
 *** http://feeds.nature.com/NatureNewsComment?format=xml
 *** http://news.sciencemag.org/rss/weekly_news_email.xml
 *** http://feeds.newscientist.com/science-news
 *** http://www.technologyreview.com/biomedicine/rss/
 *** http://www.technologyreview.com/topnews.rss
-*** http://www.hs.fi/rss/?osastot=tiede
 ** Computers
 *** Security                                                              :s:
 **** https://www.schneier.com/blog/atom.xml
@@ -44,6 +44,7 @@
 ** Design                                                                  :d:
 *** http://mobiili.fi/feed/
 *** http://causticcovercritic.blogspot.co.uk/feeds/posts/default
+*** http://feedly.com/i/subscription/feed/http://www.mymodernmet.com/profiles/blogs/feed/featured
 ** Comics                                                                  :c:
 *** http://kimmo.suominen.com/stuff/vw.xml
 *** http://kimmo.suominen.com/stuff/fingerpori.xml
