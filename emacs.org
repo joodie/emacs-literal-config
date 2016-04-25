@@ -2915,7 +2915,7 @@ The pod-mode is outdated and needs to be manually installed to the
    =~/.lein/profiles.clj= file:
 
    #+BEGIN_EXAMPLE
-   {:user {:plugins [[cider/cider-nrepl "0.9.0-SNAPSHOT"]]}}
+   {:user {:plugins [[cider/cider-nrepl "0.11.0"]]}}
    #+END_EXAMPLE
 
    I treat the REPL mode specially, since certain hooks that work in
