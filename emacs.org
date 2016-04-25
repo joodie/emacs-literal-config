@@ -805,12 +805,12 @@ package. Use it instead of =package-install=: =M-x try some-package=.
     (bind-key "C-x l" 'hydra-launch/body)
     (defhydra hydra-launch (:color blue :hint nil :idle 1.0)
       "
-    launch _2_048            _l_ink chrome    _p_aradox             _w_3m at point
-           _b_: gscholar-bib _k_eybindings    _q_: paradox upgrade  G_\+_ emacs
-           _c_: calfw        _n_ato-region    _t_imemachine git     _?_: emacsExchange
-           _e_diff-buffers   de_N_ato         _z_: timezones
-           _h_owdoi          _r_e-builder     _x_: eshell
-           tw_i_tter         _s_ynonyms                    _=_: quick-calc
+    launch _2_048            _l_ink chrome       _s_ynonyms            _w_3m at point
+           _b_: gscholar-bib _k_eybindings       _p_aradox             G_\+_ emacs
+           _c_: calfw        _n_ato-region       _q_: paradox upgrade  _?_: emacsExchange
+           _e_diff-buffers   de_N_ato            _t_imemachine git     _=_: quick-calc
+           _h_owdoi          _m_y/move-file-here _z_: timezones
+           tw_i_tter         _r_e-builder        _x_: eshell
           "
 
       ("2" 2048-game)
@@ -824,6 +824,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
       ("l" org-mac-chrome-insert-frontmost-url)
       ("n" nato-region)
       ("N" denato-region)
+      ("m" my/move-file-here)
       ("r" re-builder)
       ("s" synosaurus-choose-and-replace)
       ("p" paradox-list-packages)
@@ -1250,10 +1251,75 @@ package. Use it instead of =package-install=: =M-x try some-package=.
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
       (use-package super-save
-        :defer t
         :init (setq super-save-auto-save-when-idle t)  ; def 5 sec
         :config (super-save-initialize))
     #+END_SRC
+
+** Moving a downloaded file
+
+#+name: text-files
+#+BEGIN_SRC emacs-lisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; move file here                                                         ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;(require 'dash)
+;;(require 'swiper)
+
+;; start directory
+(defvar my/move-file-here-start-dir (expand-file-name "~/Downloads"))
+
+(defun my/move-file-here ()
+  "Move file from somewhere else to here.
+
+The file is taken from a start directory set by
+`my/move-file-here-start-dir' and moved to the current directory
+if invoked in dired, or else the directory containing current
+buffer. The user is presented with a list of files in the start
+directory, from which to select the file to move, sorted by most
+recent first.
+
+Quickly move a file to the current directory | Pragmatic Emacs
+http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
+"
+  (interactive)
+  (let (file-list target-dir file-list-sorted start-file start-file-full)
+    ;; clean directories from list but keep times
+    (setq file-list
+          (-remove (lambda (x) (nth 1 x))
+                   (directory-files-and-attributes my/move-file-here-start-dir)))
+
+    ;; get target directory
+    ;; http://ergoemacs.org/emacs/emacs_copy_file_path.html
+    (setq target-dir
+          (if (equal major-mode 'dired-mode)
+              (expand-file-name default-directory)
+            (if (null (buffer-file-name))
+                (user-error "ERROR: current buffer is not associated with a file.")
+              (file-name-directory (buffer-file-name)))))
+
+    ;; sort list by most recent
+    ;; http://stackoverflow.com/questions/26514437/emacs-sort-list-of-directories-files-by-modification-date
+    (setq file-list-sorted
+          (mapcar #'car
+                  (sort file-list
+                        #'(lambda (x y) (time-less-p (nth 6 y) (nth 6 x))))))
+
+    ;; use ivy to select start-file
+    (setq start-file (ivy-read
+                      (concat "Move selected file to " target-dir ":")
+                      file-list-sorted
+                      :re-builder #'ivy--regex
+                      :sort nil
+                      :initial-input nil))
+
+    ;; add full path to start file and end-file
+    (setq start-file-full
+          (expand-file-name start-file my/move-file-here-start-dir))
+    (setq end-file
+          (expand-file-name (file-name-nondirectory start-file) target-dir))
+    (rename-file start-file-full end-file)
+    (message "moved %s to %s" start-file-full end-file)))
+#+END_SRC
 
 ** White-space
 
