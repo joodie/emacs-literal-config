@@ -63,6 +63,15 @@
    =~/emacs.d/emacs.el=. Conversion takes some time, but it is only
    done when the file has changed.
 
+   Sometimes you have to manually edit the cask file. It is at
+   =~/.emacs.d/Cask=. There is a major mode for it.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (use-package cask-mode)
+   #+END_SRC
+
+
 *** Paradox
 
    Emacs module *[[https://github.com/Bruce-Connor/paradox][paradox]]* adds package ratings to the listing, new
@@ -5489,8 +5498,19 @@ bbdb-merge-records=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+     (use-package org-ref
+       :after org
+       :init
+       (setq org-ref-bibliography-notes "~/Documents/bibliography/notes.org"
+             org-ref-default-bibliography '("~/Documents/latex/all.bib")
+             org-ref-pdf-directory "~/Documents/bibliography/bibtex-pdfs/"))
+    ;; org-ref-ivy-bibtex
+   #+END_SRC
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
      (setq reftex-default-bibliography
-           (quote ("/Users/lehvasho/Documents/latex/all.bib")))
+           (quote ("/Documents/latex/all.bib")))
 
      (use-package gscholar-bibtex
        :defer t

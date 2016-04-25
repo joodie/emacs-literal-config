@@ -16,6 +16,8 @@
 (depends-on "bind-key")
 (depends-on "calfw")
 (depends-on "cask")
+(depends-on "cask-mode")
+(depends-on "change-inner")
 (depends-on "chinese-word-at-point")
 (depends-on "cider")
 (depends-on "cider-decompile")
