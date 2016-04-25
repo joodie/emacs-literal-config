@@ -88,7 +88,7 @@
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (use-package paradox
-       :defer t
+       :defer nil
        :config
        (setq paradox-github-token t)
        (setq paradox-execute-asynchronously t)
@@ -573,7 +573,6 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
     ;; save cursor position
     (use-package saveplace
-      :defer t
       :config
       (setq-default save-place t))
 
@@ -2663,8 +2662,7 @@ l s= for "Emacs, launch synonyms".
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (use-package aggressive-indent
-       :defer t)
+     (use-package aggressive-indent)
    #+END_SRC
 
    [[https://github.com/flycheck/flycheck][Flycheck]] does global syntax checking for most programming
@@ -5781,7 +5779,18 @@ bbdb-merge-records=.
    #+BEGIN_SRC emacs-lisp
      (when (eq system-type 'darwin)
        (setq insert-directory-program (executable-find "gls")))
-       (setq dired-listing-switches "-alh")
+     (setq dired-listing-switches "-alh")
+     (use-package dired-narrow
+       :ensure t
+       :bind (:map dired-mode-map ("/" . dired-narrow)))
+
+     ;;preview files in dired
+     (use-package peep-dired
+       :defer t ; don't access `dired-mode-map' until `peep-dired' is loaded
+       :bind (:map dired-mode-map
+                   ("P" . peep-dired))
+       :config
+       (setq peep-dired-cleanup-on-disable t))
    #+END_SRC
 
 *** Printing
