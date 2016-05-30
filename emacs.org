@@ -4743,6 +4743,7 @@ bbdb-merge-records=.
                            ("SECURITY". ?s)
                            ("WRITING" . ?w)
                            ("MUSIC"   . ?u)
+                           ("BATS"    . ?t)
                            ("PYTHON"  . ?y)
                            ("ZSH"     . ?z)))
    #+END_SRC
