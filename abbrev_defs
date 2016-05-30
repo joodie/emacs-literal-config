@@ -13,11 +13,25 @@
 
 (define-abbrev-table 'TeX-output-mode-abbrev-table '())
 
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
+
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-bmenu-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
+
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
+
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
+
+(define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
@@ -127,6 +141,18 @@
 
 (define-abbrev-table 'evil-command-window-mode-abbrev-table '())
 
+(define-abbrev-table 'eww-bookmark-mode-abbrev-table '())
+
+(define-abbrev-table 'eww-buffers-mode-abbrev-table '())
+
+(define-abbrev-table 'eww-history-mode-abbrev-table '())
+
+(define-abbrev-table 'eww-mode-abbrev-table '())
+
+(define-abbrev-table 'extempore-mode-abbrev-table '())
+
+(define-abbrev-table 'extempore-repl-mode-abbrev-table '())
+
 (define-abbrev-table 'fish-mode-abbrev-table '())
 
 (define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
@@ -194,6 +220,7 @@
     ("negigable" "negligible" nil 0)
     ("occatinally" "occasionally" nil 0)
     ("otehr" "other" nil 3)
+    ("oC" "°C" nil 0)
     ("precice" "precise" nil 0)
     ("provenanace" "provenance" nil 0)
     ("recepi" "recipe" nil 1)
@@ -231,6 +258,8 @@ use Data::Printer;
 
 (define-abbrev-table 'gscholar-bibtex-mode-abbrev-table '())
 
+(define-abbrev-table 'helm-major-mode-abbrev-table '())
+
 (define-abbrev-table 'help-mode-abbrev-table '())
 
 (define-abbrev-table 'howdoi-mode-abbrev-table '())
@@ -241,13 +270,17 @@ use Data::Printer;
 
 (define-abbrev-table 'idl-mode-abbrev-table '())
 
+(define-abbrev-table 'inferior-extempore-mode-abbrev-table '())
+
 (define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'latex-mode-abbrev-table '())
 
@@ -307,6 +340,10 @@ use Data::Printer;
 
 (define-abbrev-table 'nrepl-messages-mode-abbrev-table '())
 
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
+
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-mode-abbrev-table '())
@@ -339,6 +376,7 @@ use Data::Printer;
     ("olable" "#+LABEL: fig:label" nil 7)
     ("oname" "#+NAME:" nil 6)
     ("onotoc" "#+TOK: nil" nil 1)
+    ("oref" "/ref{fig:label}" nil 8)
     ("oscale" "#+ATTR_LaTeX: scale=0.75" nil 1)
     ("oshebang" "#+PROPERTY: :shebang \"#!/usr/bin/env perl\"" nil 1)
     ("osize" "#+ATTR_LaTeX: width=0.70\\textwidth" nil 1)
@@ -368,6 +406,10 @@ use Data::Printer;
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
 (define-abbrev-table 'perl6-mode-abbrev-table '())
+
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
@@ -416,4 +458,3 @@ use Data::Printer;
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
-
