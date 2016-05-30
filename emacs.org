@@ -4856,16 +4856,21 @@ Prefix arguments are very useful in this context:
    =calendar.org= that starts with sections for anniversaries and
    other recurring tasks.
 
+   Code snippet capture code was mentioned in the  [[http://irreal.org/blog/?p=5244][Irreal]] blog.
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      ;; Capture templates for: general notes, TODO tasks, events
      (setq org-capture-templates
            '(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
-                   "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n%i")
-                  ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
-                   "* TODO %?\n     SCHEDULED: %t\n%i\n  Entered on %U")
-                  ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
-                   "* %?\n     %T\n%i\n  Entered on %U")))
+              "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n%i")
+             ("s" "code snippet" entry (file+datetree "~/Dropbox/org/reference.org")
+              ;; Prompt for tag and language
+              "* %?\t%^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n#+BEGIN_SRC %^{language}\n%i\n#+END_SRC")
+             ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
+              "* TODO %?\n     SCHEDULED: %t\n%i\n  Entered on %U")
+             ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
+              "* %?\n     %T\n%i\n  Entered on %U")))
    #+END_SRC
 
    Captured notes can be tagged just like any other org headings.
