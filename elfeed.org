@@ -35,6 +35,7 @@
 *** http://feeds.feedburner.com/AncientOrigins?format=xml
 *** https://twilightbeasts.wordpress.com/feed/
 *** https://kalmistopiiri.wordpress.com/feed/
+*** http://www.heritagedaily.com/feed/rss
 ** Culture
 *** Language                                                              :l:
 **** http://feeds.feedburner.com/nybooks
@@ -65,3 +66,5 @@
 *** http://dakotakollective.wordpress.com/feed/
 *** http://websta.me/rss/n/dr
 *** http://websta.me/rss/n/ohmauritiusbaby
+*** http://websta.me/rss/n/minnalehvaslaiho
+*** http://minimauritius.com/feed/
