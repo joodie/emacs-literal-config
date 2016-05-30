@@ -203,6 +203,11 @@ package. Use it instead of =package-install=: =M-x try some-package=.
        ("m" (my/insert-unicode "MICRO SIGN")))
    #+END_SRC
 
+   Note: For most plain text writing I use [[org mode]] that has a very
+   useful binding for =org-self-insert-command= that allows combining
+   mnemonic keys to make accented characters. For example, =C-x 8 ' i
+   inserts character í, and =C-x 8 " a=, character ä.
+
 ** Reduce clutter
 
    Remove the toolbar. It's ugly and I never use it. I keep the
