@@ -1255,6 +1255,17 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
 * Editing
 
+** Overwrite selected text
+
+   ... like in any other editor.
+
+    #+name: text-files
+    #+BEGIN_SRC emacs-lisp
+      (delete-selection-mode t)
+    #+END_SRC
+
+Incidently, this does work in org-mode. Beats me why not.
+
 ** Saving automatically
 
    The [[https://github.com/bbatsov/super-save][super-save]] package saves files when the buffer looses focus.
