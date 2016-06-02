@@ -8,16 +8,9 @@
 (add-to-list 'package-archives
 	     '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
 
-(require 'cl)
-
-(when (not (cl-remove-if-not 
-	    (lambda (p) (equal 'org (car p)))
-	    package-alist))
-  (message "No org-mode package found; installing now...")
-  (package-install 'org))
-
 (setq my/package-list
-      '(aggressive-indent
+      '(adoc-mode
+        aggressive-indent
 	auctex
 	auto-complete
 	cider
@@ -53,18 +46,22 @@
 	multiple-cursors
 	names
 	neotree
+        org
 	paredit
+        php-mode
 	pkg-info
 	popup
 	powerline
         ;;	pretty-symbols
 	projectile
+        puml-mode
 	rainbow-delimiters
 	rainbow-mode
 	rspec-mode
 	ruby-compilation
 	rvm
 	s
+        scss-mode
 	sass-mode
 	shut-up
 	slamhound

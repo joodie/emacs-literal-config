@@ -253,27 +253,6 @@
    #+END_SRC
 
 * Programming
-** General programming
-
-   I want to use pretty-symbols mode for all programming.
-
-   #+name: programming-setup
-   #+BEGIN_SRC emacs-lisp
-
-     (setq my/clojure-mode-symbol-patterns
-           '((?λ "\\<fn\\>" (clojure-mode))))
-
-     (dolist ((p my/clojure-mode-symbol-patterns))
-       (add-to-list 'pretty-symbol-patterns p))
-
-     (setq pretty-symbol-categories '(lambda))
-
-     (defun my/prog-mode-hooks ()
-       (my/turn-on 'pretty-symbols))
-
-     (add-hook 'prog-mode-hook
-               'my/prog-mode-hooks)
-   #+END_SRC
 
 ** Pair programming
 
@@ -318,6 +297,8 @@
 
    For lisp code, I want ParEdit plus general highlighting etc.
 
+   I'm testing parinfer-mode at the moment instead though.
+
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (setq my/lisps
@@ -325,6 +306,8 @@
 
      ;;  Install local bindings for paredit that work under ssh/terminal
      (require 'paredit)
+     (require 'parinfer-mode)
+
      (define-key paredit-mode-map
        (kbd "C-c s <right>")
        'paredit-forward-slurp-sexp)
@@ -342,6 +325,8 @@
        (add-hook mode
                  'my/general-lisp-hooks))
    #+END_SRC
+
+
 ** Emacs Lisp
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -361,7 +346,7 @@
      (defun my/cider-mode-hooks ()
        "Clojure specific setup code that should only be run when we
           have a CIDER REPL connection"
-       (cider-turn-on-eldoc-mode))
+       (my/turn-on 'eldoc))
 
      (add-hook 'cider-mode-hook
                'my/cider-mode-hooks)
@@ -391,8 +376,6 @@
 
      (add-hook 'clojure-mode-hook
                'my/clojure-mode-hooks)
-
-
    #+END_SRC
 
    I treat the REPL mode specially, since certain hooks that work in
@@ -490,12 +473,17 @@
 
     #+name: programming-setup
     #+BEGIN_SRC emacs-lisp
-     (require 'ansi-color)
-     (defun colorize-compilation-buffer ()
-       (toggle-read-only)
-       (ansi-color-apply-on-region (point-min) (point-max))
-       (toggle-read-only))
-     (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+      (require 'ansi-color)
+      (defun colorize-compilation-buffer ()
+        (toggle-read-only)
+        (ansi-color-apply-on-region (point-min) (point-max))
+        (toggle-read-only))
+      (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+      (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+      (add-to-list 'comint-output-filter-functions 'ansi-color-process-output)
+      ;(add-hook 'eshell-preoutput-filter-functions 'ansi-color-filter-apply)
+       (add-hook 'eshell-preoutput-filter-functions 'ansi-color-apply)
     #+END_SRC
 
 *** Follow output
@@ -608,8 +596,8 @@ Don't wrap lines (query rows) when working with a database.
 
   #+NAME backup-config
   #+BEGIN_SRC emacs-lisp
-   (setq backup-directory-alist
-         `((".*" . ,temporary-file-directory)))
+    (setq backup-directory-alist
+          `((".*" . ,temporary-file-directory)))
   #+END_SRC
 * Org Mode
 ** Global keys
@@ -958,6 +946,7 @@ Don't wrap lines (query rows) when working with a database.
   #+NAME: environment
   #+BEGIN_SRC emacs-lisp
     (add-to-list 'load-path "~/.emacs.d/ext")
+    (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
   #+END_SRC
 
 
