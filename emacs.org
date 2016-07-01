@@ -1254,6 +1254,11 @@ Incidently, this does work in org-mode. Beats me why not.
 
 ** Moving a downloaded file
 
+[[http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/][Quickly move a file to the current directory]]
+, an excellent function from Pragmatic Emacs. I added commands to copy
+the short filename into clipboard -- something I found I was doing
+needing frequently to paste it into a document I was editing.
+
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1274,6 +1279,8 @@ if invoked in dired, or else the directory containing current
 buffer. The user is presented with a list of files in the start
 directory, from which to select the file to move, sorted by most
 recent first.
+
+The short filename is copied to clipboard.
 
 Quickly move a file to the current directory | Pragmatic Emacs
 http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
@@ -1315,6 +1322,9 @@ http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
     (setq end-file
           (expand-file-name (file-name-nondirectory start-file) target-dir))
     (rename-file start-file-full end-file)
+    ;; copy short filename to clipboard
+    (kill-new start-file)
+    (x-set-selection 'PRIMARY start-file)
     (message "moved %s to %s" start-file-full end-file)))
 #+END_SRC
 
