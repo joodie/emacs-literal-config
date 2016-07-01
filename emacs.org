@@ -851,7 +851,7 @@ be shown with =M-x describe-personal-keybindings=.
            _b_: gscholar-bib _k_eybindings       _p_aradox             G_\+_ emacs
            _c_: calfw        _n_ato-region       _q_: paradox upgrade  _?_: emacsExchange
            _e_diff-buffers   de_N_ato            _t_imemachine git     _=_: quick-calc
-           _h_owdoi          _m_y/move-file-here _z_: timezones
+           _h_owdoi          _m_y/move-file-here _z_: timezones        _0_: repeat elisp
            tw_i_tter         _r_e-builder        _x_: eshell
           "
 
