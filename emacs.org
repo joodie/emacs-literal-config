@@ -689,144 +689,153 @@ global-disable-mouse-mode to my universal toggle hydra: =C-x t m= .
 
 * Key bindings
 
-  Emacs commands are defined by their names. Many interactive commands
-  have default keybindings but they are supposed to be modified by
-  the user. [[https://github.com/justbur/emacs-which-key][which-key]] is a package that shows currently available key
-  bindings interactively after a delay of 1 second.
+** Show bindings
 
-  My settings use a large separate frame to show the key bindings. If
-  keys exceed available space, =C-h= scrolls the list.
+Emacs commands are defined by their names. Many interactive commands
+have default keybindings but they are supposed to be modified by
+the user. [[https://github.com/justbur/emacs-which-key][which-key]] is a package that shows currently available key
+bindings interactively after a delay of 1 second.
 
-  #+name: key-bindings
-  #+BEGIN_SRC emacs-lisp
-    (use-package which-key
-      :defer t
-      :config
-      (which-key-mode)
-      (setq which-key-popup-type 'frame)
-      (setq which-key-frame-max-width 160)  ; number of columns
-      (setq which-key-frame-max-height 40)) ; number of lines
-  #+END_SRC
+My settings use a large separate frame to show the key bindings. If
+keys exceed available space, =C-h= scrolls the list.
 
-  The Endless Parentheses blog shows how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic keymaps]].
-  You just do the incantation "Emacs, toggle narrowing" by pressing
-  =C-x t n=!
+#+name: key-bindings
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :defer t
+    :config
+    (which-key-mode)
+    (setq which-key-popup-type 'frame)
+    (setq which-key-frame-max-width 160)  ; number of columns
+    (setq which-key-frame-max-height 40)) ; number of lines
+#+END_SRC
 
-  This is now done even better with [[https://github.com/abo-abo/hydra][hydra]], a package to
-  create sticky key bindings with help displayed in the echo area.
+I used to maintain a table of =C-c= bindings but this feature made it
+obsolete.
 
-  Using =bind-key= function adds the key bindings to a list that can
-  be shown with =M-x describe-personal-keybindings=.
+** Mnemonic key bindings with hydra
 
-  #+name: key-bindings
-  #+BEGIN_SRC emacs-lisp
-    (bind-key "C-x t" 'hydra-toggle/body)
-    (defhydra hydra-toggle (:color blue :hint nil)
-      "
-         toggle _a_bbrev-mode             _o_rg link display
-                _d_ebug-on-error          _p_retty entities
-                _f_olding                 t_r_uncate-lines
-                _i_edit                   white_s_pace-mode
-                _n_arrowing               neo_t_ree
-                _l_inum-mode              _v_: string inflection
-                _k_: spelling language    _w_ritegood-mode
-                                          _q_uit
-              "
-      ("a" abbrev-mode )
-      ("d" toggle-debug-on-error)
-      ("f" toggle-selective-display)
-      ("i" iedit-mode)
-      ("n" narrow-or-widen-dwim)
-      ("l" my/global-linum-mode)
-      ("k" cycle-ispell-languages :color red)
-      ("o" org-toggle-link-display)
-      ("p" org-toggle-pretty-entities)
-      ("r" toggle-truncate-lines)
-      ("s" whitespace-mode)
-      ("t" neotree-toggle)
-      ("v" string-inflection-toggle :color red)
-      ("w" writegood-mode)
-      ("q" nil))
+The Endless Parentheses blog shows how to set up [[http://endlessparentheses.com/the-toggle-map-and-wizardry.html][mnemonic keymaps]].
+You just do the incantation "Emacs, toggle narrowing" by pressing
+=C-x t n=!
 
-    (bind-key "C-x C-0" 'hydra-zoom/body)
-    (defhydra hydra-zoom ()
-      "zoom"
-      ("g" text-scale-increase "in")
-      ("=" text-scale-increase "in")
-      ("l" text-scale-decrease "out")
-      ("-" text-scale-decrease "out"))
+This is now done even better with [[https://github.com/abo-abo/hydra][hydra]], a package to
+create sticky key bindings with help displayed in the echo area.
 
-    ;; http://oremacs.com/2015/03/07/hydra-org-templates/
-    ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
-    (defhydra hydra-org-template (:color blue :hint nil)
-      "
-       org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
-                     _l_atex   _E_xample   _p_erl          _i_ndex:
-                     _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
-                     _s_rc     ^ ^         plant_u_ml      _H_TML:
-                     _h_tml    ^ ^         ^ ^             _A_SCII:
-           "
-      ("s" (hot-expand "<s"))
-      ("E" (hot-expand "<e"))
-      ("q" (hot-expand "<q"))
-      ("v" (hot-expand "<v"))
-      ("c" (hot-expand "<c"))
-      ("l" (hot-expand "<l"))
-      ("h" (hot-expand "<h"))
-      ("a" (hot-expand "<a"))
-      ("L" (hot-expand "<L"))
-      ("i" (hot-expand "<i"))
-      ("e" (progn
-             (hot-expand "<s")
-             (insert "emacs-lisp")
-             (forward-line)))
-      ("p" (progn
-             (hot-expand "<s")
-             (insert "perl")
-             (forward-line)))
-      ("u" (progn
-             (hot-expand "<s")
-             (insert "plantuml :file CHANGE.png")
-             (forward-line)))
-      ("P" (progn
-             (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
-             (hot-expand "<s")
-             (insert "perl")
-             (forward-line)))
-      ("I" (hot-expand "<I"))
-      ("H" (hot-expand "<H"))
-      ("A" (hot-expand "<A"))
-      ("<" self-insert-command "ins")
-      ("o" nil "quit"))
+Using =bind-key= function adds the key bindings to a list that can
+be shown with =M-x describe-personal-keybindings=.
 
-    (defun hot-expand (str)
-      "Expand org template."
-      (insert str)
-      (org-try-structure-completion))
+#+name: key-bindings
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-x t" 'hydra-toggle/body)
+  (defhydra hydra-toggle (:color blue :hint nil)
+    "
+       toggle _a_bbrev-mode             _o_rg link display
+              _d_ebug-on-error          _p_retty entities
+              _f_olding                 t_r_uncate-lines
+              _i_edit                   white_s_pace-mode
+              _n_arrowing               neo_t_ree
+              _m_ouse                   _v_: string inflection
+              _l_inum-mode              _w_ritegood-mode
+              _k_: spelling language    _q_uit
 
-    ;; I bind it for myself like this:
+            "
+    ("a" abbrev-mode )
+    ("d" toggle-debug-on-error)
+    ("f" toggle-selective-display)
+    ("i" iedit-mode)
+    ("n" narrow-or-widen-dwim)
+    ("m" global-disable-mouse-mode)
+    ("l" my/global-linum-mode)
+    ("k" cycle-ispell-languages :color red)
+    ("o" org-toggle-link-display)
+    ("p" org-toggle-pretty-entities)
+    ("r" toggle-truncate-lines)
+    ("s" whitespace-mode)
+    ("t" neotree-toggle)
+    ("v" string-inflection-toggle :color red)
+    ("w" writegood-mode)
+    ("q" nil))
 
-    (define-key org-mode-map "<"
-      (lambda () (interactive)
-        (if (looking-back "^")
-            (hydra-org-template/body)
-          (self-insert-command 1))))
+  (bind-key "C-x C-0" 'hydra-zoom/body)
+  (defhydra hydra-zoom ()
+    "zoom"
+    ("g" text-scale-increase "in")
+    ("=" text-scale-increase "in")
+    ("l" text-scale-decrease "out")
+    ("-" text-scale-decrease "out"))
 
-    ;; http://oremacs.com/2015/03/15/search-with-apropos/
-    (bind-key "C-c h" 'hydra-apropos/body)
-    (defhydra hydra-apropos (:color blue :hint nil)
-      "
-      apropos   _a_propos        _c_ommand
-                _d_ocumentation  _l_ibrary
-                _v_ariable       _u_ser-option
-                ^ ^              _e_: value"
-      ("a" apropos)
-      ("d" apropos-documentation)
-      ("v" apropos-variable)
-      ("c" apropos-command)
-      ("l" apropos-library)
-      ("u" apropos-user-option)
-      ("e" apropos-value))
+  ;; http://oremacs.com/2015/03/07/hydra-org-templates/
+  ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
+  (defhydra hydra-org-template (:color blue :hint nil)
+    "
+     org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
+                   _l_atex   _E_xample   _p_erl          _i_ndex:
+                   _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
+                   _s_rc     ^ ^         plant_u_ml      _H_TML:
+                   _h_tml    ^ ^         ^ ^             _A_SCII:
+         "
+    ("s" (hot-expand "<s"))
+    ("E" (hot-expand "<e"))
+    ("q" (hot-expand "<q"))
+    ("v" (hot-expand "<v"))
+    ("c" (hot-expand "<c"))
+    ("l" (hot-expand "<l"))
+    ("h" (hot-expand "<h"))
+    ("a" (hot-expand "<a"))
+    ("L" (hot-expand "<L"))
+    ("i" (hot-expand "<i"))
+    ("e" (progn
+           (hot-expand "<s")
+           (insert "emacs-lisp")
+           (forward-line)))
+    ("p" (progn
+           (hot-expand "<s")
+           (insert "perl")
+           (forward-line)))
+    ("u" (progn
+           (hot-expand "<s")
+           (insert "plantuml :file CHANGE.png")
+           (forward-line)))
+    ("P" (progn
+           (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
+           (hot-expand "<s")
+           (insert "perl")
+           (forward-line)))
+    ("I" (hot-expand "<I"))
+    ("H" (hot-expand "<H"))
+    ("A" (hot-expand "<A"))
+    ("<" self-insert-command "ins")
+    ("o" nil "quit"))
+
+  (defun hot-expand (str)
+    "Expand org template."
+    (insert str)
+    (org-try-structure-completion))
+
+  ;; I bind it for myself like this:
+
+  (define-key org-mode-map "<"
+    (lambda () (interactive)
+      (if (looking-back "^")
+          (hydra-org-template/body)
+        (self-insert-command 1))))
+
+  ;; http://oremacs.com/2015/03/15/search-with-apropos/
+  (bind-key "C-c h" 'hydra-apropos/body)
+  (defhydra hydra-apropos (:color blue :hint nil)
+    "
+    apropos   _a_propos        _c_ommand
+              _d_ocumentation  _l_ibrary
+              _v_ariable       _u_ser-option
+              ^ ^              _e_: value"
+    ("a" apropos)
+    ("d" apropos-documentation)
+    ("v" apropos-variable)
+    ("c" apropos-command)
+    ("l" apropos-library)
+    ("u" apropos-user-option)
+    ("e" apropos-value))
   #+END_SRC
 
   The second key map is for *launching* [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]].
@@ -868,95 +877,39 @@ global-disable-mouse-mode to my universal toggle hydra: =C-x t m= .
       ("z" display-time-world)
       ("=" quick-calc)
       ("?" (browse-url "http://emacs.stackexchange.com/"))
-      ("+" (browse-url "https://plus.google.com/communities/114815898697665598016")))
-  #+END_SRC
+      ("+" (browse-url "https://plus.google.com/communities/114815898697665598016"))
+      ("0" repeat-complex-command))
 
-  The following tables lists all other additions or modifications to
-  standard key bindings.
+#+END_SRC
 
-  | prefix |                                           |                              |
-  | C-c    | function                                  | link                         |
-  |--------+-------------------------------------------+------------------------------|
-  | esc    | evil-normal-state                         | [[Evil mode]]                    |
-  | 2      | 2048-game                                 | [[2048-game]]                    |
-  | 4      | pandoc-main-hydra/body                    | [[MarkDown]]                     |
-  | =      |                                           |                              |
-  | a      | org-agenda                                | [[Org Mode]]                     |
-  | b      | my/quick-url-note                         | [[URL copying]]                  |
-  | c      | org-capture                               | [[Org Mode]]                     |
-  | d      | delete-file-and-buffer                    | [[Abbreviations]]                |
-  | e      | my/edit-emacs-configuration               | [[Global navigation]]            |
-  | f      | elfeed                                    | [[News feed reader]]             |
-  | g      | magit-status                              | [[Magit]]                        |
-  | h      | hydra-apropos/body                        |                              |
-  | i      | my/org-babel-untangle                     | [[Org-Babel]]                    |
-  | j      | define-word-at-point                      | [[Word definition]]              |
-  | k      | my/ispell-word-then-abbrev                | [[Spell checking]]               |
-  | l      | org-store-link                            | [[Org Mode]]                     |
-  | m      | macrostep-expand                          | [[Lisps]]                        |
-  | n      | my/clean-buffer-formatting                | [[Formatting and white-space]]   |
-  | o      | org-page                                  | [[Blogging with org-page]]       |
-  | p      | projectile                                | [[Projects]]                     |
-  | q      | delete-indentation                        | [[Local navigation in a buffer]] |
-  | r      | recentf-ido-find-file                     | [[Global navigation]]            |
-  | s      |                                           |                              |
-  | (t)    | languagetool-mode (disabled)              | [[Writing style]]                |
-  | u      | set-buffer-file-coding-system 'utf-8-unix | [[Character encoding]]           |
-  | w      | wcheck-mode                               | [[Spell checking]]               |
-  | x      | xkcd                                      | [[xkcd comics]]                  |
-  | y      | scroll-other-window down                  | [[Scroll other window]]          |
-  | Y      | scroll-other-window up                    | [[Scroll other window]]          |
-  | z      | hydra-goto/body                           |                              |
-  |        |                                           |                              |
-  | C-g g  | writegood-grade-level                     | [[Writing style]]                |
-  | C-g e  | writegood-reading-ease                    | [[Writing style]]                |
-  |        |                                           |                              |
+** Key bindings in current buffer
 
+Here is the definition to =keys-describe-prefixes=
+function from [[http://oremacs.com/2015/02/11/elisp-newbie-style/][Elisp newbie-style]] blog to print out all key bindings
+active in the current buffer. I do not use greek letters in keys, so I've removed them
 
-  | prefix |                    |                              |
-  | C-x    | function           | link                         |
-  |--------+--------------------+------------------------------|
-  | ,      | goto-line          | [[Local navigation in a buffer]] |
-  | C-r    | recentf-open-files | [[Global navigation]]            |
-
-
-  | All other   | function                       | link                         |
-  |-------------+--------------------------------+------------------------------|
-  | M-Q         | unfill-paragraph               | [[Text (non-code) formatting]]   |
-  | M-;         | comment-dwim-2                 | [[Commenting]]                   |
-  | C-backspace | kill-line 0                    | [[Local navigation in a buffer]] |
-  | M-j         | (join-line -1)                 | [[Local navigation in a buffer]] |
-  | C-=         | er/expand-region               | [[Expand region]]                |
-  | C-a         | smarter-move-beginning-of-line | [[Local navigation in a buffer]] |
-  | s-p         | mac-print-buffer               | [[Printing]]                     |
-
-
-  And finally, to here is definition to =keys-describe-prefixes=
-  function from [[http://oremacs.com/2015/02/11/elisp-newbie-style/][Elisp newbie-style]] blog to print out all key bindings
-  in the current buffer. I do not use greek letters in keys, so I've removed them
-
-  #+name: key-bindings
-  #+BEGIN_SRC emacs-lisp
-    ;;;###autoload
-    (defun keys-describe-prefixes ()
-      (interactive)
-      (with-output-to-temp-buffer "*Bindings*"
-        (dolist (letter-group (list
-                               (cl-loop for c from ?a to ?z
-                                        collect (string c))
-                               (cl-loop for c from ?A to ?Z
-                                        collect (string c))))
-          (dolist (prefix '("" "C-" "M-" "C-M-"))
-            (princ (mapconcat
-                    (lambda (letter)
-                      (let ((key (concat prefix letter)))
-                        (format ";; (global-set-key (kbd \"%s\") '%S)"
-                                key
-                                (key-binding (kbd key)))))
-                    letter-group
-                    "\n"))
-            (princ "\n\n")))))
-  #+END_SRC
+#+name: key-bindings
+#+BEGIN_SRC emacs-lisp
+  ;;;###autoload
+  (defun keys-describe-prefixes ()
+    (interactive)
+    (with-output-to-temp-buffer "*Bindings*"
+      (dolist (letter-group (list
+                             (cl-loop for c from ?a to ?z
+                                      collect (string c))
+                             (cl-loop for c from ?A to ?Z
+                                      collect (string c))))
+        (dolist (prefix '("" "C-" "M-" "C-M-"))
+          (princ (mapconcat
+                  (lambda (letter)
+                    (let ((key (concat prefix letter)))
+                      (format ";; (global-set-key (kbd \"%s\") '%S)"
+                              key
+                              (key-binding (kbd key)))))
+                  letter-group
+                  "\n"))
+          (princ "\n\n")))))
+#+END_SRC
 * Evil mode
 
   I am trying out [[http://gitorious.org/evil/pages/Home][evil mode]] that adds vi-like modal editing and cursor
