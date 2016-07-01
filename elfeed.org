@@ -24,15 +24,15 @@
 **** http://emacsworld.blogspot.com/feeds/posts/default
 **** entry-title: \(emacs\|org-mode\)
 **** http://planet.emacsen.org/atom.xml
-**** http://whattheemacsd.com/http:/atom.xml
+# **** http://whattheemacsd.com/http:/atom.xml
 *** Perl                                                                  :p:
 **** http://shallowsky.com/blog/index.rss
-**** http://perltricks.com/feed/rss
+**** http://perltricks.com/index.xml
 ** Biology                                                                 :b:
 *** http://mosaicscience.com/feed/rss.xml
 *** http://epidemic.bio.ed.ac.uk/rss.xml
 ** Archeology                                                              :a:
-*** http://feeds.feedburner.com/AncientOrigins?format=xml
+# *** http://feeds.feedburner.com/AncientOrigins?format=xml
 *** https://twilightbeasts.wordpress.com/feed/
 *** https://kalmistopiiri.wordpress.com/feed/
 *** http://www.heritagedaily.com/feed/rss
@@ -42,10 +42,11 @@
 **** http://feedproxy.google.com/brainpickings/rss
 *** Travel                                                                :t:
 **** http://nowheremag.com/feed/
-** Design                                                                  :d:
+*** Design
+**** http://causticcovercritic.blogspot.co.uk/feeds/posts/default
+**** http://www.mymodernmet.com/profiles/blogs/feed/featured
+** Mobile                                                                 :d:
 *** http://mobiili.fi/feed/
-*** http://causticcovercritic.blogspot.co.uk/feeds/posts/default
-*** http://feedly.com/i/subscription/feed/http://www.mymodernmet.com/profiles/blogs/feed/featured
 ** Comics                                                                  :c:
 *** http://kimmo.suominen.com/stuff/vw.xml
 *** http://kimmo.suominen.com/stuff/fingerpori.xml
@@ -64,7 +65,10 @@
 #*** http://blogandgogo.weebly.com/1/feed
 *** http://metallome.blogspot.com/atom.xml
 *** http://dakotakollective.wordpress.com/feed/
-*** http://websta.me/rss/n/dr
-*** http://websta.me/rss/n/ohmauritiusbaby
-*** http://websta.me/rss/n/minnalehvaslaiho
+# *** http://websta.me/rss/n/dr
+# *** http://websta.me/rss/n/ohmauritiusbaby
+# *** http://websta.me/rss/n/minnalehvaslaiho
 *** http://minimauritius.com/feed/
+# *** http://websta.me/rss/n/matkleh
+** Misc
+*** http://www.theatlantic.com/feed/best-of/

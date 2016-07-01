@@ -1179,17 +1179,24 @@ active in the current buffer. I do not use greek letters in keys, so I've remove
    If the line wrapping (explicitely =M-q=) needs to be [[http://www.emacswiki.org/emacs/UnfillParagraph][reversed]], use
    =unfill-paragraph= that is bound to =M-Q=.
 
+   A handy free feature from [[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html?source=rss][Endless Parentheses]]does away the need to
+   have a separate function for unfilling paragraphs: Now you can
+   press =M-q= twice to unwrap.
+
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
-     ;; Opposite of fill-paragraph
-     (defun unfill-paragraph ()
-       "Takes a multi-line paragraph and makes it into a single line of text."
+     (defun endless/fill-or-unfill ()
+       "Like `fill-paragraph', but unfill if used twice."
        (interactive)
-       (let ((fill-column (point-max)))
-         (fill-paragraph nil)))
+       (let ((fill-column
+              (if (eq last-command 'endless/fill-or-unfill)
+                  (progn (setq this-command nil)
+                         (point-max))
+                fill-column)))
+         (call-interactively #'fill-paragraph)))
 
-     ;; Handy key definition
-     (bind-key "M-Q" 'unfill-paragraph)
+     (global-set-key [remap fill-paragraph]
+                     #'endless/fill-or-unfill)
    #+END_SRC
 
    Filling, either manual or automatic using =auto-fill-mode= wraps
