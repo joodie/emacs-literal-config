@@ -4163,6 +4163,7 @@ bbdb-merge-records=.
        (setq-default elfeed-search-filter my/default-elfeed-search-filter)
        (setq elfeed-sort-order 'ascending)
        (setq elfeed-search-title-max-width 100) ; newspaper articles have long titles
+       (setq elfeed-use-curl t) ; new, using curl
        :config
        (use-package elfeed-org
          :defer t)
