@@ -5737,9 +5737,9 @@ Prefix arguments are very useful in this context:
 
 ** Master file fix
 
-   org-mode asks for a (LaTeX) master file when opening the first org file in
-   emacs. This was discussed at the mailing list and the provided [[http://lists.gnu.org/archive/html/emacs-orgmode/2012-02/msg00759.html][fix]]
-   is applied here.
+   org-mode asks for a (LaTeX) master file when opening the first org
+   file in emacs. This was discussed at the mailing list and the
+   provided [[http://lists.gnu.org/archive/html/emacs-orgmode/2012-02/msg00759.html][fix]] is applied here.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
