@@ -137,6 +137,7 @@
 (depends-on "paredit")
 (depends-on "pass")
 (depends-on "password-store")
+(depends-on "pdf-tools")
 (depends-on "peep-dired")
 (depends-on "perl6-mode")
 (depends-on "pkg-info")
