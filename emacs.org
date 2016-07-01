@@ -2147,6 +2147,17 @@ abort completely with `C-g'."
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
 
+     (autoload 'wcheck-mode "wcheck-mode"
+       "Toggle wcheck-mode." t)
+     (autoload 'wcheck-change-language "wcheck-mode"
+       "Switch wcheck-mode languages." t)
+     (autoload 'wcheck-actions "wcheck-mode"
+       "Open actions menu." t)
+     (autoload 'wcheck-jump-forward "wcheck-mode"
+       "Move point forward to next marked text area." t)
+     (autoload 'wcheck-jump-backward "wcheck-mode"
+       "Move point backward to previous marked text area." t)
+
      ;; these two sexps set up a functional wcheck
      (setq-default wcheck-language "english")
      (setq-default wcheck-language-data
@@ -2169,30 +2180,30 @@ abort completely with `C-g'."
      (setq-default wcheck-language "finnish")
 
      (setq wcheck-language-data
-                   '(("english"
-                      (program . "/usr/local/bin/aspell")
-                      (args "list") ; -l: list only the mispellings.
-                      (face . hi-yellow)
-                      (connection . pty)
-                      (action-program . "/usr/local/bin/aspell")
-                      (action-args "-a") ; -a: lists alternatives.
-                      (action-parser . wcheck-parser-ispell-suggestions))
-                     ("british"
-                      (program . "/usr/local/bin/aspell")
-                      (args "list" "-l" "en_BR") ; list: list only the mispellings.
-                      (face . hi-yellow)
-                      (connection . pty)
-                      (action-program . "/usr/local/bin/aspell")
-                      (action-args "-a" "-l" "en_BR") ; -a: lists alternatives.
-                      (action-parser . wcheck-parser-ispell-suggestions))
-                     ("finnish"
-                      (program . "/usr/local/bin/enchant")
-                      (args "-l" "-d" "fi")
-                      (syntax . my-finnish-syntax-table)
-                      (action-program . "/usr/local/bin/enchant")
-                      (action-args "-a" "-d" "fi")
-                      (action-parser . wcheck-parser-ispell-suggestions))
-                     ))
+           '(("english"
+              (program . "/usr/local/bin/aspell")
+              (args "list") ; -l: list only the mispellings.
+              (face . hi-yellow)
+              (connection . pty)
+              (action-program . "/usr/local/bin/aspell")
+              (action-args "-a") ; -a: lists alternatives.
+              (action-parser . wcheck-parser-ispell-suggestions))
+             ("british"
+              (program . "/usr/local/bin/aspell")
+              (args "list" "-l" "en_BR") ; list: list only the mispellings.
+              (face . hi-yellow)
+              (connection . pty)
+              (action-program . "/usr/local/bin/aspell")
+              (action-args "-a" "-l" "en_BR") ; -a: lists alternatives.
+              (action-parser . wcheck-parser-ispell-suggestions))
+             ("finnish"
+              (program . "/usr/local/bin/enchant")
+              (args "-l" "-d" "fi")
+              (syntax . my-finnish-syntax-table)
+              (action-program . "/usr/local/bin/enchant")
+              (action-args "-a" "-d" "fi")
+              (action-parser . wcheck-parser-ispell-suggestions))
+             ))
 
 
 
@@ -2218,21 +2229,21 @@ abort completely with `C-g'."
      ;;      (action-parser . wcheck-parser-ispell-suggestions))))
 
 
-     (setq wcheck-language-data
-           '(("british"
-              (program . "/usr/local/bin/aspell")
-              (args "-l" "-d" "british")
-              (action-program . "/usr/local/bin/aspell")
-              (action-args "-a" "-d" "british")
-              (action-parser . wcheck-parser-ispell-suggestions))
-             ("Finnish"
-              (program . "/usr/local/bin/enchant")
-              (args "-l" "-d" "fi")
-              (syntax . my-finnish-syntax-table)
-              (action-program . "/usr/local/bin/enchant")
-              (action-args "-a" "-d" "fi")
-              (action-parser . wcheck-parser-ispell-suggestions))
-             ("cat" ((program . "/bin/cat")))))
+     ;; (setq wcheck-language-data
+     ;;       '(("british"
+     ;;          (program . "/usr/local/bin/aspell")
+     ;;          (args "-l" "-d" "british")
+     ;;          (action-program . "/usr/local/bin/aspell")
+     ;;          (action-args "-a" "-d" "british")
+     ;;          (action-parser . wcheck-parser-ispell-suggestions))
+     ;;         ("Finnish"
+     ;;          (program . "/usr/local/bin/enchant")
+     ;;          (args "-l" "-d" "fi")
+     ;;          (syntax . my-finnish-syntax-table)
+     ;;          (action-program . "/usr/local/bin/enchant")
+     ;;          (action-args "-a" "-d" "fi")
+     ;;          (action-parser . wcheck-parser-ispell-suggestions))
+     ;;         ("cat" ((program . "/bin/cat")))))
 
      (bind-key "C-c s" 'wcheck-mode)
      (bind-key "C-c l" 'wcheck-change-language)
@@ -2243,13 +2254,13 @@ abort completely with `C-g'."
      (bind-key "C-c w" 'hydra-wcheck/body)
      (defhydra hydra-wcheck (:color pink :hint nil)
        "
-        ^Wcheck^             ^Check^      [Language: %`ispell-current-dictionary]
-      ^^-----------------------------------------------------------
-        _t_: toggle            _n_: next error
-        _c_: change language   _k_: correct and add to abbrev
-         a   actions           _i_: insert to personal list
-        _q_uit                 _u_: insert, uncapitalize and insert
-               "
+             ^Wcheck^             ^Check^      [Language: %`ispell-current-dictionary]
+           ^^-----------------------------------------------------------
+             _t_: toggle            _n_: next error
+             _c_: change language   _k_: correct and add to abbrev
+              a   actions           _i_: insert to personal list
+             _q_uit                 _u_: insert, uncapitalize and insert
+                    "
        ("n" flyspell-goto-next-error)
        ("t" cycle-ispell-languages)
        ("q" nil :color blue)
@@ -5964,17 +5975,6 @@ Prefix arguments are very useful in this context:
          (org-capture nil "n")
          (org-mac-chrome-insert-frontmost-url)
          (org-capture-finalize)))
-   #+END_SRC
-
-** Custom lisp package directory
-
-   There are still lisp packages that you have to copy manually and
-   import to emacs. This defines =$HOME/.emacs.d/elisp= directory as
-   the place for them.
-
-   #+NAME: environment
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'load-path "~/.emacs.d/elisp/")
    #+END_SRC
 
 ** Load secrets
