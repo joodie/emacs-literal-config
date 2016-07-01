@@ -37,6 +37,7 @@
 (depends-on "define-word")
 (depends-on "diminish")
 (depends-on "dired-narrow")
+(depends-on "disable-mouse")
 (depends-on "dklrt")
 (depends-on "dkmisc")
 (depends-on "edit-server")

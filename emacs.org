@@ -576,6 +576,22 @@ package. Use it instead of =package-install=: =M-x try some-package=.
        (call-interactively 'load-theme))
    #+END_SRC
 
+** Mouse
+
+Mouse and trackpad are best [[https://github.com/purcell/disable-mouse][inactivated]] when inside an emacs window.
+Note that the OS menu system is still working normally.
+
+Just in case I need mouse at some point, I've added the
+global-disable-mouse-mode to my universal toggle hydra: =C-x t m= .
+
+#+NAME: look-and-feel
+#+BEGIN_SRC emacs-lisp
+  (use-package disable-mouse
+    :defer t
+    :diminish global-disable-mouse-mode
+    :init (global-disable-mouse-mode))
+#+end_SRC
+
 * Start-up
 
   Start with the scratch buffer; no start-up screen. Restore previous
