@@ -3346,9 +3346,17 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
    #+END_SRC
 ** Searching
 
-   [[https://github.com/abo-abo/swiper][Swiper]] is a replacement for isearch that faster and easier to configure.
+   [[https://github.com/abo-abo/swiper][Swiper]] is a replacement for isearch that faster and easier to
+   configure.
 
    [[https://github.com/nonsequitur/smex][smex]] shows a list of most relevant and recent commands on =M-x=.
+
+   [[http://oremacs.com/2016/06/27/ivy-push-view/][Current window layout]] can now be saved with ivy once virtual
+   buffers are enabled. Normal switch-buffer =C-x b= shows layouts with
+   a ={}= tag prepended. Really easy!
+
+   I have bound commands =ivy-push-view= and =ivy-pop-view= to =C-c b= and
+   =C-c B=, respectively.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
@@ -3357,9 +3365,13 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
        (setq ivy-use-virtual-buffers t)
        (setq ivy-display-style 'fancy)
        :bind (("C-s" . swiper)
-              ("C-c C-r" . ivy-resume))
+              ("C-c C-r" . ivy-resume)
+              ("C-c b"   . ivy-push-view)
+              ("C-c B"   . ivy-pop-view))
        :config
        (ivy-mode 1)
+       ;; Enable bookmarks and recentf
+       (setq ivy-use-virtual-buffers t)
        (custom-set-faces
         '(swiper-minibuffer-match-face-1
           ((t :background "#dddddd")))
@@ -3379,6 +3391,20 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
      ;; restore key bindings to isearch due to character folding in emacs 25.1
      (bind-key "C-`" 'isearch-forward)
      (bind-key "C-r" 'isearch-backward)
+
+     ;; Isearch convenience, space matches anything (non-greedy)
+     (setq search-whitespace-regexp ".*?")
+
+     ;; http://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.html
+     ;; This will only leave point at the start of search if you exit the
+     ;; search with C-↵ instead of ↵.
+     (define-key isearch-mode-map [(control return)]
+       #'isearch-exit-other-end)
+     (defun isearch-exit-other-end ()
+       "Exit isearch, at the opposite end of the string."
+       (interactive)
+       (isearch-exit)
+       (goto-char isearch-other-end))
 
      (use-package swiper
        :defer t
