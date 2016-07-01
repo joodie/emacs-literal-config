@@ -190,7 +190,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
      (bind-key "C-x 9" 'hydra-unicode/body)
      (defhydra hydra-unicode (:hint nil)
        "
-      Unicode  _e_ €  _s_ 0W SPACE
+      Unicode  _e_ €  _s_ 0 w SPACE
                _f_ ♀  _o_ °   _m_ µ
                _r_ ♂  _a_ →
              "
@@ -1620,7 +1620,7 @@ recommended to be bound to =M-i= and =M-o=.
 ** Adding comma before space
 
    In natural languages a comma separates sentences or list items but
-   it always comes before any space. This [[code]] automatically moves
+   it always comes before any space. This [[http://mbork.pl/2015-10-31_Smart_comma_and_other_punctuation][code]] automatically moves
    cursor to the right place when the comma key is pressed.
 
   #+name: text-files
@@ -1865,8 +1865,7 @@ around the selected region.
 
   One of the best features of magit is its ability to show changes in
   a single file in chunks. Even better is that you can discard the
-  chunk from the file by pressing key =k=. Great for discarding
-  accidental typos.
+  chunk from the file by pressing key =k=. Great for discarding typos.
 
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
@@ -2338,9 +2337,9 @@ hit =C-x l g= that is short for "Emacs, launch grammar".
 
 *** Synonyms: synosaurus
 
-[[https://github.com/hpdeifel/synosaurus][Synosaurus]] uses WordNet
-for offline functionality. Install Wordnet first: In OSX =brew install
-wordnet=. The interaction is through command line tool =wn=.
+[[https://github.com/hpdeifel/synosaurus][Synosaurus]] uses WordNet for offline functionality. Install Wordnet
+first: In OSX =brew install wordnet=. The interaction is through command
+line tool =wn=.
 
 I enable synosaurus-mode in text files and define key combination =C-x
 l s= for "Emacs, launch synonyms".
@@ -5061,12 +5060,23 @@ Prefix arguments are very useful in this context:
    This combines all commands I know about time management under org
    mode to one that can be launched with =C-c w= /endash w for work.
 
+   [[http://mbork.pl/2016-06-06_Org_clocking_and_resolving_idle_time][Setting]] =org-clock-idle-time= makes emacs ask for confirmation if the
+   computer has been idle for some time while the clock is running.
+   Out of the many options, these are the most useful:
+
+   - *i* (ignore the question, continue with the clock),
+   - *S* (that is, shift-s – probably the most useful – indicates that
+     all idle time should be subtracted from the clock).
+   - *K RET* (that is, shift-k RET; basically almost the same as clock out now),
+
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-clock-persist 'history)
      (org-clock-persistence-insinuate)
      (setq org-log-note-clock-out t)
 
+     (setq org-clock-idle-time 10)
      (bind-key "C-c w" 'hydra-org-clock/body)
      (defhydra hydra-org-clock (:color blue :hint nil)
        "
