@@ -5891,6 +5891,16 @@ Prefix arguments are very useful in this context:
      (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
    #+END_SRC
 
+** Custom lisp package directory
+
+   There are still lisp packages that you have to copy manually and
+   import to emacs. This defines =$HOME/.emacs.d/elisp= directory as
+   the place for them.
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'load-path "~/.emacs.d/elisp/")
+   #+END_SRC
 ** OS X
 
 *** PATH
