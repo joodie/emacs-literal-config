@@ -46,8 +46,8 @@
 
    You should be periodically upgrading you emacs packages. Some
    packages get almost daily fixes. It should be enough to update them
-   once a month with =M-x pallet-update=. Do restart emacs after
-   the update.
+   once a month with =M-x pallet-update=. However, see [[Paradox]] updates
+   below.
 
    Every time you make major changes to this document (see [Editing
    this Document]) or upgrade your packages, you are strongly advised to
@@ -71,25 +71,21 @@
      (use-package cask-mode)
    #+END_SRC
 
-
 *** Paradox
 
-   Emacs module *[[https://github.com/Bruce-Connor/paradox][paradox]]* adds package ratings to the listing, new
-   shortcuts, and customization to package listings. Invoke by =C-x l
-   p= ("Emacs, launch paradox") to run =paradox-list-packages=. Press
-   =h= to see all keys. Tip: =v= opens the package's home page.
+   The emacs module *[[https://github.com/Bruce-Connor/paradox][paradox]]* adds package ratings to the listing, new
+   shortcuts, and customization to package listings. Invoke by =C-x l p=
+   ("Emacs, launch paradox") to run =paradox-list-packages=. Press =h= to
+   see all keys. Tip: =v= opens the package's home page.
 
    This is also a convenient place to update packages with =U x=.
-   Paradox is now able to use the =async= package to run updates
-   without locking the whole emacs.
+   Paradox uses the =async= package to run updates at the background in
+   parallel. You do not even have to call up the paradox window to
+   upgrade packages if you run =paradox-upgrade-packages=.
 
    You can give feedback if you set up the =paradox-github-token=
    variable to your github token. See the variable's info (=C-h v=)
    for instructions.
-
-   Paradox now does asynchronous background updates. You do not even
-   have to call up the paradox window to upgrade packages with
-   =paradox-upgrade-packages=.
 
    Lastly, org-mode is now part of emacs and having to restart or
    reload org-mode after upgrade seems to be thing of the past.
@@ -135,7 +131,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
    The best way to edit existing code blocks is to open a separate
    buffer for it by placing the cursor in it and pressing =C-c '​=.
-   After editing, activate the code =M-x eval-buffer= and exit
+   After editing, activate the code with =M-x eval-buffer= and exit
    the buffer with =C-c '​=.
 
    If you want to get a better understanding what any lisp code below
