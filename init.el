@@ -33,6 +33,7 @@
 	highlight-parentheses
         ;;	htmlize
 	inf-ruby
+        ledger-mode
         flycheck
 	inflections
 	js2-mode
@@ -71,6 +72,7 @@
 	tracking
 	undo-tree
 	nyan-mode
+        web-mode
 	writeroom-mode
 	yaml-mode
 	yasnippet
