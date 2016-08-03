@@ -557,6 +557,16 @@
     (global-set-key "\C-ct" 'git-timemachine)
     (global-set-key "\C-s" 'isearch-forward-regexp)
   #+END_SRC
+
+  I also unmap the right Alt (Meta) key so that I can use standard OSX
+  key binding for € and °, and similar.
+
+  #+name: global-keys
+  #+BEGIN_SRC emacs-lisp
+    (when (boundp 'ns-right-alternate-modifier)
+      (setq ns-right-alternate-modifier nil))
+  #+END_SRC
+
 * Magit
   When tracking a branch from a remote, use the same name.
   #+name: programming-setup
