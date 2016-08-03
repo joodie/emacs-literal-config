@@ -809,19 +809,21 @@
    allowed. I collect all languages here, then enable all of them at
    the end of the section.
 
-   #+name: org-config :noweb no-export
+   #+name: org-config
    #+BEGIN_SRC emacs-lisp
      ;; List of languages that may be evaluated in Org documents
-     (setq my/org-babel-evaluated-languages
-       '(emacs-lisp sh clojure))
-
-     <<org-config-languages>>
+     (setq org-babel-load-languages
+           '((emacs-lisp . t)
+             (sh . t)
+             (clojure .t)
+             (ledger . t)
+             (plantuml . t)
+             (dot . t)
+             (ditaa . t)))
 
      (org-babel-do-load-languages
       'org-babel-load-languages
-      (mapcar (lambda (lang)
-                (cons lang t))
-              my/org-babel-evaluated-languages))
+      org-babel-load-languages)
 
      ;; use CIDER repl to evaluate clojure snippets
      (setq org-babel-clojure-backend 'cider)
@@ -833,25 +835,8 @@
    to link graphviz's =dot= mode to =org-babel= so I can include dot
    source in org mode and export with nice looking diagrams.
 
-   #+name: org-config-languages
    #+BEGIN_SRC emacs-lisp
      (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
-
-     (add-to-list 'my/org-babel-evaluated-languages 'dot)
-   #+END_SRC
-
-   [[http://ditaa.sourceforge.net/][Ditaa]] is another nice package for turning ASCII art into PNG/EPS
-   diagrams. Turn that on, too.
-
-   #+name: org-config-languages
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'ditaa)
-   #+END_SRC
-
-   PlantUml is built on top of Graphviz.
-
-   #+BEGIN_SRC emacs-lisp
-     (add-to-list 'my/org-babel-evaluated-languages 'plantuml)
    #+END_SRC
 
 ** Exporting to slides
@@ -875,10 +860,6 @@
   #+END_SRC
   Also enable ledger in org-babel literal programming style.
   See http://orgmode.org/worg/org-contrib/babel/languages/ob-doc-ledger.html
-  #+name: org-config-languages
-  #+BEGIN_SRC emacs-lisp
-  (add-to-list 'my/org-babel-evaluated-languages 'ledger)
-  #+END_SRC
 
 
 * Configuration file layout
