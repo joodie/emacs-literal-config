@@ -910,7 +910,8 @@ active in the current buffer. I do not use greek letters in keys, so I've remove
                   "\n"))
           (princ "\n\n")))))
 #+END_SRC
-* Evil mode
+* CANCELED Evil mode
+CLOSED: [2016-08-15 Mon 09:20]
 
   I am trying out [[http://gitorious.org/evil/pages/Home][evil mode]] that adds vi-like modal editing and cursor
   moving to emacs.
@@ -951,6 +952,7 @@ active in the current buffer. I do not use greek letters in keys, so I've remove
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
     (use-package evil
+      :disabled t
       :defer t
       :init
       (setq evil-default-state 'normal)
