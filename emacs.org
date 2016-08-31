@@ -2943,6 +2943,29 @@ The pod-mode is outdated and needs to be manually installed to the
        :bind ("C-c m" . macrostep-expand))
    #+END_SRC
 
+*** Suggest
+
+The [[https://github.com/Wilfred/suggest.el][suggest.el]] shows common elisp functions that produce a given
+output from given input.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (use-package suggest)
+   #+END_SRC
+
+** SQL
+
+Automatically uppercase SQL keywords in sql-mode.
+
+ #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+   (use-package sqlup-mode
+     :defer t
+     :config
+     ;; Capitalize keywords in SQL mode
+     (add-hook 'sql-mode-hook 'sqlup-mode))
+   #+END_SRC
+
 ** Clojure
 
    I'm using [[https://github.com/clojure-emacs/cider/commits/master][CIDER]] for clojure source/repl interaction. Start it with
