@@ -3363,6 +3363,46 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
      (bind-key "s-." 'end-of-buffer)
      (bind-key "s-," 'beginning-of-buffer)
    #+END_SRC
+** Bookmarks
+
+Visible bookmarks from [[https://github.com/joodland/bm][bm]] package are made easy with a hydra. I am
+running out of keys, so this time the incantation is "Emacs, launch
+bookmarks" for =C-c x=.
+
+Bookmarks can be made persistent with =(setq-default
+bm-buffer-persistence t)=, but the whole setup is quite complicated.
+You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bookmark Plus]], instead.
+
+#+name: global-navigloation
+#+BEGIN_SRC emacs-lisp
+  (use-package bm
+    :init
+    (setq bm-in-lifo-order t)
+    (setq bm-cycle-all-buffers t)
+    (setq bm-highlight-style 'bm-highlight-only-fringe)
+    (setq bm-marker 'bm-marker-left)
+    :bind
+    (("C-c x" . hydra-bookmark/body))
+    ("<left-fringe>" . bm-next-mouse)
+    ("<left-fringe>" . bm-previous-mouse)
+    ("<left-fringe>" . bm-toggle-mouse)
+    (" <mouse-5>" . bm-next-mouse)
+    (" <mouse-4>" . bm-previous-mouse)
+    (" <mouse-1>" . bm-toggle-mouse)
+    :config
+    (defhydra hydra-bookmark (:color blue :hint nil)
+      "
+            bookmark  _t_: toggle    _n_: next      _s_:show local
+                      _r_: regexp    _p_: previous  _S_:show all
+                  "
+      ("t" bm-toggle)
+      ("n" bm-next :color red)
+      ("p" bm-previous :color red)
+      ("r" bm-bookmark-regexp)
+      ("s" bm-show)
+      ("S" bm-show-all)))
+#+END_SRC
+
 ** Searching
 
    [[https://github.com/abo-abo/swiper][Swiper]] is a replacement for isearch that faster and easier to
