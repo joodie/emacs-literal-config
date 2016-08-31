@@ -727,18 +727,22 @@ be shown with =M-x describe-personal-keybindings=.
   (defhydra hydra-toggle (:color blue :hint nil)
     "
        toggle _a_bbrev-mode             _o_rg link display
-              _d_ebug-on-error          _p_retty entities
-              _f_olding                 t_r_uncate-lines
-              _i_edit                   white_s_pace-mode
-              _n_arrowing               neo_t_ree
-              _m_ouse                   _v_: string inflection
-              _l_inum-mode              _w_ritegood-mode
-              _k_: spelling language    _q_uit
+              _c_: word-count mode      _p_retty entities
+              _d_ebug-on-error          t_r_uncate-lines
+              _f_olding                 white_s_pace-mode
+              _g_roup digits            neo_t_ree
+              _i_edit                   _v_: string inflection
+              _n_arrowing               _w_ritegood-mode
+              _m_ouse                   _q_uit
+              _l_inum-mode
+              _k_: spelling language
 
             "
     ("a" abbrev-mode )
     ("d" toggle-debug-on-error)
+    ("c" wc-mode)
     ("f" toggle-selective-display)
+    ("g" digit-groups-mode)
     ("i" iedit-mode)
     ("n" narrow-or-widen-dwim)
     ("m" global-disable-mouse-mode)
@@ -2357,6 +2361,19 @@ l s= for "Emacs, launch synonyms".
     :config
     (add-hook 'text-mode-hook #'synosaurus-mode))
 #+END_SRC
+
+** Number groups
+
+Large numbers made easier to read by highlighting groups of three.
+
+#+name: text-files
+#+BEGIN_SRC emacs-lisp
+  (use-package digit-groups
+    :init (setq digit-groups-global-mode t))
+#+END_SRC
+
+This was added to the toggle hydra and can be invoked with =C-x t g=,
+"Emacs, toggle groups".
 
 ** Poetry mode
 
@@ -4775,21 +4792,35 @@ bbdb-merge-records=.
        (setq org-pretty-entities t)
        (add-hook 'org-mode-hook (lambda ()
                                   (visual-line-mode)
-                                  (org-indent-mode))))
+                                  (org-indent-mode)
+                                  (turn-on-org-cdlatex))))
      (use-package org-autolist
        :config
        (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
+
+     (use-package wc-mode
+       :config
+       ;; (add-hook 'org-mode-hook 'wc-mode)
+       )
    #+END_SRC
 
    Note: =C-c C-j= is =org-goto= and creates a copy of the current
    org buffer to move around and copy text. Allows moving or
    returning to current location. Awesome!
 
+   The [[https://github.com/bnbeckwith/wc-mode][wc-mode]] is add commands and mode line display of words,
+   characters or lines. Also, it can set goals.
+
+   #+BEGIN_SRC emacs-lisp
+     (describe-function 'wc-mode)
+   #+END_SRC
+
+   Note: Do not enable it by default if you have large org files. It
+   slows emacs down drastically.
+
 ** Agenda
 
-   I set the agenda calendar work week to start on Sunday according to
-   Saudi Arabian custom. Also, I need reminders of holidays in
-   Finland.
+   I need reminders of holidays in Finland.
 
    I learned ways to speed up agenda generation from [[http://punchagan.muse-amuse.in/posts/how-i-learnt-to-use-emacs-profiler.html][learn profiler]].
 
