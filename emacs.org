@@ -2711,12 +2711,17 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
    languages. See [[https://www.masteringemacs.org/article/spotlight-flycheck-a-flymake-replacement][MasterEmacs]] for a good article. This code adds
    support for perl6.
 
+   [[https://github.com/magicdirac/avy-flycheck][avy-flycheck]] makes flyckeck to use avy interface and defines a key
+   binding =C-c t= for finding next error.
+
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package flycheck
        :defer t
        :config
        (add-hook 'after-init-hook #'global-flycheck-mode)
+       (use-package avy-flycheck
+         :bind ("C-c t" . avy-flycheck-goto-error))
        (use-package flycheck-perl6
          :defer t))
    #+END_SRC
