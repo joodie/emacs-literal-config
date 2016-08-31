@@ -2518,7 +2518,7 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
        (when (fboundp 'adaptive-wrap-prefix-mode)
          (defun my-activate-adaptive-wrap-prefix-mode ()
            "Toggle `visual-line-mode' and `adaptive-wrap-prefix-mode' together,
-                  and auto-fill-mode the opposite way."
+                       and auto-fill-mode the opposite way."
            (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1))
            (auto-fill-mode (if visual-line-mode -1 1)))
          (add-hook 'visual-line-mode-hook 'my-activate-adaptive-wrap-prefix-mode))
@@ -2901,6 +2901,8 @@ The pod-mode is outdated and needs to be manually installed to the
                  'my/general-lisp-hooks))
    #+END_SRC
 
+*** Paredit
+
    The most useful paredit key combinations use =C-<arrow>= that are
    taken by OS X to switch between desktops. Use the Cmd key (s for
    super in emacs), instead.
@@ -2921,6 +2923,8 @@ The pod-mode is outdated and needs to be manually installed to the
        (bind-key"M-s-<right>" 'paredit-backward-barf-sexp paredit-mode-map))
    #+END_SRC
 
+*** Names
+
    In my emacs lisp programming I am using the *Names* package that
    enables namespaces. The following sets up debugging tools to
    recognize these namespaces:
@@ -2930,6 +2934,8 @@ The pod-mode is outdated and needs to be manually installed to the
      (use-package names
         :defer t)
    #+END_SRC
+
+*** Macrostep
 
    Now that I am using =use-package= macro to configure packages, it
    is useful to see what the configuration macro actually does.
@@ -3350,7 +3356,11 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 
    When editing indented text, you seldom want to go to the first
    column of the line. Instead the following modifies =C-a= to move
-   point back to indentation of beginning of line. Copied from [[ http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][EmacsRedux]].
+   point back to indentation of beginning of line. Copied from
+   http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/. Now in [[https://github.com/bbatsov/crux][crux: A Collection of Ridiculously Useful
+   eXtensions for Emacs]].
+
+   Note: I need to use crux commands.
 
    Move point to the first non-whitespace character on this line.  If
    point is already there, move to the beginning of the line.
@@ -3435,6 +3445,8 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
        :init
        (setq ivy-use-virtual-buffers t)
        (setq ivy-display-style 'fancy)
+       (setq ivy-height 10)
+       (setq ivy-count-format "(%d/%d) ")
        :bind (("C-s" . swiper)
               ("C-c C-r" . ivy-resume)
               ("C-c b"   . ivy-push-view)
@@ -3477,7 +3489,7 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
        (isearch-exit)
        (goto-char isearch-other-end))
 
-     (use-package swiper
+     (use-package ivy
        :defer t
        :ensure counsel)
 
@@ -3670,9 +3682,9 @@ too.
 
     Let's try yet an other package [[https://github.com/luismbo/wn-mode][wn-mode]] to change between windows.
 
-    Each window within the active frame gets a number that indicated
-    in the mode line among the minor modes. =M-1= and so on move point
-    to that window.
+    Each window within the active frame gets a number that is
+    indicated in the mode line among the minor modes. =M-1= and so on
+    move point to that window.
 
    #+name: execute-last
    #+BEGIN_SRC emacs-lisp
