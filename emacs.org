@@ -1966,6 +1966,14 @@ around the selected region.
        (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_SRC" . "^#\\+END_SRC")))
      (add-hook 'org-mode-hook #'endless/org-ispell)
 
+     ;; 3. ignore tex commands
+     (add-hook 'org-mode-hook (lambda () (setq ispell-parser 'tex)))
+     (defun flyspell-ignore-tex ()
+       (interactive)
+       (set (make-variable-buffer-local 'ispell-parser) 'tex))
+     (add-hook 'org-mode-hook 'flyspell-ignore-tex)
+
+
      ;; Remove Flyspell from some sub modes of text mode
      (dolist (hook '(change-log-mode-hook
                      log-edit-mode-hook))
@@ -2085,6 +2093,7 @@ abort completely with `C-g'."
              (forward-word)))))
           (bind-key "C-," 'flyspell-goto-previous-error)
 
+          ;; speed up file open
           (setq flyspell-issue-message-flag nil)
 
           (bind-key "C-x '" 'hydra-flyspell/body)
@@ -2659,8 +2668,6 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
       ;;(setq ledger-font-comment-face ((t (:foreground "dark gray"))))
       (set-face-attribute 'ledger-font-comment-face nil :foreground "gray40")
       (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "cornsilk")
-      ;; use flycheck
-      (flycheck-mode)
       ;; reports
       (setq ledger-reports
             (quote (("test" "ledger ")
