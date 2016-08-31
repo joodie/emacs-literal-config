@@ -3848,14 +3848,14 @@ too.
        :init (setq-default save-place t))
    #+END_SRC
 
-   Use [[https://github.com/vspinu/imenu-anywhere][imenu-anywher]] to jump any function definition in an open file
-   with the same language mode as the current one with =C-.=.
-
-   #+name: global-navigation
-   #+BEGIN_SRC emacs-lisp
-     (use-package imenu-anywhere
-       :bind ("C-." . imenu-anywhere))
-   #+END_SRC
+   # Use [[https://github.com/vspinu/imenu-anywhere][imenu-anywhere]] to jump any function definition in an open file
+   # with the same language mode as the current one with =C-.=.
+   #
+   # #+name: global-navigation
+   # #+BEGIN_SRC emacs-lisp
+   #   (use-package imenu-anywhere
+   #     :bind ("C-." . imenu-anywhere))
+   # #+END_SRC
 
 ** Geographical location
 
