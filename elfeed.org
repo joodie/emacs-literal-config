@@ -16,6 +16,9 @@
 *** http://feeds.newscientist.com/science-news
 *** http://www.technologyreview.com/biomedicine/rss/
 *** http://www.technologyreview.com/topnews.rss
+*** http://www.theatlantic.com/feed/channel/science/
+*** http://mosaicscience.com/feed/rss.xml
+*** http://epidemic.bio.ed.ac.uk/rss.xml
 ** Computers
 *** Security                                                              :s:
 **** https://www.schneier.com/blog/atom.xml
@@ -24,19 +27,17 @@
 **** http://emacsworld.blogspot.com/feeds/posts/default
 **** entry-title: \(emacs\|org-mode\)
 **** http://planet.emacsen.org/atom.xml
+**** [[http://emacs.stackexchange.com/feeds][SX]]
 # **** http://whattheemacsd.com/http:/atom.xml
 *** Perl                                                                  :p:
 **** http://shallowsky.com/blog/index.rss
 **** http://perltricks.com/index.xml
-** Biology                                                                 :b:
-*** http://mosaicscience.com/feed/rss.xml
-*** http://epidemic.bio.ed.ac.uk/rss.xml
 ** Archeology                                                              :a:
 # *** http://feeds.feedburner.com/AncientOrigins?format=xml
 *** https://twilightbeasts.wordpress.com/feed/
 *** https://kalmistopiiri.wordpress.com/feed/
 *** http://www.heritagedaily.com/feed/rss
-** Culture
+** Culture                                                                 :cu:
 *** Language                                                              :l:
 **** http://feeds.feedburner.com/nybooks
 **** http://feedproxy.google.com/brainpickings/rss
@@ -57,6 +58,7 @@
 *** http://www.comicsyndicate.org/Feed/Pearls%20before%20Swine
 ** Friends                                                                 :f:
 *** http://heikkil.github.io/rss.xml
+*** http://saffronwaldenlessons.blogspot.fi/atom.xml
 *** http://soloalgunaspalabras.wordpress.com/feed/
 *** http://tamara-kulikova.blogspot.com/feeds/posts/default
 *** http://kaustbirding.blogspot.com/atom.xml
@@ -70,5 +72,3 @@
 # *** http://websta.me/rss/n/minnalehvaslaiho
 *** http://minimauritius.com/feed/
 # *** http://websta.me/rss/n/matkleh
-** Misc
-*** http://www.theatlantic.com/feed/best-of/
