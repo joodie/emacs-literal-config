@@ -4813,7 +4813,8 @@ Command =owp/do-publication= seems to do all I need.
 
 *** xkcd comics
 
-    The [[https://github.com/vibhavp/emacs-xkcd][xkcd]] package implements an [[Http://xkcd.com/][xkcd]] comics reader for Emacs: =C-c x=.
+    The [[https://github.com/vibhavp/emacs-xkcd][xkcd]] package implements an [[Http://xkcd.com/][xkcd]] comics reader for Emacs. I use
+    [[elfeed]] to read it, the key binding used now elsewhere.
 
     | Keybinding | Use                             | Function                        |
     |------------+---------------------------------+---------------------------------|
@@ -4828,7 +4829,7 @@ Command =owp/do-publication= seems to do all I need.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package xkcd
-       :bind ("C-c x" . xkcd)
+       ;;:bind ("C-c x" . xkcd)
        :config
        (bind-keys :map xkcd-mode-map
                   ("b" . xkcd-open-browser)))
