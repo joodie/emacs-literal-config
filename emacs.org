@@ -4221,6 +4221,7 @@ bbdb-merge-records=.
                    ("5" . elfeed-read-mobile)
                    ("6" . elfeed-read-comics)
                    ("7" . elfeed-read-emacs)
+                   ("8" . elfeed-read-culture)
                    ("9" . elfeed-read-friends)
                    ("l" . elfeed-search-link-title)
                    ("v" . elfeed-search-quick-url-note))
@@ -4229,7 +4230,7 @@ bbdb-merge-records=.
        (setq-default elfeed-search-filter my/default-elfeed-search-filter)
        (setq elfeed-sort-order 'ascending)
        (setq elfeed-search-title-max-width 100) ; newspaper articles have long titles
-       (setq elfeed-use-curl t) ; new, using curl
+       (setq elfeed-use-curl t) ; new, using curl; now default, this is not needed
        :config
        (use-package elfeed-org
          :defer t)
@@ -4301,6 +4302,11 @@ bbdb-merge-records=.
          "Show news on emacs"
          (interactive)
          (elfeed--read-tag "@1-month-ago +unread +e " "emacs"))
+
+       (defun elfeed-read-culture ()
+         "Show news on culture"
+         (interactive)
+         (elfeed--read-tag "@1-month-ago +unread +cu " "culture"))
 
        (defun elfeed-read-friends ()
          "Show news from friends"
