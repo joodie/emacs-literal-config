@@ -131,6 +131,7 @@
 (depends-on "org-page")
 (depends-on "org-plus-contrib")
 (depends-on "org-ref")
+(depends-on "org-webpage")
 (depends-on "osx-dictionary")
 (depends-on "osx-location")
 (depends-on "package-build")
