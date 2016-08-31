@@ -4577,58 +4577,84 @@ bbdb-merge-records=.
 4. Put the selected buffer into impatient-mode.
 5. Share the link with my IP address (form: http://my.ip.ad.dress:8080/imp/)
 
-** Blogging with org-page
+** Blogging with org-webpage
 
-    [[https://github.com/kelvinh/org-page][org-page]] is simple static page website generator.
-    [[https://github.com/kelvinh/org-page/blob/master/doc/quick-guide.org][Quick guide]] gives more details.
+[[https://github.com/tumashu/org-webpage][org-webpage]] is based on [[https://github.com/kelvinh/org-page][org-page]], a simple static page website
+generator. I moved my blog quite easily to org-webpage.
 
-    After the setup, I ran command =op/new-repository=. =C-c p=
-    displays my hydra key bindings for org-page.
+Command =owp/do-publication= seems to do all I need.
+
+#    [[https://github.com/kelvinh/org-page/blob/master/doc/quick-guide.org][Quick guide]] gives more details.
+#
+#    After the setup, I ran command =op/new-repository=. =C-c p=
+#    displays my hydra key bindings for org-page.
+#
+#   #+name: apps
+#   #+BEGIN_SRC emacs-lisp
+#     (use-package org-page
+#       :defer t
+#       :init
+#       (setq op/repository-directory "~/src/org-page/heikkil.github.io")
+#       (setq op/site-domain "http://heikkil.github.io")
+#       (setq op/personal-avatar "https://avatars0.githubusercontent.com/u/75674?v=3&s=460")
+#       ;; for commenting; disabled now
+#       ;;(setq op/personal-disqus-shortname "your_disqus_shortname")
+#
+#       ;; analytics set up at ~/.emacs.secrets file
+#       ;;(setq op/personal-google-analytics-id "UA-NNNNNNNN-N")
+#
+#       (setq op/personal-github-link "https://github.com/heikkil")
+#       ;; slogans
+#       (setq op/site-main-title "Heikki @ home")
+#       (setq op/site-sub-title "Loose leaves from my tree")
+#
+#       ;; set up my own theme since a sans option does not exist
+#       (setq op/theme-root-directory "~/src/org-page/heikkil.github.io/themes")
+#       (setq op/theme 'sans) ; mdo is default, phaer is simpler and uses serif fonts
+#       :config
+#       (defhydra hydra-blog (:color blue :hint nil)
+#         "
+#               blog  _n_: new post                        _l_: publish last commit
+#                     _r_: reset & publish all             _p_: publish interactively
+#                     _t_: reset & publish to /tmp/blog    _e_: new-repository
+#                     _s_: reset & preview in ~/.op-tmp
+#                     "
+#         ("n" op/new-post)
+#         ("r" (progn
+#                (setq op/item-cache nil)
+#                (op/do-publication t nil nil t t)))
+#         ("t" (progn
+#                (setq op/item-cache nil)
+#                (op/do-publication t "/tmp/blog" nil t nil)))
+#         ("s" (progn
+#                (setq op/item-cache nil)
+#                (op/do-publication-and-preview-site)))
+#         ("l" (op/do-publication nil "HEAD~1" nil t t))
+#         ("p" op/do-publication)
+#         ("e" op/new-repository))
+#       :bind ("C-c o" . hydra-blog/body))
+
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-     (use-package org-page
-       :defer t
-       :init
-       (setq op/repository-directory "~/src/org-page/heikkil.github.io")
-       (setq op/site-domain "http://heikkil.github.io")
-       (setq op/personal-avatar "https://avatars0.githubusercontent.com/u/75674?v=3&s=460")
-       ;; for commenting; disabled now
-       ;;(setq op/personal-disqus-shortname "your_disqus_shortname")
 
-       ;; analytics set up at ~/.emacs.secrets file
-       ;;(setq op/personal-google-analytics-id "UA-NNNNNNNN-N")
-
-       (setq op/personal-github-link "https://github.com/heikkil")
-       ;; slogans
-       (setq op/site-main-title "Heikki @ home")
-       (setq op/site-sub-title "Loose leaves from my tree")
-
-       ;; set up my own theme since a sans option does not exist
-       (setq op/theme-root-directory "~/src/org-page/heikkil.github.io/themes")
-       (setq op/theme 'sans) ; mdo is default, phaer is simpler and uses serif fonts
+     (use-package org-webpage
        :config
-       (defhydra hydra-blog (:color blue :hint nil)
-         "
-          blog  _n_: new post                        _l_: publish last commit
-                _r_: reset & publish all             _p_: publish interactively
-                _t_: reset & publish to /tmp/blog    _e_: new-repository
-                _s_: reset & preview in ~/.op-tmp
-                "
-         ("n" op/new-post)
-         ("r" (progn
-                (setq op/item-cache nil)
-                (op/do-publication t nil nil t t)))
-         ("t" (progn
-                (setq op/item-cache nil)
-                (op/do-publication t "/tmp/blog" nil t nil)))
-         ("s" (progn
-                (setq op/item-cache nil)
-                (op/do-publication-and-preview-site)))
-         ("l" (op/do-publication nil "HEAD~1" nil t t))
-         ("p" op/do-publication)
-         ("e" op/new-repository))
-       :bind ("C-c o" . hydra-blog/body))
+       (owp/add-project-config
+        '("heikkil.github.io"
+          :repository-directory "~/src/org-webpage/heikkil.github.io"
+          :remote (git "https://github.com/heikkil/heikkil.github.io.git" "master")
+          ;; you can use `rclone` with `:remote (rclone "remote-name" "/remote/path/location")` instead.
+          :site-domain "http://heikkil.github.io/"
+          :site-main-title "Heikki @ home"
+          :site-sub-title "Loose leaves from my tree"
+          :theme (sans)
+          :category-ignore-list ("themes")
+          :source-browse-url ("Github" "https://github.com/heikkil/heikkil.github.io")
+          :personal-avatar "https://avatars0.githubusercontent.com/u/75674?v=3&s=460"
+          :personal-duoshuo-shortname "heikki-home"
+          :web-server-port 8000))
+       )
    #+END_SRC
 ** Password management
 
