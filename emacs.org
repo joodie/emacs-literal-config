@@ -5574,7 +5574,7 @@ Prefix arguments are very useful in this context:
           \\let\\enumerate\\compactenum
 
           \\usepackage[a4paper, textheight=10in,
-                      marginparsep=7pt, marginparwidth=.6in]{geometry}
+                      marginparsep=7pt, marginparwidth=1.5in, margin=2in]{geometry}
 
           \\usepackage[colorlinks=true,urlcolor=black,linkcolor=black,citecolor=blue]{hyperref}
 
