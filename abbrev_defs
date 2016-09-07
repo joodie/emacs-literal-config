@@ -13,9 +13,11 @@
 
 (define-abbrev-table 'TeX-output-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'apropos-mode-abbrev-table '())
+
+(define-abbrev-table 'awk-mode-abbrev-table '())
+
+(define-abbrev-table 'biblio-selection-mode-abbrev-table '())
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
@@ -23,17 +25,15 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
+
+(define-abbrev-table 'cask-mode-abbrev-table '())
 
 (define-abbrev-table 'change-log-mode-abbrev-table '())
 
@@ -174,7 +174,7 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("8ar" "→" nil 3)
-    ("8eur" "€" nil 20)
+    ("8eur" "€" nil 21)
     ("8pound" "£" nil 2)
     ("8zws" "​" nil 4)
     ("Flase" "False" nil 4)
@@ -206,6 +206,7 @@
     ("forthnight" "fortnight" nil 0)
     ("hayday" "heyday" nil 0)
     ("heikkil" "Heikki Lehväslaiho" nil 6)
+    ("india" "India" nil 0)
     ("inlcuding" "including" nil 0)
     ("interective" "interactive" nil 0)
     ("latex" "LaTeX" nil 5)
@@ -217,10 +218,12 @@
     ("lenth" "length" nil 1)
     ("ma" "am" nil 4)
     ("mammalial" "mammalian" nil 0)
+    ("matias" "Matias" nil 5)
+    ("minna" "Minna" nil 19)
     ("negigable" "negligible" nil 0)
+    ("oC" "°C" nil 0)
     ("occatinally" "occasionally" nil 0)
     ("otehr" "other" nil 3)
-    ("oC" "°C" nil 0)
     ("precice" "precise" nil 0)
     ("provenanace" "provenance" nil 0)
     ("recepi" "recipe" nil 1)
@@ -278,11 +281,11 @@ use Data::Printer;
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'latex-mode-abbrev-table '())
+
+(define-abbrev-table 'ledger-check-mode-abbrev-table '())
 
 (define-abbrev-table 'ledger-mode-abbrev-table '())
 
@@ -318,6 +321,8 @@ use Data::Printer;
 
 (define-abbrev-table 'magit-refs-mode-abbrev-table '())
 
+(define-abbrev-table 'magit-repolist-mode-abbrev-table '())
+
 (define-abbrev-table 'magit-revision-mode-abbrev-table '())
 
 (define-abbrev-table 'magit-stash-mode-abbrev-table '())
@@ -340,9 +345,7 @@ use Data::Printer;
 
 (define-abbrev-table 'nrepl-messages-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -382,7 +385,7 @@ use Data::Printer;
     ("osize" "#+ATTR_LaTeX: width=0.70\\textwidth" nil 1)
     ("otitle" "#+TITLE: " nil 13)
     ("otname" "#+TBLNAME:" nil 6)
-    ("otoc" "#+OPTIONS: toc:nil" nil 9)
+    ("otoc" "#+OPTIONS: toc:nil num:nil" nil 10)
     ("otufte" "#+LATEX_CLASS: tufte-handout" nil 10)
     ("pblk" "" skel-org-block-perl 0)
     ("rblk" "" skel-org-block-r 0)
@@ -403,13 +406,17 @@ use Data::Printer;
 
 (define-abbrev-table 'paradox-menu-mode-abbrev-table '())
 
+(define-abbrev-table 'pdf-annot-list-mode-abbrev-table '())
+
+(define-abbrev-table 'pdf-occur-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'pdf-outline-buffer-mode-abbrev-table '())
+
 (define-abbrev-table 'perl-mode-abbrev-table '())
 
 (define-abbrev-table 'perl6-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
@@ -435,9 +442,17 @@ use Data::Printer;
 
 (define-abbrev-table 'slitex-mode-abbrev-table '())
 
+(define-abbrev-table 'snippet-mode-abbrev-table '())
+
 (define-abbrev-table 'special-mode-abbrev-table '())
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
+
+(define-abbrev-table 'sql-mode-abbrev-table '())
+
+(define-abbrev-table 'suggest-mode-abbrev-table '())
+
+(define-abbrev-table 'tablist-mode-abbrev-table '())
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
 
@@ -457,4 +472,7 @@ use Data::Printer;
 
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
 
+(define-abbrev-table 'xkcd-mode-abbrev-table '())
+
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
+
