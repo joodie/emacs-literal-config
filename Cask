@@ -127,7 +127,6 @@
 (depends-on "org-bullets")
 (depends-on "org-dashboard")
 (depends-on "org-dropbox")
-(depends-on "org-page")
 (depends-on "org-plus-contrib")
 (depends-on "org-ref")
 (depends-on "org-webpage")
