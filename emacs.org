@@ -3487,7 +3487,11 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
        (defun my/swiper-recenter (&rest args)
          "recenter display after swiper"
          (recenter))
-       (advice-add 'swiper :after #'my/swiper-recenter))
+       (advice-add 'swiper :after #'my/swiper-recenter)
+       ;; not sure if this needed
+       (use-package ivy
+         :defer t
+         :ensure counsel))
 
      ;; restore key bindings to isearch due to character folding in emacs 25.1
      (bind-key "C-`" 'isearch-forward)
