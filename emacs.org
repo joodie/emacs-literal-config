@@ -2967,6 +2967,19 @@ output from given input.
      (use-package suggest)
    #+END_SRC
 
+*** Flycheck-package
+
+    [[https://github.com/purcell/flycheck-package][flycheck-package]]  is a Flycheck checker for elisp package metadata.
+
+    #+NAME: programming-setup
+    #+BEGIN_SRC emacs-lisp
+      (use-package flycheck-package)
+    #+END_SRC
+
+    Needed only occationally, so better run manually on the buffer to
+    check: =flycheck-package-setup=.
+
+
 ** SQL
 
 Automatically uppercase SQL keywords in sql-mode.
