@@ -2549,7 +2549,10 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
        (use-package latex-extra
          :defer t
          :config
-         (add-hook 'latex-mode-hook #'latex-extra-mode)))
+         (add-hook 'latex-mode-hook #'latex-extra-mode))
+
+       ;; cdlatex input for math
+       (use-package cdlatex))
    #+END_SRC
 
 ** XML
