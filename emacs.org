@@ -6109,14 +6109,21 @@ Prefix arguments are very useful in this context:
         and edit it so that it calls /Applications/coral.app/Contents/MacOS/coral
    4. Run the following code:
 
-   #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     (use-package mac-print-mode
-       :disabled t
-       :if (eq system-type 'darwin)
-       :bind ("s-p" . mac-print-buffer)
-       :config
-       (mac-print-mode 1))
+     ;;(use-package mac-print-mode
+     ;;  :disabled t
+     ;;  :if (eq system-type 'darwin)
+     ;;  :bind ("s-p" . mac-print-buffer)
+     ;;  :config
+     ;;  (mac-print-mode 1))
+
+     ;; (require 'mac-print-mode)
+     ;; (bind-key "s-p" 'mac-print-buffer)
+     ;; (mac-print-mode 1)
+     ;; (when (require 'mac-print-mode nil t)
+     ;; (mac-print-mode 1)
+     ;; (global-set-key (kbd "M-p") 'mac-print-buffer))
+
    #+END_SRC
 
    Command-p now exports the current page as HTML and prints using the
@@ -6135,16 +6142,18 @@ Prefix arguments are very useful in this context:
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     (use-package org-mac-link
-       :if (eq system-type 'darwin)
-       :bind ("C-c v" . my/quick-url-note)
-       :config
+     (when (eq system-type 'darwin)
+       (require 'org-mac-link)
+
        (defun my/quick-url-note ()
          "Fastest way to capture a web page link"
          (interactive)
          (org-capture nil "n")
          (org-mac-chrome-insert-frontmost-url)
-         (org-capture-finalize)))
+         (org-capture-finalize))
+       (bind-key "C-c v" 'my/quick-url-note))
+   #+END_SRC
+
    #+END_SRC
 
 ** Load secrets
