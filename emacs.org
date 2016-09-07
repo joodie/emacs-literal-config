@@ -3770,17 +3770,16 @@ too.
      (bind-key "C-c z" 'hydra-goto/body)
      (defhydra hydra-goto (:color blue :hint nil)
        "
-            goto   buffer                      info
-                   --------------------------------------
-                   _c_hangeLog                 _o_rg
-                   _e_macs.org
+            goto   buffer                                          info
+                   -----------------------------------------------------
+                   _c_hangeLog     _r_eference.org: last note      _o_rg
+                   _e_macs.org     _s_cratch
+                   _d_otfiles.txt  _w_ork.org
                    _h_ome.gpg
-                   _r_eference.org: last note
-                   _s_cratch
-                   _w_ork.org
                 "
        ("c" (find-file "~/installation.notes/balamac/ChangeLog"))
        ("e" (find-file "~/.emacs.d/emacs.org"))
+       ("d" (find-file "~/Documents/dotfiles/dotfiles.txt"))
        ("h" (find-file "~/Documents/documents/details/home.gpg"))
        ("r" my/last-captured-org-note)
        ("s" (switch-to-buffer "*scratch*"))
