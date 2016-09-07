@@ -128,6 +128,7 @@
 (depends-on "org-dashboard")
 (depends-on "org-dropbox")
 (depends-on "org-plus-contrib")
+(depends-on "org-preview-html")
 (depends-on "org-ref")
 (depends-on "org-webpage")
 (depends-on "osx-dictionary")

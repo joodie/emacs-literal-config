@@ -726,21 +726,16 @@ be shown with =M-x describe-personal-keybindings=.
   (bind-key "C-x t" 'hydra-toggle/body)
   (defhydra hydra-toggle (:color blue :hint nil)
     "
-       toggle _a_bbrev-mode             _o_rg link display
-              _c_: word-count mode      _p_retty entities
-              _d_ebug-on-error          t_r_uncate-lines
-              _f_olding                 white_s_pace-mode
-              _g_roup digits            neo_t_ree
-              _i_edit                   _v_: string inflection
-              _n_arrowing               _w_ritegood-mode
-              _m_ouse                   _q_uit
-              _l_inum-mode
-              _k_: spelling language
-
+       toggle _a_bbrev-mode          _h_tml preview for org   _o_rg link display     _v_: string inflection
+              _c_: word-count mode   _i_edit                  _p_retty entities      _w_ritegood-mode
+              _d_ebug-on-error       _k_: spelling language   t_r_uncate-lines       _q_uit
+              _f_olding              _h_tml preview for org   _m_ouse                white_s_pace-mode
+              _g_roup digits         _n_arrowing              neo_t_ree
             "
     ("a" abbrev-mode )
     ("d" toggle-debug-on-error)
     ("c" wc-mode)
+    ("e" org-preview-html-mode)
     ("f" toggle-selective-display)
     ("g" digit-groups-mode)
     ("i" iedit-mode)
@@ -5870,6 +5865,17 @@ Prefix arguments are very useful in this context:
      (use-package ox-reveal
        :ensure nil
        :if (file-exists-p org-reveal-root))
+   #+END_SRC
+
+** Live preview
+
+[[https://github.com/lujun9972/org-eww][org-preview-html-mode]] automatically shows an HTML preview in eww on
+save. I helped rewrite the package!
+
+
+   #+name: org-config
+   #+BEGIN_SRC emacs-lisp
+     (use-package org-preview-html)
    #+END_SRC
 
 ** Master file fix
