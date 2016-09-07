@@ -3921,7 +3921,7 @@ Code from [[http://mbork.pl/2016-06-13_Displaying_pdfs_on_the_right][Marcin Bork
       '(pdf-tools-handle-upgrades nil)) ; Use brew upgrade pdf-tools instead.
     (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo"))
   (pdf-tools-install)
-  (set 'org-file-apps '((auto-mode . emacs) ... ("\\.pdf\\'" . default)))
+  ;;(setq 'org-file-apps '((auto-mode . emacs) ("\\.pdf\\'" . default))) ; ERROR, fixed, test
 
   (defvar pdf-minimal-width 72
     "Minimal width of a window displaying a pdf.
