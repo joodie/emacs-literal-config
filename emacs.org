@@ -6175,6 +6175,33 @@ Prefix arguments are very useful in this context:
        (bind-key "C-c v" 'my/quick-url-note))
    #+END_SRC
 
+*** iTerm2
+
+   Applescript tools to change focus to iTerm2 application.
+   from [[http://sam217pa.github.io/2016/09/01/emacs-iterm-integration/][here]].
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (defun iterm-goto-filedir-or-home ()
+       "Go to present working dir and focus iterm"
+       (interactive)
+       (do-applescript
+        (concat
+         " tell application \"iTerm2\"\n"
+         "   tell the current session of current window\n"
+         (format "     write text \"cd %s\" \n"
+                 ;; string escaping madness for applescript
+                 (replace-regexp-in-string
+                  "\\\\" "\\\\\\\\"
+                  (shell-quote-argument (or default-directory "~"))))
+         "   end tell\n"
+         " end tell\n"
+         " do shell script \"open -a iTerm\"\n")))
+
+     (defun iterm-focus ()
+       (interactive)
+       (do-applescript
+        " do shell script \"open -a iTerm\"\n"))
    #+END_SRC
 
 ** Load secrets
