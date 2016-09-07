@@ -757,13 +757,14 @@ be shown with =M-x describe-personal-keybindings=.
     ("w" writegood-mode)
     ("q" nil))
 
-  (bind-key "C-x C-0" 'hydra-zoom/body)
+  (bind-key "C-x C-=" 'hydra-zoom/body)
   (defhydra hydra-zoom ()
     "zoom"
     ("g" text-scale-increase "in")
     ("=" text-scale-increase "in")
     ("l" text-scale-decrease "out")
-    ("-" text-scale-decrease "out"))
+    ("-" text-scale-decrease "out")
+    ("0" (text-scale-adjust 0) "reset"))
 
   ;; http://oremacs.com/2015/03/07/hydra-org-templates/
   ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
