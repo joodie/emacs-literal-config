@@ -6151,7 +6151,7 @@ save. I helped rewrite the package!
        (setq peep-dired-cleanup-on-disable t))
 
      (define-key dired-mode-map "e"
-       (lambda () (interactive) (eww-open-file (dired-get-file-for-visit))))x
+       (lambda () (interactive) (eww-open-file (dired-get-file-for-visit))))
    #+END_SRC
 
 *** Printing
