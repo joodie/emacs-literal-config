@@ -483,8 +483,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
 ** Cursor
 
-   The cursor shows the location between characters except in [[Evil
-   mode]] when it becomes a transparent box.
+   The cursor shows the location between characters.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
@@ -906,147 +905,6 @@ active in the current buffer. I do not use greek letters in keys, so I've remove
                   "\n"))
           (princ "\n\n")))))
 #+END_SRC
-* CANCELED Evil mode
-CLOSED: [2016-08-15 Mon 09:20]
-
-  I am trying out [[http://gitorious.org/evil/pages/Home][evil mode]] that adds vi-like modal editing and cursor
-  moving to emacs.
-
-  Evil mode uses [[https://elpa.gnu.org/packages/undo-tree-readme.txt][undo-tree]] but I disable it to keep emacs' own powerful
-  albeit sometimes confusing cyclic undo system.
-
-  Vi and evil works in states of which most important are the *normal*
-  for navigating and editing, and *insert* for typing. I am replacing
-  the insert state with emacs state that is not tainted by evil mode at
-  all. Pressing =<ESC>= quits from any evil function and also to returns
-  from the emacs editing mode to evil normal mode (as does =,,=).
-
-  I have added visual clues to the mode line for different states: The
-  *black* background color of the mode line changes to blue if the
-  buffer is in insert mode. Likewise, the *hollow block cursor* on
-  normal mode changes to *bar* in insert mode. The red double asterisk
-  in the mode line for a changed buffer is already defined at [[Mode
-  line]].
-
-  [[https://github.com/timcharper/evil-surround][evil-surround]] is a plugin that enhances the evil mode to add, change
-  and delete triggers. These triggers can be characters (like quotes
-  and brackets) or tags (HTML) around strings.
-
-  [[https://github.com/redguardtoo/evil-matchit][evil-matchit]] adds binding of =%= to jump between any tags. It comes
-  with huge collection of recognized languages. =va%= selects lines
-  within tags, =da%= deletes, =3%= will jump to a line 3 percentage
-  down the file.
-
-  | function | syntax                                 |
-  |----------+----------------------------------------|
-  | add      | y s <textobject> <trigger>             |
-  | change   | c s <old-trigger> <new-trigger>.       |
-  | delete   | d s <trigger>                          |
-  | function | [select argument]: s f <function name> |
-  |          |                                        |
-
-  #+name: formatting
-  #+BEGIN_SRC emacs-lisp
-    (use-package evil
-      :disabled t
-      :defer t
-      :init
-      (setq evil-default-state 'normal)
-      (setq evil-emacs-state-cursor    '("red" bar))
-      (setq evil-normal-state-cursor   '("red" hollow))
-      (setq evil-visual-state-cursor   '("green" hollow))
-      (setq evil-insert-state-cursor   '("blue" bar))
-      (setq evil-replace-state-cursor  '("red" bar))
-      (setq evil-operator-state-cursor '("red" hollow))
-      :config
-      ;; I like the cyclic emacs undo
-      (global-undo-tree-mode -1)
-
-      ;; Clear the insert state keymap to unadulterated Emacs behavior
-      (setcdr evil-insert-state-map nil)
-      (define-key evil-insert-state-map
-        (read-kbd-macro evil-toggle-key) 'evil-emacs-state)
-
-      (evil-set-initial-state 'magit-log-edit-mode 'emacs)
-      (evil-set-initial-state 'elfeed-search 'emacs)
-
-      ;;; ESC quits always
-      (defun minibuffer-keyboard-quit ()
-        "Abort recursive edit.
-      In Delete Selection mode, if the mark is active, just deactivate it;
-      then it takes a second \\[keyboard-quit] to abort the minibuffer."
-        (interactive)
-        (if (and delete-selection-mode transient-mark-mode mark-active)
-            (setq deactivate-mark  t)
-          (when (get-buffer "*Completions*") (delete-windows-on "*Completions*"))
-          (abort-recursive-edit)))
-
-      (define-key evil-normal-state-map [escape] 'keyboard-quit)
-      (define-key evil-visual-state-map [escape] 'keyboard-quit)
-      (define-key minibuffer-local-map [escape] 'minibuffer-keyboard-quit)
-      (define-key minibuffer-local-ns-map [escape] 'minibuffer-keyboard-quit)
-      (define-key minibuffer-local-completion-map [escape] 'minibuffer-keyboard-quit)
-      (define-key minibuffer-local-must-match-map [escape] 'minibuffer-keyboard-quit)
-      (define-key minibuffer-local-isearch-map [escape] 'minibuffer-keyboard-quit)
-
-      (global-set-key [escape] 'evil-normal-state)
-
-      ;; Don't wait for any other keys after escape is pressed.
-      (setq evil-esc-delay 0)
-
-      ;; double comma pressed rapidly returns to normal state, too
-      ;;(use-package key-chord
-      ;;  :defer t
-      ;;  (key-chord-mode 1)
-      ;;  (key-chord-define-global ",," 'evil-normal-state))
-
-      ;; fix selection anomaly
-      (setq evil-want-visual-char-semi-exclusive t)
-
-      ;; Remap org-mode meta keys for convenience
-      (mapcar (lambda (state)
-                (evil-declare-key state org-mode-map
-                  (kbd "M-l") 'org-metaright
-                  (kbd "M-h") 'org-metaleft
-                  (kbd "M-k") 'org-metaup
-                  (kbd "M-j") 'org-metadown
-                  (kbd "M-L") 'org-shiftmetaright
-                  (kbd "M-H") 'org-shiftmetaleft
-                  (kbd "M-K") 'org-shiftmetaup
-                  (kbd "M-J") 'org-shiftmetadown))
-              '(normal insert))
-
-      ;; change mode-line color for the evil insert state
-      ;; original from http://www.emacswiki.org/emacs/Evil#toc16
-      ;; also, change cursor to indicate state
-      (lexical-let ((default-color (cons (face-background 'mode-line)
-                                         (face-foreground 'mode-line))))
-        (add-hook 'post-command-hook
-                  (lambda ()
-                    (let ((color (cond ((minibufferp) default-color)
-                                       ((evil-insert-state-p) '("#444488" . "#ffffff"))
-                                       ((evil-emacs-state-p)  '("blue" . "#ffffff"))
-                                       ((evil-visual-state-p) '("#025a2b" . "#ffffff"))
-                                       (t default-color))))
-                      (set-face-background 'mode-line (car color))
-                      (set-face-foreground 'mode-line (cdr color))))))
-
-      (use-package evil-surround
-        :defer t
-        :config
-        (global-evil-surround-mode 1))
-
-      (use-package evil-matchit
-        :defer t
-        :config
-        (global-evil-matchit-mode 1)))
-
-  #+END_SRC
-
-** TODO evil tutor
-
-   Install [[https://github.com/syl20bnr/evil-tutor][evil-tutor]] to learn. It is adapted from vim's =:h= text.
-
 * Formatting and white-space
 
 ** Character encoding
@@ -1402,7 +1260,6 @@ and section. Just press =C-== and expand =\== and contract =-= the
 selection! This works in all text modes including most programming
 languages, and is really convenient!
 
-Here]] is an alternative setup for evil.
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
@@ -1730,8 +1587,6 @@ replacement package [[https://github.com/remyferre/comment-dwim-2][comment-dwim-
 of different behaviors. The default comment key is =C-;=.
 
 Alternative is [[https://github.com/paldepind/smart-comment][smart-comment: Smarter commenting for Emacs]].
-
-Note to self: [[https://github.com/redguardtoo/evil-nerd-commenter][evil-nerd-commenter]] is recommended for the evil mode.
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
@@ -2416,8 +2271,7 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 ** Line numbers
 
    Line numbers are useful in pair programming and when editing with
-   modal commands like evil mode. To help working with evil, I display
-   line numbers display relative to the current line.
+   modal commands.
 
    I wrapped this in a global minor mode so turning that stuff on and
    off is easy using =C-x t l=.
@@ -3814,16 +3668,8 @@ too.
    #+BEGIN_SRC emacs-lisp
      (use-package neotree
        :defer t
-       :init (setq neo-smart-open t) ; always change focus to current buffer
-       :config
-       ;; fix evil mode key conflicts
-       (add-hook
-        'neotree-mode-hook
-        (lambda ()
-          (bind-key "TAB" 'neotree-enter evil-normal-state-local-map)
-          (bind-key "SPC" 'neotree-enter evil-normal-state-local-map)
-          (bind-key "q"   'neotree-hide  evil-normal-state-local-map)
-          (bind-key "RET" 'neotree-enter evil-normal-state-local-map))))
+       :init (setq neo-smart-open t)) ; always change focus to current buffer
+
    #+END_SRC
 
    I like emacs to remember files that I have visited. The =recentf=
