@@ -35,4 +35,5 @@ custom.el
 recentf
 history
 /games
-owp-temp
+/smex-items
+/owp-temp.d
