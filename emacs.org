@@ -2885,7 +2885,7 @@ The pod-mode is outdated and needs to be manually installed to the
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (setq my/lisps
-           '(emacs-lisp lisp clojure extempore))
+           '(emacs-lisp lisp clojure extempore racket))
 
      (defun my/general-lisp-hooks ()
        (my/turn-on 'paredit
@@ -2898,6 +2898,24 @@ The pod-mode is outdated and needs to be manually installed to the
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
        (add-hook mode
                  'my/general-lisp-hooks))
+   #+END_SRC
+
+*** Racket
+
+    [[https://github.com/greghendershott/racket-mode][greghendershott/racket-mode: GNU Emacs major modes for Racket: Edit and REPL.]]
+
+    [[http://docs.racket-lang.org/pollen/][Pollen]], the racket pbook publishing, needs a special character for
+    marking command lines. The chosen character is lozenge =◊=.
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (use-package racket-mode
+       :config
+       (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
+       (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable))
+
+     ;; global binding
+     (bind-key  "M-\\" "◊")
    #+END_SRC
 
 *** Paredit
@@ -5265,6 +5283,7 @@ Prefix arguments are very useful in this context:
    See [[http://orgmode.org/manual/Clocking-work-time.html][Clocking work time]].
 
 ** TODO MobileOrg
+
    Use Dropbox for syncing my agenda files with my Android
    phone. Worry about the security implications later.
 
@@ -5272,6 +5291,7 @@ Prefix arguments are very useful in this context:
    #+BEGIN_SRC emacs-lisp
      (setq org-mobile-directory "~/Dropbox/org")
    #+END_SRC
+
 ** External jars
 
    Tell org where to find external dependencies. Ditaa and PlantUML

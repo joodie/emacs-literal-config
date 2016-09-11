@@ -154,6 +154,7 @@
 (depends-on "pyvenv")
 (depends-on "queue")
 (depends-on "quickrun")
+(depends-on "racket-mode")
 (depends-on "rainbow-delimiters")
 (depends-on "regex-tool")
 (depends-on "reveal-in-finder")
