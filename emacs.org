@@ -2813,11 +2813,11 @@ The pod-mode is outdated and needs to be manually installed to the
        ;; C-left
        (bind-key "s-<left>" 'paredit-forward-barf-sexp paredit-mode-map)
        ;; C-right
-       (bind-key"s-<right>" 'paredit-forward-slurp-sexp paredit-mode-map)
+       (bind-key "s-<right>" 'paredit-forward-slurp-sexp paredit-mode-map)
        ;; Alt-C-left
        (bind-key "M-s-<left>" 'paredit-backward-slurp-sexp paredit-mode-map)
        ;; Alt-C-right
-       (bind-key"M-s-<right>" 'paredit-backward-barf-sexp paredit-mode-map))
+       (bind-key "M-s-<right>" 'paredit-backward-barf-sexp paredit-mode-map))
    #+END_SRC
 
 *** Names
@@ -4048,7 +4048,7 @@ bbdb-merge-records=.
               (lambda () (local-set-key "o" 'my-gnus-group-list-subscribed-groups ))))
 #+END_SRC
 
-** Calender
+** TODO Calender
    [[ttps://github.com/kiwanami/emacs-calfw][Emacs-calf]] gives the look of Google Calendar as well as links to it
    and integrates org agenda entries.
 

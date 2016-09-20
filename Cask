@@ -17,6 +17,7 @@
 (depends-on "calfw")
 (depends-on "cask")
 (depends-on "cask-mode")
+(depends-on "cdlatex")
 (depends-on "change-inner")
 (depends-on "cider")
 (depends-on "clj-refactor")
