@@ -25,6 +25,7 @@
 (depends-on "company")
 (depends-on "company-go")
 (depends-on "counsel")
+(depends-on "counsel-projectile")
 (depends-on "crux")
 (depends-on "ctable")
 (depends-on "dash")

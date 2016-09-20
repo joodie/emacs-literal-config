@@ -3434,18 +3434,27 @@ Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficien
 
    [[https://github.com/bbatsov/projectile][Projectile]] automatically defines a project for any git repository.
    It indexes files and makes it possible to search files and contents
-   within a project. See it's list of commands with =C-c p ?=
+   within a project. See it's list of commands with =C-c p C-h= and more
+   commands from the project [[http://projectile.readthedocs.io/en/latest/usage/][wiki]].
+
+   [[https://github.com/ericdanan/counsel-projectile][counsel-projectile: Ivy UI for Projectile]]
+   adds more ivy functionality to it.
 
 #+name: local-navigation
 #+BEGIN_SRC emacs-lisp
-  (use-package projectile
+  ;;(use-package projectile
+  ;;  :defer t
+  ;;  :diminish projectile-mode
+  ;;  :init
+  ;;  (setq projectile-completion-system 'ivy)
+  ;;  (setq projectile-file-exists-remote-cache-expire nil)
+  ;;  :config
+  ;;  (projectile-global-mode))
+
+  (use-package counsel-projectile
     :defer t
-    :diminish projectile-mode
-    :init
-    (setq projectile-completion-system 'ivy)
-    (setq projectile-file-exists-remote-cache-expire nil)
     :config
-    (projectile-global-mode))
+     (counsel-projectile-on))
 #+END_SRC
 
 ** Narrowing
