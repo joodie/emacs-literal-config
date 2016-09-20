@@ -1433,17 +1433,21 @@ recommended to be bound to =M-i= and =M-o=.
 
    #+END_SRC
 
-*** Yasnipppet
+*** TODO Yasnippet
 
     Add your own snippets to file:~/.emacs.d/snippets by placing files
     there or invoking yas-new-snippet.
 
+    Yas is enabled in programming and org modes.
+
    #+BEGIN_SRC emacs-lisp
      (use-package yasnippet
-       :disabled t
+       :disabled nil
        :defer t
        :config
-       (yas-global-mode 1))
+       (yas-reload-all)
+       (add-hook 'prog-mode-hook #'yas-minor-mode)
+       (add-hook 'org-mode-hook #'yas-minor-mode))
    #+END_SRC
 
 ** Fixing DOuble capitals
