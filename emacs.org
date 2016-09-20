@@ -907,6 +907,17 @@ active in the current buffer. I do not use greek letters in keys, so I've remove
 #+END_SRC
 * Formatting and white-space
 
+** View read-only
+
+   The built-in [[https://www.emacswiki.org/emacs/ViewMode][view-mode]] gives a consistent paging (=<Space>/<Back>=)
+   and browsing environment to read-only files. It is now enabled in
+   all read-only files.
+
+   #+name: formatting
+   #+BEGIN_SRC emacs-lisp
+     (setq view-read-only t)
+   #+END_SRC
+
 ** Character encoding
 
    [[http://ergoemacs.org/emacs/emacs_encoding_decoding_faq.html][Character encoding]] in files and emacs buffers is an important topic
