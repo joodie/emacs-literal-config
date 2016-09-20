@@ -6090,26 +6090,31 @@ save. I helped rewrite the package!
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-     (defun iterm-goto-filedir-or-home ()
-       "Go to present working dir and focus iterm"
-       (interactive)
-       (do-applescript
-        (concat
-         " tell application \"iTerm2\"\n"
-         "   tell the current session of current window\n"
-         (format "     write text \"cd %s\" \n"
-                 ;; string escaping madness for applescript
-                 (replace-regexp-in-string
-                  "\\\\" "\\\\\\\\"
-                  (shell-quote-argument (or default-directory "~"))))
-         "   end tell\n"
-         " end tell\n"
-         " do shell script \"open -a iTerm\"\n")))
+     (when (eq system-type 'darwin)
+       (defun iterm-goto-filedir-or-home ()
+         "Go to present working dir and focus iterm"
+         (interactive)
+         (do-applescript
+          (concat
+           " tell application \"iTerm2\"\n"
+           "   tell the current session of current window\n"
+           (format "     write text \"cd %s\" \n"
+                   ;; string escaping madness for applescript
+                   (replace-regexp-in-string
+                    "\\\\" "\\\\\\\\"
+                    (shell-quote-argument (or default-directory "~"))))
+           "   end tell\n"
+           " end tell\n"
+           " do shell script \"open -a iTerm\"\n")))
 
-     (defun iterm-focus ()
-       (interactive)
-       (do-applescript
-        " do shell script \"open -a iTerm\"\n"))
+       (defun iterm-focus ()
+         (interactive)
+         (do-applescript
+          " do shell script \"open -a iTerm\"\n"))
+
+       (bind-key "s-t" 'iterm-goto-filedir-or-home)
+       (bind-key "s-T" 'iterm-focus))
+
    #+END_SRC
 
 ** Load secrets
