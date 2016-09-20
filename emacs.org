@@ -1409,6 +1409,7 @@ recommended to be bound to =M-i= and =M-o=.
       "Inserts file name of the buffer on the current buffer."
       (interactive)
       (insert (buffer-name)))
+    (bind-key "s-i" 'insert-buffer-name)
    #+END_SRC
 
    Similarly, you might want to remove both the current buffer and its
@@ -3211,7 +3212,8 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
    Delete a word at a time: =M-backspace=.
 
    Kill line backward from cursor is =C-0 C-k= but it easier to
-   remember when redefined as =C-backspace=.
+   remember when redefined as =C-backspace=. =s-backspace= does the same
+   thing, but calling =crux-kill-line-backwards=.
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
@@ -3255,11 +3257,11 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 
    When editing indented text, you seldom want to go to the first
    column of the line. Instead the following modifies =C-a= to move
-   point back to indentation of beginning of line. Copied from
-   http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/. Now in [[https://github.com/bbatsov/crux][crux: A Collection of Ridiculously Useful
-   eXtensions for Emacs]].
+   point back to indentation of beginning of line. Copied from [[http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][Emacs
+   Redux]]. Now in [[https://github.com/bbatsov/crux][crux: A Collection of Ridiculously Useful eXtensions
+   for Emacs]].
 
-   Note: I need to use crux commands.
+   Note: I need to use more crux commands.
 
    Move point to the first non-whitespace character on this line.  If
    point is already there, move to the beginning of the line.
@@ -3269,7 +3271,14 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package crux
-       :bind (("C-a" . crux-move-beginning-of-line)))
+       :bind (("C-a" . crux-move-beginning-of-line)
+              ("C-x 4 t" . crux-transpose-windows)
+              ("s-d" . crux-duplicate-current-line-or-region)
+              ("s-D" . crux-duplicate-and-comment-current-line-or-region)
+              ("s-r" . crux-rename-file-and-buffer)
+              ("s-R" . rename-buffer)
+              ("s-O" . crux-smart-open-line-above)
+              ("s-o" . crux-smart-open-line)))
    #+END_SRC
 
    Going to end of buffer with =M->= involves keeping the shift-key
