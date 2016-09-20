@@ -3352,62 +3352,69 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
-          (use-package swiper
-            :init
-            (setq ivy-use-virtual-buffers t)
-            (setq ivy-display-style 'fancy)
-            (setq ivy-height 10)
-            (setq ivy-count-format "(%d/%d) ")
-            :bind (("C-s" . swiper)
-                   ("C-c C-r" . ivy-resume)
-                   ("M-x" . counsel-M-x)
-                   ("C-c b"   . ivy-push-view)
-                   ("C-c B"   . ivy-pop-view)
-                   ("M-y" . counsel-yank-pop)
-                   :map ivy-minibuffer-map
-                   ("M-y" . ivy-next-line))
-            :config
-            (ivy-mode 1)
-            ;; Enable bookmarks and recentf
-            (setq ivy-use-virtual-buffers t)
-            (custom-set-faces
-             '(swiper-minibuffer-match-face-1
-               ((t :background "#dddddd")))
-             '(swiper-minibuffer-match-face-2
-               ((t :background "#bbbbbb" :weight bold)))
-             '(swiper-minibuffer-match-face-3
-               ((t :background "#bbbbff" :weight bold)))
-             '(swiper-minibuffer-match-face-4
-               ((t :background "#ffbbff" :weight bold))))
-            ;; advise swiper to recenter on exit
-            ;; from http://pragmaticemacs.com/emacs/dont-search-swipe/
-            (defun my/swiper-recenter (&rest args)
-              "recenter display after swiper"
-              (recenter))
-            (advice-add 'swiper :after #'my/swiper-recenter)
-            ;; not sure if this needed
-            (use-package ivy
-              :defer t
-              :ensure counsel))
+     (use-package ivy
+       :diminish (ivy-mode . "")
+       :init
+       (setq ivy-use-virtual-buffers t)
+       (setq ivy-display-style 'fancy)
+       (setq ivy-height 10)
+       (setq ivy-count-format "(%d/%d) ")
+       :bind (("C-s" . swiper)
+              ("C-c C-r" . ivy-resume)
+              ("M-x" . counsel-M-x)
+              ("C-c b"   . ivy-push-view)
+              ("C-c B"   . ivy-pop-view)
+              ("M-y" . counsel-yank-pop)
+              :map ivy-minibuffer-map
+              ("M-y" . ivy-next-line))
+       :config
+       (ivy-mode 1)
+       ;; Enable bookmarks and recentf
+       (setq ivy-use-virtual-buffers t)
 
-          ;; restore key bindings to isearch due to character folding in emacs 25.1
-          (bind-key "C-`" 'isearch-forward)
-          (bind-key "C-r" 'isearch-backward)
+       (setq ivy-re-builders-alist
+             ;; allow input not in order
+             '((t   . ivy--regex-ignore-order)))
 
-          ;; Isearch convenience, space matches anything (non-greedy)
-          (setq search-whitespace-regexp ".*?")
+       (custom-set-faces
+        '(swiper-minibuffer-match-face-1
+          ((t :background "#dddddd")))
+        '(swiper-minibuffer-match-face-2
+          ((t :background "#bbbbbb" :weight bold)))
+        '(swiper-minibuffer-match-face-3
+          ((t :background "#bbbbff" :weight bold)))
+        '(swiper-minibuffer-match-face-4
+          ((t :background "#ffbbff" :weight bold))))
 
-          ;; http://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.html
-          ;; This will only leave point at the start of search if you exit the
-          ;; search with C-↵ instead of ↵.
-          (define-key isearch-mode-map [(control return)]
-            #'isearch-exit-other-end)
-          (defun isearch-exit-other-end ()
-            "Exit isearch, at the opposite end of the string."
-            (interactive)
-            (isearch-exit)
-            (goto-char isearch-other-end))
+       ;; advise swiper to recenter on exit
+       ;; from http://pragmaticemacs.com/emacs/dont-search-swipe/
+       (defun my/swiper-recenter (&rest args)
+         "recenter display after swiper"
+         (recenter))
+       (advice-add 'swiper :after #'my/swiper-recenter)
+       ;; not sure if this needed
+       ;; (use-package ivy
+       ;; :defer t
+       ;; :ensure counsel)
+       )
 
+     ;; restore key bindings to isearch due to character folding in emacs 25.1
+     (bind-key "C-`" 'isearch-forward)
+     (bind-key "C-r" 'isearch-backward)
+
+     ;; Isearch convenience, space matches anything (non-greedy)
+     (setq search-whitespace-regexp ".*?")
+
+     ;; http://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.htmlh
+     ;; This will only leave point at the start of search if you exit the
+     ;; search with C-↵ instead of ↵.
+     (define-key isearch-mode-map [(control return)]
+       #'isearch-exit-other-end)
+     (defun isearch-exit-other-end ()
+       "Exit isearch, at the opposite end of the string."
+       (interactive)
+       (isearch-exit)
+       (goto-char isearch-other-end))
    #+END_SRC
 
 Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficient-movement-using-avy/][search using avy]].
