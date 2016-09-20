@@ -224,6 +224,9 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    =prettify-symbols-alist=. Currently it displays “lambda” as
    "λ" in lisp code and hundreds of symbols in LaTeX mode.
 
+   For more, check out the documentation on =prettify-symbols-mode= using
+   - the new (for 25.1) key binding =C-h o=.
+
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (global-prettify-symbols-mode 1)
