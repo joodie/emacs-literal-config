@@ -2612,7 +2612,6 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
        (use-package quickrun
-         :defer t
          :config
          (quickrun-add-command "perl"
                                '((:command . "~/.plenv/shims/perl")
