@@ -2524,6 +2524,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
+(use-package ledger-mode
+     :config
     (autoload 'ledger-mode "ledger-mode.el"
       "Major mode for editing Ledger files" t)
     (setq auto-mode-alist
@@ -2550,6 +2552,7 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
     ;; flycheck-ledger does syntax checking
     ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
+)
   #+END_SRC
 
 ** Ssh config
