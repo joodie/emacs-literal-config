@@ -3742,14 +3742,6 @@ too.
          :init (setq ido-enable-flex-matching t)
          (flx-ido-mode 1)))
 
-     ;;defun recentf-ido-find-file ()
-     ;; "Find a recent file using ido."
-     ;; (interactive)
-     ;; (let ((file (ido-completing-read
-     ;;              "Choose recent file: " recentf-list nil t)))
-     ;;   (when file
-     ;;     (find-file file))))
-     ;;bind-key "C-c r" 'recentf-ido-find-file)
    #+END_SRC
 
    When I open a file again, I like emacs to show me the place I
