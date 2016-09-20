@@ -4053,8 +4053,9 @@ bbdb-merge-records=.
        ;; First day of the week
        (setq calendar-week-start-day 1) ; 0:Sunday, 1:Monday
        :config
-       (use-package calfw-org
-         :defer t)
+       ;; not in melpa any more
+       ;;(use-package calfw-org
+       ;;  :defer t)
        (use-package calfw-ical
          :defer t)
        (defun my/calendar ()
