@@ -752,12 +752,13 @@ be shown with =M-x describe-personal-keybindings=.
     ("q" nil))
 
   (bind-key "C-x C-=" 'hydra-zoom/body)
-  (defhydra hydra-zoom ()
+  (defhydra hydra-zoom (global-map "C-x C-="
+                        :pre (text-scale-increase 1))
     "zoom"
-    ("g" text-scale-increase "in")
-    ("=" text-scale-increase "in")
-    ("l" text-scale-decrease "out")
-    ("-" text-scale-decrease "out")
+    ("g" (message "") "in")
+    ("=" (message "") "in")
+    ("l" (text-scale-increase -2) "out")
+    ("-" (text-scale-increase -2) "out")
     ("0" (text-scale-adjust 0) "reset"))
 
   ;; http://oremacs.com/2015/03/07/hydra-org-templates/
