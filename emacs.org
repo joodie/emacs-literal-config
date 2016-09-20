@@ -2913,6 +2913,7 @@ Automatically uppercase SQL keywords in sql-mode.
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package cider
+       :disabled t
        :defer t
        :init (add-hook 'cider-mode-hook #'clj-refactor-mode)
        :config
