@@ -77,6 +77,7 @@
 (depends-on "macrostep")
 (depends-on "magit")
 (depends-on "magit-popup")
+(depends-on "magithub")
 (depends-on "markdown-mode")
 (depends-on "markdown-preview-mode")
 (depends-on "mustache")

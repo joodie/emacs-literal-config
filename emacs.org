@@ -1723,36 +1723,40 @@ around the selected region.
 
 ** Magit
 
-  The only version control system worth using is git and [[http://magit.github.io/magit/magit.html][magit]] is the
-  emacs interface to it. Most important files in git have their
-  dedicated modes: git-commit-mode, gitconfig-mode, git-rebase-mode,
-  and gitignore-mode.
+The only version control system worth using is git and [[http://magit.github.io/magit/magit.html][magit]] is the
+emacs interface to it. Most important files in git have their
+dedicated modes: git-commit-mode, gitconfig-mode, git-rebase-mode, and
+gitignore-mode.
 
-  From any buffer linked to a git controlled file, press =C-c g= to
-  enter magit status window. Pressing =q= restores the previous
-  window(s).
+From any buffer linked to a git controlled file, press =C-c g= to enter
+magit status window. Pressing =q= restores the previous window(s).
 
-  Magit automatically updates the buffer of each file that changes at
-  commit.
+Magit automatically updates the buffer of each file that changes at
+commit.
 
-  See [[http://shingofukuyama.github.io/emacs-magit-reword-commit-messages/][this post]] for a tutorial of commit message editing with magit.
+See [[http://shingofukuyama.github.io/emacs-magit-reword-commit-messages/][this post]] for a tutorial of commit message editing with magit.
 
-  [[http://irreal.org/blog/?p=4279][Irreal]] gives hints how to configure the latest (2.1) magit.
+[[http://irreal.org/blog/?p=4279][Irreal]] gives hints how to configure the latest (2.1) magit.
 
-  One of the best features of magit is its ability to show changes in
-  a single file in chunks. Even better is that you can discard the
-  chunk from the file by pressing key =k=. Great for discarding typos.
+One of the best features of magit is its ability to show changes in
+a single file in chunks. Even better is that you can discard the
+chunk from the file by pressing key =k=. Great for discarding typos.
+
+If the chunk is too large, you can just select part of it and press
+=s= to stage it.
+
+[[https://github.com/vermiculus/magithub][magithub]] adds interfaces to talk to Github. It uses the command line
+utility [[https://hub.github.com/][hub]] to do its work. The magit command is =@=. =hub= needs to
+be installed (e.g. =brew install hub= in OS X).
 
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
     (use-package magit
       :bind ("C-c g" . magit-status)
       :config
-      ;;(add-to-list 'magit-no-confirm 'stage-all-changes)
       (setq magit-push-always-verify nil)
       (setq magit-diff-options '("-b")) ; ignore whitespace
-      ;;(setq magit-last-seen-setup-instructions "2.1.0")
-      )
+      (use-package magithub))
 
     (use-package git-commit :defer t)
     (use-package git-gutter :defer t)
