@@ -3112,6 +3112,16 @@ Automatically uppercase SQL keywords in sql-mode.
          :config (go-eldoc-setup)))
    #+END_SRC
 
+** Applescript
+
+[[https://github.com/tequilasunset/apples-mode][Apples-mode]] is a major mode for applescript.
+
+#+NAME: programming-setup
+#+BEGIN_SRC emacs-lisp
+(use-package apples-mode
+  :defer t)
+#+END_SRC
+
 ** Music
 
 
