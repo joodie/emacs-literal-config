@@ -2832,6 +2832,21 @@ The pod-mode is outdated and needs to be manually installed to the
         :defer t)
    #+END_SRC
 
+*** Nameless
+
+[[https://github.com/Malabarba/Nameless][Nameless]] is an alternative to Names. The elisp text file is not in any
+way different from normal, but this minor mode hides the name space
+and replaces it with =:=. =C-c C--= adds the namespace when the mode is
+on.
+
+#+NAME: programming-setup
+#+BEGIN_SRC emacs-lisp
+  (use-package nameless
+    :defer t
+    :config
+    (add-hook 'emacs-lisp-mode-hook #'nameless-mode))
+#+END_SRC
+
 *** Macrostep
 
    Now that I am using =use-package= macro to configure packages, it
