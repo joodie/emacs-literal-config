@@ -2018,7 +2018,7 @@ abort completely with `C-g'."
   Sources:
  - http://www.hillenius.com/blog/2013/11/09_writers-need-spell-checkers-wcheck-mode.html
 
-  #+NAME: spell-checker_disabled
+  ##+NAME: spell-checker
   #+BEGIN_SRC emacs-lisp
 
     (setq ispell-program-name "aspell")
@@ -2054,7 +2054,7 @@ abort completely with `C-g'."
    - http://www.hillenius.com/blog/2013/11/09_writers-need-spell-checkers-wcheck-mode.html
    - https://github.com/philc/emacs-config
 
-   #+NAME: spell-checker
+   ##+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
 
      (autoload 'wcheck-mode "wcheck-mode"
