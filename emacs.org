@@ -5715,7 +5715,7 @@ Prefix arguments are very useful in this context:
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq reftex-default-bibliography
-           (quote ("/Documents/latex/all.bib")))
+           (quote ("~/Documents/latex/all.bib")))
 
      (use-package gscholar-bibtex
        :defer t
