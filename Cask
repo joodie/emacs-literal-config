@@ -41,6 +41,7 @@
 (depends-on "edit-server-htmlize")
 (depends-on "electric-operator")
 (depends-on "elfeed")
+(depends-on "elfeed-goodies")
 (depends-on "elfeed-org")
 (depends-on "epl")
 (depends-on "exec-path-from-shell")

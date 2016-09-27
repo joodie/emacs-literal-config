@@ -4166,6 +4166,8 @@ bbdb-merge-records=.
 
     The read functions report their action in the echo field.
 
+    [[https://github.com/algernon/elfeed-goodies][Elfeed-goodies]] needs Powerline font tweeking.
+
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package elfeed
@@ -4199,6 +4201,11 @@ bbdb-merge-records=.
        (use-package elfeed-org
          :defer t)
        (elfeed-org)
+
+       (use-package elfeed-goodies
+         :defer t
+         :config
+         (elfeed-goodies/setup))
 
        (defun elfeed-mark-all-as-read ()
          "Mark currently shown articles read"
