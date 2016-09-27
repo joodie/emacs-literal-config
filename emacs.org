@@ -1432,8 +1432,24 @@ recommended to be bound to =M-i= and =M-o=.
                (message "Deleted file %s" filename)
                (kill-buffer))))))
      (bind-key "C-c d" 'delete-file-and-buffer)
-
    #+END_SRC
+
+   [[http://irreal.org/blog/?p=5585][Kill This Buffer (Irreal)]] with the key binding "C-x k" without
+   asking. Giving it an universal argument (C-u) calls the standard
+   =kill-buffer= function.
+
+   #+name: abbreviations
+   #+BEGIN_SRC emacs-lisp
+     (defun my/kill-a-buffer (askp)
+       (interactive "P")
+       (if askp
+           (kill-buffer (funcall completing-read-function
+                                 "Kill buffer: "
+                                 (mapcar #'buffer-name (buffer-list))))
+         (kill-this-buffer)))
+     (bind-key "C-x k" 'my/kill-a-buffer)
+   #+END_SRC
+
 
 *** TODO Yasnippet
 
