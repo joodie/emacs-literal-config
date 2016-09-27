@@ -6082,15 +6082,16 @@ save. I helped rewrite the package!
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
      (when (eq system-type 'darwin)
-       (require 'org-mac-link)
-
-       (defun my/quick-url-note ()
-         "Fastest way to capture a web page link"
-         (interactive)
-         (org-capture nil "n")
-         (org-mac-chrome-insert-frontmost-url)
-         (org-capture-finalize))
-       (bind-key "C-c v" 'my/quick-url-note))
+       (use-package org-mac-link
+         :ensure nil
+         :config
+         (defun my/quick-url-note ()
+           "Fastest way to capture a web page link"
+           (interactive)
+           (org-capture nil "n")
+           (org-mac-chrome-insert-frontmost-url)
+           (org-capture-finalize))
+         (bind-key "C-c v" 'my/quick-url-note)))
    #+END_SRC
 
 *** iTerm2
