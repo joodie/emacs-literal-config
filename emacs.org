@@ -3340,7 +3340,7 @@ Bookmarks can be made persistent with =(setq-default
 bm-buffer-persistence t)=, but the whole setup is quite complicated.
 You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bookmark Plus]], instead.
 
-#+name: global-navigloation
+#+name: global-navigation
 #+BEGIN_SRC emacs-lisp
   (use-package bm
     :init
