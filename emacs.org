@@ -606,6 +606,7 @@ global-disable-mouse-mode to my universal toggle hydra: =C-x t m= .
 
     ;; save cursor position
     (use-package saveplace
+      :defer t
       :config
       (setq-default save-place t))
 
