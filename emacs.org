@@ -2891,7 +2891,6 @@ output from given input.
     Needed only occationally, so better run manually on the buffer to
     check: =flycheck-package-setup=.
 
-
 ** SQL
 
 Automatically uppercase SQL keywords in sql-mode.
@@ -3056,6 +3055,7 @@ Automatically uppercase SQL keywords in sql-mode.
    function/method definition and hit =C-c M-d=.
 
 ** C++
+
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -4174,10 +4174,10 @@ bbdb-merge-records=.
        (defun elfeed--read-tag (filter tag)
          "Template for filtering various feed categories.
 
-                         FILTER is the filter string to apply, and TAG is a short name of
-                         the displayed category.
+                              FILTER is the filter string to apply, and TAG is a short name of
+                              the displayed category.
 
-                         The cursor is moved to the beginning of the first feed line."
+                              The cursor is moved to the beginning of the first feed line."
          (setq elfeed-search-filter filter)
          (elfeed-search-update :force)
          (goto-char (point-min))
@@ -4284,7 +4284,7 @@ bbdb-merge-records=.
 
        (defun elfeed-search-quick-url-note ()
          "In search mode, capture the title and link for the selected
-          entry or entries in org aganda."
+               entry or entries in org aganda."
          (interactive)
          (let ((entries (elfeed-search-selected)))
            (cl-loop for entry in entries
@@ -4945,7 +4945,7 @@ Prefix arguments are very useful in this context:
    brackets =[]= that move the cursor to next or previous special
    position. While this binding is active, key sequence =C-q [= can be
    used to enter the characters. I have disabled the =M-j= that
-   opposes my intentions for that binding.
+   conflicts my other use for that binding.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -5820,7 +5820,7 @@ save. I helped rewrite the package!
     ;;;; If you cannot find the `emacs.org` file, see the source
     ;;;; repository at https://github.com/heikkil/emacs-literal-config
 
-    <<environment>>
+    <<environment>>                         ;
     <<tools>>
     <<look-and-feel>>
     <<key-bindings>>
@@ -6070,14 +6070,14 @@ save. I helped rewrite the package!
 
 *** URL copying
 
-    The package [[http://orgmode.org/worg/org-contrib/org-mac-link.html][org-mac-link]] grabs links from open applications and
-    pastes them to current org-buffer. Great for org capture notes
-    =C-c c n=. Type the note title, move the cursor to the body, and
-    press =C-x l l= "Emacs, launch link". I only use chrome, so I
-    ignore other apps and use directly the chrome link through command
-    =org-mac-chrome-insert-frontmost-url=.
+The package [[http://orgmode.org/worg/org-contrib/org-mac-link.html][org-mac-link]] grabs links from open applications and pastes
+them to current org-buffer. Great for org capture notes C-c c n=. Type
+the note title, move the cursor to the body, and press =C-x l l= "Emacs,
+launch link". I only use chrome, so I ignore other apps and use
+directly the chrome link through command
+org-mac-chrome-insert-frontmost-url=.
 
-    I've combined all those commands and bound them to =C-c v=.
+I've combined all those commands and bound them to =C-c v=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
