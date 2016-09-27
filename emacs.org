@@ -3375,17 +3375,25 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
    [[https://github.com/abo-abo/swiper][Swiper]] is a replacement for isearch that faster and easier to
    configure.
 
-   [[https://github.com/nonsequitur/smex][smex]] shows a list of most relevant and recent commands on =M-x=.
+   # [[https://github.com/nonsequitur/smex][smex]] shows a list of most relevant and recent commands on =M-x=.
 
    [[http://oremacs.com/2016/06/27/ivy-push-view/][Current window layout]] can now be saved with ivy once virtual
    buffers are enabled. Normal switch-buffer =C-x b= shows layouts with
    a ={}= tag prepended. Really easy!
+
+   Also, the ivy-enhanced switch-buffer command lists recently opened
+   files (recentf).
+
+   While the default emacs histroy list can be accessed by the arrow
+   up and down keys, ivy makes you use =M-p= and =M-n= for it.
 
    I have bound commands =ivy-push-view= and =ivy-pop-view= to =C-c b= and
    =C-c B=, respectively.
 
    Counsel also nicely [[http://pragmaticemacs.com/emacs/counsel-yank-pop-with-a-tweak/][boosts yanking from kill-ring history]] that is
    now set to =M-y=.
+
+   More in  [[http://oremacs.com/swiper/#api][Ivy User Manual]].
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
@@ -3406,11 +3414,11 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
               ("M-y" . ivy-next-line))
        :config
        (ivy-mode 1)
-       ;; Enable bookmarks and recentf
+       ;; Enable bookmarks and recentf in buffer list
        (setq ivy-use-virtual-buffers t)
 
        (setq ivy-re-builders-alist
-             ;; allow input not in order
+             ;; allow regex input not in order
              '((t   . ivy--regex-ignore-order)))
 
        (custom-set-faces
@@ -3428,12 +3436,7 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
        (defun my/swiper-recenter (&rest args)
          "recenter display after swiper"
          (recenter))
-       (advice-add 'swiper :after #'my/swiper-recenter)
-       ;; not sure if this needed
-       ;; (use-package ivy
-       ;; :defer t
-       ;; :ensure counsel)
-       )
+       (advice-add 'swiper :after #'my/swiper-recenter))
 
      ;; restore key bindings to isearch due to character folding in emacs 25.1
      (bind-key "C-`" 'isearch-forward)
@@ -3753,6 +3756,10 @@ too.
    package allows you to see the list using  =C-x C-r=. It comes handy
    when Emacs desktop save looses your file.
 
+   This is mostly superseded by ivy that includes past buffers
+   in the change buffer list. I might remove this binding in the
+   future.
+
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
      (use-package recentf
@@ -3765,56 +3772,6 @@ too.
          (setq recentf-max-saved-items 400
                recentf-max-menu-items 35)))
    #+END_SRC
-
-   I like ~ido~ for narrowing down files, commands, buffers
-   etc. The ido mode is also used to give better interface to
-   =recentf=, =C-c r=.
-
-   [[https://github.com/lewang/flx][flx-ido]] gives sparse matching to finding a file or buffer. It puts
-   =.*= (match any and any length) between every letter you type. Try
-   giving the first letter of all words in the filename to pull that
-   file to the top of the list of suggestions.
-
-   [[https://github.com/emacsmirror/ido-vertical-mode][ido-vertical-mode]] replaces deprecated setting I had before. These
-   two mods are also mentioned in the [[http://irreal.org/blog/?p=2305][Irreal]] blog.
-
-   #+name: global-navigation
-   #+BEGIN_SRC emacs-lisp
-     (use-package ido
-       :disabled t
-       :init
-       (setq ido-everywhere t)
-       ;; disable ido faces to see flx highlights.
-       (setq ido-use-faces nil)
-       :config
-       ;; make ido display choices vertically
-       (ido-vertical-mode 1)
-       (ido-mode 1)
-       (use-package flx-ido
-         ;; display any item that contains the chars you typed
-         :init (setq ido-enable-flex-matching t)
-         (flx-ido-mode 1)))
-
-   #+END_SRC
-
-   When I open a file again, I like emacs to show me the place I
-   was last time.
-
-   #+name: global-navigation
-   #+BEGIN_SRC emacs-lisp
-     (use-package saveplace
-       :defer t
-       :init (setq-default save-place t))
-   #+END_SRC
-
-   # Use [[https://github.com/vspinu/imenu-anywhere][imenu-anywhere]] to jump any function definition in an open file
-   # with the same language mode as the current one with =C-.=.
-   #
-   # #+name: global-navigation
-   # #+BEGIN_SRC emacs-lisp
-   #   (use-package imenu-anywhere
-   #     :bind ("C-." . imenu-anywhere))
-   # #+END_SRC
 
 ** Geographical location
 
