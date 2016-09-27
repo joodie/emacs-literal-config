@@ -186,7 +186,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
      (bind-key "C-x 9" 'hydra-unicode/body)
      (defhydra hydra-unicode (:hint nil)
        "
-      Unicode  _e_ €  _s_ 0 w SPACE
+      Unicode  _e_ €  _s_ 0 w SPACE   _n_amed select
                _f_ ♀  _o_ °   _m_ µ
                _r_ ♂  _a_ →
              "
@@ -196,7 +196,8 @@ package. Use it instead of =package-install=: =M-x try some-package=.
        ("s" (my/insert-unicode "ZERO WIDTH SPACE"))
        ("o" (my/insert-unicode "DEGREE SIGN"))
        ("a" (my/insert-unicode "RIGHTWARDS ARROW"))
-       ("m" (my/insert-unicode "MICRO SIGN")))
+       ("m" (my/insert-unicode "MICRO SIGN"))
+       ("n" counsel-unicode-char))
    #+END_SRC
 
    Note: For most plain text writing I use [[org mode]] that has a very
