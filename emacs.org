@@ -2788,6 +2788,7 @@ The pod-mode is outdated and needs to be manually installed to the
      (defun my/general-lisp-hooks ()
        (my/turn-on 'paredit
                    ;;'rainbow-delimiters
+                   'electric-pair-mode
                    'show-paren-mode
                    'aggressive-indent-mode
                    'eldoc
