@@ -2498,12 +2498,22 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
      ;; wget http://www.sterratt.me.uk/sites/sterratt.me.uk/files/nrnhoc.el
      ;; wget http://www.sterratt.me.uk/sites/sterratt.me.uk/files/nmodl.el
 
-     (autoload 'nrnhoc-mode "nrnhoc" "Enter NRNHOC mode." t)
-     (setq auto-mode-alist (cons '("\\.hoc\\'" . nrnhoc-mode) auto-mode-alist))
+     (use-package nrnhoc
+        :ensure nil
+        :mode ("\\.hoc\\'" . nrnhoc-mode)
+        :interpreter ("nrnhoc" . nrnhoc-mode))
+
+     ;; (autoload 'nrnhoc-mode "nrnhoc" "Enter NRNHOC mode." t) ;
+     ;; (setq auto-mode-alist (cons '("\\.hoc\\'" . nrnhoc-mode) auto-mode-alist))
      ;; (add-hook 'nrnhoc-mode-hook 'turn-on-font-lock)
 
-     (autoload 'nmodl-mode "nmodl" "Enter NMODL mode." t)
-     (setq auto-mode-alist (cons '("\\.mod\\'" . nmodl-mode) auto-mode-alist))
+      (use-package nrnhoc
+        :ensure nil
+        :mode ("\\.hoc\\'" . nrnhoc-mode)
+        :interpreter ("nrnhoc" . nrnhoc-mode))
+
+     ;; (autoload 'nmodl-mode "nmodl" "Enter NMODL mode." t)
+     ;; (setq auto-mode-alist (cons '("\\.mod\\'" . nmodl-mode) auto-mode-alist))
    #+END_SRC
 
 ** MarkDown
