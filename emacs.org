@@ -2560,49 +2560,47 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
-(use-package ledger-mode
-     :config
-    (autoload 'ledger-mode "ledger-mode.el"
-      "Major mode for editing Ledger files" t)
-    (setq auto-mode-alist
-          (cons '("\\.led" . ledger-mode) auto-mode-alist))
+    (use-package ledger-mode
+         :mode "\\.led\\'"
+         :interpreter "ledger"
+         :config
 
-    (defun my/ledger-mode-hooks ()
-      "Ledger mode settings"
-      ;; date format
-      (setq ledger-use-iso-dates t)
-      ;; font changes
-      ;;(setq ledger-font-comment-face ((t (:foreground "dark gray"))))
-      (set-face-attribute 'ledger-font-comment-face nil :foreground "gray40")
-      (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "cornsilk")
-      ;; reports
-      (setq ledger-reports
-            (quote (("test" "ledger ")
-                    ("bal" "ledger -f %(ledger-file) bal")
-                    ("reg" "ledger -f %(ledger-file) reg")
-                    ("payee" "ledger -f %(ledger-file) reg @%(payee)")
-                    ("account" "ledger -f %(ledger-file) reg %(account)")))))
+         (defun my/ledger-mode-hooks ()
+          "Ledger mode settings"
+          ;; date format
+          (setq ledger-use-iso-dates t)
+          ;; font changes
+          (set-face-attribute 'ledger-font-comment-face nil :foreground "gray40")
+          (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "cornsilk")
+          ;; reports
+          (setq ledger-reports
+                (quote (("test" "ledger ")
+                        ("bal" "ledger -f %(ledger-file) bal")
+                        ("reg" "ledger -f %(ledger-file) reg")
+                        ("payee" "ledger -f %(ledger-file) reg @%(payee)")
+                        ("account" "ledger -f %(ledger-file) reg %(account)")))))
 
-    (add-hook 'ledger-mode-hook
-              'my/ledger-mode-hooks)
+        (add-hook 'ledger-mode-hook
+                  'my/ledger-mode-hooks)
 
-    ;; flycheck-ledger does syntax checking
-    ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
-)
+        ;; flycheck-ledger does syntax checking
+        ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
+    )
   #+END_SRC
 
 ** Ssh config
 
-   Ssh-config-mode highlights valid keys in ssh configuration files.
+[[https://github.com/jhgorrell/ssh-config-mode-el][ssh-config-mode-el]] highlights valid keys in ssh configuration files.
 
-  #+name: text-files
+#+name: text-files
 #+BEGIN_SRC emacs-lisp
-  (autoload 'ssh-config-mode "ssh-config-mode" t)
-  (add-to-list 'auto-mode-alist '(".ssh/config\\'"       . ssh-config-mode))
-  (add-to-list 'auto-mode-alist '("sshd?_config\\'"      . ssh-config-mode))
-  (add-to-list 'auto-mode-alist '("known_hosts\\'"       . ssh-known-hosts-mode))
-  (add-to-list 'auto-mode-alist '("authorized_keys2?\\'" . ssh-authorized-keys-mode))
-  (add-hook 'ssh-config-mode-hook 'turn-on-font-lock)
+    (use-package ssh-config-mode
+      :mode ((".ssh/config\\'"       . ssh-config-mode)
+             ("sshd?_config\\'"      . ssh-config-mode)
+             ("known_hosts\\'"       . ssh-known-hosts-mode)
+             ("authorized_keys2?\\'" . ssh-authorized-keys-mode))
+      :config
+      (add-hook 'ssh-config-mode-hook 'turn-on-font-lock))
 #+END_SRC
 
 * Programming
