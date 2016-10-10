@@ -3342,6 +3342,7 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
               ("s-D" . crux-duplicate-and-comment-current-line-or-region)
               ("s-r" . crux-rename-file-and-buffer)
               ("s-R" . rename-buffer)
+              ("s-b" . crux-open-with)
               ("s-O" . crux-smart-open-line-above)
               ("s-o" . crux-smart-open-line)))
    #+END_SRC
