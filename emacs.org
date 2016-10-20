@@ -589,6 +589,7 @@
 
     (setq ido-enable-flex-matching t)
     (ido-mode +1)
+    (ido-ubiquitous-mode +1)
     (require 'ido-yes-or-no)
     (ido-yes-or-no-mode +1)
 
@@ -606,6 +607,8 @@
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
     (projectile-global-mode +1)
+    (require 'projectile-direnv)
+    (add-hook 'projectile-mode-hook 'projectile-direnv-export-variables)
    #+END_SRC
 
 * Backup configuration

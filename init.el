@@ -6,7 +6,7 @@
 (package-initialize)
 
 (add-to-list 'package-archives
-	     '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+	     '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
 (setq my/package-list
       '(adoc-mode
@@ -96,3 +96,4 @@
 
 (org-babel-load-file "~/.emacs.d/emacs.org")
 
+(put 'narrow-to-region 'disabled nil)
