@@ -61,6 +61,8 @@
 *** http://sssscomic.com/ssss-feed.xml
 *** http://www.lostnightmare.com/rss.php
 *** http://bird-boy.com/feed
+*** http://lizclimo.tumblr.com/rss
+*** http://www.banquetcomic.com/feed/
 ** Friends                                                                 :f:
 *** http://heikkil.github.io/rss.xml
 *** http://saffronwaldenlessons.blogspot.fi/atom.xml
