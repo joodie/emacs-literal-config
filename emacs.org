@@ -2945,6 +2945,28 @@ output from given input.
      (use-package suggest)
    #+END_SRC
 
+*** ielm
+
+
+ielm is a REPL for elips that is built in emacs. See [[https://www.masteringemacs.org/article/evaluating-elisp-emacs][Evaluating Elisp
+in Emacs - Mastering Emacs]] for more.
+
+#+NAME: programming-setup
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-complete
+    :config
+    (defun ielm-auto-complete ()
+      "Enables `auto-complete' support in \\[ielm]."
+      (setq ac-sources '(ac-source-functions
+                         ac-source-variables
+                         ac-source-features
+                         ac-source-symbols
+                         ac-source-words-in-same-mode-buffers))
+      (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
+      (auto-complete-mode 1))
+    (add-hook 'ielm-mode-hook 'ielm-auto-complete))
+#+END_SRC
+
 *** Flycheck-package
 
     [[https://github.com/purcell/flycheck-package][flycheck-package]]  is a Flycheck checker for elisp package metadata.
