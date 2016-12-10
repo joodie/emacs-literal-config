@@ -1743,25 +1743,30 @@ words."
 
 ** Commenting
 
-The default emacs line commenting leaves a lot of things out. A
-replacement package [[https://github.com/remyferre/comment-dwim-2][comment-dwim-2]] allows uncommenting and cycling
-of different behaviors. The default comment key is =C-;=.
+The default emacs line commenting used to a lot of things out.
+This was fixed in emacs version 25, but the new function was bound to
+=C-x C-;=. I remap it to the usual =C-;= but leave the replacement
+function for the older emacsen.
+
+A replacement package [[https://github.com/remyferre/comment-dwim-2][comment-dwim-2]] allows uncommenting and cycling
+of different behaviors. =C-u M-;= in an empty line adds comment markers
+to the line. In a line with comments, =C-u M-;= removes the whole
+comment line.
 
 Alternative is [[https://github.com/paldepind/smart-comment][smart-comment: Smarter commenting for Emacs]].
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
-  (use-package comment-dwim-2
-    :bind "M-;")
+  (if (>= emacs-major-version 25)
+      (bind-key "M-;" #'comment-line)
+    (use-package comment-dwim-2
+      :bind "M-;"))
 #+END_SRC
-
-=C-u M-;= in an empty line adds comment markers to the line. In a line
-with comments, =C-u M-;= removes the whole comment line.
 
 Remember: =C-x ;= sets the comment column (comment-set-column)
 
-This draws a comment box that is the width of the fill column
-around the selected region.
+This following function draws a comment box that is the width of the
+fill column around the selected region.
 
 #+BEGIN_SRC emacs-lisp
   ;;http://irreal.org/blog/?p=374
