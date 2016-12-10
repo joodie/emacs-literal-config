@@ -3420,10 +3420,16 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
    Counsel also nicely [[http://pragmaticemacs.com/emacs/counsel-yank-pop-with-a-tweak/][boosts yanking from kill-ring history]] that is
    now set to =M-y=.
 
-   More in  [[http://oremacs.com/swiper/#api][Ivy User Manual]].
+   More in [[http://oremacs.com/swiper/#api][Ivy User Manual]].
+
+   Also, save system clipboard before overwriting it from emacs
+   ([[http://pragmaticemacs.com/emacs/prevent-emacs-wiping-the-system-clipboard/][Prevent Emacs wiping the system clipboard | Pragmatic Emacs]]).
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
+
+     (setq save-interprogram-paste-before-kill t)
+
      (use-package ivy
        :diminish (ivy-mode . "")
        :init
@@ -3437,6 +3443,7 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
               ("C-c b"   . ivy-push-view)
               ("C-c B"   . ivy-pop-view)
               ("M-y" . counsel-yank-pop)
+              ("C-M-s" . avy-goto-char-timer)
               :map ivy-minibuffer-map
               ("M-y" . ivy-next-line))
        :config
