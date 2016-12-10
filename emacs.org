@@ -5270,15 +5270,17 @@ Prefix arguments are very useful in this context:
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+     ;; Disabled. 2016-11-27 package update to messed this up.
      (defun org-auto-tag ()
        (interactive)
        (let ((alltags (append org-tag-persistent-alist org-tag-alist))
              (headline-words  (split-string (upcase (org-get-heading t t)))))
          (mapcar (lambda (word)
                    (if (assoc word alltags)
-                       (org-toggle-tag word 'on)))
+a~S                       (org-toggle-tag word 'saon)))
                  headline-words)))
-     (add-hook 'org-capture-before-finalize-hook 'org-auto-tag)
+     ;; (add-hook 'org-capture-before-finalize-hook 'org-auto-tag)
+     ;; (remove-hook 'org-capture-before-finalize-hook 'org-auto-tag)
    #+END_SRC
 
    Todos can have additional keywords with dates: =DEADLINE= =C-c C-d=
