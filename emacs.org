@@ -6459,15 +6459,3 @@ I've combined all those commands and bound them to =C-c v=.
    #+BEGIN_SRC emacs-lisp
      (bind-key "C-x C-3" 'server-edit)
    #+END_SRC
-
-   Additionally, for those quick and dirty editing jobs on terminal, I
-   have installed *zile*, [[http://www.gnu.org/software/zile/][a lightweight emacs clone]] with homebrew, and
-   aliased it to *e*.
-
-   This content goes into =~/.zile= so that zile backups go in the
-   same place with emacs:
-
-   #+BEGIN_SRC emacs-lisp
-     (setq make-backup-files t)
-     (setq backup-directory "~/.emacs.d/backups")
-   #+END_SRC
