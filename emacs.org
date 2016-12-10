@@ -609,9 +609,33 @@ global-disable-mouse-mode to my universal toggle hydra: =C-x t m= .
       :config
       (setq-default save-place t))
 
+    (setq custom-file "/dev/null")
+
     ;; Save minibuffer history
     ;;(savehist-mode)﻿
   #+END_SRC
+
+** Encryption
+
+While emacs knows how to decrypt encrypted files on the fly, the
+supporting programmes need to be installed. This solves the recent
+problem I was having, [[http://colinxy.github.io/software/installation/2016/09/24/emacs25-easypg-issue.html][Emacs 25 EasyPG Issue]]:
+
+GnuPGP need to be upgraded to v.2.1 that is not backward compatible:
+
+#+BEGIN_SRC sh
+  brew unlink gnupg2 gpg-agent dirmngr
+  brew uninstall gnupg2 gpg-agent dirmngr
+  brew install gnupg21
+  killall gpg-agent
+  gpg-agent --daemon
+  ln -s /usr/local/bin/gpg2 /usr/local/bin/gpg
+#+END_SRC
+
+#+NAME: startup
+#+BEGIN_SRC emacs-lisp
+  (setf epa-pinentry-mode 'loopback)
+#+END_SRC
 
 ** Identify yourself
 
