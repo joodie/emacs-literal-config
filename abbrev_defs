@@ -188,6 +188,7 @@
     ("beacuse" "because" nil 0)
     ("behavious" "behaviors" nil 0)
     ("ccc" "°C" nil 11)
+    ("8oc" "°C" nil 0)
     ("centences" "sentences" nil 0)
     ("collaeque" "colleague" nil 0)
     ("colse" "close" nil 0)
