@@ -3164,6 +3164,16 @@ Automatically uppercase SQL keywords in sql-mode.
   :defer t)
 #+END_SRC
 
+** TOML
+
+[[https://github.com/dryman/toml-mode.el][toml-mode]] is a major mode for the [[https://github.com/toml-lang/toml][TOML]] configuration language.
+
+#+NAME: programming-setup
+#+BEGIN_SRC emacs-lisp
+(use-package toml-mode
+  :defer t)
+#+END_SRC
+
 ** Music
 
 
