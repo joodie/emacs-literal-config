@@ -476,4 +476,3 @@ use Data::Printer;
 (define-abbrev-table 'xkcd-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
-

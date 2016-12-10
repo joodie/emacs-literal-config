@@ -116,7 +116,6 @@
 (depends-on "racket-mode")
 (depends-on "rainbow-delimiters")
 (depends-on "regex-tool")
-(depends-on "reveal-in-finder")
 (depends-on "s")
 (depends-on "seq")
 (depends-on "shrink-whitespace")

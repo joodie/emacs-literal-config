@@ -483,7 +483,8 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    #+END_SRC
 
     The default keybindings are complex or do not work under OS X and
-    a laptop keyboard.
+    a laptop keyboard. Correction: =C-M-v= and  =C-M-V= do work for
+    scrolling the other window!
 
 ** Cursor
 
@@ -595,6 +596,8 @@ global-disable-mouse-mode to my universal toggle hydra: =C-x t m= .
   Start with the scratch buffer; no start-up screen. Restore previous
   window and file setup including window placement. Restore cursor
   position and minibuffer history.
+
+  Direct custom modifications to be ignored in emacs v. 25.1 ([[https://www.reddit.com/r/emacs/comments/53zpv9/how_do_i_get_emacs_to_stop_adding_custom_fields/][How do I get emacs to stop adding "Custom" fields to the end of my .emacs file? : emacs]]).
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
@@ -2902,19 +2905,19 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 The pod-mode is outdated and needs to be manually installed to the
 [[Custom lisp package directory]] from [[http://cpansearch.perl.org/src/SCHWIGON/pod-mode-1.03/pod-mode.el][its CPAN repository]].
 
-    #+NAME: programming-setup
-    #+BEGIN_SRC emacs-lisp
-      (autoload 'pod-mode "pod-mode"
-        "Mode for editing POD files" t)
-      (add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
-      (add-hook 'pod-mode-hook 'font-lock-mode)
-      (add-hook 'pod-mode-hook
-                '(lambda ( )
-                   (progn (font-lock-mode)   ; =syntax highlighting
-                          (auto-fill-mode 1) ; =wordwrap
-                          (flyspell-mode 1)  ; =spellchecking
-                          )))
-    #+END_SRC
+#+NAME: programming-setup
+#+BEGIN_SRC emacs-lisp
+  (use-package pod-mode
+    :ensure nil
+    :mode ("\\.pod\\'" . pod-mode)
+    :config
+    (add-hook 'pod-mode-hook
+              '(lambda ( )
+                 (progn (font-lock-mode)   ; =syntax highlighting
+                        (auto-fill-mode 1) ; =wordwrap
+                        (flyspell-mode 1)  ; =spellchecking
+                        ))))
+#+END_SRC
 
 ** Lisps
 
@@ -5065,20 +5068,24 @@ Command =owp/do-publication= seems to do all I need.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (use-package org
+       :ensure org-plus-contrib
+       :mode ("\\.txt$" . org-mode)
        :config
-       (add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
        (setq org-pretty-entities t)
-       (add-hook 'org-mode-hook (lambda ()
-                                  (visual-line-mode)
-                                  (org-indent-mode)
-                                  (turn-on-org-cdlatex))))
+       (add-hook 'org-mode-hook
+                 (lambda ()
+                   (visual-line-mode)
+                   ;; (turn-on-org-cdlatex)
+                   (org-indent-mode))))
+
      (use-package org-autolist
        :config
        (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
 
+
      (use-package wc-mode
        :config
-       ;; (add-hook 'org-mode-hook 'wc-mode)
+       ;; (add-hook 'org-mode-hook 'wc-mode) ;; too slow to have on by default
        )
    #+END_SRC
 
@@ -5086,7 +5093,7 @@ Command =owp/do-publication= seems to do all I need.
    org buffer to move around and copy text. Allows moving or
    returning to current location. Awesome!
 
-   The [[https://github.com/bnbeckwith/wc-mode][wc-mode]] is add commands and mode line display of words,
+   The [[https://github.com/bnbeckwith/wc-mode][wc-mode]] is add commands and mode line display of count of words,
    characters or lines. Also, it can set goals.
 
    #+BEGIN_SRC emacs-lisp
@@ -5513,7 +5520,7 @@ a~S                       (org-toggle-tag word 'saon)))
 
    - MEETING :: a scheduled meeting and cannot easily be rescheduled.
 
-   - DONE    :: done.
+   - DONE :: done.
 
    - CANCELED :: can be ignored. May include a note on why it's been
                  cancelled.
