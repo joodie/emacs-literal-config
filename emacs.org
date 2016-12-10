@@ -1531,7 +1531,8 @@ recommended to be bound to =M-i= and =M-o=.
        :config
        (yas-reload-all)
        (add-hook 'prog-mode-hook #'yas-minor-mode)
-       (add-hook 'org-mode-hook #'yas-minor-mode))
+       (add-hook 'org-mode-hook #'yas-minor-mode)
+       (add-hook 'emacs-lisp-mode-hook #'yas-minor-mode))
    #+END_SRC
 
 ** Fixing DOuble capitals
