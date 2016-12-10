@@ -3739,7 +3739,9 @@ too.
 
    #+name: execute-last
    #+BEGIN_SRC emacs-lisp
-     (wn-mode)
+     (use-package wn-mode
+       :config
+       (wn-mode))
    #+END_SRC
 
 ** Resize windows
@@ -3869,6 +3871,20 @@ too.
     (setq calendar-location-name "Atorp")
   #+END_SRC
 
+** Filename to clipboard
+
+#+name: global-navigation
+#+BEGIN_SRC emacs-lisp
+(defun copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+#+END_SRC
 * Applications
 
 Functionality that otherwise require external applications and are not
