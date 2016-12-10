@@ -513,7 +513,6 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (use-package beacon
-       :defer t
        :config
        (setq beacon-color "firebrick")
        (setq beacon-size 20)         ; smaller than default 40
