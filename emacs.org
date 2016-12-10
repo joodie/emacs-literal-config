@@ -1901,7 +1901,8 @@ be installed (e.g. =brew install hub= in OS X).
       :config
       (setq magit-push-always-verify nil)
       (setq magit-diff-options '("-b")) ; ignore whitespace
-      (use-package magithub))
+      (use-package magithub
+        :disabled t))
 
     (use-package git-commit :defer t)
     (use-package git-gutter :defer t)
