@@ -875,14 +875,16 @@ be shown with =M-x describe-personal-keybindings=.
            _b_: gscholar-bib _k_eybindings       _p_aradox             G_\+_ emacs
            _c_: calfw        _n_ato-region       _q_: paradox upgrade  _?_: emacsExchange
            _e_diff-buffers   de_N_ato            _t_imemachine git     _=_: quick-calc
-           _h_owdoi          _m_y/move-file-here _z_: timezones        _0_: repeat elisp
-           tw_i_tter         _r_e-builder        _x_: eshell
+           _f_ilename2clipb  _m_y/move-file-here _u_: us2fi chars      _0_: repeat elisp
+           _h_owdoi          _r_e-builder        _z_: timezones
+           tw_i_tter         ^ ^                 _x_: eshell
           "
 
       ("2" 2048-game)
       ("c" my/calendar)
       ("e" ediff-buffers)
       ("b" gscholar-bibtex)
+      ("f" copy-file-name-to-clipboard)
       ("g" langtool-correct-buffer)
       ("h" howdoi-query)
       ("i" twit)
@@ -1561,6 +1563,63 @@ recommended to be bound to =M-i= and =M-o=.
 
     (add-hook 'text-mode-hook #'dubcaps-mode)
 
+  #+END_SRC
+
+** Fixing text written with wrong keyboard layout
+
+My default keyboard layout is US, but I also write in Finnish language
+that differs from US for some special characters. Quite often, I start
+writing in Finnish with US keyboard layout. These functions allow me
+to fix the wrong characters in one go in the paragraph I am writing.
+Bound to the launch hydra: =M-x l u=.
+
+  #+name: text-files
+  #+BEGIN_SRC emacs-lisp
+(defun translate-characters (from-string to-string begin end)
+  "Translate characters in the current buffer.
+
+FROM-STRING and TO-STRING are equal length strings that contain
+translatable characters in order like in the tr command line tool.
+
+Works on a given region between BEGIN and END."
+
+  (let ((from-regexp (concat "[" (regexp-quote from-string) "]"))
+        (tr-alist (pairlis (split-string from-string "" t)
+                           (split-string to-string "" t))))
+    (save-excursion
+      (goto-char begin)
+      (while (and
+              (re-search-forward from-regexp nil t)
+              (<= (point) end))
+        (goto-char (match-beginning 0))
+        (if (match-string 0)
+            (replace-match (cdr (assoc (match-string 0) tr-alist)) t))
+        (goto-char (match-end 0))))))
+
+(defun my/us2fi (&optional begin end)
+  "Convert characters written with US keyboard layout to matching Finnish ones.
+
+Converts only characters that translate to Scandinavian letters
+åäöÅÄÖ. All other characters are ignored.
+
+Works on the current paragraph or text selection (between BEGIN
+and END.
+
+Calls `translate-characters' to do the work.
+
+In Finnish text, the character ä occurs roughly as every 20th
+character, ö only every 200 and å is only used in Swedish derived
+words."
+
+  (interactive
+   (if (use-region-p)
+       (list (region-beginning) (region-end))
+     (let ((bds (bounds-of-thing-at-point 'paragraph)))
+       (list (car bds) (cdr bds)))))
+
+  (let* ((us-string ";'[:\"{")
+         (fi-string "öäåÖÄÅ"))
+    (translate-characters us-string fi-string begin end)))
   #+END_SRC
 
 ** Transposing characters
