@@ -726,7 +726,7 @@ keys exceed available space, =C-h= scrolls the list.
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :defer t
-    :config
+    :init
     (which-key-mode)
     (setq which-key-popup-type 'frame)
     (setq which-key-frame-max-width 160)  ; number of columns
