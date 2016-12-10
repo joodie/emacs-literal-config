@@ -4374,6 +4374,8 @@ bbdb-merge-records=.
     |   5 | elfeed-read-mobile       | mobile device news                               |
     |   6 | elfeed-read-comics       | latest comics                                    |
     |   7 | elfeed-read-emacs        | emacs news                                       |
+    |   8 | elfeed-read-culture      | literature, design, arts                         |
+    |   9 | elfeed-read-friends      | friend's feeds                                   |
     |   R | elfeed--mark-all-as-read | one key to mark all visible articles             |
 
     The read functions report their action in the echo field.
@@ -4407,12 +4409,14 @@ bbdb-merge-records=.
        (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
        (setq-default elfeed-search-filter my/default-elfeed-search-filter)
        (setq elfeed-sort-order 'ascending)
-       (setq elfeed-search-title-max-width 100) ; newspaper articles have long titles
+       (setq elfeed-search-title-max-width 80) ; newspaper articles have long titles
        (setq elfeed-use-curl t) ; new, using curl; now default, this is not needed
        :config
        (use-package elfeed-org
-         :defer t)
-       (elfeed-org)
+         :defer t
+         :after elfeed
+         :config
+         (elfeed-org))
 
        (use-package elfeed-goodies
          :defer t
