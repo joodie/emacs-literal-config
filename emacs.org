@@ -1029,6 +1029,19 @@ active in the current buffer. I do not use greek letters in keys, so I've remove
    (setq sentence-end-double-space nil)
    #+END_SRC
 
+** Page breaks
+
+Display [[https://github.com/purcell/page-break-lines][page-break-lines]] page breaks (normally visible as =^L=, create
+with =C-q C-l=) as horisontal lines.
+
+   #+name: formatting
+   #+BEGIN_SRC emacs-lisp
+     (use-package page-break-lines
+       :defer t
+       :config
+       (global-page-break-lines-mode))
+   #+END_SRC
+
 ** Text (non-code) formatting
 
    For writing text, I prefer Emacs to do line wrapping for me. Also,

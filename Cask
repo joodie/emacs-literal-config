@@ -97,6 +97,7 @@
 (depends-on "org-webpage")
 (depends-on "osx-dictionary")
 (depends-on "package-build")
+(depends-on "page-break-lines")
 (depends-on "pallet")
 (depends-on "pandoc-mode")
 (depends-on "paper-theme")
