@@ -6278,7 +6278,10 @@ save. I helped rewrite the package!
     The [[https://github.com/asok/peep-dired][peep-dired]] is bound to =P= to open a(n image) file while in
     dired.
 
-    [[http://irreal.org/blog/?p=5526][Calling eww from Dired]] is now bound to =e=.
+    # [[http://irreal.org/blog/?p=5526][Calling eww from Dired]] is now bound to =e=.
+
+    The dired-ranger makes it easy to copy (W) files and then copy (Y)
+    or move (X) them to a new directory.
 
     #+BEGIN_SRC sh
       brew install coreutils
@@ -6288,9 +6291,11 @@ save. I helped rewrite the package!
    #+BEGIN_SRC emacs-lisp
      (when (eq system-type 'darwin)
        (setq insert-directory-program (executable-find "gls")))
+
      (setq dired-listing-switches "-alh")
+
      (use-package dired-narrow
-       :ensure t
+       :defer t
        :bind (:map dired-mode-map ("/" . dired-narrow)))
 
      ;;preview files in dired
