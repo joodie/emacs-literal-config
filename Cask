@@ -35,6 +35,7 @@
 (depends-on "digit-groups")
 (depends-on "diminish")
 (depends-on "dired-narrow")
+(depends-on "dired-ranger")
 (depends-on "disable-mouse")
 (depends-on "edit-server")
 (depends-on "edit-server-htmlize")

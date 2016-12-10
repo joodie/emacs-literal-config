@@ -1122,13 +1122,40 @@ with =C-q C-l=) as horisontal lines.
 
 * Editing
 
+** Files
+*** Moving files
+
+[[http://zck.me/emacs-move-file][Move files]] is not something emacs does out of the box. You can rename
+a file with =#'rename-file= but the old file will still be there. This
+function makes it happen:
+
+#+name: text-files
+#+BEGIN_SRC emacs-lisp
+  (defun move-file (new-location)
+    "Write this file to NEW-LOCATION, and delete the old one."
+    (interactive (list (if buffer-file-name
+                           (read-file-name "Move file to: ")
+                         (read-file-name "Move file to: "
+                                         default-directory
+                                         (expand-file-name (file-name-nondirectory (buffer-name))
+                                                           default-directory)))))
+    (when (file-exists-p new-location)
+      (delete-file new-location))
+    (let ((old-location (buffer-file-name)))
+      (write-file new-location t)
+      (when (and old-location
+                 (file-exists-p new-location)
+                 (not (string-equal old-location new-location)))
+        (delete-file old-location))))
+#+END_SRC
+
 ** Overwrite selected text
 
    ... like in any other editor.
 
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
-      (delete-selection-mode t)
+      (delete-selection-mode nil)
     #+END_SRC
 
 Incidently, this does work in org-mode. Beats me why not.
@@ -6097,8 +6124,14 @@ save. I helped rewrite the package!
        :config
        (setq peep-dired-cleanup-on-disable t))
 
-     (define-key dired-mode-map "e"
-       (lambda () (interactive) (eww-open-file (dired-get-file-for-visit))))
+     (use-package dired-ranger
+       :bind (:map dired-mode-map
+                   ("W" . dired-ranger-copy)
+                   ("X" . dired-ranger-move)
+                   ("Y" . dired-ranger-paste)))
+
+     ;;     (define-key dired-mode-map "e"
+     ;;       (lambda () (interactive) (eww-open-file (dired-get-file-for-visit))))
    #+END_SRC
 
 *** Printing
