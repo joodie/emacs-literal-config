@@ -1151,7 +1151,7 @@ with =C-q C-l=) as horisontal lines.
 
 * Editing
 
-** Files
+** File management
 *** Moving files
 
 [[http://zck.me/emacs-move-file][Move files]] is not something emacs does out of the box. You can rename
@@ -1178,30 +1178,7 @@ function makes it happen:
         (delete-file old-location))))
 #+END_SRC
 
-** Overwrite selected text
-
-   ... like in any other editor.
-
-    #+name: text-files
-    #+BEGIN_SRC emacs-lisp
-      (delete-selection-mode nil)
-    #+END_SRC
-
-Incidently, this does work in org-mode. Beats me why not.
-
-** Saving automatically
-
-   The [[https://github.com/bbatsov/super-save][super-save]] package saves files when the buffer looses focus.
-   You never have to save manually.
-
-    #+name: text-files
-    #+BEGIN_SRC emacs-lisp
-      (use-package super-save
-        :init (setq super-save-auto-save-when-idle t)  ; def 5 sec
-        :config (super-save-initialize))
-    #+END_SRC
-
-** Moving a downloaded file
+*** Moving a downloaded file
 
 [[http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/][Quickly move a file to the current directory]]
 , an excellent function from Pragmatic Emacs. I added commands to copy
@@ -1276,6 +1253,81 @@ http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
     (x-set-selection 'PRIMARY start-file)
     (message "moved %s to %s" start-file-full end-file)))
 #+END_SRC
+*** Editing file lists with wdired
+
+   [[http://www.masteringemacs.org/articles/2013/10/10/wdired-editable-dired-buffers/][Editable dired]] is part of standard emacs. Once you are in dired
+   =C-x d=, directory editing, mode, you can press =C-x C-q= to edit
+   file names like any text. The familiar =C-c C-c= commits the
+   changes.
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    ;;http://mbork.pl/2015-04-25_Some_Dired_goodies
+    ;;
+    ;; file type association to a program
+    (setq dired-guess-shell-alist-user
+          '(("\\.pdf\\'" "skim")
+            ("\\.tex\\'" "pdflatex")
+            ("\\.ods\\'\\|\\.xlsx?\\'\\|\\.docx?\\'\\|\\.csv\\'" "libreoffice")))
+    ;; open a file replacing the current dired buffer
+    (put 'dired-find-alternate-file 'disabled nil)
+  #+END_SRC
+*** Saving automatically
+
+   The [[https://github.com/bbatsov/super-save][super-save]] package saves files when the buffer looses focus.
+   You never have to save manually.
+
+    #+name: text-files
+    #+BEGIN_SRC emacs-lisp
+      (use-package super-save
+        :init (setq super-save-auto-save-when-idle t)  ; def 5 sec
+        :config (super-save-initialize))
+    #+END_SRC
+
+*** Image mode
+
+   Recent emacsen can show images in directly in buffers. The
+   following code adds the [[https://github.com/mhayashi1120/Emacs-imagex][image+]] minor mode to any image buffer and
+   scales the picture to the current frame.
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (use-package image
+      :ensure nil
+      :defer t
+      :config
+      (use-package image+
+        :defer t
+        :config (imagex-auto-adjust-mode 1)))
+   #+END_SRC
+*** Editing as root
+
+  If you open a file that you do not have permissions to edit, you can
+  call this function =edit-current-file-as-root= to invoke sudo rights
+  within emacs. Kudos to [[http://wenshanren.org/?p=298][Wenshan]].
+
+  #+name: global-navigation
+  #+BEGIN_SRC emacs-lisp
+    (defun edit-current-file-as-root ()
+      "Edit as root the file associated with the current buffer"
+       (interactive)
+       (if (buffer-file-name)
+           (progn
+             (setq file (concat "/sudo:root@localhost:" (buffer-file-name)))
+             (find-file file))
+         (message "Buffer is not associated to a file.")))
+   #+END_SRC
+
+** Overwrite selected text
+
+   ... like in any other editor.
+
+    #+name: text-files
+    #+BEGIN_SRC emacs-lisp
+      (delete-selection-mode nil)
+    #+END_SRC
+
+Incidently, this does work in org-mode. Beats me why not.
 
 ** White-space
 
@@ -1306,7 +1358,7 @@ http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
 ** Selecting text
 
    Usually, you can selected ("mark") text by =S-<arrow>= keys, but in
-   my emacs that disabled everywhere.
+   my emacs that is disabled everywhere.
 
   The main reason for that is the org mode. Org mode uses =S-<arrow>=
   keys for special functions in lists and headers and disables them in
@@ -1365,7 +1417,6 @@ recommended to be bound to =M-i= and =M-o=.
     :bind ("M-i" . change-inner)
     :bind ("M-o" . change-outer))
 #+END_SRC
-
 ** Cut and copy
 
    Default cut and copy behaviour in emacs when nothing is selected is
@@ -1537,7 +1588,6 @@ recommended to be bound to =M-i= and =M-o=.
        (add-hook 'org-mode-hook #'yas-minor-mode)
        (add-hook 'emacs-lisp-mode-hook #'yas-minor-mode))
    #+END_SRC
-
 ** Fixing DOuble capitals
 
    Painless way to avoid double capitals in the beginning of words
@@ -1629,10 +1679,9 @@ words."
 
 ** Transposing characters
 
-   [[http://pragmaticemacs.com/emacs/transpose-characters/][Pragmatic
-   Emacs]] has an improvement on character transposing function. The
-   original function transposes characters on both sides of the
-   cursor. The new one acts on two previous characters.
+   [[http://pragmaticemacs.com/emacs/transpose-characters/][Pragmatic Emacs]] has an improvement on character transposing
+   function. The original function transposes characters on both sides
+   of the cursor. The new one acts on two previous characters.
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
@@ -1787,61 +1836,6 @@ fill column around the selected region.
       (goto-char e)
       (set-marker e nil)))
 #+END_SRC
-
-** Editing as root
-
-  If you open a file that you do not have permissions to edit, you can
-  call this function =edit-current-file-as-root= to invoke sudo rights
-  within emacs. Kudos to [[http://wenshanren.org/?p=298][Wenshan]].
-
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
-    (defun edit-current-file-as-root ()
-      "Edit as root the file associated with the current buffer"
-       (interactive)
-       (if (buffer-file-name)
-           (progn
-             (setq file (concat "/sudo:root@localhost:" (buffer-file-name)))
-             (find-file file))
-         (message "Buffer is not associated to a file.")))
-   #+END_SRC
-
-** Editing file lists with wdired
-
-   [[http://www.masteringemacs.org/articles/2013/10/10/wdired-editable-dired-buffers/][Editable dired]] is part of standard emacs. Once you are in dired
-   =C-x d=, directory editing, mode, you can press =C-x C-q= to edit
-   file names like any text. The familiar =C-c C-c= commits the
-   changes.
-
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
-    ;;http://mbork.pl/2015-04-25_Some_Dired_goodies
-    ;;
-    ;; file type association to a program
-    (setq dired-guess-shell-alist-user
-          '(("\\.pdf\\'" "skim")
-            ("\\.tex\\'" "pdflatex")
-            ("\\.ods\\'\\|\\.xlsx?\\'\\|\\.docx?\\'\\|\\.csv\\'" "libreoffice")))
-    ;; open a file replacing the current dired buffer
-    (put 'dired-find-alternate-file 'disabled nil)
-  #+END_SRC
-
-** Image mode
-
-   Recent emacsen can show images in directly in buffers. The
-   following code adds the [[https://github.com/mhayashi1120/Emacs-imagex][image+]] minor mode to any image buffer and
-   scales the picture to the current frame.
-
-  #+name: global-navigation
-  #+BEGIN_SRC emacs-lisp
-    (use-package image
-      :ensure nil
-      :defer t
-      :config
-      (use-package image+
-        :defer t
-        :config (imagex-auto-adjust-mode 1)))
-   #+END_SRC
 
 ** Macros
 
@@ -6103,6 +6097,9 @@ save. I helped rewrite the package!
     <<apps>>
     <<execute-last>>
   #+END_SRC
+
+  #+RESULTS:
+  : t
 
 ** Hooks and modes
 
