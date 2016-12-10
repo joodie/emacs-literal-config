@@ -898,6 +898,7 @@ be shown with =M-x describe-personal-keybindings=.
       ("p" paradox-list-packages)
       ("q" paradox-upgrade-packages)
       ("t" git-timemachine)
+      ("u" my/us2fi)
       ("w" browse-url-at-point)
       ("x" eshell)
       ("z" display-time-world)
@@ -2521,6 +2522,7 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
      (use-package tex
+       :disabled nil
        :defer t
        :ensure auctex
        :config
@@ -2565,7 +2567,9 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
          (add-hook 'latex-mode-hook #'latex-extra-mode))
 
        ;; cdlatex input for math
-       (use-package cdlatex))
+       (use-package cdlatex
+          :defer t
+          :disabled nil))
    #+END_SRC
 
 ** XML
@@ -5793,8 +5797,6 @@ Prefix arguments are very useful in this context:
 
 
      ;; tufte-handout class for writing classy handouts and papers
-     (use-package ox-latex
-       :ensure nil)
      (add-to-list 'org-latex-classes
                   '("tufte-handout"
                     "\\documentclass{tufte-handout}
@@ -5978,24 +5980,24 @@ Prefix arguments are very useful in this context:
                            :foreground "blue"))
    #+END_SRC
 
-   The RefTex package that manages citations needs configuration. =C-c
-   (= search for citation in the bibliograhy file. =C-c )= does
-   something else...
-
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-     (defun org-mode-reftex-setup ()
-       (load-library "reftex")
-       (and (buffer-file-name) (file-exists-p (buffer-file-name))
-            (progn
-              ;enable auto-revert-mode to update reftex when bibtex file changes
-              (global-auto-revert-mode t)
-            (reftex-parse-all))
-       (bind-key "C-c )" 'reftex-citation org-mode-map)
-       (bind-key "C-c (" 'org-mode-reftex-search org-mode-map))
-       )
-     (add-hook 'org-mode-hook 'org-mode-reftex-setup)
-   #+END_SRC
+#   The RefTex package that manages citations needs configuration. =C-c
+#   (= search for citation in the bibliograhy file. =C-c )= does
+#   something else...
+#
+#   #+name: org-config
+#   #+BEGIN_SRC emacs-lisp
+#     (defun org-mode-reftex-setup ()
+#       (load-library "reftex")
+#       (and (buffer-file-name) (file-exists-p (buffer-file-name))
+#            (progn
+#              ;enable auto-revert-mode to update reftex when bibtex file changes
+#              (global-auto-revert-mode t)
+#            (reftex-parse-all))
+#       (bind-key "C-c )" 'reftex-citation org-mode-map)
+#       (bind-key "C-c (" 'org-mode-reftex-search org-mode-map))
+#       )
+#     (add-hook 'org-mode-hook 'org-mode-reftex-setup)
+#   #+END_SRC
 
    Bibliography is needed only in some documents. I have defined an
    abbreviation *obiblio* that adds these two lines to the
@@ -6037,6 +6039,7 @@ Prefix arguments are very useful in this context:
    #+BEGIN_SRC emacs-lisp
      (setq org-reveal-root "/Users/lehvasho/src/reveal.js")
      (use-package ox-reveal
+       :disabled t
        :ensure nil
        :if (file-exists-p org-reveal-root))
    #+END_SRC
