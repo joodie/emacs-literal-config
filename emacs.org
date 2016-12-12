@@ -3196,7 +3196,7 @@ Automatically uppercase SQL keywords in sql-mode.
        "Custom command to setup python-mode"
        (interactive)
        (let ((max-column 99))
-         (setq python-shell-interpreter "/Users/lehvasho/miniconda3/bin/python"
+         (setq python-shell-interpreter "/Users/heikki/miniconda3/bin/python"
                python-shell-interpreter-args "-i"
                ;;venv-location "~/.virtualenvs"
                whitespace-line-column max-column
@@ -5608,7 +5608,7 @@ a~S                       (org-toggle-tag word 'saon)))
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      ;; Alternative python interpreter for babel blocks
-     (setq org-babel-python-command "/Users/lehvasho/miniconda3/bin/python")
+     (setq org-babel-python-command "/Users/heikki/miniconda3/bin/python")
    #+END_SRC
 
    Use syntax highlighting ("fontification") in org-mode source
@@ -5982,7 +5982,7 @@ a~S                       (org-toggle-tag word 'saon)))
      (use-package gscholar-bibtex
        :defer t
        :init
-       (setq gscholar-bibtex-database-file "/Users/lehvasho/Documents/latex/all.bib")
+       (setq gscholar-bibtex-database-file "/Users/heikki/Documents/latex/all.bib")
        (setq gscholar-bibtex-default-source "Google Scholar")
        :config
        (set-face-attribute 'gscholar-bibtex-title nil
@@ -6023,7 +6023,7 @@ a~S                       (org-toggle-tag word 'saon)))
      (define-skeleton skel-org-block-bibl
        "Insert a org/lisp bibliography block"
        ""
-       "\n\\bibliographystyle{plainnat}\n\\bibliography{/Users/lehvasho/Documents/latex/all.bib}\n"
+       "\n\\bibliographystyle{plainnat}\n\\bibliography{/Users/heikki/Documents/latex/all.bib}\n"
        _ -
        "")
 
@@ -6047,7 +6047,7 @@ a~S                       (org-toggle-tag word 'saon)))
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (setq org-reveal-root "/Users/lehvasho/src/reveal.js")
+     (setq org-reveal-root "/Users/heikki/src/reveal.js")
      (use-package ox-reveal
        :disabled t
        :ensure nil
