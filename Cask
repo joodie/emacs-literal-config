@@ -69,6 +69,7 @@
 (depends-on "ht")
 (depends-on "htmlize")
 (depends-on "hydra")
+(depends-on "iedit")
 (depends-on "image+")
 (depends-on "imenu-anywhere")
 (depends-on "ivy")
