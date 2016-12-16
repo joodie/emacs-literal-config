@@ -1731,6 +1731,12 @@ words."
    pressing =C-x t i=. All occurrences of that word in the buffer are
    selected and can be simultaneously edited.
 
+   #+BEGIN_SRC emacs-lisp
+     (use-package iedit
+       :defer t)
+   #+END_SRC
+
+
 ** Count words in a buffer
 
   #+name: text-files
