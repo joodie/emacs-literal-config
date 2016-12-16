@@ -2784,6 +2784,12 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
                                '((:command . "~/.plenv/shims/perl")
                                  '((:exec . ("%c -wc %s")))
                                  :override t))
+         (quickrun-add-command "python"
+                               '((:command . "~/miniconda/bin/python")
+                                 '((:exec . ("%c -wc %s")))
+                                 :override t))
+         (eval-after-load 'python-mode
+           '(bind-key  "C-c C-c" 'quickrun python-mode-map))
          (eval-after-load 'cperl-mode
            '(bind-key  "C-c C-c" 'quickrun cperl-mode-map))
          (eval-after-load 'perl6-mode
