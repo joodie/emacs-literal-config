@@ -3365,7 +3365,7 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
     :defer t)
 #+END_SRC
 
-* Auto Complete
+* Auto complete
 
   Getting auto completion to work right tends to be a messy process of
   trial and error, though in recent years the situation has improved,
