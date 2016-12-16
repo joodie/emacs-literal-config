@@ -2930,6 +2930,7 @@ The pod-mode is outdated and needs to be manually installed to the
                    'show-paren-mode
                    'aggressive-indent-mode
                    'eldoc
+                   'abbrev-mode
                    ;;'highlight-parentheses
                    ))
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
