@@ -968,7 +968,23 @@
     (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
   #+END_SRC
 
+  Connect info for GPG Agent
+  #+NAME: environment
+  #+BEGIN_SRC emacs-lisp
+    ;; read gpg-agent environment
+    (defun my/read-env-line (line)
+      "read a env line and post to environment"
+      (let ((key-value-pair (split-string line "=" t)))
+        (setenv (car key-value-pair) (car (last key-value-pair)))))
 
+    (defvar my/gpg-agent-info-file)
+    (setq my/gpg-agent-info-file (concat (getenv "HOME") "/.gpg-agent-info"))
+    (when
+        (file-exists-p my/gpg-agent-info-file)
+      (with-temp-buffer
+        (insert-file-contents my/gpg-agent-info-file)
+        (mapc 'my/read-env-line (split-string (buffer-string) "\n" t))))
+  #+END_SRC
 * Options set using the customize interface
 
   By default, Emacs saves the options you set via the `customize-*`
