@@ -5094,21 +5094,22 @@ Command =owp/do-publication= seems to do all I need.
        :mode ("\\.txt$" . org-mode)
        :config
        (setq org-pretty-entities t)
+       ;; Don't allow editing of folded regions
+       (setq org-catch-invisible-edits 'error)
        (add-hook 'org-mode-hook
                  (lambda ()
                    (visual-line-mode)
                    ;; (turn-on-org-cdlatex)
                    (org-indent-mode))))
 
-     (use-package org-autolist
-       :config
-       (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
+          (use-package org-autolist
+            :config
+            (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
 
-
-     (use-package wc-mode
-       :config
-       ;; (add-hook 'org-mode-hook 'wc-mode) ;; too slow to have on by default
-       )
+          (use-package wc-mode
+            :config
+            ;; (add-hook 'org-mode-hook 'wc-mode) ;; too slow to have on by default
+            )
    #+END_SRC
 
    Note: =C-c C-j= is =org-goto= and creates a copy of the current
