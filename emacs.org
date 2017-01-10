@@ -5290,6 +5290,8 @@ Prefix arguments are very useful in this context:
      (setq org-capture-templates
            '(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
               "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n%i")
+             ("a" "appointment" entry (file  "~/Dropbox/org/gcal.org" )
+              "* %?\n\n %^T\n\n:PROPERTIES:\n\n:END:\n\n")
              ("s" "code snippet" entry (file+datetree "~/Dropbox/org/reference.org")
               ;; Prompt for tag and language
               "* %?\t%^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n#+BEGIN_SRC %^{language}\n%i\n#+END_SRC")
@@ -5424,6 +5426,30 @@ a~S                       (org-toggle-tag word 'saon)))
      ;;(setq org-refile-target-verify-function 'bh/verify-refile-target)
 
    #+END_SRC
+
+** TODO Org-gcal
+
+
+[[https://github.com/myuhe/org-gcal.el][myuhe/org-gcal.el: Org sync with Google Calendar]]
+
+Instructions from [[http://cestlaz.github.io/posts/using-emacs-26-gcal/][Using Emacs - 26 - Google Calendar, Org Agenda | C'est la Z]]
+
+Config is in my emacs secrets file.
+
+#+NAME: org-config
+#+BEGIN_SRC emacs-lisp
+  (setq package-check-signature nil)
+
+  (use-package org-gcal)
+
+  (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+  ;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+
+  ;; fix a bug
+  (defun new/org-gcal--notify (title mes)
+    (message "org-gcal::%s - %s" title mes))
+  (fset 'org-gcal--notify 'new/org-gcal--notify)
+#+END_SRC
 
 ** Time tracking
 
