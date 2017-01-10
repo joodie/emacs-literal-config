@@ -788,26 +788,26 @@ be shown with =M-x describe-personal-keybindings=.
     ("w" writegood-mode)
     ("q" nil))
 
-  (bind-key "C-x C-=" 'hydra-zoom/body)
-  (defhydra hydra-zoom (global-map "C-x C-="
-                        :pre (text-scale-increase 1))
-    "zoom"
-    ("g" (message "") "in")
-    ("=" (message "") "in")
-    ("l" (text-scale-increase -2) "out")
-    ("-" (text-scale-increase -2) "out")
-    ("0" (text-scale-adjust 0) "reset"))
+  ;;  (bind-key "C-x C-=" 'hydra-zoom/body)
+  ;;  (defhydra hydra-zoom (global-map "C-x C-="
+  ;;                        :pre (text-scale-increase 1))
+  ;;    "zoom"
+  ;;    ("g" (message "") "in")
+  ;;    ("=" (message "") "in")
+  ;;    ("l" (text-scale-increase -2) "out")
+  ;;    ("-" (text-scale-increase -2) "out")
+  ;;    ("0" (text-scale-adjust 0) "reset"))
 
   ;; http://oremacs.com/2015/03/07/hydra-org-templates/
   ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
   (defhydra hydra-org-template (:color blue :hint nil)
     "
-     org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
-                   _l_atex   _E_xample   _p_erl          _i_ndex:
-                   _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
-                   _s_rc     ^ ^         plant_u_ml      _H_TML:
-                   _h_tml    ^ ^         ^ ^             _A_SCII:
-         "
+       org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
+                     _l_atex   _E_xample   _p_erl          _i_ndex:
+                     _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
+                     _s_rc     ^ ^         plant_u_ml      _H_TML:
+                     _h_tml    ^ ^         ^ ^             _A_SCII:
+           "
     ("s" (hot-expand "<s"))
     ("E" (hot-expand "<e"))
     ("q" (hot-expand "<q"))
@@ -858,10 +858,10 @@ be shown with =M-x describe-personal-keybindings=.
   (bind-key "C-c h" 'hydra-apropos/body)
   (defhydra hydra-apropos (:color blue :hint nil)
     "
-    apropos   _a_propos        _c_ommand
-              _d_ocumentation  _l_ibrary
-              _v_ariable       _u_ser-option
-              ^ ^              _e_: value"
+      apropos   _a_propos        _c_ommand
+                _d_ocumentation  _l_ibrary
+                _v_ariable       _u_ser-option
+                ^ ^              _e_: value"
     ("a" apropos)
     ("d" apropos-documentation)
     ("v" apropos-variable)
@@ -3567,15 +3567,22 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
     :config
     (defhydra hydra-bookmark (:color blue :hint nil)
       "
-            bookmark  _t_: toggle    _n_: next      _s_:show local
-                      _r_: regexp    _p_: previous  _S_:show all
+       bookmark   |   Add^^          Move^^         Manage
+    ----------------------------------------------------------------
+                      _t_: toggle    _n_: next      _s_: show local
+                      _y_: add temp  _p_: previous  _S_: show all
+                      _r_: regexp    ^ ^            _x_: remove local
+                      ^ ^            ^ ^            _X_: remove all
                   "
       ("t" bm-toggle)
       ("n" bm-next :color red)
       ("p" bm-previous :color red)
+      ("y" (bm-bookmark-add nil nil t))
       ("r" bm-bookmark-regexp)
       ("s" bm-show)
-      ("S" bm-show-all)))
+      ("S" bm-show-all)
+      ("x" bm-remove-all-current-buffer)
+      ("X" bm-remove-all-all-buffers)))
 #+END_SRC
 
 ** Searching
