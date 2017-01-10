@@ -981,6 +981,8 @@ active in the current buffer. I do not use greek letters in keys, so I've remove
      (set-language-environment "UTF-8")
      (prefer-coding-system 'utf-8) ; same thing as above? in practice?
      (modify-coding-system-alist 'file "" 'utf-8-unix)
+     (set-charset-priority 'unicode)
+     (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
      (bind-key "C-c u"
                (lambda () (interactive)
                  (set-buffer-file-coding-system 'utf-8-unix t)))
@@ -5748,10 +5750,15 @@ a~S                       (org-toggle-tag word 'saon)))
 
    I add a formats to org export menu =C-c C-e=: markdown for
    bitbucket.
+
 # and odt for LibreOffice.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+     ;; Set the encoding to utf-8
+     (setq org-export-coding-system 'utf-8)
+
      (use-package ox-md
         :ensure nil)
      ;; /Applications/Emacs.app/Contents/Resources/etc/org/
