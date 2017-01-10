@@ -46,6 +46,8 @@
 *** Design
 **** http://causticcovercritic.blogspot.co.uk/feeds/posts/default
 **** http://www.mymodernmet.com/profiles/blogs/feed/featured
+*** Books
+**** https://20lukuaetsimassa.wordpress.com/feed/
 ** Mobile                                                                 :d:
 *** http://mobiili.fi/feed/
 ** Comics                                                                  :c:
