@@ -764,13 +764,15 @@ be shown with =M-x describe-personal-keybindings=.
          toggle _a_bbrev-mode          _h_tml preview for org   _o_rg link display     neo_t_ree
                 _c_: word-count mode   _i_edit                  _p_retty entities      _v_: string inflection
                 _d_ebug-on-error       _k_: spelling language   _b_: overwrite mode   _w_ritegood-mode
-                _f_olding              _h_tml preview for org   t_r_uncate-lines       _q_uit
-                _g_roup digits         _n_arrowing              _m_ouse                white_s_pace-mode
+                _e_ros                 _h_tml preview for org   t_r_uncate-lines       _q_uit
+                _f_olding              _n_arrowing              _m_ouse                white_s_pace-mode
+                _g_roup digits
               "
     ("a" abbrev-mode )
     ("b" toggle-overwrite-mode)
     ("d" toggle-debug-on-error)
     ("c" wc-mode)
+    ("e" eros-mode)
     ("f" toggle-selective-display)
     ("g" digit-groups-mode)
     ("h" org-preview-html-mode)
@@ -3090,6 +3092,17 @@ in Emacs - Mastering Emacs]] for more.
     Needed only occationally, so better run manually on the buffer to
     check: =flycheck-package-setup=.
 
+*** eros
+
+Minor mode for Evaluation Result OverlayS for Emacs Lisp. Set on by
+default, toggle with hydra =C-x t e=. Simply ingenious!
+
+#+NAME: programming-setup
+#+BEGIN_SRC emacs-lisp
+  (use-package eros
+    :config
+    (eros-mode 1))
+#+END_SRC
 ** SQL
 
 Automatically uppercase SQL keywords in sql-mode.
