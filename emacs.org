@@ -159,12 +159,12 @@ package. Use it instead of =package-install=: =M-x try some-package=.
      ;;     (set-fontset-font "fontset-default" nil
      ;;                       (font-spec :size 20 :name "Symbola:"))
      (when (eq system-type 'darwin)
-       (set-default-font "-*-Hack-normal-normal-normal-*-12-*-*-*-m-0-iso10646-1"))
+       (set-default-font "-*-Hack-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1"))
    #+END_SRC
 
    You can use =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to
    increase or decrease the buffer text size in the current buffer
-   (=C-+= or =C--= to repeat). To restore the default (global) face
+   (=+= or =-= to repeat). To restore the default (global) face
    height, type =C-x C-0=. (From [[http://www.emacswiki.org/emacs/SetFonts][EmacsWiki]])
 
    The best way to get information about cursor location is to run
