@@ -5212,18 +5212,6 @@ Command =owp/do-publication= seems to do all I need.
    The following setup adds all files from a given directory. I am
    using DropBox to get one more way to backup these important files.
 
-   #+name: org-config
-   #+BEGIN_SRC emacs-lisp
-     (use-package org-agenda
-       :ensure nil
-       :bind ("C-c a" . org-agenda)
-       :init (setq org-agenda-files '("~/Dropbox/org")))
-
-     (bind-key "C-c c" 'org-capture)
-     (bind-key "C-c l" 'org-store-link)
-     (setq org-return-follows-link t)
-   #+END_SRC
-
    In addition, use =C-c C-l= to paste the link stored with =C-c l=.
    Links on org-mode are now followed by pressing return on a link.
 
@@ -5235,18 +5223,24 @@ Command =owp/do-publication= seems to do all I need.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (setq org-agenda-span 14)
-     (setq org-deadline-warning-days 5)
-
-     ;; clean agenda
-     (setq org-agenda-skip-deadline-if-done t)
-     (setq org-agenda-skip-scheduled-if-done t)
-
-     (setq lunar-phase-names
-           '("● New Moon"
-             "☽ First Quarter Moon"
-             "○ Full Moon"
-             "☾ Last Quarter Moon"))
+     (use-package org-agenda
+       :ensure nil
+       :bind (("C-c a" . org-agenda)
+              ("C-c c" . org-capture)
+              ("C-c l" . org-store-link))
+       :init
+       (setq org-agenda-files '("~/Dropbox/org"))
+       (setq org-return-follows-link t)
+       (setq org-agenda-span 14)
+       (setq org-deadline-warning-days 5)
+       ;; clean agenda
+       (setq org-agenda-skip-deadline-if-done t)
+       (setq org-agenda-skip-scheduled-if-done t)
+       (setq lunar-phase-names
+             '("● New Moon"
+               "☽ First Quarter Moon"
+               "○ Full Moon"
+               "☾ Last Quarter Moon")))
    #+END_SRC
 
 ** Org time stamps
