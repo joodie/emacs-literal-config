@@ -60,7 +60,7 @@
    A new version of this file is detected by emacs at start up. The
    file file:~/.emacs.d/init.el contains the code for using cask and
    converting this org file to the corresponding emacs listp file,
-   file:~/emacs.d/emacs.el. Conversion takes some time, but it is only
+   file:~/.emacs.d/emacs.el. Conversion takes some time, but it is only
    done when the file has changed.
 
    Sometimes you have to manually edit the cask file. It is at
@@ -200,7 +200,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
        ("n" counsel-unicode-char))
    #+END_SRC
 
-   Note: For most plain text writing I use [[org mode]] that has a very
+   Note: For most plain text writing I use [[Org mode]] that has a very
    useful binding for =org-self-insert-command= that allows combining
    mnemonic keys to make accented characters. For example, =C-x 8 ' i
    inserts character í, and =C-x 8 " a=, character ä.
@@ -256,7 +256,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
 ** Mode line
 
-   The default emacs mode line is confusing and boring. [[ http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html][This setup]]
+   The default emacs mode line is confusing and boring. [[http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html][This setup]]
    makes it clear and easy to eye. Some might argue that the amount of
    code used is excessive for such a small feature, but since I was
    able to copy, paste and modify, why not.
@@ -3814,7 +3814,6 @@ too.
   (setq doc-view-continuous nil)
 #+END_SRC
 
-#+END_SRC
 ** Navigation between windows and frames
 
    Here I boost standard window splitting commands according
@@ -4021,7 +4020,7 @@ too.
   #+BEGIN_SRC emacs-lisp
     (setq calendar-latitude 60.47)
     (setq calendar-longitude 25.73)
-    (setq calendar-location-name "Atorp")
+    (setq calendar-location-name "Åtorp")
   #+END_SRC
 
 ** Filename to clipboard
@@ -4336,7 +4335,7 @@ bbdb-merge-records=.
 #+END_SRC
 
 ** TODO Calender
-   [[ttps://github.com/kiwanami/emacs-calfw][Emacs-calf]] gives the look of Google Calendar as well as links to it
+   [[https://github.com/kiwanami/emacs-calfw][Emacs-calf]] gives the look of Google Calendar as well as links to it
    and integrates org agenda entries.
 
    My private function =my/calendar= is bound to incantation "Emacs,
@@ -4374,7 +4373,7 @@ bbdb-merge-records=.
            ))))
    #+END_SRC
 
-** News feed reader: elfeed
+** Elfeed
 
    [[https://github.com/skeeto/elfeed][Elfeed]] is a sensible RSS feed reader. =C-c f= starts it and =G=
    updates the article list. =r= marks things as read and =b= opens
@@ -5045,7 +5044,7 @@ Command =owp/do-publication= seems to do all I need.
 *** xkcd comics
 
     The [[https://github.com/vibhavp/emacs-xkcd][xkcd]] package implements an [[Http://xkcd.com/][xkcd]] comics reader for Emacs. I use
-    [[elfeed]] to read it, the key binding used now elsewhere.
+    [[Elfeed]] to read it, the key binding used now elsewhere.
 
     | Keybinding | Use                             | Function                        |
     |------------+---------------------------------+---------------------------------|
@@ -5077,7 +5076,7 @@ Command =owp/do-publication= seems to do all I need.
        :defer 5)
    #+END_SRC
 
-* Org Mode
+* Org mode
 
   [[http://orgmode.org/][Org mode]] is for all writing of plain text. Use org mode rather than
   plain text mode even when the file extension is =.txt=.
@@ -5096,7 +5095,7 @@ Command =owp/do-publication= seems to do all I need.
   Org mode has a large selected special symbols (like \=alpha=) to
   enter characters into the text. Exporting converts them to the
   proper Unicode character or symbol for that output. I my org mode,
-  [[ http://orgmode.org/manual/Special-symbols.html][the entities are rendered as symbols]]. You can toggle that with =C-c
+  [[http://orgmode.org/manual/Special-symbols.html][the entities are rendered as symbols]]. You can toggle that with =C-c
   C-x \=. The list of all entities can be seen in a buffer with =M-x
   org-entities-help=.
 
@@ -5155,36 +5154,55 @@ Command =owp/do-publication= seems to do all I need.
      (setq org-agenda-use-tag-inheritance nil)
    #+END_SRC
 
-   You can add tags to any agenda item  manually or preferably by pulling
-   them from a list. At the agenda item header, hit =C-c C-c= to see the
-   list and select any subset of tags by pressing the shortcut key(s).
+   You can add tags to any agenda item manually or preferably by
+   pulling them from a list. At the agenda item header, hit =C-c C-c= to
+   see the list and select any subset of tags by pressing the shortcut
+   key(s). My tags are grouped: Searching with the group name will
+   find entries with any sub tag.
 
    Tags can be added automatically at org-capture. This [[http://stackoverflow.com/questions/29788639/automatically-assigning-tags-in-org-mode][solution]]
    works, but only if capitalization is right. All my tags are in
-   upper case, it was necessary to add =upcase=.
+   upper case, so it was necessary to add =upcase=.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-tag-alist '(("ATORP"   . ?a)
-                           ("BIO"     . ?b)
+                           ("TMI"     . ?i)
+                           (:startgrouptag)
+                           ("SCIENCE"   . ?z)
+                             (:grouptags)
+                               ("BIO"     . ?b)
+                               ("HUMEVO"  . ?h)
+                               ("BATS"    . ?t)
+                               ("NATURE"  . ?n)
+                           (:endgrouptag)
+
+                           (:startgrouptag)
                            ("COMP"    . ?c)
-                           ("EMACS"   . ?e)
-                           ("FOOD"    . ?d)
-                           ("PHOTO"   . ?f)
-                           ("GIT"     . ?g)
-                           ("HUMEVO"  . ?h)
-                           ("BOOK"    . ?k)
-                           ("LATEX"   . ?l)
-                           ("MOVIE"   . ?m)
-                           ("NATURE"  . ?n)
-                           ("ORG"     . ?o)
-                           ("PERL"    . ?p)
-                           ("SECURITY". ?s)
-                           ("WRITING" . ?w)
-                           ("MUSIC"   . ?u)
-                           ("BATS"    . ?t)
-                           ("PYTHON"  . ?y)
-                           ("ZSH"     . ?z)))
+                             (:grouptags)
+                               ("GIT"     . ?g)
+                               ("LATEX"   . ?l)
+                               ("PERL"    . ?p)
+                               ("SECURITY". ?s)
+                               ("PYTHON"  . ?y)
+                           (:endgrouptag)
+
+                           (:startgrouptag)
+                             ("EMACS"   . ?e)
+                             (:grouptags)
+                               ("ORG"     . ?o)
+                           (:endgrouptag)
+
+                           (:startgrouptag)
+                           ("CULTURE"    . ?o)
+                             (:grouptags)
+                               ("FOOD"    . ?d)
+                               ("PHOTO"   . ?f)
+                               ("BOOK"    . ?k)
+                               ("MOVIE"   . ?m)
+                               ("WRITING" . ?w)
+                               ("MUSIC"   . ?u)
+                           (:endgrouptag)))
    #+END_SRC
 
    The agenda command pulls all active events and todos from files
@@ -5539,7 +5557,7 @@ Config is in my emacs secrets file.
    The org code seems to require the direct access to the jar file.
    Run this perl code create a symbolic link after installation or upgrade.
 
-   #+HEADERS: :results output :exports both :shebang "#!/usr/bin/env perl"
+   #+HEADER: :results output :exports both :shebang "#!/usr/bin/env perl"
    #+BEGIN_SRC perl :tangle yes
      use strict;
      use warnings;
@@ -6384,7 +6402,7 @@ save. I helped rewrite the package!
    Printing under OS X does not work in default emacs.  [[http://www.emacswiki.org/emacs/MacPrintMode][EmacsWiki]] has
    slightly outdated instructions:
 
-   1. Copy [[ https://raw.github.com/marcora/emacs/master/mac-print-mode.el][mac-print-mode.el]] into file:~.emacs.d/elisp directory
+   1. Copy [[https://raw.github.com/marcora/emacs/master/mac-print-mode.el][mac-print-mode.el]] into file:~/.emacs.d/elisp directory
    2. htmlize pakage should be already installed
    3. Install latest version of [[http://hmdt.jp/coral/][Coral]] (1.3)
       - Download and open the image file
