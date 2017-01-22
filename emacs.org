@@ -715,6 +715,21 @@ GnuPGP need to be upgraded to v.2.1 that is not backward compatible:
 
 * Key bindings
 
+** Free default bindings
+
+Numerical arguments to commands are passed with =C-3=, =M-3=, =C-M-3= for
+all digits 0-9. Free single modifier key bindings for other uses in
+the future ([[http://pragmaticemacs.com/emacs/use-your-digits-and-a-personal-key-map-for-super-shortcuts/][Use your digits and a personal key map for super
+shortcuts | Pragmatic Emacs]])
+
+#+NAME: key-bindings
+#+BEGIN_SRC emacs-lisp
+;; unset C- and M- digit keys
+(dotimes (n 10)
+  (global-unset-key (kbd (format "C-%d" n)))
+  (global-unset-key (kbd (format "M-%d" n))))
+#+END_SRC
+
 ** Show bindings
 
 Emacs commands are defined by their names. Many interactive commands
