@@ -1934,9 +1934,12 @@ be installed (e.g. =brew install hub= in OS X).
       :bind ("C-c g" . magit-status)
       :config
       (setq magit-push-always-verify nil)
-      (setq magit-diff-options '("-b")) ; ignore whitespace
-      (use-package magithub
-        :disabled t))
+      ;; ignore whitespace
+      (setq magit-diff-options '("-b")))
+
+    (use-package magithub
+      :after magit
+      :disabled nil)
 
     (use-package git-commit :defer t)
     (use-package git-gutter :defer t)
