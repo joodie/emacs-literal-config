@@ -5572,6 +5572,8 @@ Config is in my emacs secrets file.
      use warnings;
 
      my $file = '/usr/local/bin/plantuml';
+     unlink $file. ".jar" if -e $file. ".jar";
+
      my $data;
      {
          open my $fh, '<', $file or die;
@@ -5581,6 +5583,7 @@ Config is in my emacs secrets file.
      }
      my ($jar) = $data =~ /jar +([^ ]+)/;
      `ln -s $jar "${file}.jar"`;
+     print `ls -l "${file}.jar"`;
    #+END_SRC
 
    The [[https://github.com/zwz/plantuml-mode][plantuml-mode]] helps editing the code. Also, check the new
