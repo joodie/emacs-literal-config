@@ -1970,26 +1970,24 @@ be installed (e.g. =brew install hub= in OS X).
 ** Natural languages
 *** Spell checking
 
-   [[http://www.emacswiki.org/emacs/FlySpell][Flyspell]] checks words as I write against the [[http://aspell.net/][GNU aspell]]
-   dictionaries.
+[[http://www.emacswiki.org/emacs/FlySpell][Flyspell]] checks words as I write against the [[http://aspell.net/][GNU aspell]] dictionaries.
 
-   You might have to install aspell for your computer. For OS X, do it
-   using [[http://brew.sh/][Homebrew]] =brew install aspell=. This installs several
-   varieties of English. To add more languages, you have to specify
-   them as arguments.
+You might have to install aspell for your computer. For OS X, do it
+using [[http://brew.sh/][Homebrew]] =brew install aspell=. This installs several varieties of
+English. To add more languages, you have to specify them as arguments.
 
-   Words added to personal word list are stored in =~/.aspell.{LANG}.pws=,
-   e.g. file:~/.aspell.en.pws.
+Words added to personal word list are stored in =~/.aspell.{LANG}.pws=,
+e.g. file:~/.aspell.en.pws.
 
+Alternatively, call flyspell-goto-next-error by pressing =C-,= and press
+=C-c k= to select the correct word from dictionary and write it to
+abbreviations for automatic correction permanently. Adapted from
+[[http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html][Endless Parentheses]].
 
-  Alternatively, call flyspell-goto-next-error by pressing =C-,= and
-  press =C-c k= to select the correct word from dictionary and write
-  it to abbreviations for automatic correction permanently. Adapted
-  from [[http://endlessparentheses.com/ispell-and-abbrev-the-perfect-auto-correct.html][Endless Parentheses]].
-
-  Other possibilities are =C-. (flyspell-auto-correct-word)= and =C-;
-  (flyspell-auto-correct-previous-word)= that proposes various
-  successive corrections for the current word.
+Other possibilities are =C-. (flyspell-auto-correct-word)= and =C-;
+(flyspell-auto-correct-previous-word)= that proposes various
+successive corrections for the current word. Combining =C-,= with =C-.= is
+especially efficient.
 
 **** aspell
    #+NAME: spell-checker
