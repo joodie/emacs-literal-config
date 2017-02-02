@@ -5172,12 +5172,17 @@ Command =owp/do-publication= seems to do all I need.
   inserts a new list item and =backspace= removes the bullet and
   backs up to previous list item.
 
-  Org mode has a large selected special symbols (like \=alpha=) to
+  Org mode has a large selected special symbols (like \=alpha= => =\alpha=) to
   enter characters into the text. Exporting converts them to the
   proper Unicode character or symbol for that output. I my org mode,
   [[http://orgmode.org/manual/Special-symbols.html][the entities are rendered as symbols]]. You can toggle that with =C-c
   C-x \=. The list of all entities can be seen in a buffer with =M-x
   org-entities-help=.
+
+  Underscores are used in so often in file names, that I have disabled
+  rendering of superscript and subscript in org buffers. Now, =^= or =_=
+  need to be followed by a string in curly brackets to be rendered and
+  exported.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
@@ -5185,7 +5190,9 @@ Command =owp/do-publication= seems to do all I need.
        :ensure org-plus-contrib
        :mode ("\\.txt$" . org-mode)
        :config
+       ;; export Unicode
        (setq org-pretty-entities t)
+       (setq org-use-sub-superscripts "{}")
        ;; Don't allow editing of folded regions
        (setq org-catch-invisible-edits 'error)
        (add-hook 'org-mode-hook
