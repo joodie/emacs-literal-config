@@ -601,7 +601,9 @@ global-disable-mouse-mode to my universal toggle hydra: =C-x t m= .
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
-    (setq inhibit-startup-screen +1)
+    (setq inhibit-startup-screen +1
+          inhibit-startup-message t
+          initial-scratch-message nil)
     ; emacs 24.4 feature, call on main windowed emacs
     (when (window-system)
       (desktop-save-mode t))
