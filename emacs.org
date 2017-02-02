@@ -4978,15 +4978,30 @@ Command =owp/do-publication= seems to do all I need.
 ** eshell
 
    Eshell is a shell written in elisp that integrates with with emacs
-   environment. My shortcut incantation is "Emacs, launch shell", =C-x l s=.
+   environment. My shortcut incantation is "Emacs, launch shell", =C-x
+   l x=. (Sorry, does not make sense!)
+
+   The use of directory file:~/.emacs.p is from [[http://fasciism.com/2017/01/26/eshell-customizations/][Eshell Customizations]].
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package eshell
        :config
        (setenv "PAGER" "cat")
-       (defun eshell/d (&rest args)
-         (dired (pop args) ".")))
+
+       (setq eshell-history-size 100000
+             eshell-directory-name "~/.emacs.p/eshell")
+
+       (defun eshell/dd (&rest args)
+         (dired (pop args) "."))
+
+       (defun eshell/d ()
+         "Open a dired instance of the current working directory."
+         (dired "."))
+
+       (defun eshell/q ()
+         "Send the *eshell* buffer to the back of buffer list."
+         (bury-buffer)))
    #+END_SRC
 
 ** Process management
