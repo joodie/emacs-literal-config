@@ -5254,6 +5254,7 @@ Command =owp/do-publication= seems to do all I need.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (setq org-tag-alist '(("ATORP"   . ?a)
+                           ("WORK"    . ?r)
                            ("TMI"     . ?i)
                            (:startgrouptag)
                            ("SCIENCE"   . ?z)
@@ -5345,6 +5346,21 @@ Prefix arguments are very useful in this context:
 | =C-u C-c .=     | t           | time     |
 | =C-u C-u C-c .= | nil         | time now |
 
+** Time manipulation
+
+[[https://github.com/dfeich/org-clock-convenience][org-clock-convenience]] adds functions that manipulate time stamps in
+the agenda view.
+
+#+NAME: org-config
+#+BEGIN_SRC emacs-lisp
+  (use-package org-clock-convenience
+    :defer t
+    :bind (:map org-agenda-mode-map
+                ("<S-up>" . org-clock-convenience-timestamp-up)
+                ("<S-down>" . org-clock-convenience-timestamp-down)
+                ("'" . org-clock-convenience-fill-gap)))
+#+END_SRC
+
 ** worf -- modal editing in org mode
 
    Adds vi-like modal key bindings to org mode by adding a new minor
@@ -5378,21 +5394,25 @@ Prefix arguments are very useful in this context:
    #+END_SRC
 
    I copied these capture templates from [[http://doc.norang.ca/org-mode.html][this excellent page]] and
-   modified to my own use. I try to minimize refiling.  I have three
-   main categories of entries:
+   modified to my own use. I try to minimize refiling.  I have several
+   categories of entries:
    1) *notes [n]* for all note taking (URLs, ideas, papers,...) that
-      you want to file away for later retrieval. They are time stamped,
+      I want to file away for later retrieval. They are time stamped,
       stored in that order and have optional tags I defined in the
       previous section.
-   2) *todos [t]* for notes with scheduled starting time (defaults
-      to date only). These will apper in the agenda.
-   3) *events [e]* regular events with no completion but date and
-      time. If an event is a recurring one, it will edited and moved
-      to a different section of the file.
+   2) *code snippets [s]* are subclasses of notes that create a code
+      block and ask for the language and tags.
+   3) *events [e]* are regular events with active time stamp. Scheduled and
+      completion times can be added to them later.
+   4) *appointments [a]* for events that are shared with Google Calendar
+      using org-gcal.
+   5) *work [w]* events start the clock automatically for the new entry.
 
-   Each category of entries are stored in their own files. Events are in
-   =calendar.org= that starts with sections for anniversaries and
-   other recurring tasks.
+   Events are in file:~/Dropbox/org/calendar.org that starts with sections for
+   anniversaries and other recurring tasks. Gcal integration happens
+   through file:~/Dropbox/org/gcal.org  All other entries are in
+   file:~/Dropbox/org/reference.org .
+
 
    Code snippet capture code was mentioned in the  [[http://irreal.org/blog/?p=5244][Irreal]] blog.
 
@@ -5402,15 +5422,16 @@ Prefix arguments are very useful in this context:
      (setq org-capture-templates
            '(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
               "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n%i")
-             ("a" "appointment" entry (file  "~/Dropbox/org/gcal.org" )
-              "* %?\n\n %^T\n\n:PROPERTIES:\n\n:END:\n\n")
              ("s" "code snippet" entry (file+datetree "~/Dropbox/org/reference.org")
               ;; Prompt for tag and language
               "* %?\t%^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n#+BEGIN_SRC %^{language}\n%i\n#+END_SRC")
-             ("t" "todo" entry (file+datetree "~/Dropbox/org/todo.org")
-              "* TODO %?\n     SCHEDULED: %t\n%i\n  Entered on %U")
              ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
-              "* %?\n     %T\n%i\n  Entered on %U")))
+              "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: event\n     :END:\n     %T\n%i")
+             ("a" "appointment" entry (file "~/Dropbox/org/gcal.org" )
+              "* %?\n\n %^T\n\n:PROPERTIES:\n\n:END:\n\n")
+             ("w" "work" entry (file+datetree "~/Dropbox/org/reference.org")
+              "* %? %^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: work\n     :END:\n%i"
+              :clock-in t :clock-keep t)))
    #+END_SRC
 
    Captured notes can be tagged just like any other org headings.
