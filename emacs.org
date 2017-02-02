@@ -778,13 +778,13 @@ be shown with =M-x describe-personal-keybindings=.
   (bind-key "C-x t" 'hydra-toggle/body)
   (defhydra hydra-toggle (:color blue :hint nil)
     "
-         toggle _a_bbrev-mode          _h_tml preview for org   _o_rg link display     neo_t_ree
-                _c_: word-count mode   _i_edit                  _p_retty entities      _v_: string inflection
-                _d_ebug-on-error       _k_: spelling language   _b_: overwrite mode   _w_ritegood-mode
-                _e_ros                 _h_tml preview for org   t_r_uncate-lines       _q_uit
-                _f_olding              _n_arrowing              _m_ouse                white_s_pace-mode
-                _g_roup digits
-              "
+           toggle _a_bbrev-mode          _h_tml preview for org   _o_rg link display     neo_t_ree
+                  _c_: word-count mode   _i_edit                  _p_retty entities      _v_: string inflection
+                  _d_ebug-on-error       _k_: spelling language   _b_: overwrite mode    _w_ritegood-mode
+                  _e_ros                 _h_tml preview for org   t_r_uncate-lines       _q_uit
+                  _f_olding              _n_arrowing              _m_ouse                white_s_pace-mode
+                  _g_roup digits
+                "
     ("a" abbrev-mode )
     ("b" toggle-overwrite-mode)
     ("d" toggle-debug-on-error)
@@ -1166,7 +1166,7 @@ with =C-q C-l=) as horisontal lines.
    return it to its default nil value, call the function on a empty
    line.
 
-** Understand compressed files
+** Undersstand compressed files
 
    This allows emacs to handle opening and saving .gz files
    automatically.
@@ -2007,6 +2007,7 @@ successive corrections for the current word. Combining =C-,= with =C-.= is
 especially efficient.
 
 **** aspell
+
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
      (setq ispell-program-name "aspell") ; checker engine
@@ -2505,9 +2506,9 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
      ;; make whitespace-mode use just basic coloring
-
      (setq whitespace-style
            (quote (face spaces tabs newline space-mark tab-mark newline-mark trailing)))
+
      ;; use better unicode characters for whitespace
      (setq whitespace-display-mappings
            ;; all numbers are Unicode codepoint in decimal. try (insert-char 182 ) to see it
@@ -5227,7 +5228,7 @@ Command =owp/do-publication= seems to do all I need.
    #+BEGIN_SRC emacs-lisp
      (use-package suomalainen-kalenteri
        :defer t
-       :init (setq org-agenda-start-on-weekday 1)) ;; 1 is default
+       :init (setq org-agenda-start-on-weekday 1)) ;; 1 is Monday
      ;; speed-ups
      (setq org-agenda-inhibit-startup t)
      (setq org-agenda-use-tag-inheritance nil)
@@ -5331,8 +5332,8 @@ the agenda, are visible in the calendar. The commands are
 =C-c .= is the for the active time stamp. =C-c != for inactive ones.
 Prefix arguments are very useful in this context:
 
-| Keys            | Interactive | Action   |
-|-----------------+-------------+----------|
+| Keys          | Interactive | Action   |
+|---------------+-------------+----------|
 | =C-c .=         | t           | date     |
 | =C-u C-c .=     | t           | time     |
 | =C-u C-u C-c .= | nil         | time now |
@@ -5532,7 +5533,6 @@ a~S                       (org-toggle-tag word 'saon)))
    #+END_SRC
 
 ** TODO Org-gcal
-
 
 [[https://github.com/myuhe/org-gcal.el][myuhe/org-gcal.el: Org sync with Google Calendar]]
 
@@ -6225,7 +6225,6 @@ Config is in my emacs secrets file.
 
 [[https://github.com/lujun9972/org-eww][org-preview-html-mode]] automatically shows an HTML preview in eww on
 save. I helped rewrite the package!
-
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
