@@ -2400,20 +2400,37 @@ hit =C-x l g= that is short for "Emacs, launch grammar".
 *** Word definition
 
    [[http://oremacs.com/2015/05/22/define-word/][Define-word]] ([[http://oremacs.com/2015/05/22/define-word/][blog]]) gives English definitions to words under cursor
-   using on-line Wordnik service. Use =C-c j= to search the word unde
+   using on-line Wordnik service. Use =C-c J= to search the word under
    the cursor. =M-x define-word= lets you type a word in.
 
    For situations without net, [[https://github.com/xuchunyang/osx-dictionary.el][osx-dictionary]] accesses the local OS X
    Dictionary application. Use =C-c j=, or =M-x osx-dictionary-search-pointer=.
 
+   Since I am using several dictionaries from different sources and
+   syntax, I have turned off syntax highlighting for
+   osx-dictionary-mode.
+
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      (use-package define-word
-       :bind (("C-c j" . define-word-at-point)))
+       :bind (("C-c J" . define-word-at-point)))
 
      (when (eq system-type 'darwin)
        (use-package osx-dictionary
-         :bind (("C-c J" . osx-dictionary-search-pointer))))
+         :bind (("C-c j" . osx-dictionary-search-pointer))
+         :config (add-hook 'osx-dictionary-mode-hook 'turn-off-font-lock)
+
+;;(setq osx-dictionary-mode-font-lock-keywords
+;;  '(
+;;    ;; Word class
+;;    ("\\b\\(noun\\|adjective\\|det\\|verb\\|adverb\\|abbreviation\\|preposition\\|suffix\\|prefix\\|conjunction\\|symb\\)\\b" . font-lock-type-face)
+;;    ;; Serial number
+;;    ("^[0-9]+" . font-lock-builtin-face)
+;;    ;; Dictionary comment
+;;    ("^\\(DERIVATIVES\\|ORIGIN\\|PHRASES\\)" . font-lock-comment-face))
+;;  "Keywords to highlight in `osx-dictionary-mode'.")
+
+))
    #+END_SRC
 
    Note to self: Using =j= as a key is not at all mnemonic but I am
@@ -2437,6 +2454,23 @@ l s= for "Emacs, launch synonyms".
     (setq synosaurus-choose-method 'popup)
     :config
     (add-hook 'text-mode-hook #'synosaurus-mode))
+#+END_SRC
+
+*** Webster's
+
+The old Webster's 1913 Dictionary is a [[http://jsomers.net/blog/dictionary][rare beast]] where definitions
+of words are poetic, informative and thought provoking.
+
+I've installed a local copy the Webster's dictionary to my Mac and set
+it up as the first dictionary to search. Now the above key biinding =C-c j=
+searches first Webster's.
+
+The downloaded sdcv-mode and its =sdcv-search= command remains unused.
+
+#+name: apps
+#+BEGIN_SRC emacs-lisp
+  (use-package sdcv-mode
+    :ensure nil)
 #+END_SRC
 
 ** Number groups
