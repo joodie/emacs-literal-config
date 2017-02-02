@@ -6206,19 +6206,24 @@ Config is in my emacs secrets file.
    create a copy of the =Readme.org= file and edit it with emacs.
 
    #+BEGIN_SRC sh
-     cd ~/src/
-     git clone https://github.com/yjwen/org-reveal.git
+         cd ~/src/
+         git clone https://github.com/yjwen/org-reveal.git
    #+END_SRC
 
-   Then activate the org-reveal mode and tell its location to emacs.
+   Then activate the org-reveal mode and tell the location of the js
+   file to emacs. The location can be either in the local file system
+   or in the cloud, but it has to use URI syntax.
+
+   The htmlize package lets ox-reveal to do syntax highlighting in
+   code blocks.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
-     (setq org-reveal-root "/Users/heikki/src/reveal.js")
      (use-package ox-reveal
-       :disabled t
-       :ensure nil
-       :if (file-exists-p org-reveal-root))
+       :init
+       ;; (setq org-reveal-root "file:/Users/heikki/src/reveal.js")
+       (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"))
+     (use-package htmlize)
    #+END_SRC
 
 ** Live preview

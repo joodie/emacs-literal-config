@@ -92,6 +92,7 @@
 (depends-on "nlinum")
 (depends-on "org")
 (depends-on "org-autolist")
+(depends-on "org-clock-convenience")
 (depends-on "org-dropbox")
 (depends-on "org-gcal")
 (depends-on "org-plus-contrib")
