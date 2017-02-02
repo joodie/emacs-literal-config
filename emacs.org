@@ -247,7 +247,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
      (when (window-system)
        (use-package git-gutter-fringe
          :defer t
-         :config
+         :init
          (global-git-gutter-mode +1)
          (setq-default indicate-buffer-boundaries 'left)
          (setq-default indicate-empty-lines +1)
