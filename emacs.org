@@ -207,15 +207,15 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
 ** Reduce clutter
 
-   Remove the toolbar. It's ugly and I never use it. I keep the
-   scroll bars on right -- horizontal space is cheep. Below, I set up
-   the fringe to the left.
+   Remove the toolbar. It's ugly and I never use it.
+   Scroll bars in emacs frame are useless. Remove.
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (when (window-system)
+     (when (display-graphic-p)
+       ;;(menu-bar-mode -1)
        (tool-bar-mode -1)
-       (scroll-bar-mode (quote right)))
+       (scroll-bar-mode -1))
    #+END_SRC
 
 ** Symbols
