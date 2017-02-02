@@ -1003,10 +1003,17 @@ active in the current buffer. I do not use greek letters in keys, so I've remove
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
      (set-language-environment "UTF-8")
-     (prefer-coding-system 'utf-8) ; same thing as above? in practice?
+     (setq locale-coding-system 'utf-8)
+     (set-terminal-coding-system 'utf-8)
+     (set-keyboard-coding-system 'utf-8)
+     (set-selection-coding-system 'utf-8)
+     (prefer-coding-system 'utf-8)
+     (when (display-graphic-p)
+       (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
      (modify-coding-system-alist 'file "" 'utf-8-unix)
      (set-charset-priority 'unicode)
      (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+
      (bind-key "C-c u"
                (lambda () (interactive)
                  (set-buffer-file-coding-system 'utf-8-unix t)))
