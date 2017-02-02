@@ -6581,9 +6581,11 @@ I've combined all those commands and bound them to =C-c v=.
    I keep slightly more sensitive information in a separate file so
    that I can easily publish my main configuration.
 
+   It is kept in directory file:~/.emacs.p
+
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     (load "~/.emacs.secrets" t)
+     (load "~/.emacs.p/secrets" t)
    #+END_SRC
 
 ** Emacsclient
