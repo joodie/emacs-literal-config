@@ -821,73 +821,78 @@ be shown with =M-x describe-personal-keybindings=.
   ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
   (defhydra hydra-org-template (:color blue :hint nil)
     "
-       org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
-                     _l_atex   _E_xample   _p_erl          _i_ndex:
-                     _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
-                     _s_rc     ^ ^         plant_u_ml      _H_TML:
-                     _h_tml    ^ ^         ^ ^             _A_SCII:
-           "
+         org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
+                       _l_atex   _E_xample   _p_erl          _i_ndex:
+                       _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
+                       _s_rc     _n_ote      plant_u_ml      _H_TML:
+                       _h_tml    ^ ^         ^ ^             _A_SCII:
+             "
     ("s" (hot-expand "<s"))
     ("E" (hot-expand "<e"))
     ("q" (hot-expand "<q"))
     ("v" (hot-expand "<v"))
+    ("n" (let (text) ; org-reveal speaker notes
+           (when (region-active-p)
+             (setq text (buffer-substring (region-beginning) (region-end)))
+             (delete-region (region-beginning) (region-end)))
+           (insert "#+BEGIN_NOTES\n\n#+END_NOTES")
+           (forward-line -1)
+           (when text (insert text))))
     ("c" (hot-expand "<c"))
     ("l" (hot-expand "<l"))
     ("h" (hot-expand "<h"))
     ("a" (hot-expand "<a"))
     ("L" (hot-expand "<L"))
     ("i" (hot-expand "<i"))
-    ("e" (progn
-           (hot-expand "<s")
-           (insert "emacs-lisp")
-           (forward-line)))
-    ("p" (progn
-           (hot-expand "<s")
-           (insert "perl")
-           (forward-line)))
-    ("u" (progn
-           (hot-expand "<s")
-           (insert "plantuml :file CHANGE.png")
-           (forward-line)))
-    ("P" (progn
-           (insert "#+HEADERS: :results output :exports both :shebang \"#!/usr/bin/env perl\"\n")
-           (hot-expand "<s")
-           (insert "perl")
-           (forward-line)))
+    ("e" (hot-expand "<s" "emacs-lisp"))
+    ("p" (hot-expand "<s" "perl"))
+    ("u" (hot-expand "<s" "plantuml :file CHANGE.png"))
+    ("P" (hot-expand "<s" "perl" ":results output :exports both :shebang \"#!/usr/bin/env perl\"\n"))
     ("I" (hot-expand "<I"))
     ("H" (hot-expand "<H"))
     ("A" (hot-expand "<A"))
     ("<" self-insert-command "ins")
     ("o" nil "quit"))
 
-  (defun hot-expand (str)
-    "Expand org template."
-    (insert str)
-    (org-try-structure-completion))
+  (defun hot-expand (str &optional mod header)
+    "Expand org template.
 
-  ;; I bind it for myself like this:
+STR is a structure template string recognised by org like <s. MOD is a
+string with additional parameters to add the begin line of the
+structure element. HEADER string includes more parameters that are
+prepended to the element after the #+HEADERS: tag."
+    (let (text)
+      (when (region-active-p)
+        (setq text (buffer-substring (region-beginning) (region-end)))
+        (delete-region (region-beginning) (region-end))
+        (deactivate-mark))
+      (when header (insert "#+HEADERS: " header))
+      (insert str)
+      (org-try-structure-completion)
+      (when mod (insert mod) (forward-line))
+      (when text (insert text))))
 
   (define-key org-mode-map "<"
     (lambda () (interactive)
-      (if (looking-back "^")
+      (if (or (region-active-p) (looking-back "^"))
           (hydra-org-template/body)
         (self-insert-command 1))))
 
-  ;; http://oremacs.com/2015/03/15/search-with-apropos/
-  (bind-key "C-c h" 'hydra-apropos/body)
-  (defhydra hydra-apropos (:color blue :hint nil)
-    "
-      apropos   _a_propos        _c_ommand
-                _d_ocumentation  _l_ibrary
-                _v_ariable       _u_ser-option
-                ^ ^              _e_: value"
-    ("a" apropos)
-    ("d" apropos-documentation)
-    ("v" apropos-variable)
-    ("c" apropos-command)
-    ("l" apropos-library)
-    ("u" apropos-user-option)
-    ("e" apropos-value))
+    ;; http://oremacs.com/2015/03/15/search-with-apropos/
+    (bind-key "C-c h" 'hydra-apropos/body)
+    (defhydra hydra-apropos (:color blue :hint nil)
+      "
+        apropos   _a_propos        _c_ommand
+                  _d_ocumentation  _l_ibrary
+                  _v_ariable       _u_ser-option
+                  ^ ^              _e_: value"
+      ("a" apropos)
+      ("d" apropos-documentation)
+      ("v" apropos-variable)
+      ("c" apropos-command)
+      ("l" apropos-library)
+      ("u" apropos-user-option)
+      ("e" apropos-value))
   #+END_SRC
 
   The second key map is for *launching* [[http://endlessparentheses.com/launcher-keymap-for-standalone-features.html][standalone features]].
