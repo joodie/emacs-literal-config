@@ -6459,7 +6459,9 @@ save. I helped rewrite the package!
      (use-package peep-dired
        :defer t ; don't access `dired-mode-map' until `peep-dired' is loaded
        :bind (:map dired-mode-map
-                   ("P" . peep-dired))
+                   ("P" . peep-dired)
+                   ;;("e" . (eshell t)
+                   )
        :config
        (setq peep-dired-cleanup-on-disable t))
 
@@ -6469,17 +6471,25 @@ save. I helped rewrite the package!
                    ("X" . dired-ranger-move)
                    ("Y" . dired-ranger-paste)))
 
+    ;; (define-key dired-mode-map "e"
+    ;;   ;; Force the creation of a new Eshell instance at this path.
+    ;;   (lambda ()
+    ;;     (interactive)
+    ;;     (eshell t)))
+
      ;;     (define-key dired-mode-map "e"
      ;;       (lambda () (interactive) (eww-open-file (dired-get-file-for-visit))))
    #+END_SRC
 
+***
+***
 *** Printing
 
    Printing under OS X does not work in default emacs.  [[http://www.emacswiki.org/emacs/MacPrintMode][EmacsWiki]] has
    slightly outdated instructions:
 
    1. Copy [[https://raw.github.com/marcora/emacs/master/mac-print-mode.el][mac-print-mode.el]] into file:~/.emacs.d/elisp directory
-   2. htmlize pakage should be already installed
+   2. htmlize package should be already installed
    3. Install latest version of [[http://hmdt.jp/coral/][Coral]] (1.3)
       - Download and open the image file
       - =cp -r /Volumes/Coral1.3/bin/coral.app /Applications/=
