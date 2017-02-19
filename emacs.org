@@ -6158,6 +6158,12 @@ Config is in my emacs secrets file.
    can retrieve bibtex entries into it from several sources. Launch it
    with =C-x l g=.
 
+   [[https://github.com/jkitchin/org-ref][org-ref]] is a set of tools to do literature references in org mode.
+   Org-ref Read the [[https://github.com/jkitchin/org-ref/blob/master/org-ref.org][org-ref manual]].
+
+   Looks like org-ref messes with LaTeX references unless it is told not
+   to.
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (use-package org-ref
@@ -6167,6 +6173,8 @@ Config is in my emacs secrets file.
              org-ref-default-bibliography '("~/Documents/latex/all.bib")
              org-ref-pdf-directory "~/Documents/bibliography/bibtex-pdfs/"))
     ;; org-ref-ivy-bibtex
+    ;; Do not mess up used defined label names
+    (setq org-latex-prefer-user-labels t)
    #+END_SRC
 
    #+name: org-config
