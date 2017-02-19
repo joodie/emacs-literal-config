@@ -1513,6 +1513,20 @@ recommended to be bound to =M-i= and =M-o=.
    TODO: An other way of doing the same:
    http://pragmaticemacs.com/emacs/cut-or-copy-current-line-with-easy-kill/
 
+** Undo-tree
+
+#+name: text-files
+#+BEGIN_SRC emacs-lisp
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :bind
+  ("C-z" . undo)
+  ("M-z" . undo-tree-redo)
+  ("C-M-z" . undo-tree-visualize)
+  :config
+  (global-undo-tree-mode)
+  (setq undo-tree-visualizer-diff t))
+#+END_SRC
 ** Abbreviations
 
    Emacs comes with =abbrev-mode= that is able to replace typed strings
