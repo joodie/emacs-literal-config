@@ -1316,10 +1316,15 @@ http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
    The [[https://github.com/bbatsov/super-save][super-save]] package saves files when the buffer looses focus.
    You never have to save manually.
 
+   Increased idle time to prevent idle saving messing up org mode edit-special
+   buffers.
+
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
       (use-package super-save
-        :init (setq super-save-auto-save-when-idle t)  ; def 5 sec
+        :init
+        (setq super-save-auto-save-when-idle t)
+        (setq super-save-idle-duration 30)  ; def 5 sec
         :config (super-save-initialize))
     #+END_SRC
 
