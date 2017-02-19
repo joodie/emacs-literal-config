@@ -244,7 +244,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (when (window-system)
+     (when (display-graphic-p)
        (use-package git-gutter-fringe
          :defer t
          :init
@@ -528,7 +528,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-    (when (window-system)
+    (when (display-graphic-p)
      (global-hl-line-mode 1)
      (set-face-background hl-line-face "AliceBlue"))
    #+END_SRC
@@ -605,7 +605,7 @@ global-disable-mouse-mode to my universal toggle hydra: =C-x t m= .
           inhibit-startup-message t
           initial-scratch-message nil)
     ; emacs 24.4 feature, call on main windowed emacs
-    (when (window-system)
+    (when (display-graphic-p)
       (desktop-save-mode t))
 
     ;; save cursor position
@@ -6636,7 +6636,7 @@ I've combined all those commands and bound them to =C-c v=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
-     (when (window-system)
+     (when (display-graphic-p)
        (server-start))
 
      (use-package edit-server
