@@ -26,6 +26,7 @@
 **** http://planet.emacsen.org/atom.xml
 **** http://emacsworld.blogspot.com/feeds/posts/default
 **** entry-title: \(emacs\|org-mode\)
+**** http://fasciism.com/feed.xml
 **** http://planet.emacsen.org/atom.xml
 **** [[http://emacs.stackexchange.com/feeds][SX]]
 # **** http://whattheemacsd.com/http:/atom.xml
