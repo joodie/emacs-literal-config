@@ -5832,9 +5832,9 @@ Config is in my emacs secrets file.
      ;; execute external programs.
      ;; This obviously can be dangerous!
      (setq org-latex-pdf-process
-           '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-         ;; alternative
-         ;;'("latexmk -shell-escape -interaction=nonstopmode -pdf -f %f"))
+           ;; '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+           ;; alternative
+           '("latexmk -shell-escape -interaction=nonstopmode -pdf -f %f"))
    #+END_SRC
 
 
@@ -5855,6 +5855,13 @@ Config is in my emacs secrets file.
     ;;(setq org-latex-pdf-process
     ;;'("/usr/texbin/latexmk -interaction=nonstopmode -shell-escape -pdflatex=/usr/texbin/xelatex -gg -f -pdf %f"))
    #+END_SRC
+
+Finally, I could export to \LaTeX document and run the following
+continuous process in the document directory:
+
+#+BEGIN_SRC sh
+latexmk -pvc -pdf -view=none FILENAME.tex
+#+END_SRC
 
 
    Untangle files; i.e. write org code blocks to their own files.
