@@ -591,6 +591,21 @@ global-disable-mouse-mode to my universal toggle hydra: =C-x t m= .
     :init (global-disable-mouse-mode))
 #+end_SRC
 
+** Rainbow-mode
+
+Rainbow-mode sets the background of any color name in a buffer. Turn
+it on in CSS buffers but elsewhere is can toggled on with =M-x t u=.
+Note that it interferes with my current line highlighting. See [[Current line]].
+
+#+NAME: look-and-feel
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-mode
+    :defer t
+    :diminish
+    :config
+    (add-hook 'css-mode-hook 'rainbow-mode))
+#+END_SRC
+
 * Start-up
 
   Start with the scratch buffer; no start-up screen. Restore previous
@@ -783,7 +798,7 @@ be shown with =M-x describe-personal-keybindings=.
                   _d_ebug-on-error       _k_: spelling language   _b_: overwrite mode    _w_ritegood-mode
                   _e_ros                 _h_tml preview for org   t_r_uncate-lines       _q_uit
                   _f_olding              _n_arrowing              _m_ouse                white_s_pace-mode
-                  _g_roup digits
+                  _g_roup digits         ^ ^                      _u_: rainbow mode
                 "
     ("a" abbrev-mode )
     ("b" toggle-overwrite-mode)
@@ -800,6 +815,7 @@ be shown with =M-x describe-personal-keybindings=.
     ("k" cycle-ispell-languages :color red)
     ("o" org-toggle-link-display)
     ("p" org-toggle-pretty-entities)
+    ("u" rainbow-mode)
     ("r" toggle-truncate-lines)
     ("s" whitespace-mode)
     ("t" neotree-toggle)

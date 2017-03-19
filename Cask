@@ -119,6 +119,7 @@
 (depends-on "quickrun")
 (depends-on "racket-mode")
 (depends-on "rainbow-delimiters")
+(depends-on "rainbow-mode")
 (depends-on "regex-tool")
 (depends-on "s")
 (depends-on "seq")
