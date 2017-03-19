@@ -2680,6 +2680,9 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
        ;;(add-hook 'latex-mode-hook 'flyspell-mode)
        (add-hook 'latex-mode-hook 'flyspell-buffer)
 
+         (use-package latex-preview-pane
+           :defer t)
+
        ;; latex-extra
        (use-package latex-extra
          :defer t

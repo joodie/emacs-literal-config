@@ -76,6 +76,7 @@
 (depends-on "ivy")
 (depends-on "langtool")
 (depends-on "latex-extra")
+(depends-on "latex-preview-pane")
 (depends-on "ledger-mode")
 (depends-on "let-alist")
 (depends-on "linum-relative")
