@@ -1489,45 +1489,53 @@ recommended to be bound to =M-i= and =M-o=.
    #+BEGIN_SRC emacs-lisp
      (defun xah-cut-line-or-region ()
        "Cut current line, or text selection.
-       When `universal-argument' is called first, cut whole buffer (respects `narrow-to-region').
+     When `universal-argument' is called first, cut whole buffer (respects `narrow-to-region').
 
-       URL `http://ergoemacs.org/emacs/emacs_copy_cut_current_line.html'
-       Version 2015-05-06"
+     URL `http://ergoemacs.org/emacs/emacs_copy_cut_current_line.html'
+     Version 2015-06-10"
        (interactive)
-       (let (ξp1 ξp2)
-         (if current-prefix-arg
-             (progn (setq ξp1 (point-min))
-                    (setq ξp2 (point-max)))
-           (progn (if (use-region-p)
-                      (progn (setq ξp1 (region-beginning))
-                             (setq ξp2 (region-end)))
-                    (progn (setq ξp1 (line-beginning-position))
-                           (setq ξp2 (line-beginning-position 2))))))
-         (kill-region ξp1 ξp2)))
+       (if current-prefix-arg
+           (progn ; not using kill-region because we don't want to include previous kill
+             (kill-new (buffer-string))
+             (delete-region (point-min) (point-max)))
+         (progn (if (use-region-p)
+                    (kill-region (region-beginning) (region-end) t)
+                  (kill-region (line-beginning-position) (line-beginning-position 2))))))
 
      (defun xah-copy-line-or-region ()
        "Copy current line, or text selection.
-       When `universal-argument' is called first, copy whole buffer (respects `narrow-to-region').
+     When called repeatedly, append copy subsequent lines.
+     When `universal-argument' is called first, copy whole buffer (respects `narrow-to-region').
 
-       URL `http://ergoemacs.org/emacs/emacs_copy_cut_current_line.html'
-       Version 2015-05-06"
+     URL `http://ergoemacs.org/emacs/emacs_copy_cut_current_line.html'
+     Version 2016-06-18"
        (interactive)
-       (let (ξp1 ξp2)
+       (let (-p1 -p2)
          (if current-prefix-arg
-             (progn (setq ξp1 (point-min))
-                    (setq ξp2 (point-max)))
-           (progn (if (use-region-p)
-                      (progn (setq ξp1 (region-beginning))
-                             (setq ξp2 (region-end)))
-                    (progn (setq ξp1 (line-beginning-position))
-                           (setq ξp2 (line-end-position))))))
-         (kill-ring-save ξp1 ξp2)
-         (if current-prefix-arg
-             (message "buffer text copied")
-           (message "text copied"))))
+             (setq -p1 (point-min) -p2 (point-max))
+           (if (use-region-p)
+               (setq -p1 (region-beginning) -p2 (region-end))
+             (setq -p1 (line-beginning-position) -p2 (line-end-position))))
+         (if (eq last-command this-command)
+             (progn
+               (progn ; hack. exit if there's no more next line
+                 (end-of-line)
+                 (forward-char)
+                 (backward-char))
+               ;; (push-mark (point) "NOMSG" "ACTIVATE")
+               (kill-append "\n" nil)
+               (kill-append (buffer-substring-no-properties (line-beginning-position) (line-end-position)) nil)
+               (message "Line copy appended"))
+           (progn
+             (kill-ring-save -p1 -p2)
+             (if current-prefix-arg
+                 (message "Buffer text copied")
+               (message "Text copied"))))
+         (end-of-line)
+         (forward-char)))
 
-     (bind-key "C-x" 'xah-cut-line-or-region)
-     (bind-key "C-c" 'xah-copy-line-or-region)
+     ;; (bind-key "C-x" 'xah-cut-line-or-region)
+     ;; (bind-key "C-c" 'xah-copy-line-or-region)
      (when (eq system-type 'darwin)
        (bind-key "s-x" 'xah-cut-line-or-region)
        (bind-key "s-c" 'xah-copy-line-or-region))
@@ -3743,7 +3751,7 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
      (use-package ivy
        :diminish (ivy-mode . "")
        :init
-       (setq ivy-use-virtual-buffers t)
+       (setq ivy-use-virtual-buffers t) ; Enable bookmarks and recentf in buffer list
        (setq ivy-display-style 'fancy)
        (setq ivy-height 10)
        (setq ivy-count-format "(%d/%d) ")
@@ -3758,8 +3766,6 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
               ("M-y" . ivy-next-line))
        :config
        (ivy-mode 1)
-       ;; Enable bookmarks and recentf in buffer list
-       (setq ivy-use-virtual-buffers t)
 
        (setq ivy-re-builders-alist
              ;; allow regex input not in order
