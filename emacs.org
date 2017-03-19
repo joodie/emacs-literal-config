@@ -5063,6 +5063,9 @@ Command =owp/do-publication= seems to do all I need.
    This setting activates [[http://www.emacswiki.org/emacs/WinnerMode][winner mode]] to return the previous window
    setup by =C-c left=.
 
+   [[https://oremacs.com/2017/03/18/dired-ediff/][Quickly ediff files from dired · (or emacs]] by pressing e after two
+   files have been selected.
+
    #+name: apps
    #+BEGIN_SRC emacs-lisp
      ;; custom macro for changing custom values
@@ -5083,6 +5086,30 @@ Command =owp/do-publication= seems to do all I need.
        :defer t
        :config (winner-mode 1)
        (add-hook 'ediff-after-quit-hook-internal 'winner-undo))
+
+     ;; clever ediff of two marked files
+     ;; -*- lexical-binding: t -*-
+     (defun ora-ediff-files ()
+       (interactive)
+       (let ((files (dired-get-marked-files))
+             (wnd (current-window-configuration)))
+         (if (<= (length files) 2)
+             (let ((file1 (car files))
+                   (file2 (if (cdr files)
+                              (cadr files)
+                            (read-file-name
+                             "file: "
+                             (dired-dwim-target-directory)))))
+               (if (file-newer-than-file-p file1 file2)
+                   (ediff-files file2 file1)
+                 (ediff-files file1 file2))
+               (add-hook 'ediff-after-quit-hook-internal
+                         (lambda ()
+                           (setq ediff-after-quit-hook-internal nil)
+                           (set-window-configuration wnd))))
+           (error "no more than 2 files should be marked"))))
+
+     (define-key dired-mode-map "e" 'ora-ediff-files)
    #+END_SRC
 
 ** Phonetic alphabet
@@ -6524,6 +6551,9 @@ save. I helped rewrite the package!
 
     The dired-ranger makes it easy to copy (W) files and then copy (Y)
     or move (X) them to a new directory.
+
+    See [[Ediff]] section to see code that binds calling of ediff on two
+    selected files.
 
     #+BEGIN_SRC sh
       brew install coreutils
