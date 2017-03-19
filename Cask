@@ -99,6 +99,7 @@
 (depends-on "org-plus-contrib")
 (depends-on "org-preview-html")
 (depends-on "org-ref")
+(depends-on "org-table-sticky-header")
 (depends-on "org-webpage")
 (depends-on "osx-dictionary")
 (depends-on "package-build")

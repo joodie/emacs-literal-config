@@ -5842,15 +5842,24 @@ Config is in my emacs secrets file.
                       (off . "<span class=\"task-todo\">&#x2610;</span>")
                       (trans . "<span class=\"task-in-progress\">[-]</span>"))))
      (use-package org-bullets
-       :disabled t
+       :disabled true
        :defer t
-       :init (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●" ))
+       ;; :init (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●" ))
        :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
-
      ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
      ;;(setq org-ellipsis "…")
      (setq org-ellipsis "⤵")
      (setq org-hide-emphasis-markers t)
+     ;; (setq org-hide-leading-stars t)
+#+END_SRC
+
+** Org tables sitcky headers
+
+#+name: org-config
+#+BEGIN_SRC emacs-lisp
+  (use-package org-table-sticky-header
+    :config
+    (add-hook 'org-mode-hook 'org-table-sticky-header-mode))
 #+END_SRC
 
 ** Org Babel
