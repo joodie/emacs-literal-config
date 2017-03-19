@@ -1360,6 +1360,7 @@ http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
         :defer t
         :config (imagex-auto-adjust-mode 1)))
    #+END_SRC
+
 *** Editing as root
 
   If you open a file that you do not have permissions to edit, you can
@@ -1477,6 +1478,7 @@ recommended to be bound to =M-i= and =M-o=.
     :bind ("M-i" . change-inner)
     :bind ("M-o" . change-outer))
 #+END_SRC
+
 ** Cut and copy
 
    Default cut and copy behaviour in emacs when nothing is selected is
@@ -1810,7 +1812,6 @@ words."
        :defer t)
    #+END_SRC
 
-
 ** Count words in a buffer
 
   #+name: text-files
@@ -1920,11 +1921,11 @@ fill column around the selected region.
 ** Macros
 
    Emacs has a powerful [[http://www.emacswiki.org/emacs/KeyboardMacros][keyboard macro]] system. However, it has its own
-   internal notation. The [[https://github.com/Silex/elmacro][elmacro]] minor mode converts these macros into
-   emacs lisp functions. Start elmacro mode (=M-x elmacro-mode=)
-   before recording the macro, and once it has been defined, use =M-x
-   elmacro-show-last-macro= to give the function a name, and see it in
-   a new buffer.
+   internal notation. The [[https://github.com/Silex/elmacro][elmacro]] minor mode converts these macros
+   into emacs lisp functions. Start the elmacro mode (=M-x
+   elmacro-mode=) before recording the macro, and once it has been
+   defined, use =M-x elmacro-show-last-macro= to give the generated
+   function a name, and see it in a new buffer.
 
    The function key shortcuts for macros are not useful under OS X,
    but these commands work well:
@@ -3706,7 +3707,10 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
 ** Searching
 
    [[https://github.com/abo-abo/swiper][Swiper]] is a replacement for isearch that faster and easier to
-   configure.
+   configure. I bind it to isearch key, =C-s=. To complete current word
+   to swiper minibuffer, press =M-j=. Isearch is still usable with =C-`=.
+   It is especially good for searching European 8-bit characters with
+   ASCII keyboard: just use the ASCII equivalent keys.
 
    # [[https://github.com/nonsequitur/smex][smex]] shows a list of most relevant and recent commands on =M-x=.
 
@@ -3717,7 +3721,7 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
    Also, the ivy-enhanced switch-buffer command lists recently opened
    files (recentf).
 
-   While the default emacs histroy list can be accessed by the arrow
+   While the default emacs history list can be accessed by the arrow
    up and down keys, ivy makes you use =M-p= and =M-n= for it.
 
    I have bound commands =ivy-push-view= and =ivy-pop-view= to =C-c b= and
@@ -4127,6 +4131,9 @@ too.
   #+END_SRC
 
 ** Filename to clipboard
+
+This useful function can be accessed through the launch hydra with
+=C-x l f= (Emacs, launch filename copying).
 
 #+name: global-navigation
 #+BEGIN_SRC emacs-lisp
@@ -6376,9 +6383,6 @@ save. I helped rewrite the package!
     <<apps>>
     <<execute-last>>
   #+END_SRC
-
-  #+RESULTS:
-  : t
 
 ** Hooks and modes
 
