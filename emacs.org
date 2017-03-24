@@ -5029,6 +5029,19 @@ Command =owp/do-publication= seems to do all I need.
          (bury-buffer)))
    #+END_SRC
 
+** shell
+
+Shell process in emacs is better for managing and piping big data
+sets. [[https://www.masteringemacs.org/article/shell-comint-secrets-history-commands][Shell & Comint Secrets: History commands - Mastering Emacs]]
+
+Command history with replacement works with =^a^b^= and =<Space> = after
+binding the magic space command to the space key.
+
+#+name: apps
+#+BEGIN_SRC emacs-lisp
+  (define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
+#+END_SRC
+
 ** Process management
 
    The package [[https://github.com/emacsmirror/vkill][vkill]] makes it possible to kill UNIX processes from
