@@ -554,6 +554,8 @@ package. Use it instead of =package-install=: =M-x try some-package=.
      (use-package paper-theme
        :defer t
        :init (setq paper-tint-factor 85))
+     (use-package danneskjold-theme
+       :defer t)
    #+END_SRC
 
    You are supposed to invoke themes with =M-x load-theme=. Strangely,
@@ -566,13 +568,16 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    active themes.
 
    #+NAME: look-and-feel
-   #+BEGIN_SRC emacs-lis
-     (defun theme ()
+   #+BEGIN_SRC emacs-lisp
+     (defun theme (uarg)
        "Disable all active themes and then load one interactively.
-       Needs dash.el."
-       (interactive)
-       (--map (disable-theme it) custom-enabled-themes)
-       (call-interactively 'load-theme))
+
+     Use default theme if universal argument UARG is given."
+       (interactive "p")
+       (dolist (i custom-enabled-themes)
+         (disable-theme i))
+     (if (/= uarg 4)
+         (call-interactively 'load-theme)))
    #+END_SRC
 
 ** Mouse
