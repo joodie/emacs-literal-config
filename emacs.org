@@ -3066,6 +3066,10 @@ The pod-mode is outdated and needs to be manually installed to the
    taken by OS X to switch between desktops. Use the Cmd key (s for
    super in emacs), instead.
 
+[[https://emacswiki.org/emacs/PareditCheatsheet][EmacsWiki: Paredit Cheatsheet]] gives a good overview of paredit keys.
+To fill in, a more comprehensive list of navigation keys are at [[https://www.emacswiki.org/emacs/NavigatingParentheses#toc1][EmacsWiki:
+Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
+
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package paredit
