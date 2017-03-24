@@ -33,6 +33,8 @@
 *** Perl                                                                  :p:
 **** http://shallowsky.com/blog/index.rss
 **** http://perltricks.com/index.xml
+*** Mobile                                                              :d:
+**** http://mobiili.fi/feed/
 ** Archeology                                                              :a:
 # *** http://feeds.feedburner.com/AncientOrigins?format=xml
 *** https://twilightbeasts.wordpress.com/feed/
@@ -49,8 +51,6 @@
 **** http://www.mymodernmet.com/profiles/blogs/feed/featured
 *** Books
 **** https://20lukuaetsimassa.wordpress.com/feed/
-** Mobile                                                                 :d:
-*** http://mobiili.fi/feed/
 ** Comics                                                                  :c:
 *** http://kimmo.suominen.com/stuff/vw.xml
 *** http://kimmo.suominen.com/stuff/fingerpori.xml
@@ -58,7 +58,7 @@
 *** http://english.bouletcorp.com/feed/
 *** https://nensarjakuvat.wordpress.com/feed/atom/
 *** http://kimmo.suominen.com/stuff/anonyymitelaimet.xml
-*** http://www.comicsyndicate.org/Feed/Pearls%20before%20Swine
+# *** http://www.comicsyndicate.org/Feed/Pearls%20before%20Swine
 *** http://fribergthorelli.com/wbk/index.php/feed/
 *** http://www.daughterofthelilies.com/rss.php
 *** http://sssscomic.com/ssss-feed.xml
@@ -82,3 +82,4 @@
 # *** http://websta.me/rss/n/minnalehvaslaiho
 *** http://minimauritius.com/feed/
 # *** http://websta.me/rss/n/matkleh
+*** https://savumerkkejablog.wordpress.com/feed/
