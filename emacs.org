@@ -1484,58 +1484,31 @@ recommended to be bound to =M-i= and =M-o=.
     :bind ("M-o" . change-outer))
 #+END_SRC
 
-** Cut and copy
+** TODO Cut and copy
+
+   Note: This, nor previous code from Xah did not work for me!
 
    Default cut and copy behaviour in emacs when nothing is selected is
-   to do nothing. These functions cut or copy the current line
-   instead. I am binding them to =C-x= and =C-c=, and in case of OS X,
-   to command key equivalents.
+   to do nothing. These functions modify cut or copy to work the current line
+   instead.
 
    #+BEGIN_SRC emacs-lisp
-     (defun xah-cut-line-or-region ()
-       "Cut current line, or text selection.
-       When `universal-argument' is called first, cut whole buffer (respects `narrow-to-region').
+     (defun slick-cut (beg end)
+       (interactive
+        (if mark-active
+            (list (region-beginning) (region-end))
+          (list (line-beginning-position) (line-beginning-position 2)))))
 
-       URL `http://ergoemacs.org/emacs/emacs_copy_cut_current_line.html'
-       Version 2015-05-06"
-       (interactive)
-       (let (ξp1 ξp2)
-         (if current-prefix-arg
-             (progn (setq ξp1 (point-min))
-                    (setq ξp2 (point-max)))
-           (progn (if (use-region-p)
-                      (progn (setq ξp1 (region-beginning))
-                             (setq ξp2 (region-end)))
-                    (progn (setq ξp1 (line-beginning-position))
-                           (setq ξp2 (line-beginning-position 2))))))
-         (kill-region ξp1 ξp2)))
+     (advice-add 'kill-region :before #'slick-cut)
 
-     (defun xah-copy-line-or-region ()
-       "Copy current line, or text selection.
-       When `universal-argument' is called first, copy whole buffer (respects `narrow-to-region').
+     (defun slick-copy (beg end)
+       (interactive
+        (if mark-active
+            (list (region-beginning) (region-end))
+          (message "Copied line")
+          (list (line-beginning-position) (line-beginning-position 2)))))
 
-       URL `http://ergoemacs.org/emacs/emacs_copy_cut_current_line.html'
-       Version 2015-05-06"
-       (interactive)
-       (let (ξp1 ξp2)
-         (if current-prefix-arg
-             (progn (setq ξp1 (point-min))
-                    (setq ξp2 (point-max)))
-           (progn (if (use-region-p)
-                      (progn (setq ξp1 (region-beginning))
-                             (setq ξp2 (region-end)))
-                    (progn (setq ξp1 (line-beginning-position))
-                           (setq ξp2 (line-end-position))))))
-         (kill-ring-save ξp1 ξp2)
-         (if current-prefix-arg
-             (message "buffer text copied")
-           (message "text copied"))))
-
-     (bind-key "C-x" 'xah-cut-line-or-region)
-     (bind-key "C-c" 'xah-copy-line-or-region)
-     (when (eq system-type 'darwin)
-       (bind-key "s-x" 'xah-cut-line-or-region)
-       (bind-key "s-c" 'xah-copy-line-or-region))
+     (advice-add 'kill-ring-save :before #'slick-copy)
    #+END_SRC
 
    TODO: An other way of doing the same:
