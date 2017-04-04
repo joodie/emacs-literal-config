@@ -4990,6 +4990,35 @@ Command =owp/do-publication= seems to do all I need.
           :web-server-port 8000))
        )
    #+END_SRC
+
+*** easy-hugo
+
+I really like [[https://gohugo.io/][Hugo]] static site generator and I've created a few
+websites with it. The latest (0.19) version includes built-in support
+for org-mode. [[https://github.com/masasam/emacs-easy-hugo][masasam/emacs-easy-hugo: Emacs package for writing blogs made with hugo]]
+
+#+name: apps
+#+BEGIN_SRC emacs-lisp
+  (use-package easy-hugo
+    :init
+    (setq easy-hugo-basedir "~/hugo/test/")
+    (setq easy-hugo-url "https://example.org/")
+    (setq easy-hugo-sshdomain "blogdomain")
+    (setq easy-hugo-root "/home/blog/")
+    (setq easy-hugo-previewtime "300")
+    :config
+    (defhydra hydra-blog (:color blue :hint nil)
+      "
+               blog  _n_: new article        _l_: list articles
+                     _p_: preview            _P_: publish
+                     "
+      ("n" easy-hugo-newpost)
+      ("p" easy-hugo-preview)
+      ("l" easy-hugo-article)
+      ("P" easy-hugo-publish))
+    :bind ("C-c o" . hydra-blog/body))
+#+END_SRC
+
 ** Password management
 
    Command =pass= gives access to similarly named command line

@@ -37,6 +37,7 @@
 (depends-on "dired-quick-sort")
 (depends-on "dired-ranger")
 (depends-on "disable-mouse")
+(depends-on "easy-hugo")
 (depends-on "edit-server")
 (depends-on "edit-server-htmlize")
 (depends-on "electric-operator")
