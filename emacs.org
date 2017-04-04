@@ -173,6 +173,7 @@ package. Use it instead of =package-install=: =M-x try some-package=.
    encoding, fonts and highlights. Also, see =M-x what-face=.
 
 *** TODO Unicode
+
     - Xah Lee's [[http://ergoemacs.org/emacs/emacs_n_unicode.html][Unicode]] page for easy copy and paste.
     - Draw Unicode characters [[http://shapecatcher.com/][online]].
     - Enter Unicode characters in hexadecimal or named: =C-x 8<Enter>=.
@@ -186,9 +187,9 @@ package. Use it instead of =package-install=: =M-x try some-package=.
      (bind-key "C-x 9" 'hydra-unicode/body)
      (defhydra hydra-unicode (:hint nil)
        "
-      Unicode  _e_ €  _s_ 0 w SPACE   _n_amed select
-               _f_ ♀  _o_ °   _m_ µ
-               _r_ ♂  _a_ →
+      Unicode  _e_ €  _s_ 0 w SPACE   _2_ ²   _n_amed select
+               _f_ ♀  _o_ °   _m_ µ   _3_ ³
+               _r_ ♂  _a_ →           _t_ ₂
              "
        ("e" (my/insert-unicode "EURO SIGN"))
        ("r" (my/insert-unicode "MALE SIGN"))
@@ -197,12 +198,15 @@ package. Use it instead of =package-install=: =M-x try some-package=.
        ("o" (my/insert-unicode "DEGREE SIGN"))
        ("a" (my/insert-unicode "RIGHTWARDS ARROW"))
        ("m" (my/insert-unicode "MICRO SIGN"))
+       ("2" (my/insert-unicode "SUPERSCRIPT TWO"))
+       ("3" (my/insert-unicode "SUPERSCRIPT THREE"))
+       ("t" (my/insert-unicode "SUBSCRIPT TWO"))
        ("n" counsel-unicode-char))
    #+END_SRC
 
    Note: For most plain text writing I use [[Org mode]] that has a very
    useful binding for =org-self-insert-command= that allows combining
-   mnemonic keys to make accented characters. For example, =C-x 8 ' i
+   mnemonic keys to make accented characters. For example, =C-x 8 ' i=
    inserts character í, and =C-x 8 " a=, character ä.
 
 ** Reduce clutter
