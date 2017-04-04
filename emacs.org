@@ -5379,7 +5379,7 @@ binding the magic space command to the space key.
                            (:endgrouptag)
 
                            (:startgrouptag)
-                           ("CULTURE"    . ?o)
+                           ("CULTURE"    . ?e)
                              (:grouptags)
                                ("FOOD"    . ?d)
                                ("PHOTO"   . ?f)
