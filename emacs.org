@@ -6602,12 +6602,17 @@ to see a handy hydra menu for sorting. Pressing =s= is standard key
 binding to toggle between the default alphabetical and time based
 sorting.
 
+[[http://pragmaticemacs.com/emacs/automatically-revert-buffers/][Automatically revert dired when files change]].
+
 #+NAME: environment
 #+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (setq insert-directory-program (executable-find "gls")))
 
   (setq dired-listing-switches "-alh")
+
+  ;; auto refresh dired when file changes
+  (add-hook 'dired-mode-hook 'auto-revert-mode)
 
   (use-package dired-narrow
     :defer t
