@@ -2829,15 +2829,12 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
     (use-package ledger-mode
          :mode "\\.led\\'"
          :interpreter "ledger"
-         :config
-
-         (defun my/ledger-mode-hooks ()
-          "Ledger mode settings"
+      :init
           ;; date format
           (setq ledger-use-iso-dates t)
           ;; font changes
-          (set-face-attribute 'ledger-font-comment-face nil :foreground "gray40")
-          (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "cornsilk")
+      ;; (set-face-attribute 'ledger-font-comment-face nil :foreground "gray40")
+      ;; (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "cornsilk")
           ;; reports
           (setq ledger-reports
                 (quote (("test" "ledger ")
@@ -2845,13 +2842,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
                         ("reg" "ledger -f %(ledger-file) reg")
                         ("payee" "ledger -f %(ledger-file) reg @%(payee)")
                         ("account" "ledger -f %(ledger-file) reg %(account)")))))
-
-        (add-hook 'ledger-mode-hook
-                  'my/ledger-mode-hooks)
-
         ;; flycheck-ledger does syntax checking
         ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
-    )
   #+END_SRC
 
 ** Ssh config
