@@ -739,6 +739,24 @@ GnuPGP need to be upgraded to v.2.1 that is not backward compatible:
     (setq large-file-warning-threshold 100000000)
   #+END_SRC
 
+- The [[https://github.com/iqbalansari/restart-emacs][restart-emacs]] package makes it possible not only to quit emacs
+  (=C-x C-c=) but restart it from within emacs.
+
+  #+NAME: startup
+  #+BEGIN_SRC emacs-lisp
+    (use-package restart-emacs)
+  #+END_SRC
+
+
+Use prefix arguments to modify:
+
+|   C-u | Emacs flag   |
+| count |              |
+|-------+--------------|
+|     1 | --debug-init |
+|     2 | -Q           |
+|     3 | <prompt>     |
+
 * Key bindings
 
 ** Free default bindings
