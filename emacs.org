@@ -808,7 +808,7 @@ keys exceed available space, =C-h= scrolls the list.
     (setq which-key-frame-max-height 40)) ; number of lines
 #+END_SRC
 
-I used to maintain a table of =C-c= bindings but this feature made it
+I used to maintain a table of =C-c= bindings but which-key made it
 obsolete.
 
 ** Mnemonic key bindings with hydra
@@ -1000,9 +1000,9 @@ prepended to the element after the #+HEADERS: tag."
 
 ** Key bindings in current buffer
 
-Here is the definition to =keys-describe-prefixes=
-function from [[http://oremacs.com/2015/02/11/elisp-newbie-style/][Elisp newbie-style]] blog to print out all key bindings
-active in the current buffer. I do not use greek letters in keys, so I've removed them
+Here is the definition to =keys-describe-prefixes= function from [[http://oremacs.com/2015/02/11/elisp-newbie-style/][Elisp
+newbie-style]] blog to print out all key bindings active in the current
+buffer. I do not use greek letters in keys, so I've removed them.
 
 #+name: key-bindings
 #+BEGIN_SRC emacs-lisp
@@ -1050,6 +1050,13 @@ active in the current buffer. I do not use greek letters in keys, so I've remove
    into org capture buffer and having the whole buffer inadvertently
    converted to iso-latin-1. This page ([[http://stackoverflow.com/questions/24904208/emacs-windows-org-mode-encoding][Emacs Windows org-mode
    encoding - Stack Overflow]]) gives a solution.
+
+   I still had occasional problems until I added a header to problem
+   files:
+
+#+BEGIN_EXAMPLE
+# -*- coding: utf-8 -*-
+#+END_EXAMPLE
 
    In cases where text files come from Windows environment, it is
    useful to [[http://www.emacswiki.org/emacs/DosToUnix][strip carriage returns]] from line endings to view the file
@@ -1170,7 +1177,7 @@ with =C-q C-l=) as horisontal lines.
 ** Text (non-code) formatting
 
    For writing text, I prefer Emacs to do line wrapping for me. Also,
-   superfluous white-space should needs to be visible.
+   superfluous white-space needs to be visible.
 
    [[Abbreviations]] are an important emacs productivity enhancement
    feature. They need to be available in all text buffers. Any changes
@@ -3729,8 +3736,6 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
    It is especially good for searching European 8-bit characters with
    ASCII keyboard: just use the ASCII equivalent keys.
 
-   # [[https://github.com/nonsequitur/smex][smex]] shows a list of most relevant and recent commands on =M-x=.
-
    [[http://oremacs.com/2016/06/27/ivy-push-view/][Current window layout]] can now be saved with ivy once virtual
    buffers are enabled. Normal switch-buffer =C-x b= shows layouts with
    a ={}= tag prepended. Really easy!
@@ -5199,7 +5204,7 @@ binding the magic space command to the space key.
    =re-builder= to match anything in your current buffer. The shortcut
    is "Emacs, launch re-builder", =C-x l r=.
 
-   As recommened in [[http://www.masteringemacs.org/article/re-builder-interactive-regexp-builder][Mastering emacs]], I've set the syntax to "string"
+   As recommended in [[http://www.masteringemacs.org/article/re-builder-interactive-regexp-builder][Mastering emacs]], I've set the syntax to "string"
    that escaped one set of backlashes. =C-c C-w= will copy the created
    regexp *and* correct the syntax to be pasted into elisp.
 
