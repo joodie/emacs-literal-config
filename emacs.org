@@ -2853,10 +2853,13 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
     (use-package ssh-config-mode
-      :mode ((".ssh/config\\'"       . ssh-config-mode)
-             ("sshd?_config\\'"      . ssh-config-mode)
-             ("known_hosts\\'"       . ssh-known-hosts-mode)
-             ("authorized_keys2?\\'" . ssh-authorized-keys-mode))
+    :mode (("\\.ssh/config\\'"       . ssh-config-mode)
+           ("/sshd?_config\\'"      . ssh-config-mode)
+           ("/known_hosts\\'"       . ssh-known-hosts-mode)
+           ("/authorized_keys2?\\'" . ssh-authorized-keys-mode))
+    :bind (:map ssh-config-mode-map
+                ("C-p" . ssh-config-host-prev)
+                ("C-n" . ssh-config-host-next))
       :config
       (add-hook 'ssh-config-mode-hook 'turn-on-font-lock))
 #+END_SRC
@@ -3298,10 +3301,21 @@ Automatically uppercase SQL keywords in sql-mode.
    environment:
 
    #+BEGIN_SRC sh
-     pip install elpy
+     # pip install elpy
      pip install rope
      pip install jedi
+     pip install flake8
+     pip install importmagic
+
    #+END_SRC
+
+
+[[https://github.com/millejoh/emacs-ipython-notebook][millejoh/emacs-ipython-notebook: Jupyter and IPython 2.x/3.x notebook
+client in Emacs]]
+1. Start the server on command line: =jupyter notebook=
+2. Copy the token
+3. =M-x ein:notebooklist-login=
+4. =M-x ein:notebooklist-open=
 
    ##+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
