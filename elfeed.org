@@ -6,8 +6,9 @@
 *** http://feeds.bbci.co.uk/news/technology/rss.xml
 *** http://feeds.bbci.co.uk/news/health/rss.xml
 *** http://www.bbc.com/culture/feed.rss
-*** http://bruxelles.blogs.liberation.fr/feeds/
+# *** http://bruxelles.blogs.liberation.fr/feeds/
 *** Suomi                                                                :fi:
+
 **** http://www.hs.fi/uutiset/rss/
 **** http://yle.fi/uutiset/rss/paauutiset.rss
 ** News in Science Journals                                               :j:
@@ -35,6 +36,7 @@
 **** http://perltricks.com/index.xml
 *** Mobile                                                              :d:
 **** http://mobiili.fi/feed/
+
 ** Archeology                                                              :a:
 # *** http://feeds.feedburner.com/AncientOrigins?format=xml
 *** https://twilightbeasts.wordpress.com/feed/
