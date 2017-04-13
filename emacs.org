@@ -260,11 +260,11 @@ Even mouse commands use echo area to ask confirmations
      (when (display-graphic-p)
        (use-package git-gutter-fringe
          :defer t
+         :diminish (git-gutter-mode . "")
          :init
          (global-git-gutter-mode +1)
          (setq-default indicate-buffer-boundaries 'left)
-         (setq-default indicate-empty-lines +1)
-         :diminish git-gutter-mode))
+         (setq-default indicate-empty-lines +1)))
    #+END_SRC
 
 ** Mode line
@@ -527,6 +527,7 @@ Even mouse commands use echo area to ask confirmations
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (use-package beacon
+       :diminish ""
        :config
        (setq beacon-color "firebrick")
        (setq beacon-size 20)         ; smaller than default 40
@@ -619,7 +620,7 @@ Note that it interferes with my current line highlighting. See [[Current line]].
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode
     :defer t
-    :diminish
+    :diminish ""
     :config
     (add-hook 'css-mode-hook 'rainbow-mode))
 #+END_SRC
@@ -796,6 +797,7 @@ keys exceed available space, =C-h= scrolls the list.
 #+name: key-bindings
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
+    :diminish ""
     :defer t
     :init
     (which-key-mode)
@@ -1157,6 +1159,7 @@ with =C-q C-l=) as horisontal lines.
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
      (use-package page-break-lines
+       :diminish ""
        :defer t
        :config
        (global-page-break-lines-mode))
@@ -1236,6 +1239,7 @@ with =C-q C-l=) as horisontal lines.
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
      (global-auto-revert-mode)
+     (diminish 'auto-revert-mode)
      (setq global-auto-revert-non-file-buffers t)
      (setq auto-revert-verbose nil)
    #+END_SRC
@@ -1550,7 +1554,7 @@ recommended to be bound to =M-i= and =M-o=.
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
 (use-package undo-tree
-  :diminish undo-tree-mode
+  :diminish ""
   :bind
   ("C-z" . undo)
   ("M-z" . undo-tree-redo)
@@ -1570,10 +1574,10 @@ recommended to be bound to =M-i= and =M-o=.
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
      (use-package abbrev
+       :diminish "Abbr"
        :ensure nil
        :defer t
        :commands abbrev-mode
-       ;;:diminish Abbr
        :config
        (progn
          (if (file-exists-p abbrev-file-name)
@@ -1696,7 +1700,7 @@ recommended to be bound to =M-i= and =M-o=.
       "Toggle `dubcaps-mode'.  Converts words in DOuble CApitals to
     Single Capitals as you type."
       :init-value nil
-      :lighter (" DC")
+      :lighter ("")
       (if dubcaps-mode
           (add-hook 'post-self-insert-hook #'dcaps-to-scaps nil 'local)
         (remove-hook 'post-self-insert-hook #'dcaps-to-scaps 'local)))
@@ -2024,6 +2028,7 @@ be installed (e.g. =brew install hub= in OS X).
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
     (use-package git-timemachine
+       :diminish ""
       :defer t)
   #+END_SRC
 
@@ -2891,6 +2896,7 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
      (use-package flycheck
+       :diminish ""
        :defer t
        :config
        (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -3281,7 +3287,7 @@ Automatically uppercase SQL keywords in sql-mode.
 
        (use-package clj-refactor
          :defer t
-         :diminish clj-refactor-mode
+         :diminish ""
          :config (cljr-add-keybindings-with-prefix "C-c C-m"))
 
        ;; M-up -> s-up
@@ -3534,6 +3540,7 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
      (global-subword-mode +1)
+     (diminish 'subword-mode)
      (defhydra hydra-navigate (:color red
                                :hint nil)
        "
@@ -3846,7 +3853,7 @@ Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficien
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :defer t
-    :diminish projectile-mode
+    :diminish ""
     :init
     (setq projectile-completion-system 'ivy)
     (setq projectile-file-exists-remote-cache-expire nil)
@@ -5323,16 +5330,17 @@ binding the magic space command to the space key.
                  (lambda ()
                    (visual-line-mode)
                    ;; (turn-on-org-cdlatex)
-                   (org-indent-mode))))
+                   (org-indent-mode)
+                   (diminish 'org-indent-mode ""))))
 
-          (use-package org-autolist
-            :config
-            (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
+     (use-package org-autolist
+       :diminish ""
+       :config
+       (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
 
-          (use-package wc-mode
-            :config
-            ;; (add-hook 'org-mode-hook 'wc-mode) ;; too slow to have on by default
-            )
+     ;; too slow to have on by default
+     ;; (add-hook 'org-mode-hook 'wc-mode)
+     (use-package wc-mode)
    #+END_SRC
 
    Note: =C-c C-j= is =org-goto= and creates a copy of the current
@@ -5501,6 +5509,7 @@ the agenda view.
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
      (use-package worf
+       :diminish ""
        :defer t
        :config (add-hook 'org-mode-hook (lambda () (worf-mode 1)))
        (define-key worf-mode-map (kbd "M-j") nil))
@@ -5910,6 +5919,7 @@ Config is in my emacs secrets file.
 #+name: org-config
 #+BEGIN_SRC emacs-lisp
   (use-package org-table-sticky-header
+    :diminish ""
     :config
     (add-hook 'org-mode-hook 'org-table-sticky-header-mode))
 #+END_SRC
