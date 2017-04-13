@@ -3301,21 +3301,10 @@ Automatically uppercase SQL keywords in sql-mode.
    environment:
 
    #+BEGIN_SRC sh
-     # pip install elpy
+     pip install elpy
      pip install rope
      pip install jedi
-     pip install flake8
-     pip install importmagic
-
    #+END_SRC
-
-
-[[https://github.com/millejoh/emacs-ipython-notebook][millejoh/emacs-ipython-notebook: Jupyter and IPython 2.x/3.x notebook
-client in Emacs]]
-1. Start the server on command line: =jupyter notebook=
-2. Copy the token
-3. =M-x ein:notebooklist-login=
-4. =M-x ein:notebooklist-open=
 
    ##+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -3775,6 +3764,10 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
        (setq ivy-display-style 'fancy)
        (setq ivy-height 10)
        (setq ivy-count-format "(%d/%d) ")
+       (setq ivy-switch-buffer-faces-alist
+             '((emacs-lisp-mode . swiper-match-face-1)
+               (dired-mode . ivy-subdir)
+               (org-mode . org-level-4)))
        :bind (("C-s" . swiper)
               ("C-c C-r" . ivy-resume)
               ("M-x" . counsel-M-x)
