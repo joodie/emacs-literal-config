@@ -2010,8 +2010,7 @@ be installed (e.g. =brew install hub= in OS X).
       (setq magit-diff-options '("-b")))
 
     (use-package magithub
-      :after magit
-      :disabled nil)
+      :after magit)
 
     (use-package git-commit :defer t)
     (use-package git-gutter :defer t)
