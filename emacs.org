@@ -4560,6 +4560,12 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+       (use-package elfeed-org
+         ;;:defer t
+         ;;:after elfeed
+         :config
+         (elfeed-org))
+
      (use-package elfeed
        :bind (("C-c f" . elfeed))
        :bind (:map elfeed-show-mode-map
@@ -4588,11 +4594,6 @@ bbdb-merge-records=.
        (setq elfeed-search-title-max-width 80) ; newspaper articles have long titles
        (setq elfeed-use-curl t) ; new, using curl; now default, this is not needed
        :config
-       (use-package elfeed-org
-         :defer t
-         :after elfeed
-         :config
-         (elfeed-org))
 
        (use-package elfeed-goodies
          :defer t
