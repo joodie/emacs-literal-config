@@ -278,10 +278,12 @@ Even mouse commands use echo area to ask confirmations
    minor mode indicators on the mode line. The code using diminish is
    placed where the corresponding minor mode is set up.
 
+   I tried package smart-mode-line but gave up configuring it. I could
+   not make it look the way I wanted.
+
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (setq-default
-      mode-line-format
+     (setq-default mode-line-format
       '(;; Position, including warning for 80 columns
         (:propertize " %5l:" face mode-line-position-face)
         (:eval (propertize "%3c" 'face
