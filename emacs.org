@@ -222,6 +222,15 @@ package. Use it instead of =package-install=: =M-x try some-package=.
        (scroll-bar-mode -1))
    #+END_SRC
 
+** Disable dialog boxes
+
+Even mouse commands use echo area to ask confirmations
+
+#+name: look-and-feel
+#+BEGIN_SRC emacs-lisp
+  (setq use-dialog-box nil)
+#+END_SRC
+
 ** Symbols
 
    Show written out symbols as they should be. This is available only
