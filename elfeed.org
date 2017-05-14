@@ -20,6 +20,8 @@
 *** http://www.theatlantic.com/feed/channel/science/
 *** http://mosaicscience.com/feed/rss.xml
 *** http://epidemic.bio.ed.ac.uk/rss.xml
+** Bio
+*** https://dazzlerblog.wordpress.com/feed/
 ** Computers
 *** Security                                                              :s:
 **** https://www.schneier.com/blog/atom.xml
