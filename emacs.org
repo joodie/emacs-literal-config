@@ -673,6 +673,9 @@ GnuPGP need to be upgraded to v.2.1 that is not backward compatible:
   ln -s /usr/local/bin/gpg2 /usr/local/bin/gpg
 #+END_SRC
 
+Tell emacs not to use any external programs for entering the
+passphrase.
+
 #+NAME: startup
 #+BEGIN_SRC emacs-lisp
   (setf epa-pinentry-mode 'loopback)
@@ -726,7 +729,7 @@ GnuPGP need to be upgraded to v.2.1 that is not backward compatible:
     (setq create-lockfiles nil)
   #+END_SRC
 
-* Confirmations and quitting emacs
+* Confirmations and exiting emacs
 
   Set short y/n abbreviations for all confirmations and ask for
   confirmation before quiting emacs.
@@ -830,6 +833,7 @@ be shown with =M-x describe-personal-keybindings=.
     (if (bound-and-true-p overwrite-mode)
         (overwrite-mode -1) (overwrite-mode)))
 
+
   (bind-key "C-x t" 'hydra-toggle/body)
   (defhydra hydra-toggle (:color blue :hint nil)
     "
@@ -855,10 +859,10 @@ be shown with =M-x describe-personal-keybindings=.
     ("k" cycle-ispell-languages :color red)
     ("o" org-toggle-link-display)
     ("p" org-toggle-pretty-entities)
-    ("u" rainbow-mode)
     ("r" toggle-truncate-lines)
     ("s" whitespace-mode)
     ("t" neotree-toggle)
+    ("u" rainbow-mode)
     ("v" string-inflection-toggle :color red)
     ("w" writegood-mode)
     ("q" nil))
@@ -1065,7 +1069,7 @@ buffer. I do not use greek letters in keys, so I've removed them.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
-     (set-language-environment "UTF-8")
+     (set-language-environment "utf-8")
      (setq locale-coding-system 'utf-8)
      (set-terminal-coding-system 'utf-8)
      (set-keyboard-coding-system 'utf-8)
@@ -1073,9 +1077,9 @@ buffer. I do not use greek letters in keys, so I've removed them.
      (prefer-coding-system 'utf-8)
      (when (display-graphic-p)
        (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
-     (modify-coding-system-alist 'file "" 'utf-8-unix)
+     (modify-coding-system-alist 'file "" 'utf-8)
      (set-charset-priority 'unicode)
-     (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+     (setq default-process-coding-system '(utf-8 . utf-8))
 
      (bind-key "C-c u"
                (lambda () (interactive)
@@ -1111,7 +1115,8 @@ buffer. I do not use greek letters in keys, so I've removed them.
 
    There is but [[https://www.reddit.com/r/emacs/comments/3sqvoy/good_key_combo_for_whitespacecleanup/][one case]] where *trailing whitespace* is syntactically
    important (in markdown). Since I do not use it, I can always strip
-   whitespace on save.
+   whitespace on save. The same function removes trailing empty lines
+   at the end of the buffer.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
@@ -1153,7 +1158,7 @@ buffer. I do not use greek letters in keys, so I've removed them.
    Emacs knows about natural language sentences and can navigate and
    mark them. The default emacs expects sentences that are separated
    by double space like in old typewriter text. Not any more. Note
-   that this leads to some ambiguity in detecting sentences.
+   that this may lead to some ambiguity in detecting sentences.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
@@ -1197,7 +1202,7 @@ with =C-q C-l=) as horisontal lines.
    If the line wrapping (explicitely =M-q=) needs to be [[http://www.emacswiki.org/emacs/UnfillParagraph][reversed]], use
    =unfill-paragraph= that is bound to =M-Q=.
 
-   A handy free feature from [[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html?source=rss][Endless Parentheses]]does away the need to
+   A handy free feature from [[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html?source=rss][Endless Parentheses]] does away the need to
    have a separate function for unfilling paragraphs: Now you can
    press =M-q= twice to unwrap.
 
@@ -1230,7 +1235,7 @@ with =C-q C-l=) as horisontal lines.
    return it to its default nil value, call the function on a empty
    line.
 
-** Undersstand compressed files
+** Understand compressed files
 
    This allows emacs to handle opening and saving .gz files
    automatically.
@@ -1560,6 +1565,12 @@ recommended to be bound to =M-i= and =M-o=.
 
 ** Undo-tree
 
+The emacs undo behaviour can be confusing. Every undo get added to the
+stack just like any other editing event. If you end up going back and
+forth, you'll find yourself lost quick quickly. Undo tree has commands
+and a visualizer to put you back on the map. Hit =C-M-z= see where you
+are.
+
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
 (use-package undo-tree
@@ -1572,6 +1583,7 @@ recommended to be bound to =M-i= and =M-o=.
   (global-undo-tree-mode)
   (setq undo-tree-visualizer-diff t))
 #+END_SRC
+
 ** Abbreviations
 
    Emacs comes with =abbrev-mode= that is able to replace typed strings
@@ -2858,16 +2870,16 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
-    (use-package ssh-config-mode
-    :mode (("\\.ssh/config\\'"       . ssh-config-mode)
+  (use-package ssh-config-mode
+    :mode (("\\.ssh/config\\'"      . ssh-config-mode)
            ("/sshd?_config\\'"      . ssh-config-mode)
            ("/known_hosts\\'"       . ssh-known-hosts-mode)
            ("/authorized_keys2?\\'" . ssh-authorized-keys-mode))
     :bind (:map ssh-config-mode-map
                 ("C-p" . ssh-config-host-prev)
                 ("C-n" . ssh-config-host-next))
-      :config
-      (add-hook 'ssh-config-mode-hook 'turn-on-font-lock))
+    :config
+    (add-hook 'ssh-config-mode-hook 'turn-on-font-lock))
 #+END_SRC
 
 * Programming
@@ -3177,7 +3189,7 @@ on.
 *** Suggest
 
 The [[https://github.com/Wilfred/suggest.el][suggest.el]] shows common elisp functions that produce a given
-output from given input.
+output from given input. Start it with =M-x suggest=.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
@@ -3756,6 +3768,8 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
    Also, save system clipboard before overwriting it from emacs
    ([[http://pragmaticemacs.com/emacs/prevent-emacs-wiping-the-system-clipboard/][Prevent Emacs wiping the system clipboard | Pragmatic Emacs]]).
 
+   =councel-imenu= is bound to 's' in worf mode.
+
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
 
@@ -3804,6 +3818,7 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
          "recenter display after swiper"
          (recenter))
        (advice-add 'swiper :after #'my/swiper-recenter))
+     ;; end of use-package
 
      ;; restore key bindings to isearch due to character folding in emacs 25.1
      (bind-key "C-`" 'isearch-forward)
@@ -4082,7 +4097,7 @@ too.
 
      ;; I often want to add more comments to the last note
      (defun my/last-captured-org-note ()
-       "Move to the end of penultimate line of the last org capture note."
+       "Move to the last line of the last org capture note."
        (interactive)
        (find-file "~/Dropbox/org/reference.org")
        (goto-char (point-max)))
@@ -6629,8 +6644,51 @@ save. I helped rewrite the package!
                   (concat user-emacs-directory
                           (convert-standard-filename "elisp/")))
    #+END_SRC
+
+** Load secrets
+
+   I keep slightly more sensitive information in a separate file so
+   that I can easily publish my main configuration.
+
+   It is kept in directory file:~/.emacs.p
+
+   #+NAME: environment
+   #+BEGIN_SRC emacs-lisp
+     (load "~/.emacs.p/secrets" t)
+   #+END_SRC
+
 ** OS X
 
+*** Key bindings
+
+I installed an emacs-plus from brew and OS X keybindings all changed.
+This restores the most important ones to what I am used to.
+
+#+BEGIN_SRC emacs-lisp
+  ;; disabled
+  ;;(when (eq system-type 'darwin)
+  (when (eq system-type 'darwin-xx)
+    ;; Control keys
+    ;; make cmd key do Meta
+    (setq mac-command-modifier 'super)
+    ;; make opt key do Super
+    (setq mac-option-modifier 'meta)
+    ;; make Fn key do Hyper
+    (setq ns-function-modifier 'hyper)
+    ;; make Control key do Control
+    (setq mac-control-modifier 'control)
+
+    ;; cut, copy paste, undo
+    (cua-mode t) ;; make sure cua mode is active
+    ;; paste
+    (bind-key "s-v" 'cua-paste)
+    ;; copy
+    (bind-key "s-c" 'cua-copy-region)
+    ;; cut
+    (bind-key "s-x" 'kill-ring-save)
+    ;; undo
+    (bind-key "s-z" 'undo-tree-undo))  ; undo-tree installed elsewhere
+#+END_SRC
 *** PATH
 
    OS X doesn't set the environment from the shell init files for
@@ -6832,18 +6890,6 @@ I've combined all those commands and bound them to =C-c v=.
        (bind-key "s-t" 'iterm-goto-filedir-or-home)
        (bind-key "s-T" 'iterm-focus))
 
-   #+END_SRC
-
-** Load secrets
-
-   I keep slightly more sensitive information in a separate file so
-   that I can easily publish my main configuration.
-
-   It is kept in directory file:~/.emacs.p
-
-   #+NAME: environment
-   #+BEGIN_SRC emacs-lisp
-     (load "~/.emacs.p/secrets" t)
    #+END_SRC
 
 ** Emacsclient
