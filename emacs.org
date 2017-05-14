@@ -285,7 +285,7 @@ Even mouse commands use echo area to ask confirmations
    #+BEGIN_SRC emacs-lisp
      (setq-default mode-line-format
       '(;; Position, including warning for 80 columns
-        (:propertize " %5l:" face mode-line-position-face)
+        (:propertize " %6l:" face mode-line-position-face)
         (:eval (propertize "%3c" 'face
                            (if (>= (current-column) 80)
                                'mode-line-80col-face
