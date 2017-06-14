@@ -70,6 +70,7 @@
 *** http://bird-boy.com/feed
 *** http://lizclimo.tumblr.com/rss
 *** http://www.banquetcomic.com/feed/
+*** http://www.wildelifecomic.com/rss.php
 ** Friends                                                                 :f:
 *** http://heikkil.github.io/rss.xml
 *** http://saffronwaldenlessons.blogspot.fi/atom.xml
