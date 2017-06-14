@@ -7,16 +7,6 @@
 
 (define-abbrev-table 'Info-edit-mode-abbrev-table '())
 
-(define-abbrev-table 'Man-mode-abbrev-table '())
-
-(define-abbrev-table 'TeX-error-overview-mode-abbrev-table '())
-
-(define-abbrev-table 'TeX-output-mode-abbrev-table '())
-
-(define-abbrev-table 'apropos-mode-abbrev-table '())
-
-(define-abbrev-table 'awk-mode-abbrev-table '())
-
 (define-abbrev-table 'biblio-selection-mode-abbrev-table '())
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
@@ -24,10 +14,6 @@
 (define-abbrev-table 'bookmark-bmenu-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
-
-(define-abbrev-table 'c++-mode-abbrev-table '())
-
-(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -37,73 +23,9 @@
 
 (define-abbrev-table 'change-log-mode-abbrev-table '())
 
-(define-abbrev-table 'cider-browse-ns-mode-abbrev-table '())
-
-(define-abbrev-table 'cider-connections-buffer-mode-abbrev-table '())
-
-(define-abbrev-table 'cider-docview-mode-abbrev-table '())
-
-(define-abbrev-table 'cider-inspector-mode-abbrev-table '())
-
-(define-abbrev-table 'cider-repl-mode-abbrev-table '())
-
-(define-abbrev-table 'cider-stacktrace-mode-abbrev-table '())
-
-(define-abbrev-table 'cider-test-report-mode-abbrev-table '())
-
-(define-abbrev-table 'clojure-mode-abbrev-table '())
-
-(define-abbrev-table 'clojurec-mode-abbrev-table '())
-
-(define-abbrev-table 'clojurescript-mode-abbrev-table '())
-
-(define-abbrev-table 'clojurex-mode-abbrev-table '())
-
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
-
-(define-abbrev-table 'conf-colon-mode-abbrev-table '())
-
-(define-abbrev-table 'conf-javaprop-mode-abbrev-table '())
-
-(define-abbrev-table 'conf-ppd-mode-abbrev-table '())
-
-(define-abbrev-table 'conf-space-mode-abbrev-table '())
-
-(define-abbrev-table 'conf-unix-mode-abbrev-table '())
-
-(define-abbrev-table 'conf-windows-mode-abbrev-table '())
-
-(define-abbrev-table 'conf-xdefaults-mode-abbrev-table '())
-
-(define-abbrev-table 'cperl-mode-abbrev-table
-  '(
-    ("=head1" "=head1" cperl-electric-pod 0)
-    ("=head2" "=head2" cperl-electric-pod 0)
-    ("=over" "=over" cperl-electric-pod 0)
-    ("=pod" "=pod" cperl-electric-pod 0)
-    ("continue" "continue" cperl-electric-else 0)
-    ("do" "do" cperl-electric-keyword 0)
-    ("else" "else" cperl-electric-else 0)
-    ("elsif" "elsif" cperl-electric-keyword 0)
-    ("for" "for" cperl-electric-keyword 0)
-    ("foreach" "foreach" cperl-electric-keyword 0)
-    ("foreachmy" "foreachmy" cperl-electric-keyword 0)
-    ("formy" "formy" cperl-electric-keyword 0)
-    ("head1" "head1" cperl-electric-pod 0)
-    ("head2" "head2" cperl-electric-pod 0)
-    ("if" "if" cperl-electric-keyword 0)
-    ("over" "over" cperl-electric-pod 0)
-    ("pod" "pod" cperl-electric-pod 0)
-    ("unless" "unless" cperl-electric-keyword 0)
-    ("until" "until" cperl-electric-keyword 0)
-    ("while" "while" cperl-electric-keyword 0)
-   ))
-
-(define-abbrev-table 'css-mode-abbrev-table '())
-
-(define-abbrev-table 'data-debug-mode-abbrev-table '())
 
 (define-abbrev-table 'debugger-mode-abbrev-table '())
 
@@ -113,33 +35,21 @@
 
 (define-abbrev-table 'diff-mode-abbrev-table '())
 
-(define-abbrev-table 'doctex-mode-abbrev-table '())
-
-(define-abbrev-table 'edebug-eval-mode-abbrev-table '())
-
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
 
 (define-abbrev-table 'elisp-byte-code-mode-abbrev-table '())
-
-(define-abbrev-table 'emacs-lisp-byte-code-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table
   '(
     ("ef" "(defun my/ ()
 \"\"
 (interactive)
-)" nil 4)
+)" nil 5)
    ))
 
-(define-abbrev-table 'epa-info-mode-abbrev-table '())
-
-(define-abbrev-table 'epa-key-list-mode-abbrev-table '())
-
-(define-abbrev-table 'epa-key-mode-abbrev-table '())
+(define-abbrev-table 'ereader-mode-abbrev-table '())
 
 (define-abbrev-table 'eshell-mode-abbrev-table '())
-
-(define-abbrev-table 'evil-command-window-mode-abbrev-table '())
 
 (define-abbrev-table 'eww-bookmark-mode-abbrev-table '())
 
@@ -149,67 +59,100 @@
 
 (define-abbrev-table 'eww-mode-abbrev-table '())
 
-(define-abbrev-table 'extempore-mode-abbrev-table '())
-
-(define-abbrev-table 'extempore-repl-mode-abbrev-table '())
-
-(define-abbrev-table 'fish-mode-abbrev-table '())
+(define-abbrev-table 'finder-mode-abbrev-table '())
 
 (define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
 
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
 
-(define-abbrev-table 'gfm-mode-abbrev-table '())
-
-(define-abbrev-table 'git-commit-mode-abbrev-table '())
-
-(define-abbrev-table 'git-rebase-mode-abbrev-table '())
-
-(define-abbrev-table 'gitattributes-mode-abbrev-table '())
-
-(define-abbrev-table 'gitconfig-mode-abbrev-table '())
-
-(define-abbrev-table 'gitignore-mode-abbrev-table '())
-
 (define-abbrev-table 'global-abbrev-table
   '(
     ("8ar" "→" nil 3)
     ("8eur" "€" nil 21)
+    ("8oc" "°C" nil 1)
     ("8pound" "£" nil 2)
     ("8zws" "​" nil 4)
     ("Flase" "False" nil 4)
     ("abiquity" "ambiguity" nil 0)
     ("absorbtion" "absorption" nil 0)
     ("adn" "and" nil 0)
+    ("afaik" "as far as i know" nil 0)
+    ("ahve" "have" nil 0)
+    ("ai" "artificial intelligence" nil 0)
     ("albait" "albeit" nil 0)
     ("anf" "and" nil 0)
+    ("ang" "Å" nil 0)
+    ("apr" "Apr." nil 0)
+    ("april" "April" nil 0)
+    ("arent" "are not" nil 0)
     ("assosiation" "association" nil 0)
+    ("atm" "at the moment" nil 0)
+    ("aug" "Aug." nil 0)
+    ("august" "August" nil 0)
     ("availble" "available" nil 2)
     ("beacuse" "because" nil 0)
     ("behavious" "behaviors" nil 0)
+    ("btw" "by the way" nil 0)
+    ("cant" "can not" nil 0)
     ("ccc" "°C" nil 11)
-    ("8oc" "°C" nil 0)
     ("centences" "sentences" nil 0)
+    ("cnt" "can't" nil 0)
     ("collaeque" "colleague" nil 0)
     ("colse" "close" nil 0)
     ("computationla" "computational" nil 0)
     ("consice" "concise" nil 1)
     ("consistant" "consistent" nil 0)
+    ("couldnt" "could not" nil 0)
     ("daugher" "daughter" nil 0)
+    ("ddnt" "didn't" nil 0)
+    ("dec" "Dec." nil 0)
+    ("december" "December" nil 0)
+    ("degc" "°C" nil 0)
+    ("degf" "°F" nil 0)
+    ("dfb" "difference between" nil 0)
+    ("didnt" "did not" nil 0)
+    ("dnt" "don't" nil 1)
+    ("dsnt" "doesn't" nil 0)
+    ("dvp" "develop" nil 0)
     ("ef" "(defun my/ ()
 \"\"
 (interactive)
 )" nil 1)
+    ("eg" "e.g." nil 0)
     ("excamples" "examples" nil 0)
     ("explicite" "explicit" nil 0)
     ("explicitely" "explicitly" nil 1)
+    ("feb" "Feb." nil 0)
+    ("february" "February" nil 0)
+    ("fi" "if" nil 0)
     ("flase" "false" nil 4)
+    ("fo" "of" nil 0)
     ("forthnight" "fortnight" nil 0)
+    ("fri" "Fri." nil 0)
+    ("friday" "Friday" nil 0)
+    ("hadnt" "had not" nil 0)
+    ("hasnt" "has not" nil 0)
+    ("havent" "haven't" nil 1)
     ("hayday" "heyday" nil 0)
     ("heikkil" "Heikki Lehväslaiho" nil 6)
+    ("hnt" "haven't" nil 0)
+    ("htat" "that" nil 0)
+    ("hte" "the" nil 0)
+    ("htem" "them" nil 0)
+    ("hwat" "what" nil 0)
+    ("ie" "i.e." nil 0)
+    ("ill" "I'll" nil 0)
     ("india" "India" nil 0)
     ("inlcuding" "including" nil 0)
     ("interective" "interactive" nil 0)
+    ("isnt" "is not" nil 0)
+    ("iwth" "with" nil 0)
+    ("jan" "Jan." nil 0)
+    ("january" "January" nil 0)
+    ("jul" "Jul." nil 0)
+    ("july" "July" nil 0)
+    ("jun" "Jun." nil 0)
+    ("june" "June" nil 0)
     ("latex" "LaTeX" nil 5)
     ("lauched" "launched" nil 0)
     ("legnht" "length" nil 1)
@@ -221,9 +164,18 @@
     ("mammalial" "mammalian" nil 0)
     ("matias" "Matias" nil 5)
     ("minna" "Minna" nil 19)
+    ("mon" "Mon." nil 0)
+    ("monday" "Monday" nil 0)
+    ("nad" "and" nil 0)
     ("negigable" "negligible" nil 0)
+    ("norskov" "Nørskov" nil 0)
+    ("nov" "Nov." nil 0)
+    ("november" "November" nil 0)
+    ("nto" "not" nil 0)
     ("oC" "°C" nil 0)
     ("occatinally" "occasionally" nil 0)
+    ("oct" "Oct." nil 0)
+    ("october" "October" nil 0)
     ("otehr" "other" nil 3)
     ("precice" "precise" nil 0)
     ("provenanace" "provenance" nil 0)
@@ -234,8 +186,16 @@
     ("reguire" "require" nil 1)
     ("revieled" "revealed" nil 0)
     ("rigourous" "rigorous" nil 0)
+    ("sa" "See also:" nil 0)
+    ("sat" "Sat." nil 0)
+    ("saturday" "Saturday" nil 0)
     ("scholary" "scholarly" nil 0)
+    ("schrodinger" "Schrödinger" nil 0)
     ("sentance" "sentence" nil 3)
+    ("sept" "Sept." nil 0)
+    ("september" "September" nil 0)
+    ("shnt" "shouldn't" nil 0)
+    ("shouldnt" "should not" nil 0)
     ("sparce" "sparse" nil 0)
     ("specialised" "specialized" nil 0)
     ("sperl" "#!/usr/bin/env perl
@@ -243,24 +203,40 @@ use Modern::Perl;
 use Data::Printer;
 " nil 13)
     ("strenghten" "strengthen" nil 0)
+    ("sun" "Sun." nil 0)
+    ("sunday" "Sunday" nil 0)
     ("taht" "that" nil 14)
     ("techinques" "techniques" nil 0)
     ("teh" "the" nil 17)
     ("tehm" "them" nil 0)
+    ("thats" "that is" nil 0)
+    ("thur" "Thur." nil 0)
+    ("thursday" "Thursday" nil 0)
+    ("tm" "™" nil 0)
+    ("tue" "Tue." nil 0)
+    ("tuesday" "Tuesday" nil 0)
+    ("ty" "thank you" nil 0)
+    ("uutf8" "-*- coding: utf-8 -*-" nil 0)
+    ("waht" "what" nil 0)
+    ("wasnt" "was not" nil 0)
+    ("wed" "Wed." nil 0)
+    ("wednesday" "Wednesday" nil 0)
+    ("wehn" "when" nil 0)
+    ("whos" "who is" nil 0)
     ("wiht" "with" nil 1)
+    ("wnt" "won't" nil 0)
+    ("wont" "will not" nil 0)
+    ("wouldnt" "would not" nil 0)
+    ("wouldve" "would have" nil 0)
+    ("wsnt" "wasn't" nil 0)
+    ("wtdb" "What's the difference between" nil 0)
    ))
-
-(define-abbrev-table 'gnus-group-mode-abbrev-table '())
 
 (define-abbrev-table 'go-mode-abbrev-table '())
 
 (define-abbrev-table 'godoc-mode-abbrev-table '())
 
-(define-abbrev-table 'google-maps-static-mode-abbrev-table '())
-
 (define-abbrev-table 'grep-mode-abbrev-table '())
-
-(define-abbrev-table 'gscholar-bibtex-mode-abbrev-table '())
 
 (define-abbrev-table 'helm-major-mode-abbrev-table '())
 
@@ -268,41 +244,19 @@ use Data::Printer;
 
 (define-abbrev-table 'howdoi-mode-abbrev-table '())
 
-(define-abbrev-table 'html-mode-abbrev-table '())
-
 (define-abbrev-table 'ibuffer-mode-abbrev-table '())
-
-(define-abbrev-table 'idl-mode-abbrev-table '())
-
-(define-abbrev-table 'inferior-extempore-mode-abbrev-table '())
-
-(define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
-
-(define-abbrev-table 'latex-mode-abbrev-table '())
-
-(define-abbrev-table 'ledger-check-mode-abbrev-table '())
-
-(define-abbrev-table 'ledger-mode-abbrev-table '())
-
-(define-abbrev-table 'ledger-reconcile-mode-abbrev-table '())
-
-(define-abbrev-table 'ledger-report-mode-abbrev-table '())
-
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'log-edit-mode-abbrev-table '())
 
-(define-abbrev-table 'magit-branch-manager-mode-abbrev-table '())
+(define-abbrev-table 'log4e-mode-abbrev-table '())
 
 (define-abbrev-table 'magit-cherry-mode-abbrev-table '())
-
-(define-abbrev-table 'magit-commit-mode-abbrev-table '())
 
 (define-abbrev-table 'magit-diff-mode-abbrev-table '())
 
@@ -332,21 +286,11 @@ use Data::Printer;
 
 (define-abbrev-table 'magit-status-mode-abbrev-table '())
 
-(define-abbrev-table 'magit-wazzup-mode-abbrev-table '())
-
-(define-abbrev-table 'markdown-mode-abbrev-table '())
+(define-abbrev-table 'magithub-issue-post-mode-abbrev-table '())
 
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
-
-(define-abbrev-table 'neotree-mode-abbrev-table '())
-
-(define-abbrev-table 'nrepl-connections-buffer-mode-abbrev-table '())
-
-(define-abbrev-table 'nrepl-messages-mode-abbrev-table '())
-
-(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -356,6 +300,12 @@ use Data::Printer;
 
 (define-abbrev-table 'org-mode-abbrev-table
   '(
+    ("c2h2" "C_{2}H_{2}" nil 0)
+    ("c2h4" "C_{2}H_{4}" nil 0)
+    ("c2h6" "C_{2}H_{6}" nil 0)
+    ("ch4" "CH_{4}" nil 0)
+    ("co2" "CO_{2}" nil 0)
+    ("h2o" "H_{2}O" nil 0)
     ("lblk" "" skel-org-block-elisp 0)
     ("legnht" "length" nil 1)
     ("legnth" "length" nil 1)
@@ -401,67 +351,43 @@ use Data::Printer;
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'pandoc-@-mode-abbrev-table '())
-
-(define-abbrev-table 'paradox-commit-list-mode-abbrev-table '())
-
-(define-abbrev-table 'paradox-menu-mode-abbrev-table '())
-
-(define-abbrev-table 'pdf-annot-list-mode-abbrev-table '())
-
 (define-abbrev-table 'pdf-occur-buffer-mode-abbrev-table '())
-
-(define-abbrev-table 'pdf-outline-buffer-mode-abbrev-table '())
-
-(define-abbrev-table 'perl-mode-abbrev-table '())
-
-(define-abbrev-table 'perl6-mode-abbrev-table '())
-
-(define-abbrev-table 'pike-mode-abbrev-table '())
-
-(define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
 
-(define-abbrev-table 'quickrun/mode-abbrev-table '())
+(define-abbrev-table 'quickrun--mode-abbrev-table '())
+
+(define-abbrev-table 'racket-describe-mode-abbrev-table '())
+
+(define-abbrev-table 'racket-mode-abbrev-table '())
+
+(define-abbrev-table 'racket-profile-mode-abbrev-table '())
+
+(define-abbrev-table 'racket-repl-mode-abbrev-table '())
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
 (define-abbrev-table 'reb-mode-abbrev-table '())
 
-(define-abbrev-table 'scss-mode-abbrev-table '())
+(define-abbrev-table 'sdcv-mode-abbrev-table '())
 
 (define-abbrev-table 'select-tags-table-mode-abbrev-table '())
-
-(define-abbrev-table 'sgml-mode-abbrev-table '())
 
 (define-abbrev-table 'sh-mode-abbrev-table '())
 
 (define-abbrev-table 'shell-mode-abbrev-table '())
 
-(define-abbrev-table 'slitex-mode-abbrev-table '())
-
-(define-abbrev-table 'snippet-mode-abbrev-table '())
-
 (define-abbrev-table 'special-mode-abbrev-table '())
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
-
-(define-abbrev-table 'sql-mode-abbrev-table '())
 
 (define-abbrev-table 'suggest-mode-abbrev-table '())
 
 (define-abbrev-table 'tablist-mode-abbrev-table '())
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
-
-(define-abbrev-table 'tar-mode-abbrev-table '())
-
-(define-abbrev-table 'tex-mode-abbrev-table '())
-
-(define-abbrev-table 'tex-shell-abbrev-table '())
 
 (define-abbrev-table 'text-mode-abbrev-table '())
 
@@ -476,3 +402,4 @@ use Data::Printer;
 (define-abbrev-table 'xkcd-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
+
