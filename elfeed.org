@@ -87,3 +87,4 @@
 *** http://minimauritius.com/feed/
 # *** http://websta.me/rss/n/matkleh
 *** https://savumerkkejablog.wordpress.com/feed/
+*** http://justsomesymbols.blogspot.fi/atom.xml
