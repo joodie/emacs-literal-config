@@ -4923,6 +4923,17 @@ bbdb-merge-records=.
                   ("a" . twittering-toggle-activate-buffer)))
    #+END_SRC
 
+** Ereader
+
+###
+
+#+name: apps
+#+BEGIN_SRC emacs-lisp
+(use-package ereader
+  :config
+  (add-hook 'ereader-mode-hook #'line-break-mode)
+  (add-hook 'ereader-mode-hook #'visual-line-mode))
+#+END_SRC
 ** Web browsing
 
 *** w3m

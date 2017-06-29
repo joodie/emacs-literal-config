@@ -46,6 +46,7 @@
 (depends-on "elfeed-goodies")
 (depends-on "elfeed-org")
 (depends-on "epl")
+(depends-on "ereader")
 (depends-on "eros")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
