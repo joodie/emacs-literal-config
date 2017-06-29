@@ -5398,11 +5398,30 @@ binding the magic space command to the space key.
    characters or lines. Also, it can set goals.
 
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org mode
      (describe-function 'wc-mode)
    #+END_SRC
 
    Note: Do not enable it by default if you have large org files. It
    slows emacs down drastically.
+
+** Wrap region
+
+Add automatic wrapping to org-mode text characters.
+
+#+name: org-config
+#+BEGIN_SRC emacs-lisp
+(use-package wrap-region
+  :config
+  (wrap-region-global-mode t)
+  ;; (wrap-region-add-wrapper "`" "'")
+  (wrap-region-add-wrapper "~" "~" nil 'org-mode)  ; code
+  (wrap-region-add-wrapper "*" "*" nil 'org-mode)  ; bold
+  (wrap-region-add-wrapper "/" "/" nil 'org-mode)  ; italic
+  (wrap-region-add-wrapper "=" "=" nil 'org-mode)) ; verbatim
+
+#+END_SRC
 
 ** Agenda
 

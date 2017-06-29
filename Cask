@@ -157,6 +157,7 @@
 (depends-on "with-editor")
 (depends-on "wn-mode")
 (depends-on "worf")
+(depends-on "wrap-region")
 (depends-on "writegood-mode")
 (depends-on "xkcd")
 (depends-on "yasnippet")
