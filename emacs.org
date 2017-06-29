@@ -3311,6 +3311,32 @@ Automatically uppercase SQL keywords in sql-mode.
        (bind-key "s-<down>" 'cider-repl-next-input cider-repl-mode-map))
    #+END_SRC
 
+** Web mode
+
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+
+     ;;; Web mode
+     (use-package web-mode
+       :mode (("\\.html\\'" . web-mode)
+              ("\\.html\\.erb\\'" . web-mode)
+              ("\\.mustache\\'" . web-mode)
+              ("\\.php\\'" . web-mode))
+       :init
+       (setq web-mode-markup-indent-offset 2)
+       (setq web-mode-code-indent-offset 2)
+       (setq web-mode-css-indent-offset 2)
+
+       (setq web-mode-enable-auto-pairing t)
+       (setq web-mode-enable-auto-expanding t)
+       (setq web-mode-enable-css-colorization t)
+
+       (setq web-mode-enable-current-element-highlight nil)
+       (setq web-mode-enable-current-column-highlight nil))
+   #+END_SRC
+
+Also, check out [[https://github.com/smihica/emmet-mode][emmet-mode]].
+
 ** TODO Python
 
    Python setup is [[https://github.com/ikame/.emacs.d/blob/master/setup-python.org][copied from here]]. Work in progress.
