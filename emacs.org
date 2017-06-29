@@ -5576,6 +5576,14 @@ Added a hydra to [[https://oremacs.com/2016/04/04/hydra-doc-syntax/][prettify]] 
        :init
        (setq org-agenda-files '("~/Dropbox/org"))
        (setq org-return-follows-link t)
+
+       ;; neat config that alerts on links to non-existing files
+       (org-link-set-parameters
+        "file"
+        :face (lambda (path) (if (file-exists-p path) 'org-link 'org-warning)))
+
+
+
        (setq org-agenda-span 14)
        (setq org-deadline-warning-days 5)
        ;; clean agenda
