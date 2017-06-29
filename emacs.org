@@ -5110,11 +5110,18 @@ for org-mode. [[https://github.com/masasam/emacs-easy-hugo][masasam/emacs-easy-h
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+         ;;; Password management
      (use-package pass
        :defer t
        :config
-       (use-package password-store
-         :defer t))
+       (add-hook 'password-store-mode-hook
+                 (lambda () (view-mode -1))))
+
+     (use-package auth-password-store
+       :defer t
+       :config
+       (auth-pass-enable))
    #+END_SRC
 
 ** eshell
