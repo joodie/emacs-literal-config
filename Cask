@@ -12,6 +12,7 @@
 (depends-on "avy")
 (depends-on "avy-flycheck")
 (depends-on "beacon")
+(depends-on "binclock")
 (depends-on "bind-key")
 (depends-on "bm")
 (depends-on "bug-hunter")

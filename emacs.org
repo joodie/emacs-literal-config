@@ -5006,6 +5006,16 @@ bbdb-merge-records=.
 4. Put the selected buffer into impatient-mode.
 5. Share the link with my IP address (form: http://my.ip.ad.dress:8080/imp/)
 
+** Binclock
+
+Binary clock in the message area.
+
+   #+name: apps
+   #+BEGIN_SRC emacs-lisp
+     (use-package binclock
+       :defer 5)
+   #+END_SRC
+
 ** Blogging with org-webpage
 
 [[https://github.com/tumashu/org-webpage][org-webpage]] is based on [[https://github.com/kelvinh/org-page][org-page]], a simple static page website
