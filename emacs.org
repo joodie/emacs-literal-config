@@ -68,6 +68,8 @@
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Upgrading and installing emacs packages
      (use-package cask-mode)
    #+END_SRC
 
@@ -92,6 +94,8 @@
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Paradox
      (use-package paradox
        :defer nil
        :config
@@ -107,6 +111,8 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Trying packages without installing
      (use-package try
        :defer t)
    #+END_SRC
@@ -151,6 +157,8 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Font
      ;;(set-face-attribute 'default nil
      ;;                    :family "Inconsolata"
      ;;                    :height 140
@@ -180,6 +188,8 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODO Unicode
      (defun my/insert-unicode (unicode-name)
        "Same as C-x 8 enter UNICODE-NAME."
        (insert-char (cdr (assoc-string unicode-name (ucs-names)))))
@@ -216,6 +226,8 @@ package. Use it instead of =package-install=: =M-x try some-package=.
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Reduce clutter
      (when (display-graphic-p)
        ;;(menu-bar-mode -1)
        (tool-bar-mode -1)
@@ -228,6 +240,8 @@ Even mouse commands use echo area to ask confirmations
 
 #+name: look-and-feel
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Disable dialog boxes
   (setq use-dialog-box nil)
 #+END_SRC
 
@@ -243,6 +257,8 @@ Even mouse commands use echo area to ask confirmations
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Symbols
      (global-prettify-symbols-mode 1)
      (setq prettify-symbols-unprettify-at-point 'right-edge)
    #+END_SRC
@@ -257,6 +273,8 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Fringe decorations
      (when (display-graphic-p)
        (use-package git-gutter-fringe
          :defer t
@@ -283,6 +301,8 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Mode line
      (setq-default mode-line-format
       '(;; Position, including warning for 80 columns
         (:propertize " %6l:" face mode-line-position-face)
@@ -404,6 +424,8 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Visual bell
      ;; nice little alternative visual bell; Miles Bader <miles /at/ gnu.org>
      (defcustom echo-area-bell-string "♪ ♪ ♪"
        "Message displayed in echo area by `echo-area-bell' function."
@@ -451,6 +473,8 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Scrolling behavior
      (setq redisplay-dont-pause t
            scroll-margin 1
            scroll-step 1
@@ -463,6 +487,8 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Scrolling behavior
      (setq mouse-wheel-follow-mouse 't)
      (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
    #+END_SRC
@@ -479,6 +505,8 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Scrolling behavior
      (setq recenter-positions '(top middle bottom))
      (setq scroll-margin 3)
    #+END_SRC
@@ -491,6 +519,8 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Scroll other window
      (bind-key "M-s-<up>" 'scroll-down)
      (bind-key "M-s-<down>" 'scroll-up)
      (bind-key "M-s-<right>" 'scroll-other-window)
@@ -507,16 +537,22 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Cursor
       (modify-all-frames-parameters (list (cons 'cursor-type 'bar)))
       (setq blink-cursor-mode nil)
       ;; show tab length
       (setq-default x-stretch-cursor t)
+      ;; Set cursor color to white
+      ;; (set-cursor-color "#ffffff")
    #+END_SRC
 
    [[http://ergoemacs.org/emacs/emacs_stop_cursor_enter_prompt.html][Stop cursor going into minibuffer prompt]]
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Cursor
      ;; don't let the cursor go into minibuffer prompt
      (setq minibuffer-prompt-properties
            (quote (read-only t point-entered minibuffer-avoid-prompt
@@ -528,6 +564,8 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Cursor
      (use-package beacon
        :diminish ""
        :config
@@ -544,9 +582,12 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-    (when (display-graphic-p)
-     (global-hl-line-mode 1)
-     (set-face-background hl-line-face "AliceBlue"))
+
+     ;;; Current line
+     (when (display-graphic-p)
+       (global-hl-line-mode 1)
+       ;;(set-face-background hl-line-face "Grey20")
+       (set-face-background hl-line-face "AliceBlue"))
    #+END_SRC
 
 ** Global key bindings
@@ -564,14 +605,16 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
-     (use-package solarized-theme
-       :defer t
-       :init (setq solarized-scale-org-headlines nil))
-     (use-package paper-theme
-       :defer t
-       :init (setq paper-tint-factor 85))
-     (use-package danneskjold-theme
-       :defer t)
+
+    ;;; TODO Themes
+     ;; (use-package solarized-theme
+     ;;   :defer t
+     ;;   :init (setq solarized-scale-org-headlines nil))
+     ;; (use-package paper-theme
+     ;;   :defer t
+     ;;   :init (setq paper-tint-factor 85))
+     ;; (use-package danneskjold-theme
+     ;;   :defer t)
    #+END_SRC
 
    You are supposed to invoke themes with =M-x load-theme=. Strangely,
@@ -585,6 +628,8 @@ Even mouse commands use echo area to ask confirmations
 
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODO Themes
      (defun theme (uarg)
        "Disable all active themes and then load one interactively.
 
@@ -606,6 +651,8 @@ global-disable-mouse-mode to my universal toggle hydra: =C-x t m= .
 
 #+NAME: look-and-feel
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Mouse
   (use-package disable-mouse
     :defer t
     :diminish global-disable-mouse-mode
@@ -620,6 +667,8 @@ Note that it interferes with my current line highlighting. See [[Current line]].
 
 #+NAME: look-and-feel
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Rainbow-mode
   (use-package rainbow-mode
     :defer t
     :diminish ""
@@ -637,6 +686,8 @@ Note that it interferes with my current line highlighting. See [[Current line]].
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Start-up
     (setq inhibit-startup-screen +1
           inhibit-startup-message t
           initial-scratch-message nil)
@@ -678,6 +729,8 @@ passphrase.
 
 #+NAME: startup
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Encryption
   (setf epa-pinentry-mode 'loopback)
 #+END_SRC
 
@@ -698,6 +751,8 @@ passphrase.
 
    #+NAME: startup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Identify yourself
     (setq user-full-name "Heikki Lehväslaiho")
     (setq user-mail-address "heikki.lehvaslaiho@gmail.com")
    #+END_SRC
@@ -715,18 +770,29 @@ passphrase.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
-    (setq make-backup-files t) ;; Enable backup files
-    ;; Enable versioning
-    (setq version-control t)  ;; make numbered backups
-    (setq backup-by-copying t)
-    (setq kept-new-versions 20)
-    (setq kept-old-versions 5)
-    (setq delete-old-versions t)
-    ;; Save all backup files in this directory.
-    (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
 
-    ;; disable lockfiles
-    (setq create-lockfiles nil)
+        ;;; Backups
+
+        ;; Save all backup files in this directory.
+        (setq backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
+
+
+    (setq delete-by-moving-to-trash t
+            trash-directory "~/.Trash/emacs")
+
+    (setq make-backup-files t      ; backup of a file the first time it is saved.
+          backup-by-copying t      ; don't clobber symlinks
+          version-control t        ; version numbers for backup files
+          delete-old-versions t    ; delete excess backup files silently
+          kept-old-versions 6      ; oldest versions to keep when a new numbered backup is made (default: 2)
+          kept-new-versions 20     ; newest versions to keep when a new numbered backup is made (default: 2)
+          auto-save-default t      ; auto-save every buffer that visits a file
+          auto-save-timeout 20     ; number of seconds idle time before auto-save (default: 30)
+          auto-save-interval 200   ; number of keystrokes between auto-saves (default: 300)
+          )
+
+        ;; disable lockfiles
+        (setq create-lockfiles nil)
   #+END_SRC
 
 * Confirmations and exiting emacs
@@ -736,6 +802,12 @@ passphrase.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
+
+    ;; don’t open files from the workspace in a new frame
+    (setq ns-pop-up-frames nil)
+
+
+        ;;; Confirmations and exiting emacs
     (fset 'yes-or-no-p 'y-or-n-p)
     (setq confirm-kill-emacs 'y-or-n-p)
   #+END_SRC
@@ -750,6 +822,8 @@ passphrase.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Confirmations and exiting emacs
     (setq warning-suppress-types (quote ((undo discard-info))))
     (setq large-file-warning-threshold 100000000)
   #+END_SRC
@@ -759,6 +833,8 @@ passphrase.
 
   #+NAME: startup
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Confirmations and exiting emacs
     (use-package restart-emacs)
   #+END_SRC
 
@@ -783,6 +859,8 @@ shortcuts | Pragmatic Emacs]])
 
 #+NAME: key-bindings
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Free default bindings
 ;; unset C- and M- digit keys
 (dotimes (n 10)
   (global-unset-key (kbd (format "C-%d" n)))
@@ -801,6 +879,8 @@ keys exceed available space, =C-h= scrolls the list.
 
 #+name: key-bindings
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Show bindings
   (use-package which-key
     :diminish ""
     :defer t
@@ -828,6 +908,8 @@ be shown with =M-x describe-personal-keybindings=.
 
 #+name: key-bindings
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Mnemonic key bindings with hydra
   (defun toggle-overwrite-mode ()
     (interactive)
     (if (bound-and-true-p overwrite-mode)
@@ -961,44 +1043,49 @@ prepended to the element after the #+HEADERS: tag."
 
   #+name: key-bindings
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Mnemonic key bindings with hydra
     (bind-key "C-x l" 'hydra-launch/body)
     (defhydra hydra-launch (:color blue :hint nil :idle 1.0)
       "
-    launch _2_048            _l_ink chrome       _s_ynonyms            _w_3m at point
-           _b_: gscholar-bib _k_eybindings       _p_aradox             G_\+_ emacs
-           _c_: calfw        _n_ato-region       _q_: paradox upgrade  _?_: emacsExchange
-           _e_diff-buffers   de_N_ato            _t_imemachine git     _=_: quick-calc
-           _f_ilename2clipb  _m_y/move-file-here _u_: us2fi chars      _0_: repeat elisp
-           _h_owdoi          _r_e-builder        _z_: timezones
-           tw_i_tter         ^ ^                 _x_: eshell
-          "
+launch _2_048            _l_ink chrome       _s_ynonyms            _w_3m at point
+       _b_: gscholar-bib _k_eybindings       _p_ass                G_\+_ emacs
+       _c_: calfw        _n_ato-region       _P_aradox             _?_: emacsExchange
+       _e_diff-buffers   de_N_ato            _q_: paradox upgrade  _=_: quick-calc
+       _f_ilename2clipb  _m_y/move-file-here _t_imemachine git     _0_: repeat elisp
+       _h_owdoi          _r_e-builder        _u_: us2fi chars
+       tw_i_tter         ^ ^                 _z_: timezones        _x_: eshell
+       ^ ^               ^ ^                 _y_: binclock
+      "
 
-      ("2" 2048-game)
-      ("c" my/calendar)
-      ("e" ediff-buffers)
-      ("b" gscholar-bibtex)
-      ("f" copy-file-name-to-clipboard)
-      ("g" langtool-correct-buffer)
-      ("h" howdoi-query)
-      ("i" twit)
-      ("k" personal-key-bindings)
-      ("l" org-mac-chrome-insert-frontmost-url)
-      ("n" nato-region)
-      ("N" denato-region)
-      ("m" my/move-file-here)
-      ("r" re-builder)
-      ("s" synosaurus-choose-and-replace)
-      ("p" paradox-list-packages)
-      ("q" paradox-upgrade-packages)
-      ("t" git-timemachine)
-      ("u" my/us2fi)
-      ("w" browse-url-at-point)
-      ("x" eshell)
-      ("z" display-time-world)
-      ("=" quick-calc)
-      ("?" (browse-url "http://emacs.stackexchange.com/"))
-      ("+" (browse-url "https://plus.google.com/communities/114815898697665598016"))
-      ("0" repeat-complex-command))
+  ("2" 2048-game)
+  ("c" my/calendar)
+  ("e" ediff-buffers)
+  ("b" gscholar-bibtex)
+  ("f" copy-file-name-to-clipboard)
+  ("g" langtool-correct-buffer)
+  ("h" howdoi-query)
+  ("i" twit)
+  ("k" personal-key-bindings)
+  ("l" org-mac-chrome-insert-frontmost-url)
+  ("m" my/move-file-here)
+  ("n" nato-region)
+  ("N" denato-region)
+  ("p" pass)
+  ("P" paradox-list-packages)
+  ("q" paradox-upgrade-packages)
+  ("r" re-builder)
+  ("s" synosaurus-choose-and-replace)
+  ("t" git-timemachine)
+  ("u" my/us2fi)
+  ("w" browse-url-at-point)
+  ("x" eshell)
+  ("y" binclock)
+  ("z" display-time-world)
+  ("=" quick-calc)
+  ("?" (browse-url "http://emacs.stackexchange.com/"))
+  ("+" (browse-url "https://plus.google.com/communities/114815898697665598016"))
+  ("0" repeat-complex-command))
 
 #+END_SRC
 
@@ -1010,6 +1097,8 @@ buffer. I do not use greek letters in keys, so I've removed them.
 
 #+name: key-bindings
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Key bindings in current buffer
   ;;;###autoload
   (defun keys-describe-prefixes ()
     (interactive)
@@ -1040,6 +1129,8 @@ buffer. I do not use greek letters in keys, so I've removed them.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+
+    ;;; View read-only
      (setq view-read-only t)
    #+END_SRC
 
@@ -1069,6 +1160,8 @@ buffer. I do not use greek letters in keys, so I've removed them.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Character encoding
      (set-language-environment "utf-8")
      (setq locale-coding-system 'utf-8)
      (set-terminal-coding-system 'utf-8)
@@ -1120,6 +1213,8 @@ buffer. I do not use greek letters in keys, so I've removed them.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Whitespace
      (add-hook 'before-save-hook 'delete-trailing-whitespace)
    #+END_SRC
 
@@ -1129,6 +1224,8 @@ buffer. I do not use greek letters in keys, so I've removed them.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Whitespace
     (setq-default indent-tabs-mode nil)
 
     (defun my/clean-buffer-formatting ()
@@ -1152,6 +1249,8 @@ buffer. I do not use greek letters in keys, so I've removed them.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Whitespace
    (setq require-final-newline t)
    #+END_SRC
 
@@ -1162,6 +1261,8 @@ buffer. I do not use greek letters in keys, so I've removed them.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Whitespace
    (setq sentence-end-double-space nil)
    #+END_SRC
 
@@ -1172,6 +1273,8 @@ with =C-q C-l=) as horisontal lines.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Page breaks
      (use-package page-break-lines
        :diminish ""
        :defer t
@@ -1190,6 +1293,8 @@ with =C-q C-l=) as horisontal lines.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Text (non-code) formatting
      (setq save-abbrevs 'silently)
      (defun my/text-formatting-hooks ()
        (my/turn-on 'auto-fill ; turn on automatic hard line wraps
@@ -1208,6 +1313,8 @@ with =C-q C-l=) as horisontal lines.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Text (non-code) formatting
      (defun endless/fill-or-unfill ()
        "Like `fill-paragraph', but unfill if used twice."
        (interactive)
@@ -1242,6 +1349,8 @@ with =C-q C-l=) as horisontal lines.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Understand compressed files
      (auto-compression-mode)
    #+END_SRC
 
@@ -1252,6 +1361,8 @@ with =C-q C-l=) as horisontal lines.
 
    #+name: formatting
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Auto refresh buffers
      (global-auto-revert-mode)
      (diminish 'auto-revert-mode)
      (setq global-auto-revert-non-file-buffers t)
@@ -1269,6 +1380,8 @@ function makes it happen:
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Moving files
   (defun move-file (new-location)
     "Write this file to NEW-LOCATION, and delete the old one."
     (interactive (list (if buffer-file-name
@@ -1296,6 +1409,8 @@ needing frequently to paste it into a document I was editing.
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Moving a downloaded file
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; move file here                                                         ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1371,6 +1486,8 @@ http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
 
   #+name: global-navigation
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Editing file lists with wdired
     ;;http://mbork.pl/2015-04-25_Some_Dired_goodies
     ;;
     ;; file type association to a program
@@ -1391,6 +1508,8 @@ http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
 
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
+
+    ;;; Saving automatically
       (use-package super-save
         :init
         (setq super-save-auto-save-when-idle t)
@@ -1406,6 +1525,8 @@ http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
 
   #+name: global-navigation
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Image mode
     (use-package image
       :ensure nil
       :defer t
@@ -1423,6 +1544,8 @@ http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
 
   #+name: global-navigation
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Editing as root
     (defun edit-current-file-as-root ()
       "Edit as root the file associated with the current buffer"
        (interactive)
@@ -1439,6 +1562,8 @@ http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/
 
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
+
+    ;;; Overwrite selected text
       (delete-selection-mode nil)
     #+END_SRC
 
@@ -1452,6 +1577,8 @@ Incidently, this does work in org-mode. Beats me why not.
 
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
+
+    ;;; White-space
       (use-package shrink-whitespace
         :bind ("M-SPC" . shrink-whitespace))
     #+END_SRC
@@ -1463,6 +1590,8 @@ Incidently, this does work in org-mode. Beats me why not.
 
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
+
+    ;;; White-space
       (defun align-whitespace (start end)
         "Align columns by whitespace"
         (interactive "r")
@@ -1502,6 +1631,8 @@ Incidently, this does work in org-mode. Beats me why not.
 
   #+name: formatting
   #+BEGIN_SRC emacs-lisp
+
+    ;;; CUA mode
     (cua-mode t)
   #+END_SRC
 
@@ -1516,6 +1647,8 @@ languages, and is really convenient!
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Expand region
   (use-package expand-region
     :bind ("C-=" . er/expand-region))
 #+END_SRC
@@ -1528,6 +1661,8 @@ recommended to be bound to =M-i= and =M-o=.
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Change inner
   (use-package change-inner
     :bind ("M-i" . change-inner)
     :bind ("M-o" . change-outer))
@@ -1542,6 +1677,8 @@ recommended to be bound to =M-i= and =M-o=.
    instead.
 
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODO Cut and copy
      (defun slick-cut (beg end)
        (interactive
         (if mark-active
@@ -1573,6 +1710,8 @@ are.
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Undo-tree
 (use-package undo-tree
   :diminish ""
   :bind
@@ -1594,6 +1733,8 @@ are.
 
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Abbreviations
      (use-package abbrev
        :diminish "Abbr"
        :ensure nil
@@ -1615,6 +1756,8 @@ are.
 
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Abbreviations
     (add-hook 'before-save-hook 'time-stamp)
     (setq display-time-24hr-format t)
    #+END_SRC
@@ -1637,6 +1780,8 @@ are.
 
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Abbreviations
     (defun insert-buffer-name ()
       "Inserts file name of the buffer on the current buffer."
       (interactive)
@@ -1650,6 +1795,8 @@ are.
 
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Abbreviations
      (defun delete-file-and-buffer ()
        "Kill the current buffer and deletes the file it is visiting."
        (interactive)
@@ -1670,6 +1817,8 @@ are.
 
    #+name: abbreviations
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Abbreviations
      (defun my/kill-a-buffer (askp)
        (interactive "P")
        (if askp
@@ -1689,6 +1838,8 @@ are.
     Yas is enabled in programming and org modes.
 
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODO Yasnippet
      (use-package yasnippet
        :disabled nil
        :defer t
@@ -1705,6 +1856,8 @@ are.
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Fixing DOuble capitals
     (defun dcaps-to-scaps ()
       "Convert word in DOuble CApitals to Single Capitals."
       (interactive)
@@ -1740,6 +1893,8 @@ Bound to the launch hydra: =M-x l u=.
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Fixing text written with wrong keyboard layout
 (defun translate-characters (from-string to-string begin end)
   "Translate characters in the current buffer.
 
@@ -1795,6 +1950,8 @@ words."
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Transposing characters
     (defun my/transpose-chars ()
       "Transpose two previous characters"
       (interactive)
@@ -1811,6 +1968,8 @@ words."
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Adding comma before space
     (defun my/smart-self-insert-punctuation (count)
       "If COUNT=1 and the point is after a space, insert the relevant
     character before any spaces."
@@ -1831,6 +1990,8 @@ words."
    variable", =C-x t v=.
 
    #+BEGIN_SRC emacs-lisp
+
+    ;;; String inflection
      (use-package string-inflection
        :defer t)
    #+END_SRC
@@ -1842,6 +2003,8 @@ words."
    selected and can be simultaneously edited.
 
    #+BEGIN_SRC emacs-lisp
+
+    ;;; iedit mode
      (use-package iedit
        :defer t)
    #+END_SRC
@@ -1850,6 +2013,8 @@ words."
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Count words in a buffer
         ;; word-count
         (defun word-count nil "Count words in buffer" (interactive)
           (shell-command-on-region (point-min) (point-max) "wc -w"))
@@ -1877,6 +2042,8 @@ words."
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Text editing done by external programs
 
     (defun txt2xhtml ()
       "Turn consecutive non-empty lines of plain text into HTML <p> elements."
@@ -1925,6 +2092,8 @@ Alternative is [[https://github.com/paldepind/smart-comment][smart-comment: Smar
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Commenting
   (if (>= emacs-major-version 25)
       (bind-key "M-;" #'comment-line)
     (use-package comment-dwim-2
@@ -1937,6 +2106,8 @@ This following function draws a comment box that is the width of the
 fill column around the selected region.
 
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Commenting
   ;;http://irreal.org/blog/?p=374
   (defun jcs-comment-box (b e)
     "Draw a box comment around the region but arrange for the region
@@ -1979,6 +2150,8 @@ fill column around the selected region.
 
   #+name: global-navigation
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Buffers
     (defalias 'list-buffers 'ibuffer) ; make ibuffer default
   #+END_SRC
 
@@ -2014,6 +2187,8 @@ be installed (e.g. =brew install hub= in OS X).
 
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
+
+        ;;; Magit
     (use-package magit
       :bind ("C-c g" . magit-status)
       :config
@@ -2050,6 +2225,8 @@ be installed (e.g. =brew install hub= in OS X).
 
   #+name: version-control
   #+BEGIN_SRC emacs-lisp
+
+    ;;; git-timemachine
     (use-package git-timemachine
        :diminish ""
       :defer t)
@@ -2083,6 +2260,8 @@ especially efficient.
 
    #+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
+
+    ;;; aspell
      (setq ispell-program-name "aspell") ; checker engine
 
      ;; Speed up aspell: ultra | fast | normal
@@ -2268,6 +2447,8 @@ abort completely with `C-g'."
   ##+NAME: spell-checker
   #+BEGIN_SRC emacs-lisp
 
+    ;;; TODO wcheck mode
+
     (setq ispell-program-name "aspell")
 
     (defvar my-finnish-syntax-table
@@ -2303,6 +2484,8 @@ abort completely with `C-g'."
 
    ##+NAME: spell-checker
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODO wcheck mode
 
      (autoload 'wcheck-mode "wcheck-mode"
        "Toggle wcheck-mode." t)
@@ -2437,6 +2620,8 @@ abort completely with `C-g'."
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Writing style: writegood
      (use-package writegood-mode
        :bind  (("C-c C-g g" . writegood-grade-level)
                ("C-c C-g e" . writegood-reading-ease)))
@@ -2452,6 +2637,8 @@ hit =C-x l g= that is short for "Emacs, launch grammar".
 
    ##+name: text-files
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Grammar: [[https://github.com/mhayashi1120/Emacs-langtool][languagetool]]
      (use-package langtool
        :bind (("C-x 4 w" . langtool-check)
               ("C-x 4 W" . langtool-check-done)
@@ -2486,6 +2673,8 @@ hit =C-x l g= that is short for "Emacs, launch grammar".
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Word definition
      (use-package define-word
        :bind (("C-c J" . define-word-at-point)))
 
@@ -2521,6 +2710,8 @@ l s= for "Emacs, launch synonyms".
 
 ##+name: text-files
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Synonyms: synosaurus
   (use-package synosaurus
     :defer t
     :init
@@ -2543,6 +2734,8 @@ The downloaded sdcv-mode and its =sdcv-search= command remains unused.
 
 #+name: apps
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Webster's
   (use-package sdcv-mode
     :ensure nil)
 #+END_SRC
@@ -2553,6 +2746,8 @@ Large numbers made easier to read by highlighting groups of three.
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Number groups
   (use-package digit-groups
     :init (setq digit-groups-global-mode t))
 #+END_SRC
@@ -2567,6 +2762,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Poetry mode
    ;;(require 'poetry)
    #+END_SRC
 
@@ -2578,6 +2775,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Whitespace
      ;; make whitespace-mode use just basic coloring
      (setq whitespace-style
            (quote (face spaces tabs newline space-mark tab-mark newline-mark trailing)))
@@ -2606,6 +2805,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Line numbers
      (use-package linum-relative
        :defer t
        :init
@@ -2679,6 +2880,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
+
+    ;;; LaTeX
      (use-package tex
        :disabled nil
        :defer t
@@ -2740,6 +2943,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
     #+name: text-files
     #+BEGIN_SRC emacs-lisp
+
+    ;;; XML
      (defun my/nXML-hooks ()
        (auto-fill-mode -1))
 
@@ -2758,6 +2963,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Zsh and fish
      (setq auto-mode-alist
            (cons '("\\.zsh$" . shell-script-mode) auto-mode-alist))
      (use-package fish-mode
@@ -2778,6 +2985,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+name: text-files
    #+BEGIN_SRC emacs-lisp
+
+    ;;; NEURON
      ;;
      ;; NEURON hoc and mod files
      ;;
@@ -2815,6 +3024,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
  #+name: text-files
   #+BEGIN_SRC emacs-lisp
+
+    ;;; MarkDown
    (use-package pandoc-mode
      :bind ("C-c 4" . pandoc-main-hydra/body))
 
@@ -2847,6 +3058,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
   #+name: text-files
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Ledger
     (use-package ledger-mode
          :mode "\\.led\\'"
          :interpreter "ledger"
@@ -2873,6 +3086,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
 #+name: text-files
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Ssh config
   (use-package ssh-config-mode
     :mode (("\\.ssh/config\\'"      . ssh-config-mode)
            ("/sshd?_config\\'"      . ssh-config-mode)
@@ -2892,6 +3107,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Programming
      (add-hook 'after-save-hook
                'executable-make-buffer-file-executable-if-script-p)
    #+END_SRC
@@ -2901,6 +3118,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Programming
      (use-package aggressive-indent)
    #+END_SRC
 
@@ -2913,6 +3132,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Programming
      (use-package flycheck
        :diminish ""
        :defer t
@@ -2931,6 +3152,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Programming
        (use-package quickrun
          :config
          (quickrun-add-command "perl"
@@ -2955,6 +3178,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Programming
      (use-package electric-operator
        :defer t)
    #+END_SRC
@@ -2971,6 +3196,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Perl
      (use-package plenv
        :defer t
        :config
@@ -2997,6 +3224,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Perl
      (use-package cperl-mode
        :mode "\\.\\([pP][Llm]\\|al\\)\\'"
        :interpreter ("perl" "perl5" "miniperl")
@@ -3025,6 +3254,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Perl
       (defun perltidy ()
          "Run perltidy on the current region or buffer."
          (interactive)
@@ -3048,6 +3279,8 @@ This was added to the toggle hydra and can be invoked with =C-x t g=,
 
   #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; perl6
 (use-package perl6-mode
   :defer t)
 
@@ -3060,15 +3293,17 @@ The pod-mode is outdated and needs to be manually installed to the
 
 #+NAME: programming-setup
 #+BEGIN_SRC emacs-lisp
+
+  ;;; TODO Call =pod-mode= on POD documentation files and enable spell checking.
   (use-package pod-mode
     :ensure nil
     :mode ("\\.pod\\'" . pod-mode)
     :config
     (add-hook 'pod-mode-hook
               '(lambda ( )
-                 (progn (font-lock-mode)   ; =syntax highlighting
-                        (auto-fill-mode 1) ; =wordwrap
-                        (flyspell-mode 1)  ; =spellchecking
+                 (progn (font-lock-mode)   ; = syntax highlighting
+                        (auto-fill-mode 1) ; = wordwrap
+                        (flyspell-mode 1)  ; = spellchecking
                         ))))
 #+END_SRC
 
@@ -3079,6 +3314,8 @@ The pod-mode is outdated and needs to be manually installed to the
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Lisps
      (setq my/lisps
            '(emacs-lisp lisp clojure extempore racket))
 
@@ -3106,6 +3343,8 @@ The pod-mode is outdated and needs to be manually installed to the
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Racket
      (use-package racket-mode
        :config
        (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
@@ -3127,6 +3366,8 @@ Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Paredit
      (use-package paredit
        :if (eq system-type 'darwin)
        :no-require t
@@ -3149,6 +3390,8 @@ Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Names
      (use-package names
         :defer t)
    #+END_SRC
@@ -3162,6 +3405,8 @@ on.
 
 #+NAME: programming-setup
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Nameless
   (use-package nameless
     :defer t
     :config
@@ -3185,6 +3430,8 @@ on.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Macrostep
      (use-package macrostep
        :bind ("C-c m" . macrostep-expand))
    #+END_SRC
@@ -3196,6 +3443,8 @@ output from given input. Start it with =M-x suggest=.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Suggest
      (use-package suggest)
    #+END_SRC
 
@@ -3207,6 +3456,8 @@ in Emacs - Mastering Emacs]] for more.
 
 #+NAME: programming-setup
 #+BEGIN_SRC emacs-lisp
+
+    ;;; ielm
   (use-package auto-complete
     :config
     (defun ielm-auto-complete ()
@@ -3227,6 +3478,8 @@ in Emacs - Mastering Emacs]] for more.
 
     #+NAME: programming-setup
     #+BEGIN_SRC emacs-lisp
+
+    ;;; Flycheck-package
       (use-package flycheck-package)
     #+END_SRC
 
@@ -3240,6 +3493,8 @@ default, toggle with hydra =C-x t e=. Simply ingenious!
 
 #+NAME: programming-setup
 #+BEGIN_SRC emacs-lisp
+
+    ;;; eros
   (use-package eros
     :config
     (eros-mode 1))
@@ -3250,6 +3505,8 @@ Automatically uppercase SQL keywords in sql-mode.
 
  #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; SQL
    (use-package sqlup-mode
      :defer t
      :config
@@ -3280,6 +3537,8 @@ Automatically uppercase SQL keywords in sql-mode.
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Clojure
      (use-package cider
        :disabled t
        :defer t
@@ -3355,6 +3614,8 @@ Also, check out [[https://github.com/smihica/emmet-mode][emmet-mode]].
 
    ##+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODO Python
 
      (add-to-list 'auto-mode-alist '("/requirements\\.txt\\'" . conf-mode))
 
@@ -3438,6 +3699,8 @@ Also, check out [[https://github.com/smihica/emmet-mode][emmet-mode]].
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; C++
      ;; Use the GDB visual debugging mode
      (setq gdb-many-windows t)
      ;; Turn Semantic on
@@ -3460,6 +3723,8 @@ Also, check out [[https://github.com/smihica/emmet-mode][emmet-mode]].
 
    #+NAME: programming-setup
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODO go
      (defun load-file-from-gopath (fname)
        (let ((gopath-items (split-string (getenv "GOPATH") ":")))
          (loop for prefix in gopath-items
@@ -3513,6 +3778,8 @@ Also, check out [[https://github.com/smihica/emmet-mode][emmet-mode]].
 
 #+NAME: programming-setup
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Applescript
 (use-package apples-mode
   :defer t)
 #+END_SRC
@@ -3523,6 +3790,8 @@ Also, check out [[https://github.com/smihica/emmet-mode][emmet-mode]].
 
 #+NAME: programming-setup
 #+BEGIN_SRC emacs-lisp
+
+    ;;; TOML
 (use-package toml-mode
   :defer t)
 #+END_SRC
@@ -3536,6 +3805,8 @@ installed first.
 
 #+NAME: programming-setup
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Music
   (use-package alda-mode
     :defer t
     :config
@@ -3549,6 +3820,8 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 
 #+NAME: programming-setup
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Extempore
   (use-package extempore-mode
     :defer t)
 #+END_SRC
@@ -3563,6 +3836,8 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 
   #+NAME: auto-complete
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Auto complete
     (use-package fuzzy
        :defer t)
 
@@ -3583,6 +3858,8 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Local navigation in a buffer
      (global-subword-mode +1)
      (diminish 'subword-mode)
      (defhydra hydra-navigate (:color red
@@ -3644,6 +3921,8 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Local navigation in a buffer
      (bind-key "C-<backspace>"
                #'(lambda () (interactive)
                    (kill-line 0)))
@@ -3654,6 +3933,8 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Local navigation in a buffer
     (defalias 'qrr 'query-replace-regexp)  ; M-C-S %
    #+END_SRC
 
@@ -3663,6 +3944,8 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Local navigation in a buffer
     ;; folding of code
     ;; http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/
     (defun toggle-selective-display ()
@@ -3676,6 +3959,8 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Local navigation in a buffer
      (bind-key  "M-j"  #'(lambda ()
                            (interactive)
                            (join-line -1)))
@@ -3697,6 +3982,8 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
+
+     ;;; Local navigation in a buffer
      (use-package crux
        :bind (("C-a" . crux-move-beginning-of-line)
               ("C-x 4 t" . crux-transpose-windows)
@@ -3716,10 +4003,129 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
    for =s-.= to move to end of the buffer. Logically, =s-,= then moves
    to the beginning of the buffer.
 
+###
+
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
+
+         ;;; Local navigation in a buffer
      (bind-key "s-." 'end-of-buffer)
      (bind-key "s-," 'beginning-of-buffer)
+
+     (defmacro my-special-beginning-of-buffer (mode &rest forms)
+       "Define a special version of `beginning-of-buffer' in MODE.
+
+     The special function is defined such that the point first moves
+     to `point-min' and then FORMS are evaluated.  If the point did
+     not change because of the evaluation of FORMS, jump
+     unconditionally to `point-min'.  This way repeated invocations
+     toggle between real beginning and logical beginning of the
+     buffer."
+       (declare (indent 1))
+       (let ((fname (intern (concat "my-" (symbol-name mode) "-beginning-of-buffer")))
+             (mode-map (intern (concat (symbol-name mode) "-mode-map")))
+             (mode-hook (intern (concat (symbol-name mode) "-mode-hook"))))
+         `(progn
+            (defun ,fname ()
+              (interactive)
+              (let ((p (point)))
+                (goto-char (point-min))
+                ,@forms
+                (when (= p (point))
+                  (goto-char (point-min)))))
+            (add-hook ',mode-hook
+                      (lambda ()
+                        (define-key ,mode-map
+                          [remap beginning-of-buffer] ',fname))))))
+
+     (defmacro my-special-end-of-buffer (mode &rest forms)
+       "Define a special version of `end-of-buffer' in MODE.
+
+     The special function is defined such that the point first moves
+     to `point-max' and then FORMS are evaluated.  If the point did
+     not change because of the evaluation of FORMS, jump
+     unconditionally to `point-max'.  This way repeated invocations
+     toggle between real end and logical end of the buffer."
+       (declare (indent 1))
+       (let ((fname (intern (concat "my-" (symbol-name mode) "-end-of-buffer")))
+             (mode-map (intern (concat (symbol-name mode) "-mode-map")))
+             (mode-hook (intern (concat (symbol-name mode) "-mode-hook"))))
+         `(progn
+            (defun ,fname ()
+              (interactive)
+              (let ((p (point)))
+                (goto-char (point-max))
+                ,@forms
+                (when (= p (point))
+                  (goto-char (point-max)))))
+            (add-hook ',mode-hook
+                      (lambda ()
+                        (define-key ,mode-map
+                          [remap end-of-buffer] ',fname))))))
+
+     ;; dired
+     (my-special-beginning-of-buffer dired
+       (while (not (ignore-errors (dired-get-filename)))
+         (dired-next-line 2)))
+     (my-special-end-of-buffer dired
+       (dired-previous-line 1))
+
+     ;; occur
+     (my-special-beginning-of-buffer occur
+       (occur-next 1))
+     (my-special-end-of-buffer occur
+       (occur-prev 1))
+
+     ;; ibuffer
+     (my-special-beginning-of-buffer ibuffer
+       (ibuffer-forward-line 1))
+     (my-special-end-of-buffer ibuffer
+       (ibuffer-backward-line 1))
+
+     ;; vc-dir
+     (my-special-beginning-of-buffer vc-dir
+       (vc-dir-next-line 1))
+     (my-special-end-of-buffer vc-dir
+       (vc-dir-previous-line 1))
+
+     ;; bs
+     (my-special-beginning-of-buffer bs
+       (bs-down 2))
+     (my-special-end-of-buffer bs
+       (bs-up 1)
+       (bs-down 1))
+
+     ;; recentf
+     (my-special-beginning-of-buffer recentf-dialog
+       (when (re-search-forward "^  \\[" nil t)
+         (goto-char (match-beginning 0))))
+     (my-special-end-of-buffer recentf-dialog
+       (re-search-backward "^  \\[" nil t))
+
+     ;; org-agenda
+     (my-special-beginning-of-buffer org-agenda
+       (org-agenda-next-item 1))
+     (my-special-end-of-buffer org-agenda
+       (org-agenda-previous-item 1))
+
+     ;; ag
+     (my-special-beginning-of-buffer ag
+       (compilation-next-error 1))
+     (my-special-end-of-buffer ag
+       (compilation-previous-error 1))
+
+     ;; notmuch
+     (my-special-beginning-of-buffer notmuch-search
+       (notmuch-search-first-thread)
+       (beginning-of-line))
+     (my-special-end-of-buffer notmuch-search
+       (notmuch-search-last-thread)
+       (end-of-line))
+
+     ;; elfeed
+     (my-special-end-of-buffer elfeed-search
+                               (forward-line -2))
+
    #+END_SRC
 ** Bookmarks
 
@@ -3733,6 +4139,8 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
 
 #+name: global-navigation
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Bookmarks
   (use-package bm
     :init
     (setq bm-in-lifo-order t)
@@ -3801,6 +4209,8 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Searching
 
      (setq save-interprogram-paste-before-kill t)
 
@@ -3872,6 +4282,8 @@ Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficien
 
 #+name: global-navigation
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Searching
 (use-package avy
   :bind (("M-s" . avy-goto-word-1)))
 #+END_SRC
@@ -3885,6 +4297,8 @@ Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficien
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TRAMP mode
      (setq tramp-default-method "ssh")
    #+END_SRC
 
@@ -3900,6 +4314,8 @@ Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficien
 
 #+name: local-navigation
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Projects
   (use-package projectile
     :defer t
     :diminish ""
@@ -3923,6 +4339,8 @@ Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficien
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Narrowing
      (put 'narrow-to-region 'disabled nil)
    #+END_SRC
 
@@ -3941,6 +4359,8 @@ Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficien
 
    #+name: local-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Narrowing
      (defun narrow-or-widen-dwim (p)
        "Widen if buffer is narrowed, narrow-dwim otherwise.
         Dwim means: region, org-src-block, org-subtree, or defun,
@@ -3984,6 +4404,8 @@ too.
 
 #+name: local-navigation
 #+BEGIN_SRC emacs-lisp
+
+    ;;; DocView
   (setq doc-view-continuous nil)
 #+END_SRC
 
@@ -3994,6 +4416,8 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Navigation between windows and frames
      (defun my/vsplit-last-buffer (prefix)
        "Split the window vertically and display the previous buffer."
        (interactive "p")
@@ -4029,6 +4453,8 @@ too.
    reading about it:
 
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Navigation between windows and frames
      ; execute this lisp code in org mode
      ; by placing the curser after the closing parenthesis and press C-x C-e
      (describe-package 'windmove)
@@ -4040,6 +4466,8 @@ too.
 
    #+name: execute-last
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Navigation between windows and frames
      (use-package framemove
        :defer t)
 
@@ -4064,6 +4492,8 @@ too.
 
    #+name: execute-last
    #+BEGIN_SRC emacs-lisp
+
+    ;;; wn-mode
      (use-package wn-mode
        :config
        (wn-mode))
@@ -4077,6 +4507,8 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Resize windows
      (setq my/window-resize-step 10)
 
      (bind-key "s-<left>"
@@ -4100,6 +4532,8 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; External navigation
      (defun google ()
        "Google the selected region if any, display a query prompt otherwise."
        (interactive)
@@ -4118,6 +4552,8 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Global navigation
      (defun my/edit-emacs-configuration ()
        "Open the main emacs configuration file."
        (interactive)
@@ -4157,6 +4593,8 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Global navigation
      (use-package neotree
        :defer t
        :init (setq neo-smart-open t)) ; always change focus to current buffer
@@ -4173,6 +4611,8 @@ too.
 
    #+name: global-navigation
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Global navigation
      (use-package recentf
        :if (not noninteractive)
        :bind ( "C-x C-r" . recentf-open-files)
@@ -4191,6 +4631,8 @@ too.
 
   #+name: location
   #+BEGIN_SRC emacs-lisp
+
+    ;;; Geographical location
     (setq calendar-latitude 60.47)
     (setq calendar-longitude 25.73)
     (setq calendar-location-name "Åtorp")
@@ -4203,6 +4645,8 @@ This useful function can be accessed through the launch hydra with
 
 #+name: global-navigation
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Filename to clipboard
 (defun copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."
   (interactive)
@@ -4232,6 +4676,8 @@ Code from [[http://mbork.pl/2016-06-13_Displaying_pdfs_on_the_right][Marcin Bork
 
 #+name: apps
 #+BEGIN_SRC emacs-lisp
+
+    ;;; PDF
     (use-package pdf-tools
       :config
       (custom-set-variables
@@ -4362,6 +4808,8 @@ bbdb-merge-records=.
 
 #+name: apps
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Mail: gmail
   (use-package nnir
     :disabled t
     :defer t
@@ -4519,6 +4967,8 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODO Calender
      (use-package calfw
        :defer t
        :init
@@ -4608,177 +5058,179 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
-       (use-package elfeed-org
-         ;;:defer t
-         ;;:after elfeed
-         :config
-         (elfeed-org))
 
-     (use-package elfeed
-       :bind (("C-c f" . elfeed))
-       :bind (:map elfeed-show-mode-map
-                   ("b" . elfeed-show-visit)
-                   ("l" . elfeed-show-link-title)
-                   ("v" . elfeed-show-quick-url-note))
-       :bind (:map elfeed-search-mode-map
-                   ("=" . elfeed-update)
-                   ("R" . elfeed-mark-all-as-read)
-                   ("0" . elfeed-read-all)
-                   ("1" . elfeed-read-news-fi)
-                   ("2" . elfeed-read-news)
-                   ("3" . elfeed-read-journals)
-                   ("4" . elfeed-read-archaeology)
-                   ("5" . elfeed-read-mobile)
-                   ("6" . elfeed-read-comics)
-                   ("7" . elfeed-read-emacs)
-                   ("8" . elfeed-read-culture)
-                   ("9" . elfeed-read-friends)
-                   ("l" . elfeed-search-link-title)
-                   ("v" . elfeed-search-quick-url-note))
-       :init
-       (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
-       (setq-default elfeed-search-filter my/default-elfeed-search-filter)
-       (setq elfeed-sort-order 'ascending)
-       (setq elfeed-search-title-max-width 80) ; newspaper articles have long titles
-       (setq elfeed-use-curl t) ; new, using curl; now default, this is not needed
-       :config
+     ;;; Elfeed
+        (use-package elfeed-org
+          ;;:defer t
+          ;;:after elfeed
+          :config
+          (elfeed-org))
 
-       (use-package elfeed-goodies
-         :defer t
-         :config
-         (elfeed-goodies/setup))
+      (use-package elfeed
+        :bind (("C-c f" . elfeed))
+        :bind (:map elfeed-show-mode-map
+                    ("b" . elfeed-show-visit)
+                    ("l" . elfeed-show-link-title)
+                    ("v" . elfeed-show-quick-url-note))
+        :bind (:map elfeed-search-mode-map
+                    ("=" . elfeed-update)
+                    ("R" . elfeed-mark-all-as-read)
+                    ("0" . elfeed-read-all)
+                    ("1" . elfeed-read-news-fi)
+                    ("2" . elfeed-read-news)
+                    ("3" . elfeed-read-journals)
+                    ("4" . elfeed-read-archaeology)
+                    ("5" . elfeed-read-mobile)
+                    ("6" . elfeed-read-comics)
+                    ("7" . elfeed-read-emacs)
+                    ("8" . elfeed-read-culture)
+                    ("9" . elfeed-read-friends)
+                    ("l" . elfeed-search-link-title)
+                    ("v" . elfeed-search-quick-url-note))
+        :init
+        (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
+        (setq-default elfeed-search-filter my/default-elfeed-search-filter)
+        (setq elfeed-sort-order 'ascending)
+        (setq elfeed-search-title-max-width 80) ; newspaper articles have long titles
+        (setq elfeed-use-curl t) ; new, using curl; now default, this is not needed
+        :config
 
-       (defun elfeed-mark-all-as-read ()
-         "Mark currently shown articles read"
-         (interactive)
-         (mark-whole-buffer)
-         (elfeed-search-untag-all-unread))
+        (use-package elfeed-goodies
+          :defer t
+          :config
+          (elfeed-goodies/setup))
 
-       (defun elfeed--read-tag (filter tag)
-         "Template for filtering various feed categories.
+        (defun elfeed-mark-all-as-read ()
+          "Mark currently shown articles read"
+          (interactive)
+          (mark-whole-buffer)
+          (elfeed-search-untag-all-unread))
 
-                              FILTER is the filter string to apply, and TAG is a short name of
-                              the displayed category.
+        (defun elfeed--read-tag (filter tag)
+          "Template for filtering various feed categories.
 
-                              The cursor is moved to the beginning of the first feed line."
-         (setq elfeed-search-filter filter)
-         (elfeed-search-update :force)
-         (goto-char (point-min))
-         (message (concat "elfeed: show " tag)))
+                               FILTER is the filter string to apply, and TAG is a short name of
+                               the displayed category.
 
-       (defun elfeed-read-all ()
-         "Show all new titles (except sport)"
-         (interactive)
-         (elfeed--read-tag my/default-elfeed-search-filter "all"))
+                               The cursor is moved to the beginning of the first feed line."
+          (setq elfeed-search-filter filter)
+          (elfeed-search-update :force)
+          (goto-char (point-min))
+          (message (concat "elfeed: show " tag)))
 
-       (defun elfeed--remove-sports ()
-         "Remove sports articles from world news"
-         (setq elfeed-search-filter "@1-month-ago +unread +n sport")
-         (elfeed-search-update :force)
-         (elfeed-mark-all-as-read)
-         (message "elfeed: sports removed"))
+        (defun elfeed-read-all ()
+          "Show all new titles (except sport)"
+          (interactive)
+          (elfeed--read-tag my/default-elfeed-search-filter "all"))
 
-       (defun elfeed-read-news-fi ()
-         "Show global news articles in Finnish"
-         (interactive)
-         (elfeed--remove-sports)
-         (elfeed--read-tag "@1-month-ago +unread +fi " "Finnish news"))
+        (defun elfeed--remove-sports ()
+          "Remove sports articles from world news"
+          (setq elfeed-search-filter "@1-month-ago +unread +n sport")
+          (elfeed-search-update :force)
+          (elfeed-mark-all-as-read)
+          (message "elfeed: sports removed"))
 
-       (defun elfeed-read-news ()
-         "Show global news articles"
-         (interactive)
-         (elfeed--remove-sports)
-         (elfeed--read-tag "@1-month-ago +unread +n " "news"))
+        (defun elfeed-read-news-fi ()
+          "Show global news articles in Finnish"
+          (interactive)
+          (elfeed--remove-sports)
+          (elfeed--read-tag "@1-month-ago +unread +fi " "Finnish news"))
 
-       (defun elfeed-read-journals ()
-         "Show scientific news from major journals"
-         (interactive)
-         (elfeed--read-tag "@1-month-ago +unread +j " "journals"))
+        (defun elfeed-read-news ()
+          "Show global news articles"
+          (interactive)
+          (elfeed--remove-sports)
+          (elfeed--read-tag "@1-month-ago +unread +n " "news"))
 
-       (defun elfeed-read-archaeology ()
-         "Show archeology news"
-         (interactive)
-         (elfeed--read-tag "@1-month-ago +unread +a " "archaeology"))
+        (defun elfeed-read-journals ()
+          "Show scientific news from major journals"
+          (interactive)
+          (elfeed--read-tag "@1-month-ago +unread +j " "journals"))
 
-       (defun elfeed-read-mobile ()
-         "Show mobile device news"
-         (interactive)
-         (elfeed--read-tag "@1-month-ago +unread +d " "mobile"))
+        (defun elfeed-read-archaeology ()
+          "Show archeology news"
+          (interactive)
+          (elfeed--read-tag "@1-month-ago +unread +a " "archaeology"))
 
-       (defun elfeed-read-comics ()
-         "Show latest online comics"
-         (interactive)
-         (elfeed--read-tag "@1-month-ago +unread +c " "comics"))
+        (defun elfeed-read-mobile ()
+          "Show mobile device news"
+          (interactive)
+          (elfeed--read-tag "@1-month-ago +unread +d " "mobile"))
 
-       (defun elfeed-read-emacs ()
-         "Show news on emacs"
-         (interactive)
-         (elfeed--read-tag "@1-month-ago +unread +e " "emacs"))
+        (defun elfeed-read-comics ()
+          "Show latest online comics"
+          (interactive)
+          (elfeed--read-tag "@1-month-ago +unread +c " "comics"))
 
-       (defun elfeed-read-culture ()
-         "Show news on culture"
-         (interactive)
-         (elfeed--read-tag "@1-month-ago +unread +cu " "culture"))
+        (defun elfeed-read-emacs ()
+          "Show news on emacs"
+          (interactive)
+          (elfeed--read-tag "@1-month-ago +unread +e " "emacs"))
 
-       (defun elfeed-read-friends ()
-         "Show news from friends"
-         (interactive)
-         (elfeed--read-tag "@1-month-ago +unread +f " "friends"))
+        (defun elfeed-read-culture ()
+          "Show news on culture"
+          (interactive)
+          (elfeed--read-tag "@1-month-ago +unread +cu " "culture"))
 
-       ;;
-       ;; linking and capturing
-       ;;
+        (defun elfeed-read-friends ()
+          "Show news from friends"
+          (interactive)
+          (elfeed--read-tag "@1-month-ago +unread +f " "friends"))
 
-       (defun elfeed-link-title (entry)
-         "Copy the entry title and URL as org link to the clipboard."
-         (interactive)
-         (let* ((link (elfeed-entry-link entry))
-                (title (elfeed-entry-title entry))
-                (titlelink (concat "[[" link "][" title "]]")))
-           (when titlelink
-             (kill-new titlelink)
-             (x-set-selection 'PRIMARY titlelink)
-             (message "Yanked: %s" titlelink))))
+        ;;
+        ;; linking and capturing
+        ;;
 
-       ;; show mode
+        (defun elfeed-link-title (entry)
+          "Copy the entry title and URL as org link to the clipboard."
+          (interactive)
+          (let* ((link (elfeed-entry-link entry))
+                 (title (elfeed-entry-title entry))
+                 (titlelink (org-make-link-string link title))))
+            (when titlelink
+              (kill-new titlelink)
+              (x-set-selection 'PRIMARY titlelink)
+              (message "Yanked: %s" titlelink))))
 
-       (defun elfeed-show-link-title ()
-         "Copy the current entry title and URL as org link to the clipboard."
-         (interactive)
-         (elfeed-link-title elfeed-show-entry))
+        ;; show mode
 
-       (defun elfeed-show-quick-url-note ()
-         "Fastest way to capture entry link to org agenda from elfeed show mode"
-         (interactive)
-         (elfeed-link-title elfeed-show-entry)
-         (org-capture nil "n")
-         (yank)
-         (org-capture-finalize))
+        (defun elfeed-show-link-title ()
+          "Copy the current entry title and URL as org link to the clipboard."
+          (interactive)
+          (elfeed-link-title elfeed-show-entry))
 
-       ;; search mode
+        (defun elfeed-show-quick-url-note ()
+          "Fastest way to capture entry link to org agenda from elfeed show mode"
+          (interactive)
+          (elfeed-link-title elfeed-show-entry)
+          (org-capture nil "n")
+          (yank)
+          (org-capture-finalize))
 
-       (defun elfeed-search-link-title ()
-         "Copy the current entry title and URL as org link to the clipboard."
-         (interactive)
-         (let ((entries (elfeed-search-selected)))
-           (cl-loop for entry in entries
-                    when (elfeed-entry-link entry)
-                    do (elfeed-link-title entry))))
+        ;; search mode
 
-       (defun elfeed-search-quick-url-note ()
-         "In search mode, capture the title and link for the selected
-               entry or entries in org aganda."
-         (interactive)
-         (let ((entries (elfeed-search-selected)))
-           (cl-loop for entry in entries
-                    do (elfeed-untag entry 'unread)
-                    when (elfeed-entry-link entry)
-                    do (elfeed-link-title entry)
-                    do (org-capture nil "n")
-                    do (yank)
-                    do (org-capture-finalize)
-                    (mapc #'elfeed-search-update-entry entries))
-           (unless (use-region-p) (forward-line)))))
+        (defun elfeed-search-link-title ()
+          "Copy the current entry title and URL as org link to the clipboard."
+          (interactive)
+          (let ((entries (elfeed-search-selected)))
+            (cl-loop for entry in entries
+                     when (elfeed-entry-link entry)
+                     do (elfeed-link-title entry))))
+
+        (defun elfeed-search-quick-url-note ()
+          "In search mode, capture the title and link for the selected
+                entry or entries in org aganda."
+          (interactive)
+          (let ((entries (elfeed-search-selected)))
+            (cl-loop for entry in entries
+                     do (elfeed-untag entry 'unread)
+                     when (elfeed-entry-link entry)
+                     do (elfeed-link-title entry)
+                     do (org-capture nil "n")
+                     do (yank)
+                     do (org-capture-finalize)
+                     (mapc #'elfeed-search-update-entry entries))
+            (unless (use-region-p) (forward-line))))
    #+END_SRC
 
 ** Twitter
@@ -4806,6 +5258,8 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Twitter
      (use-package twittering-mode
        :defer t
        :commands twit
@@ -4945,6 +5399,8 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; w3m
      (setq browse-url-browser-function 'w3m-browse-url)
      (setq browse-url-browser-function 'browse-url-default-browser)
      (use-package w3m
@@ -4963,6 +5419,8 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Calculator
      (setq-default calc-multiplication-has-precedence nil)
    #+END_SRC
 
@@ -4977,6 +5435,8 @@ bbdb-merge-records=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; World Clock
      (setq display-time-world-list
            '(("Europe/London" "London")
              ("Africa/Johannesburg" "Cape Town")
@@ -5030,6 +5490,8 @@ Command =owp/do-publication= seems to do all I need.
 #
 #   #+name: apps
 #   #+BEGIN_SRC emacs-lisp
+
+    ;;; Blogging with org-webpage
 #     (use-package org-page
 #       :defer t
 #       :init
@@ -5077,6 +5539,8 @@ Command =owp/do-publication= seems to do all I need.
    #+name: apps
    #+BEGIN_SRC emacs-lisp
 
+    ;;; Blogging with org-webpage
+
      (use-package org-webpage
        :config
        (owp/add-project-config
@@ -5104,6 +5568,8 @@ for org-mode. [[https://github.com/masasam/emacs-easy-hugo][masasam/emacs-easy-h
 
 #+name: apps
 #+BEGIN_SRC emacs-lisp
+
+    ;;; easy-hugo
   (use-package easy-hugo
     :init
     (setq easy-hugo-basedir "~/hugo/test/")
@@ -5155,6 +5621,8 @@ for org-mode. [[https://github.com/masasam/emacs-easy-hugo][masasam/emacs-easy-h
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; eshell
      (use-package eshell
        :config
        (setenv "PAGER" "cat")
@@ -5184,6 +5652,8 @@ binding the magic space command to the space key.
 
 #+name: apps
 #+BEGIN_SRC emacs-lisp
+
+    ;;; shell
   (define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
 #+END_SRC
 
@@ -5194,6 +5664,8 @@ binding the magic space command to the space key.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Process management
      (use-package vkill
        :defer t)
    #+END_SRC
@@ -5212,6 +5684,8 @@ binding the magic space command to the space key.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Ediff
      ;; custom macro for changing custom values
      (defmacro csetq (variable value)
        `(funcall (or (get ',variable 'custom-set)
@@ -5281,6 +5755,8 @@ binding the magic space command to the space key.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Regex tool
      (use-package re-builder
        :defer 5
        :init
@@ -5316,6 +5792,8 @@ binding the magic space command to the space key.
    [[http://stackoverflow.com/][StackOverflow]], and parse and return best answers.
 
    #+BEGIN_SRC emacs-lisp
+
+    ;;; How Do I?
      ; execute this lisp code in org mode
      ; by placing the curser after
      ; the closing parenthesis and press C-x C-e
@@ -5324,6 +5802,8 @@ binding the magic space command to the space key.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; How Do I?
      (use-package howdoi
        :defer 5)
    #+END_SRC
@@ -5347,6 +5827,8 @@ binding the magic space command to the space key.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; xkcd comics
      (use-package xkcd
        ;;:bind ("C-c x" . xkcd)
        :config
@@ -5361,6 +5843,8 @@ binding the magic space command to the space key.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; 2048-game
      (use-package 2048-game
        :defer 5)
    #+END_SRC
@@ -5393,8 +5877,13 @@ binding the magic space command to the space key.
   need to be followed by a string in curly brackets to be rendered and
   exported.
 
+Unsetting variable org-M-RET-may-split-line disallows splitting heaser
+lines with enter ([[http://irreal.org/blog/?p=6297][Make M-RET better in Org Mode | Irreal]]).
+
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org mode
      (use-package org
        :ensure org-plus-contrib
        :mode ("\\.txt$" . org-mode)
@@ -5419,6 +5908,10 @@ binding the magic space command to the space key.
      ;; too slow to have on by default
      ;; (add-hook 'org-mode-hook 'wc-mode)
      (use-package wc-mode)
+
+
+   (setq org-M-RET-may-split-line '((default . nil)))
+
    #+END_SRC
 
    Note: =C-c C-j= is =org-goto= and creates a copy of the current
@@ -5464,6 +5957,8 @@ Added a hydra to [[https://oremacs.com/2016/04/04/hydra-doc-syntax/][prettify]] 
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Agenda
      (use-package suomalainen-kalenteri
        :defer t
        :init (setq org-agenda-start-on-weekday 1)) ;; 1 is Monday
@@ -5472,8 +5967,8 @@ Added a hydra to [[https://oremacs.com/2016/04/04/hydra-doc-syntax/][prettify]] 
      (setq org-agenda-use-tag-inheritance nil)
 
 
-      (define-key org-agenda-mode-map
-          "v" 'hydra-org-agenda-view/body)
+      ;;(define-key org-agenda-mode-map
+      ;;    "v" 'hydra-org-agenda-view/body)
 
       (defun org-agenda-cts ()
         (let ((args (get-text-property
@@ -5538,6 +6033,8 @@ Added a hydra to [[https://oremacs.com/2016/04/04/hydra-doc-syntax/][prettify]] 
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Agenda
      (setq org-tag-alist '(("ATORP"   . ?a)
                            ("WORK"    . ?r)
                            ("TMI"     . ?i)
@@ -5596,6 +6093,8 @@ Added a hydra to [[https://oremacs.com/2016/04/04/hydra-doc-syntax/][prettify]] 
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+       ;;; Agenda
      (use-package org-agenda
        :ensure nil
        :bind (("C-c a" . org-agenda)
@@ -5646,6 +6145,8 @@ the agenda view.
 
 #+NAME: org-config
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Time manipulation
   (use-package org-clock-convenience
     :defer t
     :bind (:map org-agenda-mode-map
@@ -5669,6 +6170,8 @@ the agenda view.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; worf -- modal editing in org mode
      (use-package worf
        :diminish ""
        :defer t
@@ -5683,6 +6186,8 @@ the agenda view.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Capture templates
      (setq org-directory "~/Dropbox/org")
      (setq org-default-notes-file "~/Dropbox/org/reference.org")
    #+END_SRC
@@ -5712,6 +6217,8 @@ the agenda view.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Capture templates
      ;; Capture templates for: general notes, TODO tasks, events
      (setq org-capture-templates
            '(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
@@ -5736,6 +6243,8 @@ the agenda view.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Capture templates
      ;; Disabled. 2016-11-27 package update to messed this up.
      (defun org-auto-tag ()
        (interactive)
@@ -5758,6 +6267,8 @@ a~S                       (org-toggle-tag word 'saon)))
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Capture templates
      (setq org-capture-templates
            (append '(("l" "Ledger entries")
                      ("lm" "MasterCard" plain
@@ -5809,6 +6320,8 @@ a~S                       (org-toggle-tag word 'saon)))
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org Dropbox
      (use-package org-dropbox
        :defer 5
        :config (org-dropbox-mode))
@@ -5825,6 +6338,8 @@ a~S                       (org-toggle-tag word 'saon)))
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Refile
      ;; Targets include this file and any file contributing to the agenda - up to 3 levels deep
      (setq org-refile-targets (quote ((nil :maxlevel . 3)
                                       (org-agenda-files :maxlevel . 3))))
@@ -5864,6 +6379,8 @@ Config is in my emacs secrets file.
 
 #+NAME: org-config
 #+BEGIN_SRC emacs-lisp
+
+    ;;; TODO Org-gcal
   (setq package-check-signature nil)
 
   (use-package org-gcal)
@@ -5893,6 +6410,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Time tracking
       (setq org-clock-persist 'history)
       (org-clock-persistence-insinuate)
       (setq org-log-note-clock-out t)
@@ -5938,6 +6457,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODO MobileOrg
      (setq org-mobile-directory "~/Dropbox/org")
    #+END_SRC
 
@@ -5977,6 +6498,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; External jars
      ;; ditaa
      (setq org-ditaa-jar-path "/usr/local/bin/ditaa.jar")
      ; plantuml-mode
@@ -6008,6 +6531,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODOs
      (setq org-todo-keywords
            '((sequence "TODO(t)" "PENDING(p)" "MEETING(m)" "|" "DONE(d)" "CANCELED(c)")))
 
@@ -6018,6 +6543,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODOs
 
      (defun my-org-autodone (n-done n-not-done)
        "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -6033,6 +6560,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODOs
      (setq org-refile-targets '(("reference.org" :level . 4)))
    #+END_SRC
 
@@ -6040,6 +6569,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; TODOs
      (setq org-log-done 'time)
    #+END_SRC
 
@@ -6058,6 +6589,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Prettify with Unicode characters
      (setq org-html-checkbox-type 'unicode)
      (setq org-html-checkbox-types
            '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
@@ -6073,12 +6606,21 @@ Config is in my emacs secrets file.
      (setq org-ellipsis "⤵")
      (setq org-hide-emphasis-markers t)
      ;; (setq org-hide-leading-stars t)
+
+;; ###
+(font-lock-add-keywords
+ 'org-mode
+ `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\(\\(?:\\[@\\(?:start:\\)?[0-9]+\\][ \t]*\\)?\\[\\(?:X\\|\\([0-9]+\\)/\\2\\)\\][^\n]*\n\\)" 1 'org-headline-done prepend))
+ 'append)
+
 #+END_SRC
 
 ** Org tables sitcky headers
 
 #+name: org-config
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Org tables sitcky headers
   (use-package org-table-sticky-header
     :diminish ""
     :config
@@ -6092,6 +6634,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org Babel
      (setq org-confirm-babel-evaluate nil)
    #+END_SRC
 
@@ -6101,6 +6645,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org Babel
      ;; Alternative python interpreter for babel blocks
      (setq org-babel-python-command "/Users/heikki/miniconda3/bin/python")
    #+END_SRC
@@ -6112,8 +6658,15 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org Babel
      (setq org-src-fontify-natively t
            org-src-tab-acts-natively t)
+
+;; ###
+;; display/update images in the buffer after I evaluate
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
    #+END_SRC
 
    Use the =minted= package for syntax highlighting source blocks in
@@ -6124,6 +6677,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org Babel
      ;; Include the latex-exporter
      (use-package ox-latex
        :ensure nil)
@@ -6146,6 +6701,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org Babel
       (use-package ox-beamer
         :ensure nil)
    #+END_SRC
@@ -6156,6 +6713,8 @@ Config is in my emacs secrets file.
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org Babel
     ;;(setq org-latex-pdf-process
     ;;'("/usr/texbin/latexmk -interaction=nonstopmode -shell-escape -pdflatex=/usr/texbin/xelatex -gg -f -pdf %f"))
    #+END_SRC
@@ -6172,6 +6731,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org Babel
      (bind-key "C-c i" 'my/org-babel-untangle)
 
      (defun my/org-babel-untangle (path)
@@ -6204,6 +6765,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org Babel
     (setq org-startup-with-inline-images t)
     (add-hook 'org-babel-after-execute-hook
           (lambda () (org-redisplay-inline-images)))
@@ -6213,6 +6776,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org Babel
      (defadvice org-edit-src-code (around set-buffer-file-name activate compile)
        (let ((file-name (buffer-file-name)))
          ad-do-it
@@ -6228,6 +6793,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Org export
 
      ;; Set the encoding to utf-8
      (setq org-export-coding-system 'utf-8)
@@ -6254,6 +6821,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Latex export
      (add-to-list 'org-latex-classes
                   '("fu-org-article"
                     "\\documentclass[11pt,a4paper]{article}
@@ -6341,6 +6910,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Language evaluation support
      (use-package ob-perl :ensure nil)
      (use-package ob-clojure :ensure nil)
      (use-package ob-ruby :ensure nil)
@@ -6367,6 +6938,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Shortcuts for some language blocks
      (define-skeleton skel-org-block
        "Insert an org block, querying for type."
        "Type: "
@@ -6380,6 +6953,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Shortcuts for some language blocks
      (define-skeleton skel-org-block-perl
        "Insert an org perl block with results in the output."
        ""
@@ -6394,6 +6969,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Shortcuts for some language blocks
      (define-skeleton skel-org-block-r
        "Insert an org R block with results in the output."
        ""
@@ -6408,6 +6985,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Shortcuts for some language blocks
      (define-skeleton skel-org-block-plantuml
        "Insert a org plantuml block, querying for filename."
        "File (no extension): "
@@ -6422,6 +7001,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Shortcuts for some language blocks
      (define-skeleton skel-org-block-dot
        "Insert a org graphviz dot block, querying for filename."
        "File (no extension): "
@@ -6439,6 +7020,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Shortcuts for some language blocks
      (define-skeleton skel-org-block-ditaa
        "Insert a org ditaa block, querying for filename."
        "File (no extension): "
@@ -6453,10 +7036,14 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Shortcuts for some language blocks
      (define-skeleton skel-org-block-elisp
        "Insert a org emacs-lisp block"
        ""
        "#+BEGIN_SRC emacs-lisp\n"
+
+    ;;; Shortcuts for some language blocks
        _ -
        "\n#+END_SRC\n")
 
@@ -6477,6 +7064,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; References
      (use-package org-ref
        :after org
        :init
@@ -6490,6 +7079,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; References
      (setq reftex-default-bibliography
            (quote ("~/Documents/latex/all.bib")))
 
@@ -6510,6 +7101,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 #
 #   #+name: org-config
 #   #+BEGIN_SRC emacs-lisp
+
+    ;;; References
 #     (defun org-mode-reftex-setup ()
 #       (load-library "reftex")
 #       (and (buffer-file-name) (file-exists-p (buffer-file-name))
@@ -6534,6 +7127,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; References
      (define-skeleton skel-org-block-bibl
        "Insert a org/lisp bibliography block"
        ""
@@ -6566,6 +7161,8 @@ latexmk -pvc -pdf -view=none FILENAME.tex
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Presentation
      (use-package ox-reveal
        :init
        ;; (setq org-reveal-root "file:/Users/heikki/src/reveal.js")
@@ -6580,15 +7177,38 @@ save. I helped rewrite the package!
 
    #+name: org-config
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Live preview
      (use-package org-preview-html)
    #+END_SRC
+
+** Crypt
+
+###
+
+   #+name: org-config
+#+BEGIN_SRC emacs-lisp
+(use-package org-crypt
+  :ensure nil
+  :config
+  (setq epg-gpg-program "gpg2")
+  (org-crypt-use-before-save-magic)
+  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+  ;; GPG key to use for encryption
+  ;; Either the Key ID or set to nil to use symmetric encryption.
+  (setq org-crypt-key nil))
+
+#+END_SRC
 
 * Configuration file layout
 
   Here I define the emacs.el file that gets generated by the code in
-  this org file.
+  this org file. The file is made read ounly.
 
   #+BEGIN_SRC emacs-lisp :tangle yes :noweb no-export :exports code
+    ;;;; emacs.el --- personal emacs config file of Heikki Lehväslaiho -*- lexical-binding: t ; eval: (read-only-mode 1) -*-
+    ;;;;
+    ;;; Configuration file layout
     ;;;; Do not modify this file by hand.  It was automatically generated
     ;;;; from `emacs.org` in the same directory. See that file for more
     ;;;; information.
@@ -6623,6 +7243,8 @@ save. I helped rewrite the package!
 
    #+name: tools
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Hooks and modes
      (defun my/->string (str)
        (cond
         ((stringp str) str)
@@ -6667,6 +7289,8 @@ save. I helped rewrite the package!
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Lisp libraries
      (use-package dash
        :config
        (if (>= emacs-major-version 24)
@@ -6685,6 +7309,8 @@ save. I helped rewrite the package!
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Options set using the customize interface
      (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
      (unless (file-exists-p custom-file)
        (write-region "" nil custom-file))
@@ -6704,6 +7330,8 @@ save. I helped rewrite the package!
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Performance
      (setq gc-cons-threshold 20000000)
 
      (defun my-minibuffer-setup-hook ()
@@ -6724,6 +7352,8 @@ save. I helped rewrite the package!
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Custom lisp package directory
      (add-to-list 'load-path
                   (concat user-emacs-directory
                           (convert-standard-filename "elisp/")))
@@ -6738,6 +7368,8 @@ save. I helped rewrite the package!
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Load secrets
      (load "~/.emacs.p/secrets" t)
    #+END_SRC
 
@@ -6749,6 +7381,8 @@ I installed an emacs-plus from brew and OS X keybindings all changed.
 This restores the most important ones to what I am used to.
 
 #+BEGIN_SRC emacs-lisp
+
+    ;;; Key bindings
   ;; disabled
   ;;(when (eq system-type 'darwin)
   (when (eq system-type 'darwin-xx)
@@ -6791,6 +7425,8 @@ This restores the most important ones to what I am used to.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; PATH
      (when (eq system-type 'darwin)
        (use-package exec-path-from-shell
          :config
@@ -6808,6 +7444,8 @@ This restores the most important ones to what I am used to.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; locate
     (when (eq system-type 'darwin)
       (setq locate-command "mdfind"))
    #+END_SRC
@@ -6847,6 +7485,8 @@ sorting.
 
 #+NAME: environment
 #+BEGIN_SRC emacs-lisp
+
+    ;;; dired
   (when (eq system-type 'darwin)
     (setq insert-directory-program (executable-find "gls")))
 
@@ -6897,6 +7537,8 @@ sorting.
    4. Run the following code:
 
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Printing
      ;;(use-package mac-print-mode
      ;;  :disabled t
      ;;  :if (eq system-type 'darwin)
@@ -6929,6 +7571,8 @@ I've combined all those commands and bound them to =C-c v=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; URL copying
      (when (eq system-type 'darwin)
        (use-package org-mac-link
          :ensure nil
@@ -6949,6 +7593,8 @@ I've combined all those commands and bound them to =C-c v=.
 
    #+name: apps
    #+BEGIN_SRC emacs-lisp
+
+    ;;; iTerm2
      (when (eq system-type 'darwin)
        (defun iterm-goto-filedir-or-home ()
          "Go to present working dir and focus iterm"
@@ -6991,6 +7637,8 @@ I've combined all those commands and bound them to =C-c v=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Emacsclient
      (when (display-graphic-p)
        (server-start))
 
@@ -7020,5 +7668,7 @@ I've combined all those commands and bound them to =C-c v=.
 
    #+NAME: environment
    #+BEGIN_SRC emacs-lisp
+
+    ;;; Emacsclient
      (bind-key "C-x C-3" 'server-edit)
    #+END_SRC
