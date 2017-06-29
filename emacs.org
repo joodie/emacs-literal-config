@@ -2022,14 +2022,17 @@ be installed (e.g. =brew install hub= in OS X).
       (setq magit-diff-options '("-b")))
 
     (use-package magithub
-      :after magit)
+      :after magit
+      :config
+      (magithub-feature-autoinject t))
 
     (use-package git-commit :defer t)
-    (use-package git-gutter :defer t)
-    (use-package git-gutter-fringe :defer t)
-    (use-package gitattributes-mode :defer t)
-    (use-package gitconfig-mode :defer t)
-    (use-package gitignore-mode :defer t)
+    (use-package git-gutter :defer t
+      :diminish "")
+
+        (use-package gitattributes-mode :defer t)
+        (use-package gitconfig-mode :defer t)
+        (use-package gitignore-mode :defer t)
   #+END_SRC
 
 ** git-timemachine
