@@ -560,7 +560,7 @@ I am trying out the new [[http://sourcefoundry.org/hack/][Hack 2.0]] font.
   ;;     (set-fontset-font "fontset-default" nil
   ;;                       (font-spec :size 20 :name "Symbola:"))
   (when (eq system-type 'darwin)
-    (set-default-font "-*-Hack-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1"))
+    (set-frame-font "-*-Hack-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1"))
 #+END_SRC
 
 You can use =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to
@@ -844,8 +844,7 @@ makes for a smoother scrolling behavior when using keyboard
 navigation.
 
 #+BEGIN_SRC emacs-lisp
-  (setq redisplay-dont-pause t
-        scroll-margin 1
+  (setq scroll-margin 1
         scroll-step 1
         scroll-conservatively 10000
         scroll-preserve-screen-position 1)
@@ -1322,7 +1321,7 @@ be shown with =M-x describe-personal-keybindings=.
 
   (define-key org-mode-map "<"
     (lambda () (interactive)
-      (if (or (region-active-p) (looking-back "^"))
+      (if (or (region-active-p) (looking-back "^" nil))
           (hydra-org-template/body)
         (self-insert-command 1))))
 
@@ -1733,7 +1732,7 @@ needing frequently to paste it into a document I was editing.
       (rename-file start-file-full end-file)
       ;; copy short filename to clipboard
       (kill-new start-file)
-      (x-set-selection 'PRIMARY start-file)
+      (gui-set-selection 'PRIMARY start-file)
       (message "moved %s to %s" start-file-full end-file)))
 #+END_SRC
 *** Editing file lists with wdired
@@ -2067,7 +2066,7 @@ from [[http://endlessparentheses.com/fixing-double-capitals-as-you-type.html][En
     (interactive)
     (and (= ?w (char-syntax (char-before)))
          (save-excursion
-           (and (if (called-interactively-p)
+           (and (if (called-interactively-p 'interactive)
                     (skip-syntax-backward "w")
                   (= -3 (skip-syntax-backward "w")))
                 (let (case-fold-search)
@@ -4427,9 +4426,9 @@ to the same application) using OS specific keys. On OS X, this is
 The package description for windmove is good place to start
 reading about it:
 
-#+BEGIN_SRC emacs-lisp
-                                          ; execute this lisp code in org mode
-                                          ; by placing the curser after the closing parenthesis and press C-x C-e
+#+BEGIN_SRC emacs-lisp :tangle no
+  ;; execute this lisp code in org mode by placing
+  ;; the curser after the closing parenthesis and press C-x C-e
   (describe-package 'windmove)
 #+END_SRC
 
@@ -4661,7 +4660,6 @@ lines with enter ([[http://irreal.org/blog/?p=6297][Make M-RET better in Org Mod
   ;; (add-hook 'org-mode-hook 'wc-mode)
   (use-package wc-mode)
 
-
   (setq org-M-RET-may-split-line '((default . nil)))
 
 #+END_SRC
@@ -4670,10 +4668,10 @@ Note: =C-c C-j= is =org-goto= and creates a copy of the current
 org buffer to move around and copy text. Allows moving or
 returning to current location. Awesome!
 
-The [[https://github.com/bnbeckwith/wc-mode][wc-mode]] is add commands and mode line display of count of words,
+The [[https://github.com/bnbeckwith/wc-mode][wc-mode]] adds commands and mode line display of count of words,
 characters or lines. Also, it can set goals.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (describe-function 'wc-mode)
 #+END_SRC
 
@@ -6888,10 +6886,10 @@ Query programming problems within emacs by =howdoi-query= or
 =howdoi-query-line-at-point=. This will google the answer in
 [[http://stackoverflow.com/][StackOverflow]], and parse and return best answers.
 
-#+BEGIN_SRC emacs-lisp
-                                          ; execute this lisp code in org mode
-                                          ; by placing the curser after
-                                          ; the closing parenthesis and press C-x C-e
+#+BEGIN_SRC emacs-lisp :tangle no
+  ;; execute this lisp code in org mode
+  ;; by placing the curser after
+  ;; the closing parenthesis and press C-x C-e
   (describe-package 'howdoi)
 #+END_SRC
 
