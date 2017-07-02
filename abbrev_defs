@@ -67,6 +67,7 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
+    ("8ell" "…" nil 0)
     ("8ar" "→" nil 3)
     ("8eur" "€" nil 21)
     ("8oc" "°C" nil 1)
@@ -142,6 +143,8 @@
     ("hwat" "what" nil 0)
     ("ie" "i.e." nil 0)
     ("ill" "I'll" nil 0)
+    ("im" "I am" nil 0)
+    ("ive" "I've" nil 0)
     ("india" "India" nil 0)
     ("inlcuding" "including" nil 0)
     ("interective" "interactive" nil 0)
@@ -402,4 +405,3 @@ use Data::Printer;
 (define-abbrev-table 'xkcd-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
-
