@@ -55,7 +55,7 @@
 	powerline
         ;;	pretty-symbols
 	projectile
-        puml-mode
+	plantuml-mode
 	rainbow-delimiters
 	rainbow-mode
 	rspec-mode

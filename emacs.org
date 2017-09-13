@@ -48,8 +48,8 @@
 
 ** Font
 
-   I like [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]], but it doesn't support a wide range of Unicode
-   characters, so I fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]] for those.
+   # I like [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]], but it doesn't support a wide range of Unicode
+   # characters, so I fall back on [[http://dejavu-fonts.org/wiki/Main_Page][DejaVu Sans]] for those.
 
    #+name: look-and-feel
    #+BEGIN_SRC emacs-lisp
@@ -68,6 +68,7 @@
                                     :weight 'normal)))
 
    #+END_SRC
+
 
 ** Reduce clutter
 
@@ -253,7 +254,19 @@
    #+END_SRC
 
 * Programming
+** Spelling
+   I use flyspell-prog-mode to check strings and comments in source
+   code.
 
+#+name: programming-setup
+#+BEGIN_SRC emacs-lisp
+  (defun my/general-prog-hooks ()
+    (flyspell-prog-mode)) ;; cannot use my/turn-on to turn it on because
+                          ;; this function does not take an argument
+
+  (add-hook 'prog-mode-hook
+            'my/general-prog-hooks)
+#+END_SRC
 ** Pair programming
 
    Normally, I think line numbers in code editors just take up space,
@@ -316,15 +329,18 @@
        (kbd "C-c s <left>")
        'paredit-forward-barf-sexp)
 
+     (require 'literal-string)
      (defun my/general-lisp-hooks ()
        (my/turn-on 'paredit
                    'rainbow-delimiters
-                   'highlight-parentheses))
+                   'highlight-parentheses
+                   'literal-string))
 
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
        (add-hook mode
                  'my/general-lisp-hooks))
    #+END_SRC
+
 
 
 ** Emacs Lisp
@@ -372,7 +388,9 @@
      (defun my/clojure-mode-hooks ()
        (my/turn-on 'subword)
        (my/turn-on 'yas-minor)
-       (cljr-add-keybindings-with-prefix "C-c r"))
+       (my/turn-on 'flycheck)
+       (cljr-add-keybindings-with-prefix "C-c r")
+       (sayid-setup-package))
 
      (setq clojure-align-forms-automatically t)
 
@@ -396,7 +414,15 @@
                     'my/cider-repl-mode-hooks)
    #+END_SRC
 
+   I'm trying out joker for flycheck clojure linting
 
+   #+NAME: programming-setup
+   #+BEGIN_SRC emacs-lisp
+     (require 'flycheck-joker)
+
+     (with-eval-after-load 'flycheck
+       (flycheck-pos-tip-mode))
+   #+END_SRC
 
 ** Ruby
    Tell Emacs rake files are Ruby files.
@@ -439,10 +465,10 @@
    #+END_SRC
 ** Javascript
 
-   I use JS-mode for javascript source.
+   I use RJSX-mode for javascript source.
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . js-mode))
+     (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . rjsx-mode))
    #+END_SRC
 
 ** JSON
@@ -453,9 +479,9 @@
 
    #+name: programming-setup
    #+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.json\\'\\|\\.jshintrc\\'" . js-mode))
+     (add-to-list 'auto-mode-alist '("\\.json\\'\\|\\.json\\.template\\'\\|\\.jshintrc\\'" . js-mode))
 
-     (setq js-indent-level 2)
+;     (setq js-indent-level 2)
    #+END_SRC
 
 
@@ -553,8 +579,7 @@
   #+BEGIN_SRC emacs-lisp
     (global-set-key "\C-cg" 'magit-status)
     (global-set-key "\C-cq" 'delete-indentation)
-    (global-set-key "\C-cx" 'er/expand-region)
-    (global-set-key "\C-ct" 'git-timemachine)
+    (global-set-key (kbd "C-=") 'er/expand-region)
     (global-set-key "\C-s" 'isearch-forward-regexp)
   #+END_SRC
 
@@ -574,6 +599,7 @@
         (setq magit-default-tracking-name-function #'magit-default-tracking-name-branch-only)
     (setq magit-last-seen-setup-instructions "1.4.0")
   #+END_SRC
+
 * Global navigation
 
   I like ~ido~ and ~smex~ for narrowing down files, commands, buffers
@@ -594,6 +620,9 @@
     (ido-yes-or-no-mode +1)
 
     (global-set-key "\M-x" 'smex)
+
+    (global-set-key "\C-cw" 'pass)
+
   #+END_SRC
 
 ** Projects
@@ -659,27 +688,27 @@
    Actionable item keywords
 
    - NEXT :: something that can be done at any moment if I'm in the
-        right context. If it has a SCHEDULED date, it probably should
-        not be done before that date and the configuration will make
-        it invisible in the calender views if the date is in the
-        future.
+             right context. If it has a SCHEDULED date, it probably should
+             not be done before that date and the configuration will make
+             it invisible in the calender views if the date is in the
+             future.
 
-        These items can also have a DEADLINE for when they should be
-        DONE at that date.
+             These items can also have a DEADLINE for when they should be
+             DONE at that date.
 
    - WAITING :: something that's awaiting feedback from someone
-        else. If it has a SCHEDULED date, it needs followup if there
-        hasn't been any feedback at that time.
+                else. If it has a SCHEDULED date, it needs followup if there
+                hasn't been any feedback at that time.
 
    - APPT :: Appointment; something that needs to be done at a
-        particular day or time. Must also have a date/timestamp (not
-        a SCHEDULED date or DEADLINE).
+             particular day or time. Must also have a date/timestamp (not
+             a SCHEDULED date or DEADLINE).
 
    - SOMEDAY :: something that I may want to pick up later. Should be
-        evaluated during reviews.
+                evaluated during reviews.
 
    - CANCELLED :: decided not to do this. May include a note on why
-        it's been cancelled.
+                  it's been cancelled.
 
    - DONE :: finished item.
 
@@ -818,6 +847,7 @@
      (setq org-babel-load-languages
            '((emacs-lisp . t)
              (sh . t)
+             (shell . t)
              (clojure .t)
              (ledger . t)
              (plantuml . t)
@@ -956,8 +986,9 @@
 
   #+NAME: environment
   #+BEGIN_SRC emacs-lisp
-    (when (memq window-system '(mac ns))
-      (exec-path-from-shell-initialize))
+        (when (memq window-system '(mac ns))
+          (exec-path-from-shell-initialize)
+          (setenv "LANG" "en_US.UTF-8"))
   #+END_SRC
 
   External packages may be dropped in the .emacs.d/ext directory.
