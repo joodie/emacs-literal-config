@@ -5669,12 +5669,15 @@ Untangle files; i.e. write org code blocks to their own files.
 
 #+END_SRC
 
-Display  and refresh images created by a source block in the same document.
+Display and refresh images created by a source block in the same
+document. Also rescale images to 300px for display.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-startup-with-inline-images t)
-  (add-hook 'org-babel-after-execute-hook
-            (lambda () (org-redisplay-inline-images)))
+  (setq org-image-actual-width 300)
+  (org-display-inline-images t t)
+  ;;(add-hook 'org-babel-after-execute-hook
+  ;;          (lambda () (org-redisplay-inline-images)))
 #+END_SRC
 
 Enable flycheck in org-buffer  ([[http://www.wisdomandwonder.com/link/9573/how-to-correctly-enable-flycheck-in-babel-source-blocks][from here]])
