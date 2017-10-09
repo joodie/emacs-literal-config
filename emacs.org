@@ -3250,6 +3250,10 @@ clash badly. I try to set them back to somewhat calmer palette.
 
 * Programming
 
+** Shared programming tools
+
+*** Make shebang files executable
+
 This applies to any scripting language file that starts with a
 shebang: the code makes those files executable on saving.
 
@@ -3258,12 +3262,16 @@ shebang: the code makes those files executable on saving.
             'executable-make-buffer-file-executable-if-script-p)
 #+END_SRC
 
+*** Aggressive indent mode
+
 [[https://github.com/Malabarba/aggressive-indent-mode][Malabarba/aggressive-indent-mode]] continuously updates indentation
 as you type. I've enabled this only on some programming languages.
 
 #+BEGIN_SRC emacs-lisp
   (use-package aggressive-indent)
 #+END_SRC
+
+*** Flycheck
 
 [[https://github.com/flycheck/flycheck][Flycheck]] does global syntax checking for most programming
 languages. See [[https://www.masteringemacs.org/article/spotlight-flycheck-a-flymake-replacement][MasterEmacs]] for a good article. This code adds
@@ -3272,17 +3280,33 @@ support for perl6.
 [[https://github.com/magicdirac/avy-flycheck][avy-flycheck]] makes flyckeck to use avy interface and defines a key
 binding =C-c t= for finding next error.
 
+[[https://github.com/amperser/proselint][proselint: A linter for prose]] emacs plugin is part of
+flycheck-package, but it needs the backend executable installed. It
+is written in python and can be installed with =pip= but I used =brew
+install =proselint= to get automatic updates. See also [[http://proselint.com/][proselint]].
+
+Best used with =flycheck-list errors=  =(C-c ! l)= that shows a linked pair of
+windows.
+
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :diminish ""
+    (use-package flycheck
+      :diminish ""
+      :defer t
+      :config
+      (add-hook 'after-init-hook #'global-flycheck-mode)
+      (use-package avy-flycheck
+        :bind ("C-c t" . avy-flycheck-goto-error))
+      (use-package flycheck-perl6
+        :defer t))
+
+  (use-package flycheck-proselint
+    :ensure nil
     :defer t
-    :config
-    (add-hook 'after-init-hook #'global-flycheck-mode)
-    (use-package avy-flycheck
-      :bind ("C-c t" . avy-flycheck-goto-error))
-    (use-package flycheck-perl6
-      :defer t))
+    :after (flycheck))
+
 #+END_SRC
+
+*** Quickrun
 
 [[https://github.com/syohex/emacs-quickrun][quickrun]]-package makes it easy to run any buffer with code in it. I
 do not use system perl, so I redefine the perl command to use
@@ -3307,6 +3331,8 @@ quickrun in modes that use frequently.
     (eval-after-load 'perl6-mode
       '(bind-key  "C-c C-c" 'quickrun perl6-mode-map)))
 #+END_SRC
+
+*** electric-operator
 
 The [[https://github.com/davidshepherd7/electric-operator][electric-operator]] is an emacs minor mode to automatically add
 spacing around operators. There is no global mode, so it needs to
@@ -3337,6 +3363,31 @@ It works within project folder structure.
          ("M-g x" . dumb-jump-go-prefer-external)
          ("M-g z" . dumb-jump-go-prefer-external-other-window))
   :config (setq dumb-jump-selector 'ivy))
+#+END_SRC
+
+*** Paredit
+
+The most useful paredit key combinations use =C-<arrow>= that are
+taken by OS X to switch between desktops. Use the Cmd key (s for
+super in emacs), instead.
+
+[[https://emacswiki.org/emacs/PareditCheatsheet][EmacsWiki: Paredit Cheatsheet]] gives a good overview of paredit keys.
+To fill in, a more comprehensive list of navigation keys are at [[https://www.emacswiki.org/emacs/NavigatingParentheses#toc1][EmacsWiki:
+Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package paredit
+    :no-require t
+    :config
+    (when (eq system-type 'darwin)
+      ;; C-left
+      (bind-key "s-<left>" 'paredit-forward-barf-sexp paredit-mode-map)
+      ;; C-right
+      (bind-key "s-<right>" 'paredit-forward-slurp-sexp paredit-mode-map)
+      ;; Alt-C-left
+      (bind-key "M-s-<left>" 'paredit-backward-slurp-sexp paredit-mode-map)
+      ;; Alt-C-right
+      (bind-key "M-s-<right>" 'paredit-backward-barf-sexp paredit-mode-map)))
 #+END_SRC
 
 ** Perl
@@ -3487,31 +3538,6 @@ marking command lines. The chosen character is lozenge =◊=.
 
   ;; global binding
   (bind-key  "M-\\" "◊")
-#+END_SRC
-
-*** Paredit
-
-The most useful paredit key combinations use =C-<arrow>= that are
-taken by OS X to switch between desktops. Use the Cmd key (s for
-super in emacs), instead.
-
-[[https://emacswiki.org/emacs/PareditCheatsheet][EmacsWiki: Paredit Cheatsheet]] gives a good overview of paredit keys.
-To fill in, a more comprehensive list of navigation keys are at [[https://www.emacswiki.org/emacs/NavigatingParentheses#toc1][EmacsWiki:
-Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package paredit
-    :if (eq system-type 'darwin)
-    :no-require t
-    :config
-    ;; C-left
-    (bind-key "s-<left>" 'paredit-forward-barf-sexp paredit-mode-map)
-    ;; C-right
-    (bind-key "s-<right>" 'paredit-forward-slurp-sexp paredit-mode-map)
-    ;; Alt-C-left
-    (bind-key "M-s-<left>" 'paredit-backward-slurp-sexp paredit-mode-map)
-    ;; Alt-C-right
-    (bind-key "M-s-<right>" 'paredit-backward-barf-sexp paredit-mode-map))
 #+END_SRC
 
 *** Names
