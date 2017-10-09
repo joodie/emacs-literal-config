@@ -1188,13 +1188,21 @@ the limit to 100 MB. Modern computers can easily handle that.
   (setq large-file-warning-threshold 100000000)
 #+END_SRC
 
-- The [[https://github.com/iqbalansari/restart-emacs][restart-emacs]] package makes it possible not only to quit emacs
-  (=C-x C-c=) but restart it from within emacs.
+Prevent annoying "Active processes exist" query when you quit Emacs.
+From [[http://timothypratley.blogspot.fi/2015/07/seven-specialty-emacs-settings-with-big.html][Programming: Seven specialty Emacs settings with big payoffs]]
+
+#+BEGIN_SRC emacs-lisp
+(defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+           (flet ((process-list ())) ad-do-it))
+#+END_SRC
+
+The [[https://github.com/iqbalansari/restart-emacs][restart-emacs]] package makes it possible not only to quit emacs
+  (=C-x C-c=) but restart it from within emacs with function
+  =restart-emacs=.
 
   #+BEGIN_SRC emacs-lisp
     (use-package restart-emacs)
   #+END_SRC
-
 
 Use prefix arguments to modify:
 
