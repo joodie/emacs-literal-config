@@ -7,6 +7,10 @@
 
 (define-abbrev-table 'Info-edit-mode-abbrev-table '())
 
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
+
 (define-abbrev-table 'biblio-selection-mode-abbrev-table '())
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
@@ -14,6 +18,14 @@
 (define-abbrev-table 'bookmark-bmenu-mode-abbrev-table '())
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
+
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
+
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -27,6 +39,30 @@
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
 
+(define-abbrev-table 'cperl-mode-abbrev-table
+  '(
+    ("=head1" "=head1" cperl-electric-pod 0)
+    ("=head2" "=head2" cperl-electric-pod 0)
+    ("=over" "=over" cperl-electric-pod 0)
+    ("=pod" "=pod" cperl-electric-pod 0)
+    ("continue" "continue" cperl-electric-else 0)
+    ("do" "do" cperl-electric-keyword 0)
+    ("else" "else" cperl-electric-else 0)
+    ("elsif" "elsif" cperl-electric-keyword 0)
+    ("for" "for" cperl-electric-keyword 0)
+    ("foreach" "foreach" cperl-electric-keyword 0)
+    ("foreachmy" "foreachmy" cperl-electric-keyword 0)
+    ("formy" "formy" cperl-electric-keyword 0)
+    ("head1" "head1" cperl-electric-pod 0)
+    ("head2" "head2" cperl-electric-pod 0)
+    ("if" "if" cperl-electric-keyword 0)
+    ("over" "over" cperl-electric-pod 0)
+    ("pod" "pod" cperl-electric-pod 0)
+    ("unless" "unless" cperl-electric-keyword 0)
+    ("until" "until" cperl-electric-keyword 0)
+    ("while" "while" cperl-electric-keyword 0)
+   ))
+
 (define-abbrev-table 'debugger-mode-abbrev-table '())
 
 (define-abbrev-table 'diary-fancy-display-mode-abbrev-table '())
@@ -34,6 +70,8 @@
 (define-abbrev-table 'diary-mode-abbrev-table '())
 
 (define-abbrev-table 'diff-mode-abbrev-table '())
+
+(define-abbrev-table 'edebug-eval-mode-abbrev-table '())
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
 
@@ -67,8 +105,8 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("8ell" "…" nil 0)
     ("8ar" "→" nil 3)
+    ("8ell" "…" nil 0)
     ("8eur" "€" nil 21)
     ("8oc" "°C" nil 1)
     ("8pound" "£" nil 2)
@@ -144,11 +182,11 @@
     ("ie" "i.e." nil 0)
     ("ill" "I'll" nil 0)
     ("im" "I am" nil 0)
-    ("ive" "I've" nil 0)
     ("india" "India" nil 0)
     ("inlcuding" "including" nil 0)
     ("interective" "interactive" nil 0)
     ("isnt" "is not" nil 0)
+    ("ive" "I've" nil 0)
     ("iwth" "with" nil 0)
     ("jan" "Jan." nil 0)
     ("january" "January" nil 0)
@@ -163,6 +201,7 @@
     ("legth" "length" nil 1)
     ("lenght" "length" nil 3)
     ("lenth" "length" nil 1)
+    ("lets" "let's" nil 0)
     ("ma" "am" nil 4)
     ("mammalial" "mammalian" nil 0)
     ("matias" "Matias" nil 5)
@@ -204,7 +243,8 @@
     ("sperl" "#!/usr/bin/env perl
 use Modern::Perl;
 use Data::Printer;
-" nil 13)
+use autodie;
+" nil 14)
     ("strenghten" "strengthen" nil 0)
     ("sun" "Sun." nil 0)
     ("sunday" "Sunday" nil 0)
@@ -249,9 +289,15 @@ use Data::Printer;
 
 (define-abbrev-table 'ibuffer-mode-abbrev-table '())
 
+(define-abbrev-table 'idl-mode-abbrev-table '())
+
 (define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
+
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
@@ -294,6 +340,10 @@ use Data::Printer;
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -354,7 +404,15 @@ use Data::Printer;
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
 
+(define-abbrev-table 'paradox-commit-list-mode-abbrev-table '())
+
+(define-abbrev-table 'paradox-menu-mode-abbrev-table '())
+
 (define-abbrev-table 'pdf-occur-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
@@ -363,6 +421,8 @@ use Data::Printer;
 (define-abbrev-table 'quickrun--mode-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
+
+(define-abbrev-table 'racket-logger-mode-abbrev-table '())
 
 (define-abbrev-table 'racket-mode-abbrev-table '())
 
@@ -405,3 +465,4 @@ use Data::Printer;
 (define-abbrev-table 'xkcd-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
+
