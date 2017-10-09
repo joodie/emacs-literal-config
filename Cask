@@ -58,6 +58,7 @@
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
 (depends-on "extempore-mode")
+(depends-on "eyebrowse")
 (depends-on "f")
 (depends-on "fish-mode")
 (depends-on "flycheck")

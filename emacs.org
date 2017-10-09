@@ -4005,6 +4005,42 @@ The built-in winner-mode defines =Ctrl+c ←= to go back to previous
 window configuration. Elsewhere, It is enabled
 globally with =(winner-mode 1).=
 
+*** Eyebrowse
+
+[[https://github.com/wasamasa/eyebrowse][Eyebrowse]] is for easy workspaces creation and switching. Configuration
+from [[http://pragmaticemacs.com/emacs/easily-manage-emacs-workspaces-with-eyebrowse/][Easily manage Emacs workspaces with eyebrowse | Pragmatic Emacs]].
+
+The default key bindings are:
+
+| Key       | Function on        |
+| binding   | window config      |
+|-----------+--------------------|
+| C-c C-w < | Switch to previous |
+| C-c C-w > | Switch to next     |
+| C-c C-w ' | Switch to last     |
+| C-c C-w " | Close current      |
+| C-c C-w , | Rename current     |
+| C-c C-w 0 | Switch to  0       |
+| ...       | ...                |
+| C-c C-w 9 | Switch to  9       |
+
+Note: My custom mode line does not show the names of workspaces.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package eyebrowse
+    :diminish eyebrowse-mode
+    :bind (:map eyebrowse-mode-map
+                ("C-1" . eyebrowse-switch-to-window-config-1)
+                ("C-2" . eyebrowse-switch-to-window-config-2)
+                ("C-3" . eyebrowse-switch-to-window-config-3)
+                ("C-4" . eyebrowse-switch-to-window-config-4))
+    :init
+    (setq eyebrowse-new-workspace t
+          eyebrowse-mode-line-separator " ")
+    :config
+    (eyebrowse-mode t))
+#+END_SRC
+
 ** Local navigation in a buffer
 
 [[http://kitchingroup.cheme.cmu.edu/blog/2015/09/27/Upping-my-Emacs-navigation-game/?utm_source=feedburner&utm_medium=twitter&utm_campaign=Feed:+TheKitchinResearchGroup+(The+Kitchin+Research+Group)][John Kitchin's navigation hydra]] is a starting point to combine
