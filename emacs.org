@@ -4321,6 +4321,7 @@ Also, save system clipboard before overwriting it from emacs
   (setq save-interprogram-paste-before-kill t)
 
   (use-package ivy
+    :ensure counsel
     :diminish (ivy-mode . "")
     :init
     (setq ivy-use-virtual-buffers t) ; Enable bookmarks and recentf in buffer list
