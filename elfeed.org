@@ -45,6 +45,7 @@
 *** https://kalmistopiiri.wordpress.com/feed/
 *** http://www.heritagedaily.com/feed/rss
 ** Culture                                                                 :cu:
+*** http://www.antroblogi.fi/feed/
 *** Language                                                              :l:
 **** http://feeds.feedburner.com/nybooks
 **** http://feedproxy.google.com/brainpickings/rss
