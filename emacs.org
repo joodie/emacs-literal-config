@@ -5734,6 +5734,7 @@ quite a bit.
        \\usepackage{minted}
        \\usepackage{hypernat}
        \\usepackage[round]{natbib}
+       \\usepackage{microtype}
 
        \\usepackage{paralist}
        \\let\\itemize\\compactitem
