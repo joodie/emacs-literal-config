@@ -3317,6 +3317,28 @@ be enabled for each programming language.
     :defer t)
 #+END_SRC
 
+*** dump-jump
+
+To be tested:
+
+[[http://irreal.org/blog/?p=6218][Irreal]] keeps [[http://irreal.org/blog/?p=6419][mentioning]] [[https://github.com/jacktasia/dumb-jump][dumb-jump, the "jump to definition" package]].
+It is a no configure, no stored indexes replacement to cumbersome
+TAGS. It supports a long list of programming languages.
+
+It works within project folder structure.
+
+#+BEGIN_SRC emacs-lisp
+(use-package dumb-jump
+  :ensure t
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g b" . dumb-jump-back)
+         ("M-g q" . dumb-jump-quick-look)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  :config (setq dumb-jump-selector 'ivy))
+#+END_SRC
+
 ** Perl
 
 I recently moved from [[http://perlbrew.pl/][perlbrew]] to [[https://github.com/tokuhirom/plenv][plenv]] as a system that provides
