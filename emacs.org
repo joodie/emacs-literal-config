@@ -2525,6 +2525,7 @@ especially efficient.
   ;; Flyspell activation for text modes
   (add-hook 'text-mode-hook
             (lambda () (flyspell-mode 1)
+              (define-key flyspell-mode-map (kbd "C-M-i") nil)
               (diminish 'flyspell-mode " ✓")))
   ;; Flyspell activation for programming modes
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
@@ -5331,6 +5332,69 @@ phone. Worry about the security implications later.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-mobile-directory "~/Dropbox/org")
+#+END_SRC
+
+** Extending org completion
+
+Ora-ora has an amazing blog post: [[https://oremacs.com/2017/10/04/completion-at-point/][Extending completion-at-point for
+Org-mode · (or emacs]].
+
+He sets up context aware completion for org mode to be used with
+=complete-symbol= command with =C-M-i=. it turned out that flyspell has
+already bound that key. Luckily, it also binds a key that I use more
+frequently, =C-.=, to the same =flyspell-auto-correct-word= function), and
+I can disable the former and keep the latter binding.
+
+This setup means that any filenames, recurring in-document symbols, or
+references (=\ref{...=) should be quoted using the '​=' character, and
+use =C-M-i= to complete.
+
+#+BEGIN_SRC emacs-lisp
+;; (define-key flyspell-mode-map (kbd "C-M-i") nil)
+(bind-key "C-M-i" 'complete-symbol org-mode-map)
+(setq completion-at-point-functions
+      '(org-completion-symbols
+        ora-cap-filesystem
+        org-completion-refs))
+
+(defun org-completion-symbols ()
+  (when (looking-back "=[a-zA-Z]+")
+    (let (cands)
+      (save-match-data
+        (save-excursion
+          (goto-char (point-min))
+          (while (re-search-forward "=\\([a-zA-Z]+\\)=" nil t)
+            (cl-pushnew
+             (match-string-no-properties 0) cands :test 'equal))
+          cands))
+      (when cands
+        (list (match-beginning 0) (match-end 0) cands)))))
+
+(defun ora-cap-filesystem ()
+  (let (path)
+    (when (setq path (ffap-string-at-point))
+      (let ((compl
+             (all-completions path #'read-file-name-internal)))
+        (when compl
+          (let ((offset (ivy-completion-common-length (car compl))))
+            (list (- (point) offset) (point) compl)))))))
+
+(defun org-completion-refs ()
+  (when (looking-back "\\\\\\(?:ref\\|label\\){\\([^\n{}]\\)*")
+    (let (cands beg end)
+      (save-excursion
+        (goto-char (point-min))
+        (while (re-search-forward "\\label{\\([^}]+\\)}" nil t)
+          (push (match-string-no-properties 1) cands)))
+      (save-excursion
+        (up-list)
+        (setq end (1- (point)))
+        (backward-list)
+        (setq beg (1+ (point))))
+      (list beg end
+            (delete (buffer-substring-no-properties beg end)
+                    (nreverse cands))))))
+
 #+END_SRC
 
 ** External jars
