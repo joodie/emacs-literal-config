@@ -402,42 +402,51 @@ sorting.
 
 [[http://pragmaticemacs.com/emacs/automatically-revert-buffers/][Automatically revert dired when files change]].
 
+[[https://www.emacswiki.org/emacs/DiredDetails][EmacsWiki: Dired Details]] instructs installing =dired-details+= tha hides
+all the details and binds bracket keys =(= and =)= to toggling the
+display.
+
 #+BEGIN_SRC emacs-lisp
-  (when (eq system-type 'darwin)
-    (setq insert-directory-program (executable-find "gls")))
+    (when (eq system-type 'darwin)
+      (setq insert-directory-program (executable-find "gls")))
 
-  (setq dired-listing-switches "-alh")
+    (use-package dired
+      :ensure nil
+      :config
+      (setq dired-listing-switches "-alh")
 
-  ;; auto refresh dired when file changes
-  (add-hook 'dired-mode-hook 'auto-revert-mode)
+      ;; auto refresh dired when file changes
+      (add-hook 'dired-mode-hook 'auto-revert-mode)
 
-  (use-package dired-narrow
-    :defer t
-    :bind (:map dired-mode-map ("/" . dired-narrow)))
+      (use-package dired-details+
+        :init
+        (setq dired-details-hidden-string ""))
 
-  ;;preview files in dired
-  (use-package peep-dired
-    :defer t ; don't access `dired-mode-map' until `peep-dired' is loaded
-    :bind (:map dired-mode-map
-                ("P" . peep-dired)
-                ;;("e" . (eshell t)
-                )
-    :config
-    (setq peep-dired-cleanup-on-disable t))
+      (use-package dired-narrow
+        :defer t
+        :bind (:map dired-mode-map ("/" . dired-narrow)))
 
-  (use-package dired-ranger
-    :bind (:map dired-mode-map
-                ("W" . dired-ranger-copy)
-                ("X" . dired-ranger-move)
-                ("Y" . dired-ranger-paste)))
+      ;;preview files in dired
+      (use-package peep-dired
+        :defer t ; don't access `dired-mode-map' until `peep-dired' is loaded
+        :bind (:map dired-mode-map
+                    ("P" . peep-dired)
+                    ;;("e" . (eshell t))
+                    )
+        :config
+        (setq peep-dired-cleanup-on-disable t))
 
-  (use-package dired-quick-sort
-    :config
-    (dired-quick-sort-setup))
+      (use-package dired-ranger
+        :bind (:map dired-mode-map
+                    ("W" . dired-ranger-copy)
+                    ("X" . dired-ranger-move)
+                    ("Y" . dired-ranger-paste)))
+
+      (use-package dired-quick-sort
+        :config
+        (dired-quick-sort-setup)))
 #+END_SRC
 
-***
-***
 *** Printing
 
 Printing under OS X does not work in default emacs.  [[http://www.emacswiki.org/emacs/MacPrintMode][EmacsWiki]] has
