@@ -255,6 +255,16 @@ the place for them.
                        (convert-standard-filename "elisp/")))
 #+END_SRC
 
+** Helpful
+
+A replacement for the Emacs **help** buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helpful
+    :bind (("C-h o" . helpful-at-point)
+           ("C-h k" . helpful-key)))
+#+END_SRC
+
 ** Load secrets
 
 I keep slightly more sensitive information in a separate file so

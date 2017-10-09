@@ -75,6 +75,7 @@
 (depends-on "gscholar-bibtex")
 (depends-on "helm")
 (depends-on "helm-core")
+(depends-on "helpful")
 (depends-on "howdoi")
 (depends-on "ht")
 (depends-on "htmlize")
