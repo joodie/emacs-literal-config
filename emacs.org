@@ -4557,28 +4557,6 @@ too.
 
 ** Navigation between windows and frames
 
-Here I boost standard window splitting commands according
-[[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org][Sacha's blog]] to show previous buffer in the new window.
-
-#+BEGIN_SRC emacs-lisp
-  (defun my/vsplit-last-buffer (prefix)
-    "Split the window vertically and display the previous buffer."
-    (interactive "p")
-    (split-window-vertically)
-    (other-window 1 nil)
-    (if (= prefix 1)
-        (switch-to-next-buffer)))
-  (defun my/hsplit-last-buffer (prefix)
-    "Split the window horizontally and display the previous buffer."
-    (interactive "p")
-    (split-window-horizontally)
-    (other-window 1 nil)
-    (if (= prefix 1) (switch-to-next-buffer)))
-
-  (bind-key "C-x 2" 'my/vsplit-last-buffer)
-  (bind-key "C-x 3" 'my/hsplit-last-buffer)
-#+END_SRC
-
 Emacs standard way of moving between windows opened in a frame is
 =C-x o=. It jumps the cursor through all windows one by one and can
 not move between frames. I like to have a bit more control and use
