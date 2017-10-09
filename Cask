@@ -104,6 +104,7 @@
 (depends-on "names")
 (depends-on "neotree")
 (depends-on "nlinum")
+(depends-on "nov")
 (depends-on "org")
 (depends-on "org-autolist")
 (depends-on "org-clock-convenience")
