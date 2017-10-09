@@ -6,6 +6,7 @@
 (depends-on "2048-game")
 (depends-on "aggressive-indent")
 (depends-on "alda-mode")
+(depends-on "alert")
 (depends-on "anaconda-mode")
 (depends-on "apples-mode")
 (depends-on "async")

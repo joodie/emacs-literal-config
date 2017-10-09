@@ -355,6 +355,20 @@ The =locate= command is not available in OS X so alias it to mdfind.
     (setq locate-command "mdfind"))
 #+END_SRC
 
+*** Alerts
+
+[[https://github.com/jwiegley/alert][jwiegley/alert: A Growl-like alerts notifier for Emacs]]
+
+When on OS X, use system notification, otherwise use the default Emacs
+message facility.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package alert
+    :init
+    (when (eq system-type 'darwin)
+      (setq alert-default-style 'osx-notifier)))
+#+END_SRC
+
 *** dired
 
 The emacs dired uses the output from the =ls= command that is
