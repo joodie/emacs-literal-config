@@ -2458,6 +2458,7 @@ be installed (e.g. =brew install hub= in OS X).
     (setq magit-diff-options '("-b")))
 
   (use-package magithub
+    :disabled t
     :after magit
     :config
     (magithub-feature-autoinject t))
