@@ -7108,12 +7108,22 @@ As recommended in [[http://www.masteringemacs.org/article/re-builder-interactive
 that escaped one set of backlashes. =C-c C-w= will copy the created
 regexp *and* correct the syntax to be pasted into elisp.
 
+I am now testing re-builder with rx syntax. The details of the syntax
+are documented under =rx=:
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (describe-symbol 'rx)
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
   (use-package re-builder
     :defer 5
     :init
-    (setq reb-re-syntax 'string))
+    ;; (setq reb-re-syntax 'string)
+    (setq reb-re-syntax 'rx))
 #+END_SRC
+
+[[https://github.com/jwiegley/regex-tool/blob/master/regex-tool.el][jwiegley/regex-tool]] is similar tool for PCRE regexps.
 
 =M-x qrr= runs =query-replace-regexp= that by default has a really
 complicated key binding =M-C-S %=.
