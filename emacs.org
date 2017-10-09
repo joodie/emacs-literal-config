@@ -3847,6 +3847,16 @@ See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][do
     :defer t)
 #+END_SRC
 
+** YAML
+
+
+[[https://github.com/yoshiki/yaml-mode][yaml-mode]] is a major mode for the [[http://yaml.org/][YAML]] data language.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
+    :defer t)
+#+END_SRC
+
 ** Music
 
 *** alda

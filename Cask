@@ -171,4 +171,5 @@
 (depends-on "wrap-region")
 (depends-on "writegood-mode")
 (depends-on "xkcd")
+(depends-on "yaml-mode")
 (depends-on "yasnippet")
