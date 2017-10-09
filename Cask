@@ -153,6 +153,7 @@
 (depends-on "super-save")
 (depends-on "synosaurus")
 (depends-on "toml-mode")
+(depends-on "transpose-frame")
 (depends-on "try")
 (depends-on "twittering-mode")
 (depends-on "undo-tree")

@@ -3903,6 +3903,94 @@ with =auto-complete= mode being more or less the /de facto/ standard.
 
 * Navigation
 
+** Window management
+
+Emacs has its own terminology where operating system windows are
+called *frames*, and each independent pane inside frames are called
+*windows*.
+
+Windows display buffers that exist inside emacs independently.
+
+You can manage the number of windows in the frame with four commands:
++ =C-x 1= :: keep only this window
++ =C-x 2= :: split current window horizontally
++ =C-x 3= :: split current window vertically
++ =C-x 0= :: close this window
+
+First, I boost standard window splitting commands according
+[[https://github.com/sachac/.emacs.d/blob/gh-pages/Sacha.org][Sacha's configuration]] to show previous buffer in the new window.
+
+#+BEGIN_SRC emacs-lisp
+  (defun my/vsplit-last-buffer (prefix)
+    "Split the window vertically and display the previous buffer."
+    (interactive "p")
+    (split-window-vertically)
+    (other-window 1 nil)
+    (if (= prefix 1)
+        (switch-to-next-buffer)))
+
+  (defun my/hsplit-last-buffer (prefix)
+    "Split the window horizontally and display the previous buffer."
+    (interactive "p")
+    (split-window-horizontally)
+    (other-window 1 nil)
+    (if (= prefix 1) (switch-to-next-buffer)))
+
+  (bind-key "C-x 2" 'my/vsplit-last-buffer)
+  (bind-key "C-x 3" 'my/hsplit-last-buffer)
+#+END_SRC
+
+Multiple windows' relative positions can be managed with the [[https://www.emacswiki.org/emacs/TransposeFrame][Transpose
+Frame]] package. It defines four commands:
+
+- =transpose-frame= :: Swap x-direction and y-direction
+- =flip-frame= :: Flip vertically
+- =flop-frame= :: Flop horizontally
+- =rotate-frame= :: Rotate 180 degrees
+
+#+BEGIN_SRC emacs-lisp
+(use-package transpose-frame
+  :defer t)
+#+END_SRC
+
+The only missing piece is provided by the [[https://github.com/bbatsov/crux][crux]] package:
+=crux-transpose-windows= swaps two
+adjacent windows with each other.
+
+#+BEGIN_SRC emacs-lisp
+  (bind-key "C-c s" 'hydra-windows/body)
+  (defhydra hydra-windows (:color blue :hint nil)
+    "
+    Windows  ^Manage^                            ^Order^
+    --------------------------------------------------------------------------------------------
+             _1_ : C-x 1 keep only this window   _t_ : transpose windows
+             _2_ : C-x 2 split horizontally
+             _3_ : C-x 3 split vertically        _r_ : transpose frame - swap x- and y-direction
+             _0_ : C-x 0 close this window       _i_ : flip frame - Flip vertically
+             ^ ^                                 _o_ : flop frame - Flop horizontally
+             ^ ^                                 _r_ : rotate frame - Rotate 180 degrees
+             ^ ^                                 _x_ : rotate-frame-clockwise - Rotate 90 degrees clockwise
+             ^ ^                                 _y_ : rotate-frame-anti-clockwise - Rotate 90 degrees anti-clockwise
+   "
+    ("1" delete-other-windows)
+    ("2" my/vsplit-last-buffer)
+    ("3" my/hsplit-last-buffer)
+    ("0" delete-window)
+
+    ("t" crux-transpose-windows)
+
+    ("r" transpose-frame)
+    ("i" flip-frame)
+    ("o" flop-frame)
+    ("r" rotate-frame)
+    ("x" rotate-frame-clockwise)
+    ("y" rotate-frame-anti-clockwise))
+#+END_SRC
+
+The built-in winner-mode defines =Ctrl+c ←= to go back to previous
+window configuration. Elsewhere, It is enabled
+globally with =(winner-mode 1).=
+
 ** Local navigation in a buffer
 
 [[http://kitchingroup.cheme.cmu.edu/blog/2015/09/27/Upping-my-Emacs-navigation-game/?utm_source=feedburner&utm_medium=twitter&utm_campaign=Feed:+TheKitchinResearchGroup+(The+Kitchin+Research+Group)][John Kitchin's navigation hydra]] is a starting point to combine
