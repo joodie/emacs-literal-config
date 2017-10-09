@@ -5121,20 +5121,33 @@ categories of entries:
    Code snippet capture code was mentioned in the  [[http://irreal.org/blog/?p=5244][Irreal]] blog.
 
    #+BEGIN_SRC emacs-lisp
-     ;; Capture templates for: general notes, TODO tasks, events
-     (setq org-capture-templates
-           '(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
-              "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n%i")
-             ("s" "code snippet" entry (file+datetree "~/Dropbox/org/reference.org")
-              ;; Prompt for tag and language
-              "* %?\t%^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n#+BEGIN_SRC %^{language}\n%i\n#+END_SRC")
-             ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
-              "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: event\n     :END:\n     %T\n%i")
-             ("a" "appointment" entry (file "~/Dropbox/org/gcal.org" )
-              "* %?\n\n %^T\n\n:PROPERTIES:\n\n:END:\n\n")
-             ("w" "work" entry (file+datetree "~/Dropbox/org/reference.org")
-              "* %? %^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: work\n     :END:\n%i"
-              :clock-in t :clock-keep t)))
+         ;; Capture templates for: general notes, TODO tasks, events
+         (setq org-capture-templates
+               '(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
+                  "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n%i")
+                 ("s" "code snippet" entry (file+datetree "~/Dropbox/org/reference.org")
+                  ;; Prompt for tag and language
+                  "* %?\t%^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n#+BEGIN_SRC %^{language}\n%i\n#+END_SRC")
+                 ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
+                  "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: event\n     :END:\n     %T\n%i")
+                 ("a" "appointment" entry (file "~/Dropbox/org/gcal.org" )
+                  "* %?\n\n %^T\n\n:PROPERTIES:\n\n:END:\n\n")
+                 ("c" "contacts" entry (file "~/Dropbox/org/contacts.org")
+                  "* %(org-contacts-template-name)
+:PROPERTIES:
+:EMAIL: %(org-contacts-template-email)
+:PHONE:
+:ALIAS:
+:NICKNAME:
+:IGNORE:
+:ICON:
+:NOTE:
+:ADDRESS:
+:BIRTHDAY:
+:END:")
+                 ("w" "work" entry (file+datetree "~/Dropbox/org/reference.org")
+                  "* %? %^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: work\n     :END:\n%i"
+                  :clock-in t :clock-keep t)))
    #+END_SRC
 
    Captured notes can be tagged just like any other org headings.
