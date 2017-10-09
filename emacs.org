@@ -1404,13 +1404,14 @@ The hydra implementing this is self-documenting.
         "
 
     ("2" 2048-game)
+    ("b" gscholar-bibtex)
     ("c" my/calendar)
     ("e" ediff-buffers)
-    ("b" gscholar-bibtex)
     ("f" copy-file-name-to-clipboard)
     ("g" langtool-correct-buffer)
     ("h" howdoi-query)
     ("i" twit)
+    ("j" ivy-insert-org-entity)
     ("k" personal-key-bindings)
     ("l" org-mac-chrome-insert-frontmost-url)
     ("m" my/move-file-here)
@@ -1461,6 +1462,42 @@ buffer. I do not use greek letters in keys, so I've removed them.
                   "\n"))
           (princ "\n\n")))))
 #+END_SRC
+** TODO Org entities with ivy
+
+[[http://irreal.org/blog/?p=6637][Kitchin on Org Entities | Irreal]]
+
+For example, if I want a ‘U’ with an umlaut, I bring up the function,
+type “uu” and Ivy narrows the choices down to the two entries (capital
+and lower case) with an umlauted U, Ü. If I just type Return, the UTF
+glyph is inserted. If I type Meta+o (in Ivy, Helm, presumably, has a
+similar mechanism) I get a menu that allows me to enter the
+org-entity, LATEX, or HTML encodings.
+
+It is bound to launch hydra key =C-x l j=.
+
+#+BEGIN_SRC emacs-lisp
+(defun ivy-insert-org-entity ()
+  "Insert an org-entity using ivy."
+  (interactive)
+  (ivy-read "Entity: " (loop for element in (append org-entities org-entities-user)
+			     when (not (stringp element))
+			     collect
+			     (cons
+			      (format "%10s | %s | %s | %s"
+				      (car element) ;name
+				      (nth 1 element) ; latex
+				      (nth 3 element) ; html
+				      (nth 6 element)) ;utf-8
+			      element))
+	    :require-match t
+	    :action '(1
+		      ("u" (lambda (element) (insert (nth 6 (cdr element)))) "utf-8")
+		      ("o" (lambda (element) (insert "\\" (cadr element))) "org-entity")
+		      ("l" (lambda (element) (insert (nth 1 (cdr element)))) "latex")
+		      ("h" (lambda (element) (insert (nth 3 (cdr element)))) "html"))))
+
+#+END_SRC
+
 * Formatting and white-space
 
 ** View read-only
