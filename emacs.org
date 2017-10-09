@@ -308,6 +308,16 @@ This restores the most important ones to what I am used to.
     ;; undo
     (bind-key "s-z" 'undo-tree-undo))  ; undo-tree installed elsewhere
 #+END_SRC
+
+Turns out hyper is not mapped to anything unless I follow this advice:
+[[http://irreal.org/blog/?p=1450][A Hyper Key for the Mac | Irreal]]. Surprisingly, it still works at OS X
+system level as intended.
+
+#+BEGIN_SRC emacs-lisp
+  ;; make Fn key do Hyper
+  (setq ns-function-modifier 'hyper)
+#+END_SRC
+
 *** PATH
 
 OS X doesn't set the environment from the shell init files for
@@ -4018,10 +4028,16 @@ for =s-.= to move to end of the buffer. Logically, =s-,= then moves
 to the beginning of the buffer.
 
 ###
+Code from
+[[https://fuco1.github.io/2017-05-06-Enhanced-beginning--and-end-of-buffer-in-special-mode-buffers-(dired-etc.).html][Enhanced beginning- and end-of-buffer in special mode buffers (dired etc.)]]
+replaced by
+[[https://github.com/DamienCassou/beginend][DamienCassou/beginend: Emacs package to redefine M-< and M-> for some modes]]
 
 #+BEGIN_SRC emacs-lisp
   (bind-key "s-." 'end-of-buffer)
+  (bind-key "H-." 'end-of-buffer)
   (bind-key "s-," 'beginning-of-buffer)
+  (bind-key "H-," 'beginning-of-buffer)
 
   (defmacro my-special-beginning-of-buffer (mode &rest forms)
     "Define a special version of `beginning-of-buffer' in MODE.
