@@ -280,13 +280,13 @@ It is kept in directory file:~/.emacs.p
 
 *** Key bindings
 
-I installed an emacs-plus from brew and OS X keybindings all changed.
-This restores the most important ones to what I am used to.
 
-#+BEGIN_SRC emacs-lisp
-  ;; disabled
-  ;;(when (eq system-type 'darwin)
-  (when (eq system-type 'darwin-xx)
+When I installed an emacs-plus from brew and OS X keybindings all changed.
+This code block restored the most important ones. It is disabled since
+I am back to standard emacs.
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (when (eq system-type 'darwin)
     ;; Control keys
     ;; make cmd key do Meta
     (setq mac-command-modifier 'super)
@@ -1753,10 +1753,10 @@ function makes it happen:
 
 *** Moving a downloaded file
 
-[[http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/][Quickly move a file to the current directory]]
-, an excellent function from Pragmatic Emacs. I added commands to copy
-the short filename into clipboard -- something I found I was doing
-needing frequently to paste it into a document I was editing.
+[[http://pragmaticemacs.com/emacs/quickly-move-a-file-to-the-current-directory/][Quickly move a file to the current directory]], an excellent function
+from Pragmatic Emacs. I added commands to copy the short filename into
+clipboard -- something I found I was doing needing frequently to paste
+it into a document I was editing.
 
 #+BEGIN_SRC emacs-lisp
   ;; move file here
@@ -1984,7 +1984,7 @@ recommended to be bound to =M-i= and =M-o=.
     :bind ("M-o" . change-outer))
 #+END_SRC
 
-** TODO Cut and copy
+** PENDING Cut and copy
 
 Note: This, nor previous code from Xah did not work for me!
 
@@ -2608,7 +2608,7 @@ especially efficient.
   ;; original copied from
   ;; http://stackoverflow.com/questions/22107182/in-emacs-flyspell-mode-how-to-add-new-word-to-dictionary
   (defun my/flyspell-save-word (&optional save-lowercase)
-    "Save word to a personal dictionary.
+  "Save word to a personal dictionary.
 
                        The dictionary file depends on the used spell program. If the the first
                        argument SAVE-LOWERCASE is non-nil, save also lowercased word.
@@ -3108,6 +3108,7 @@ More [[http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor
     :defer t
     :ensure auctex
     :config
+
     (use-package auctex-latexmk
       :defer t
       :config
@@ -3230,7 +3231,7 @@ Github and especially BitBucket use =markdown mode= for
 documentation, so my Emacs knows about it. GitHub knows how to
 render =org-mode= documents, too, so this mode is not getting much
 use. [[http://joostkremers.github.io/pandoc-mode/][pandoc-mode]] is a general purpose export formatter and uses
-hydra =C-c /=.
+hydra =C-c 4=.
 
 My =org-mode= is configured to export to markdown format.
 
@@ -4278,7 +4279,6 @@ recognized together with the command key, so I create a key binding
 for =s-.= to move to end of the buffer. Logically, =s-,= then moves
 to the beginning of the buffer.
 
-###
 Code from
 [[https://fuco1.github.io/2017-05-06-Enhanced-beginning--and-end-of-buffer-in-special-mode-buffers-(dired-etc.).html][Enhanced beginning- and end-of-buffer in special mode buffers (dired etc.)]]
 replaced by
@@ -4419,7 +4419,8 @@ Also, save system clipboard before overwriting it from emacs
       "recenter display after swiper"
       (recenter))
     (advice-add 'swiper :after #'my/swiper-recenter))
-  ;; end of use-package
+    ;; end of use-package
+
 
   ;; restore key bindings to isearch due to character folding in emacs 25.1
   (bind-key "C-`" 'isearch-forward)
@@ -4802,32 +4803,37 @@ Unsetting variable org-M-RET-may-split-line disallows splitting heaser
 lines with enter ([[http://irreal.org/blog/?p=6297][Make M-RET better in Org Mode | Irreal]]).
 
 #+BEGIN_SRC emacs-lisp
-  (use-package org
-    :ensure org-plus-contrib
-    :mode ("\\.txt$" . org-mode)
-    :config
-    ;; export Unicode
-    (setq org-pretty-entities t)
-    (setq org-use-sub-superscripts "{}")
-    ;; Don't allow editing of folded regions
-    (setq org-catch-invisible-edits 'error)
-    (add-hook 'org-mode-hook
-              (lambda ()
-                (visual-line-mode)
-                ;; (turn-on-org-cdlatex)
-                (org-indent-mode)
-                (diminish 'org-indent-mode ""))))
+    (use-package org
+      :ensure org-plus-contrib
+      :mode ("\\.txt$" . org-mode)
+      :config
+      ;; export Unicode
+      (setq org-pretty-entities t)
+      (setq org-use-sub-superscripts "{}")
+      ;; Don't allow editing of folded regions
+      (setq org-catch-invisible-edits 'error)
+      (add-hook 'org-mode-hook
+                (lambda ()
+                  (visual-line-mode)
+                  ;; (turn-on-org-cdlatex)
+                  (org-indent-mode)
+                  (diminish 'org-indent-mode ""))))
 
-  (use-package org-autolist
-    :diminish ""
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
+    (use-package org-autolist
+      :diminish ""
+      :config
+      (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
 
-  ;; too slow to have on by default
-  ;; (add-hook 'org-mode-hook 'wc-mode)
-  (use-package wc-mode)
+    ;; too slow to have on by default
+    ;; (add-hook 'org-mode-hook 'wc-mode)
+    (use-package wc-mode)
 
-  (setq org-M-RET-may-split-line '((default . nil)))
+    (setq org-M-RET-may-split-line '((default . nil)))
+
+  (use-package org-contacts
+    :ensure nil
+    :init
+    (setq org-contacts-files "~/Dropbox/org/contacts.org"))
 
 #+END_SRC
 
@@ -4847,7 +4853,7 @@ slows emacs down drastically.
 
 ** Wrap region
 
-Add automatic wrapping to org-mode text characters.
+I use [[https://github.com/rejeep/wrap-region.el][wrap-region.el]] to add automatic wrapping to org-mode text characters.
 
 #+BEGIN_SRC emacs-lisp
   (use-package wrap-region
@@ -4874,8 +4880,9 @@ Added a hydra to [[https://oremacs.com/2016/04/04/hydra-doc-syntax/][prettify]] 
     :defer t
     :init (setq org-agenda-start-on-weekday 1)) ;; 1 is Monday
   ;; speed-ups
-  (setq org-agenda-inhibit-startup t)
-  (setq org-agenda-use-tag-inheritance nil)
+  (setq org-agenda-inhibit-startup t
+        org-agenda-use-tag-inheritance nil
+        org-agenda-show-future-repeats 'next)
 
 
   ;;(define-key org-agenda-mode-map
@@ -4889,11 +4896,11 @@ Added a hydra to [[https://oremacs.com/2016/04/04/hydra-doc-syntax/][prettify]] 
 
   (defhydra hydra-org-agenda-view (:hint none)
     "
-   _d_: ?d? day        _g_: time grid=?g? _a_: arch-trees
-   _w_: ?w? week       _[_: inactive      _A_: arch-files
-   _t_: ?t? fortnight  _f_: follow=?f?    _r_: report=?r?
-   _m_: ?m? month      _e_: entry =?e?    _D_: diary=?D?
-   _y_: ?y? year       _q_: quit          _L__l__c_: ?l?"
+     _d_: ?d? day        _g_: time grid=?g? _a_: arch-trees
+     _w_: ?w? week       _[_: inactive      _A_: arch-files
+     _t_: ?t? fortnight  _f_: follow=?f?    _r_: report=?r?
+     _m_: ?m? month      _e_: entry =?e?    _D_: diary=?D?
+     _y_: ?y? year       _q_: quit          _L__l__c_: ?l?"
     ("SPC" org-agenda-reset-view)
     ("d" org-agenda-day-view
      (if (eq 'day (org-agenda-cts))
@@ -4998,6 +5005,8 @@ before deadline.
 
 With line =%%(diary-lunar-phases)= in the calendar.org file, the
 phases are displayed -- now with symbols.
+
+Links to non-existing files can be [[https://emacs.stackexchange.com/questions/33064/fontify-broken-links-in-org-mode/33078#33078][highlighted]].
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-agenda
@@ -5298,9 +5307,9 @@ Out of the many options, these are the most useful:
     ^Clock:^ ^In/out^     ^Edit^   ^Summary^    | ^Timers:^ ^Run^           ^Insert
     -^-^-----^-^----------^-^------^-^----------|--^-^------^-^-------------^------
     (_?_)    _i_n         _e_dit   _g_oto entry | (_z_)     _r_elative      ti_m_e
-    ^ ^     _c_ontinue   _q_uit   _d_isplay    |  ^ ^      cou_n_tdown     i_t_em
-    ^ ^     _o_ut        ^ ^      _r_eport     |  ^ ^      _p_ause toggle
-    ^ ^     ^ ^          ^ ^      ^ ^          |  ^ ^      _s_top
+    ^ ^      _c_ontinue   _q_uit   _d_isplay    |  ^ ^      cou_n_tdown     i_t_em
+    ^ ^      _o_ut        ^ ^      _r_eport     |  ^ ^      _p_ause toggle
+    ^ ^      ^ ^          ^ ^      ^ ^          |  ^ ^      _s_top
     "
        ("i" org-clock-in)
        ("o" org-clock-out)
@@ -5574,6 +5583,10 @@ blocks. This also highlights source blocks in HTML exports.
 
 #+END_SRC
 
+[[http://pragmaticemacs.com/emacs/highlight-latex-text-in-org-mode/][Highlight latex text in org mode | Pragmatic Emacs]] gives code for
+fontifying inline LaTeX code like this: $y=mx+c$.
+
+
 Use the =minted= package for syntax highlighting source blocks in
 LaTeX/PDF exports. It needs the python =Pygments= library.
 Install it e.g. =sudo easy_install Pygments=.  Configuration copied
@@ -5581,6 +5594,8 @@ from a blog post by [[http://joat-programmer.blogspot.nl/2013/07/org-mode-versio
 [[http://praveen.kumar.in/2012/03/10/org-mode-latex-and-minted-syntax-highlighting/][Praveen Kumar]].
 
 #+BEGIN_SRC emacs-lisp
+  ;; Syntax highlighting for inline LaTeX
+  (setq org-highlight-latex-and-related '(latex))
   ;; Include the latex-exporter
   (use-package ox-latex
     :ensure nil)
@@ -5611,8 +5626,8 @@ have I commented it out because the above xelatax call seems to work
 well.
 
 #+BEGIN_SRC emacs-lisp
-  ;;(setq org-latex-pdf-process
-  ;;'("/usr/texbin/latexmk -interaction=nonstopmode -shell-escape -pdflatex=/usr/texbin/xelatex -gg -f -pdf %f"))
+  (setq org-latex-pdf-process
+  '("latexmk -interaction=nonstopmode -shell-escape -pdflatex=xelatex -gg -f -pdf %f"))
 #+END_SRC
 
 Finally, I could export to \LaTeX document and run the following
@@ -6475,10 +6490,10 @@ The read functions report their action in the echo field.
     (defun elfeed--read-tag (filter tag)
       "Template for filtering various feed categories.
 
-                           FILTER is the filter string to apply, and TAG is a short name of
-                           the displayed category.
+   FILTER is the filter string to apply, and TAG is a short name of
+   the displayed category.
 
-                           The cursor is moved to the beginning of the first feed line."
+   The cursor is moved to the beginning of the first feed line."
       (setq elfeed-search-filter filter)
       (elfeed-search-update :force)
       (goto-char (point-min))
@@ -6901,7 +6916,7 @@ Command =owp/do-publication= seems to do all I need.
 #       :bind ("C-c o" . hydra-blog/body))
 
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 
   (use-package org-webpage
     :config
