@@ -90,7 +90,7 @@ ELFILE that are ...
                      (not canc))
             (add-to-list 'body-list body)))))
     (with-temp-file elfile
-      (insert ";; *- lexical-binding: t; -*-\n")
+      (insert (format ";; %s -*- lexical-binding: t ; eval: (read-only-mode 1) -*-\n" elfile))
       (insert (format ";; Don't edit this file, edit %s instead ...\n\n" orgfile))
       ;; (insert (apply 'concat (reverse body-list)))
       (apply 'insert (reverse body-list)))
