@@ -2313,7 +2313,7 @@ selected and can be simultaneously edited.
         (count-matches "\\sw+"))))
 #+END_SRC
 
-** Text editing done by external programs
+** Text editing by external programs
 
 It used to be quicker for me to write perl scripts to format text than
 do it any other way. These functions demonstrate how a standard command
@@ -2321,10 +2321,11 @@ line program that reads from STDIN and write to STDOUT is easily
 included into emacs workflow. Markdown and SmartyPants are equally
 antiquated functions.
 
-Programs need to be available in your shell path. I most often use
-[[http://gist.github.com/heikkil/7510734][txt2para.pl]] that serves as a good example of these programs.
+Programs need to be available in your shell path. [[http://gist.github.com/heikkil/7510734][txt2para.pl]] serves
+as a good example of these programs that are here documented only for
+historical reasons. They are no more active.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 
   (defun txt2xhtml ()
     "Turn consecutive non-empty lines of plain text into HTML <p> elements."
