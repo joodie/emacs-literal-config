@@ -1417,7 +1417,7 @@ The hydra implementing this is self-documenting.
          _f_ilename2clipb  _m_y/move-file-here _t_imemachine git     _0_: repeat elisp
          _h_owdoi          _r_e-builder        _u_: us2fi chars
          tw_i_tter         ^ ^                 _z_: timezones        _x_: eshell
-         ^ ^               ^ ^                 _y_: binclock
+         _j_: org entities ^ ^                 _y_: binclock
         "
 
     ("2" 2048-game)
@@ -1479,7 +1479,7 @@ buffer. I do not use greek letters in keys, so I've removed them.
                   "\n"))
           (princ "\n\n")))))
 #+END_SRC
-** TODO Org entities with ivy
+** Org entities with ivy
 
 [[http://irreal.org/blog/?p=6637][Kitchin on Org Entities | Irreal]]
 
