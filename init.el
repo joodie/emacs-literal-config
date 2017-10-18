@@ -41,7 +41,7 @@
   (require 'use-package))
 (require 'diminish)                ;; if you use :diminish
 (require 'bind-key)                ;; if you use any :bind variant
-(require 'cl)
+(require 'cl)                      ;; Common Lisp extensions to Emacs Lisp
 (setq use-package-always-ensure t) ;; no need for :ensure key
 
 
@@ -68,15 +68,16 @@ ELFILE that are ...
 
   (let* ((body-list ())
          (gc-cons-threshold most-positive-fixnum)
-         (org-babel-src-block-regexp   (concat
-                                        ;; (1) indentation                 (2) lang
-                                        "^\\([ \t]*\\)#\\+begin_src[ \t]+\\([^ \f\t\n\r\v]+\\)[ \t]*"
-                                        ;; (3) switches
-                                        "\\([^\":\n]*\"[^\"\n*]*\"[^\":\n]*\\|[^\":\n]*\\)"
-                                        ;; (4) header arguments
-                                        "\\([^\n]*\\)\n"
-                                        ;; (5) body
-                                        "\\([^\000]*?\n\\)??[ \t]*#\\+end_src")))
+         (org-babel-src-block-regexp
+          (concat
+           ;; (1) indentation                 (2) lang
+           "^\\([ \t]*\\)#\\+begin_src[ \t]+\\([^ \f\t\n\r\v]+\\)[ \t]*"
+           ;; (3) switches
+           "\\([^\":\n]*\"[^\"\n*]*\"[^\":\n]*\\|[^\":\n]*\\)"
+           ;; (4) header arguments
+           "\\([^\n]*\\)\n"
+           ;; (5) body
+           "\\([^\000]*?\n\\)??[ \t]*#\\+end_src")))
     (with-temp-buffer
       (insert-file-contents orgfile)
       (goto-char (point-min))
@@ -112,9 +113,34 @@ ELFILE that are ...
   (message "Loading %s...done (%.3fs)" load-file-name elapsed))
 
 (add-hook 'after-init-hook
-          `(lambda ()
-             (let ((elapsed
-                    (float-time (time-subtract (current-time) emacs-start-time))))
-               (message "Loading %s...done (%.3fs) [after-init]",
-                        load-file-name elapsed)))
+          (lambda ()
+            (let ((elapsed
+                   (float-time (time-subtract (current-time) emacs-start-time))))
+              (message "Loading %s...done (%.3fs) [after-init]",
+                       load-file-name elapsed)))
           t)
+
+;;(add-hook 'after-init-hook
+;;          (lambda ()
+;;            (setq ns-auto-hide-menu-bar t)
+;;            (custom-set-variables
+;;             '(initial-frame-alist (quote ((fullscreen . maximized)))))))
+
+;;(add-hook 'after-init-hook
+;;          (lambda ()
+;;            (setq ns-auto-hide-menu-bar t)
+;;            (custom-set-variables
+;;             '(initial-frame-alist (quote ((fullscreen . maximized)))))))
+
+;;(setq ns-auto-hide-menu-bar t)
+;;(setq ns-auto-hide-menu-bar t)
+;;(custom-set-variables
+;; '(initial-frame-alist (quote ((fullscreen . maximized)))))
+
+;;add-hook 'window-setup-hook
+;;         (lambda()
+;;           (setq ns-auto-hide-menu-bar t)
+;;           (set-frame-position nil 0 -24)
+;;           (set-frame-size
+;;            nil (display-pixel-width)
+;;            (display-pixel-height) t)))
