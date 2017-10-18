@@ -100,8 +100,7 @@ ELFILE that are ...
 (let ((orgfile (concat user-emacs-directory "emacs.org"))
       (elfile (concat user-emacs-directory "emacs.el"))
       (gc-cons-threshold most-positive-fixnum))
-  (when (or (not (file-exists-p elfile))
-            (file-newer-than-file-p orgfile elfile))
+  (when (file-newer-than-file-p orgfile elfile)
     (my-tangle-config-org orgfile elfile))
   (load-file elfile))
 
