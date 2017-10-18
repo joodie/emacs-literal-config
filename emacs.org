@@ -406,45 +406,54 @@ sorting.
 all the details and binds bracket keys =(= and =)= to toggling the
 display.
 
+[[http://pragmaticemacs.com/emacs/tree-style-directory-views-in-dired-with-dired-subtree/][Tree-style directory views in dired with dired-subtree | Pragmatic
+Emacs]]
+
 #+BEGIN_SRC emacs-lisp
-    (when (eq system-type 'darwin)
-      (setq insert-directory-program (executable-find "gls")))
+  (when (eq system-type 'darwin)
+    (setq insert-directory-program (executable-find "gls")))
 
-    (use-package dired
-      :ensure nil
+  (use-package dired
+    :ensure nil
+    :config
+    (setq dired-listing-switches "-alh")
+
+    ;; auto refresh dired when file changes
+    (add-hook 'dired-mode-hook 'auto-revert-mode)
+
+    (use-package dired-details+
+      :init
+      (setq dired-details-hidden-string ""))
+
+    (use-package dired-narrow
+      :defer t
+      :bind (:map dired-mode-map ("/" . dired-narrow)))
+
+    ;;preview files in dired
+    (use-package peep-dired
+      :defer t ; don't access `dired-mode-map' until `peep-dired' is loaded
+      :bind (:map dired-mode-map
+                  ("P" . peep-dired)
+                  ;;("e" . (eshell t))
+                  )
       :config
-      (setq dired-listing-switches "-alh")
+      (setq peep-dired-cleanup-on-disable t))
 
-      ;; auto refresh dired when file changes
-      (add-hook 'dired-mode-hook 'auto-revert-mode)
+    (use-package dired-ranger
+      :bind (:map dired-mode-map
+                  ("W" . dired-ranger-copy)
+                  ("X" . dired-ranger-move)
+                  ("Y" . dired-ranger-paste)))
 
-      (use-package dired-details+
-        :init
-        (setq dired-details-hidden-string ""))
+    (use-package dired-quick-sort
+      :config
+      (dired-quick-sort-setup))
 
-      (use-package dired-narrow
-        :defer t
-        :bind (:map dired-mode-map ("/" . dired-narrow)))
-
-      ;;preview files in dired
-      (use-package peep-dired
-        :defer t ; don't access `dired-mode-map' until `peep-dired' is loaded
-        :bind (:map dired-mode-map
-                    ("P" . peep-dired)
-                    ;;("e" . (eshell t))
-                    )
-        :config
-        (setq peep-dired-cleanup-on-disable t))
-
-      (use-package dired-ranger
-        :bind (:map dired-mode-map
-                    ("W" . dired-ranger-copy)
-                    ("X" . dired-ranger-move)
-                    ("Y" . dired-ranger-paste)))
-
-      (use-package dired-quick-sort
-        :config
-        (dired-quick-sort-setup)))
+    (use-package dired-subtree
+      :config
+      (bind-keys :map dired-mode-map
+                 ("i" . dired-subtree-insert)
+                 (";" . dired-subtree-remove))))
 #+END_SRC
 
 *** Printing

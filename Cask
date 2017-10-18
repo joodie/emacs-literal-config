@@ -44,6 +44,7 @@
 (depends-on "dired-narrow")
 (depends-on "dired-quick-sort")
 (depends-on "dired-ranger")
+(depends-on "dired-subtree")
 (depends-on "disable-mouse")
 (depends-on "dumb-jump")
 (depends-on "easy-hugo")
