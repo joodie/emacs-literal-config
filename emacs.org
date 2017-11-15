@@ -2040,9 +2040,10 @@ are.
 #+BEGIN_SRC emacs-lisp
   (defhydra hydra-undo-tree (:color yellow :hint nil)
     "
-    undo-tree
-              _p_: undo   _n_: redo   _s_: save   _l_: load   _v_: visualize
-              _q_: quit
+   undo-tree
+-----------------------------------------------------
+              _p_: undo   _s_: save   _v_: visualize
+              _n_: redo   _l_: load   _q_: quit
     "
     ("p"   undo-tree-undo)
     ("n"   undo-tree-redo)
