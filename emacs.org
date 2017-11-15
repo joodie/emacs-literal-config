@@ -4113,7 +4113,7 @@ adjacent windows with each other.
     --------------------------------------------------------------------------------------------
              _1_ : C-x 1 keep only this window   _t_ : transpose windows
              _2_ : C-x 2 split horizontally
-             _3_ : C-x 3 split vertically        _r_ : transpose frame - swap x- and y-direction
+             _3_ : C-x 3 split vertically        _u_ : transpose frame - swap x- and y-direction
              _0_ : C-x 0 close this window       _i_ : flip frame - Flip vertically
              ^ ^                                 _o_ : flop frame - Flop horizontally
              ^ ^                                 _r_ : rotate frame - Rotate 180 degrees
@@ -4127,7 +4127,7 @@ adjacent windows with each other.
 
     ("t" crux-transpose-windows)
 
-    ("r" transpose-frame)
+    ("u" transpose-frame)
     ("i" flip-frame)
     ("o" flop-frame)
     ("r" rotate-frame)
