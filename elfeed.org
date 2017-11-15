@@ -90,3 +90,4 @@
 # *** http://websta.me/rss/n/matkleh
 *** https://savumerkkejablog.wordpress.com/feed/
 *** http://justsomesymbols.blogspot.fi/atom.xml
+*** http://myleconsdefrench.blogspot.fi/atom.xml
