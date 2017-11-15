@@ -5608,6 +5608,8 @@ blocks. This also highlights source blocks in HTML exports.
 [[http://pragmaticemacs.com/emacs/highlight-latex-text-in-org-mode/][Highlight latex text in org mode | Pragmatic Emacs]] gives code for
 fontifying inline LaTeX code like this: $y=mx+c$.
 
+See [[http://irreal.org/blog/?p=6717][Emphasize LaTeX Code in an Org Buffer | Irreal]] comment from Grant
+Rettke to highlight even more.
 
 Use the =minted= package for syntax highlighting source blocks in
 LaTeX/PDF exports. It needs the python =Pygments= library.
@@ -5618,6 +5620,9 @@ from a blog post by [[http://joat-programmer.blogspot.nl/2013/07/org-mode-versio
 #+BEGIN_SRC emacs-lisp
   ;; Syntax highlighting for inline LaTeX
   (setq org-highlight-latex-and-related '(latex))
+  ;; highlight quite a lot
+  (setq org-highlight-latex-and-related '(latex script entities))
+
   ;; Include the latex-exporter
   (use-package ox-latex
     :ensure nil)
