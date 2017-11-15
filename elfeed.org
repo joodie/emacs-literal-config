@@ -57,12 +57,13 @@
 *** Books
 **** https://20lukuaetsimassa.wordpress.com/feed/
 ** Comics                                                                  :c:
-*** http://kimmo.suominen.com/stuff/vw.xml
-*** http://kimmo.suominen.com/stuff/fingerpori.xml
+# *** http://kimmo.suominen.com/stuff/vw.xml
+# *** http://kimmo.suominen.com/stuff/fingerpori.xml
+*** https://darkball.net/fingerpori/
 *** http://xkcd.com/atom.xml
 *** http://english.bouletcorp.com/feed/
 *** https://nensarjakuvat.wordpress.com/feed/atom/
-*** http://kimmo.suominen.com/stuff/anonyymitelaimet.xml
+# *** http://kimmo.suominen.com/stuff/anonyymitelaimet.xml
 # *** http://www.comicsyndicate.org/Feed/Pearls%20before%20Swine
 *** http://fribergthorelli.com/wbk/index.php/feed/
 *** http://www.daughterofthelilies.com/rss.php
@@ -80,7 +81,7 @@
 *** http://kaustbirding.blogspot.com/atom.xml
 *** http://listenlearnread.blogspot.com/feeds/posts/default
 *** http://madebytamarak.blogspot.com.es/atom.xml
-#*** http://blogandgogo.weebly.com/1/feed
+# *** http://blogandgogo.weebly.com/1/feed
 *** http://metallome.blogspot.com/atom.xml
 *** http://dakotakollective.wordpress.com/feed/
 # *** http://websta.me/rss/n/dr
