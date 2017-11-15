@@ -6098,110 +6098,190 @@ I have installed it with Joe's [[http://emacs.stackexchange.com/questions/13314/
 
 Code from [[http://mbork.pl/2016-06-13_Displaying_pdfs_on_the_right][Marcin Borkowski]] on displaying pdfs on the right follows.
 
+See more tweeks from [[http://pragmaticemacs.com/emacs/more-pdf-tools-tweaks/][Pragmatic Emacs]].
+
+http://pragmaticemacs.com/emacs/view-and-annotate-pdfs-in-emacs-with-pdf-tools/
+
+[[http://pragmaticemacs.com/emacs/even-more-pdf-tools-tweaks/][Even more PDF-tools tweaks from Pragmatic Emacs]], save the buffer after
+adding each annotation.
+
 #+BEGIN_SRC emacs-lisp
+
+  ;; wrapper for save-buffer ignoring arguments
+  (defun bjm/save-buffer-no-args ()
+    "Save buffer ignoring arguments"
+    (save-buffer))
+
   (use-package pdf-tools
+    :mode ("\\.pdf$" . pdf-tools-mode)
     :config
     (custom-set-variables
      '(pdf-tools-handle-upgrades nil)) ; Use brew upgrade pdf-tools instead.
-    (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo"))
-  (pdf-tools-install)
-  ;;(setq 'org-file-apps '((auto-mode . emacs) ("\\.pdf\\'" . default))) ; ERROR, fixed, test
+    (setq pdf-info-epdfinfo-program "/usr/local/bin/epdfinfo")
+    (pdf-tools-install)
 
-  (defvar pdf-minimal-width 72
-    "Minimal width of a window displaying a pdf.
-    If an integer, number of columns.  If a float, fraction of the
-    original window.")
+    ;; open pdfs scaled to fit page
+    (setq-default pdf-view-display-size 'fit-page)
+    ;; automatically annotate highlights
+    (setq pdf-annot-activate-created-annotations t)
+    ;; use normal isearch
+    (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward)
 
-  (defvar pdf-split-width-threshold 120
-    "Minimum width a window should have to split it horizontally
-    for displaying a pdf in the right.")
+    ;; turn off cua so copy works
+    (add-hook 'pdf-view-mode-hook (lambda () (cua-mode 0)))
 
-  (defun pdf-split-window-sensibly (&optional window)
-    "A version of `split-window-sensibly' for pdfs.
-    It prefers splitting horizontally, and takes `pdf-minimal-width'
-    into account."
-    (let ((window (or window (selected-window)))
-          (width (- (if (integerp pdf-minimal-width)
-                        pdf-minimal-width
-                      (round (* pdf-minimal-width (window-width window)))))))
-      (or (and (window-splittable-p window t)
-               ;; Split window horizontally.
-               (with-selected-window window
-                 (split-window-right width)))
-          (and (window-splittable-p window)
-               ;; Split window vertically.
-               (with-selected-window window
-                 (split-window-below)))
-          (and (eq window (frame-root-window (window-frame window)))
-               (not (window-minibuffer-p window))
-               ;; If WINDOW is the only window on its frame and is not the
-               ;; minibuffer window, try to split it vertically disregarding
-               ;; the value of `split-height-threshold'.
-               (let ((split-height-threshold 0))
-                 (when (window-splittable-p window)
-                   (with-selected-window window
-                     (split-window-below))))))))
+    ;; keyboard shortcuts
+    (define-key pdf-view-mode-map (kbd "l") 'pdf-annot-list-annotations)
+    (define-key pdf-view-mode-map (kbd "h") 'pdf-annot-add-highlight-markup-annotation)
+    (define-key pdf-view-mode-map (kbd "t") 'pdf-annot-add-text-annotation)
+    (define-key pdf-view-mode-map (kbd "t") 'pdf-annot-add-text-annotation)
+    (define-key pdf-view-mode-map (kbd "D") 'pdf-annot-delete)
 
-  (defun display-buffer-pop-up-window-pdf-split-horizontally (buffer alist)
-    "Call `display-buffer-pop-up-window', using `pdf-split-window-sensibly'
-    when needed."
-    (let ((split-height-threshold nil)
-          (split-width-threshold pdf-split-width-threshold)
-          (split-window-preferred-function #'pdf-split-window-sensibly))
-      (display-buffer-pop-up-window buffer alist)))
+    (defvar pdf-minimal-width 72
+      "Minimal width of a window displaying a pdf.
+         If an integer, number of columns.  If a float, fraction of the
+         original window.")
 
-  (add-to-list 'display-buffer-alist '("\\.pdf\\(<[^>]+>\\)?$" . (display-buffer-pop-up-window-pdf-split-horizontally)))
+    (defvar pdf-split-width-threshold 120
+      "Minimum width a window should have to split it horizontally
+         for displaying a pdf in the right.")
+
+    (defun pdf-split-window-sensibly (&optional window)
+      "A version of `split-window-sensibly' for pdfs.
+         It prefers splitting horizontally, and takes `pdf-minimal-width'
+         into account."
+      (let ((window (or window (selected-window)))
+            (width (- (if (integerp pdf-minimal-width)
+                          pdf-minimal-width
+                        (round (* pdf-minimal-width (window-width window)))))))
+        (or (and (window-splittable-p window t)
+                 ;; Split window horizontally.
+                 (with-selected-window window
+                   (split-window-right width)))
+            (and (window-splittable-p window)
+                 ;; Split window vertically.
+                 (with-selected-window window
+                   (split-window-below)))
+            (and (eq window (frame-root-window (window-frame window)))
+                 (not (window-minibuffer-p window))
+                 ;; If WINDOW is the only window on its frame and is not the
+                 ;; minibuffer window, try to split it vertically disregarding
+                 ;; the value of `split-height-threshold'.
+                 (let ((split-height-threshold 0))
+                   (when (window-splittable-p window)
+                     (with-selected-window window
+                       (split-window-below))))))))
 
 
-  (defhydra hydra-pdftools (:color blue :hint nil)
-    "
-                                                                        ╭───────────┐
-         Move  History   Scale/Fit     Annotations  Search/Link    Do   │ PDF Tools │
-     ╭──────────────────────────────────────────────────────────────────┴───────────╯
-           ^^_g_^^      _B_    ^↧^    _+_    ^ ^     [_al_] list    [_s_] search    [_u_] revert buffer
-           ^^^↑^^^      ^↑^    _H_    ^↑^  ↦ _W_ ↤   [_am_] markup  [_o_] outline   [_i_] info
-           ^^_p_^^      ^ ^    ^↥^    _0_    ^ ^     [_at_] text    [_F_] link      [_d_] dark mode
-           ^^^↑^^^      ^↓^  ╭─^─^─┐  ^↓^  ╭─^ ^─┐   [_ad_] delete  [_f_] search link
-      _h_ ←pag_e_→ _l_  _N_  │ _P_ │  _-_    _b_     [_aa_] dired
-           ^^^↓^^^      ^ ^  ╰─^─^─╯  ^ ^  ╰─^ ^─╯   [_y_]  yank
-           ^^_n_^^      ^ ^  _r_eset slice box
-           ^^^↓^^^
-           ^^_G_^^
-     --------------------------------------------------------------------------------
-          "
-    ("\\" hydra-master/body "back")
-    ("<ESC>" nil "quit")
-    ("al" pdf-annot-list-annotations)
-    ("ad" pdf-annot-delete)
-    ("aa" pdf-annot-attachment-dired)
-    ("am" pdf-annot-add-markup-annotation)
-    ("at" pdf-annot-add-text-annotation)
-    ("y"  pdf-view-kill-ring-save)
-    ("+" pdf-view-enlarge :color red)
-    ("-" pdf-view-shrink :color red)
-    ("0" pdf-view-scale-reset)
-    ("H" pdf-view-fit-height-to-window)
-    ("W" pdf-view-fit-width-to-window)
-    ("P" pdf-view-fit-page-to-window)
-    ("n" pdf-view-next-page-command :color red)
-    ("p" pdf-view-previous-page-command :color red)
-    ("d" pdf-view-dark-minor-mode)
-    ("b" pdf-view-set-slice-from-bounding-box)
-    ("r" pdf-view-reset-slice)
-    ("g" pdf-view-first-page)
-    ("G" pdf-view-last-page)
-    ("e" pdf-view-goto-page)
-    ("o" pdf-outline)
-    ("s" pdf-occur)
-    ("i" pdf-misc-display-metadata)
-    ("u" pdf-view-revert-buffer)
-    ("F" pdf-links-action-perfom)
-    ("f" pdf-links-isearch-link)
-    ("B" pdf-history-backward :color red)
-    ("N" pdf-history-forward :color red)
-    ("l" image-forward-hscroll :color red)
-    ("h" image-backward-hscroll :color red))
+    (defun display-buffer-pop-up-window-pdf-split-horizontally (buffer alist)
+      "Call `display-buffer-pop-up-window', using `pdf-split-window-sensibly'
+         when needed."
+      (let ((split-height-threshold nil)
+            (split-width-threshold pdf-split-width-threshold)
+            (split-window-preferred-function #'pdf-split-window-sensibly))
+        (display-buffer-pop-up-window buffer alist)))
 
+
+    ;; midnite mode hook
+    ;; automatically turns on midnight-mode for pdfs
+    (add-hook 'pdf-view-mode-hook (lambda () (pdf-view-midnight-minor-mode)))
+
+    ;; set the amber profile as default (see below)
+    ;; I prefer white background by default
+    ;; (setq pdf-view-midnight-colors '("#ff9900" . "#0a0a12" ))
+
+
+    (defun bms/pdf-no-filter ()
+      "View pdf without colour filter."
+      (interactive)
+      (pdf-view-midnight-minor-mode -1)
+      )
+
+    ;; change midnite mode colours functions
+    (defun bms/pdf-midnite-original ()
+      "Set pdf-view-midnight-colors to original colours."
+      (interactive)
+      (setq pdf-view-midnight-colors '("#839496" . "#002b36" )) ; original values
+      (pdf-view-midnight-minor-mode)
+      )
+
+    (defun bms/pdf-midnite-amber ()
+      "Set pdf-view-midnight-colors to amber on dark slate blue."
+      (interactive)
+      (setq pdf-view-midnight-colors '("#ff9900" . "#0a0a12" )) ; amber
+      (pdf-view-midnight-minor-mode)
+      )
+
+    (defun bms/pdf-midnite-green ()
+      "Set pdf-view-midnight-colors to green on black."
+      (interactive)
+      (setq pdf-view-midnight-colors '("#00B800" . "#000000" )) ; green
+      (pdf-view-midnight-minor-mode)
+      )
+
+    (defun bms/pdf-midnite-colour-schemes ()
+      "Midnight mode colour schemes bound to keys"
+      (local-set-key (kbd "!") (quote bms/pdf-no-filter))
+      (local-set-key (kbd "@") (quote bms/pdf-midnite-amber))
+      (local-set-key (kbd "#") (quote bms/pdf-midnite-green))
+      (local-set-key (kbd "$") (quote bms/pdf-midnite-original)))
+
+    (add-hook 'pdf-view-mode-hook 'bms/pdf-midnite-colour-schemes)
+
+    ;; save after adding comment
+    (advice-add 'pdf-annot-edit-contents-commit :after 'bjm/save-buffer-no-args)
+
+    (add-to-list 'display-buffer-alist '("\\.pdf\\(<[^>]+>\\)?$" . (display-buffer-pop-up-window-pdf-split-horizontally)))
+
+    (bind-key "C-c p" 'hydra-pdftools/body)
+    (defhydra hydra-pdftools (:color blue :hint nil)
+      "
+                                                                             ╭───────────┐
+              Move  History   Scale/Fit     Annotations  Search/Link    Do   │ PDF Tools │
+          ╭──────────────────────────────────────────────────────────────────┴───────────╯
+                ^^_g_^^      _B_    ^↧^    _+_    ^ ^     [_al_] list    [_s_] search    [_u_] revert buffer
+                ^^^↑^^^      ^↑^    _H_    ^↑^  ↦ _W_ ↤   [_am_] markup  [_o_] outline   [_i_] info
+                ^^_p_^^      ^ ^    ^↥^    _0_    ^ ^     [_at_] text    [_F_] link      [_d_] dark mode
+                ^^^↑^^^      ^↓^  ╭─^─^─┐  ^↓^  ╭─^ ^─┐   [_ad_] delete  [_f_] search link
+           _h_ ←pag_e_→ _l_  _N_  │ _P_ │  _-_    _b_     [_aa_] dired
+                ^^^↓^^^      ^ ^  ╰─^─^─╯  ^ ^  ╰─^ ^─╯   [_y_]  yank
+                ^^_n_^^      ^ ^  _r_eset slice box
+                ^^^↓^^^
+                ^^_G_^^
+          --------------------------------------------------------------------------------
+               "
+      ("\\" hydra-master/body "back")
+      ("<ESC>" nil "quit")
+      ("al" pdf-annot-list-annotations)
+      ("ad" pdf-annot-delete)
+      ("aa" pdf-annot-attachment-dired)
+      ("am" pdf-annot-add-markup-annotation)
+      ("at" pdf-annot-add-text-annotation)
+      ("y"  pdf-view-kill-ring-save)
+      ("+" pdf-view-enlarge :color red)
+      ("-" pdf-view-shrink :color red)
+      ("0" pdf-view-scale-reset)
+      ("H" pdf-view-fit-height-to-window)
+      ("W" pdf-view-fit-width-to-window)
+      ("P" pdf-view-fit-page-to-window)
+      ("n" pdf-view-next-page-command :color red)
+      ("p" pdf-view-previous-page-command :color red)
+      ("d" pdf-view-dark-minor-mode)
+      ("b" pdf-view-set-slice-from-bounding-box)
+      ("r" pdf-view-reset-slice)
+      ("g" pdf-view-first-page)
+      ("G" pdf-view-last-page)
+      ("e" pdf-view-goto-page)
+      ("o" pdf-outline)
+      ("s" pdf-occur)
+      ("i" pdf-misc-display-metadata)
+      ("u" pdf-view-revert-buffer)
+      ("F" pdf-links-action-perfom)
+      ("f" pdf-links-isearch-link)
+      ("B" pdf-history-backward :color red)
+      ("N" pdf-history-forward :color red)
+      ("l" image-forward-hscroll :color red)
+      ("h" image-backward-hscroll :color red)))
 #+END_SRC
 
 ** Mail: gmail
