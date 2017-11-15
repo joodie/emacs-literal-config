@@ -1683,8 +1683,8 @@ If the line wrapping (explicitely =M-q=) needs to be [[http://www.emacswiki.org/
 =unfill-paragraph= that is bound to =M-Q=.
 
 A handy free feature from [[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html?source=rss][Endless Parentheses]] does away the need to
-have a separate function for unfilling paragraphs: Now you can
-press =M-q= twice to unwrap.
+have a separate function for unfilling paragraphs: Now you can press
+=M-q= twice to unwrap.
 
 #+BEGIN_SRC emacs-lisp
   (defun endless/fill-or-unfill ()
@@ -1699,20 +1699,30 @@ press =M-q= twice to unwrap.
 
   (global-set-key [remap fill-paragraph]
                   #'endless/fill-or-unfill)
+;;(define-key org-mode-map [remap org-fill-paragraph] #'endless/fill-or-unfill)
+;; org-fill-paragraph
+;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
+    (defun unfill-paragraph (&optional region)
+      "Takes a multi-line paragraph and makes it into a single line of text."
+      (interactive (progn (barf-if-buffer-read-only) '(t)))
+      (let ((fill-column (point-max))
+            ;; This would override `fill-column' if it's an integer.
+            (emacs-lisp-docstring-fill-column t))
+        (fill-paragraph nil region)))
+    ;; Handy key definition
+    (define-key global-map "\M-Q" 'unfill-paragraph)
 #+END_SRC
 
-Filling, either manual or automatic using =auto-fill-mode= wraps
-lines that are longer than =fill-column=. This is usually modified
-by function =set-fill-column= that is bound to =C-x f=. This key
-combination is close to other common keys that I've frequently
-found myself accidentally modifying the fill-column value from its
-default 70. Hopefully this paragraph helps me to remember how to
-reset it.
+Filling, either manual or automatic using =auto-fill-mode= wraps lines
+that are longer than =fill-column=. This is usually modified by function
+=set-fill-column= that is bound to =C-x f=. This key combination is close
+to other common keys that I've frequently found myself accidentally
+modifying the fill-column value from its default 70. Hopefully this
+paragraph helps me to remember how to reset it.
 
-An other confusing feature is the =fill-prefix= variable that can be
-set as buffer-local by function =set-fill-prefix= or =C-x .=. To
-return it to its default nil value, call the function on a empty
-line.
+An other confusing feature is the =fill-prefix= variable that can be set
+as buffer-local by function =set-fill-prefix= or =C-x .=. To return it to
+its default nil value, call the function on a empty line.
 
 ** Understand compressed files
 
