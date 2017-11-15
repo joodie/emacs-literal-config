@@ -1863,6 +1863,7 @@ buffers.
 
 #+BEGIN_SRC emacs-lisp
   (use-package super-save
+    :diminish ""
     :init
     (setq super-save-auto-save-when-idle t)
     (setq super-save-idle-duration 30)  ; def 5 sec
