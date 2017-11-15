@@ -418,6 +418,9 @@ Emacs]]
     :config
     (setq dired-listing-switches "-alh")
 
+    ;; single prompt for deletion
+    (setq dired-recursive-deletes 'always)
+
     ;; auto refresh dired when file changes
     (add-hook 'dired-mode-hook 'auto-revert-mode)
 
