@@ -86,7 +86,7 @@
 # *** http://websta.me/rss/n/dr
 # *** http://websta.me/rss/n/ohmauritiusbaby
 # *** http://websta.me/rss/n/minnalehvaslaiho
-*** http://minimauritius.com/feed/
+# *** http://minimauritius.com/feed/
 # *** http://websta.me/rss/n/matkleh
 *** https://savumerkkejablog.wordpress.com/feed/
 *** http://justsomesymbols.blogspot.fi/atom.xml
