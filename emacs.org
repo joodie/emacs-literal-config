@@ -7131,6 +7131,22 @@ The use of directory file:~/.emacs.p is from [[http://fasciism.com/2017/01/26/es
       (bury-buffer)))
 #+END_SRC
 
+*** Autosuggest on eshell
+
+[[http://whyarethingsthewaytheyare.com/fishlike-autosuggestions-in-eshell/][Fish-like autosuggestions in eshell]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-eshell-autosuggest
+    :config
+    (add-hook 'eshell-mode-hook 'company-mode)
+    (defun setup-company-eshell-autosuggest ()
+      (with-eval-after-load 'company
+        (setq-local company-backends '(company-eshell-autosuggest))
+        (setq-local company-frontends '(company-preview-frontend))))
+
+    (add-hook 'eshell-mode-hook 'setup-company-eshell-autosuggest))
+#+END_SRC
+
 ** shell
 
 Shell process in emacs is better for managing and piping big data

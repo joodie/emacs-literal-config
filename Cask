@@ -30,6 +30,7 @@
 (depends-on "clojure-mode")
 (depends-on "comment-dwim-2")
 (depends-on "company")
+(depends-on "company-eshell-autosuggest")
 (depends-on "company-go")
 (depends-on "counsel")
 (depends-on "counsel-projectile")
