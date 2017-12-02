@@ -166,6 +166,7 @@
 (depends-on "twittering-mode")
 (depends-on "undo-tree")
 (depends-on "use-package")
+(depends-on "use-package-ensure-system-package")
 (depends-on "vkill")
 (depends-on "w3m" :git "git@github.com:rejeep/w3m.git" :branch "cask")
 (depends-on "w3m")

@@ -26,6 +26,22 @@ You can find the latest public version of the configuration in [[https://github.
 Github repository]]. The meat of it (and the source of this
 document) is the ~emacs.org~ file.
 
+** Package management
+
+The lisp code uses =use-package= to configure and automatically install
+packages. The use-package package and some libraries are installed
+from within =init.el=. Code there also defines a global variable that
+does away the need to use =:ensure t= anywhere. The opposite can be
+true: There are cases when it is necessary to say =:ensure nil= to
+prevent loading of non-existing packages.
+
+System dependencies are defined using
+=use-package-ensure-system-package= from [[https://github.com/waymondo/use-package-ensure-system-package][waymondo]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package use-package-ensure-system-package)
+#+END_SRC
+
 ** Installation
 
 This configuration is installable from scratch. It uses [[https://github.com/cask/cask][Cask]] to
@@ -391,10 +407,6 @@ or move (X) them to a new directory.
 See [[Ediff]] section to see code that binds calling of ediff on two
 selected files.
 
-#+BEGIN_SRC sh
-  brew install coreutils
-#+END_SRC
-
 [[http://pragmaticemacs.com/emacs/speedy-sorting-in-dired-with-dired-quick-sort/][Speedy sorting in dired with dired-quick-sort | Pragmatic Emacs]]. Hit =S=
 to see a handy hydra menu for sorting. Pressing =s= is standard key
 binding to toggle between the default alphabetical and time based
@@ -415,6 +427,7 @@ Emacs]]
 
   (use-package dired
     :ensure nil
+    :ensure-system-package coreutils
     :config
     (setq dired-listing-switches "-alh")
 
@@ -2499,6 +2512,7 @@ be installed (e.g. =brew install hub= in OS X).
 
   (use-package magithub
     :disabled t
+    :ensure-system-package hub
     :after magit
     :config
     (magithub-feature-autoinject t))
@@ -4026,6 +4040,7 @@ installed first.
 #+BEGIN_SRC emacs-lisp
   (use-package alda-mode
     :defer t
+    :ensure-system-package alda
     :config
     (eval-after-load 'alda-mode
       '(bind-key  "C-c C-c" 'alda-play-region alda-mode-map)))
