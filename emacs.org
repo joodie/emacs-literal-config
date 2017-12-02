@@ -4437,6 +4437,8 @@ Also, save system clipboard before overwriting it from emacs
 
 =councel-imenu= is bound to 's' in worf mode.
 
+=ivy-occur=, see [[https://oremacs.com/2017/11/18/dired-occur/][Save Ivy file completions to Dired · (or emacs]]
+
 #+BEGIN_SRC emacs-lisp
 
   (setq save-interprogram-paste-before-kill t)
@@ -4453,13 +4455,14 @@ Also, save system clipboard before overwriting it from emacs
           '((emacs-lisp-mode . swiper-match-face-1)
             (dired-mode . ivy-subdir)
             (org-mode . org-level-4)))
-    :bind (("C-s" . swiper)
+    :bind (("C-s"     . swiper)
            ("C-c C-r" . ivy-resume)
-           ("M-x" . counsel-M-x)
+           ("M-x"     . counsel-M-x)
+           ("C-c C-o" . ivy-occur)
            ("C-c b"   . ivy-push-view)
            ("C-c B"   . ivy-pop-view)
-           ("M-y" . counsel-yank-pop)
-           ("C-M-s" . avy-goto-char-timer)
+           ("M-y"     . counsel-yank-pop)
+           ("C-M-s"   . avy-goto-char-timer)
            :map ivy-minibuffer-map
            ("M-y" . ivy-next-line))
     :config
@@ -4468,6 +4471,11 @@ Also, save system clipboard before overwriting it from emacs
     (setq ivy-re-builders-alist
           ;; allow regex input not in order
           '((t   . ivy--regex-ignore-order)))
+
+    (setq ivy-use-selectable-prompt t)
+
+    ;; allow editing of occur buffers
+    (use-package wgrep)
 
     (custom-set-faces
      '(swiper-minibuffer-match-face-1
