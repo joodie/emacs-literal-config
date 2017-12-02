@@ -4486,14 +4486,16 @@ Also, save system clipboard before overwriting it from emacs
        ((t :background "#bbbbff" :weight bold)))
      '(swiper-minibuffer-match-face-4
        ((t :background "#ffbbff" :weight bold))))
-
-    ;; advise swiper to recenter on exit
-    ;; from http://pragmaticemacs.com/emacs/dont-search-swipe/
-    (defun my/swiper-recenter (&rest args)
-      "recenter display after swiper"
-      (recenter))
-    (advice-add 'swiper :after #'my/swiper-recenter))
-    ;; end of use-package
+    )
+  ;; advise swiper to recenter on exit
+  ;; from http://pragmaticemacs.com/emacs/dont-search-swipe/
+  ;;(defun my/swiper-recenter (&rest args)
+  ;;  "recenter display after swiper"
+  ;;  (recenter))
+  ;;(advice-add 'swiper :after #'my/swiper-recenter))
+  ;; ; (advice-remove 'swiper #'my/swiper-recenter)
+  ;; end of use-package
+  ;; (fmakunbound 'my/swiper-recenter)
 
 
   ;; restore key bindings to isearch due to character folding in emacs 25.1
