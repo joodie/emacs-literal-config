@@ -174,6 +174,7 @@
 (depends-on "wcheck-mode")
 (depends-on "web")
 (depends-on "web-mode")
+(depends-on "wgrep")
 (depends-on "which-key")
 (depends-on "with-editor")
 (depends-on "wn-mode")

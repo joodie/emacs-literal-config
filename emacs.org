@@ -1005,6 +1005,16 @@ Current line is subtly highlighted in pale blue.
     (set-face-background hl-line-face "AliceBlue"))
 #+END_SRC
 
+** Automatic windows splitting preference
+
+While emacs tends to do automatic splitting of the frame horizontally,
+I prefer it to happen vertically. See [[https://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal][Stack Overflow]] for discussion.
+
+#+BEGIN_SRC emacs-lisp
+  (setq split-height-threshold nil
+        split-width-threshold 0)
+#+END_SRC
+
 ** Global key bindings
 
 As far as reasonable, I try to keep my custom key bindings within
