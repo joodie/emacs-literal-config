@@ -4439,6 +4439,11 @@ Also, save system clipboard before overwriting it from emacs
 
 =ivy-occur=, see [[https://oremacs.com/2017/11/18/dired-occur/][Save Ivy file completions to Dired · (or emacs]]
 
+[[https://oremacs.com/2017/11/18/dired-occur/][Save Ivy file completions to Dired · (or emacs]]: ivy-occur is now bound
+to =C-c C-o= so that it can be launched from any mini buffer where ivy
+is active. [[https://oremacs.com/2017/11/30/ivy-0.10.0/][Ivy version 0.10.0]] added =C-d= to remove unwanted lines from
+the occur buffer before applying wgrep editing on it with =C-x C-q=.
+
 #+BEGIN_SRC emacs-lisp
 
   (setq save-interprogram-paste-before-kill t)
