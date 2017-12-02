@@ -2988,7 +2988,7 @@ osx-dictionary-mode.
   (when (eq system-type 'darwin)
     (use-package osx-dictionary
       :bind (("C-c j" . osx-dictionary-search-pointer))
-      :config (add-hook 'osx-dictionary-mode-hook 'turn-off-font-lock)
+;;      :config (add-hook 'osx-dictionary-mode-hook 'turn-off-font-lock)
 
       ;;(setq osx-dictionary-mode-font-lock-keywords
       ;;  '(
