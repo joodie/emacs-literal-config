@@ -1227,17 +1227,17 @@ Prevent annoying "Active processes exist" query when you quit Emacs.
 From [[http://timothypratley.blogspot.fi/2015/07/seven-specialty-emacs-settings-with-big.html][Programming: Seven specialty Emacs settings with big payoffs]]
 
 #+BEGIN_SRC emacs-lisp
-(defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
-           (flet ((process-list ())) ad-do-it))
+  (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+    (flet ((process-list ())) ad-do-it))
 #+END_SRC
 
 The [[https://github.com/iqbalansari/restart-emacs][restart-emacs]] package makes it possible not only to quit emacs
-  (=C-x C-c=) but restart it from within emacs with function
-  =restart-emacs=.
+(=C-x C-c=) but restart it from within emacs with function
+=restart-emacs=.
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package restart-emacs)
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (use-package restart-emacs)
+#+END_SRC
 
 Use prefix arguments to modify:
 
@@ -1519,25 +1519,25 @@ org-entity, LATEX, or HTML encodings.
 It is bound to launch hydra key =C-x l j=.
 
 #+BEGIN_SRC emacs-lisp
-(defun ivy-insert-org-entity ()
-  "Insert an org-entity using ivy."
-  (interactive)
-  (ivy-read "Entity: " (loop for element in (append org-entities org-entities-user)
-			     when (not (stringp element))
-			     collect
-			     (cons
-			      (format "%10s | %s | %s | %s"
-				      (car element) ;name
-				      (nth 1 element) ; latex
-				      (nth 3 element) ; html
-				      (nth 6 element)) ;utf-8
-			      element))
-	    :require-match t
-	    :action '(1
-		      ("u" (lambda (element) (insert (nth 6 (cdr element)))) "utf-8")
-		      ("o" (lambda (element) (insert "\\" (cadr element))) "org-entity")
-		      ("l" (lambda (element) (insert (nth 1 (cdr element)))) "latex")
-		      ("h" (lambda (element) (insert (nth 3 (cdr element)))) "html"))))
+  (defun ivy-insert-org-entity ()
+    "Insert an org-entity using ivy."
+    (interactive)
+    (ivy-read "Entity: " (loop for element in (append org-entities org-entities-user)
+                               when (not (stringp element))
+                               collect
+                               (cons
+                                (format "%10s | %s | %s | %s"
+                                        (car element) ;name
+                                        (nth 1 element) ; latex
+                                        (nth 3 element) ; html
+                                        (nth 6 element)) ;utf-8
+                                element))
+              :require-match t
+              :action '(1
+                        ("u" (lambda (element) (insert (nth 6 (cdr element)))) "utf-8")
+                        ("o" (lambda (element) (insert "\\" (cadr element))) "org-entity")
+                        ("l" (lambda (element) (insert (nth 1 (cdr element)))) "latex")
+                        ("h" (lambda (element) (insert (nth 3 (cdr element)))) "html"))))
 
 #+END_SRC
 
@@ -1722,18 +1722,18 @@ have a separate function for unfilling paragraphs: Now you can press
 
   (global-set-key [remap fill-paragraph]
                   #'endless/fill-or-unfill)
-;;(define-key org-mode-map [remap org-fill-paragraph] #'endless/fill-or-unfill)
-;; org-fill-paragraph
-;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
-    (defun unfill-paragraph (&optional region)
-      "Takes a multi-line paragraph and makes it into a single line of text."
-      (interactive (progn (barf-if-buffer-read-only) '(t)))
-      (let ((fill-column (point-max))
-            ;; This would override `fill-column' if it's an integer.
-            (emacs-lisp-docstring-fill-column t))
-        (fill-paragraph nil region)))
-    ;; Handy key definition
-    (define-key global-map "\M-Q" 'unfill-paragraph)
+  ;;(define-key org-mode-map [remap org-fill-paragraph] #'endless/fill-or-unfill)
+  ;; org-fill-paragraph
+  ;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
+  (defun unfill-paragraph (&optional region)
+    "Takes a multi-line paragraph and makes it into a single line of text."
+    (interactive (progn (barf-if-buffer-read-only) '(t)))
+    (let ((fill-column (point-max))
+          ;; This would override `fill-column' if it's an integer.
+          (emacs-lisp-docstring-fill-column t))
+      (fill-paragraph nil region)))
+  ;; Handy key definition
+  (define-key global-map "\M-Q" 'unfill-paragraph)
 #+END_SRC
 
 Filling, either manual or automatic using =auto-fill-mode= wraps lines
@@ -2073,11 +2073,11 @@ are.
 #+BEGIN_SRC emacs-lisp
   (defhydra hydra-undo-tree (:color yellow :hint nil)
     "
-   undo-tree
------------------------------------------------------
-              _p_: undo   _s_: save   _v_: visualize
-              _n_: redo   _l_: load   _q_: quit
-    "
+     undo-tree
+  -----------------------------------------------------
+                _p_: undo   _s_: save   _v_: visualize
+                _n_: redo   _l_: load   _q_: quit
+      "
     ("p"   undo-tree-undo)
     ("n"   undo-tree-redo)
     ("s"   undo-tree-save-history)
@@ -2673,7 +2673,7 @@ especially efficient.
   ;; original copied from
   ;; http://stackoverflow.com/questions/22107182/in-emacs-flyspell-mode-how-to-add-new-word-to-dictionary
   (defun my/flyspell-save-word (&optional save-lowercase)
-  "Save word to a personal dictionary.
+    "Save word to a personal dictionary.
 
                        The dictionary file depends on the used spell program. If the the first
                        argument SAVE-LOWERCASE is non-nil, save also lowercased word.
@@ -3410,15 +3410,15 @@ Best used with =flycheck-list errors=  =(C-c ! l)= that shows a linked pair of
 windows.
 
 #+BEGIN_SRC emacs-lisp
-    (use-package flycheck
-      :diminish ""
-      :defer t
-      :config
-      (add-hook 'after-init-hook #'global-flycheck-mode)
-      (use-package avy-flycheck
-        :bind ("C-c t" . avy-flycheck-goto-error))
-      (use-package flycheck-perl6
-        :defer t))
+  (use-package flycheck
+    :diminish ""
+    :defer t
+    :config
+    (add-hook 'after-init-hook #'global-flycheck-mode)
+    (use-package avy-flycheck
+      :bind ("C-c t" . avy-flycheck-goto-error))
+    (use-package flycheck-perl6
+      :defer t))
 
   (use-package flycheck-proselint
     :ensure nil
@@ -3475,15 +3475,15 @@ TAGS. It supports a long list of programming languages.
 It works within project folder structure.
 
 #+BEGIN_SRC emacs-lisp
-(use-package dumb-jump
-  :ensure t
-  :bind (("M-g o" . dumb-jump-go-other-window)
-         ("M-g j" . dumb-jump-go)
-         ("M-g b" . dumb-jump-back)
-         ("M-g q" . dumb-jump-quick-look)
-         ("M-g x" . dumb-jump-go-prefer-external)
-         ("M-g z" . dumb-jump-go-prefer-external-other-window))
-  :config (setq dumb-jump-selector 'ivy))
+  (use-package dumb-jump
+    :ensure t
+    :bind (("M-g o" . dumb-jump-go-other-window)
+           ("M-g j" . dumb-jump-go)
+           ("M-g b" . dumb-jump-back)
+           ("M-g q" . dumb-jump-quick-look)
+           ("M-g x" . dumb-jump-go-prefer-external)
+           ("M-g z" . dumb-jump-go-prefer-external-other-window))
+    :config (setq dumb-jump-selector 'ivy))
 #+END_SRC
 
 *** Paredit
@@ -4133,8 +4133,8 @@ Frame]] package. It defines four commands:
 - =rotate-frame= :: Rotate 180 degrees
 
 #+BEGIN_SRC emacs-lisp
-(use-package transpose-frame
-  :defer t)
+  (use-package transpose-frame
+    :defer t)
 #+END_SRC
 
 The only missing piece is provided by the [[https://github.com/bbatsov/crux][crux]] package:
@@ -4855,32 +4855,32 @@ Unsetting variable org-M-RET-may-split-line disallows splitting heaser
 lines with enter ([[http://irreal.org/blog/?p=6297][Make M-RET better in Org Mode | Irreal]]).
 
 #+BEGIN_SRC emacs-lisp
-    (use-package org
-      :ensure org-plus-contrib
-      :mode ("\\.txt$" . org-mode)
-      :config
-      ;; export Unicode
-      (setq org-pretty-entities t)
-      (setq org-use-sub-superscripts "{}")
-      ;; Don't allow editing of folded regions
-      (setq org-catch-invisible-edits 'error)
-      (add-hook 'org-mode-hook
-                (lambda ()
-                  (visual-line-mode)
-                  ;; (turn-on-org-cdlatex)
-                  (org-indent-mode)
-                  (diminish 'org-indent-mode ""))))
+  (use-package org
+    :ensure org-plus-contrib
+    :mode ("\\.txt$" . org-mode)
+    :config
+    ;; export Unicode
+    (setq org-pretty-entities t)
+    (setq org-use-sub-superscripts "{}")
+    ;; Don't allow editing of folded regions
+    (setq org-catch-invisible-edits 'error)
+    (add-hook 'org-mode-hook
+              (lambda ()
+                (visual-line-mode)
+                ;; (turn-on-org-cdlatex)
+                (org-indent-mode)
+                (diminish 'org-indent-mode ""))))
 
-    (use-package org-autolist
-      :diminish ""
-      :config
-      (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
+  (use-package org-autolist
+    :diminish ""
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
 
-    ;; too slow to have on by default
-    ;; (add-hook 'org-mode-hook 'wc-mode)
-    (use-package wc-mode)
+  ;; too slow to have on by default
+  ;; (add-hook 'org-mode-hook 'wc-mode)
+  (use-package wc-mode)
 
-    (setq org-M-RET-may-split-line '((default . nil)))
+  (setq org-M-RET-may-split-line '((default . nil)))
 
   (use-package org-contacts
     :ensure nil
@@ -5152,120 +5152,120 @@ notes.  I keep all files in DropBox.
 I copied these capture templates from [[http://doc.norang.ca/org-mode.html][this excellent page]] and
 modified to my own use. I try to minimize refiling.  I have several
 categories of entries:
-   1) *notes [n]* for all note taking (URLs, ideas, papers,...) that
-      I want to file away for later retrieval. They are time stamped,
-      stored in that order and have optional tags I defined in the
-      previous section.
-   2) *code snippets [s]* are subclasses of notes that create a code
-      block and ask for the language and tags.
-   3) *events [e]* are regular events with active time stamp. Scheduled and
-      completion times can be added to them later.
-   4) *appointments [a]* for events that are shared with Google Calendar
-      using org-gcal.
-   5) *work [w]* events start the clock automatically for the new entry.
+1) *notes [n]* for all note taking (URLs, ideas, papers,...) that
+   I want to file away for later retrieval. They are time stamped,
+   stored in that order and have optional tags I defined in the
+   previous section.
+2) *code snippets [s]* are subclasses of notes that create a code
+   block and ask for the language and tags.
+3) *events [e]* are regular events with active time stamp. Scheduled and
+   completion times can be added to them later.
+4) *appointments [a]* for events that are shared with Google Calendar
+   using org-gcal.
+5) *work [w]* events start the clock automatically for the new entry.
 
-      Events are in file:~/Dropbox/org/calendar.org that starts with sections for
-      anniversaries and other recurring tasks. Gcal integration happens
-      through file:~/Dropbox/org/gcal.org  All other entries are in
-      file:~/Dropbox/org/reference.org .
+   Events are in file:~/Dropbox/org/calendar.org that starts with sections for
+   anniversaries and other recurring tasks. Gcal integration happens
+   through file:~/Dropbox/org/gcal.org  All other entries are in
+   file:~/Dropbox/org/reference.org .
 
 
-   Code snippet capture code was mentioned in the  [[http://irreal.org/blog/?p=5244][Irreal]] blog.
+Code snippet capture code was mentioned in the  [[http://irreal.org/blog/?p=5244][Irreal]] blog.
 
-   #+BEGIN_SRC emacs-lisp
-         ;; Capture templates for: general notes, TODO tasks, events
-         (setq org-capture-templates
-               '(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
-                  "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n%i")
-                 ("s" "code snippet" entry (file+datetree "~/Dropbox/org/reference.org")
-                  ;; Prompt for tag and language
-                  "* %?\t%^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n#+BEGIN_SRC %^{language}\n%i\n#+END_SRC")
-                 ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
-                  "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: event\n     :END:\n     %T\n%i")
-                 ("a" "appointment" entry (file "~/Dropbox/org/gcal.org" )
-                  "* %?\n\n %^T\n\n:PROPERTIES:\n\n:END:\n\n")
-                 ("c" "contacts" entry (file "~/Dropbox/org/contacts.org")
-                  "* %(org-contacts-template-name)
-:PROPERTIES:
-:EMAIL: %(org-contacts-template-email)
-:PHONE:
-:ALIAS:
-:NICKNAME:
-:IGNORE:
-:ICON:
-:NOTE:
-:ADDRESS:
-:BIRTHDAY:
-:END:")
-                 ("w" "work" entry (file+datetree "~/Dropbox/org/reference.org")
-                  "* %? %^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: work\n     :END:\n%i"
-                  :clock-in t :clock-keep t)))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  ;; Capture templates for: general notes, TODO tasks, events
+  (setq org-capture-templates
+        '(("n" "note" entry (file+datetree "~/Dropbox/org/reference.org")
+           "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n%i")
+          ("s" "code snippet" entry (file+datetree "~/Dropbox/org/reference.org")
+           ;; Prompt for tag and language
+           "* %?\t%^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n#+BEGIN_SRC %^{language}\n%i\n#+END_SRC")
+          ("e" "event" entry (file+datetree "~/Dropbox/org/calendar.org")
+           "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: event\n     :END:\n     %T\n%i")
+          ("a" "appointment" entry (file "~/Dropbox/org/gcal.org" )
+           "* %?\n\n %^T\n\n:PROPERTIES:\n\n:END:\n\n")
+          ("c" "contacts" entry (file "~/Dropbox/org/contacts.org")
+           "* %(org-contacts-template-name)
+  :PROPERTIES:
+  :EMAIL: %(org-contacts-template-email)
+  :PHONE:
+  :ALIAS:
+  :NICKNAME:
+  :IGNORE:
+  :ICON:
+  :NOTE:
+  :ADDRESS:
+  :BIRTHDAY:
+  :END:")
+          ("w" "work" entry (file+datetree "~/Dropbox/org/reference.org")
+           "* %? %^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: work\n     :END:\n%i"
+           :clock-in t :clock-keep t)))
+#+END_SRC
 
-   Captured notes can be tagged just like any other org headings.
-   However, Key combination =C-c C-c= finalizes the capture, so you
-   have to use =C-c C-q= to call up the capture interface. Tags that
-   match words in the header are automatically added at the end of the
-   capture.
+Captured notes can be tagged just like any other org headings.
+However, Key combination =C-c C-c= finalizes the capture, so you
+have to use =C-c C-q= to call up the capture interface. Tags that
+match words in the header are automatically added at the end of the
+capture.
 
-   #+BEGIN_SRC emacs-lisp
-     ;; Disabled. 2016-11-27 package update to messed this up.
-     (defun org-auto-tag ()
-       (interactive)
-       (let ((alltags (append org-tag-persistent-alist org-tag-alist))
-             (headline-words  (split-string (upcase (org-get-heading t t)))))
-         (mapcar (lambda (word)
-                   (if (assoc word alltags)
-                       a~S                       (org-toggle-tag word 'saon)))
-                 headline-words)))
-     ;; (add-hook 'org-capture-before-finalize-hook 'org-auto-tag)
-     ;; (remove-hook 'org-capture-before-finalize-hook 'org-auto-tag)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  ;; Disabled. 2016-11-27 package update to messed this up.
+  (defun org-auto-tag ()
+    (interactive)
+    (let ((alltags (append org-tag-persistent-alist org-tag-alist))
+          (headline-words  (split-string (upcase (org-get-heading t t)))))
+      (mapcar (lambda (word)
+                (if (assoc word alltags)
+                    a~S                       (org-toggle-tag word 'saon)))
+              headline-words)))
+  ;; (add-hook 'org-capture-before-finalize-hook 'org-auto-tag)
+  ;; (remove-hook 'org-capture-before-finalize-hook 'org-auto-tag)
+#+END_SRC
 
-   Todos can have additional keywords with dates: =DEADLINE= =C-c C-d=
-   for the time the task needs to be finished, and =SCHEDULED= =C-c
-   C-s= for the date when to start working on the task.
+Todos can have additional keywords with dates: =DEADLINE= =C-c C-d=
+for the time the task needs to be finished, and =SCHEDULED= =C-c
+C-s= for the date when to start working on the task.
 
-   Additionally, there are templates for the [[Ledger]] accounting program
-   for several accounts. The path to the file must exist.
+Additionally, there are templates for the [[Ledger]] accounting program
+for several accounts. The path to the file must exist.
 
-   #+BEGIN_SRC emacs-lisp
-     (setq org-capture-templates
-           (append '(("l" "Ledger entries")
-                     ("lm" "MasterCard" plain
-                      (file "~/Documents/ledger/refile.led")
-                      "
-     %(org-read-date)  %^{Payee}
-          ; entered: %U
-          Liabilities:MasterCard
-          Expenses:%^{Account}              € %^{Amount}
-     " :empty-lines-before 1)
-                     ("lc" "Cash" plain
-                      (file "~/Documents/ledger/refile.led")
-                      "
-     %(org-read-date) * %^{Payee}
-         ; entered: %U
-         Expenses:Cash
-         Expenses:%^{Account}              %^{Amount}
-     " :empty-lines-before 1 )
-                     ("ls" "SAR debit" plain
-                      (file "~/Documents/ledger/refile.led")
-                      "
-     %(org-read-date) * %^{Payee}
-         ; entered: %U
-         Assets:Samba
-         Expenses:%^{Account}              %^{Amount} SAR
-     " :empty-lines-before 1 )
-                     ("le" "EUR debit" plain
-                      (file "~/Documents/ledger/refile.led")
-                      "
-     %(org-read-date) * %^{Payee}
-         ; entered: %U
-         Assets:Heikintili
-         Expenses:%^{Account}               € %^{Amount}
-     " :empty-lines-before 1 ))
-                   org-capture-templates))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+  (setq org-capture-templates
+        (append '(("l" "Ledger entries")
+                  ("lm" "MasterCard" plain
+                   (file "~/Documents/ledger/refile.led")
+                   "
+  %(org-read-date)  %^{Payee}
+       ; entered: %U
+       Liabilities:MasterCard
+       Expenses:%^{Account}              € %^{Amount}
+  " :empty-lines-before 1)
+                  ("lc" "Cash" plain
+                   (file "~/Documents/ledger/refile.led")
+                   "
+  %(org-read-date) * %^{Payee}
+      ; entered: %U
+      Expenses:Cash
+      Expenses:%^{Account}              %^{Amount}
+  " :empty-lines-before 1 )
+                  ("ls" "SAR debit" plain
+                   (file "~/Documents/ledger/refile.led")
+                   "
+  %(org-read-date) * %^{Payee}
+      ; entered: %U
+      Assets:Samba
+      Expenses:%^{Account}              %^{Amount} SAR
+  " :empty-lines-before 1 )
+                  ("le" "EUR debit" plain
+                   (file "~/Documents/ledger/refile.led")
+                   "
+  %(org-read-date) * %^{Payee}
+      ; entered: %U
+      Assets:Heikintili
+      Expenses:%^{Account}               € %^{Amount}
+  " :empty-lines-before 1 ))
+                org-capture-templates))
+#+END_SRC
 
 ** Org Dropbox
 
@@ -5424,50 +5424,50 @@ references (=\ref{...=) should be quoted using the '​=' character, and
 use =C-M-i= to complete.
 
 #+BEGIN_SRC emacs-lisp
-;; (define-key flyspell-mode-map (kbd "C-M-i") nil)
-(bind-key "C-M-i" 'complete-symbol org-mode-map)
-(setq completion-at-point-functions
-      '(org-completion-symbols
-        ora-cap-filesystem
-        org-completion-refs))
+  ;; (define-key flyspell-mode-map (kbd "C-M-i") nil)
+  (bind-key "C-M-i" 'complete-symbol org-mode-map)
+  (setq completion-at-point-functions
+        '(org-completion-symbols
+          ora-cap-filesystem
+          org-completion-refs))
 
-(defun org-completion-symbols ()
-  (when (looking-back "=[a-zA-Z]+")
-    (let (cands)
-      (save-match-data
+  (defun org-completion-symbols ()
+    (when (looking-back "=[a-zA-Z]+")
+      (let (cands)
+        (save-match-data
+          (save-excursion
+            (goto-char (point-min))
+            (while (re-search-forward "=\\([a-zA-Z]+\\)=" nil t)
+              (cl-pushnew
+               (match-string-no-properties 0) cands :test 'equal))
+            cands))
+        (when cands
+          (list (match-beginning 0) (match-end 0) cands)))))
+
+  (defun ora-cap-filesystem ()
+    (let (path)
+      (when (setq path (ffap-string-at-point))
+        (let ((compl
+               (all-completions path #'read-file-name-internal)))
+          (when compl
+            (let ((offset (ivy-completion-common-length (car compl))))
+              (list (- (point) offset) (point) compl)))))))
+
+  (defun org-completion-refs ()
+    (when (looking-back "\\\\\\(?:ref\\|label\\){\\([^\n{}]\\)*")
+      (let (cands beg end)
         (save-excursion
           (goto-char (point-min))
-          (while (re-search-forward "=\\([a-zA-Z]+\\)=" nil t)
-            (cl-pushnew
-             (match-string-no-properties 0) cands :test 'equal))
-          cands))
-      (when cands
-        (list (match-beginning 0) (match-end 0) cands)))))
-
-(defun ora-cap-filesystem ()
-  (let (path)
-    (when (setq path (ffap-string-at-point))
-      (let ((compl
-             (all-completions path #'read-file-name-internal)))
-        (when compl
-          (let ((offset (ivy-completion-common-length (car compl))))
-            (list (- (point) offset) (point) compl)))))))
-
-(defun org-completion-refs ()
-  (when (looking-back "\\\\\\(?:ref\\|label\\){\\([^\n{}]\\)*")
-    (let (cands beg end)
-      (save-excursion
-        (goto-char (point-min))
-        (while (re-search-forward "\\label{\\([^}]+\\)}" nil t)
-          (push (match-string-no-properties 1) cands)))
-      (save-excursion
-        (up-list)
-        (setq end (1- (point)))
-        (backward-list)
-        (setq beg (1+ (point))))
-      (list beg end
-            (delete (buffer-substring-no-properties beg end)
-                    (nreverse cands))))))
+          (while (re-search-forward "\\label{\\([^}]+\\)}" nil t)
+            (push (match-string-no-properties 1) cands)))
+        (save-excursion
+          (up-list)
+          (setq end (1- (point)))
+          (backward-list)
+          (setq beg (1+ (point))))
+        (list beg end
+              (delete (buffer-substring-no-properties beg end)
+                      (nreverse cands))))))
 
 #+END_SRC
 
@@ -5697,7 +5697,7 @@ well.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-latex-pdf-process
-  '("latexmk -interaction=nonstopmode -shell-escape -pdflatex=xelatex -gg -f -pdf %f"))
+        '("latexmk -interaction=nonstopmode -shell-escape -pdflatex=xelatex -gg -f -pdf %f"))
 #+END_SRC
 
 Finally, I could export to \LaTeX document and run the following
@@ -6644,10 +6644,10 @@ The read functions report their action in the echo field.
     (defun elfeed--read-tag (filter tag)
       "Template for filtering various feed categories.
 
-   FILTER is the filter string to apply, and TAG is a short name of
-   the displayed category.
+     FILTER is the filter string to apply, and TAG is a short name of
+     the displayed category.
 
-   The cursor is moved to the beginning of the first feed line."
+     The cursor is moved to the beginning of the first feed line."
       (setq elfeed-search-filter filter)
       (elfeed-search-update :force)
       (goto-char (point-min))
