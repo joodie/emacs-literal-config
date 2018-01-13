@@ -7186,7 +7186,7 @@ The use of directory file:~/.emacs.p is from [[http://fasciism.com/2017/01/26/es
       (bury-buffer)))
 #+END_SRC
 
-*** Autosuggest on eshell
+*** PENDING Autosuggest on eshell
 
 [[http://whyarethingsthewaytheyare.com/fishlike-autosuggestions-in-eshell/][Fish-like autosuggestions in eshell]]
 
