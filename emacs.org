@@ -6652,6 +6652,7 @@ The read functions report their action in the echo field.
     :config
 
     (use-package elfeed-goodies
+      :disabled true
       :defer t
       :config
       (elfeed-goodies/setup))
