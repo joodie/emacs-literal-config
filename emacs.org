@@ -211,7 +211,7 @@ configuration.
 
 [[https://github.com/magnars/dash.el][dash.el]] is a library of modern list functions.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no'
   (use-package dash
     :config
     (if (>= emacs-major-version 24)
