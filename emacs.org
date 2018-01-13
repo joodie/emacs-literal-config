@@ -5105,35 +5105,6 @@ Links to non-existing files can be [[https://emacs.stackexchange.com/questions/3
             "☾ Last Quarter Moon")))
 #+END_SRC
 
-** Org time stamps
-
-Org time stamps, see =(org-info "Timestamps")=, come in two flavours,
-active and inactive. An active timestamp in a file that is followed by
-the agenda, are visible in the calendar. The commands are
-=org-time-stamp= and =org-time-stamp-inactive=. The key combination
-=C-c .= is the for the active time stamp. =C-c != for inactive ones.
-Prefix arguments are very useful in this context:
-
-| Keys          | Interactive | Action   |
-|---------------+-------------+----------|
-| =C-c .=         | t           | date     |
-| =C-u C-c .=     | t           | time     |
-| =C-u C-u C-c .= | nil         | time now |
-
-** Time manipulation
-
-[[https://github.com/dfeich/org-clock-convenience][org-clock-convenience]] adds functions that manipulate time stamps in
-the agenda view.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package org-clock-convenience
-    :defer t
-    :bind (:map org-agenda-mode-map
-                ("<S-up>" . org-clock-convenience-timestamp-up)
-                ("<S-down>" . org-clock-convenience-timestamp-down)
-                ("'" . org-clock-convenience-fill-gap)))
-#+END_SRC
-
 ** worf -- modal editing in org mode
 
 Adds vi-like modal key bindings to org mode by adding a new minor
@@ -5362,7 +5333,41 @@ Config is in my emacs secrets file.
   (fset 'org-gcal--notify 'new/org-gcal--notify)
 #+END_SRC
 
-** Time tracking
+** Org time
+
+*** Org time stamps
+
+Org time stamps, see =(org-info "Timestamps")=, come in two flavours,
+active and inactive. An active timestamp in a file that is followed by
+the agenda, are visible in the calendar. The commands are
+=org-time-stamp= and =org-time-stamp-inactive=. The key combination
+=C-c .= is the for the active time stamp. =C-c != for inactive ones.
+Prefix arguments are very useful in this context:
+
+| Keys          | Interactive | Action   |
+|---------------+-------------+----------|
+| =C-c .=         | t           | date     |
+| =C-u C-c .=     | t           | time     |
+| =C-u C-u C-c .= | nil         | time now |
+
+=org-toggle-time-stamp-type= is not bound to any key by default.
+
+
+*** Time manipulation
+
+[[https://github.com/dfeich/org-clock-convenience][org-clock-convenience]] adds functions that manipulate time stamps in
+the agenda view.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org-clock-convenience
+    :defer t
+    :bind (:map org-agenda-mode-map
+                ("<S-up>" . org-clock-convenience-timestamp-up)
+                ("<S-down>" . org-clock-convenience-timestamp-down)
+                ("'" . org-clock-convenience-fill-gap)))
+#+END_SRC
+
+*** Time tracking
 
 This combines all commands I know about time management under org
 mode to one that can be launched with =C-c w= /endash w for work.
