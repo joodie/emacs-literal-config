@@ -47,7 +47,6 @@
 	multiple-cursors
 	names
 	neotree
-        org
 	paredit
         php-mode
 	pkg-info
@@ -97,3 +96,4 @@
 (org-babel-load-file "~/.emacs.d/emacs.org")
 
 (put 'narrow-to-region 'disabled nil)
+(put 'downcase-region 'disabled nil)

@@ -267,6 +267,14 @@
   (add-hook 'prog-mode-hook
             'my/general-prog-hooks)
 #+END_SRC
+
+#+name: programming-setup
+#+BEGIN_SRC emacs-lisp
+  ;; Cycle between snake case, camel case, etc.
+  (require 'string-inflection)
+  (global-set-key (kbd "C-c i") 'string-inflection-all-cycle)
+#+END_SRC
+
 ** Pair programming
 
    Normally, I think line numbers in code editors just take up space,
@@ -333,12 +341,14 @@
      (defun my/general-lisp-hooks ()
        (my/turn-on 'paredit
                    'rainbow-delimiters
-                   'highlight-parentheses
+                   'show-paren
                    'literal-string))
 
      (dolist (mode (mapcar 'my/->mode-hook my/lisps))
        (add-hook mode
                  'my/general-lisp-hooks))
+
+     (setq show-paren-style 'expression)
    #+END_SRC
 
 
@@ -368,17 +378,6 @@
                'my/cider-mode-hooks)
 
      (setq cider-repl-history-file (expand-file-name "~/.emacs.d/.cider-repl-history"))
-
-
-;     (eval-after-load 'flycheck '(flycheck-clojure-setup))
-;     (add-hook 'after-init-hook #'global-flycheck-mode)
-
-     (eval-after-load 'flycheck
-       '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
-
-     (add-hook 'cider-mode-hook
-               (lambda () (setq next-error-function #'flycheck-next-error-function)))
-
    #+END_SRC
 
    Clojure-specific enhancements to lisp config.
@@ -389,6 +388,7 @@
        (my/turn-on 'subword)
        (my/turn-on 'yas-minor)
        (my/turn-on 'flycheck)
+       (my/turn-on 'clj-refactor)
        (cljr-add-keybindings-with-prefix "C-c r")
        (sayid-setup-package))
 
@@ -407,7 +407,7 @@
           (defun my/cider-repl-mode-hooks ()
             (my/turn-on 'paredit
                         'rainbow-delimiters
-                        'highlight-parentheses
+                        'show-paren
                         'subword))
 
           (add-hook 'cider-repl-mode-hook
@@ -534,6 +534,14 @@
           (lambda ()
             (toggle-truncate-lines t)))
   #+END_SRC
+
+  Fix SQLi prompt for postgres when there are underscores in the
+  database name
+
+  #+NAME: databases
+  #+BEGIN_SRC emacs-lisp
+  (sql-set-product-feature 'postgres :prompt-regexp "^[a-zA-Z_]*=[#>] ")
+  #+END_SRC
 * Dired
   #+name: dired
   Make dired-move and friends default to "other dired window" if there
@@ -566,7 +574,12 @@
   #+NAME: auto-complete
   #+BEGIN_SRC emacs-lisp
     (require 'company)
+
     (add-hook 'after-init-hook 'global-company-mode)
+    (add-hook 'cider-repl-mode-hook #'company-mode)
+    (add-hook 'cider-mode-hook #'company-mode)
+
+    (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
   #+END_SRC
 
 * Global key bindings
@@ -586,10 +599,23 @@
   I also unmap the right Alt (Meta) key so that I can use standard OSX
   key binding for € and °, and similar.
 
+  Also, disable CTRL-z since it sucks
+
   #+name: global-keys
   #+BEGIN_SRC emacs-lisp
     (when (boundp 'ns-right-alternate-modifier)
       (setq ns-right-alternate-modifier nil))
+
+    (global-unset-key [(control z)])
+    (global-unset-key [(control x)(control z)])
+  #+END_SRC
+
+  `which-key` mode will show available followup-keys when typing long
+  key bindings:
+
+  #+name: global-keys
+  #+BEGIN_SRC emacs-lisp
+    (my/turn-on 'which-key)
   #+END_SRC
 
 * Magit
@@ -846,8 +872,7 @@
      ;; List of languages that may be evaluated in Org documents
      (setq org-babel-load-languages
            '((emacs-lisp . t)
-             (sh . t)
-             (shell . t)
+;             (shell . t)
              (clojure .t)
              (ledger . t)
              (plantuml . t)
