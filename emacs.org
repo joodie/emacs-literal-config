@@ -3501,7 +3501,35 @@ clash badly. I try to set them back to somewhat calmer palette.
                   ("bal" "ledger -f %(ledger-file) bal")
                   ("reg" "ledger -f %(ledger-file) reg")
                   ("payee" "ledger -f %(ledger-file) reg @%(payee)")
-                  ("account" "ledger -f %(ledger-file) reg %(account)")))))
+                  ("account" "ledger -f %(ledger-file) reg %(account)"))))
+    :config
+    (defun ledger-next-misc ()
+      "Find next ledger Misc category."
+      (interactive)
+      (let ((tag "Misc"))
+        (forward-char (length tag))
+        (search-forward tag)
+        (search-backward tag)
+        (delete-char (length tag))))
+    (bind-key "M-m" 'ledger-next-misc ledger-mode-map)
+
+    (defun ledger-add-note ()
+      "Add a note to the current ledger entry.
+
+    Adds a new comment line starting with ' ; note: ' and places
+    point to the end. The new line is always placed after other
+    comments."
+      (interactive)
+      (ledger-navigate-beginning-of-xact)
+      (let ((beg-of-xact (point)))
+        (ledger-navigate-end-of-xact)
+        (unless (re-search-backward "^ +;" beg-of-xact t)
+          (goto-char beg-of-xact))
+        (end-of-line)
+        (insert "\n\t; note: ")
+        (ledger-magic-tab)))
+    (bind-key "M-." 'ledger-add-note ledger-mode-map))
+
   ;; flycheck-ledger does syntax checking
   ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
 #+END_SRC
