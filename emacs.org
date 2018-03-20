@@ -2357,6 +2357,56 @@ selected and can be simultaneously edited.
   (use-package iedit
     :defer t)
 #+END_SRC
+** PENDING Multiple cursors
+
+is an alternative to iedit. See [[https://github.com/Schnouki/dotfiles/blob/master/emacs/init-60-multiple-cursors.el][this dot files]] for more
+configuration options and a sample hydra, also [[https://github.com/abo-abo/hydra/wiki/multiple-cursors][here]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors
+  :config
+  (defhydra hydra-mc (:hint nil)
+    "
+        ^Up^            ^Down^        ^All^                ^Lines^               ^Edit^                 ^Other^
+  ----------------------------------------------------------------------------------------------------
+  [_p_]   Next    [_n_]   Next    [_a_] All like this  [_l_] Edit lines      [_i_] Insert numbers   [_t_] Tag pair
+  [_P_]   Skip    [_N_]   Skip    [_r_] All by regexp  [_L_] Edit line beg.  [_s_] Sort regions      ^ ^
+  [_M-p_] Unmark  [_M-n_] Unmark  [_d_] All DWIM        ^ ^                  [_R_] Reverse regions  [_q_] Quit
+  "
+    ("p" mc/mark-previous-like-this)
+    ("P" mc/skip-to-previous-like-this)
+    ("M-p" mc/unmark-previous-like-this)
+
+    ("n" mc/mark-next-like-this)
+    ("N" mc/skip-to-next-like-this)
+    ("M-n" mc/unmark-next-like-this)
+
+    ("a" mc/mark-all-like-this :exit t)
+    ("r" mc/mark-all-in-region-regexp :exit t)
+    ("d" mc/mark-all-dwim :exit t)
+
+    ("l" mc/edit-lines :exit t)
+    ("L" mc/edit-beginnings-of-lines :exit t)
+
+    ("i" mc/insert-numbers)
+    ("s" mc/sort-regions)
+    ("R" mc/reverse-regions)
+
+    ("t" mc/mark-sgml-tag-pair)
+    ("q" nil)
+
+    ("<mouse-1>" mc/add-cursor-on-click)
+    ("<down-mouse-1>" ignore)
+    ("<drag-mouse-1>" ignore)))
+
+(global-unset-key (kbd "M-<down-mouse-1>"))
+(global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+
+;;  a(unbind-key "C-c c" python-mode-map))
+;;  (bind-key "C-c C-z" 'python-shell python-mode-map)
+;;  (global-unset-key (kbd "M-<down-mouse-1>"))
+;;  (global-set-key (kbd "M-<mouse-1>") 'mc/add-cursor-on-click)
+#+END_SRC
 
 ** Count words in a buffer
 

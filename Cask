@@ -105,6 +105,7 @@
 (depends-on "magithub")
 (depends-on "markdown-mode")
 (depends-on "markdown-preview-mode")
+(depends-on "multiple-cursors")
 (depends-on "mustache")
 (depends-on "nameless")
 (depends-on "names")
