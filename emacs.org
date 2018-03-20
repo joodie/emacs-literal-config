@@ -2134,20 +2134,6 @@ are.
 [[https://www.reddit.com/r/emacs/comments/78aa27/hydras_are_just_great_simple_but_super_useful/][Hydras are just great (simple but super useful hydra inside!) : emacs]]
 
 #+BEGIN_SRC emacs-lisp
-  (defhydra hydra-undo-tree (:color yellow :hint nil)
-    "
-     undo-tree
-  -----------------------------------------------------
-                _p_: undo   _s_: save   _v_: visualize
-                _n_: redo   _l_: load   _q_: quit
-      "
-    ("p"   undo-tree-undo)
-    ("n"   undo-tree-redo)
-    ("s"   undo-tree-save-history)
-    ("l"   undo-tree-load-history)
-    ("v"   undo-tree-visualize :color blue)
-    ("q"   nil :color blue))
-
   (use-package undo-tree
     :diminish ""
     :bind
@@ -2156,7 +2142,20 @@ are.
     ("C-M-z" . undo-tree-visualize)
     :config
     (global-undo-tree-mode)
-    (setq undo-tree-visualizer-diff t))
+    (setq undo-tree-visualizer-diff t)
+    (defhydra hydra-undo-tree (:color yellow :hint nil)
+      "
+      undo-tree
+    -----------------------------------------------------
+                  _p_: undo   _s_: save   _v_: visualize
+                  _n_: redo   _l_: load   _q_: quit
+        "
+      ("p"   undo-tree-undo)
+      ("n"   undo-tree-redo)
+      ("s"   undo-tree-save-history)
+      ("l"   undo-tree-load-history)
+      ("v"   undo-tree-visualize :color blue)
+      ("q"   nil :color blue)))
 #+END_SRC
 
 ** Abbreviations
