@@ -7569,6 +7569,22 @@ Query programming problems within emacs by =howdoi-query= or
     :defer 5)
 #+END_SRC
 
+** Timer
+
+The simple countdown timer: [[https://github.com/dakra/tea-timer.el][tea-timer.el]]. Not yet in MELPA. Using a
+local copy.
+
+Run =C-u 10 M-x tea-timer= to get the alert after 10 minutes.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tea-timer
+    ;; :bind (:map pdf-view-mode-map ("e" . org-pdfquote-open))
+    :load-path "elisp/"
+    :init
+    (setq tea-timer-default-duration 1.5)
+    (setq tea-timer-message "Tea is ready!"))
+#+END_SRC
+
 ** Toys
 
 *** xkcd comics
