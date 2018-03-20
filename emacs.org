@@ -4136,7 +4136,7 @@ See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][do
           (shell-command (format "go get -u %s" pkg)))
         (load-file-from-gopath fname))))
 
-  ;;(use-package company-mode :defer t)
+  (use-package company :defer t)
 
   (use-package company-go
     :defer t
