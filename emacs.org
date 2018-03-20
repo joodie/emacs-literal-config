@@ -6932,56 +6932,63 @@ The read functions report their action in the echo field.
     ;; linking and capturing
     ;;
 
+
+    ;; show mode
+
+    (defun elfeed-show-link-title ()
+      "Copy the current entry title and URL as org link to the clipboard."
+      (interactive)
+      (let* ((title (elfeed-entry-title elfeed-show-entry))
+             (link (elfeed-entry-link elfeed-show-entry))
+             (titlelink (org-make-link-string link title)))
+        (when titlelink
+          (kill-new titlelink)
+          (gui-set-selection 'PRIMARY titlelink)
+          (message "Yanked: %s" titlelink))))
+
+    (defun elfeed-show-quick-url-note ()
+      "Fastest way to capture entry link to org agenda from elfeed show mode"
+      (interactive)
+      (elfeed-show-link-title)
+      (org-capture nil "n")
+      (yank)
+      (org-capture-finalize))
+
+    ;; search mode
+
     (defun elfeed-link-title (entry)
       "Copy the entry title and URL as org link to the clipboard."
       (interactive)
-      (let* ((link (elfeed-entry-link entry))
-             (title (elfeed-entry-title entry))
-             (titlelink (org-make-link-string link title))))
-      (when titlelink
-        (kill-new titlelink)
-        (x-set-selection 'PRIMARY titlelink)
-        (message "Yanked: %s" titlelink))))
+      (let* ((title (or (elfeed-meta entry :title)
+                        (elfeed-entry-title entry)))
+             (link (elfeed-entry-link entry))
+             (titlelink (org-make-link-string link title)))
+             (when titlelink
+               (kill-new titlelink)
+               (gui-set-selection 'PRIMARY titlelink)
+               (message "Yanked: %s" titlelink))))
 
-  ;; show mode
+    (defun elfeed-search-link-title ()
+      "Copy the current entry title and URL as org link to the clipboard."
+      (interactive)
+      (let ((entry (elfeed-search-selected t)))
+        (when (elfeed-entry-link entry)
+          (elfeed-link-title (entry) ))))
 
-  (defun elfeed-show-link-title ()
-    "Copy the current entry title and URL as org link to the clipboard."
-    (interactive)
-    (elfeed-link-title elfeed-show-entry))
-
-  (defun elfeed-show-quick-url-note ()
-    "Fastest way to capture entry link to org agenda from elfeed show mode"
-    (interactive)
-    (elfeed-link-title elfeed-show-entry)
-    (org-capture nil "n")
-    (yank)
-    (org-capture-finalize))
-
-  ;; search mode
-
-  (defun elfeed-search-link-title ()
-    "Copy the current entry title and URL as org link to the clipboard."
-    (interactive)
-    (let ((entries (elfeed-search-selected)))
-      (cl-loop for entry in entries
-               when (elfeed-entry-link entry)
-               do (elfeed-link-title entry))))
-
-  (defun elfeed-search-quick-url-note ()
-    "In search mode, capture the title and link for the selected
-            entry or entries in org aganda."
-    (interactive)
-    (let ((entries (elfeed-search-selected)))
-      (cl-loop for entry in entries
-               do (elfeed-untag entry 'unread)
-               when (elfeed-entry-link entry)
-               do (elfeed-link-title entry)
-               do (org-capture nil "n")
-               do (yank)
-               do (org-capture-finalize)
-               (mapc #'elfeed-search-update-entry entries))
-      (unless (use-region-p) (forward-line))))
+    (defun elfeed-search-quick-url-note ()
+      "In search mode, capture the title and link for the selected
+              entry or entries in org aganda."
+      (interactive)
+      (let ((entries (elfeed-search-selected)))
+        (cl-loop for entry in entries
+                 do (elfeed-untag entry 'unread)
+                 when (elfeed-entry-link entry)
+                 do (elfeed-link-title entry)
+                 do (org-capture nil "n")
+                 do (yank)
+                 do (org-capture-finalize)
+                 (mapc #'elfeed-search-update-entry entries))
+        (unless (use-region-p) (forward-line)))))
 #+END_SRC
 
 ** Twitter
