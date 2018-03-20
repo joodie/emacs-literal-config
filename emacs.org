@@ -3455,8 +3455,6 @@ clash badly. I try to set them back to somewhat calmer palette.
   (use-package ledger-mode
     :mode "\\.led\\'"
     :interpreter "ledger"
-    ;;:bind (:map ledger-mode-map
-    ;;            ("M-m" . ledger-next-misc))
     :init
     ;; date format
     (setq ledger-use-iso-dates t)
@@ -5803,6 +5801,15 @@ blocks. This also highlights source blocks in HTML exports.
   ;; display/update images in the buffer after I evaluate
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
+;; org block backgrounds
+
+;;(org-block-begin-line
+;; ((t (:underline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF"))))
+;;(org-block-background
+;; ((t (:background "#FFFFEA"))))
+;;(org-block-end-line
+;; ((t (:overline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF"))))
+
 #+END_SRC
 
 [[http://pragmaticemacs.com/emacs/highlight-latex-text-in-org-mode/][Highlight latex text in org mode | Pragmatic Emacs]] gives code for
@@ -7144,7 +7151,7 @@ I installed Liberation Serif for nov.el use.
       (face-remap-add-relative 'variable-pitch :family "Liberation Serif"
                                :height 2.0))
     (add-hook 'nov-mode-hook 'my-nov-font-setup)
-    ;; (add-hook 'nov-mode-hook #'line-break-mode)
+    (add-hook 'nov-mode-hook #'line-break-mode)
     (add-hook 'nov-mode-hook #'visual-line-mode))
 #+END_SRC
 
