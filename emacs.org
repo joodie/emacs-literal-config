@@ -550,7 +550,7 @@ from [[http://sam217pa.github.io/2016/09/01/emacs-iterm-integration/][here]].
       (interactive)
       (do-applescript
        (concat
-        " tell application \"iTerm2\"\n"
+        " tell application \"iTerm\"\n"
         "   tell the current session of current window\n"
         (format "     write text \"cd %s\" \n"
                 ;; string escaping madness for applescript
@@ -564,7 +564,7 @@ from [[http://sam217pa.github.io/2016/09/01/emacs-iterm-integration/][here]].
     (defun iterm-focus ()
       (interactive)
       (do-applescript
-       " do shell script \"open -a iTerm\"\n"))
+       " tell application \"iTerm\" to activate\n"))
 
     (bind-key "s-t" 'iterm-goto-filedir-or-home)
     (bind-key "s-T" 'iterm-focus))
