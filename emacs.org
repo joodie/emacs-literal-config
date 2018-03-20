@@ -3826,7 +3826,7 @@ recognize these namespaces:
     :defer t)
 #+END_SRC
 
-*** Nameless
+*** PENDING Nameless
 
 [[https://github.com/Malabarba/Nameless][Nameless]] is an alternative to Names. The elisp text file is not in any
 way different from normal, but this minor mode hides the name space
