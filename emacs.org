@@ -211,7 +211,7 @@ configuration.
 
 [[https://github.com/magnars/dash.el][dash.el]] is a library of modern list functions.
 
-#+BEGIN_SRC emacs-lisp :tangle no'
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package dash
     :config
     (if (>= emacs-major-version 24)
@@ -506,7 +506,7 @@ slightly outdated instructions:
      ;; (mac-print-mode 1)
      ;; (when (require 'mac-print-mode nil t)
      ;; (mac-print-mode 1)
-     ;; (global-set-key (kbd "M-p") 'mac-print-buffer))
+     ;; (global-set-key (kbd "M-p") #'mac-print-buffer))
 
    #+END_SRC
 
@@ -1372,7 +1372,6 @@ be shown with =M-x describe-personal-keybindings=.
     (if (bound-and-true-p overwrite-mode)
         (overwrite-mode -1) (overwrite-mode)))
 
-
   (bind-key "C-x t" 'hydra-toggle/body)
   (defhydra hydra-toggle (:color blue :hint nil)
     "
@@ -1529,7 +1528,7 @@ The hydra implementing this is self-documenting.
     ("h" howdoi-query)
     ("i" twit)
     ("j" ivy-insert-org-entity)
-    ("k" personal-key-bindings)
+    ("k" describe-personal-keybindings)
     ("l" org-mac-chrome-insert-frontmost-url)
     ("m" my/move-file-here)
     ("n" nato-region)
@@ -1572,7 +1571,7 @@ buffer. I do not use greek letters in keys, so I've removed them.
           (princ (mapconcat
                   (lambda (letter)
                     (let ((key (concat prefix letter)))
-                      (format ";; (global-set-key (kbd \"%s\") '%S)"
+                      (format ";; (global-set-key (kbd \"%s\") #'%S)"
                               key
                               (key-binding (kbd key)))))
                   letter-group
@@ -2525,13 +2524,13 @@ historical reasons. They are no more active.
     "Invoke the Markdown algorithm on region."
     (interactive "r")
     (shell-command-on-region start end "Markdown.pl" t t))
-  ;;(global-set-key "\C-cm" 'do-mark-down)
+  ;;(global-set-key "\C-cm" #'do-mark-down)
 
   (defun do-smarty-pants (start end)
     "Invoke the SmartyPants algorithm on region."
     (interactive "r")
     (shell-command-on-region start end "SmartyPants.pl" t t))
-  ;;(global-set-key "\C-cs" 'do-smarty-pants)
+  ;;(global-set-key "\C-cs" #'do-smarty-pants)
 #+END_SRC
 
 ** Commenting
@@ -3157,13 +3156,14 @@ The old Webster's 1913 Dictionary is a [[http://jsomers.net/blog/dictionary][rar
 of words are poetic, informative and thought provoking.
 
 I've installed a local copy the Webster's dictionary to my Mac and set
-it up as the first dictionary to search. Now the above key biinding =C-c j=
+it up as the first dictionary to search. Now the above key binding =C-c j=
 searches first Webster's.
 
 The downloaded sdcv-mode and its =sdcv-search= command remains unused.
 
 #+BEGIN_SRC emacs-lisp
   (use-package sdcv-mode
+    :disabled true
     :ensure nil)
 #+END_SRC
 
@@ -3295,7 +3295,7 @@ the command. It assumes that line numbers are off to start with.
         (progn
           (linum-relative-toggle)
           (nlinum-mode 1)
-          (goto-line (read-number "Goto line: ")))
+          (forward-line (read-number "Goto line: ")))
       (nlinum-mode -1)
       (linum-relative-toggle)))
 
@@ -3581,6 +3581,7 @@ windows.
       :defer t))
 
   (use-package flycheck-proselint
+    :disabled true    ;
     :ensure nil
     :defer t
     :after (flycheck))
@@ -3669,16 +3670,12 @@ Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
 #+BEGIN_SRC emacs-lisp
   (use-package paredit
     :no-require t
-    :config
-    (when (eq system-type 'darwin)
-      ;; C-left
-      (bind-key "s-<left>" 'paredit-forward-barf-sexp paredit-mode-map)
-      ;; C-right
-      (bind-key "s-<right>" 'paredit-forward-slurp-sexp paredit-mode-map)
-      ;; Alt-C-left
-      (bind-key "M-s-<left>" 'paredit-backward-slurp-sexp paredit-mode-map)
-      ;; Alt-C-right
-      (bind-key "M-s-<right>" 'paredit-backward-barf-sexp paredit-mode-map)))
+    :if (eq system-type 'darwin)
+    :bind (:map paredit-mode-map
+                ;;("s-<left>" . paredit-forward-barf-sexp)
+                ;;("s-<right>" . paredit-forward-slurp-sexp)
+                ("M-s-<left>" . paredit-backward-slurp-sexp)
+                ("M-s-<right>" . paredit-backward-barf-sexp)))
 #+END_SRC
 
 ** Perl
@@ -3824,7 +3821,7 @@ marking command lines. The chosen character is lozenge =◊=.
 
 #+BEGIN_SRC emacs-lisp
   (use-package racket-mode
-    :config
+    :init
     (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
     (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable))
 
@@ -3918,8 +3915,9 @@ check: =flycheck-package-setup=.
 
 *** eros
 
-Minor mode for Evaluation Result OverlayS for Emacs Lisp. Set on by
-default, toggle with hydra =C-x t e=. Simply ingenious!
+Minor mode for Evaluation Result OverlayS for Emacs Lisp. Shows ==C-x
+C-e= elisp evaluations at point. Set on by default, toggle with hydra
+=C-x t e=. Simply ingenious!
 
 #+BEGIN_SRC emacs-lisp
   (use-package eros
@@ -4048,8 +4046,7 @@ environment:
   ;;              :doc-spec
   ;;              '(("(python)Python Module Index" )
   ;;                ("(python)Index"
-  ;;                 (lambda
-  ;;                   (item)
+  ;;                 (lambda (item)
   ;;                   (cond
   ;;                    ((string-match
   ;;                      "\\([A-Za-z0-9_]+\\)() (in module \\([A-Za-z0-9_.]+\\))" item)
@@ -4127,7 +4124,7 @@ This is just causing warnings. Disabled.
   ;; treat .h files as C++ files (instead of C)
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
   ;; Run compile when you press F5
-  ;;(global-set-key (kbd "<f5>") 'compile)
+  ;;(global-set-key (kbd "<f5>") #'compile)
 #+END_SRC
 
 ** PENDING go
@@ -4308,8 +4305,7 @@ Frame]] package. It defines four commands:
 #+END_SRC
 
 The only missing piece is provided by the [[https://github.com/bbatsov/crux][crux]] package:
-=crux-transpose-windows= swaps two
-adjacent windows with each other.
+=crux-transpose-windows= swaps two adjacent windows with each other.
 
 #+BEGIN_SRC emacs-lisp
   (bind-key "C-c s" 'hydra-windows/body)
@@ -4605,7 +4601,7 @@ More in [[http://oremacs.com/swiper/#api][Ivy User Manual]].
 Also, save system clipboard before overwriting it from emacs
 ([[http://pragmaticemacs.com/emacs/prevent-emacs-wiping-the-system-clipboard/][Prevent Emacs wiping the system clipboard | Pragmatic Emacs]]).
 
-=councel-imenu= is bound to 's' in worf mode.
+=counsel-imenu= is bound to 's' in worf mode.
 
 =ivy-occur=, see [[https://oremacs.com/2017/11/18/dired-occur/][Save Ivy file completions to Dired · (or emacs]]
 
@@ -4613,6 +4609,9 @@ Also, save system clipboard before overwriting it from emacs
 to =C-c C-o= so that it can be launched from any mini buffer where ivy
 is active. [[https://oremacs.com/2017/11/30/ivy-0.10.0/][Ivy version 0.10.0]] added =C-d= to remove unwanted lines from
 the occur buffer before applying wgrep editing on it with =C-x C-q=.
+
+[[https://oremacs.com/2018/03/05/grep-exclude/][Using exclusion patterns when grepping · (or emacs]] gives details on
+how to configure =counsel-git= and =counsel-rg=.
 
 #+BEGIN_SRC emacs-lisp
 
@@ -4723,6 +4722,9 @@ It indexes files and makes it possible to search files and contents
 within a project. See it's list of commands with =C-c p C-h= and more
 commands from the project [[http://projectile.readthedocs.io/en/latest/usage/][wiki]].
 
+Tex linter from flycheck disables projectile loading. Fix:
+=(setq flycheck-disabled-checkers nil)= and then =M-x flycheck-buffer.=
+
 [[https://github.com/ericdanan/counsel-projectile][counsel-projectile: Ivy UI for Projectile]] adds more ivy
 functionality to it.
 
@@ -4734,11 +4736,16 @@ functionality to it.
     (setq projectile-completion-system 'ivy)
     (setq projectile-file-exists-remote-cache-expire nil)
     :config
-    (projectile-mode)
+    (projectile-mode))
+
     (use-package counsel-projectile
       :defer t
+      :after projectile
+      ;;:defines counsel-projectile-on
+      ;;:functions counsel-projectile-on ; silence warnings
       :config
-      (counsel-projectile-on)))
+    ;;  (counsel-projectile-on)
+)
 #+END_SRC
 
 ** Narrowing
@@ -5377,7 +5384,7 @@ have to use =C-c C-q= to call up the capture interface. Tags that
 match words in the header are automatically added at the end of the
 capture.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; Disabled. 2016-11-27 package update to messed this up.
   (defun org-auto-tag ()
     (interactive)
@@ -5405,34 +5412,26 @@ for several accounts. The path to the file must exist.
                    (file "~/Documents/ledger/refile.led")
                    "
   %(org-read-date)  %^{Payee}
-       ; entered: %U
-       Liabilities:MasterCard
-       Expenses:%^{Account}              € %^{Amount}
-  " :empty-lines-before 1)
+        ; entered: %U
+        Liabilities:MasterCard
+        Expenses:%^{Account}              € %^{Amount}
+   " :empty-lines-before 1)
                   ("lc" "Cash" plain
                    (file "~/Documents/ledger/refile.led")
                    "
   %(org-read-date) * %^{Payee}
-      ; entered: %U
-      Expenses:Cash
-      Expenses:%^{Account}              %^{Amount}
-  " :empty-lines-before 1 )
-                  ("ls" "SAR debit" plain
-                   (file "~/Documents/ledger/refile.led")
-                   "
-  %(org-read-date) * %^{Payee}
-      ; entered: %U
-      Assets:Samba
-      Expenses:%^{Account}              %^{Amount} SAR
-  " :empty-lines-before 1 )
+       ; entered: %U
+       Expenses:Cash
+       Expenses:%^{Account}             € %^{Amount}
+   " :empty-lines-before 1 )
                   ("le" "EUR debit" plain
                    (file "~/Documents/ledger/refile.led")
                    "
   %(org-read-date) * %^{Payee}
-      ; entered: %U
-      Assets:Heikintili
-      Expenses:%^{Account}               € %^{Amount}
-  " :empty-lines-before 1 ))
+       ; entered: %U
+       Assets:Heikintili
+       Expenses:%^{Account}               € %^{Amount}
+   " :emptye-lines-before 1 ))
                 org-capture-templates))
 #+END_SRC
 
@@ -5498,11 +5497,10 @@ Prefix arguments are very useful in this context:
 
 =org-toggle-time-stamp-type= is not bound to any key by default.
 
-
 *** Time manipulation
 
-[[https://github.com/dfeich/org-clock-convenience][org-clock-convenience]] adds functions that manipulate time stamps in
-the agenda view.
+[[https://github.com/dfeich/org-clock-convenience][org-clock-convenience]] adds functions that manipulate time stamps with
+keys. Press shift up or down.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-clock-convenience
@@ -5724,13 +5722,6 @@ Make custom markers for todo items:
 
               #+END_SRC
 
-              I want to file and refile notes to any main header in any file in
-              my =org-agenda-files= list.
-
-              #+BEGIN_SRC emacs-lisp
-                (setq org-refile-targets '(("reference.org" :level . 4)))
-              #+END_SRC
-
               Add timestamp to all DONE items.
 
               #+BEGIN_SRC emacs-lisp
@@ -5760,7 +5751,7 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
     :disabled true
     :defer t
     ;; :init (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●" ))
-    :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+    :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
   ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
   ;;(setq org-ellipsis "…")
   (setq org-ellipsis "⤵")
@@ -5885,8 +5876,8 @@ continuous process in the document directory:
   latexmk -pvc -pdf -view=none FILENAME.tex
 #+END_SRC
 
-
 Untangle files; i.e. write org code blocks to their own files.
+[[https://zeekat.nl/articles/making-emacs-work-for-me.html][Making Emacs Work For Me]]
 
 #+BEGIN_SRC emacs-lisp
   (bind-key "C-c i" 'my/org-babel-untangle)
@@ -5909,11 +5900,11 @@ Untangle files; i.e. write org code blocks to their own files.
     "Return the language for the given mode"
     (intern (replace-regexp-in-string "\\-mode$" "" (my/->string mode))))
 
-  (defun my/org-babel-untangle-tree (path)
-    (interactive "Droot directory to untangle: ")
-    (mapc 'my/org-babel-untangle
-          (cl-remove-if 'file-directory-p
-                        (f-files path (lambda (p) t) t))))
+;; (defun my/org-babel-untangle-tree (path)
+;;  (interactive "Droot directory to untangle: ")
+;;  (mapc 'my/org-babel-untangle
+;;        (cl-remove-if 'file-directory-p
+;;                      (f-files path (lambda (p) t) t))))
 
 #+END_SRC
 
