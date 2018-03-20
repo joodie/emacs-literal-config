@@ -5801,6 +5801,15 @@ blocks. This also highlights source blocks in HTML exports.
   ;; display/update images in the buffer after I evaluate
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
+;; org block backgrounds
+
+;;(org-block-begin-line
+;; ((t (:underline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF"))))
+;;(org-block-background
+;; ((t (:background "#FFFFEA"))))
+;;(org-block-end-line
+;; ((t (:overline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF"))))
+
 #+END_SRC
 
 [[http://pragmaticemacs.com/emacs/highlight-latex-text-in-org-mode/][Highlight latex text in org mode | Pragmatic Emacs]] gives code for
