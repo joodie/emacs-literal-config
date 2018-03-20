@@ -1291,7 +1291,7 @@ From [[http://timothypratley.blogspot.fi/2015/07/seven-specialty-emacs-settings-
 
 #+BEGIN_SRC emacs-lisp
   (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
-    (flet ((process-list ())) ad-do-it))
+    (cl-flet ((process-list ())) ad-do-it))
 #+END_SRC
 
 The [[https://github.com/iqbalansari/restart-emacs][restart-emacs]] package makes it possible not only to quit emacs
