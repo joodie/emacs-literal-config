@@ -437,14 +437,12 @@ Emacs]]
   (use-package dired
     :ensure nil
     :ensure-system-package coreutils
+    :hook auto-revert    ; auto refresh dired when file changes
     :config
     (setq dired-listing-switches "-alh")
 
     ;; single prompt for deletion
     (setq dired-recursive-deletes 'always)
-
-    ;; auto refresh dired when file changes
-    (add-hook 'dired-mode-hook 'auto-revert-mode)
 
     (use-package dired-details+
       :init
@@ -1107,8 +1105,7 @@ Note that it interferes with my current line highlighting. See [[Current line]].
   (use-package rainbow-mode
     :defer t
     :diminish ""
-    :config
-    (add-hook 'css-mode-hook 'rainbow-mode))
+    :hook css-mode)
 #+END_SRC
 
 * Start-up
@@ -3330,8 +3327,7 @@ More [[http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor
     ;; latex-extra
     (use-package latex-extra
       :defer t
-      :config
-      (add-hook 'latex-mode-hook #'latex-extra-mode))
+      :hook latex-mode)
 
     ;; cdlatex input for math
     (use-package cdlatex
@@ -3421,14 +3417,12 @@ My =org-mode= is configured to export to markdown format.
     :bind ("C-c 4" . pandoc-main-hydra/body))
 
   (use-package markdown-mode
-    :defer t
     :mode  ("\\.md" "\\.markdown")
+    ;;:hook pandoc-mode
     :config
     (add-hook 'markdown-mode-hook 'pandoc-mode)
     (use-package markdown-preview-mode
-      :defer t
-      :config
-      (add-hook 'markdown-mode-hook 'markdown-preview-mode)))
+      :hook markdown-mode))
 #+END_SRC
 
 See [[https://github.com/ancane/markdown-preview-mode][markdown-preview-mode]].
@@ -3797,9 +3791,7 @@ on.
 
 #+BEGIN_SRC emacs-lisp
   (use-package nameless
-    :defer t
-    :config
-    (add-hook 'emacs-lisp-mode-hook #'nameless-mode))
+    :hook emacs-lisp-mode)
 #+END_SRC
 
 *** Macrostep
@@ -3839,6 +3831,7 @@ in Emacs - Mastering Emacs]] for more.
 
 #+BEGIN_SRC emacs-lisp
   (use-package auto-complete
+    :hook ielm-mode
     :config
     (defun ielm-auto-complete ()
       "Enables `auto-complete' support in \\[ielm]."
@@ -3848,8 +3841,7 @@ in Emacs - Mastering Emacs]] for more.
                          ac-source-symbols
                          ac-source-words-in-same-mode-buffers))
       (add-to-list 'ac-modes 'inferior-emacs-lisp-mode)
-      (auto-complete-mode 1))
-    (add-hook 'ielm-mode-hook 'ielm-auto-complete))
+      (auto-complete-mode 1)))
 #+END_SRC
 
 *** Flycheck-package
@@ -3879,10 +3871,7 @@ Automatically uppercase SQL keywords in sql-mode.
 
 #+BEGIN_SRC emacs-lisp
   (use-package sqlup-mode
-    :defer t
-    :config
-    ;; Capitalize keywords in SQL mode
-    (add-hook 'sql-mode-hook 'sqlup-mode))
+    :hook sql-mode)
 #+END_SRC
 
 ** Clojure
