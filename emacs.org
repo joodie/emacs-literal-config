@@ -4922,7 +4922,7 @@ This and more files can be reached with my hydra-files by =C-z=.
                 _c_hangeLog     _r_eference.org: last note      _o_rg
                 _e_macs.org     _s_cratch
                 _d_otfiles.txt  _w_ork.org
-                _h_ome.gpg
+                _h_ome.gpg      _l_edger:refile.led
              "
     ("c" (find-file "~/installation.notes/balamac/ChangeLog"))
     ("e" (find-file "~/.emacs.d/emacs.org"))
@@ -4931,6 +4931,7 @@ This and more files can be reached with my hydra-files by =C-z=.
     ("r" my/last-captured-org-note)
     ("s" (switch-to-buffer "*scratch*"))
     ("w" (find-file "~/Dropbox/org/work.org"))
+    ("l" (find-file "/Users/heikki/Documents/ledger/refile.led"))
     ("o" org-info))
 #+END_SRC
 
