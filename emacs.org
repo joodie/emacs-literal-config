@@ -3253,6 +3253,8 @@ line numbers on and shows them in normal mode for the duration of
 the command. It assumes that line numbers are off to start with.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package nlinum)
+
   (use-package linum-relative
     :defer t
     :init
