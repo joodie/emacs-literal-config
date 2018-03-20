@@ -879,6 +879,38 @@ not make it look the way I wanted.
                       :foreground "black" :background "#eab700")
 #+END_SRC
 
+** Feebleline
+
+[[https://github.com/tautologyclub/feebleline/][Removing the mode-line and using echo-area (smartly)
+instead.🔊]]Minimalistic mode line replacement.
+
+#+BEGIN_SRC emacs-lisp
+    (use-package feebleline
+      :load-path "elisp/" ; elisp dir under ~/.emacs.d
+  :init
+  (setq feebleline-mode-line-text
+    '(
+      ("%s"  ((string-to-number (format-mode-line "%l"))) (face feebleline-linum-face))
+      ("%s"   (":" ) (face default))
+      ("%s " ((current-column)) (face feebleline-linum-face))
+      ("%s"   ("") (face default))
+      ("%s "   ((if (buffer-modified-p) "**" "" )) (face feebleline-asterisk-face))
+      ("%s"   ((if buffer-read-only "RO " ""  )) (face feebleline-asterisk-face))
+      ("%s "   ((buffer-file-name)) (face feebleline-filename-face))
+      ("%s"   ("") (face default))
+      (" %s "   ((if mode-name mode-name)) (face feebleline-time-face))
+      ("%s"   ("") (face default))
+      ))
+      :config
+      (set-face-attribute 'feebleline-filename-face nil
+                          :foreground "black" :weight 'bold)
+      (set-face-attribute 'feebleline-asterisk-face nil
+                          :foreground "salmon" :background "white")
+      (set-face-attribute 'feebleline-time-face nil
+                          :foreground "grey50" :background "white")
+      (feebleline-default-settings))
+#+END_SRC
+
 ** Visual bell
 
 Getting boings from emacs when you scroll to the end of the buffer
