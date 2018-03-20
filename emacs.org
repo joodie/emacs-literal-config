@@ -5016,6 +5016,20 @@ exported.
 Unsetting variable org-M-RET-may-split-line disallows splitting heaser
 lines with enter ([[http://irreal.org/blog/?p=6297][Make M-RET better in Org Mode | Irreal]]).
 
+[[https://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
+needs to be set before calling org mode.
+
+#+BEGIN_SRC emacs-lisp
+(custom-set-faces
+ '(org-block-begin-line
+   ((t (:underline "#A7A6AA" :foreground "#f00f00" :background "#efefef"))))
+ '(org-block
+   ((t (:background "#fffffc"))))
+ '(org-block-end-line
+   ((t (:overline "#A7A6AA" :foreground "##f00f00" :background "#efefef")))))
+#+END_SRC
+
+
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :ensure org-plus-contrib
