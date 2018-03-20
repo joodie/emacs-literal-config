@@ -650,6 +650,19 @@ The best way to get information about cursor location is to run
 open a *Help* window and show information about character,
 encoding, fonts and highlights. Also, see =M-x what-face=.
 
+*** Emojis
+
+Since 2016, there is political decision not to show color fonts under
+OS X, although it would be possible, simply because free ISS are not
+able to! Emojis, when displayed, are show as mono-color icons.
+
+There is a workaround in the [[https://github.com/iqbalansari/emacs-emojify][emojify]] package that renders emojis as
+PNG images when the =emojify-mode= is turned on.
+
+#+BEGIN_SRC emacs-lisp
+(use-package emojify)
+#+END_SRC
+
 *** TODO Unicode
 
 - Xah Lee's [[http://ergoemacs.org/emacs/emacs_n_unicode.html][Unicode]] page for easy copy and paste.

@@ -58,6 +58,7 @@
 (depends-on "elfeed-goodies")
 (depends-on "elfeed-org")
 (depends-on "elpy")
+(depends-on "emojify")
 (depends-on "epl")
 (depends-on "ereader")
 (depends-on "eros")
