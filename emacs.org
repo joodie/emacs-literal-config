@@ -959,7 +959,8 @@ The =mode-line-bell-string= is not displayed which is disappointing.
   (setq ring-bell-function 'echo-area-bell)
 #+END_SRC
 
-** Scrolling behavior
+** Windows
+*** Scrolling behavior
 
 Emacs's default scrolling behavior, like a lot of the default
 Emacs experience, is pretty idiosyncratic. The following snippet
@@ -1012,6 +1013,24 @@ other window using =M-s-<arrow>=.
 The default keybindings are complex or do not work under OS X and
 a laptop keyboard. Correction: =C-M-v= and  =C-M-V= do work for
 scrolling the other window!
+*** Help window focus
+
+Jump to the help window when it's opened.
+Press =q= to close it and restore the view to the previous buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (setq help-window-select t)
+#+END_SRC
+
+*** Automatic windows splitting preference
+
+While emacs tends to do automatic splitting of the frame horizontally,
+I prefer it to happen vertically. See [[https://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal][Stack Overflow]] for discussion.
+
+#+BEGIN_SRC emacs-lisp
+  (setq split-height-threshold nil
+        split-width-threshold 0)
+#+END_SRC
 
 ** Cursor
 
@@ -1058,16 +1077,6 @@ Current line is subtly highlighted in pale blue.
     (global-hl-line-mode 1)
     ;;(set-face-background hl-line-face "Grey20")
     (set-face-background hl-line-face "AliceBlue"))
-#+END_SRC
-
-** Automatic windows splitting preference
-
-While emacs tends to do automatic splitting of the frame horizontally,
-I prefer it to happen vertically. See [[https://stackoverflow.com/questions/2081577/setting-emacs-split-to-horizontal][Stack Overflow]] for discussion.
-
-#+BEGIN_SRC emacs-lisp
-  (setq split-height-threshold nil
-        split-width-threshold 0)
 #+END_SRC
 
 ** Global key bindings
