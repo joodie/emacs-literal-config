@@ -3640,6 +3640,16 @@ It works within project folder structure.
     :config (setq dumb-jump-selector 'ivy))
 #+END_SRC
 
+*** Parens
+
+I call =show-paren-mode= on several programming modes to highlight
+matching parens. Before it is turned on, the delay needs to made
+shorter:
+
+#+BEGIN_SRC emacs-lisp
+(setq show-paren-delay 0)
+#+END_SRC
+
 *** Paredit
 
 The most useful paredit key combinations use =C-<arrow>= that are
