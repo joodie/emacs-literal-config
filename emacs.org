@@ -4099,8 +4099,9 @@ function/method definition and hit =C-c M-d=.
 
 ** PENDING C++
 
+This is just causing warnings. Disabled.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   ;; Use the GDB visual debugging mode
   (setq gdb-many-windows t)
   ;; Turn Semantic on
