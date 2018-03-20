@@ -1158,23 +1158,26 @@ Start with the scratch buffer; no start-up screen. Restore previous
 window and file setup including window placement. Restore cursor
 position and minibuffer history.
 
-Direct custom modifications to be ignored in emacs v. 25.1 ([[https://www.reddit.com/r/emacs/comments/53zpv9/how_do_i_get_emacs_to_stop_adding_custom_fields/][How do I get emacs to stop adding "Custom" fields to the end of my .emacs file? : emacs]]).
+Direct custom modifications to be ignored in emacs v. 25.1 ([[https://www.reddit.com/r/emacs/comments/53zpv9/how_do_i_get_emacs_to_stop_adding_custom_fields/][How do I
+get emacs to stop adding "Custom" fields to the end of my .emacs
+file? : emacs]]).
 
 #+BEGIN_SRC emacs-lisp
   (setq inhibit-startup-screen +1
         inhibit-startup-message t
-        initial-scratch-message nil)
-                                          ; emacs 24.4 feature, call on main windowed emacs
+        initial-scratch-message nil
+        initial-major-mode 'emacs-lisp-mode)
+
+  ;; emacs 24.4 feature, call on main windowed emacs
   (when (display-graphic-p)
     (desktop-save-mode t))
 
   ;; save cursor position
-  (use-package saveplace
-    :defer t
-    :config
-    (setq-default save-place t))
+  ;; remember cursor position, for emacs 25.1 or later
+  (save-place-mode 1)
 
-  (setq custom-file "/dev/null")
+  ;; ignore custom modifications
+  (setq custom-file "/tmp/null")
 
   ;; Save minibuffer history
   ;;(savehist-mode)﻿
