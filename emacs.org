@@ -4048,6 +4048,9 @@ environment:
   ;;
   ;;         (add-hook 'python-mode-hook 'my-python-mode-hook)))
 
+  (use-package elpy
+    :init
+    (elpy-enable))
 
   (defun my/setup-python-mode ()
     "Custom command to setup python-mode"
