@@ -162,6 +162,7 @@
 (depends-on "suggest")
 (depends-on "suomalainen-kalenteri")
 (depends-on "super-save")
+(depends-on "swiper")
 (depends-on "synosaurus")
 (depends-on "toml-mode")
 (depends-on "transpose-frame")
