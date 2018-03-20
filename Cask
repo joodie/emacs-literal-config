@@ -123,6 +123,7 @@
 (depends-on "org-ref")
 (depends-on "org-table-sticky-header")
 (depends-on "org-webpage")
+(depends-on "origami")
 (depends-on "osx-dictionary")
 (depends-on "ox-reveal")
 (depends-on "package-build")

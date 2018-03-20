@@ -3100,6 +3100,47 @@ The downloaded sdcv-mode and its =sdcv-search= command remains unused.
     :ensure nil)
 #+END_SRC
 
+** Text folding
+
+[[https://github.com/gregsexton/origami.el][Origami folding minor mode]] recognises programming modes and works on
+other modes
+
+#+BEGIN_SRC  emacs-lisp
+  (use-package origami
+  :bind (("C-c y" . hydra-origami/body))
+  :config
+   (defhydra hydra-origami (:color red :hint nil)
+     "
+    ╭────────────┐
+    │ Origami    │
+   ╭┴────────────╯───────────────────────────────────────────────────
+    _o_pen node    _n_ext fold             toggle _f_orward
+    _c_lose node   _p_revious fold         toggle _a_ll
+    _t_oggle node  _N_ext and toggle       _s_how point only
+    ^ ^            _P_revious and toggle   _u_ndo
+    _q_uit         ^ ^                     _r_edo
+   "
+     ("o" origami-open-node)
+     ("c" origami-close-node)
+     ("t" origami-recursively-toggle-node)
+     ("f" origami-next-fold)
+     ("n" origami-forward-fold)
+     ("N" (progn
+            (origami-toggle-node (current-buffer) (point))
+            (origami-forward-fold (current-buffer) (point))
+            (origami-toggle-node (current-buffer) (point))))
+     ("p" origami-previous-fold)
+     ("P" (progn
+            (origami-toggle-node (current-buffer) (point))
+            (origami-previous-fold (current-buffer) (point))
+            (origami-toggle-node  (current-buffer) (point))))
+     ("u" origami-undo)
+     ("r" origami-redo)
+
+     ("a" origami-toggle-all-nodes)
+     ("s" origami-show-only-node)
+     ("q" nil :color blue)))
+#+END_SRC
 ** Number groups
 
 Large numbers made easier to read by highlighting groups of three.
