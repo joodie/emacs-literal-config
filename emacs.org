@@ -2485,10 +2485,13 @@ comment line.
 Alternative is [[https://github.com/paldepind/smart-comment][smart-comment: Smarter commenting for Emacs]].
 
 #+BEGIN_SRC emacs-lisp
-  (if (>= emacs-major-version 25)
-      (bind-key "M-;" #'comment-line)
-    (use-package comment-dwim-2
-      :bind "M-;"))
+;;  (if (>= emacs-major-version 25)
+;;      (bind-key "M-;" #'comment-line)
+;;    (use-package comment-dwim-2
+;;      :bind "M-;"))
+
+(use-package smart-comment
+  :bind ("M-;" . smart-comment))
 #+END_SRC
 
 Remember: =C-x ;= sets the comment column (comment-set-column)

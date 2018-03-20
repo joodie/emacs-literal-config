@@ -154,6 +154,7 @@
 (depends-on "shrink-whitespace")
 (depends-on "shut-up")
 (depends-on "simple-httpd")
+(depends-on "smart-comment")
 (depends-on "solarized-theme")
 (depends-on "sphinx-doc")
 (depends-on "sqlup-mode")
