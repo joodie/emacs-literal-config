@@ -5536,19 +5536,21 @@ Out of the many options, these are the most useful:
     (bind-key "C-c w" 'hydra-org-clock/body)
     (defhydra hydra-org-clock (:color blue :hint nil)
       "
-    ^Clock:^ ^In/out^     ^Edit^   ^Summary^    | ^Timers:^ ^Run^           ^Insert
-    -^-^-----^-^----------^-^------^-^----------|--^-^------^-^-------------^------
-    (_?_)    _i_n         _e_dit   _g_oto entry | (_z_)     _r_elative      ti_m_e
-    ^ ^      _c_ontinue   _q_uit   _d_isplay    |  ^ ^      cou_n_tdown     i_t_em
-    ^ ^      _o_ut        ^ ^      _r_eport     |  ^ ^      _p_ause toggle
-    ^ ^      ^ ^          ^ ^      ^ ^          |  ^ ^      _s_top
+    ^Clock:^ ^In/out^     ^Edit^           ^Summary^        | ^Timers:^ ^Run^           ^Insert
+    -^-^-----^-^----------^-^--------------^-^--------------|--^-^------^-^-------------^------
+    (_?_)    _i_n         _e_dit           _g_oto entry     | (_z_)     _r_elative      ti_m_e
+    ^ ^      _c_ontinue   _q_uit           goto _h_history  |  ^ ^      cou_n_tdown     i_t_em
+    ^ ^      _o_ut        _T_oggle type    _d_isplay        |  ^ ^      _p_ause toggle
+    ^ ^      ^ ^          ^ ^              _r_eport         |  ^ ^      _s_top
     "
        ("i" org-clock-in)
        ("o" org-clock-out)
        ("c" org-clock-in-last)
        ("e" org-clock-modify-effort-estimate)
        ("q" org-clock-cancel)
+       ("T" org-toggle-timestamp-type)
        ("g" org-clock-goto)
+       ("h" (org-clock-goto 4))
        ("d" org-clock-display)
        ("r" org-clock-report)
        ("?" (org-info "Clocking commands"))
