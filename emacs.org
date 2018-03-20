@@ -6975,6 +6975,20 @@ Put the cursor inside an URL and incant: Emacs, lauch web =C-x l w=.
     :config (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t))
 #+END_SRC
 
+** Web browser text editing
+
+I have been using [[https://github.com/stsquad/emacs_chrome][Edit with Emacs]], but [[https://www.bennee.com/~alex/blog/2018/01/17/edit-with-emacs-v1-15-released/][this announcement]] made me move
+to a newer framework called  [[https://github.com/alpha22jp/atomic-chrome][Atomic Chrome]] that allows bi-directional communication
+between the browser text fields and Emacs.
+
+You need to install this [[https://chrome.google.com/webstore/detail/atomic-chrome/lhaoghhllmiaaagaffababmkdllgfcmc][Chrome extension]] or [[https://github.com/alpha22jp/atomic-chrome][read more]] to use it from Firefox.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package atomic-chrome
+    :init
+    (atomic-chrome-start-server))
+#+END_SRC
+
 ** Calculator
 
 For a long time I used python interactive command line mode to do

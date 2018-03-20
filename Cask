@@ -10,6 +10,7 @@
 (depends-on "anaconda-mode")
 (depends-on "apples-mode")
 (depends-on "async")
+(depends-on "atomic-chrome")
 (depends-on "auth-password-store")
 (depends-on "auto-complete")
 (depends-on "avy")
