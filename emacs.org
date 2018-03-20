@@ -6290,19 +6290,15 @@ I have installed it with Joe's [[http://emacs.stackexchange.com/questions/13314/
 
 Code from [[http://mbork.pl/2016-06-13_Displaying_pdfs_on_the_right][Marcin Borkowski]] on displaying pdfs on the right follows.
 
-See more tweeks from [[http://pragmaticemacs.com/emacs/more-pdf-tools-tweaks/][Pragmatic Emacs]].
+See more tweeks from
+- [[http://pragmaticemacs.com/emacs/more-pdf-tools-tweaks/][Pragmatic Emacs]]
+- http://pragmaticemacs.com/emacs/view-and-annotate-pdfs-in-emacs-with-pdf-tools/
+- [[http://pragmaticemacs.com/emacs/even-more-pdf-tools-tweaks/][Even more PDF-tools tweaks from Pragmatic Emacs]]
+  - save the buffer after adding each annotation.
 
-http://pragmaticemacs.com/emacs/view-and-annotate-pdfs-in-emacs-with-pdf-tools/
 
-[[http://pragmaticemacs.com/emacs/even-more-pdf-tools-tweaks/][Even more PDF-tools tweaks from Pragmatic Emacs]], save the buffer after
-adding each annotation.
 
 #+BEGIN_SRC emacs-lisp
-
-  ;; wrapper for save-buffer ignoring arguments
-  (defun bjm/save-buffer-no-args ()
-    "Save buffer ignoring arguments"
-    (save-buffer))
 
   (use-package pdf-tools
     :mode ("\\.pdf$" . pdf-tools-mode)
@@ -6323,25 +6319,26 @@ adding each annotation.
     (add-hook 'pdf-view-mode-hook (lambda () (cua-mode 0)))
 
     ;; keyboard shortcuts
-    (define-key pdf-view-mode-map (kbd "l") 'pdf-annot-list-annotations)
-    (define-key pdf-view-mode-map (kbd "h") 'pdf-annot-add-highlight-markup-annotation)
-    (define-key pdf-view-mode-map (kbd "t") 'pdf-annot-add-text-annotation)
-    (define-key pdf-view-mode-map (kbd "t") 'pdf-annot-add-text-annotation)
-    (define-key pdf-view-mode-map (kbd "D") 'pdf-annot-delete)
+    (define-key pdf-view-mode-map (kbd "l") #'pdf-annot-list-annotations)
+    (define-key pdf-view-mode-map (kbd "h") #'pdf-annot-add-highlight-markup-annotation)
+    ;; (define-key pdf-view-mode-map (kbd "H") #'pdf-annot-add-highlight-automatically)
+    (define-key pdf-view-mode-map (kbd "t") #'pdf-annot-add-text-annotation)
+    (define-key pdf-view-mode-map (kbd "D") #'pdf-annot-delete)
+    (define-key pdf-view-mode-map (kbd "e") #'org-pdfquote-open)
 
     (defvar pdf-minimal-width 72
       "Minimal width of a window displaying a pdf.
-         If an integer, number of columns.  If a float, fraction of the
-         original window.")
+               If an integer, number of columns.  If a float, fraction of the
+               original window.")
 
     (defvar pdf-split-width-threshold 120
       "Minimum width a window should have to split it horizontally
-         for displaying a pdf in the right.")
+               for displaying a pdf in the right.")
 
     (defun pdf-split-window-sensibly (&optional window)
       "A version of `split-window-sensibly' for pdfs.
-         It prefers splitting horizontally, and takes `pdf-minimal-width'
-         into account."
+               It prefers splitting horizontally, and takes `pdf-minimal-width'
+               into account."
       (let ((window (or window (selected-window)))
             (width (- (if (integerp pdf-minimal-width)
                           pdf-minimal-width
@@ -6364,10 +6361,9 @@ adding each annotation.
                      (with-selected-window window
                        (split-window-below))))))))
 
-
     (defun display-buffer-pop-up-window-pdf-split-horizontally (buffer alist)
       "Call `display-buffer-pop-up-window', using `pdf-split-window-sensibly'
-         when needed."
+               when needed."
       (let ((split-height-threshold nil)
             (split-width-threshold pdf-split-width-threshold)
             (split-window-preferred-function #'pdf-split-window-sensibly))
@@ -6375,19 +6371,18 @@ adding each annotation.
 
 
     ;; midnite mode hook
-    ;; automatically turns on midnight-mode for pdfs
-    (add-hook 'pdf-view-mode-hook (lambda () (pdf-view-midnight-minor-mode)))
+    ;; automatically turns off midnight-mode for pdfs
+    (add-hook 'pdf-view-mode-hook (lambda ()
+                                    (bms/pdf-no-filter)))
 
     ;; set the amber profile as default (see below)
     ;; I prefer white background by default
     ;; (setq pdf-view-midnight-colors '("#ff9900" . "#0a0a12" ))
 
-
     (defun bms/pdf-no-filter ()
       "View pdf without colour filter."
       (interactive)
-      (pdf-view-midnight-minor-mode -1)
-      )
+      (pdf-view-midnight-minor-mode -1))
 
     ;; change midnite mode colours functions
     (defun bms/pdf-midnite-original ()
@@ -6421,27 +6416,29 @@ adding each annotation.
     (add-hook 'pdf-view-mode-hook 'bms/pdf-midnite-colour-schemes)
 
     ;; save after adding comment
-    (advice-add 'pdf-annot-edit-contents-commit :after 'bjm/save-buffer-no-args)
+    ;; (advice-add 'pdf-annot-edit-contents-commit :after #'bjm/save-buffer-no-args)
+    ;; takes too long on big PDFs. Set up a toggle !!!
+    ;; (advice-remove 'pdf-annot-edit-contents-commit #'bjm/save-buffer-no-args)
 
     (add-to-list 'display-buffer-alist '("\\.pdf\\(<[^>]+>\\)?$" . (display-buffer-pop-up-window-pdf-split-horizontally)))
 
-    (bind-key "C-c p" 'hydra-pdftools/body)
+    (bind-key "C-c r" 'hydra-pdftools/body)
     (defhydra hydra-pdftools (:color blue :hint nil)
       "
-                                                                             ╭───────────┐
-              Move  History   Scale/Fit     Annotations  Search/Link    Do   │ PDF Tools │
-          ╭──────────────────────────────────────────────────────────────────┴───────────╯
-                ^^_g_^^      _B_    ^↧^    _+_    ^ ^     [_al_] list    [_s_] search    [_u_] revert buffer
-                ^^^↑^^^      ^↑^    _H_    ^↑^  ↦ _W_ ↤   [_am_] markup  [_o_] outline   [_i_] info
-                ^^_p_^^      ^ ^    ^↥^    _0_    ^ ^     [_at_] text    [_F_] link      [_d_] dark mode
-                ^^^↑^^^      ^↓^  ╭─^─^─┐  ^↓^  ╭─^ ^─┐   [_ad_] delete  [_f_] search link
-           _h_ ←pag_e_→ _l_  _N_  │ _P_ │  _-_    _b_     [_aa_] dired
-                ^^^↓^^^      ^ ^  ╰─^─^─╯  ^ ^  ╰─^ ^─╯   [_y_]  yank
-                ^^_n_^^      ^ ^  _r_eset slice box
-                ^^^↓^^^
-                ^^_G_^^
-          --------------------------------------------------------------------------------
-               "
+                                                                   ╭───────────┐
+    Move  History   Scale/Fit     Annotations  Search/Link    Do   │ PDF Tools │
+╭──────────────────────────────────────────────────────────────────┴───────────╯
+      ^^_g_^^      _B_    ^↧^    _+_    ^ ^     [_al_] list    [_s_] search    [_u_] revert buffer
+      ^^^↑^^^      ^↑^    _H_    ^↑^  ↦ _W_ ↤   [_am_] markup  [_o_] outline   [_i_] info
+      ^^_p_^^      ^ ^    ^↥^    _0_    ^ ^     [_at_] text    [_F_] link      [_d_] dark mode
+      ^^^↑^^^      ^↓^  ╭─^─^─┐  ^↓^  ╭─^ ^─┐   [_ad_] delete  [_f_] search link
+ _h_ ←pag_e_→ _l_  _N_  │ _P_ │  _-_    _b_     [_aa_] dired
+      ^^^↓^^^      ^ ^  ╰─^─^─╯  ^ ^  ╰─^ ^─╯   [_y_]  yank
+      ^^_n_^^      ^ ^  _r_eset slice box
+      ^^^↓^^^
+      ^^_G_^^
+--------------------------------------------------------------------------------
+     "
       ("\\" hydra-master/body "back")
       ("<ESC>" nil "quit")
       ("al" pdf-annot-list-annotations)
@@ -6474,7 +6471,30 @@ adding each annotation.
       ("N" pdf-history-forward :color red)
       ("l" image-forward-hscroll :color red)
       ("h" image-backward-hscroll :color red)))
+
+
+  (use-package org-pdfview
+    :after (pdf-tools org))
+
+  (use-package pdftools-annotation
+    :after (pdf-tools org org-pdfview)
+    :bind (:map pdf-view-mode-map ("e" . org-pdfquote-open))
+    :load-path "elisp/" ; elisp dir under ~/.emacs.d
+    :config
+    (add-to-list
+     'org-file-apps '("\\.pdf\\'" . org-pdfview-open))
+    (add-to-list
+     'org-file-apps '("\\.pdf::\\([[:digit:]]+\\)\\'" . org-pdfview-open)))
+
 #+END_SRC
+
+#+BEGIN_EXAMPLE
+        (define-key smap "m" 'pdf-annot-add-markup-annotation)
+        (define-key smap "s" 'pdf-annot-add-squiggly-markup-annotation)
+        (define-key smap "u" 'pdf-annot-add-underline-markup-annotation)
+        (define-key smap "o" 'pdf-annot-add-strikeout-markup-annotation)
+        (define-key smap "h" 'pdf-annot-add-highlight-markup-annotation)))
+#+END_EXAMPLE
 
 ** Mail: gmail
 

@@ -119,6 +119,7 @@
 (depends-on "org-dropbox")
 (depends-on "org-gcal")
 (depends-on "org-kanban")
+(depends-on "org-pdfview")
 (depends-on "org-plus-contrib")
 (depends-on "org-preview-html")
 (depends-on "org-ref")
