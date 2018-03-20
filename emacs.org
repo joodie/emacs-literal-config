@@ -6192,6 +6192,34 @@ document. Place them to the end. Read more about [[http://merkel.zoneo.net/Latex
   (define-abbrev org-mode-abbrev-table "obiblio" "" 'skel-org-block-bibl)
 #+END_SRC
 
+** Org-kanban
+
+Finally a sensible implementation of kanban for org!
+[[https://github.com/gizmomogwai/org-kanban][gizmomogwai/org-kanban: Kanban table for org-mode]]
+
+1. The first line defines TODO headers to use. E.g
+    =#+TODO:Todo Plan Develop Test Done=
+2. Write the topics as level one headers
+3. =Shift right arrow= the topics to initial TODO state.
+4. Create the kanban table:
+#+BEGIN_EXAMPLE
+ #+BEGIN: kanban
+ #+END:
+#+END_EXAMPLE
+
+Use abbreviation =okanban= to create it.
+
+5. Place cursor on start or end tag and press =C-c C-c= to create or
+   update the table.
+
+6. The TODO state can be updated from inside the table. Place the
+   cursor on a line and give command =org-kanban/shift=. Keys =j= and =k=
+   are bound to continue moving the topic left and right.
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-kanban)
+#+END_SRC
+
 ** Presentation
 
 This code exports org mode outlines to presentations in fancy HTML5
