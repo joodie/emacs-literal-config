@@ -4317,7 +4317,7 @@ adjacent windows with each other.
     ("o" flop-frame)
     ("r" rotate-frame)
     ("x" rotate-frame-clockwise)
-    ("y" rotate-frame-anti-clockwise))
+    ("y" rotate-frame-anticlockwise))
 #+END_SRC
 
 The built-in winner-mode defines =Ctrl+c ←= to go back to previous
