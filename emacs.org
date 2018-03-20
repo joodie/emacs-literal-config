@@ -4089,7 +4089,7 @@ environment:
 functions and methods. Inside a Python file move the cursor to some
 function/method definition and hit =C-c M-d=.
 
-** C++
+** PENDING C++
 
 
 #+BEGIN_SRC emacs-lisp
