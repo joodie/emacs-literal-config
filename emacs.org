@@ -635,7 +635,10 @@ I am trying out the new [[http://sourcefoundry.org/hack/][Hack 2.0]] font.
   ;;     (set-fontset-font "fontset-default" nil
   ;;                       (font-spec :size 20 :name "Symbola:"))
   (when (eq system-type 'darwin)
-    (set-frame-font "-*-Hack-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1"))
+    (set-face-attribute 'default nil :family "Hack" :height 120))
+    ;; (set-frame-font "-*-Hack-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
+    ;; (set-fontset-font "fontset-default" nil
+    ;;                     (font-spec :size 20 :name "Noto Emoji"))
 #+END_SRC
 
 You can use =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to
