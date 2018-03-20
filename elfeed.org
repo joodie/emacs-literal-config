@@ -11,6 +11,7 @@
 
 **** http://www.hs.fi/uutiset/rss/
 **** http://yle.fi/uutiset/rss/paauutiset.rss
+**** https://suomenkuvalehti.fi/8hj38g7dh49g73jd02fasd/
 ** News in Science Journals                                               :j:
 *** http://feeds.nature.com/NatureNewsComment?format=xml
 *** http://news.sciencemag.org/rss/weekly_news_email.xml
@@ -28,10 +29,11 @@
 *** Emacs                                                                 :e:
 **** http://planet.emacsen.org/atom.xml
 **** http://emacsworld.blogspot.com/feeds/posts/default
+# **** https://emacs.stackexchange.com/feeds
+**** [[http://emacs.stackexchange.com/feeds][SX]]
 **** entry-title: \(emacs\|org-mode\)
 **** http://fasciism.com/feed.xml
 **** http://planet.emacsen.org/atom.xml
-**** [[http://emacs.stackexchange.com/feeds][SX]]
 # **** http://whattheemacsd.com/http:/atom.xml
 *** Perl                                                                  :p:
 **** http://shallowsky.com/blog/index.rss
