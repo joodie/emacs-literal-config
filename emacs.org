@@ -3483,6 +3483,8 @@ clash badly. I try to set them back to somewhat calmer palette.
   (use-package ledger-mode
     :mode "\\.led\\'"
     :interpreter "ledger"
+    ;;:bind (:map ledger-mode-map
+    ;;            ("M-m" . ledger-next-misc))
     :init
     ;; date format
     (setq ledger-use-iso-dates t)
