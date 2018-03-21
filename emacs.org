@@ -2315,14 +2315,13 @@ from [[http://endlessparentheses.com/fixing-double-capitals-as-you-type.html][En
   (define-minor-mode dubcaps-mode
     "Toggle `dubcaps-mode'.  Converts words in DOuble CApitals to
   Single Capitals as you type."
-    :init-value nil
+    :init-value t
     :lighter ("")
     (if dubcaps-mode
         (add-hook 'post-self-insert-hook #'dcaps-to-scaps nil 'local)
       (remove-hook 'post-self-insert-hook #'dcaps-to-scaps 'local)))
 
   (add-hook 'text-mode-hook #'dubcaps-mode)
-
 #+END_SRC
 
 ** Fixing text written with wrong keyboard layout
