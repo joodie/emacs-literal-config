@@ -379,6 +379,9 @@ use autodie;
     ("ofinnish" "#+LaTeX_HEADER: \\usepackage[finnish]{babel}" nil 9)
     ("ohyph" "#+LaTeX_HEADER: \\usepackage[none]{hyphenat}" nil 11)
     ("oindent" "#+STARTUP: indent" nil 4)
+    ("okanban" "#+BEGIN: kanban
+#+END
+" nil 5)
     ("olabel" "#+LABEL: fig:label" nil 6)
     ("olable" "#+LABEL: fig:label" nil 7)
     ("oname" "#+NAME:" nil 6)
