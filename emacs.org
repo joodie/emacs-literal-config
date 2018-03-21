@@ -1849,13 +1849,13 @@ automatically.
 ** Auto refresh buffers
 
 Automatically update file-associated buffers on file change. Also,
-auto refresh dired files, but be quiet about it.
+auto refresh dired files.
 
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode)
   (diminish 'auto-revert-mode)
   (setq global-auto-revert-non-file-buffers t)
-  (setq auto-revert-verbose nil)
+  (setq auto-revert-verbose t)
 #+END_SRC
 
 * Editing
