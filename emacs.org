@@ -1323,6 +1323,16 @@ Use prefix arguments to modify:
 
 * Key bindings
 
+** Redefining default keys
+
+=what-cursor-position= is bound to =C-x == and shows position and
+character information in echo space. I reuse the binding to
+=describe-char= that has more detailed output to separate buffer.
+
+#+BEGIN_SRC emacs-lisp
+(bind-key* "C-x =" 'describe-char)
+#+END_SRC
+
 ** Free default bindings
 
 Numerical arguments to commands are passed with =C-3=, =M-3=, =C-M-3= for
