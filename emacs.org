@@ -2288,16 +2288,17 @@ Yas is enabled in programming and org modes.
   (use-package yasnippet
     :disabled nil
     :defer t
-    :config
-    (yas-reload-all)
+    :init
     (add-hook 'prog-mode-hook #'yas-minor-mode)
     (add-hook 'org-mode-hook #'yas-minor-mode)
-    (add-hook 'emacs-lisp-mode-hook #'yas-minor-mode))
+    (add-hook 'emacs-lisp-mode-hook #'yas-minor-mode)
+    :config
+    (yas-reload-all))
 #+END_SRC
 ** Fixing DOuble capitals
 
 Painless way to avoid double capitals in the beginning of words
-from [[http://endlessparentheses.com/fixing-double-capitals-as-you-type.html][Endless Parentheses] and [[http://emacs.stackexchange.com/questions/13970/fixing-double-capitals-as-i-type/13975#13975][Emacs StackExchange]].
+from [[http://endlessparentheses.com/fixing-double-capitals-as-you-type.html][Endless Parentheses]] and [[http://emacs.stackexchange.com/questions/13970/fixing-double-capitals-as-i-type/13975#13975][Emacs StackExchange]].
 
 #+BEGIN_SRC emacs-lisp
   (defun dcaps-to-scaps ()
