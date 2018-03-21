@@ -374,6 +374,10 @@ use autodie;
     ("oauthor" "#+AUTHOR: Heikki Lehväslaiho" nil 7)
     ("obibio" "" skel-org-block-bibl 1)
     ("obiblio" "" skel-org-block-bibl 0)
+("obeamer" "#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+BEAMER_THEME: metropolis
+" nil 0)
     ("ocaption" "#+CAPTION: " nil 7)
     ("odate" "#+DATE:" nil 5)
     ("ofinnish" "#+LaTeX_HEADER: \\usepackage[finnish]{babel}" nil 9)
@@ -468,4 +472,3 @@ use autodie;
 (define-abbrev-table 'xkcd-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
-
