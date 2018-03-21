@@ -37,12 +37,24 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
-(eval-when-compile
-  (require 'use-package))
-(require 'diminish)                ;; if you use :diminish
-(require 'bind-key)                ;; if you use any :bind variant
+(eval-and-compile
+  (defvar use-package-verbose t)
+  (require 'use-package)
+  (require 'bind-key)
+  (require 'diminish)
+  (setq use-package-always-ensure t)
+  (if (daemonp)
+      (setq use-package-always-demand t)))
+;; (eval-when-compile
+;;   (require 'use-package)
+;; )
+;;(require 'diminish)                ;; if you use :diminish
+;;(require 'use-package-diminish)
+;;(require 'bind-key)                ;; if you use any :bind variant
+;;(setq use-package-always-ensure t) ;; no need for :ensure key
+;;(use-package diminish)
+
 (require 'cl)                      ;; Common Lisp extensions to Emacs Lisp
-(setq use-package-always-ensure t) ;; no need for :ensure key
 
 
 ;;load the main configuration
@@ -50,7 +62,7 @@
 
 
 (defun my-tangle-section-canceled ()
-  "Checks if the previous section header was PEND"
+  "Check if the previous section header was PEND."
   (save-excursion
     (if (re-search-backward "^\\*+\\s-+\\(.*?\\)?\\s-*$" nil t)
         (progn
@@ -59,9 +71,9 @@
       nil)))
 
 (defun my-tangle-config-org (orgfile elfile)
-  "This function will write all source blocks from ORGFILE into
-ELFILE that are ...
+  "Write all source blocks from ORGFILE into ELFILE.
 
+Write only blocks that are:
 - not marked as :tangle no
 - have a source-code of =emacs-lisp=
 - doesn't have the todo-marker PEND (for PENDING)"
@@ -119,28 +131,3 @@ ELFILE that are ...
               (message "Loading %s...done (%.3fs) [after-init]",
                        load-file-name elapsed)))
           t)
-
-;;(add-hook 'after-init-hook
-;;          (lambda ()
-;;            (setq ns-auto-hide-menu-bar t)
-;;            (custom-set-variables
-;;             '(initial-frame-alist (quote ((fullscreen . maximized)))))))
-
-;;(add-hook 'after-init-hook
-;;          (lambda ()
-;;            (setq ns-auto-hide-menu-bar t)
-;;            (custom-set-variables
-;;             '(initial-frame-alist (quote ((fullscreen . maximized)))))))
-
-;;(setq ns-auto-hide-menu-bar t)
-;;(setq ns-auto-hide-menu-bar t)
-;;(custom-set-variables
-;; '(initial-frame-alist (quote ((fullscreen . maximized)))))
-
-;;add-hook 'window-setup-hook
-;;         (lambda()
-;;           (setq ns-auto-hide-menu-bar t)
-;;           (set-frame-position nil 0 -24)
-;;           (set-frame-size
-;;            nil (display-pixel-width)
-;;            (display-pixel-height) t)))
