@@ -1127,16 +1127,23 @@ active themes.
 ** Mouse
 
 Mouse and trackpad are best [[https://github.com/purcell/disable-mouse][inactivated]] when inside an emacs window.
-Note that the OS menu system is still working normally.
+Note that the OS menu system is still working normally. Also, it is
+possible to click on and follow links.
 
 Just in case I need mouse at some point, I've added the
-global-disable-mouse-mode to my universal toggle hydra: =C-x t m= .
+global-disable-mouse-mode to my universal toggle hydra: =C-x t m=.
+Indeed, I now need an active mouse pointer for [[PDF]] annotations.
+
+When active, mouse-wheel acts on the hovered window rather than the
+one where the typing focus is.
 
 #+BEGIN_SRC emacs-lisp
   (use-package disable-mouse
     :defer t
     :diminish global-disable-mouse-mode
     :init (global-disable-mouse-mode))
+
+  (setq mouse-wheel-follow-mouse t)
 #+end_SRC
 
 ** Rainbow-mode
