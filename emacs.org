@@ -5556,11 +5556,13 @@ Out of the many options, these are the most useful:
     ^Clock:^ ^In/out^     ^Edit^           ^Summary^        | ^Timers:^ ^Run^           ^Insert
     -^-^-----^-^----------^-^--------------^-^--------------|--^-^------^-^-------------^------
     (_?_)    _i_n         _e_dit           _g_oto entry     | (_z_)     _r_elative      ti_m_e
-    ^ ^      _c_ontinue   _q_uit           goto _h_history  |  ^ ^      cou_n_tdown     i_t_em
-    ^ ^      _o_ut        _T_oggle type    _d_isplay        |  ^ ^      _p_ause toggle
-    ^ ^      ^ ^          ^ ^              _r_eport         |  ^ ^      _s_top
+    ^ ^      _I_n list    _q_uit           goto _h_istory  |  ^ ^      cou_n_tdown     i_t_em
+    ^ ^      _c_ontinue   _T_oggle type    _d_isplay        |  ^ ^      _p_ause toggle
+    ^ ^      _o_ut        ^ ^              _r_eport         |  ^ ^      _s_top
+    ^ ^      ^ ^
     "
        ("i" org-clock-in)
+       ("I" (org-clock-in 4))
        ("o" org-clock-out)
        ("c" org-clock-in-last)
        ("e" org-clock-modify-effort-estimate)
