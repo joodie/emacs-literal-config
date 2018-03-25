@@ -2207,7 +2207,12 @@ are.
     ("M-z" . hydra-undo-tree/body)
     ("C-M-z" . undo-tree-visualize)
     :config
+    ;; autosave the undo-tree history
+    (setq undo-tree-history-directory-alist
+        `((".*" . ,temporary-file-directory)))
+    (setq undo-tree-auto-save-history t)
     (global-undo-tree-mode)
+
     (setq undo-tree-visualizer-diff t)
     (defhydra hydra-undo-tree (:color yellow :hint nil)
       "
