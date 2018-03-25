@@ -5488,7 +5488,7 @@ for several accounts. The path to the file must exist.
                    "
   %(org-read-date) * %^{Payee}
        ; entered: %U
-       Expenses:Cash
+       Assets:Cash
        Expenses:%^{Account}             € %^{Amount}
    " :empty-lines-before 1 )
                   ("le" "EUR debit" plain
