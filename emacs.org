@@ -1809,13 +1809,17 @@ feature. They need to be available in all text buffers. Any changes
 to abbrevs are silently saved.
 
 #+BEGIN_SRC emacs-lisp
-  (setq save-abbrevs 'silently)
-  (defun my/text-formatting-hooks ()
-    (my/turn-on 'auto-fill ; turn on automatic hard line wraps
-                'abbrev))  ;; abbrev-mode on
-
-  (add-hook 'text-mode-hook
-            'my/text-formatting-hooks)
+  (use-package abbrev
+    :ensure nil ; built-in
+    :init
+    (defun my/text-formatting-hooks ()
+      (my/turn-on 'auto-fill ; turn on automatic hard line wraps
+                  'abbrev))  ;; abbrev-mode on
+    :config
+    (setq save-abbrevs 'silently)
+    (setq-default abbrev-mode t)
+    (add-hook 'text-mode-hook
+              'my/text-formatting-hooks))
 #+END_SRC
 
 If the line wrapping (explicitely =M-q=) needs to be [[http://www.emacswiki.org/emacs/UnfillParagraph][reversed]], use
