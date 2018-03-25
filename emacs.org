@@ -1162,10 +1162,13 @@ one where the typing focus is.
 ** Rainbow-mode
 
 Rainbow-mode sets the background of any color name in a buffer. Turn
-it on in CSS buffers but elsewhere is can toggled on with =M-x t u=.
+it on in CSS buffers but elsewhere is can toggled on with =C-x t u=.
 Note that it interferes with my current line highlighting. See [[Current line]].
 
 #+BEGIN_SRC emacs-lisp
+
+  (use-package rainbow-delimiters)
+
   (use-package rainbow-mode
     :defer t
     :diminish ""
@@ -3858,16 +3861,16 @@ ElDoc shows arguments to function under cursor in the minibuffer.
 
 #+BEGIN_SRC emacs-lisp
   (setq my/lisps
-        '(emacs-lisp lisp clojure extempore racket))
+        '(emacs-lisp lisp clojure extempore racket lisp-interaction))
 
   (defun my/general-lisp-hooks ()
     (my/turn-on 'paredit
-                ;;'rainbow-delimiters
-                'electric-pair-mode
-                'show-paren-mode
-                'aggressive-indent-mode
+                'rainbow-delimiters
+                'electric-pair
+                'show-paren
+                'aggressive-indent
                 'eldoc
-                'abbrev-mode
+                'abbrev
                 ;;'highlight-parentheses
                 ))
   (dolist (mode (mapcar 'my/->mode-hook my/lisps))
