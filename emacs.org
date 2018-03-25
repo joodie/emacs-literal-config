@@ -4688,6 +4688,7 @@ how to configure =counsel-git= and =counsel-rg=.
     :diminish (ivy-mode . "")
     :init
     (setq ivy-use-virtual-buffers t) ; Enable bookmarks and recentf in buffer list
+    (setq enable-recursive-minibuffers t)
     (setq ivy-display-style 'fancy)
     (setq ivy-height 10)
     (setq ivy-count-format "(%d/%d) ")
