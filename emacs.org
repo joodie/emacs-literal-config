@@ -1756,6 +1756,8 @@ space from the buffer.
 
 #+BEGIN_SRC emacs-lisp
   (setq-default indent-tabs-mode nil)
+  ;; smart tab behavior - indent or complete
+  ;; (setq tab-always-indent 'complete)
 
   (defun my/clean-buffer-formatting ()
     "Indent and clean up the buffer"
@@ -3791,11 +3793,11 @@ Use the built-in =cperl-mode= instead of the default =perl-mode=
           cperl-tab-always-indent t)
     :config
     (defun my/cperl-mode-hook ()
-      (my/turn-on 'show-paren-mode
-                  'abbrev-mode
-                  'electric-pair-mode
-                  'electric-operator-mode
-                  'aggressive-indent-mode))
+      (my/turn-on 'show-paren
+                  'abbrev
+                  'electric-pair
+                  'electric-operator
+                  'aggressive-indent))
     (add-hook 'cperl-mode-hook 'my/cperl-mode-hook t))
 #+END_SRC
 
@@ -4038,7 +4040,7 @@ so I bind the functions to Command (Super) key: =s-up>= and
     (defun my/cider-repl-mode-hooks ()
       (my/turn-on 'paredit
                   ;;'rainbow-delimiters
-                  'show-paren-mode
+                  'show-paren
                   'highlight-parentheses))
 
     (add-hook 'cider-repl-mode-hook
