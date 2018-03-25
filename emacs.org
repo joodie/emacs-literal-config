@@ -1691,12 +1691,15 @@ using command line. Mnemonic function name =dos2unix= follows
 common conventions.
 
 #+BEGIN_SRC emacs-lisp
+  (prefer-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
   (set-language-environment "utf-8")
   (setq locale-coding-system 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
+  ;; (set-terminal-coding-system 'utf-8) ; set by prefer-coding-system
+  ;; (set-keyboard-coding-system 'utf-8) ; set by prefer-coding-system
+  ;; (set-terminal-coding-system 'utf-8) ; set by prefer-coding-system
   (set-selection-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8)
+
   (when (display-graphic-p)
     (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)))
   (modify-coding-system-alist 'file "" 'utf-8)
