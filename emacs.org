@@ -960,6 +960,18 @@ The =mode-line-bell-string= is not displayed which is disappointing.
   (setq ring-bell-function 'echo-area-bell)
 #+END_SRC
 
+** Frame title
+
+More useful frame title, that shows either a file or a buffer name (if
+the buffer isn't visiting a file).
+
+#+BEGIN_SRC emacs-lisp
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
+#+END_SRC
+
 ** Windows
 *** Scrolling behavior
 
