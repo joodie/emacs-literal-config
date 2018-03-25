@@ -2089,6 +2089,15 @@ comma separated fields. An =&= is used in LaTeX tables.
     (align-regexp start end
                   "\\(\\s-*\\)\\s-" 1 0 t))
 #+END_SRC
+** Align text
+
+A more general application of the previous function is to align text
+or code with any interactively selected separator character. Bound to
+=C-x \= which was surprisingly unused.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x \\") #'align-regexp)
+#+END_SRC
 
 ** Selecting text
 
