@@ -445,7 +445,7 @@ Emacs]]
     (setq dired-recursive-deletes 'always)
 
     (use-package dired-details+
-      :disable t
+      :disabled t
       :init
       (setq dired-details-hidden-string ""))
 
