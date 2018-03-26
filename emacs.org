@@ -1459,12 +1459,6 @@ be shown with =M-x describe-personal-keybindings=.
   ;;    ("-" (text-scale-increase -2) "out")
   ;;    ("0" (text-scale-adjust 0) "reset"))
 
-  ;; http://acidwords.com/posts/2018-03-02-extending-org-mode-easy-templates.html
-  (add-to-list 'org-structure-template-alist
-               '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
-  (add-to-list 'org-structure-template-alist
-               '("b" "#+BEGIN_ABSTRACT\n?\n#+END_ABSTRACT" ""))
-
   ;; http://oremacs.com/2015/03/07/hydra-org-templates/
   ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
   (defhydra hydra-org-template (:color blue :hint nil)
@@ -5522,6 +5516,21 @@ using org agenda commands.
   (use-package org-dropbox
     :defer 5
     :config (org-dropbox-mode))
+#+END_SRC
+
+** Structure templates
+
+  Extending org capture templates as in
+  http://acidwords.com/posts/2018-03-02-extending-org-mode-easy-templates.html
+  with comment and abstract blocks. These have been added to
+  hydra-org-template that is triggered by the  =<= key.
+
+#+BEGIN_SRC emacs-lisp
+  ;; http://acidwords.com/posts/2018-03-02-extending-org-mode-easy-templates.html
+  (add-to-list 'org-structure-template-alist
+               '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
+  (add-to-list 'org-structure-template-alist
+               '("b" "#+BEGIN_ABSTRACT\n?\n#+END_ABSTRACT" ""))
 #+END_SRC
 
 ** TODO Org-gcal
