@@ -529,6 +529,7 @@ I've combined all those commands and bound them to =C-c v=.
   (when (eq system-type 'darwin)
     (use-package org-mac-link
       :ensure nil
+      :after org
       :config
       (defun my/quick-url-note ()
         "Fastest way to capture a web page link"
