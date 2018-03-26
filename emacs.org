@@ -7337,10 +7337,12 @@ Binary clock in the message area.
     :defer 5)
 #+END_SRC
 
-** Blogging with org-webpage
+** PENDING Blogging with org-webpage
 
 [[https://github.com/tumashu/org-webpage][org-webpage]] is based on [[https://github.com/kelvinh/org-page][org-page]], a simple static page website
 generator. I moved my blog quite easily to org-webpage.
+
+org-webpage is now called [[https://github.com/tumashu/org2web][org2web]]. This code needs updating.
 
 Command =owp/do-publication= seems to do all I need.
 
