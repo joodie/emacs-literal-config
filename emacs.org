@@ -7453,10 +7453,10 @@ utility.
     (add-hook 'password-store-mode-hook
               (lambda () (view-mode -1))))
 
-  (use-package auth-password-store
+  (use-package auth-source-pass
     :defer t
     :config
-    (auth-pass-enable))
+    (auth-source-pass-enable))
 #+END_SRC
 
 ** eshell
