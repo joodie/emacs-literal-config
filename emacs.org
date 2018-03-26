@@ -1883,7 +1883,7 @@ auto refresh dired files.
 
 #+BEGIN_SRC emacs-lisp
   (global-auto-revert-mode)
-  (diminish 'auto-revert-mode)
+  ;; (diminish 'auto-revert-mode)
   (setq global-auto-revert-non-file-buffers t)
   (setq auto-revert-verbose t)
 #+END_SRC
@@ -2777,7 +2777,8 @@ especially efficient.
   (add-hook 'text-mode-hook
             (lambda () (flyspell-mode 1)
               (define-key flyspell-mode-map (kbd "C-M-i") nil)
-              (diminish 'flyspell-mode " ✓")))
+              ;;(diminish 'flyspell-mode " ✓")
+              ))
   ;; Flyspell activation for programming modes
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 
@@ -4447,7 +4448,7 @@ almost all navigation tasks:
 
 #+BEGIN_SRC emacs-lisp
   (global-subword-mode +1)
-  (diminish 'subword-mode)
+  ;; (diminish 'subword-mode)
   (defhydra hydra-navigate (:color red
                                    :hint nil)
     "
@@ -5128,6 +5129,7 @@ needs to be set before calling org mode.
   (use-package org
     :ensure org-plus-contrib
     :mode ("\\.txt$" . org-mode)
+    :diminish org-indent-mode
     :config
     ;; export Unicode
     (setq org-pretty-entities t)
@@ -5139,7 +5141,7 @@ needs to be set before calling org mode.
                 (visual-line-mode)
                 ;; (turn-on-org-cdlatex)
                 (org-indent-mode)
-                (diminish 'org-indent-mode ""))))
+                )))
 
   (use-package org-autolist
     :diminish ""
