@@ -62,6 +62,7 @@
 (depends-on "epl")
 (depends-on "ereader")
 (depends-on "eros")
+(depends-on "esh-autosuggest")
 (depends-on "exec-path-from-shell")
 (depends-on "expand-region")
 (depends-on "extempore-mode")
