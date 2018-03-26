@@ -5051,7 +5051,7 @@ future.
     (setq recentf-auto-cleanup 'never ; cleanup interfers with tramp mode
           recentf-max-saved-items 400
           recentf-max-menu-items 35
-          recentf-save-file (expand-file-name "recentf" my/savefile-dir))
+          recentf-save-file (expand-file-name "recentf" my/backup-dir))
     :config
     (recentf-mode 1))
 #+END_SRC
