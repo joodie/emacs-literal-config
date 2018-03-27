@@ -1,65 +1,82 @@
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+;;; init.el --- Heikki's Emacs configuration
+;;
+;; Copyright (c) 2018 Heikki Lehväslaiho
+;;
+;; Author: Heikki Lehväslaiho <heikki.lehvaslaiho@gmail.com>
+;; URL: https://github.com/hlehva/emacs.d
+;; Keywords: convenience
 
-;; Set loading of newer files over compiled at the very beginning
-(setq load-prefer-newer t)
+;; This file is not part of GNU Emacs.
 
-(require 'package)
-(setq package-enable-at-startup nil)
-(package-initialize t)
+;;; Commentary:
 
-;; start recording loading time
+;; This is my personal Emacs configuration.  Nothing more, nothing less.
+
+;;; License:
+
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License
+;; as published by the Free Software Foundation; either version 3
+;; of the License, or (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+;; Boston, MA 02110-1301, USA.
+
+;;; Code:
+
+;; (toggle-debug-on-error)
+
+;;;
+;;; start recording loading time
+;;;
 (defconst emacs-start-time (current-time))
 
-;; cask and pallet
-;;standalone cask
-;;(require 'cask "~/.cask/cask.el")
-;; OSX: cask from homebrew
-;;(require 'cask "/usr/local/share/emacs/site-lisp/cask.el")
-(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
-  (normal-top-level-add-subdirs-to-load-path))
-(require 'cask)
-(cask-initialize)
-(unless (package-installed-p 'pallet)
-  (package-refresh-contents)
-  (package-install 'pallet))
-(require 'pallet)
-(pallet-mode t)
+;;; set loading of newer files over compiled at the very beginning
+(setq load-prefer-newer t)
 
-(let ((elapsed
-       (float-time
-        (time-subtract (current-time) emacs-start-time))))
-  (message "Loading %s...done (%.3fs)" "cask&pallet" elapsed))
+;;;
+;;; package
+;;;
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives
+             '("org" . "http://orgmode.org/elpa/") t)
 
-;; use-package
+;; keep the installed packages in ~/.emacs.d/elpa
+(setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
+(package-initialize)
+;; update the package metadata if the local cache is missing
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;;;
+;;; use-package
+;;;
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
+  ;;(package-refresh-contents)
   (package-install 'use-package))
-(eval-and-compile
-  (defvar use-package-verbose t)
-  (require 'use-package)
-  (require 'bind-key)
-  (require 'diminish)
-  (setq use-package-always-ensure t)
-  (if (daemonp)
-      (setq use-package-always-demand t)))
-;; (eval-when-compile
-;;   (require 'use-package)
-;; )
-;;(require 'diminish)                ;; if you use :diminish
-;;(require 'use-package-diminish)
-;;(require 'bind-key)                ;; if you use any :bind variant
-;;(setq use-package-always-ensure t) ;; no need for :ensure key
-;;(use-package diminish)
+(require 'use-package)
+(setq use-package-verbose t)
+(setq use-package-always-ensure t)
+;; (setq use-package-always-defer t)
 
-(require 'cl)                      ;; Common Lisp extensions to Emacs Lisp
+;;;
+;;; Common extensions to Emacs Lisp
+;;;
+(require 'cl)
 
-
-;;load the main configuration
+;;;
+;;; load the main configuration
+;;;
 ;;(org-babel-load-file "~/.emacs.d/emacs.org")
-
 
 (defun my-tangle-section-canceled ()
   "Check if the previous section header was PEND."
@@ -117,8 +134,9 @@ Write only blocks that are:
     (my-tangle-config-org orgfile elfile))
   (load-file elfile))
 
-
-;; report time
+;;;
+;;; report times
+;;;
 (let ((elapsed
        (float-time
         (time-subtract (current-time) emacs-start-time))))
@@ -131,3 +149,5 @@ Write only blocks that are:
               (message "Loading %s...done (%.3fs) [after-init]",
                        load-file-name elapsed)))
           t)
+
+;;; init.el ends here
