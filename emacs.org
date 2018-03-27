@@ -6269,6 +6269,7 @@ to.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-ref
+    :defer t
     :after org
     :init
     (setq org-ref-bibliography-notes "~/Documents/bibliography/notes.org"
@@ -7240,6 +7241,7 @@ I installed Liberation Serif for nov.el use.
   ;;    (add-hook 'ereader-mode-hook #'visual-line-mode))
 
   (use-package nov
+    :defer
     :init
     (push '("\\.epub\\'" . nov-mode) auto-mode-alist)
     :config
@@ -7674,6 +7676,7 @@ Run =C-u 10 M-x tea-timer= to get the alert after 10 minutes.
 
 #+BEGIN_SRC emacs-lisp
   (use-package tea-timer
+    :defer t
     ;; :bind (:map pdf-view-mode-map ("e" . org-pdfquote-open))
     :load-path "elisp/"
     :init
@@ -7700,6 +7703,7 @@ The [[https://github.com/vibhavp/emacs-xkcd][xkcd]] package implements an [[Http
 
 #+BEGIN_SRC emacs-lisp
   (use-package xkcd
+    :defer t
     ;;:bind ("C-c x" . xkcd)
     :config
     (bind-keys :map xkcd-mode-map
