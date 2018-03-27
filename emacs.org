@@ -5156,6 +5156,7 @@ needs to be set before calling org mode.
   (setq org-M-RET-may-split-line '((default . nil)))
 
   (use-package org-contacts
+    :defer t
     :ensure nil
     :init
     (setq org-contacts-files "~/Dropbox/org/contacts.org"))
