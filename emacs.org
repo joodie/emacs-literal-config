@@ -3162,7 +3162,7 @@ The downloaded sdcv-mode and its =sdcv-search= command remains unused.
 
 #+BEGIN_SRC emacs-lisp
   (use-package sdcv-mode
-    :disabled true
+    :disabled t
     :ensure nil)
 #+END_SRC
 
@@ -3581,6 +3581,12 @@ windows.
     (use-package flycheck-perl6
       :defer t))
 
+  (use-package flycheck-proselint
+    :disabled t    ;
+    :ensure nil
+    :defer t
+    :after (flycheck))
+
 ;; org-mode added
 (flycheck-define-checker proselint
   "Flycheck checker using Proselint.
@@ -3591,11 +3597,6 @@ See URL `http://proselint.com/'."
   :error-parser flycheck-proselint-parse-errors
   :modes (text-mode markdown-mode gfm-mode message-mode org-mode))
 
-  (use-package flycheck-proselint
-    :disabled true    ;
-    :ensure nil
-    :defer t
-    :after (flycheck))
 
 #+END_SRC
 
@@ -3789,7 +3790,7 @@ The pod-mode is outdated and needs to be manually installed to the
 #+BEGIN_SRC emacs-lisp
 
   (use-package pod-mode
-    :disabled true
+    :disabled t
     :ensure nil
     :mode ("\\.pod\\'" . pod-mode)
     :config
@@ -5846,7 +5847,7 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
                    (off . "<span class=\"task-todo\">&#x2610;</span>")
                    (trans . "<span class=\"task-in-progress\">[-]</span>"))))
   (use-package org-bullets
-    :disabled true
+    :disabled t
     :defer t
     ;; :init (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●" ))
     :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
@@ -6955,7 +6956,7 @@ The read functions report their action in the echo field.
     :config
 
     (use-package elfeed-goodies
-      :disabled true
+      :disabled t
       :defer t
       :config
       (elfeed-goodies/setup))
