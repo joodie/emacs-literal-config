@@ -5033,6 +5033,8 @@ This useful function can be accessed through the launch hydra with
 
 * Org mode
 
+** Intro
+
 [[http://orgmode.org/][Org mode]] is for all writing of plain text. Use org mode rather than
 plain text mode even when the file extension is =.txt=.
 
@@ -5062,6 +5064,8 @@ exported.
 Unsetting variable org-M-RET-may-split-line disallows splitting heaser
 lines with enter ([[http://irreal.org/blog/?p=6297][Make M-RET better in Org Mode | Irreal]]).
 
+** Fontification
+
 [[https://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
 needs to be set before calling org mode.
 
@@ -5075,6 +5079,7 @@ needs to be set before calling org mode.
    ((t (:overline "#A7A6AA" :foreground "##f00f00" :background "#efefef")))))
 #+END_SRC
 
+** Basic config
 
 #+BEGIN_SRC emacs-lisp
   (use-package org
