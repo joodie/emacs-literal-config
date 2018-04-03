@@ -3658,6 +3658,8 @@ shorter:
 (setq show-paren-delay 0)
 #+END_SRC
 
+Find missing and mismatching parens with =check-parens=.
+
 *** Paredit
 
 The most useful paredit key combinations use =C-<arrow>= that are
