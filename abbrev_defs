@@ -7,6 +7,12 @@
 
 (define-abbrev-table 'Info-edit-mode-abbrev-table '())
 
+(define-abbrev-table 'alda-mode-abbrev-table '())
+
+(define-abbrev-table 'alda-mode-inf-abbrev-table '())
+
+(define-abbrev-table 'apropos-mode-abbrev-table '())
+
 (define-abbrev-table 'awk-mode-abbrev-table
   '(
    ))
@@ -38,6 +44,24 @@
 (define-abbrev-table 'comint-mode-abbrev-table '())
 
 (define-abbrev-table 'completion-list-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-colon-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-desktop-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-javaprop-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-ppd-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-space-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-toml-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-unix-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-windows-mode-abbrev-table '())
+
+(define-abbrev-table 'conf-xdefaults-mode-abbrev-table '())
 
 (define-abbrev-table 'cperl-mode-abbrev-table
   '(
@@ -71,11 +95,19 @@
 
 (define-abbrev-table 'diff-mode-abbrev-table '())
 
+(define-abbrev-table 'dig-mode-abbrev-table '())
+
+(define-abbrev-table 'doctex-mode-abbrev-table '())
+
+(define-abbrev-table 'easy-hugo-mode-abbrev-table '())
+
 (define-abbrev-table 'edebug-eval-mode-abbrev-table '())
 
 (define-abbrev-table 'edit-abbrevs-mode-abbrev-table '())
 
 (define-abbrev-table 'elisp-byte-code-mode-abbrev-table '())
+
+(define-abbrev-table 'elisp-refs-mode-abbrev-table '())
 
 (define-abbrev-table 'emacs-lisp-mode-abbrev-table
   '(
@@ -84,6 +116,18 @@
 (interactive)
 )" nil 5)
    ))
+
+(define-abbrev-table 'emojify-apropos-mode-abbrev-table '())
+
+(define-abbrev-table 'emojify-description-mode-abbrev-table '())
+
+(define-abbrev-table 'emojify-list-mode-abbrev-table '())
+
+(define-abbrev-table 'epa-info-mode-abbrev-table '())
+
+(define-abbrev-table 'epa-key-list-mode-abbrev-table '())
+
+(define-abbrev-table 'epa-key-mode-abbrev-table '())
 
 (define-abbrev-table 'ereader-mode-abbrev-table '())
 
@@ -97,11 +141,29 @@
 
 (define-abbrev-table 'eww-mode-abbrev-table '())
 
+(define-abbrev-table 'extempore-mode-abbrev-table '())
+
+(define-abbrev-table 'extempore-repl-mode-abbrev-table '())
+
 (define-abbrev-table 'finder-mode-abbrev-table '())
+
+(define-abbrev-table 'fish-mode-abbrev-table '())
 
 (define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
 
+(define-abbrev-table 'flymake-diagnostics-buffer-mode-abbrev-table '())
+
 (define-abbrev-table 'fundamental-mode-abbrev-table '())
+
+(define-abbrev-table 'gfm-mode-abbrev-table '())
+
+(define-abbrev-table 'gfm-view-mode-abbrev-table '())
+
+(define-abbrev-table 'gitattributes-mode-abbrev-table '())
+
+(define-abbrev-table 'gitconfig-mode-abbrev-table '())
+
+(define-abbrev-table 'gitignore-mode-abbrev-table '())
 
 (define-abbrev-table 'global-abbrev-table
   '(
@@ -275,21 +337,35 @@ use autodie;
     ("wtdb" "What's the difference between" nil 0)
    ))
 
+(define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
+
+(define-abbrev-table 'gnus-article-mode-abbrev-table '())
+
+(define-abbrev-table 'gnus-group-mode-abbrev-table '())
+
+(define-abbrev-table 'gnus-sticky-article-mode-abbrev-table '())
+
 (define-abbrev-table 'go-mode-abbrev-table '())
 
 (define-abbrev-table 'godoc-mode-abbrev-table '())
 
 (define-abbrev-table 'grep-mode-abbrev-table '())
 
+(define-abbrev-table 'gscholar-bibtex-mode-abbrev-table '())
+
 (define-abbrev-table 'helm-major-mode-abbrev-table '())
 
 (define-abbrev-table 'help-mode-abbrev-table '())
+
+(define-abbrev-table 'helpful-mode-abbrev-table '())
 
 (define-abbrev-table 'howdoi-mode-abbrev-table '())
 
 (define-abbrev-table 'ibuffer-mode-abbrev-table '())
 
 (define-abbrev-table 'idl-mode-abbrev-table '())
+
+(define-abbrev-table 'inferior-extempore-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
 
@@ -298,6 +374,16 @@ use autodie;
 (define-abbrev-table 'java-mode-abbrev-table
   '(
    ))
+
+(define-abbrev-table 'latex-mode-abbrev-table '())
+
+(define-abbrev-table 'ledger-check-mode-abbrev-table '())
+
+(define-abbrev-table 'ledger-mode-abbrev-table '())
+
+(define-abbrev-table 'ledger-reconcile-mode-abbrev-table '())
+
+(define-abbrev-table 'ledger-report-mode-abbrev-table '())
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
 
@@ -337,9 +423,17 @@ use autodie;
 
 (define-abbrev-table 'magithub-issue-post-mode-abbrev-table '())
 
+(define-abbrev-table 'markdown-mode-abbrev-table '())
+
+(define-abbrev-table 'markdown-view-mode-abbrev-table '())
+
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'neotree-mode-abbrev-table '())
+
+(define-abbrev-table 'nov-mode-abbrev-table '())
 
 (define-abbrev-table 'objc-mode-abbrev-table
   '(
@@ -366,20 +460,22 @@ use autodie;
     ("lenght" "length" nil 1)
     ("lenth" "length" nil 1)
     ("ma" "am" nil 6)
+    ("n2" "N_{2}" nil 0)
     ("oabstract" "#+BEGIN_ABSTRACT
 
 #+END_ABSTRACT
 " nil 5)
     ("oarticle" "#+LATEX_CLASS: fu-org-article" nil 10)
     ("oauthor" "#+AUTHOR: Heikki Lehväslaiho" nil 7)
-    ("obibio" "" skel-org-block-bibl 1)
-    ("obiblio" "" skel-org-block-bibl 0)
-("obeamer" "#+startup: beamer
+    ("obeamer" "#+startup: beamer
 #+LaTeX_CLASS: beamer
 #+BEAMER_THEME: metropolis
 " nil 0)
+    ("obibio" "" skel-org-block-bibl 1)
+    ("obiblio" "" skel-org-block-bibl 0)
+    ("ocall" "#+CALL:" nil 1)
     ("ocaption" "#+CAPTION: " nil 7)
-    ("odate" "#+DATE:" nil 5)
+    ("odate" "#+DATE:" nil 6)
     ("ofinnish" "#+LaTeX_HEADER: \\usepackage[finnish]{babel}" nil 9)
     ("ohyph" "#+LaTeX_HEADER: \\usepackage[none]{hyphenat}" nil 11)
     ("oindent" "#+STARTUP: indent" nil 4)
@@ -388,13 +484,13 @@ use autodie;
 " nil 5)
     ("olabel" "#+LABEL: fig:label" nil 6)
     ("olable" "#+LABEL: fig:label" nil 7)
-    ("oname" "#+NAME:" nil 6)
+    ("oname" "#+NAME:" nil 8)
     ("onotoc" "#+TOK: nil" nil 1)
     ("oref" "/ref{fig:label}" nil 8)
     ("oscale" "#+ATTR_LaTeX: scale=0.75" nil 1)
     ("oshebang" "#+PROPERTY: :shebang \"#!/usr/bin/env perl\"" nil 1)
     ("osize" "#+ATTR_LaTeX: width=0.70\\textwidth" nil 1)
-    ("otitle" "#+TITLE: " nil 13)
+    ("otitle" "#+TITLE:" nil 15)
     ("otname" "#+TBLNAME:" nil 6)
     ("otoc" "#+OPTIONS: toc:nil num:nil" nil 10)
     ("otufte" "#+LATEX_CLASS: tufte-handout" nil 10)
@@ -407,19 +503,37 @@ use autodie;
     ("splant" "" skel-org-block-plantuml 0)
    ))
 
+(define-abbrev-table 'osx-dictionary-mode-abbrev-table '())
+
 (define-abbrev-table 'outline-mode-abbrev-table '())
 
 (define-abbrev-table 'package-menu-mode-abbrev-table '())
+
+(define-abbrev-table 'pandoc-@-mode-abbrev-table '())
 
 (define-abbrev-table 'paradox-commit-list-mode-abbrev-table '())
 
 (define-abbrev-table 'paradox-menu-mode-abbrev-table '())
 
+(define-abbrev-table 'pass-mode-abbrev-table '())
+
+(define-abbrev-table 'pass-view-mode-abbrev-table '())
+
+(define-abbrev-table 'pdf-annot-list-mode-abbrev-table '())
+
 (define-abbrev-table 'pdf-occur-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'pdf-outline-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'perl-mode-abbrev-table '())
+
+(define-abbrev-table 'perl6-mode-abbrev-table '())
 
 (define-abbrev-table 'pike-mode-abbrev-table
   '(
    ))
+
+(define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
@@ -449,19 +563,41 @@ use autodie;
 
 (define-abbrev-table 'shell-mode-abbrev-table '())
 
+(define-abbrev-table 'slitex-mode-abbrev-table '())
+
+(define-abbrev-table 'smime-mode-abbrev-table '())
+
 (define-abbrev-table 'special-mode-abbrev-table '())
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
+(define-abbrev-table 'sql-mode-abbrev-table
+  '(
+   ))
+
 (define-abbrev-table 'suggest-mode-abbrev-table '())
+
+(define-abbrev-table 'synosaurus-list-mode-abbrev-table '())
 
 (define-abbrev-table 'tablist-mode-abbrev-table '())
 
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
 
+(define-abbrev-table 'tar-mode-abbrev-table '())
+
+(define-abbrev-table 'tex-mode-abbrev-table '())
+
+(define-abbrev-table 'tex-shell-abbrev-table '())
+
 (define-abbrev-table 'text-mode-abbrev-table '())
 
+(define-abbrev-table 'toml-mode-abbrev-table '())
+
+(define-abbrev-table 'twittering-edit-mode-abbrev-table '())
+
 (define-abbrev-table 'url-cookie-mode-abbrev-table '())
+
+(define-abbrev-table 'use-package-statistics-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
 
@@ -469,6 +605,11 @@ use autodie;
 
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
 
+(define-abbrev-table 'web-mode-abbrev-table '())
+
 (define-abbrev-table 'xkcd-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'yaml-mode-abbrev-table '())
+
