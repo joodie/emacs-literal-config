@@ -13,7 +13,7 @@
 **** http://yle.fi/uutiset/rss/paauutiset.rss
 **** https://suomenkuvalehti.fi/8hj38g7dh49g73jd02fasd/
 ** News in Science Journals                                               :j:
-*** http://feeds.nature.com/NatureNewsComment?format=xml
+*** http://feeds.nature.com/nature/rss/current
 *** http://news.sciencemag.org/rss/weekly_news_email.xml
 *** http://feeds.newscientist.com/science-news
 *** http://www.technologyreview.com/biomedicine/rss/
@@ -69,19 +69,16 @@
 # *** http://kimmo.suominen.com/stuff/anonyymitelaimet.xml
 # *** http://www.comicsyndicate.org/Feed/Pearls%20before%20Swine
 *** http://fribergthorelli.com/wbk/index.php/feed/
-*** http://www.daughterofthelilies.com/rss.php
 *** http://sssscomic.com/ssss-feed.xml
 *** http://www.lostnightmare.com/rss.php
 *** http://bird-boy.com/feed
-*** http://lizclimo.tumblr.com/rss
 *** http://www.banquetcomic.com/feed/
 *** http://www.wildelifecomic.com/rss.php
 ** Friends                                                                 :f:
 *** http://heikkil.github.io/rss.xml
 *** http://saffronwaldenlessons.blogspot.fi/atom.xml
-*** http://soloalgunaspalabras.wordpress.com/feed/
+*** http://soloalgunacspalabras.wordpress.com/feed/
 *** http://tamara-kulikova.blogspot.com/feeds/posts/default
-*** http://kaustbirding.blogspot.com/atom.xml
 *** http://listenlearnread.blogspot.com/feeds/posts/default
 *** http://madebytamarak.blogspot.com.es/atom.xml
 # *** http://blogandgogo.weebly.com/1/feed
