@@ -3570,32 +3570,31 @@ Best used with =flycheck-list errors=  =(C-c ! l)= that shows a linked pair of
 windows.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :diminish ""
-    :defer t
-    :config
-    (add-hook 'after-init-hook #'global-flycheck-mode)
-    (use-package avy-flycheck
-      :bind ("C-c t" . avy-flycheck-goto-error))
-    (use-package flycheck-perl6
-      :defer t))
+    (use-package flycheck
+      :diminish ""
+      :defer t
+      :config
+      (add-hook 'after-init-hook #'global-flycheck-mode)
+      (use-package avy-flycheck
+        :bind ("C-c t" . avy-flycheck-goto-error))
+      (use-package flycheck-perl6
+        :defer t))
 
-  (use-package flycheck-proselint
-    :disabled t    ;
-    :ensure nil
-    :defer t
-    :after (flycheck))
+    (use-package flycheck-proselint
+      :disabled t    ;
+      :ensure nil
+      :defer t
+      :after (flycheck)
+      :config
+      ;; org-mode added
+      (flycheck-define-checker proselint
+        "Flycheck checker using Proselint.
 
-;; org-mode added
-(flycheck-define-checker proselint
-  "Flycheck checker using Proselint.
-
-See URL `http://proselint.com/'."
-  :command ("proselint" "--json" "-")
-  :standard-input t
-  :error-parser flycheck-proselint-parse-errors
-  :modes (text-mode markdown-mode gfm-mode message-mode org-mode))
-
+  See URL `http://proselint.com/'."
+        :command ("proselint" "--json" "-")
+        :standard-input t
+        :error-parser flycheck-proselint-parse-errors
+        :modes (text-mode markdown-mode gfm-mode message-mode org-mode)))
 
 #+END_SRC
 
