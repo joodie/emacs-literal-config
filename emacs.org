@@ -4958,9 +4958,9 @@ This and more files can be reached with my hydra-files by =C-z=.
                 _d_otfiles.txt  _w_ork.org
                 _h_ome.gpg      _l_edger:refile.led
              "
-    ("c" (find-file "~/installation.notes/balamac/ChangeLog"))
+    ("c" (find-file "~/Dropbox/installation.notes/balamac/ChangeLog"))
     ("e" (find-file "~/.emacs.d/emacs.org"))
-    ("d" (find-file "~/Documents/dotfiles/dotfiles.txt"))
+    ("d" (find-file "~/Dropbox/dotfiles/dotfiles.txt"))
     ("h" (find-file "~/Documents/documents/details/home.gpg"))
     ("r" my/last-captured-org-note)
     ("s" (switch-to-buffer "*scratch*"))
