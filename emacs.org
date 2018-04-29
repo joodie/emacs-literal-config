@@ -445,7 +445,6 @@ Emacs]]
     (setq dired-recursive-deletes 'always)
 
     (use-package dired-details+
-      :disabled t
       :init
       (setq dired-details-hidden-string ""))
 
@@ -4863,12 +4862,11 @@ headers and lists and has to be called after org-mode (see below).
 
 #+BEGIN_SRC emacs-lisp
   (use-package framemove
-    :disabled t
     :defer t)
 
   (windmove-default-keybindings)
   (setq windmove-wrap-around t)
-  ;; (setq framemove-hook-into-windmove t)
+  (setq framemove-hook-into-windmove t)
 
   ;; Make windmove work in org-mode:
   (add-hook 'org-shiftup-final-hook 'windmove-up)
