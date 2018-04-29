@@ -49,6 +49,8 @@
              '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
              '("org" . "http://orgmode.org/elpa/") t)
+(add-to-list 'package-archives
+             '("emacswiki" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/emacswiki/") t)
 
 ;; keep the installed packages in ~/.emacs.d/elpa
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
