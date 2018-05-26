@@ -674,26 +674,26 @@ PNG images when the =emojify-mode= is turned on.
   #+BEGIN_SRC emacs-lisp
     (defun my/insert-unicode (unicode-name)
       "Same as C-x 8 enter UNICODE-NAME."
-      (insert-char (cdr (assoc-string unicode-name (ucs-names)))))
+      (insert (string (gethash unicode-name (ucs-names)))))
 
-    (bind-key "C-x 9" 'hydra-unicode/body)
-    (defhydra hydra-unicode (:hint nil)
-      "
-     Unicode  _e_ €  _s_ 0 w SPACE   _2_ ²   _n_amed select
-              _f_ ♀  _o_ °   _m_ µ   _3_ ³
-              _r_ ♂  _a_ →           _t_ ₂
-            "
-      ("e" (my/insert-unicode "EURO SIGN"))
-      ("r" (my/insert-unicode "MALE SIGN"))
-      ("f" (my/insert-unicode "FEMALE SIGN"))
-      ("s" (my/insert-unicode "ZERO WIDTH SPACE"))
-      ("o" (my/insert-unicode "DEGREE SIGN"))
-      ("a" (my/insert-unicode "RIGHTWARDS ARROW"))
-      ("m" (my/insert-unicode "MICRO SIGN"))
-      ("2" (my/insert-unicode "SUPERSCRIPT TWO"))
-      ("3" (my/insert-unicode "SUPERSCRIPT THREE"))
-      ("t" (my/insert-unicode "SUBSCRIPT TWO"))
-      ("n" counsel-unicode-char))
+        (bind-key "C-x 9" 'hydra-unicode/body)
+        (defhydra hydra-unicode (:hint nil)
+          "
+         Unicode  _e_ €  _s_ 0 w SPACE   _2_ ²   _n_amed select
+                  _f_ ♀  _o_ °   _m_ µ   _3_ ³
+                  _r_ ♂  _a_ →           _t_ ₂
+                "
+          ("e" (my/insert-unicode "EURO SIGN"))
+          ("r" (my/insert-unicode "MALE SIGN"))
+          ("f" (my/insert-unicode "FEMALE SIGN"))
+          ("s" (my/insert-unicode "ZERO WIDTH SPACE"))
+          ("o" (my/insert-unicode "DEGREE SIGN"))
+          ("a" (my/insert-unicode "RIGHTWARDS ARROW"))
+          ("m" (my/insert-unicode "MICRO SIGN"))
+          ("2" (my/insert-unicode "SUPERSCRIPT TWO"))
+          ("3" (my/insert-unicode "SUPERSCRIPT THREE"))
+          ("t" (my/insert-unicode "SUBSCRIPT TWO"))
+          ("n" counsel-unicode-char))
   #+END_SRC
 
   Note: For most plain text writing I use [[Org mode]] that has a very
