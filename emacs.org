@@ -3680,6 +3680,21 @@ Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
                 ("M-s-<right>" . paredit-backward-barf-sexp)))
 #+END_SRC
 
+*** TODO Eglot, Emacs PolyGlot
+
+[[https://github.com/joaotavora/eglot][joaotavora/eglot: A client for Language Server Protocol servers]]
+
+Needs emacs 26!
+
+#+BEGIN_SRC emacs-lisp
+  (use-package eglot)
+#+END_SRC
+
+Needs language specific servers. Installed:
+
+[[https://github.com/palantir/python-language-server][+ palantir/python-language-server: An implementation of the Language
+Server Protocol for Python]]
+
 ** Perl
 
 I recently moved from [[http://perlbrew.pl/][perlbrew]] to [[https://github.com/tokuhirom/plenv][plenv]] as a system that provides
