@@ -1448,16 +1448,6 @@ be shown with =M-x describe-personal-keybindings=.
     ("w" writegood-mode)
     ("q" nil))
 
-  ;;  (bind-key "C-x C-=" 'hydra-zoom/body)
-  ;;  (defhydra hydra-zoom (global-map "C-x C-="
-  ;;                        :pre (text-scale-increase 1))
-  ;;    "zoom"
-  ;;    ("g" (message "") "in")
-  ;;    ("=" (message "") "in")
-  ;;    ("l" (text-scale-increase -2) "out")
-  ;;    ("-" (text-scale-increase -2) "out")
-  ;;    ("0" (text-scale-adjust 0) "reset"))
-
   ;; http://oremacs.com/2015/03/15/search-with-apropos/
   (bind-key "C-c h" 'hydra-apropos/body)
   (defhydra hydra-apropos (:color blue :hint nil)
