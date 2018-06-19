@@ -1089,7 +1089,7 @@ Current line is subtly highlighted in pale blue.
   (when (display-graphic-p)
     (global-hl-line-mode 1)
     ;;(set-face-background hl-line-face "Grey20")
-    (set-face-background hl-line-face "AliceBlue"))
+    (set-face-background hl-line-face "LightCyan"))
 #+END_SRC
 
 ** Global key bindings
