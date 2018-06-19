@@ -667,7 +667,7 @@ PNG images when the =emojify-mode= is turned on.
 
 *** TODO Unicode
 
-- Xah Lee's [[http://ergoemacs.org/emacs/emacs_n_unicode.html][Unicode]] page for easy copy and paste.
+- Xah Lee's [[http://ergoemacs.org/emacs/emacs_n_unicode.html][Unicode page]] for easy copy and paste.
 - Draw Unicode characters [[http://shapecatcher.com/][online]].
 - Enter Unicode characters in hexadecimal or named: =C-x 8<Enter>=.
 
@@ -2695,6 +2695,7 @@ especially efficient.
 
 #+BEGIN_SRC emacs-lisp
   (setq ispell-program-name "aspell") ; checker engine
+ ;; (setq ispell-program-name "enchant-2") ; checker engine
 
   ;; Speed up aspell: ultra | fast | normal
   (setq ispell-extra-args '("--sug-mode=ultra"))
@@ -3125,8 +3126,9 @@ running out of letters.
 first: In OSX =brew install wordnet=. The interaction is through command
 line tool =wn=.
 
-I enable synosaurus-mode in text files and define key combination =C-x
-l s= for "Emacs, launch synonyms".
+I enable synosaurus-mode in text files and define the key combination
+=C-x l s= for "Emacs, launch synonyms". The default setup uses popups to
+show alternative words.
 
 #+BEGIN_SRC emacs-lisp
   (use-package synosaurus
@@ -4517,6 +4519,7 @@ replaced by
     :config
     (beginend-global-mode))
 #+END_SRC
+
 ** Bookmarks
 
 Visible bookmarks from [[https://github.com/joodland/bm][bm]] package are made easy with a hydra. I am
