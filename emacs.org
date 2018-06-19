@@ -7367,7 +7367,7 @@ I installed Liberation Serif for nov.el use.
 
 ** Web browsing
 
-*** w3m
+*** PENDING w3m
 
 The emacs package [[http://www.emacswiki.org/emacs/emacs-w3m][emacs-w3m]] gives access to the commandline
 programme w3m. The [[http://wiki.titan2x.com/index.php?title=W3m_cheat_sheet][w3m cheat sheet]].
