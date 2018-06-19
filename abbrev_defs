@@ -97,6 +97,8 @@
 
 (define-abbrev-table 'dig-mode-abbrev-table '())
 
+(define-abbrev-table 'display-time-world-mode-abbrev-table '())
+
 (define-abbrev-table 'doctex-mode-abbrev-table '())
 
 (define-abbrev-table 'easy-hugo-mode-abbrev-table '())
@@ -130,6 +132,10 @@
 (define-abbrev-table 'epa-key-mode-abbrev-table '())
 
 (define-abbrev-table 'ereader-mode-abbrev-table '())
+
+(define-abbrev-table 'ert-results-mode-abbrev-table '())
+
+(define-abbrev-table 'ert-simple-view-mode-abbrev-table '())
 
 (define-abbrev-table 'eshell-mode-abbrev-table '())
 
@@ -170,7 +176,7 @@
     ("8ar" "→" nil 3)
     ("8ell" "…" nil 0)
     ("8eur" "€" nil 21)
-    ("8oc" "°C" nil 1)
+    ("8oc" "°C" nil 0)
     ("8pound" "£" nil 2)
     ("8zws" "​" nil 4)
     ("Flase" "False" nil 4)
@@ -212,7 +218,9 @@
     ("degf" "°F" nil 0)
     ("dfb" "difference between" nil 0)
     ("didnt" "did not" nil 0)
-    ("dnt" "don't" nil 1)
+    ("dnt" "don't" nil 0)
+    ("doesnt" "does not" nil 0)
+    ("dont" "do not" nil 0)
     ("dsnt" "doesn't" nil 0)
     ("dvp" "develop" nil 0)
     ("ef" "(defun my/ ()
@@ -233,7 +241,7 @@
     ("friday" "Friday" nil 0)
     ("hadnt" "had not" nil 0)
     ("hasnt" "has not" nil 0)
-    ("havent" "haven't" nil 1)
+    ("havent" "haven't" nil 0)
     ("hayday" "heyday" nil 0)
     ("heikkil" "Heikki Lehväslaiho" nil 6)
     ("hnt" "haven't" nil 0)
@@ -266,6 +274,8 @@
     ("lets" "let's" nil 0)
     ("ma" "am" nil 4)
     ("mammalial" "mammalian" nil 0)
+    ("mar" "Mar." nil 0)
+    ("march" "March" nil 0)
     ("matias" "Matias" nil 5)
     ("minna" "Minna" nil 19)
     ("mon" "Mon." nil 0)
@@ -305,14 +315,13 @@
     ("sperl" "#!/usr/bin/env perl
 use Modern::Perl;
 use Data::Printer;
-use autodie;
-" nil 14)
+" nil 15)
     ("strenghten" "strengthen" nil 0)
     ("sun" "Sun." nil 0)
     ("sunday" "Sunday" nil 0)
     ("taht" "that" nil 14)
     ("techinques" "techniques" nil 0)
-    ("teh" "the" nil 17)
+    ("teh" "the" nil 0)
     ("tehm" "them" nil 0)
     ("thats" "that is" nil 0)
     ("thur" "Thur." nil 0)
@@ -366,6 +375,8 @@ use autodie;
 (define-abbrev-table 'idl-mode-abbrev-table '())
 
 (define-abbrev-table 'inferior-extempore-mode-abbrev-table '())
+
+(define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
 (define-abbrev-table 'ivy-occur-grep-mode-abbrev-table '())
 
@@ -430,6 +441,12 @@ use autodie;
 (define-abbrev-table 'message-mode-abbrev-table '())
 
 (define-abbrev-table 'messages-buffer-mode-abbrev-table '())
+
+(define-abbrev-table 'mu4e-compose-mode-abbrev-table '())
+
+(define-abbrev-table 'mu4e-org-mode-abbrev-table '())
+
+(define-abbrev-table 'mu4e~update-mail-mode-abbrev-table '())
 
 (define-abbrev-table 'neotree-mode-abbrev-table '())
 
@@ -539,6 +556,12 @@ use autodie;
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
 
+(define-abbrev-table 'python-mode-abbrev-table '())
+
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
+
 (define-abbrev-table 'quickrun--mode-abbrev-table '())
 
 (define-abbrev-table 'racket-describe-mode-abbrev-table '())
@@ -599,11 +622,19 @@ use autodie;
 
 (define-abbrev-table 'use-package-statistics-mode-abbrev-table '())
 
+(define-abbrev-table 'vc-bzr-log-view-mode-abbrev-table '())
+
 (define-abbrev-table 'vc-git-log-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-git-region-history-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-hg-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-mtn-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
 
 (define-abbrev-table 'web-mode-abbrev-table '())
 
@@ -612,4 +643,3 @@ use autodie;
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
-
