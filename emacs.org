@@ -4617,6 +4617,7 @@ how to configure =counsel-git= and =counsel-rg=.
     (setq ivy-display-style 'fancy)
     (setq ivy-height 10)
     (setq ivy-count-format "(%d/%d) ")
+    (setq ivy-use-selectable-prompt t)
     (setq ivy-switch-buffer-faces-alist
           '((emacs-lisp-mode . swiper-match-face-1)
             (dired-mode . ivy-subdir)
