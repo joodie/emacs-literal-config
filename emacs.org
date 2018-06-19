@@ -3860,7 +3860,7 @@ level at a time. Run =macrostep-expand= with =C-c m=.
 
 #+BEGIN_SRC emacs-lisp
   (use-package macrostep
-    :bind ("C-c m" . macrostep-expand))
+    :bind ("C-c M" . macrostep-expand))
 #+END_SRC
 
 *** Suggest
@@ -6638,6 +6638,117 @@ See more tweeks from
 #+END_EXAMPLE
 
 ** Mail: gmail
+
+[[https://www.reddit.com/r/emacs/comments/8q84dl/tip_how_to_easily_manage_your_emails_with_mu4e/][TIP: How to easily manage your emails with mu4e : emacs 🔊]]
+
+also on gmail setup:
+https://gist.github.com/au/a271c09e8233f19ffb01da7f017c7269
+
+More on mu4e configuration:
+https://gist.github.com/chlalanne/7397629
+
+brew install mu --with-emacs
+brew install isync
+
+mkdir ~/Sync/shared
+# generate app password for mail in google
+
+cat > .mbsyncpass
+...
+ctrl-D
+gpg -e -r heikki.lehvaslaiho@gmail.com .mbsyncpass
+
+cd
+mkdir -p Maildir/gmail
+
+
+machine imap.gmail.com login terencio.agozzino password <password> port 993
+machine smtp.gmail.com login terencio.agozzino password <password>
+port 465
+
+gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
+~/.authinfo.gpg
+
+;; debug mail sending
+(setq smtpmail-debug-info t)
+
+#+BEGIN_SRC emacs-lisp
+
+  (add-to-list 'load-path "/usr/local/Cellar/mu/1.0/share/emacs/site-lisp/mu/mu4e")
+
+  (use-package mu4e
+    :ensure nil
+    :ensure-system-package mu
+    :bind ("C-c m" . mu4e)
+    :hook (mu4e-compose-mode . flyspell-mode)
+    :custom
+    (mu4e-attachment-dir "~/Downloads")
+    (mu4e-confirm-quit nil)
+    (mu4e-compose-signature-auto-include nil)
+    (mu4e-completing-read-function 'ivy-completing-read)
+    (mu4e-get-mail-command "mbsync -a")
+    (mu4e-maildir "~/Maildir")
+    ;; folders are under mu4e maildir
+    (mu4e-trash-folder "/gmail/Trash")
+    (mu4e-sent-folder "/gmail/Sent Mail")
+    (mu4e-drafts-folder "/gmail/Drafts")
+    (mu4e-refile-folder "/gmail/Archive")
+    (mu4e-maildir-shortcuts
+     '(("/gmail/INBOX" . ?i)
+       ("/gmail/All Mail" . ?a)
+       ("/gmail/Deleted Items" . ?d)
+       ("/gmail/Drafts" . ?D)
+       ("/gmail/Important" . ?I)
+       ("/gmail/Sent Mail" . ?s)
+       ("/gmail/Starred" . ?S)))
+    (mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain")
+    (mu4e-sent-messages-behavior 'delete) ; gmail stores a copy automatically
+    (mu4e-update-interval 300)
+    (mu4e-use-fancy-chars t)
+    (mu4e-view-show-addresses t)
+    (mail-user-agent 'mu4e-user-agent)
+    (mu4e-view-show-images t))
+
+  (setq mu4e-mu-binary "/usr/local/bin/mu")
+  (use-package mu4e-alert
+    :after mu4e
+    :hook (;; (after-init . mu4e-alert-enable-mode-line-display)
+           (after-init . mu4e-alert-enable-notifications))
+    :config (mu4e-alert-set-default-style 'osx-notifier))
+
+  (add-to-list 'mu4e-view-actions '("view in browser" . mu4e-action-view-in-browser))
+
+  (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
+
+  (defvaralias 'mu4e-compose-signature 'message-signature)
+
+  (setq mu4e-headers-show-threads nil) ; Use "P" to toggle threading
+
+(setq mu4e-org-contacts-file  (car org-contacts-files))
+(add-to-list 'mu4e-headers-actions
+  '("org-contact-add" . mu4e-action-add-org-contact) t)
+(add-to-list 'mu4e-view-actions
+  '("org-contact-add" . mu4e-action-add-org-contact) t)
+
+
+  ;; sending mail
+  (setq auth-sources '("~/.authinfo.gpg"
+                       "~/Sync/shared/.authinfo.gpg"
+                       "~/.authinfo"
+                       "~/.netrc"))
+
+  (use-package message
+    :ensure nil
+    :custom (send-mail-function 'smtpmail-send-it))
+
+  (use-package smtpmail
+    :ensure nil
+    :custom
+    (smtpmail-smtp-server "smtp.gmail.com")
+    (smtpmail-smtp-service 465)
+    (smtpmail-stream-type 'ssl))
+#+END_SRC
+
 
 The gmail setup used is from [[http://blog.binchen.org/posts/notes-on-using-gnus.html][Practical guide to use Gnus with Gmail]].
 
