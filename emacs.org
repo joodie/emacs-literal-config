@@ -3460,9 +3460,6 @@ clash badly. I try to set them back to somewhat calmer palette.
     :init
     ;; date format
     (setq ledger-use-iso-dates t)
-    ;; font changes
-    ;; (set-face-attribute 'ledger-font-comment-face nil :foreground "gray40")
-    ;; (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "cornsilk")
     ;; reports
     (setq ledger-reports
           (quote (("test" "ledger ")
@@ -3471,6 +3468,11 @@ clash badly. I try to set them back to somewhat calmer palette.
                   ("payee" "ledger -f %(ledger-file) reg @%(payee)")
                   ("account" "ledger -f %(ledger-file) reg %(account)"))))
     :config
+    ;; font changes
+    (set-face-attribute 'ledger-font-comment-face nil :foreground "gray50")
+    (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "cornsilk")
+    (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "LightCyan")
+
     (defun ledger-next-misc ()
       "Find next ledger Misc category."
       (interactive)
