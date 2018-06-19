@@ -1421,11 +1421,11 @@ be shown with =M-x describe-personal-keybindings=.
              toggle _a_bbrev-mode          _h_tml preview for org   _o_rg link display     neo_t_ree
                     _c_: word-count mode   _i_edit                  _p_retty entities      _v_: string inflection
                     _d_ebug-on-error       _k_: spelling language   _b_: overwrite mode    _w_ritegood-mode
-                    _e_ros                 _h_tml preview for org   t_r_uncate-lines       _q_uit
+                    _e_ros                 _l_ine numbers           t_r_uncate-lines       _q_uit
                     _f_olding              _n_arrowing              _m_ouse                white_s_pace-mode
                     _g_roup digits         ^ ^                      _u_: rainbow mode
                   "
-    ("a" abbrev-mode )
+    ("a" abbrev-mode)
     ("b" toggle-overwrite-mode)
     ("d" toggle-debug-on-error)
     ("c" wc-mode)
@@ -1436,8 +1436,8 @@ be shown with =M-x describe-personal-keybindings=.
     ("i" iedit-mode)
     ("n" narrow-or-widen-dwim)
     ("m" global-disable-mouse-mode)
-    ("l" my/global-linum-mode)
     ("k" cycle-ispell-languages :color red)
+    ("l" display-line-numbers-mode)
     ("o" org-toggle-link-display)
     ("p" org-toggle-pretty-entities)
     ("r" toggle-truncate-lines)
@@ -3239,53 +3239,25 @@ Toggle it with "Emacs, toggle (white)Space" =C-x t s=.
 
 ** Line numbers
 
-Line numbers are useful in pair programming and when editing with
-modal commands.
-
-I wrapped this in a global minor mode so turning that stuff on and
-off is easy using =C-x t l=.
-
-My fingers still know this old shortcut for jumping to a line
+My fingers still know the old shortcut =C-x ,= for jumping to a line
 number. The function =goto-line-with-feedback= automatically turns
 line numbers on and shows them in normal mode for the duration of
 the command. It assumes that line numbers are off to start with.
 
+This version of the function needs the built-in
+=display-line-numbers-mode= that was added in emacs version 26.1
+replasing the linum packages.
+
 #+BEGIN_SRC emacs-lisp
-  (use-package nlinum)
-
-  (use-package linum-relative
-    :defer t
-    :init
-    ;; show absolute line number for the current line
-    (setq linum-relative-current-symbol ""))
-
-  (define-minor-mode my/linum-mode
-    "Toggle showing of line numbers.
-
-  Interactively with no argument, this command toggles the mode.  A
-  positive prefix argument enables the mode, any other prefix
-  argument disables it.  From Lisp, argument omitted or nil enables
-  the mode, `toggle' toggles the state."
-    nil           ; The initial value.
-    nil           ; The indicator for the mode line
-    '()           ; The minor mode bindings.
-    :group 'my/linum
-    (nlinum-mode (if my/linum-mode 1 -1)))
-
-  (define-global-minor-mode my/global-linum-mode
-    my/linum-mode
-    (lambda () (my/linum-mode 1)))
-
+  ;; emacs-version 26.1
   (defun goto-line-with-feedback ()
     "Show line numbers temporarily, while prompting for the line number input"
     (interactive)
     (unwind-protect
         (progn
-          (linum-relative-toggle)
-          (nlinum-mode 1)
-          (forward-line (read-number "Goto line: ")))
-      (nlinum-mode -1)
-      (linum-relative-toggle)))
+          (display-line-numbers-mode)
+          (goto-line (read-number "Goto line: ")))
+      (display-line-numbers-mode 0)))
 
   (bind-key "C-x ," 'goto-line)
   (bind-key [remap goto-line] 'goto-line-with-feedback)
