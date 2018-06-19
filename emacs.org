@@ -1373,7 +1373,7 @@ shortcuts | Pragmatic Emacs]])
     (global-unset-key (kbd (format "M-%d" n))))
 #+END_SRC
 
-** Show bindings
+** PENDING Show bindings
 
 Emacs commands are defined by their names. Many interactive commands
 have default keybindings but they are supposed to be modified by
@@ -1383,7 +1383,7 @@ bindings interactively after a delay of 1 second.
 My settings use a large separate frame to show the key bindings. If
 keys exceed available space, =C-h= scrolls the list.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package which-key
     :diminish ""
     :defer t
