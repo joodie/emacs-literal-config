@@ -7797,7 +7797,7 @@ Run =C-u 10 M-x tea-timer= to get the alert after 10 minutes.
 
 ** Toys
 
-*** xkcd comics
+*** PENDING xkcd comics
 
 The [[https://github.com/vibhavp/emacs-xkcd][xkcd]] package implements an [[Http://xkcd.com/][xkcd]] comics reader for Emacs. I use
 [[Elfeed]] to read it, the key binding used now elsewhere.
