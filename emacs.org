@@ -4935,6 +4935,7 @@ This and more files can be reached with my hydra-files by =C-z=.
                 _e_macs.org     _s_cratch
                 _d_otfiles.txt  _w_ork.org
                 _h_ome.gpg      _l_edger:refile.led
+                                _k_äyttötili.led
              "
     ("c" (find-file "~/Dropbox/installation.notes/balamac/ChangeLog"))
     ("e" (find-file "~/.emacs.d/emacs.org"))
@@ -4944,6 +4945,7 @@ This and more files can be reached with my hydra-files by =C-z=.
     ("s" (switch-to-buffer "*scratch*"))
     ("w" (find-file "~/Dropbox/org/work.org"))
     ("l" (find-file "/Users/heikki/Documents/ledger/refile.led"))
+    ("k" (find-file "/Users/heikki/Documents/ledger/2018_heikintili.led"))
     ("o" org-info))
 #+END_SRC
 
