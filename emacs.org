@@ -38,8 +38,12 @@ prevent loading of non-existing packages.
 System dependencies are defined using
 =use-package-ensure-system-package= from [[https://github.com/waymondo/use-package-ensure-system-package][waymondo]].
 
+For some reason, OSX is not detected, so I am setting =brew= manually.
+
 #+BEGIN_SRC emacs-lisp
-  (use-package use-package-ensure-system-package)
+  (use-package use-package-ensure-system-package
+    :init
+    (setq system-packages-package-manager 'brew))
 #+END_SRC
 
 ** Installation
