@@ -7634,7 +7634,7 @@ binding the magic space command to the space key.
   (define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
 #+END_SRC
 
-** Process management
+** PENDING Process management
 
 The package [[https://github.com/emacsmirror/vkill][vkill]] makes it possible to kill UNIX processes from
 emacs. This package works under OS X, too.
