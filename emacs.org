@@ -5096,7 +5096,7 @@ needs to be set before calling org mode.
     :defer t
     :ensure nil
     :init
-    (setq org-contacts-files ("~/Dropbox/org/contacts.org")))
+    (setq org-contacts-files '("~/Dropbox/org/contacts.org")))
 #+END_SRC
 
 See [[http://kitchingroup.cheme.cmu.edu/blog/2015/06/22/Clickable-org-contacts-in-text-files/][this page]] for clickable org-contacts in text files.
