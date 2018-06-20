@@ -4202,7 +4202,7 @@ See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][do
 
 ** Music
 
-*** alda
+*** PENDING alda
 
 [[https://github.com/alda-lang/alda/][alda]] - A music programming language for musicians. Needs binary
 installed first.
