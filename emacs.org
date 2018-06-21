@@ -4943,7 +4943,7 @@ This and more files can be reached with my hydra-files by =C-z=.
                 _e_macs.org     _s_cratch
                 _d_otfiles.txt  _w_ork.org
                 _h_ome.gpg      _l_edger:refile.led
-                                _k_äyttötili.led
+                ^ ^             _k_äyttötili.led
              "
     ("c" (find-file "~/Dropbox/installation.notes/balamac/ChangeLog"))
     ("e" (find-file "~/.emacs.d/emacs.org"))
@@ -4952,20 +4952,19 @@ This and more files can be reached with my hydra-files by =C-z=.
     ("r" my/last-captured-org-note)
     ("s" (switch-to-buffer "*scratch*"))
     ("w" (find-file "~/Dropbox/org/work.org"))
-    ("l" (find-file "/Users/heikki/Documents/ledger/refile.led"))
-    ("k" (find-file "/Users/heikki/Documents/ledger/2018_heikintili.led"))
+    ("l" (find-file "~/Documents/ledger/refile.led"))
+    ("k" (find-file "~/Documents/ledger/2018_heikintili.led"))
     ("o" org-info))
 #+END_SRC
 
 [[http://www.emacswiki.org/emacs/NeoTree_%E4%B8%AD%E6%96%87wiki][NeoTree]] is a file browser plugin that I am trying out. Toggle its
 panel: Emacs, Toggle neoTree =C-x t t=.
 
-
 #+BEGIN_SRC emacs-lisp
   (use-package neotree
     :defer t
-    :init (setq neo-smart-open t)) ; always change focus to current buffer
-
+    :custom
+    (neo-smart-open t "always change focus to current buffer"))
 #+END_SRC
 
 I like emacs to remember files that I have visited. The =recentf=
