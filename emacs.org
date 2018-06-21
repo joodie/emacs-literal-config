@@ -1387,15 +1387,15 @@ bindings interactively after a delay of 1 second.
 My settings use a large separate frame to show the key bindings. If
 keys exceed available space, =C-h= scrolls the list.
 
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
   (use-package which-key
     :diminish ""
     :defer t
     :init
-    (which-key-mode)
-    (setq which-key-popup-type 'frame)
-    (setq which-key-frame-max-width 160)  ; number of columns
-    (setq which-key-frame-max-height 40)) ; number of lines
+    (which-key-mode))
+    ;;(setq which-key-popup-type 'frame)
+    ;;(setq which-key-frame-max-width 160)  ; number of columns
+    ;;(setq which-key-frame-max-height 40)) ; number of lines
 #+END_SRC
 
 I used to maintain a table of =C-c= bindings but which-key made it
