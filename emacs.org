@@ -5278,9 +5278,10 @@ Links to non-existing files can be [[https://emacs.stackexchange.com/questions/3
 #+BEGIN_SRC emacs-lisp
   (use-package org-agenda
     :ensure nil
-    :bind (("C-c a" . org-agenda)
+    :bind* (("C-c a" . org-agenda)  ; bind* ensures that all minor mode bindings are overriden
            ("C-c c" . org-capture)
-           ("C-c l" . org-store-link))
+           ("C-c l" . org-store-link)
+           ("C-c C-s" . org-schedule)) ; override synosaurus
     :init
     (setq org-agenda-files '("~/Dropbox/org"))
     (setq org-return-follows-link t)
