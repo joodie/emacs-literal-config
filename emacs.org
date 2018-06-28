@@ -6944,7 +6944,7 @@ bbdb-merge-records=.
           '((".*"
              (name "Heikki Lehväslaiho"
                    (address "heikki.lehvaslaiho@gmail.com"
-                            (organization "KAUST")
+                            (organization "CSC")
                             (signature-file "~/.signature")
                             ("X-Troll" "Emacs is better than Vi")
                             )))))
