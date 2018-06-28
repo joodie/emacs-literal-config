@@ -1731,25 +1731,12 @@ with =C-q C-l=) as horisontal lines.
 
 ** Text (non-code) formatting
 
-For writing text, I prefer Emacs to do line wrapping for me. Also,
-superfluous white-space needs to be visible.
-
-[[Abbreviations]] are an important emacs productivity enhancement
-feature. They need to be available in all text buffers. Any changes
-to abbrevs are silently saved.
+For writing text, I prefer Emacs to do line wrapping for me.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package abbrev
-    :ensure nil ; built-in
-    :init
     (defun my/text-formatting-hooks ()
-      (my/turn-on 'auto-fill ; turn on automatic hard line wraps
-                  'abbrev))  ;; abbrev-mode on
-    :config
-    (setq save-abbrevs 'silently)
-    (setq-default abbrev-mode t)
-    (add-hook 'text-mode-hook
-              'my/text-formatting-hooks))
+      (my/turn-on 'auto-fill)) ; turn on automatic hard line wraps
+    (add-hook 'text-mode-hook 'my/text-formatting-hooks)
 #+END_SRC
 
 If the line wrapping (explicitely =M-q=) needs to be [[http://www.emacswiki.org/emacs/UnfillParagraph][reversed]], use
@@ -2164,8 +2151,11 @@ are.
 Emacs comes with =abbrev-mode= that is able to replace typed strings
 in context sensitive way. I use it to correct typos (teh -> the) and
 replace short strings with long, multiline texts in modes that
-I use frequently. I turn this mode on in all modes that are based
-in text-mode.
+I use frequently. I turn this mode on globally. Any changes to abbrevs
+are silently saved.
+
+While there are commands to modify abbreviations, I have added a link
+to
 
 #+BEGIN_SRC emacs-lisp
   (use-package abbrev
@@ -2173,15 +2163,16 @@ in text-mode.
     :ensure nil
     :defer t
     :commands abbrev-mode
+    :custom
+    (abbrev-mode 1 "enable globally")
+    (save-abbrevs 'silently)
     :config
-    (progn
-      (if (file-exists-p abbrev-file-name)
-          (quietly-read-abbrev-file))
-      (setq save-abbrevs 'silently)
-      (add-hook 'expand-load-hook
-                (lambda ()
-                  (add-hook 'expand-expand-hook 'indent-according-to-mode)
-                  (add-hook 'expand-jump-hook 'indent-according-to-mode)))))
+    (if (file-exists-p abbrev-file-name)
+        (quietly-read-abbrev-file))
+    (add-hook 'expand-load-hook
+              (lambda ()
+                (add-hook 'expand-expand-hook 'indent-according-to-mode)
+                (add-hook 'expand-jump-hook 'indent-according-to-mode))))
 #+END_SRC
 
 A special form of abbreviation is a time stamp in a file. I do not
