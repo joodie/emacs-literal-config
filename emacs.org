@@ -5208,8 +5208,10 @@ upper case, so it was necessary to add =upcase=.
   (setq org-tag-alist '(("ATORP"   . ?a)
                         ("WORK"    . ?r)
                         ("TMI"     . ?i)
+                        ("CSC"     . ?c)
+
                         (:startgrouptag)
-                        ("SCIENCE"   . ?z)
+                        ("SCIENCE" . ?z)
                         (:grouptags)
                         ("BIO"     . ?b)
                         ("HUMEVO"  . ?h)
@@ -5218,7 +5220,7 @@ upper case, so it was necessary to add =upcase=.
                         (:endgrouptag)
 
                         (:startgrouptag)
-                        ("COMP"    . ?c)
+                        ("COMP"    . ?x)
                         (:grouptags)
                         ("GIT"     . ?g)
                         ("LATEX"   . ?l)
@@ -5234,7 +5236,7 @@ upper case, so it was necessary to add =upcase=.
                         (:endgrouptag)
 
                         (:startgrouptag)
-                        ("CULTURE"    . ?e)
+                        ("CULTURE" . ?e)
                         (:grouptags)
                         ("FOOD"    . ?d)
                         ("PHOTO"   . ?f)
