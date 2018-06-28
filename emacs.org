@@ -6652,9 +6652,8 @@ brew install isync
 mkdir ~/Sync/shared
 # generate app password for mail in google
 
-cat > .mbsyncpass
-...
-ctrl-D
+cat >
+~ctrl-D
 gpg -e -r heikki.lehvaslaiho@gmail.com .mbsyncpass
 
 cd
@@ -6671,6 +6670,8 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
 ;; debug mail sending
 (setq smtpmail-debug-info t)
 
+[[http://irreal.org/blog/?p=6122][Mu4e Configuration | Irreal]]
+
 #+BEGIN_SRC emacs-lisp
 
   (add-to-list 'load-path "/usr/local/Cellar/mu/1.0/share/emacs/site-lisp/mu/mu4e")
@@ -6679,11 +6680,13 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
     :ensure nil
     :ensure-system-package mu
     :bind ("C-c m" . mu4e)
-    :hook (mu4e-compose-mode . flyspell-mode)
+    :hook ((mu4e-compose-mode . flyspell-mode)
+           (message-mode . turn-on-org-tbl)
+           (message-mode . turn-on-orgstruct++))
     :custom
     (mu4e-attachment-dir "~/Downloads")
     (mu4e-confirm-quit nil)
-    (mu4e-compose-signature-auto-include nil)
+    (mu4e-compose-signature-auto-include t)
     (mu4e-completing-read-function 'ivy-completing-read)
     (mu4e-get-mail-command "mbsync -a")
     (mu4e-maildir "~/Maildir")
@@ -6703,49 +6706,101 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
     (mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain")
     (mu4e-sent-messages-behavior 'delete) ; gmail stores a copy automatically
     (mu4e-update-interval 300)
+    (mu4e-compose-format-flowed t) ; Set format=flowed
     (mu4e-use-fancy-chars t)
     (mu4e-view-show-addresses t)
     (mail-user-agent 'mu4e-user-agent)
-    (mu4e-view-show-images t))
+    (mu4e-view-show-images t)
+    (mu4e-view-image-max-width 800)
+    (mu4e-headers-date-format "%y-%m-%d %H:%M")
+    (mu4e-headers-fields
+     '( (:human-date   .  18) ; 12, longer date format
+        (:flags        .   6)
+        (:mailing-list .  10)
+        (:from         .  22)
+        (:subject      . nil)))
+    :config
+    ;;store org-mode links to messages
+    (require 'org-mu4e)
+    ;;store link to message if in header view, not to header query
+    (setq org-mu4e-link-query-in-headers-mode nil))
+    ;; end of mu4e
 
-  (setq mu4e-mu-binary "/usr/local/bin/mu")
-  (use-package mu4e-alert
-    :after mu4e
-    :hook (;; (after-init . mu4e-alert-enable-mode-line-display)
-           (after-init . mu4e-alert-enable-notifications))
-    :config (mu4e-alert-set-default-style 'osx-notifier))
+   ;;rename files when moving
+   ;;NEEDED FOR MBSYNC
+   (setq mu4e-change-filenames-when-moving t)
 
-  (add-to-list 'mu4e-view-actions '("view in browser" . mu4e-action-view-in-browser))
+    (setq mu4e-mu-binary "/usr/local/bin/mu")
+    (use-package mu4e-alert
+      :after mu4e
+      :hook (;; (after-init . mu4e-alert-enable-mode-line-display)
+             (after-init . mu4e-alert-enable-notifications))
+      :config (mu4e-alert-set-default-style 'osx-notifier))
 
-  (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
+    (add-to-list 'mu4e-view-actions '("view in browser" . mu4e-action-view-in-browser))
 
-  (defvaralias 'mu4e-compose-signature 'message-signature)
+    (add-hook 'mu4e-view-mode-hook #'visual-line-mode)
 
-  (setq mu4e-headers-show-threads nil) ; Use "P" to toggle threading
+    (defvaralias 'mu4e-compose-signature 'message-signature)
 
-(setq mu4e-org-contacts-file  (car org-contacts-files))
-(add-to-list 'mu4e-headers-actions
-  '("org-contact-add" . mu4e-action-add-org-contact) t)
-(add-to-list 'mu4e-view-actions
-  '("org-contact-add" . mu4e-action-add-org-contact) t)
+    (setq mu4e-headers-show-threads nil) ; Use "P" to toggle threading
+
+    (setq mu4e-org-contacts-file  (car org-contacts-files))
+    ;;(add-to-list 'mu4e-headers-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
+    ;;(add-to-list 'mu4e-view-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
 
 
-  ;; sending mail
-  (setq auth-sources '("~/.authinfo.gpg"
-                       "~/Sync/shared/.authinfo.gpg"
-                       "~/.authinfo"
-                       "~/.netrc"))
+    ;; sending mail
+    (setq auth-sources '("~/.authinfo.gpg"
+                         "~/Sync/shared/.authinfo.gpg"
+                         "~/.authinfo"
+                         "~/.netrc"))
 
-  (use-package message
-    :ensure nil
-    :custom (send-mail-function 'smtpmail-send-it))
+    (use-package message
+      :ensure nil
+      :custom (send-mail-function 'smtpmail-send-it))
 
-  (use-package smtpmail
-    :ensure nil
-    :custom
-    (smtpmail-smtp-server "smtp.gmail.com")
-    (smtpmail-smtp-service 465)
-    (smtpmail-stream-type 'ssl))
+    (use-package smtpmail
+      :ensure nil
+      :custom
+      (smtpmail-smtp-server "smtp.gmail.com")
+      (smtpmail-smtp-service 465)
+      (smtpmail-stream-type 'ssl)
+      (message-kill-buffer-on-exit t "don't keep message buffers around"))
+
+    ;; these are the standard mu4e search bookmarks
+    ;; I've only added the fourth one to pull up flagged emails in my inbox
+    ;; I sometimes use this to shortlist emails I need to get around to ASAP
+    (setq mu4e-bookmarks
+          `( ,(make-mu4e-bookmark
+               :name  "Unread messages"
+               :query "flag:unread AND NOT flag:trashed"
+               :key ?u)
+             ,(make-mu4e-bookmark
+               :name "Today's messages"
+               :query "date:today..now"
+               :key ?t)
+             ,(make-mu4e-bookmark
+               :name "Last 7 days"
+               :query "date:7d..now"
+               :key ?w)
+             ,(make-mu4e-bookmark
+               :name "Flagged in Gmail INBOX"
+               :query "maildir:\"/gmail/INBOX\" and flag:flagged"
+               :key ?f)))
+
+    ;; mu4e-contexts set in secrets.el
+
+    ;; set `mu4e-context-policy` and `mu4e-compose-policy` to tweak when mu4e should
+    ;; guess or ask the correct context, e.g.
+
+    ;; start with the first (default) context;
+    ;; default is to ask-if-none (ask when there's no context yet, and none match)
+    (setq mu4e-context-policy 'pick-first)
+
+    ;; compose with the current context if no context matches;
+    ;; default is to ask
+    (setq mu4e-compose-context-policy nil)
 #+END_SRC
 
 
