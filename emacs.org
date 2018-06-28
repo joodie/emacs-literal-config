@@ -4045,7 +4045,7 @@ environment:
     "Custom command to setup python-mode"
     (interactive)
     (let ((max-column 99))
-      (setq python-shell-interpreter "/Users/heikki/miniconda3/bin/python"
+      (setq python-shell-interpreter "~/miniconda3/bin/python"
             python-shell-interpreter-args "-i"
             ;;venv-location "~/.virtualenvs"
             whitespace-line-column max-column
@@ -5864,7 +5864,7 @@ modern libraries is Anaconda python version 3.
 
 #+BEGIN_SRC emacs-lisp
   ;; Alternative python interpreter for babel blocks
-  (setq org-babel-python-command "/Users/heikki/miniconda3/bin/python")
+  (setq org-babel-python-command "~/miniconda3/bin/python")
 #+END_SRC
 
 Use syntax highlighting ("fontification") in org-mode source
@@ -6269,7 +6269,7 @@ to.
   (use-package gscholar-bibtex
     :defer t
     :init
-    (setq gscholar-bibtex-database-file "/Users/heikki/Documents/latex/all.bib")
+    (setq gscholar-bibtex-database-file "~/Documents/latex/all.bib")
     (setq gscholar-bibtex-default-source "Google Scholar")
     :config
     (set-face-attribute 'gscholar-bibtex-title nil
@@ -6308,7 +6308,7 @@ document. Place them to the end. Read more about [[http://merkel.zoneo.net/Latex
   (define-skeleton skel-org-block-bibl
     "Insert a org/lisp bibliography block"
     ""
-    "\n\\bibliographystyle{plainnat}\n\\bibliography{/Users/heikki/Documents/latex/all.bib}\n"
+    "\n\\bibliographystyle{plainnat}\n\\bibliography{~/Documents/latex/all.bib}\n"
     _ -
     "")
 
@@ -6366,7 +6366,7 @@ code blocks.
 #+BEGIN_SRC emacs-lisp
   (use-package ox-reveal
     :init
-    ;; (setq org-reveal-root "file:/Users/heikki/src/reveal.js")
+    ;; (setq org-reveal-root "file:~/src/reveal.js")
     (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"))
   (use-package htmlize)
 #+END_SRC
