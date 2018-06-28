@@ -5715,7 +5715,7 @@ use =C-M-i= to complete.
           (setq beg (1+ (point))))
         (list beg end
               (delete (buffer-substring-no-properties beg end)
-                      (nreverse cands))))))
+                      (nreverse< cands))))))
 
 #+END_SRC
 
