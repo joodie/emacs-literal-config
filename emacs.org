@@ -7451,11 +7451,22 @@ between the browser text fields and Emacs.
 
 You need to install this [[https://chrome.google.com/webstore/detail/atomic-chrome/lhaoghhllmiaaagaffababmkdllgfcmc][Chrome extension]] or [[https://github.com/alpha22jp/atomic-chrome][read more]] to use it from Firefox.
 
+Set [[https://www.reddit.com/r/emacs/comments/8jb4p5/editing_html_textareas_with_emacs_bye_bye_its_all/][major mode based on the website]].
+
 #+BEGIN_SRC emacs-lisp
   (use-package atomic-chrome
-    :init
+    :custom
+    (atomic-chrome-url-major-mode-alist
+     '(("reddit\\.com" . markdown-mode)
+       ("github\\.com" . gfm-mode))
+     "Major modes for URLs")
+    :config
     (atomic-chrome-start-server))
 #+END_SRC
+
+Atomic-chrome server is not starting. If I run the commands manually
+from the function, it works. What is wrong? Solved: start server under
+config, not init.
 
 ** Calculator
 
