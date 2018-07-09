@@ -3066,8 +3066,12 @@ hit =C-x l g= that is short for "Emacs, launch grammar".
            ("C-x 4 c" . langtool-correct-buffer))
     :init
     (setq langtool-language-tool-jar
-          "/usr/local/Cellar/languagetool/3.2/libexec/languagetool-commandline.jar")
+          "/usr/local/Cellar/languagetool/4.1/libexec/languagetool-commandline.jar")
     (setq langtool-default-language "en")
+   ;; (setq langtool-user-arguments '(\"--languagemodel ~/data/lt\"))
+    (setq langtool-user-arguments '("--languagemodel" "~/data/lt")) ; try!
+    ;;(setq langtool-user-arguments "--languagemodel ~/data/lt")
+;;    (setq langtool-java-user-arguments nil)
     (setq langtool-mother-tongue "en")
     (setq langtool-disabled-rules '("WHITESPACE_RULE"
                                     "EN_UNPAIRED_BRACKETS"
