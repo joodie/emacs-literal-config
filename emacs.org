@@ -5357,7 +5357,7 @@ Code snippet capture code was mentioned in the  [[http://irreal.org/blog/?p=5244
           ("s" "code snippet" entry (file+olp+datetree "~/Dropbox/org/reference.org")
            ;; Prompt for tag and language
            "* %?\t%^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n#+BEGIN_SRC %^{language}\n%i\n#+END_SRC")
-          ("e" "event" entry (file+olp+datetree "~/Dropbox/org/calendar.org")
+          ("e" "event" entry (file+olp+datetree "~/Dropbox/org/reference.org")
            "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: event\n     :END:\n     %T\n%i")
           ("a" "appointment" entry (file "~/Dropbox/org/gcal.org" )
            "* %?\n\n %^T\n\n:PROPERTIES:\n\n:END:\n\n")
