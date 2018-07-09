@@ -3384,11 +3384,10 @@ framework for it.
 
 ** MarkDown
 
-Github and especially BitBucket use =markdown mode= for
-documentation, so my Emacs knows about it. GitHub knows how to
-render =org-mode= documents, too, so this mode is not getting much
-use. [[http://joostkremers.github.io/pandoc-mode/][pandoc-mode]] is a general purpose export formatter and uses
-hydra =C-c 4=.
+Github and especially BitBucket use [[https://jblevins.org/projects/markdown-mode/][markdown-mode]] for documentation,
+so my Emacs knows about it. GitHub knows how to render =org-mode=
+documents, too, so this mode is not getting much use. [[http://joostkremers.github.io/pandoc-mode/][pandoc-mode]] is a
+general purpose export formatter and uses hydra =C-c 4=.
 
 My =org-mode= is configured to export to markdown format.
 
@@ -3398,8 +3397,10 @@ My =org-mode= is configured to export to markdown format.
 
   (use-package markdown-mode
     :mode  ("\\.md" "\\.markdown")
+    :commands (markdown-mode gfm-mode)
     ;;:hook pandoc-mode
     :config
+    (setq markdown-command "multimarkdown")
     (add-hook 'markdown-mode-hook 'pandoc-mode)
     (use-package markdown-preview-mode
       :hook markdown-mode))
