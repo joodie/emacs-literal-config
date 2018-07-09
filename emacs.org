@@ -3192,6 +3192,16 @@ Large numbers made easier to read by highlighting groups of three.
 This was added to the toggle hydra and can be invoked with =C-x t g=,
 "Emacs, toggle groups".
 
+** Highlighting
+
+[[https://github.com/rolandwalker/button-lock][rolandwalker/button-lock: clickable text in Emacs]] provides clickable
+text for text files.
+
+#+BEGIN_SRC emacs-lisp
+(use-package button-lock
+:config
+(global-button-lock-mode 1))
+#+END_SRC
 ** Poetry mode
 
 Bob Newell's poetry mode is available from
