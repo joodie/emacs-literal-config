@@ -8,7 +8,6 @@
 *** http://www.bbc.com/culture/feed.rss
 # *** http://bruxelles.blogs.liberation.fr/feeds/
 *** Suomi                                                                :fi:
-
 **** http://www.hs.fi/uutiset/rss/
 **** http://yle.fi/uutiset/rss/paauutiset.rss
 **** https://suomenkuvalehti.fi/8hj38g7dh49g73jd02fasd/
@@ -20,7 +19,7 @@
 *** http://www.technologyreview.com/topnews.rss
 *** http://www.theatlantic.com/feed/channel/science/
 *** http://mosaicscience.com/feed/rss.xml
-*** http://epidemic.bio.ed.ac.uk/rss.xml
+# *** http://epidemic.bio.ed.ac.uk/rss.xml
 ** Bio
 *** https://dazzlerblog.wordpress.com/feed/
 ** Computers
@@ -77,7 +76,7 @@
 ** Friends                                                                 :f:
 *** http://heikkil.github.io/rss.xml
 *** http://saffronwaldenlessons.blogspot.fi/atom.xml
-*** http://soloalgunacspalabras.wordpress.com/feed/
+*** http://soloalgunaspalabras.wordpress.com/feed/
 *** http://tamara-kulikova.blogspot.com/feeds/posts/default
 *** http://listenlearnread.blogspot.com/feeds/posts/default
 *** http://madebytamarak.blogspot.com.es/atom.xml
