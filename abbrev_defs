@@ -13,9 +13,9 @@
 
 (define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'array-mode-abbrev-table '())
+
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'biblio-selection-mode-abbrev-table '())
 
@@ -25,13 +25,9 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -174,12 +170,14 @@
 (define-abbrev-table 'global-abbrev-table
   '(
     ("8ar" "→" nil 3)
+    ("8at" "@" nil 1)
     ("8ell" "…" nil 0)
     ("8eur" "€" nil 21)
     ("8oc" "°C" nil 0)
     ("8pound" "£" nil 2)
     ("8zws" "​" nil 4)
     ("Flase" "False" nil 4)
+    ("Heikkil" "Heikki Lehväslaiho" nil 1)
     ("abiquity" "ambiguity" nil 0)
     ("absorbtion" "absorption" nil 0)
     ("adn" "and" nil 0)
@@ -235,7 +233,7 @@
     ("february" "February" nil 0)
     ("fi" "if" nil 0)
     ("flase" "false" nil 4)
-    ("fo" "of" nil 0)
+    ("fo" "of" nil 1)
     ("forthnight" "fortnight" nil 0)
     ("fri" "Fri." nil 0)
     ("friday" "Friday" nil 0)
@@ -321,7 +319,7 @@ use Data::Printer;
     ("sunday" "Sunday" nil 0)
     ("taht" "that" nil 14)
     ("techinques" "techniques" nil 0)
-    ("teh" "the" nil 0)
+    ("teh" "the" nil 1)
     ("tehm" "them" nil 0)
     ("thats" "that is" nil 0)
     ("thur" "Thur." nil 0)
@@ -382,9 +380,7 @@ use Data::Printer;
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'latex-mode-abbrev-table '())
 
@@ -452,9 +448,7 @@ use Data::Printer;
 
 (define-abbrev-table 'nov-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -507,7 +501,7 @@ use Data::Printer;
     ("oscale" "#+ATTR_LaTeX: scale=0.75" nil 1)
     ("oshebang" "#+PROPERTY: :shebang \"#!/usr/bin/env perl\"" nil 1)
     ("osize" "#+ATTR_LaTeX: width=0.70\\textwidth" nil 1)
-    ("otitle" "#+TITLE:" nil 15)
+    ("otitle" "#+TITLE:" nil 16)
     ("otname" "#+TBLNAME:" nil 6)
     ("otoc" "#+OPTIONS: toc:nil num:nil" nil 10)
     ("otufte" "#+LATEX_CLASS: tufte-handout" nil 10)
@@ -546,9 +540,7 @@ use Data::Printer;
 
 (define-abbrev-table 'perl6-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
@@ -558,9 +550,7 @@ use Data::Printer;
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'quickrun--mode-abbrev-table '())
 
@@ -594,9 +584,7 @@ use Data::Printer;
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
-(define-abbrev-table 'sql-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'sql-mode-abbrev-table '())
 
 (define-abbrev-table 'suggest-mode-abbrev-table '())
 
@@ -643,3 +631,4 @@ use Data::Printer;
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
+
