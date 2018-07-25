@@ -6385,17 +6385,20 @@ Finally a sensible implementation of kanban for org!
  #+END:
 #+END_EXAMPLE
 
-Use abbreviation =okanban= to create it.
+Use the custom abbreviation =okanban= to create it.
 
-5. Place cursor on start or end tag and press =C-c C-c= to create or
-   update the table.
+1. Save the file and place cursor on start or end tag and press =C-c
+   C-c= to create or update the table.
 
-6. The TODO state can be updated from inside the table. Place the
+2. TODO states can also be updated from inside the table. Place the
    cursor on a line and give command =org-kanban/shift=. Keys =j= and =k=
    are bound to continue moving the topic left and right.
 
+3. Limit headers using tags and =:match= keyword
+
+
 #+BEGIN_SRC emacs-lisp
-(use-package org-kanban)
+  (use-package org-kanban)
 #+END_SRC
 
 ** Presentation
