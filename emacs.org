@@ -2250,24 +2250,56 @@ asking. Giving it an universal argument (C-u) calls the standard
 #+END_SRC
 
 
-*** PENDING Yasnippet
+*** Yasnippet
 
-Add your own snippets to file:~/.emacs.d/snippets by placing files
-there or invoking yas-new-snippet.
-
-Yas is enabled in programming and org modes.
+Add your own [[http://joaotavora.github.io/yasnippet/][snippets]] to file:~/.emacs.d/snippets by placing files
+there or invoking =yas-new-snippet= or =C-c & C-n= .
 
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
-    :disabled nil
     :defer t
+    :bind (:map snippet-mode-map
+                ("C-c C-l" . yas-load-snippet-buffer)
+                ("C-c C-c" . yas-load-snippet-buffer-and-close)
+                ("C-c C-t" . yas-tryout-snippet))
     :init
-    (add-hook 'prog-mode-hook #'yas-minor-mode)
-    (add-hook 'org-mode-hook #'yas-minor-mode)
-    (add-hook 'emacs-lisp-mode-hook #'yas-minor-mode)
+    (yas-global-mode 1)
     :config
+    (add-to-list 'yas-snippet-dirs (locate-user-emacs-file "snippets"))
     (yas-reload-all))
 #+END_SRC
+
+Yasnippets can turned into a really useful tool: [[http://www.howardism.org/Technical/Emacs/templates-tutorial.html][Having Emacs Type for
+You]].
+
+Todo:
++ [[https://github.com/mkcms/ivy-yasnippet][mkcms/ivy-yasnippet: Preview yasnippet snippets with ivy]]
++ [[https://github.com/AndreaCrotti/yasnippet-snippets][AndreaCrotti/yasnippet-snippets: a collection of yasnippet snippets for many languages]]
++ [[https://www.reddit.com/r/emacs/comments/8vdhb4/tip_how_to_integrate_snippets_with_yasnippets/][TIP: How to integrate snippets with YASnippets : emacs]]
+
+*** autoinsert
+
+#+BEGIN_SRC emacs-lisp
+  (use-package autoinsert
+    :ensure nil
+    :init
+    ;; Don't want to be prompted before insertion:
+    (setq auto-insert-query nil)
+    (setq auto-insert-directory (locate-user-emacs-file "templates"))
+    (add-hook 'find-file-hook 'auto-insert)
+    (auto-insert-mode 1)
+    :config
+
+    (defun autoinsert-yas-expand ()
+      "Replace text in yasnippet template."
+      (yas-expand-snippet (buffer-string) (point-min) (point-max)))
+
+    (define-auto-insert "\\.el$" ["default-lisp.el" autoinsert-yas-expand])
+    (define-auto-insert "\\.sh$" ["default-sh.sh" autoinsert-yas-expand])
+    (define-auto-insert "/bin/"  ["default-sh.sh" autoinsert-yas-expand])
+    (define-auto-insert "\\.html?$" ["default-html.html" autoinsert-yas-expand]))
+#+END_SRC
+
 ** Fixing DOuble capitals
 
 Painless way to avoid double capitals in the beginning of words
