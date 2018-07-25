@@ -7701,10 +7701,27 @@ l x=. (Sorry, does not make sense!)
 
 The use of directory file:~/.emacs.p is from [[http://fasciism.com/2017/01/26/eshell-customizations/][Eshell Customizations]].
 
+See [[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][dot-files/emacs-eshell.org at master · howardabrams/dot-files]] for
+massive amounts of eshell configurations.
+
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
+    :bind (("C-c 1" . eshell-here))
     :config
     (setenv "PAGER" "cat")
+
+    ;; from howardabrams
+    (defun eshell-here ()
+      "Opens up a new shell in the directory associated with the
+      current buffer's file. The eshell is renamed to match that
+      directory to make multiple eshell windows easier."
+      (interactive)
+      (let* ((height (/ (window-total-height) 3)))
+        (split-window-vertically (- height))
+        (other-window 1)
+        (eshell "new")
+        (insert (concat "ls"))
+        (eshell-send-input)))
 
     (setq eshell-history-size 100000
           eshell-directory-name "~/.emacs.p/eshell")
