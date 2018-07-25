@@ -1179,6 +1179,14 @@ Note that it interferes with my current line highlighting. See [[Current line]].
     :hook css-mode)
 #+END_SRC
 
+** Colors
+
+You can customize faces to make text stand out better:
+
+[[https://emacsnotes.wordpress.com/2018/07/17/let-stuff-that-interest-you-stand-out-customize-faces/][Let stuff that interest you stand out: Customize faces – Emacs Notes]]
+
+View a list of common colors: =list-colors-display=
+
 * Start-up
 
 Start with the scratch buffer; no start-up screen. Restore previous
