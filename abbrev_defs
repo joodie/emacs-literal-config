@@ -183,7 +183,6 @@
     ("adn" "and" nil 0)
     ("afaik" "as far as i know" nil 0)
     ("ahve" "have" nil 0)
-    ("ai" "artificial intelligence" nil 0)
     ("albait" "albeit" nil 0)
     ("anf" "and" nil 0)
     ("ang" "Å" nil 0)
@@ -631,4 +630,3 @@ use Data::Printer;
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
-
