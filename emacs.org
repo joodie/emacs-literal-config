@@ -3167,6 +3167,29 @@ show alternative words.
     (add-hook 'text-mode-hook #'synosaurus-mode))
 #+END_SRC
 
+*** Wiki lookup
+
+https://www.reddit.com/r/emacs/comments/94t6p6/tip_packages_to_include_in_your_workflow_part_i/
+
+#+BEGIN_SRC emacs-lisp
+(use-package wiki-summary
+  :defer t
+  :bind ("C-c W" . wiki-summary)
+  :preface
+  (defun my/format-summary-in-buffer (summary)
+    "Given a summary, stick it in the *wiki-summary* buffer and display the buffer"
+    (let ((buf (generate-new-buffer "*wiki-summary*")))
+      (with-current-buffer buf
+        (princ summary buf)
+        (fill-paragraph)
+        (goto-char (point-min))
+        (fill-paragraph) ;; in case of two paras
+        (text-mode)
+        (view-mode))
+      (pop-to-buffer buf))))
+
+(advice-add 'wiki-summary/format-summary-in-buffer :override #'my/format-summary-in-buffer)
+#+END_SRC
 *** Webster's
 
 The old Webster's 1913 Dictionary is a [[http://jsomers.net/blog/dictionary][rare beast]] where definitions
