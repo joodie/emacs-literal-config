@@ -18,6 +18,7 @@
 *** http://www.technologyreview.com/biomedicine/rss/
 *** http://www.technologyreview.com/topnews.rss
 *** http://www.theatlantic.com/feed/channel/science/
+*** https://api.quantamagazine.org/feed/
 *** http://mosaicscience.com/feed/rss.xml
 # *** http://epidemic.bio.ed.ac.uk/rss.xml
 ** Bio
