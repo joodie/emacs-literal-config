@@ -2056,6 +2056,7 @@ exit the rectangle editing mode by =C-c=.
 
 #+BEGIN_SRC emacs-lisp
   (cua-mode t)
+  (bind-key  "H-x H-x" 'exchange-point-and-mark)
 #+END_SRC
 
 *** Expand region
