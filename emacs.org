@@ -1752,23 +1752,24 @@ If the line wrapping (explicitely =M-q=) needs to be [[http://www.emacswiki.org/
 
 A handy free feature from [[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html?source=rss][Endless Parentheses]] does away the need to
 have a separate function for unfilling paragraphs: Now you can press
-=M-q= twice to unwrap.
+=M-q= twice to unwrap. Modified to work in org buffers, too.
 
 #+BEGIN_SRC emacs-lisp
   (defun endless/fill-or-unfill ()
     "Like `fill-paragraph', but unfill if used twice."
     (interactive)
     (let ((fill-column
-           (if (eq last-command 'endless/fill-or-unfill)
+           (if (eq last-command #'endless/fill-or-unfill)
                (progn (setq this-command nil)
                       (point-max))
              fill-column)))
-      (call-interactively #'fill-paragraph)))
+      (if (eq major-mode 'org-mode)
+          (call-interactively #' org-fill-paragraph)
+      (call-interactively #'fill-paragraph))))
 
-  (global-set-key [remap fill-paragraph]
-                  #'endless/fill-or-unfill)
-  ;;(define-key org-mode-map [remap org-fill-paragraph] #'endless/fill-or-unfill)
-  ;; org-fill-paragraph
+  (define-key org-mode-map (kbd "M-q") #'endless/fill-or-unfill)
+  (global-set-key [remap fill-paragraph] #'endless/fill-or-unfill)
+
   ;;; Stefan Monnier <foo at acm.org>. It is the opposite of fill-paragraph
   (defun unfill-paragraph (&optional region)
     "Takes a multi-line paragraph and makes it into a single line of text."
