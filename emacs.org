@@ -7773,7 +7773,7 @@ massive amounts of eshell configurations.
       "Open a dired instance of the current working directory."
       (dired "."))
 
-    (defun eshell/q ()
+    (defun eshell/qq ()
       "Send the *eshell* buffer to the back of buffer list."
       (bury-buffer)))
 #+END_SRC
