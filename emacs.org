@@ -1982,6 +1982,18 @@ within emacs. Kudos to [[http://wenshanren.org/?p=298][Wenshan]].
       (message "Buffer is not associated to a file.")))
 #+END_SRC
 
+** Large files
+
+[[https://github.com/m00natic/vlfi][m00natic/vlfi: View Large Files in Emacs]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package vlf
+    :custom
+    (vlf-application 'dont-ask)
+    :config
+    (require 'vlf-setup))
+#+END_SRC
+
 ** Overwrite selected text
 
 ... like in any other editor.
