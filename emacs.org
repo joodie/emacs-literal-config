@@ -440,7 +440,7 @@ Emacs]]
 
   (use-package dired
     :ensure nil
-    :ensure-system-package coreutils
+    ;; :ensure-system-package coreutils
     :hook auto-revert    ; auto refresh dired when file changes
     :config
     (setq dired-listing-switches "-alh")
