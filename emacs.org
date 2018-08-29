@@ -3656,13 +3656,14 @@ quickrun in modes that use frequently.
 
 #+BEGIN_SRC emacs-lisp
   (use-package quickrun
+    :defer t
     :config
     (quickrun-add-command "perl"
       '((:command . "~/.plenv/shims/perl")
         '((:exec . ("%c -wc %s")))
         :override t))
     (quickrun-add-command "python"
-      '((:command . "~/miniconda/bin/python")
+      '((:command . "/usr/local/miniconda3/bin/python")
         '((:exec . ("%c -wc %s")))
         :override t))
     (eval-after-load 'python-mode
