@@ -4594,6 +4594,29 @@ replaced by
     (beginend-global-mode))
 #+END_SRC
 
+** Actionable URLs
+
+[[http://irreal.org/blog/?p=7434][Actionable Links in Emacs Buffers | Irreal]]
+
+Pressing enter on a link now opens the target. Press =M-<RET>= to
+enter to newline.
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package goto-addr
+    :ensure nil
+    :hook ((compilation-mode . goto-address-mode)
+           (prog-mode . goto-address-prog-mode)
+           (org-mode . goto-address-mode)
+           (eshell-mode . goto-address-mode)
+           (shell-mode . goto-address-mode))
+    :bind (:map goto-address-highlight-keymap
+                ("<RET>" . goto-address-at-point)
+                ("M-<RET>" . newline))
+    :commands (goto-address-prog-mode
+               goto-address-mode))
+#+END_SRC
+
 ** Bookmarks
 
 Visible bookmarks from [[https://github.com/joodland/bm][bm]] package are made easy with a hydra. I am
