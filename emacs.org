@@ -7766,6 +7766,10 @@ massive amounts of eshell configurations.
     (setq eshell-history-size 100000
           eshell-directory-name "~/.emacs.p/eshell")
 
+    (defun eshell/gst (&rest args)
+      (magit-status (pop args) nil)
+      (eshell/echo))   ;; The echo command suppresses output
+
     (defun eshell/dd (&rest args)
       (dired (pop args) "."))
 
