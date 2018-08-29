@@ -5456,6 +5456,79 @@ Code snippet capture code was mentioned in the  [[http://irreal.org/blog/?p=5244
            :clock-in t :clock-keep t)))
 #+END_SRC
 
+See [[http://www.howardism.org/Technical/Emacs/capturing-content.html][Capturing Content for Emacs]] for my latest additions to capture
+templates.
+
+#+BEGIN_SRC emacs-lisp
+
+  (add-to-list 'org-capture-templates
+               `("C" "Item to Current Clocked Task" item (clock)
+                 "%i%?" :empty-lines 1))
+
+  (add-to-list 'org-capture-templates
+               `("x" "Item to Current Clocked Task, noninteractive" item (clock)
+                 "%i%?" :immediate-finish t :empty-lines 1))
+
+  (add-to-list 'org-capture-templates
+               `("k" "Kill-ring to Current Clocked Task" plain
+                 (clock)
+                 "%c" :immediate-finish t :empty-lines 1))
+
+  (defun org-chrome-url-to-clocked-task ()
+    "Copies the current Chrome URL to the currently clocked-in org mode task."
+    (interactive)
+    (org-capture-string (org-mac-chrome-get-frontmost-url) "x"))
+
+  (global-set-key (kbd "C-0") 'org-browser-url-to-clocked-task)
+
+
+  (add-to-list 'org-capture-templates
+               `("K" "Selected contents to Current Clocked Task" plain
+                 (clock)
+                 "%i" :immediate-finish t :empty-lines 1))
+
+  (defun region-to-clocked-task (start end)
+    "Copies the selected text to the currently clocked in org-mode task."
+    (interactive "r")
+    (org-capture-string (buffer-substring-no-properties start end) "C"))
+
+  (global-set-key (kbd "C-9") 'region-to-clocked-task)
+
+(defun ha/org-capture-clip-snippet (f)
+  "Given a file, F, this captures the currently selected text
+within an Org EXAMPLE block and a backlink to the file."
+  (with-current-buffer (find-buffer-visiting f)
+    (ha/org-capture-fileref-snippet f "EXAMPLE" "" nil)))
+
+(defun ha/org-capture-code-snippet (f)
+  "Given a file, F, this captures the currently selected text
+within an Org SRC block with a language based on the current mode
+and a backlink to the function and the file."
+  (with-current-buffer (find-buffer-visiting f)
+    (let ((org-src-mode (replace-regexp-in-string "-mode" "" (format "%s" major-mode)))
+          (func-name (which-function)))
+      (ha/org-capture-fileref-snippet f "SRC" org-src-mode func-name))))
+
+(defun ha/org-capture-fileref-snippet (f type headers func-name)
+  (let* ((code-snippet
+          (buffer-substring-no-properties (mark) (- (point) 1)))
+         (file-name   (buffer-file-name))
+         (file-base   (file-name-nondirectory file-name))
+         (line-number (line-number-at-pos (region-beginning)))
+         (initial-txt (if (null func-name)
+                          (format "From [[file:%s::%s][%s]]:"
+                                  file-name line-number file-base)
+                        (format "From ~%s~ (in [[file:%s::%s][%s]]):"
+                                func-name file-name line-number
+                                file-base))))
+    (format "
+   %s
+
+   #+BEGIN_%s %s
+%s
+   #+END_%s" initial-txt type headers code-snippet type)))
+#+END_SRC
+
 Captured notes can be tagged just like any other org headings.
 However, Key combination =C-c C-c= finalizes the capture, so you
 have to use =C-c C-q= to call up the capture interface. Tags that
