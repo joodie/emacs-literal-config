@@ -5513,7 +5513,7 @@ for several accounts. The path to the file must exist.
                 org-capture-templates))
 #+END_SRC
 
-** Org Dropbox
+** PENDING Org Dropbox
 
 [[https://t.co/rhSgJ6zrjD][org-dropbox]] is my own package that is now available in MELPA. It
 creates a minor mode that syncs DropBox notes from mobile devices
