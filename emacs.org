@@ -2688,7 +2688,16 @@ be installed (e.g. =brew install hub= in OS X).
     :config
     (magithub-feature-autoinject t))
 
-  (use-package git-commit :defer t)
+  (use-package git-commit
+    :after magit
+    :hook (git-commit-mode . my/git-commit-auto-fill-everywhere)
+    :custom (git-commit-summary-max-length 50)
+    :preface
+    (defun my/git-commit-auto-fill-everywhere ()
+      "Ensures that the commit body does not exceed 72 characters."
+      (setq fill-column 72)
+      (setq-local comment-auto-fill-only-comments nil)))
+
   (use-package git-gutter :defer t
     :diminish "")
 
