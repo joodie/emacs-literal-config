@@ -7737,18 +7737,25 @@ utility.
 
 Eshell is a shell written in elisp that integrates with with emacs
 environment. My shortcut incantation is "Emacs, launch shell", =C-x
-l x=. (Sorry, does not make sense!)
+l x=. (Sorry, this does not make sense!)
 
 The use of directory file:~/.emacs.p is from [[http://fasciism.com/2017/01/26/eshell-customizations/][Eshell Customizations]].
 
 See [[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][dot-files/emacs-eshell.org at master · howardabrams/dot-files]] for
 massive amounts of eshell configurations.
 
+
+The way to find more about shell commands is the same as in other
+shells: use =which=.
+
 #+BEGIN_SRC emacs-lisp
   (use-package eshell
     :bind (("C-c 1" . eshell-here))
     :config
     (setenv "PAGER" "cat")
+
+    (defalias 'open 'find-file)
+    (defalias 'openo 'find-file-other-window)
 
     ;; from howardabrams
     (defun eshell-here ()
