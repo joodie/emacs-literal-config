@@ -5692,7 +5692,11 @@ using org agenda commands.
 
 ** TODO Org-gcal
 
+The original author went silent
 [[https://github.com/myuhe/org-gcal.el][myuhe/org-gcal.el: Org sync with Google Calendar]]
+
+and the package has been adopted:
+[[https://github.com/kidd/org-gcal.el][kidd/org-gcal.el: Org sync with Google Calendar. (alive as of 2018-07-15)]]
 
 Instructions from [[http://cestlaz.github.io/posts/using-emacs-26-gcal/][Using Emacs - 26 - Google Calendar, Org Agenda | C'est la Z]]
 
@@ -5707,12 +5711,6 @@ Config is in my emacs secrets file.
   (use-package org-gcal)
 
   (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
-  ;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
-
-  ;; fix a bug
-  (defun new/org-gcal--notify (title mes)
-    (message "org-gcal::%s - %s" title mes))
-  (fset 'org-gcal--notify 'new/org-gcal--notify)
 #+END_SRC
 
 ** Org time
