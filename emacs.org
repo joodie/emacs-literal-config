@@ -646,7 +646,7 @@ I am trying out the new [[http://sourcefoundry.org/hack/][Hack 2.0]] font.
     ;;                     (font-spec :size 20 :name "Noto Emoji"))
 #+END_SRC
 
-You can use =C-x C-+= and =C-x C--= (‘text-scale-adjust’) to
+You can use =C-x C-+= and =C-x C--= (=text-scale-adjust=) to
 increase or decrease the buffer text size in the current buffer
 (=+= or =-= to repeat). To restore the default (global) face
 height, type =C-x C-0=. (From [[http://www.emacswiki.org/emacs/SetFonts][EmacsWiki]])
@@ -729,7 +729,7 @@ Even mouse commands use echo area to ask confirmations
 
 Show written out symbols as they should be. This is available only
 in emacs 24.4 and above. The replacements are in variable
-=prettify-symbols-alist=. Currently it displays “lambda” as
+=prettify-symbols-alist=. Currently it displays =lambda= as
 "λ" in lisp code and hundreds of symbols in LaTeX mode.
 
 For more, check out the documentation on =prettify-symbols-mode= using
@@ -886,8 +886,8 @@ not make it look the way I wanted.
 
 ** Feebleline
 
-[[https://github.com/tautologyclub/feebleline/][Removing the mode-line and using echo-area (smartly)
-instead.🔊]]Minimalistic mode line replacement.
+[[https://github.com/tautologyclub/feebleline/][Removing the mode-line and using echo-area (smartly) instead]]
+Minimalistic mode line replacement.
 
 #+BEGIN_SRC emacs-lisp
     (use-package feebleline
@@ -1183,7 +1183,7 @@ Note that it interferes with my current line highlighting. See [[Current line]].
 
 You can customize faces to make text stand out better:
 
-[[https://emacsnotes.wordpress.com/2018/07/17/let-stuff-that-interest-you-stand-out-customize-faces/][Let stuff that interest you stand out: Customize faces – Emacs Notes]]
+[[https://emacsnotes.wordpress.com/2018/07/17/let-stuff-that-interest-you-stand-out-customize-faces/][Let stuff that interest you stand out: Customize faces - Emacs Notes]]
 
 View a list of common colors: =list-colors-display=
 
@@ -1214,7 +1214,7 @@ file? : emacs]]).
   (setq custom-file "/tmp/null")
 
   ;; Save minibuffer history
-  ;;(savehist-mode)﻿
+  ;;(savehist-mode)
 #+END_SRC
 
 ** Encryption
@@ -1314,7 +1314,7 @@ confirmation before quiting emacs.
 
 #+BEGIN_SRC emacs-lisp
 
-  ;; don’t open files from the workspace in a new frame
+  ;; don't open files from the workspace in a new frame
   (setq ns-pop-up-frames nil)
 
   (fset 'yes-or-no-p 'y-or-n-p)
@@ -1558,8 +1558,8 @@ buffer. I do not use greek letters in keys, so I've removed them.
 
 [[http://irreal.org/blog/?p=6637][Kitchin on Org Entities | Irreal]]
 
-For example, if I want a ‘U’ with an umlaut, I bring up the function,
-type “uu” and Ivy narrows the choices down to the two entries (capital
+For example, if I want a =U= with an umlaut, I bring up the function,
+type =uu= and Ivy narrows the choices down to the two entries (capital
 and lower case) with an umlauted U, Ü. If I just type Return, the UTF
 glyph is inserted. If I type Meta+o (in Ivy, Helm, presumably, has a
 similar mechanism) I get a menu that allows me to enter the
@@ -5743,8 +5743,7 @@ and the package has been adopted:
 
 Instructions from [[http://cestlaz.github.io/posts/using-emacs-26-gcal/][Using Emacs - 26 - Google Calendar, Org Agenda | C'est la Z]]
 
-Video: [[https://www.youtube.com/watch?v=vO_RF2dK7M0][(3) Using emacs 26 - Google Calendar and Org Agenda (good
-version) - YouTube 🔊]]
+Video: [[https://www.youtube.com/watch?v=vO_RF2dK7M0][(3) Using emacs 26 - Google Calendar and Org Agenda (good version) - YouTube]]
 
 Config is in my emacs secrets file.
 
