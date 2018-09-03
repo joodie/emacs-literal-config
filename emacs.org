@@ -4829,6 +4829,41 @@ file, give '/', and start typing the name of the remote computer.
 
 #+BEGIN_SRC emacs-lisp
   (setq tramp-default-method "ssh")
+  ;;(add-to-list ' tramp-remote-path "/usr/local/git/bin")
+#+END_SRC
+
+** PENDING Docker
+
+General:
+- [[https://github.com/wsargent/docker-cheat-sheet][wsargent/docker-cheat-sheet: Docker Cheat Sheet]]
+- [[http://docker-curriculum.com/][A Docker Tutorial for Beginners]]
+
+dockerfile-mode adds syntax highlighting as well as the ability to build the image directly (C-c C-b) from the buffer.
+
+You can specify the image name in the file itself by adding a line like this at the top of your Dockerfile.
+
+## -*- docker-image-name: "your-image-name-here" -*-
+
+#+BEGIN_EXAMPLE
+C-x C-f /docker:user@container:/path/to/file
+#+END_EXAMPLE
+
+See also, [[https://github.com/Silex/docker.el][Silex/docker.el: Manage docker from Emacs.]]
+
+
+#+BEGIN_SRC emacs-lisp
+  ;; Edit docker's Dockerfiles
+  (use-package dockerfile-mode
+    :mode ("Dockerfile\\'" . dockerfile-mode)
+    :config
+    (put 'dockerfile-image-name 'safe-local-variable #'stringp))
+
+  ;; Edit docker-compose files
+  (use-package docker-compose-mode
+    :mode ("docker-compose.yml\\'". docker-compose-mode))
+
+  ;; TRAMP integration for docker containers
+  (use-package docker-tramp)
 #+END_SRC
 
 ** Projects
