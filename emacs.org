@@ -1432,7 +1432,7 @@ be shown with =M-x describe-personal-keybindings=.
   (bind-key "C-x t" 'hydra-toggle/body)
   (defhydra hydra-toggle (:color blue :hint nil)
     "
-             toggle _a_bbrev-mode          _h_tml preview for org   _o_rg link display     neo_t_ree
+             toggle _a_bbrev-mode          _h_tml preview for org   _o_rg link display     _t_remacs
                     _c_: word-count mode   _i_edit                  _p_retty entities      _v_: string inflection
                     _d_ebug-on-error       _k_: spelling language   _b_: overwrite mode    _w_ritegood-mode
                     _e_ros                 _l_ine numbers           t_r_uncate-lines       _q_uit
@@ -1456,7 +1456,7 @@ be shown with =M-x describe-personal-keybindings=.
     ("p" org-toggle-pretty-entities)
     ("r" toggle-truncate-lines)
     ("s" whitespace-mode)
-    ("t" neotree-toggle)
+    ("t" treemacs)
     ("u" rainbow-mode)
     ("v" string-inflection-toggle :color red)
     ("w" writegood-mode)
@@ -5074,14 +5074,54 @@ This and more files can be reached with my hydra-files by =C-z=.
     ("o" org-info))
 #+END_SRC
 
-[[http://www.emacswiki.org/emacs/NeoTree_%E4%B8%AD%E6%96%87wiki][NeoTree]] is a file browser plugin that I am trying out. Toggle its
-panel: Emacs, Toggle neoTree =C-x t t=.
+See [[https://github.com/zamansky/using-emacs/blob/master/myinit.org][using-emacs/myinit.org at master · zamansky/using-emacs]]
+for treemacs config.
+
+Toggle treemacs panel: Emacs, Toggle treemacs =C-x t t=.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package neotree
+  (use-package treemacs
     :defer t
-    :custom
-    (neo-smart-open t "always change focus to current buffer"))
+    :config
+    (setq treemacs-collapse-dirs              (if (executable-find "python") 3 0)
+          treemacs-deferred-git-apply-delay   0.5
+          treemacs-display-in-side-window     t
+          treemacs-file-event-delay           5000
+          treemacs-file-follow-delay          0.2
+          treemacs-follow-after-init          t
+          treemacs-follow-recenter-distance   0.1
+          treemacs-goto-tag-strategy          'refetch-index
+          treemacs-indentation                2
+          treemacs-indentation-string         " "
+          treemacs-is-never-other-window      nil
+          treemacs-no-png-images              nil
+          treemacs-project-follow-cleanup     nil
+          treemacs-persist-file               (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+          treemacs-recenter-after-file-follow nil
+          treemacs-recenter-after-tag-follow  nil
+          treemacs-show-hidden-files          t
+          treemacs-silent-filewatch           nil
+          treemacs-silent-refresh             nil
+          treemacs-sorting                    'alphabetic-desc
+          treemacs-space-between-root-nodes   t
+          treemacs-tag-follow-cleanup         t
+          treemacs-tag-follow-delay           1.5
+          treemacs-width                      35)
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t)
+    (treemacs-fringe-indicator-mode t)
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null (executable-find "python3"))))
+      (`(t . t)
+       (treemacs-git-mode 'extended))
+      (`(t . _)
+       (treemacs-git-mode 'simple))))
+
+  (use-package treemacs-projectile
+    :defer t
+    :after treemacs projectile
+    :config
+    (setq treemacs-header-function #'treemacs-projectile-create-header))
 #+END_SRC
 
 I like emacs to remember files that I have visited. The =recentf=
