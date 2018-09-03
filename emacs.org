@@ -5494,6 +5494,8 @@ to see how to change it.
     (setq org-agenda-files '("~/Dropbox/org"))
     (setq org-return-follows-link t)
 
+    ;; open directories in dired also in OS X
+    (add-to-list 'org-file-apps '(directory . emacs))
 
     (setq org-agenda-span 14)
     (setq org-deadline-warning-days 5)
