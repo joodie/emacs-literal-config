@@ -220,7 +220,9 @@ configuration.
     :config
     (if (>= emacs-major-version 24)
         (use-package dash-functional)
-      (message "Warning: dash-functional needs Emacs v24")))
+      (message "Warning: dash-functional needs Emacs v24"))
+    ;; (eval-after-load 'dash '(dash-enable-font-lock))
+    )
 #+END_SRC
 
 ** Options set using the customize interface
@@ -1742,9 +1744,9 @@ with =C-q C-l=) as horisontal lines.
 For writing text, I prefer Emacs to do line wrapping for me.
 
 #+BEGIN_SRC emacs-lisp
-    (defun my/text-formatting-hooks ()
-      (my/turn-on 'auto-fill)) ; turn on automatic hard line wraps
-    (add-hook 'text-mode-hook 'my/text-formatting-hooks)
+  (defun my/text-formatting-hooks ()
+    (my/turn-on 'auto-fill)) ; turn on automatic hard line wraps
+  (add-hook 'text-mode-hook 'my/text-formatting-hooks)
 #+END_SRC
 
 If the line wrapping (explicitely =M-q=) needs to be [[http://www.emacswiki.org/emacs/UnfillParagraph][reversed]], use
@@ -1784,10 +1786,10 @@ have a separate function for unfilling paragraphs: Now you can press
 
 Filling, either manual or automatic using =auto-fill-mode= wraps lines
 that are longer than =fill-column=. This is usually modified by function
-=set-fill-column= that is bound to =C-x f=. This key combination is close
-to other common keys that I've frequently found myself accidentally
-modifying the fill-column value from its default 70. Hopefully this
-paragraph helps me to remember how to reset it.
+=set-fill-column= that is bound to =C-x f=. This key combination is so
+close to other common keys that I've frequently found myself
+accidentally modifying the fill-column value from its default 70.
+Hopefully this paragraph helps me to remember how to reset it.
 
 An other confusing feature is the =fill-prefix= variable that can be set
 as buffer-local by function =set-fill-prefix= or =C-x .=. To return it to
@@ -3894,10 +3896,11 @@ ElDoc shows arguments to function under cursor in the minibuffer.
 [[https://github.com/greghendershott/racket-mode][greghendershott/racket-mode: GNU Emacs major modes for Racket: Edit and REPL.]]
 
 [[http://docs.racket-lang.org/pollen/][Pollen]], the racket pbook publishing, needs a special character for
-marking command lines. The chosen character is lozenge =◊=.
+marking command lines. The chosen character is lozenge =◊=, keyed with =M-\=.
 
 #+BEGIN_SRC emacs-lisp
   (use-package racket-mode
+    :defer t
     :init
     (add-hook 'racket-mode-hook      #'racket-unicode-input-method-enable)
     (add-hook 'racket-repl-mode-hook #'racket-unicode-input-method-enable))
@@ -5094,7 +5097,7 @@ future.
     :if (not noninteractive)
     :bind ( "C-x C-r" . recentf-open-files)
     :init
-    (setq recentf-auto-cleanup 'never ; cleanup interfers with tramp mode
+    (setq recentf-auto-cleanup 'never ; cleanup interferes with tramp mode
           recentf-max-saved-items 400
           recentf-max-menu-items 35
           recentf-save-file (expand-file-name "recentf" my/backup-dir))
@@ -5390,6 +5393,9 @@ With line =%%(diary-lunar-phases)= in the calendar.org file, the
 phases are displayed -- now with symbols.
 
 Links to non-existing files can be [[https://emacs.stackexchange.com/questions/33064/fontify-broken-links-in-org-mode/33078#33078][highlighted]].
+
+Directory links in OS X open in Finder by default. Read [[https://emacs.stackexchange.com/questions/10426/org-mode-link-to-open-directory-in-dired][here]]
+to see how to change it.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-agenda
@@ -5814,7 +5820,7 @@ Out of the many options, these are the most useful:
     ^Clock:^ ^In/out^     ^Edit^           ^Summary^        | ^Timers:^ ^Run^           ^Insert
     -^-^-----^-^----------^-^--------------^-^--------------|--^-^------^-^-------------^------
     (_?_)    _i_n         _e_dit           _g_oto entry     | (_z_)     _r_elative      ti_m_e
-    ^ ^      _I_n list    _q_uit           goto _h_istory  |  ^ ^      cou_n_tdown     i_t_em
+    ^ ^      _I_n list    _q_uit           goto _h_istory   |  ^ ^      cou_n_tdown     i_t_em
     ^ ^      _c_ontinue   _T_oggle type    _d_isplay        |  ^ ^      _p_ause toggle
     ^ ^      _o_ut        ^ ^              _r_eport         |  ^ ^      _s_top
     ^ ^      ^ ^
@@ -8000,7 +8006,7 @@ apply function =M-x nato-region= or =C-x l n=.
 
 *Note*: =nato-region= does not place the cursor at the end of the
 converted region if the last character has been converted. This
-prevents you direct application of =denato-region= to reverse the
+prevents the direct application of =denato-region= to reverse the
 change.
 
 ** Regex tool
