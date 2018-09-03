@@ -4150,7 +4150,7 @@ environment:
     "Custom command to setup python-mode"
     (interactive)
     (let ((max-column 99))
-      (setq python-shell-interpreter "~/miniconda3/bin/python"
+      (setq python-shell-interpreter "/usr/local/miniconda3/bin/python"
             python-shell-interpreter-args "-i"
             ;;venv-location "~/.virtualenvs"
             whitespace-line-column max-column
@@ -4174,13 +4174,21 @@ environment:
     (highlight-indentation-mode))
 
   (add-hook 'python-mode-hook 'my/setup-python-mode)
+  (add-hook 'python-mode-hook (lambda () (highlight-indentation-mode -1)))
   (add-hook 'python-mode-hook 'jedi:ac-setup)
   (add-hook 'python-mode-hook (lambda ()
                                 (use-package sphinx-doc
                                   :defer t
                                   :config
                                   (sphinx-doc-mode t))))
+
+
+;;(use-package py-yapf)
+
+
 #+END_SRC
+
+[[https://github.com/paetzke/py-yapf.el][paetzke/py-yapf.el: Use yapf to beautify a Python buffer]]
 
 [[https://github.com/naiquevin/sphinx-doc.el][Sphinx-doc]] adds a function inserting docstring skeleton for Python
 functions and methods. Inside a Python file move the cursor to some
@@ -6150,7 +6158,7 @@ modern libraries is Anaconda python version 3.
 
 #+BEGIN_SRC emacs-lisp
   ;; Alternative python interpreter for babel blocks
-  (setq org-babel-python-command "~/miniconda3/bin/python")
+  (setq org-babel-python-command "/usr/local/miniconda3/bin/python")
 #+END_SRC
 
 Use syntax highlighting ("fontification") in org-mode source
@@ -6413,6 +6421,7 @@ simple way:
   (use-package ob-ruby :ensure nil)
   (use-package ob-shell :ensure nil)
   (use-package ob-python :ensure nil)
+  (use-package ob-ipython)
   (use-package ob-emacs-lisp :ensure nil)
   (use-package ob-dot :ensure nil)
   (use-package ob-ditaa :ensure nil)
