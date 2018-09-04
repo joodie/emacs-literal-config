@@ -2718,6 +2718,8 @@ be installed (e.g. =brew install hub= in OS X).
     :bind ("C-c g" . magit-status)
     :config
     (setq magit-push-always-verify nil)
+    ;; font: better chunk highlight
+    (set-face-attribute 'magit-diff-context-highlight nil :inherit t :background "LightCyan")
     ;; ignore whitespace
     (setq magit-diff-options '("-b")))
 
