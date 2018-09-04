@@ -6763,17 +6763,17 @@ See more tweeks from
 
     (defvar pdf-minimal-width 72
       "Minimal width of a window displaying a pdf.
-               If an integer, number of columns.  If a float, fraction of the
-               original window.")
+       If an integer, number of columns.  If a float, fraction of the
+       original window.")
 
     (defvar pdf-split-width-threshold 120
       "Minimum width a window should have to split it horizontally
-               for displaying a pdf in the right.")
+       for displaying a pdf in the right.")
 
     (defun pdf-split-window-sensibly (&optional window)
       "A version of `split-window-sensibly' for pdfs.
-               It prefers splitting horizontally, and takes `pdf-minimal-width'
-               into account."
+                 It prefers splitting horizontally, and takes `pdf-minimal-width'
+                 into account."
       (let ((window (or window (selected-window)))
             (width (- (if (integerp pdf-minimal-width)
                           pdf-minimal-width
@@ -6798,7 +6798,7 @@ See more tweeks from
 
     (defun display-buffer-pop-up-window-pdf-split-horizontally (buffer alist)
       "Call `display-buffer-pop-up-window', using `pdf-split-window-sensibly'
-               when needed."
+                 when needed."
       (let ((split-height-threshold nil)
             (split-width-threshold pdf-split-width-threshold)
             (split-window-preferred-function #'pdf-split-window-sensibly))
@@ -6860,20 +6860,20 @@ See more tweeks from
     (bind-key "C-c r" 'hydra-pdftools/body)
     (defhydra hydra-pdftools (:color blue :hint nil)
       "
-                                                                   ╭───────────┐
-    Move  History   Scale/Fit     Annotations  Search/Link    Do   │ PDF Tools │
-╭──────────────────────────────────────────────────────────────────┴───────────╯
-      ^^_g_^^      _B_    ^↧^    _+_    ^ ^     [_al_] list    [_s_] search    [_u_] revert buffer
-      ^^^↑^^^      ^↑^    _H_    ^↑^  ↦ _W_ ↤   [_am_] markup  [_o_] outline   [_i_] info
-      ^^_p_^^      ^ ^    ^↥^    _0_    ^ ^     [_at_] text    [_F_] link      [_d_] dark mode
-      ^^^↑^^^      ^↓^  ╭─^─^─┐  ^↓^  ╭─^ ^─┐   [_ad_] delete  [_f_] search link
- _h_ ←pag_e_→ _l_  _N_  │ _P_ │  _-_    _b_     [_aa_] dired
-      ^^^↓^^^      ^ ^  ╰─^─^─╯  ^ ^  ╰─^ ^─╯   [_y_]  yank
-      ^^_n_^^      ^ ^  _r_eset slice box
-      ^^^↓^^^
-      ^^_G_^^
---------------------------------------------------------------------------------
-     "
+                                                                     ╭───────────┐
+      Move  History   Scale/Fit     Annotations  Search/Link    Do   │ PDF Tools │
+  ╭──────────────────────────────────────────────────────────────────┴───────────╯
+        ^^_g_^^      _B_    ^↧^    _+_    ^ ^     [_al_] list    [_s_] search    [_u_] revert buffer
+        ^^^↑^^^      ^↑^    _H_    ^↑^  ↦ _W_ ↤   [_am_] markup  [_o_] outline   [_i_] info
+        ^^_p_^^      ^ ^    ^↥^    _0_    ^ ^     [_at_] text    [_F_] link      [_d_] dark mode
+        ^^^↑^^^      ^↓^  ╭─^─^─┐  ^↓^  ╭─^ ^─┐   [_ad_] delete  [_f_] search link
+   _h_ ←pag_e_→ _l_  _N_  │ _P_ │  _-_    _b_     [_aa_] dired
+        ^^^↓^^^      ^ ^  ╰─^─^─╯  ^ ^  ╰─^ ^─╯   [_y_]  yank
+        ^^_n_^^      ^ ^  _r_eset slice box
+        ^^^↓^^^
+        ^^_G_^^
+  --------------------------------------------------------------------------------
+       "
       ("\\" hydra-master/body "back")
       ("<ESC>" nil "quit")
       ("al" pdf-annot-list-annotations)
