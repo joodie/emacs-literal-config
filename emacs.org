@@ -5105,7 +5105,7 @@ This and more files can be reached with my hydra-files by =C-z=.
                 _e_macs.org     _s_cratch
                 _d_otfiles.txt  _w_ork.org
                 _h_ome.gpg      _l_edger:refile.led
-                _a_bbrevs             _k_äyttötili.led
+                _a_bbrevs       _k_äyttötili.led
              "
     ("c" (find-file "~/Dropbox/installation.notes/balamac/ChangeLog"))
     ("e" (find-file "~/.emacs.d/emacs.org"))
@@ -6736,6 +6736,7 @@ See more tweeks from
 
   (use-package pdf-tools
     :mode ("\\.pdf$" . pdf-tools-mode)
+    :defer t
     :config
     (custom-set-variables
      '(pdf-tools-handle-upgrades nil)) ; Use brew upgrade pdf-tools instead.
@@ -8250,7 +8251,6 @@ Run =C-u 10 M-x tea-timer= to get the alert after 10 minutes.
 #+BEGIN_SRC emacs-lisp
   (use-package tea-timer
     :defer t
-    ;; :bind (:map pdf-view-mode-map ("e" . org-pdfquote-open))
     :load-path "elisp/"
     :init
     (setq tea-timer-default-duration 1.5)
