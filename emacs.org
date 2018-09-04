@@ -8058,7 +8058,7 @@ shells: use =which=.
           eshell-directory-name "~/.emacs.p/eshell")
 
     (defun eshell/gst (&rest args)
-      (magit-status (pop args) nil)
+      (magit-status-internal (pop args) nil)
       (eshell/echo))   ;; The echo command suppresses output
 
     (defun eshell/dd (&rest args)
