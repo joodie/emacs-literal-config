@@ -66,6 +66,7 @@
   ;;(package-refresh-contents)
   (package-install 'use-package))
 (require 'use-package)
+(setq use-package-compute-statistics t)
 (setq use-package-verbose t)
 (setq use-package-always-ensure t)
 ;; (setq use-package-always-defer t)
@@ -135,6 +136,9 @@ Write only blocks that are:
   (when (file-newer-than-file-p orgfile elfile)
     (my-tangle-config-org orgfile elfile))
   (load-file elfile))
+
+
+(use-package-report)
 
 ;;;
 ;;; report times
