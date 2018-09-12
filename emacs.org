@@ -655,6 +655,14 @@ command =funced=.
 
 * Graphics and looks
 
+** Frame size
+
+Sets the initial frame (Emacs window) size.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'default-frame-alist '(height . 60))
+  (add-to-list 'default-frame-alist '(width . 200))
+#+END_SRC
 ** Font
 
 The new OS X standard front, Menlo, is amazingly good to eye. It is
