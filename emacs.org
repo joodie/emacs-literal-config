@@ -6400,7 +6400,13 @@ Libertine]]. The Latex binaries and packages come from [[http://www.tug.org/texl
 I have amended and modified the original code from [[http://emacs-fu.blogspot.com/2011/04/nice-looking-pdfs-with-org-mode-and.html][emacs-fu]] blog
 quite a bit.
 
+The [[https://github.com/vyslexic/prelude/blob/master/personal/org-latex-custom.el][tufte classes]] *tufte-book* and *tufte-handout* are for writing classy
+books and articles where outer margin is used for tables, images and
+footnotes.
+
+
 #+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'ox-latex
   (add-to-list 'org-latex-classes
                '("fu-org-article"
                  "\\documentclass[11pt,a4paper]{article}
@@ -6476,9 +6482,7 @@ quite a bit.
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+END_SRC
 
 ** Language evaluation support
