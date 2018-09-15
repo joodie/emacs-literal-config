@@ -6381,14 +6381,16 @@ bitbucket.
   (setq org-export-coding-system 'utf-8)
 
   (use-package ox-md
+    :after ox
+    :defer t
     :ensure nil)
-  ;; /Applications/Emacs.app/Contents/Resources/etc/org/
-  ;;(setq org-odt-data-dir "~/.emacs.d/etc/")
-  ;;(use-package ox-odt :ensure nil)
-#+END_SRC
 
-Setting the =org-odt-data-dir= is a hack. Why does not emacs find
-the files in any of my locations by itself?
+  (use-package ox-hugo
+    :after ox
+    :config
+    (use-package ox-hugo-auto-export
+      :ensure nil))
+#+END_SRC
 
 ** Latex export
 
