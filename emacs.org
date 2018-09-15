@@ -402,7 +402,7 @@ message facility.
       (setq alert-default-style 'osx-notifier)))
 #+END_SRC
 
-*** dired
+*** Dired
 
 The emacs dired uses the output from the =ls= command that is
 somewhat limited in the BSD version in OS X. Install GNU programs
@@ -1796,7 +1796,7 @@ If the line wrapping (explicitely =M-q=) needs to be [[http://www.emacswiki.org/
 
 A handy free feature from [[http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html?source=rss][Endless Parentheses]] does away the need to
 have a separate function for unfilling paragraphs: Now you can press
-=M-q= twice to unwrap. Modified to work in org buffers, too.
+=M-q= twice to unwrap. I modified it to also work in org buffers.
 
 #+BEGIN_SRC emacs-lisp
   (defun endless/fill-or-unfill ()
@@ -2315,6 +2315,8 @@ asking. Giving it an universal argument (C-u) calls the standard
 
 Add your own [[http://joaotavora.github.io/yasnippet/][snippets]] to file:~/.emacs.d/snippets by placing files
 there or invoking =yas-new-snippet= or =C-c & C-n= .
+
+Snippet names are expanded with =TAB=.
 
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
@@ -2897,9 +2899,9 @@ especially efficient.
   (defun my/flyspell-save-word (&optional save-lowercase)
     "Save word to a personal dictionary.
 
-                        The dictionary file depends on the used spell program. If the the first
-                        argument SAVE-LOWERCASE is non-nil, save also lowercased word.
-                       "
+  The dictionary file depends on the used spell program. If the the first
+  argument SAVE-LOWERCASE is non-nil, save also lowercased word.
+  "
     (interactive)
     (let ((current-location (point))
           (word (flyspell-get-word)))
@@ -2961,13 +2963,13 @@ especially efficient.
   (bind-key "C-x '" 'hydra-flyspell/body)
   (defhydra hydra-flyspell (:color pink :hint nil)
     "
-                    ^Flyspell^             ^Check^      [Language: %`ispell-current-dictionary]
-                  ^^-----------------------------------------------------------
-                    _n_: next error        _c_: correct
-                    _t_: cycle languages   _k_: correct and add to abbrev
-                    _q_uit                 _i_: insert to personal list
-                    ^ ^                    _u_: insert, uncapitalize and insert
-                  "
+      ^Flyspell^             ^Check^      [Language: %`ispell-current-dictionary]
+    ^^-----------------------------------------------------------
+      _n_: next error        _c_: correct
+      _t_: cycle languages   _k_: correct and add to abbrev
+      _q_uit                 _i_: insert to personal list
+      ^ ^                    _u_: insert, uncapitalize and insert
+    "
     ("n" flyspell-goto-next-error)
     ("t" cycle-ispell-languages)
     ("q" nil :color blue)
@@ -3164,8 +3166,8 @@ and grade-level estimates]].
 *** Grammar: [[https://github.com/mhayashi1120/Emacs-langtool][languagetool]]
 
 LanguageTool now works with the latest release. I start with British
-English, but that can be changed when needed. I've disabled spell
-checking that gives too many spurious hits in org mode. Besides,
+English, but that can be changed when needed. I've disabled rules
+ that give too many spurious hits in org mode. Besides,
 flyspell does it better anyway. The main way to launch langtool is to
 hit =C-x l g= that is short for "Emacs, launch grammar".
 
@@ -5404,6 +5406,7 @@ Added a hydra to [[https://oremacs.com/2016/04/04/hydra-doc-syntax/][prettify]] 
   (use-package suomalainen-kalenteri
     :defer t
     :init (setq org-agenda-start-on-weekday 1)) ;; 1 is Monday
+
   ;; speed-ups
   (setq org-agenda-inhibit-startup t
         org-agenda-use-tag-inheritance nil
@@ -5584,13 +5587,13 @@ hydra-org-template that is triggered by the =<= key.
     ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
     (defhydra hydra-org-template (:color blue :hint nil)
       "
-           org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
-                         _l_atex   _E_xample   _p_erl          _i_ndex:
-                         _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
-                         _s_rc     _V_erbatim  plant_u_ml      _H_TML:
-                         _h_tml    _n_ote     _C_omment        _A_SCII:
-                         ^ ^       a_b_stract
-               "
+             org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
+                           _l_atex   _E_xample   _p_erl          _i_ndex:
+                           _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
+                           _s_rc     _V_erbatim  plant_u_ml      _H_TML:
+                           _h_tml    _n_ote     _C_omment        _A_SCII:
+                           ^ ^       a_b_stract
+                 "
       ("s" (hot-expand "<s"))
       ("E" (hot-expand "<e"))
       ("q" (hot-expand "<q"))
@@ -5624,10 +5627,10 @@ hydra-org-template that is triggered by the =<= key.
     (defun hot-expand (str &optional mod header)
       "Expand org template.
 
-  STR is a structure template string recognised by org like <s. MOD is a
-  string with additional parameters to add the begin line of the
-  structure element. HEADER string includes more parameters that are
-  prepended to the element after the #+HEADERS: tag."
+    STR is a structure template string recognised by org like <s. MOD is a
+    string with additional parameters to add the begin line of the
+    structure element. HEADER string includes more parameters that are
+    prepended to the element after the #+HEADERS: tag."
       (let (text)
         (when (region-active-p)
           (setq text (buffer-substring (region-beginning) (region-end)))
@@ -5942,7 +5945,6 @@ keys. Press shift up or down.
     (interactive)
     (if (org-at-timestamp-p 'lax)
         (jt/org-split-time)))
-  ;;(define-key org-mode-map (kbd "C-c \\") #'jt/org-split-time)
 #+END_SRC
 
 *** Time tracking
@@ -6370,10 +6372,8 @@ Enable flycheck in org-buffer  ([[http://www.wisdomandwonder.com/link/9573/how-t
 
 ** Org export
 
-I add a formats to org export menu =C-c C-e=: markdown for
-bitbucket.
-
-# and odt for LibreOffice.
+I add Markdown to org export menu =C-c C-e=. [[https://gohugo.io/][Hugo]]
+website framework export added.
 
 #+BEGIN_SRC emacs-lisp
 
@@ -6747,6 +6747,7 @@ code blocks.
     :init
     ;; (setq org-reveal-root "file:~/src/reveal.js")
     (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"))
+
   (use-package htmlize
     :defer t)
 #+END_SRC
@@ -8127,8 +8128,8 @@ shells: use =which=.
     ;; from howardabrams
     (defun eshell-here ()
       "Opens up a new shell in the directory associated with the
-      current buffer's file. The eshell is renamed to match that
-      directory to make multiple eshell windows easier."
+        current buffer's file. The eshell is renamed to match that
+        directory to make multiple eshell windows easier."
       (interactive)
       (let* ((height (/ (window-total-height) 3)))
         (split-window-vertically (- height))
