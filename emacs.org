@@ -1990,12 +1990,13 @@ buffers.
 
 #+BEGIN_SRC emacs-lisp
   (use-package super-save
-    :defer t
+    :defer nil
     :diminish ""
     :init
     (setq super-save-auto-save-when-idle t)
-    (setq super-save-idle-duration 30)  ; def 5 sec
-    :config (super-save-initialize))
+    (setq super-save-idle-duration 10)  ; def 5 sec
+    :config
+    (super-save-initialize))
 #+END_SRC
 
 *** Image mode
