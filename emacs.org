@@ -8153,7 +8153,8 @@ shells: use =which=.
 
     (defun eshell/qq ()
       "Send the *eshell* buffer to the back of buffer list."
-      (bury-buffer)))
+      (bury-buffer)
+      (delete-window)))
 #+END_SRC
 
 *** Autosuggest on eshell
