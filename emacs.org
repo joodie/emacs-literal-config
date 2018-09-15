@@ -2330,10 +2330,13 @@ Snippet names are expanded with =TAB=.
                 ("C-c C-c" . yas-load-snippet-buffer-and-close)
                 ("C-c C-t" . yas-tryout-snippet))
     :init
+    (setq yas-verbosity 1) ; default is 3
     (yas-global-mode 1)
     :config
     (add-to-list 'yas-snippet-dirs (locate-user-emacs-file "snippets"))
     (yas-reload-all))
+
+(use-package yasnippet-snippets)
 #+END_SRC
 
 Yasnippets can turned into a really useful tool: [[http://www.howardism.org/Technical/Emacs/templates-tutorial.html][Having Emacs Type for
