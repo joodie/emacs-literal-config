@@ -451,7 +451,10 @@ files have been selected.
     :hook auto-revert    ; auto refresh dired when file changes
     :config
     (setq dired-listing-switches "-alh")
-
+    (setenv "PATH"
+        (concat
+         "/usr/local/bin:/usr/local/sbin:/Library/TeX/texbin:"
+         (getenv "PATH")))
     ;; clever ediff of two marked files
     ;; -*- lexical-binding: t -*-
     (defun ora-ediff-files ()
