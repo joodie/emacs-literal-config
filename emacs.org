@@ -5568,6 +5568,10 @@ hydra-org-template that is triggered by the =<= key.
     (setq org-agenda-files '("~/Dropbox/org"))
     (setq org-return-follows-link t)
 
+    ;; try
+    (define-key org-mode-map (kbd "C-,") #'flyspell-goto-next-error)
+    (define-key org-mode-map (kbd "C-.") #'flyspell-auto-correct-word)
+
     ;; open directories in dired also in OS X
     (add-to-list 'org-file-apps '(directory . emacs))
 
