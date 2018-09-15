@@ -2802,7 +2802,7 @@ especially efficient.
 **** aspell
 
 #+BEGIN_SRC emacs-lisp
-  (setq ispell-program-name "aspell") ; checker engine
+  (setq ispell-program-name "/usr/local/bin/aspell") ; checker engine
   ;; (setq ispell-program-name "enchant-2") ; checker engine
 
   ;; Speed up aspell: ultra | fast | normal
