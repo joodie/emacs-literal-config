@@ -3617,9 +3617,8 @@ clash badly. I try to set them back to somewhat calmer palette.
         (ledger-magic-tab)))
     (bind-key "M-." 'ledger-add-note ledger-mode-map))
 
-  (use-package flycheck-ledger
-    :after ledger-mode)
-
+;;  (use-package flycheck-ledger
+;;    :after ledger-mode)
   ;; flycheck-ledger does syntax checking
   ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
 #+END_SRC
