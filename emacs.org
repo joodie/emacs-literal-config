@@ -3572,8 +3572,6 @@ clash badly. I try to set them back to somewhat calmer palette.
     :mode "\\.led\\'"
     :interpreter "ledger"
     :defines ledger-use-iso-dates
-    ;;:bind (:map ledger-mode-map
-    ;;            ("M-m" . ledger-next-misc))
     :init
     ;; date format
     (setq ledger-use-iso-dates t)
@@ -3584,11 +3582,10 @@ clash badly. I try to set them back to somewhat calmer palette.
                   ("reg" "ledger -f %(ledger-file) reg")
                   ("payee" "ledger -f %(ledger-file) reg @%(payee)")
                   ("account" "ledger -f %(ledger-file) reg %(account)"))))
+    :custom-face
+    (ledger-font-comment-face ((t (:foreground "gray50"))))
+    (ledger-occur-xact-face ((t (:background "LightCyan"))))
     :config
-    ;; font changes
-    (set-face-attribute 'ledger-font-comment-face nil :foreground "gray50")
-    (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "cornsilk")
-    (set-face-attribute 'ledger-occur-xact-face nil :inherit t :background "LightCyan")
 
     (defun ledger-next-misc ()
       "Find next ledger Misc category."
@@ -3603,9 +3600,9 @@ clash badly. I try to set them back to somewhat calmer palette.
     (defun ledger-add-note ()
       "Add a note to the current ledger entry.
 
-    Adds a new comment line starting with ' ; note: ' and places
-    point to the end. The new line is always placed after other
-    comments."
+      Adds a new comment line starting with ' ; note: ' and places
+      point to the end. The new line is always placed after other
+      comments."
       (interactive)
       (ledger-navigate-beginning-of-xact)
       (let ((beg-of-xact (point)))
@@ -3617,10 +3614,10 @@ clash badly. I try to set them back to somewhat calmer palette.
         (ledger-magic-tab)))
     (bind-key "M-." 'ledger-add-note ledger-mode-map))
 
-;;  (use-package flycheck-ledger
-;;    :after ledger-mode)
-  ;; flycheck-ledger does syntax checking
-  ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
+  ;;  (use-package flycheck-ledger
+  ;;    :after ledger-mode)
+    ;; flycheck-ledger does syntax checking
+    ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
 #+END_SRC
 
 ** Ssh config
