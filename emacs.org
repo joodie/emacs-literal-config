@@ -7537,6 +7537,7 @@ The read functions report their action in the echo field.
     (elfeed-org))
 
   (use-package elfeed
+    :hook (elfeed-show-mode . visual-line-mode)
     :bind (("C-c f" . elfeed))
     :bind (:map elfeed-show-mode-map
                 ("b" . elfeed-show-visit)
