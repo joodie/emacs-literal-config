@@ -1244,8 +1244,7 @@ get emacs to stop adding "Custom" fields to the end of my .emacs
 file? : emacs]]).
 
 #+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-screen +1
-        inhibit-startup-message t
+  (setq inhibit-startup-message nil
         initial-scratch-message nil)
 
   ;; emacs 24.4 feature, call on main windowed emacs
