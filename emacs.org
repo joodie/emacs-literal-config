@@ -3384,24 +3384,38 @@ Toggle it with "Emacs, toggle (white)Space" =C-x t s=.
 ** Line numbers
 
 My fingers still know the old shortcut =C-x ,= for jumping to a line
-number. The function =goto-line-with-feedback= automatically turns
+number. The function =goto-line-with-feedback= ([[http://whattheemacsd.com/key-bindings.el-01.html][original]]) automatically turns
 line numbers on and shows them in normal mode for the duration of
 the command. It assumes that line numbers are off to start with.
 
 This version of the function needs the built-in
 =display-line-numbers-mode= that was added in emacs version 26.1
-replasing the linum packages.
+replacing the linum packages. Also, if line numbers are were already
+on, do not change anything.
 
 #+BEGIN_SRC emacs-lisp
   ;; emacs-version 26.1
-  (defun goto-line-with-feedback ()
-    "Show line numbers temporarily, while prompting for the line number input"
+  (defun goto-line-with-feedback-old ()
+    "Show line numbers temporarily when prompting for the line number to go to."
     (interactive)
     (unwind-protect
         (progn
           (display-line-numbers-mode)
-          (goto-line (read-number "Goto line: ")))
+          (call-interactively 'goto-line))
       (display-line-numbers-mode 0)))
+
+  ;; emacs-version 26.1
+  (defun goto-line-with-feedback ()
+    "Show line numbers temporarily when prompting for the line number input.
+
+No change if line numbers were on to start with"
+    (interactive)
+    (let ((line-numbers-off-p (not display-line-numbers-mode)))
+      (unwind-protect
+          (progn
+            (when line-numbers-off-p (display-line-numbers-mode))
+            (call-interactively 'goto-line))
+        (when line-numbers-off-p (display-line-numbers-mode 0)))))
 
   (bind-key "C-x ," 'goto-line)
   (bind-key [remap goto-line] 'goto-line-with-feedback)
