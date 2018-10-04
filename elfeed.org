@@ -32,7 +32,7 @@
 # **** https://emacs.stackexchange.com/feeds
 **** [[http://emacs.stackexchange.com/feeds][SX]]
 **** entry-title: \(emacs\|org-mode\)
-**** http://fasciism.com/feed.xml
+# **** http://fasciism.com/feed.xml
 **** http://planet.emacsen.org/atom.xml
 # **** http://whattheemacsd.com/http:/atom.xml
 *** Perl                                                                  :p:
@@ -46,6 +46,7 @@
 *** https://twilightbeasts.wordpress.com/feed/
 *** https://kalmistopiiri.wordpress.com/feed/
 *** http://www.heritagedaily.com/feed/rss
+*** https://www.sapiens.org/feed/
 ** Culture                                                                 :cu:
 *** http://www.antroblogi.fi/feed/
 *** Language                                                              :l:
