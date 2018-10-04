@@ -5962,13 +5962,21 @@ keys. Press shift up or down.
                 ("<S-down>" . org-clock-convenience-timestamp-down)
                 ("'" . org-clock-convenience-fill-gap)))
 
-  (load "~/.emacs.d/elisp/jt-org-split-time.el")
-  (defun my-org-split-time ()
-    (interactive)
-    (if (org-at-timestamp-p 'lax)
-        (jt/org-split-time)))
-#+END_SRC
+  (use-package org-clock-split
+    :config
+    (defun my-org-split-time ()
+      (interactive)
+      (if (org-at-timestamp-p 'lax)
+          (org-clock-split))))
 
+  ;; (load "~/.emacs.d/elisp/jt-org-split-time.el")
+  ;; (defun my-org-split-time ()
+  ;;   (interactive)
+  ;;   (if (org-at-timestamp-p 'lax)
+  ;;       (jt/oarg-split-time)))
+#+END_SRC
+;; CLOCK: [2018-08-30 Thu 12:19]--[2018-08-30 Thu 13:19] =>  1:00
+;; CLOCK: [2018-08-30 Thu 13:19]--[2018-08-30 Thu 16:05] =>  2:46
 *** Time tracking
 
 This combines all commands I know about time management under org
