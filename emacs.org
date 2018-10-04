@@ -7087,8 +7087,9 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
     :ensure-system-package mu
     :bind ("C-c m" . mu4e)
     :hook ((mu4e-compose-mode . flyspell-mode)
-           (message-mode . turn-on-org-tbl)
-           (message-mode . turn-on-orgstruct++))
+          ;; (message-mode . turn-on-org-tbl)
+          ;; (message-mode . turn-on-orgstruct++)
+          )
     :custom
     (mu4e-attachment-dir "~/Downloads")
     (mu4e-confirm-quit nil)
@@ -7096,7 +7097,7 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
     (mu4e-completing-read-function 'ivy-completing-read)
     (mu4e-get-mail-command "mbsync -a")
     (mu4e-maildir "~/Maildir")
-    ;; folders are under mu4e maildir
+    ;; folders are under mu4e-maildir
     (mu4e-trash-folder "/gmail/Trash")
     (mu4e-sent-folder "/gmail/Sent Mail")
     (mu4e-drafts-folder "/gmail/Drafts")
@@ -7131,6 +7132,30 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
     (setq org-mu4e-link-query-in-headers-mode nil)
     (add-to-list 'mu4e-view-actions '("view in browser" . mu4e-action-view-in-browser))
 
+    ;; https://www.djcbsoftware.nl/2016/01/20/mu-0.9.16/
+    (define-key mu4e-headers-mode-map (kbd "C-c c") 'org-mu4e-store-and-capture)
+    (define-key mu4e-view-mode-map    (kbd "C-c c") 'org-mu4e-store-and-capture)
+    (add-to-list 'org-capture-templates
+                 ;; handle this message in the next two days
+                 '("P" "process-soon" entry (file+olp+datetree "~/Dropbox/org/reference.org" "TODO")
+                   "* TODO %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))"))
+    (add-to-list 'org-capture-templates
+                 ;; wait for an e-mail reply
+                 '("W" "wait-for-reply" entry (file+olp+datetree "~/Dropbox/org/reference.org" "Waiting")
+                   "* WAIT %u %a %?\n"))
+
+    ;; https://emacs.stackexchange.com/questions/45112/how-to-prevent-mu4e-from-checking-mail-when-the-internet-is-down
+    ;;(internet-up-p)
+    (defun internet-up-p (&optional host)
+      (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
+                         (if host host "www.google.com"))))
+
+    (advice-add #'mu4e-update-mail-and-index
+                :before-while
+                (lambda (&rest args)
+                  (internet-up-p)))
+
+
     (setq mu4e-contexts
           `( ,(make-mu4e-context
                :name "gmail"
@@ -7139,14 +7164,14 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
                ;; we match based on the contact-fields of the message
                :match-func (lambda (msg)
                              (when msg
-                               (mu4e-message-contact-field-matches msg
-                                                                   :to "heikki.lehvaslaiho@gmail.com")))
+                               (mu4e-message-contact-field-matches
+                                msg :to "heikki.lehvaslaiho@gmail.com")))
                :vars '( ( user-mail-address      . "heikki.lehvaslaiho@gmail.com"  )
                         ( user-full-name         . "Heikki Lehväslaiho" )
                         ;;(mu4e-trash-folder "/gmail/Trash")
                         ;;(mu4e-sent-folder "/gmail/Sent Mail")
                         ;;(mu4e-drafts-folder "/gmail/Drafts")
-                        (mu4e-refile-foldoger "/gmail/Archive")
+                        (mu4e-refile-folder "/gmail/Archive")
                         ;;(mu4e-maildir-shortcuts
                         ;; '(("/gmail/INBOX" . ?i)
                         ;;   ("/gmail/Deleted Items" . ?d)
@@ -7154,7 +7179,7 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
                         ;;   ("/gmail/Important" . ?I)
                         ;;   ("/gmail/Sent Mail" . ?s)
                         ;;   ("/gmail/Starred" . ?S)))
-                        ( smtpmail-smtp-server   . "smtp.gmail.com" )
+                        ( smtpmail-smtp-server . "smtp.gmail.com" )
                         ( mu4e-compose-signature .
                                                  (concat
                                                   "Heikki Lehväslaiho\n"
