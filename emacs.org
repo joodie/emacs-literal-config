@@ -1992,8 +1992,10 @@ buffers.
     :defer nil
     :diminish ""
     :init
-    (setq super-save-auto-save-when-idle t)
-    (setq super-save-idle-duration 10)  ; def 5 sec
+    :custom
+    (super-save-auto-save-when-idle t)
+    (setq super-save-idle-duration 10 "def 5 sec")
+    (super-save-remote-files nil)
     :config
     (super-save-initialize))
 #+END_SRC
