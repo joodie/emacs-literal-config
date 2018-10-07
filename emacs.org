@@ -7148,7 +7148,7 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
     ;;(internet-up-p)
     (defun internet-up-p (&optional host)
       (= 0 (call-process "ping" nil nil nil "-c" "1" "-W" "1"
-                         (if host host "www.google.com"))))
+                         (if host host "8.8.8.8"))))
 
     (advice-add #'mu4e-update-mail-and-index
                 :before-while
