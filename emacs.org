@@ -670,25 +670,16 @@ Sets the initial frame (Emacs window) size.
 
 The new OS X standard front, Menlo, is amazingly good to eye. It is
 almost [[http://9-bits.com/post/123940811/menlo-font-macosx][the same]] as DejaVu Sans Mono. I have suspended the use of
-[[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]] ([[http://www.levien.com/type/myfonts/Inconsolata.otf][Download]]) while keeping [[http://zhm.github.io/symbola/][Symbola]] ([[http://zhm.github.io/symbola/fonts/Symbola.otf][Download]]) as a
-Unicode backup (see [[http://endlessparentheses.com/manually-choose-a-fallback-font-for-unicode.html][EndlessParentheses]]).
+[[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]] ([[http://www.levien.com/type/myfonts/Inconsolata.otf][Download]]) and [[http://zhm.github.io/symbola/][Symbola]] ([[http://zhm.github.io/symbola/fonts/Symbola.otf][Download]]) (see [[http://endlessparentheses.com/manually-choose-a-fallback-font-for-unicode.html][EndlessParentheses]]).
 
-I am trying out the new [[http://sourcefoundry.org/hack/][Hack 2.0]] font.
+I am trying out the new [[http://sourcefoundry.org/hack/][Hack 2.0]] font and keeping Menlo as a backup.
 
 #+BEGIN_SRC emacs-lisp
-  ;;(set-face-attribute 'default nil
-  ;;                    :family "Inconsolata"
-  ;;                    :height 140
-  ;;                    :weight 'normal
-  ;;                    :width 'normal)
-  ;;     (set-fontset-font "fontset-default" nil
-  ;;                       (font-spec :size 20 :name "Symbola:"))
   (when (eq system-type 'darwin)
     (set-face-attribute 'default nil :family "Hack" :height 120))
-  ;; (set-frame-font "-*-Hack-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1")
-  ;; (set-fontset-font "fontset-default" nil
-  ;;                     (font-spec :size 20 :name "Noto Emoji"))
-#+END_SRC
+  (set-fontset-font "fontset-startup" nil
+                    "Menlo" nil 'append)
+  #+END_SRC
 
 You can use =C-x C-+= and =C-x C--= (=text-scale-adjust=) to
 increase or decrease the buffer text size in the current buffer
@@ -696,9 +687,9 @@ increase or decrease the buffer text size in the current buffer
 height, type =C-x C-0=. (From [[http://www.emacswiki.org/emacs/SetFonts][EmacsWiki]])
 
 The best way to get information about cursor location is to run
-=what-cursor-position= with prefix argument: *C-u C-x =*. It will
-open a *Help* window and show information about character,
-encoding, fonts and highlights. Also, see =M-x what-face=.
+=what-cursor-position= with prefix argument: *C-u C-x =*. It will open a
+*Help* window and show information about character, encoding, fonts and
+highlights. For my updated binding, see [[Redefining default keys]].
 
 *** Emojis
 
