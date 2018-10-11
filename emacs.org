@@ -7080,10 +7080,12 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
     :ensure-system-package mu
     :bind ("C-c m" . mu4e)
     :hook ((mu4e-compose-mode . flyspell-mode)
-          ;; (message-mode . turn-on-org-tbl)
-          ;; (message-mode . turn-on-orgstruct++)
-          )
+           ;; (message-mode . turn-on-org-tbl)
+           ;; (message-mode . turn-on-orgstruct++)
+           )
     :custom
+    (mu4e-change-filenames-when-moving t "NEEDED FOR MBSYNC")
+    (mu4e-mu-binary "/usr/local/bin/mu")
     (mu4e-attachment-dir "~/Downloads")
     (mu4e-confirm-quit nil)
     (mu4e-compose-signature-auto-include t)
@@ -7091,17 +7093,13 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
     (mu4e-get-mail-command "mbsync -a")
     (mu4e-maildir "~/Maildir")
     ;; folders are under mu4e-maildir
-    (mu4e-trash-folder "/gmail/Trash")
-    (mu4e-sent-folder "/gmail/Sent Mail")
-    (mu4e-drafts-folder "/gmail/Drafts")
-    (mu4e-refile-folder "/gmail/Archive")
+    (mu4e-trash-folder "/zimbra/Trash")
+    (mu4e-sent-folder "/zimbra/Sent")
+    (mu4e-drafts-folder "/zimbra/Drafts")
+    (mu4e-refile-folder "/zimbra/Archive")
     (mu4e-maildir-shortcuts
-     '(("/gmail/INBOX" . ?i)
-       ("/gmail/All Mail" . ?a)
-       ("/gmail/Deleted Items" . ?d)
-       ;;("/gmail/Drafts" . ?D)
-       ("/gmail/Important" . ?I)
-       ("/gmail/Starred" . ?S)))
+     '(("/zimbra/Inbox" . ?i)))
+
     (mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain")
     (mu4e-sent-messages-behavior 'delete) ; gmail stores a copy automatically
     (mu4e-update-interval 300)
@@ -7148,9 +7146,30 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
                 (lambda (&rest args)
                   (internet-up-p)))
 
-
     (setq mu4e-contexts
           `( ,(make-mu4e-context
+               :name "csc"
+               :enter-func (lambda () (mu4e-message "Switch to the CSC context"))
+               ;; no leave-func
+               ;; we match based on the maildir of the message
+               ;; this matches maildir /zimbra and its sub-directories
+               :match-func (lambda (msg)
+                             (when msg
+                               (string-match-p "^/zimbra" (mu4e-message-field msg :maildir))))
+               :vars '( ( user-mail-address       . "heikki.lehvaslaiho@csc.fi" )
+                        ( user-full-name          . "Heikki Lehväslaiho" )
+                        (mu4e-trash-folder "/zimbra/Trash")
+                        ;;(mu4e-sent-folder "/zimbra/Sent")
+                        (mu4e-drafts-folder "/zimbra/Drafts")
+                        (mu4e-refile-folder "/zimbra/Archive") ; ???
+                        (mu4e-maildir-shortcuts
+                         '(("/zimbra/Inbox" . ?i)))
+                        (mu4e-compose-signature
+                          . (concat
+                             "Heikki Lehväslaiho  heikki.lehvaslaiho@csc.fi\n"
+                             "CSC - IT Center for Science Ltd\n"
+                             "Keilaranta 14, P.O.Box 405, 02101 ESPOO, Finland"))))
+             ,(make-mu4e-context
                :name "gmail"
                :enter-func (lambda () (mu4e-message "Entering Gmail context"))
                :leave-func (lambda () (mu4e-message "Leaving Gmail context"))
@@ -7165,45 +7184,12 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
                         ;;(mu4e-sent-folder "/gmail/Sent Mail")
                         ;;(mu4e-drafts-folder "/gmail/Drafts")
                         (mu4e-refile-folder "/gmail/Archive")
-                        ;;(mu4e-maildir-shortcuts
-                        ;; '(("/gmail/INBOX" . ?i)
-                        ;;   ("/gmail/Deleted Items" . ?d)
-                        ;;   ("/gmail/Drafts" . ?D)
-                        ;;   ("/gmail/Important" . ?I)
-                        ;;   ("/gmail/Sent Mail" . ?s)
-                        ;;   ("/gmail/Starred" . ?S)))
                         ( smtpmail-smtp-server . "smtp.gmail.com" )
-                        ( mu4e-compose-signature .
-                                                 (concat
-                                                  "Heikki Lehväslaiho\n"
-                                                  "cell: +358 40 850 6640 http://about.me/heikki\n"
-                                                  "Porvoo, Finland\n"))))
-             ,(make-mu4e-context
-               :name "csc"
-               :enter-func (lambda () (mu4e-message "Switch to the CSC context"))
-               ;; no leave-func
-               ;; we match based on the maildir of the message
-               ;; this matches maildir /zimbra and its sub-directories
-               :match-func (lambda (msg)
-                             (when msg
-                               (string-match-p "^/zimbra" (mu4e-message-field msg :maildir))))
-               :vars '( ( user-mail-address       . "heikki.lehvaslaiho@csc.com" )
-                        ( user-full-name          . "Heikki Lehväslaiho" )
-                        (mu4e-trash-folder "/zimbra/Trash")
-                        (mu4e-sent-folder "/zimbra/Sent")
-                        (mu4e-drafts-folder "/zimbra/Drafts")
-                        (mu4e-refile-folder "/zimbra/Archive") ; ???
-                        (mu4e-maildir-shortcuts
-                         '(("/zimbra/Inbox" . ?x)
-                           ;;   ("/zimbra/Trash" . ?f)
-                           ("/zimbra/Drafts" . ?k)
-                           ("/zimbra/Sent" . ?l)))
-                        ( mu4e-compose-signature  .
-                                                  (concat
-                                                   "Heikki Lehväslaiho  heikki.lehvaslaiho@csc.fi\n"
-                                                   "CSC - IT Center for Science Ltd\n"
-                                                   "Keilaranta 14, P.O.Box 405, 02101 ESPOO, Finland"))))))
-
+                        ( mu4e-compose-signature
+                          . (concat
+                             "Heikki Lehväslaiho\n"
+                             "cell: +358 40 850 6640 http://about.me/heikki\n"
+                             "Porvoo, Finland\n"))))))
 
     ;; these are the standard mu4e search bookmarks
     ;; I've only added the fourth one to pull up flagged emails in my inbox
@@ -7239,11 +7225,6 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
     ;; default is to ask
     (setq mu4e-compose-context-policy nil)
 
-    ;; rename files when moving
-    ;; NEEDED FOR MBSYNC
-    (setq mu4e-change-filenames-when-moving t)
-
-    (setq mu4e-mu-binary "/usr/local/bin/mu")
     (use-package mu4e-alert
       :after mu4e
       :hook (;; (after-init . mu4e-alert-enable-mode-line-display)
@@ -7279,9 +7260,7 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
     (add-hook 'mu4e-compose-mode-hook
               (lambda () (local-set-key (kbd "C-c C-w") #'my-mu4e-choose-signature)))
 
-
-    )
-  ;; end of mu4e
+    )  ;; end of mu4e
 
   ;; sending mail
   (setq auth-sources '("~/.authinfo.gpg"
