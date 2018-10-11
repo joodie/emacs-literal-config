@@ -3578,16 +3578,18 @@ clash badly. I try to set them back to somewhat calmer palette.
     :mode "\\.led\\'"
     :interpreter "ledger"
     :defines ledger-use-iso-dates
-    :init
-    ;; date format
-    (setq ledger-use-iso-dates t)
-    ;; reports
-    (setq ledger-reports
-          (quote (("test" "ledger ")
-                  ("bal" "ledger -f %(ledger-file) bal")
-                  ("reg" "ledger -f %(ledger-file) reg")
-                  ("payee" "ledger -f %(ledger-file) reg @%(payee)")
-                  ("account" "ledger -f %(ledger-file) reg %(account)"))))
+    :bind (:map ledger-mode-map
+                ("C-c C-c" . ledger-post-align-xact)
+                ("M-m"     . ledger-next-misc)
+                ("M-."     . ledger-add-note))
+    :custom
+    (ledger-use-iso-dates t "iso date format")
+    (ledger-reports
+     (quote (("test" "ledger ")
+             ("bal" "ledger -f %(ledger-file) bal")
+             ("reg" "ledger -f %(ledger-file) reg")
+             ("payee" "ledger -f %(ledger-file) reg @%(payee)")
+             ("account" "ledger -f %(ledger-file) reg %(account)"))))
     :custom-face
     (ledger-font-comment-face ((t (:foreground "gray50"))))
     (ledger-occur-xact-face ((t (:background "LightCyan"))))
@@ -3601,14 +3603,14 @@ clash badly. I try to set them back to somewhat calmer palette.
         (search-forward tag)
         (search-backward tag)
         (delete-char (length tag))))
-    (bind-key "M-m" 'ledger-next-misc ledger-mode-map)
+    ;;    (bind-key "M-m" 'ledger-next-misc ledger-mode-map)
 
     (defun ledger-add-note ()
       "Add a note to the current ledger entry.
 
-      Adds a new comment line starting with ' ; note: ' and places
-      point to the end. The new line is always placed after other
-      comments."
+        Adds a new comment line starting with ' ; note: ' and places
+        point to the end. The new line is always placed after other
+        comments."
       (interactive)
       (ledger-navigate-beginning-of-xact)
       (let ((beg-of-xact (point)))
@@ -3617,11 +3619,11 @@ clash badly. I try to set them back to somewhat calmer palette.
           (goto-char beg-of-xact))
         (end-of-line)
         (insert "\n\t; note: ")
-        (ledger-magic-tab)))
-    (bind-key "M-." 'ledger-add-note ledger-mode-map))
+        (ledger-magic-tab))))
+    ;;    (bind-key "M-." 'ledger-add-note ledger-mode-map))
 
-  ;;  (use-package flycheck-ledger
-  ;;    :after ledger-mode)
+    ;;  (use-package flycheck-ledger
+    ;;    :after ledger-mode)
     ;; flycheck-ledger does syntax checking
     ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
 #+END_SRC
