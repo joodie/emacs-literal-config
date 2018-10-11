@@ -21,6 +21,8 @@
 *** https://api.quantamagazine.org/feed/
 *** http://mosaicscience.com/feed/rss.xml
 # *** http://epidemic.bio.ed.ac.uk/rss.xml
+*** https://www.sciencemag.org/rss/podcast.xml
+*** https://journal.fi/tt/gateway/plugin/WebFeedGatewayPlugin/rss2
 ** Bio
 *** https://dazzlerblog.wordpress.com/feed/
 ** Computers
