@@ -3721,6 +3721,7 @@ windows.
 
   (use-package flycheck-proselint
     :disabled t    ;
+    :after flycheck
     :ensure nil
     :defer t
     :after (flycheck)
