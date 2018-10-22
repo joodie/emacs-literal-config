@@ -5566,9 +5566,7 @@ hydra-org-template that is triggered by the =<= key.
     :bind* (("C-c a" . org-agenda)  ; bind* ensures that all minor mode bindings are overriden
             ("C-c c" . org-capture)
             ("C-c l" . org-store-link)
-            ("C-c C-s" . org-schedule) ; override synosaurus
-            :map org-mode-map
-            ("C-c \\" . jt/org-split-time))
+            ("C-c C-s" . org-schedule)) ; override synosaurus
     :init
     (setq org-agenda-files '("~/Dropbox/org"))
     (setq org-return-follows-link t)
@@ -5943,9 +5941,8 @@ Prefix arguments are very useful in this context:
 [[https://github.com/dfeich/org-clock-convenience][org-clock-convenience]] adds functions that manipulate time stamps with
 keys. Press shift up or down.
 
-[[https://github.com/justintaft/emacs-org-split-clock][justintaft/emacs-org-split-clock: Split org-mode CLOCK entry while
-- preserving time]] bound to =C-c \=
-
+[[https://github.com/justintaft/org-clock-split][GitHub - justintaft/org-clock-split: Split org-mode CLOCK entry while
+ preserving time]] bound to =C-c \= in org mode.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-clock-convenience
@@ -5956,20 +5953,10 @@ keys. Press shift up or down.
                 ("'" . org-clock-convenience-fill-gap)))
 
   (use-package org-clock-split
-    :config
-    (defun my-org-split-time ()
-      (interactive)
-      (if (org-at-timestamp-p 'lax)
-          (org-clock-split))))
-
-  ;; (load "~/.emacs.d/elisp/jt-org-split-time.el")
-  ;; (defun my-org-split-time ()
-  ;;   (interactive)
-  ;;   (if (org-at-timestamp-p 'lax)
-  ;;       (jt/oarg-split-time)))
+    :bind (:map org-mode-map
+                ("C-c \\" . org-clock-split)))
 #+END_SRC
-;; CLOCK: [2018-08-30 Thu 12:19]--[2018-08-30 Thu 13:19] =>  1:00
-;; CLOCK: [2018-08-30 Thu 13:19]--[2018-08-30 Thu 16:05] =>  2:46
+
 *** Time tracking
 
 This combines all commands I know about time management under org
