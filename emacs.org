@@ -739,7 +739,7 @@ PNG images when the =emojify-mode= is turned on.
   Note: For most plain text writing I use [[Org mode]] that has a very
   useful binding for =org-self-insert-command= that allows combining
   mnemonic keys to make accented characters. For example, =C-x 8 ' i=
-  inserts character í, and =C-x 8 " a=, character ä.
+  inserts the character í, and =C-x 8 " a= inserts the character ä.
 
 ** Reduce clutter
 
@@ -1122,7 +1122,8 @@ changes place and window scrolls.
     (beacon-mode 1))
 #+END_SRC
 
-** Current line
+** Highlighting
+*** Current line
 
 Current line is subtly highlighted in pale blue.
 
@@ -1184,9 +1185,6 @@ loading a theme does not disable the previous one. You have to
 manually disable them all one by one using =disable-theme=. My own
 function =theme= first disables existing ones and then
 interactively calls load-theme.
-
-TODO: Write a function that loads a theme but first disables all
-active themes.
 
 #+BEGIN_SRC emacs-lisp
   (defun theme (uarg)
@@ -5638,13 +5636,13 @@ hydra-org-template that is triggered by the =<= key.
     ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
     (defhydra hydra-org-template (:color blue :hint nil)
       "
-             org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
-                           _l_atex   _E_xample   _p_erl          _i_ndex:
-                           _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
-                           _s_rc     _V_erbatim  plant_u_ml      _H_TML:
-                           _h_tml    _n_ote     _C_omment        _A_SCII:
-                           ^ ^       a_b_stract
-                 "
+               org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
+                             _l_atex   _E_xample   _p_erl          _i_ndex:
+                             _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
+                             _s_rc     _V_erbatim  plant_u_ml      _H_TML:
+                             _h_tml    _n_ote     _C_omment        _A_SCII:
+                             ^ ^       a_b_stract
+                   "
       ("s" (hot-expand "<s"))
       ("E" (hot-expand "<e"))
       ("q" (hot-expand "<q"))
@@ -5678,10 +5676,10 @@ hydra-org-template that is triggered by the =<= key.
     (defun hot-expand (str &optional mod header)
       "Expand org template.
 
-    STR is a structure template string recognised by org like <s. MOD is a
-    string with additional parameters to add the begin line of the
-    structure element. HEADER string includes more parameters that are
-    prepended to the element after the #+HEADERS: tag."
+      STR is a structure template string recognised by org like <s. MOD is a
+      string with additional parameters to add the begin line of the
+      structure element. HEADER string includes more parameters that are
+      prepended to the element after the #+HEADERS: tag."
       (let (text)
         (when (region-active-p)
           (setq text (buffer-substring (region-beginning) (region-end)))

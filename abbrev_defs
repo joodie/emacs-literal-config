@@ -15,7 +15,9 @@
 
 (define-abbrev-table 'array-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '())
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'biblio-selection-mode-abbrev-table '())
 
@@ -25,9 +27,13 @@
 
 (define-abbrev-table 'bookmark-edit-annotation-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table '())
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '())
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'calc-trail-mode-abbrev-table '())
 
@@ -73,11 +79,11 @@
     ("foreach" "foreach" cperl-electric-keyword 0)
     ("foreachmy" "foreachmy" cperl-electric-keyword 0)
     ("formy" "formy" cperl-electric-keyword 0)
-    ("head1" "head1" cperl-electric-pod 0)
+    ("head1" "head1" cperl-electric-pod 3)
     ("head2" "head2" cperl-electric-pod 0)
     ("if" "if" cperl-electric-keyword 0)
     ("over" "over" cperl-electric-pod 0)
-    ("pod" "pod" cperl-electric-pod 0)
+    ("pod" "pod" cperl-electric-pod 1)
     ("unless" "unless" cperl-electric-keyword 0)
     ("until" "until" cperl-electric-keyword 0)
     ("while" "while" cperl-electric-keyword 0)
@@ -161,6 +167,8 @@
 
 (define-abbrev-table 'gfm-view-mode-abbrev-table '())
 
+(define-abbrev-table 'git-commit-elisp-text-mode-abbrev-table '())
+
 (define-abbrev-table 'gitattributes-mode-abbrev-table '())
 
 (define-abbrev-table 'gitconfig-mode-abbrev-table '())
@@ -230,7 +238,7 @@
     ("explicitely" "explicitly" nil 1)
     ("feb" "Feb." nil 0)
     ("february" "February" nil 0)
-    ("fi" "if" nil 0)
+    ("fi" "if" nil 1)
     ("flase" "false" nil 4)
     ("fo" "of" nil 1)
     ("forthnight" "fortnight" nil 0)
@@ -309,10 +317,10 @@
     ("shouldnt" "should not" nil 0)
     ("sparce" "sparse" nil 0)
     ("specialised" "specialized" nil 0)
-    ("sperl" "#!/usr/bin/env perl
+    ("sperl" "#!/usr/bin/env LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 perl
 use Modern::Perl;
 use Data::Printer;
-" nil 15)
+" nil 16)
     ("strenghten" "strengthen" nil 0)
     ("sun" "Sun." nil 0)
     ("sunday" "Sunday" nil 0)
@@ -379,7 +387,9 @@ use Data::Printer;
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '())
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'latex-mode-abbrev-table '())
 
@@ -427,6 +437,8 @@ use Data::Printer;
 
 (define-abbrev-table 'magit-status-mode-abbrev-table '())
 
+(define-abbrev-table 'magit-submodule-list-mode-abbrev-table '())
+
 (define-abbrev-table 'magithub-issue-post-mode-abbrev-table '())
 
 (define-abbrev-table 'markdown-mode-abbrev-table '())
@@ -447,7 +459,9 @@ use Data::Printer;
 
 (define-abbrev-table 'nov-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '())
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -539,7 +553,9 @@ use Data::Printer;
 
 (define-abbrev-table 'perl6-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '())
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
@@ -549,7 +565,9 @@ use Data::Printer;
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
+(define-abbrev-table 'python-mode-skeleton-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'quickrun--mode-abbrev-table '())
 
@@ -562,6 +580,8 @@ use Data::Printer;
 (define-abbrev-table 'racket-profile-mode-abbrev-table '())
 
 (define-abbrev-table 'racket-repl-mode-abbrev-table '())
+
+(define-abbrev-table 'racket-stepper-mode-abbrev-table '())
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
@@ -579,11 +599,15 @@ use Data::Printer;
 
 (define-abbrev-table 'smime-mode-abbrev-table '())
 
+(define-abbrev-table 'snippet-mode-abbrev-table '())
+
 (define-abbrev-table 'special-mode-abbrev-table '())
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
-(define-abbrev-table 'sql-mode-abbrev-table '())
+(define-abbrev-table 'sql-mode-abbrev-table
+  '(
+   ))
 
 (define-abbrev-table 'suggest-mode-abbrev-table '())
 
@@ -602,6 +626,8 @@ use Data::Printer;
 (define-abbrev-table 'text-mode-abbrev-table '())
 
 (define-abbrev-table 'toml-mode-abbrev-table '())
+
+(define-abbrev-table 'treemacs-mode-abbrev-table '())
 
 (define-abbrev-table 'twittering-edit-mode-abbrev-table '())
 
@@ -630,3 +656,4 @@ use Data::Printer;
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
+
