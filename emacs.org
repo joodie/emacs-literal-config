@@ -7073,10 +7073,9 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
 
 #+BEGIN_SRC emacs-lisp
 
-  (add-to-list 'load-path "/usr/local/Cellar/mu/1.0/share/emacs/site-lisp/mu/mu4e")
-
   (use-package mu4e
     :ensure nil
+    :load-path "/usr/local/Cellar/mu/1.0/share/emacs/site-lisp/mu/mu4e/"
     :ensure-system-package mu
     :bind ("C-c m" . mu4e)
     :hook ((mu4e-compose-mode . flyspell-mode)
@@ -7097,11 +7096,11 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
     (mu4e-sent-folder "/zimbra/Sent")
     (mu4e-drafts-folder "/zimbra/Drafts")
     (mu4e-refile-folder "/zimbra/Archive")
-    (mu4e-maildir-shortcuts
-     '(("/zimbra/Inbox" . ?i)))
+    ;;(mu4e-maildir-shortcuts
+    ;; '(("/zimbra/Inbox" . ?i)))
 
     (mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain")
-    (mu4e-sent-messages-behavior 'delete) ; gmail stores a copy automatically
+    (mu4e-sent-messages-behavior 'sent) ; gmail stores a copy automatically
     (mu4e-update-interval 300)
     (mu4e-compose-format-flowed t) ; set format=flowed
     (mu4e-use-fancy-chars t)
@@ -7158,12 +7157,12 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
                                (string-match-p "^/zimbra" (mu4e-message-field msg :maildir))))
                :vars '( ( user-mail-address       . "heikki.lehvaslaiho@csc.fi" )
                         ( user-full-name          . "Heikki Lehväslaiho" )
-                        (mu4e-trash-folder "/zimbra/Trash")
-                        ;;(mu4e-sent-folder "/zimbra/Sent")
-                        (mu4e-drafts-folder "/zimbra/Drafts")
-                        (mu4e-refile-folder "/zimbra/Archive") ; ???
-                        (mu4e-maildir-shortcuts
-                         '(("/zimbra/Inbox" . ?i)))
+                        ;; (mu4e-trash-folder "/zimbra/Trash")
+                        ;; (mu4e-sent-folder "/zimbra/Sent")
+                        ;; (mu4e-drafts-folder "/zimbra/Drafts")
+                        ;; (mu4e-refile-folder "/zimbra/Archive")
+                        ;;(mu4e-maildir-shortcuts
+                        ;; '(("/zimbra/Inbox" . ?i)))
                         (mu4e-compose-signature
                           . (concat
                              "Heikki Lehväslaiho  heikki.lehvaslaiho@csc.fi\n"
