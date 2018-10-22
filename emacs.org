@@ -3717,26 +3717,39 @@ windows.
 *** Quickrun
 
 [[https://github.com/syohex/emacs-quickrun][quickrun]]-package makes it easy to run any buffer with code in it. I
-do not use system perl, so I redefine the perl command to use
-plenv-installed perl. As avid org user, I map =C-c C-c= to run
-quickrun in modes that use frequently.
+have set it up to run conda python and especially for perl. I do not
+use system perl, so I redefine the perl command to use plenv-installed
+perl.
+
+| function              | binding         |
+|-----------------------+-----------------|
+| quickrun              | C-c C-c         |
+| quickrun-with-arg     | C-c C-a         |
+| quickrun-compile-only | C-u C-u C-c C-c |
+
 
 #+BEGIN_SRC emacs-lisp
   (use-package quickrun
     :defer t
+    :bind* (:map cperl-mode-map
+                 ("C-c C-c" . quickrun)
+                 ("C-c C-a" . quickrun-with-arg))
     :config
     (quickrun-add-command "perl"
       '((:command . "~/.plenv/shims/perl")
-        '((:exec . ("%c -wc %s")))
+        (:compile-only . "%c -wc %s")
         :override t))
+
+    (quickrun-add-command "pod"
+      '((:command . "perldoc")
+        (:exec    . "%c -T -F %s"))
+      :mode 'cperl-mode)
+
     (quickrun-add-command "python"
       '((:command . "/usr/local/miniconda3/bin/python")
-        '((:exec . ("%c -wc %s")))
         :override t))
     (eval-after-load 'python-mode
       '(bind-key  "C-c C-c" 'quickrun python-mode-map))
-    (eval-after-load 'cperl-mode
-      '(bind-key  "C-c C-c" 'quickrun cperl-mode-map))
     (eval-after-load 'perl6-mode
       '(bind-key  "C-c C-c" 'quickrun perl6-mode-map)))
 #+END_SRC
