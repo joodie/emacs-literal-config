@@ -2004,7 +2004,7 @@ buffers.
     :init
     :custom
     (super-save-auto-save-when-idle t)
-    (setq super-save-idle-duration 10 "def 5 sec")
+    (super-save-idle-duration 10 "def 5 sec")
     (super-save-remote-files nil)
     :config
     (super-save-initialize))
@@ -3573,6 +3573,7 @@ My =org-mode= is configured to export to markdown format.
     (setq markdown-command "multimarkdown")
     (add-hook 'markdown-mode-hook 'pandoc-mode)
     (use-package markdown-preview-mode
+      :disabled t
       :hook markdown-mode))
 #+END_SRC
 
