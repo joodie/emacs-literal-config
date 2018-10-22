@@ -1133,6 +1133,25 @@ Current line is subtly highlighted in pale blue.
     (set-face-background hl-line-face "LightCyan"))
 #+END_SRC
 
+*** Highlight keywords globally
+
+[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Highlight-Interactively.html][Highlight Interactively - GNU Emacs Manual]]. Adapted from [[http://www.bartuka.com/pages-output/personal-emacs-configuration/][@bartuka:
+emacs.d]].
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'hi-lock-mode-hook
+            (lambda nil
+              (highlight-regexp "FIXME" 'hi-red-b)
+              (highlight-regexp "NOTE" 'hi-red-b)
+              (highlight-regexp "TODO" 'hi-red-b)))
+  (global-hi-lock-mode 1)
+#+END_SRC
+*** Highlighting new text
+
+There is a built-in minor mode =highlight-changes-mode= that you can
+turn on to track new text. Old text remains in default colour, but any
+new text is coloured red.
+
 ** Global key bindings
 
 As far as reasonable, I try to keep my custom key bindings within
