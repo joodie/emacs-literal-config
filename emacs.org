@@ -3843,6 +3843,25 @@ Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
                 ("M-s-<right>" . paredit-backward-barf-sexp)))
 #+END_SRC
 
+[[https://github.com/abo-abo/lispy][abo-abo/lispy]] adds vi-like one letter commands.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package lispy
+  :after eros
+  :custom
+  (lispy-compat '(edebug macrostep) "editable compatibility mode")
+  ;; :hook  (emacs-lisp-mode . lispy-mode)
+  :config
+  (defun enable-lispy-mode () (lispy-mode 1))
+  (lispy-define-key lispy-mode-map "e" 'eros-eval-last-sexp)
+  :hook
+  ((emacs-lisp-mode
+    common-lisp-mode
+    scheme-mode
+    lisp-mode) . enable-lispy-mode))
+
+#+END_SRC
+
 *** TODO Eglot, Emacs PolyGlot
 
 [[https://github.com/joaotavora/eglot][joaotavora/eglot: A client for Language Server Protocol servers]]
