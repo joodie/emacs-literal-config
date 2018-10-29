@@ -1175,8 +1175,8 @@ mode support. [[https://emacsthemes.com/themes/paper-theme.html][Paper theme]] a
   ;;   :init (setq paper-tint-factor 85))
   ;; (use-package danneskjold-theme
   ;;   :defer t)
-   (use-package naquadah-theme
-     :defer t)
+  ;; (use-package naquadah-theme
+  ;;   :defer t)
 
 #+END_SRC
 
