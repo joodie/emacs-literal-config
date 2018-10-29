@@ -3752,6 +3752,7 @@ perl.
 
 #+BEGIN_SRC emacs-lisp
   (use-package quickrun
+    :after cperl
     :defer t
     :bind* (:map cperl-mode-map
                  ("C-c C-c" . quickrun)
