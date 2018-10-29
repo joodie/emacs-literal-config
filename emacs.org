@@ -2008,7 +2008,7 @@ buffers.
     (super-save-idle-duration 10 "def 5 sec")
     (super-save-remote-files nil)
     :config
-    (super-save-initialize))
+    (super-save-mode +1))
 #+END_SRC
 
 *** Image mode
