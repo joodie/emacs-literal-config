@@ -344,9 +344,14 @@ Turns out hyper is not mapped to anything unless I follow this advice:
 [[http://irreal.org/blog/?p=1450][A Hyper Key for the Mac | Irreal]]. Surprisingly, it still works at OS X
 system level as intended.
 
+Option keys are bound to =meta=. I never use the right option key, so I
+return its use to OS.
+
 #+BEGIN_SRC emacs-lisp
   ;; make Fn key do Hyper
   (setq ns-function-modifier 'hyper)
+  ;; Option keys are meta, release right one os OS
+  (setq ns-right-alternate-modifier 'none)
 #+END_SRC
 
 *** PATH
