@@ -5773,7 +5773,9 @@ categories of entries:
    completion times can be added to them later.
 4) *appointments [a]* for events that are shared with Google Calendar
    using org-gcal.
-5) *work [w]* events start the clock automatically for the new entry.
+5) *todo [t]* TODO items with a link to current document, e.g. mail, and
+   schedules in two days.
+6) *work [w]* events start the clock automatically for the new entry.
 
    Events are in file:~/Dropbox/org/calendar.org that starts with sections for
    anniversaries and other recurring tasks. Gcal integration happens
@@ -5808,6 +5810,8 @@ Code snippet capture code was mentioned in the  [[http://irreal.org/blog/?p=5244
   :ADDRESS:
   :BIRTHDAY:
   :END:")
+          ("t" "todo" entry (file+olp+datetree "~/Dropbox/org/reference.org")
+           "* TODO %a %?\nSCHEDULED: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: TODO\n     :END:\n   ")
           ("w" "work" entry (file+olp+datetree "~/Dropbox/org/reference.org")
            "* %? %^g\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: work\n     :END:\n%i"
            :clock-in t :clock-keep t)))
@@ -7124,6 +7128,12 @@ gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
 (setq smtpmail-debug-info t)
 
 [[http://irreal.org/blog/?p=6122][Mu4e Configuration | Irreal]]
+
+Links to mails can be copied using normal org-mode link commands.
+Also, a new capture template adds a reminder in two days for the email
+under the cursor.
+- [[https://www.djcbsoftware.nl/code/mu/mu4e/Org_002dmode-links.html][Org-mode links (Mu4e 1.0 user manual)]]
+- [[http://pragmaticemacs.com/emacs/master-your-inbox-with-mu4e-and-org-mode/][Master your inbox with mu4e and org-mode | Pragmatic Emacs]]
 
 #+BEGIN_SRC emacs-lisp
 
