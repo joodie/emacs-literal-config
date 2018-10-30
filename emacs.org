@@ -795,6 +795,12 @@ fringe.
       (setq-default indicate-empty-lines +1)))
 #+END_SRC
 
+[[https://emacs.stackexchange.com/questions/45652/bent-arrow-in-visual-line-mode][fringe - Bent arrow (↩) in visual-line-mode - Emacs Stack Exchange]]
+
+#+BEGIN_SRC emacs-lisp
+  (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
+#+END_SRC
+
 ** Mode line
 
 The default emacs mode line is confusing and boring. [[http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html][This setup]]
