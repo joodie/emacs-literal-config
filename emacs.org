@@ -2509,6 +2509,18 @@ variable", =C-x t v=.
     :defer t)
 #+END_SRC
 
+** Title Capitalization
+
+[[https://github.com/novoid/title-capitalization.el][novoid/title-capitalization.el: Proper English title capitalization of a marked region]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package title-capitalization
+    :bind ("C-8" . title-capitalization)
+    :load-path "elisp/")
+
+  ;; :config
+  ;; (defvar my-do-not-capitalize-words '("lazyblorg" "mutt"))
+#+END_SRC
 ** iedit mode
 
 Activate the [[http://www.emacswiki.org/emacs/Iedit][Iedit]] mode by placing the cursor to a word and
