@@ -3848,7 +3848,6 @@ Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
   ;; :hook  (emacs-lisp-mode . lispy-mode)
   :config
   (defun enable-lispy-mode () (lispy-mode 1))
-  (lispy-define-key lispy-mode-map "e" 'eros-eval-last-sexp)
   :hook
   ((emacs-lisp-mode
     common-lisp-mode
