@@ -589,6 +589,11 @@ I've combined all those commands and bound them to =C-c v=.
 Applescript tools to change focus to iTerm2 application.
 from [[http://sam217pa.github.io/2016/09/01/emacs-iterm-integration/][here]].
 
+I now mainly use the iTerm hot key window (bound to =C-b=). For these
+functions to move the focus from emacs to an iTerm window, I need to
+keep a small regular iTerm window open. Focusing the hotkey window
+does not seem to be possible this way.
+
 #+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (defun iterm-goto-filedir-or-home ()
@@ -1253,6 +1258,7 @@ file? : emacs]]).
 
   ;; emacs 24.4 feature, call on main windowed emacs
   (when (display-graphic-p)
+    ;;(setq desktop-auto-save-timeout 30) ; default 30
     (desktop-save-mode t))
 
   ;; save cursor position
@@ -2411,9 +2417,9 @@ from [[http://endlessparentheses.com/fixing-double-capitals-as-you-type.html][En
 
 My default keyboard layout is US, but I also write in Finnish language
 that differs from US for some special characters. Quite often, I start
-writing in Finnish with US keyboard layout. These functions allow me
-to fix the wrong characters in one go in the paragraph I am writing.
-Bound to the launch hydra: =M-x l u=.
+writing in Finnish with the US keyboard layout. These functions allow
+me to fix the wrong characters in one go in the paragraph I am
+writing. Bound to the launch hydra: =M-x l u=.
 
 #+BEGIN_SRC emacs-lisp
   (defun translate-characters (from-string to-string begin end)
