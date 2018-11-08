@@ -4572,11 +4572,14 @@ The default key bindings are:
 | C-c C-w ' | Switch to last     |
 | C-c C-w " | Close current      |
 | C-c C-w , | Rename current     |
+| C-c C-w . | Switch to ...      |
 | C-c C-w 0 | Switch to  0       |
 | ...       | ...                |
 | C-c C-w 9 | Switch to  9       |
 
 Note: My custom mode line does not show the names of workspaces.
+
+Hydra: [[https://www.wisdomandwonder.com/article/10596/screencast-building-a-little-ui-to-manage-buffers][Building A Little UI To Manage Buffers | Wisdom and Wonder]]
 
 #+BEGIN_SRC emacs-lisp
   (use-package eyebrowse
