@@ -7178,15 +7178,16 @@ under the cursor.
     (mu4e-html2text-command "iconv -c -t utf-8 | pandoc -f html -t plain")
     (mu4e-sent-messages-behavior 'sent) ; gmail stores a copy automatically
     (mu4e-update-interval 300)
-    (mu4e-compose-format-flowed t) ; set format=flowed
-    (mu4e-use-fancy-chars t)
+    (mu4e-compose-format-flowed t)        ; set format=flowed
+    (mu4e-use-fancy-chars t "Unicode characters used in the interface")
+    (mu4e-cache-maildir-list  t "to speed up maildir regeneration")
     (mu4e-view-show-addresses t)
     (mail-user-agent 'mu4e-user-agent)
     (mu4e-view-show-images t)
     (mu4e-view-image-max-width 800)
     (mu4e-headers-date-format "%y-%m-%d %H:%M")
     (mu4e-headers-fields
-     '( (:human-date   .  18) ; 12, longer date format
+     '( (:human-date   .  18)             ; 12, longer date format
         (:flags        .   6)
         (:mailing-list .  10)
         (:from         .  22)
@@ -7198,6 +7199,9 @@ under the cursor.
     (setq org-mu4e-link-query-in-headers-mode nil)
     (add-to-list 'mu4e-view-actions '("view in browser" . mu4e-action-view-in-browser))
 
+    (add-to-list 'mu4e-view-actions
+      '("ViewInBrowser" . mu4e-action-view-in-browser) t) ; press aV to view in browser
+
     ;; https://www.djcbsoftware.nl/2016/01/20/mu-0.9.16/
     (define-key mu4e-headers-mode-map (kbd "C-c c") 'org-mu4e-store-and-capture)
     (define-key mu4e-view-mode-map    (kbd "C-c c") 'org-mu4e-store-and-capture)
@@ -7207,8 +7211,12 @@ under the cursor.
                    "* TODO %a %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))"))
     (add-to-list 'org-capture-templates
                  ;; wait for an e-mail reply
-                 '("W" "wait-for-reply" entry (file+olp+datetree "~/Dropbox/org/reference.org" "Waiting")
+                 '("W" "wait-for-reply" entry (file+olp+datetree "~/Dropbox/org/reference.org")
                    "* WAIT %u %a %?\n"))
+
+    ;; bind capture templates to defaut keys within mu4e
+    (define-key mu4e-headers-mode-map (kbd "C-c c") 'org-mu4e-store-and-capture)
+    (define-key mu4e-view-mode-map    (kbd "C-c c") 'org-mu4e-store-and-capture)
 
     ;; https://emacs.stackexchange.com/questions/45112/how-to-prevent-mu4e-from-checking-mail-when-the-internet-is-down
     ;;(internet-up-p)
@@ -7240,10 +7248,10 @@ under the cursor.
                         ;;(mu4e-maildir-shortcuts
                         ;; '(("/zimbra/Inbox" . ?i)))
                         (mu4e-compose-signature
-                          . (concat
-                             "Heikki Lehväslaiho  heikki.lehvaslaiho@csc.fi\n"
-                             "CSC - IT Center for Science Ltd\n"
-                             "Keilaranta 14, P.O.Box 405, 02101 ESPOO, Finland"))))
+                         . (concat
+                            "Heikki Lehväslaiho  heikki.lehvaslaiho@csc.fi\n"
+                            "CSC - IT Center for Science Ltd\n"
+                            "Keilaranta 14, P.O.Box 405, 02101 ESPOO, Finland"))))
              ,(make-mu4e-context
                :name "gmail"
                :enter-func (lambda () (mu4e-message "Entering Gmail context"))
@@ -7310,7 +7318,7 @@ under the cursor.
 
     (defvaralias 'mu4e-compose-signature 'message-signature)
 
-    (setq mu4e-headers-show-threads nil) ; Use "P" to toggle threading
+    (setq mu4e-headers-show-threads nil)  ; Use "P" to toggle threading
 
     (setq mu4e-org-contacts-file  (car org-contacts-files))
     ;;(add-to-list 'mu4e-headers-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
