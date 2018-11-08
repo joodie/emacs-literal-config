@@ -6292,11 +6292,15 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
         '((unicode (on . "<span class=\"task-done\">&#x2611;</span>")
                    (off . "<span class=\"task-todo\">&#x2610;</span>")
                    (trans . "<span class=\"task-in-progress\">[-]</span>"))))
+
   (use-package org-bullets
-    :disabled t
+    :disabled nil
+    :after org
     :defer t
     ;; :init (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●" ))
-    :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+    ;; :init (add-hook 'org-mode-hook 'org-bullets-mode)
+    :hook org-mode)
+
   ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
   ;;(setq org-ellipsis "…")
   (setq org-ellipsis "⤵")
