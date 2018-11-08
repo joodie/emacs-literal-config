@@ -6294,10 +6294,9 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
    'org-mode
    `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\(\\(?:\\[@\\(?:start:\\)?[0-9]+\\][ \t]*\\)?\\[\\(?:X\\|\\([0-9]+\\)/\\2\\)\\][^\n]*\n\\)" 1 'org-headline-done prepend))
    'append)
-
 #+END_SRC
 
-** Org tables sitcky headers
+** Org table optimizations
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-table-sticky-header
@@ -6305,6 +6304,18 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
     :diminish ""
     :config
     (add-hook 'org-mode-hook 'org-table-sticky-header-mode))
+#+END_SRC
+
+[[https://www.reddit.com/r/orgmode/comments/9tljmi/faster_large_table_editing_disable_flyspell/][Faster Large Table Editing: Disable Flyspell! : orgmode]]
+
+#+BEGIN_SRC emacs-lisp
+(defun org-table-dont-flyspell (orig-fun &rest args)
+  (let ((flyspell-enabled (position 'flyspell-mode minor-mode-list)))
+    (flyspell-mode 0)
+    (apply orig-fun args)
+    (flyspell-mode flyspell-enabled)))
+
+(advice-add 'org-cycle :around #'org-table-dont-flyspell)
 #+END_SRC
 
 ** Org Babel
@@ -6347,6 +6358,24 @@ blocks. This also highlights source blocks in HTML exports.
   ;;(org-block-end-line
   ;; ((t (:overline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF"))))
 
+  ;; [https://github.com/howardabrams/dot-files/blob/master/emacs-org.org
+  (use-package ox-html
+    :ensure nil
+    :init
+    (setq org-html-postamble nil)
+    (setq org-export-with-section-numbers nil)
+    (setq org-export-with-toc nil)
+    (setq org-html-head-extra "
+       <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+       <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700' rel='stylesheet' type='text/css'>
+       <style type='text/css'>
+          body {
+             font-family: 'Source Sans Pro', sans-serif;
+          }
+          pre, code {
+             font-family: 'Source Code Pro', monospace;
+          }
+       </style>"))
 #+END_SRC
 
 [[http://pragmaticemacs.com/emacs/highlight-latex-text-in-org-mode/][Highlight latex text in org mode | Pragmatic Emacs]] gives code for
@@ -6363,7 +6392,6 @@ from a blog post by [[http://joat-programmer.blogspot.nl/2013/07/org-mode-versio
 
 #+BEGIN_SRC emacs-lisp
   ;; Syntax highlighting for inline LaTeX
-  (setq org-highlight-latex-and-related '(latex))
   ;; highlight quite a lot
   (setq org-highlight-latex-and-related '(latex script entities))
 
@@ -6603,6 +6631,17 @@ simple way:
   (use-package ob-org :ensure nil :defer t)
   (use-package ob-latex :ensure nil :defer t)
   (use-package ob-lilypond :ensure nil :defer t)
+
+(org-babel-do-load-languages ' org-babel-load-languages
+                               '((shell      . t)
+                                 (js         . t)
+                                 (emacs-lisp . t)
+                                 (perl       . t)
+                                 (clojure    . t)
+                                 (python     . t)
+                                 (ruby       . t)
+                                 (css        . t)
+                                 (plantuml   . t)))
 #+END_SRC
 
 ** Shortcuts for some language blocks
