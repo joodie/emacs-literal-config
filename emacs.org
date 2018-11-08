@@ -1543,12 +1543,14 @@ The hydra implementing this is self-documenting.
          _h_owdoi          _r_e-builder        _u_: us2fi chars
          tw_i_tter         ^ ^                 _z_: timezones        _x_: eshell
          _j_: org entities ^ ^                 _y_: binclock
+         _d_: eyebrowse
         "
 
     ("2" 2048-game)
     ("b" gscholar-bibtex)
     ("c" my/calendar)
     ("e" ediff-buffers)
+    ("d" help/hydra-left-side/eyebrowse/body)
     ("f" copy-file-name-to-clipboard)
     ("g" langtool-correct-buffer)
     ("h" howdoi-query)
@@ -4588,7 +4590,35 @@ Note: My custom mode line does not show the names of workspaces.
     (setq eyebrowse-new-workspace t
           eyebrowse-mode-line-separator " ")
     :config
-    (eyebrowse-mode t))
+    (eyebrowse-mode t)
+
+ (defhydra help/hydra-left-side/eyebrowse (:color blue :hint nil)
+    "
+current eyebrowse slot: %(eyebrowse--get 'current-slot)
+ _j_ previous _k_ last _l_ next _u_ close _i_ choose _o_ rename _q_ quit
+ _a_ 00 _s_ 01 _d_ 02 _f_ 03 _g_ 04 _z_ 05 _x_ 06 _c_ 07 _v_ 08 _b_ 09"
+    ("j" #'eyebrowse-prev-window-config :exit nil)
+    ("k" #'eyebrowse-last-window-config)
+    ("l" #'eyebrowse-next-window-config :exit nil)
+    ("u" #'eyebrowse-close-window-config :exit nil)
+    ("i" #'eyebrowse-switch-to-window-config)
+    ("o" #'eyebrowse-rename-window-config :exit nil)
+    ("q" nil)
+    ("a" #'eyebrowse-switch-to-window-config-0)
+    ("s" #'eyebrowse-switch-to-window-config-1)
+    ("d" #'eyebrowse-switch-to-window-config-2)
+    ("f" #'eyebrowse-switch-to-window-config-3)
+    ("g" #'eyebrowse-switch-to-window-config-4)
+    ("z" #'eyebrowse-switch-to-window-config-5)
+    ("x" #'eyebrowse-switch-to-window-config-6)
+    ("c" #'eyebrowse-switch-to-window-config-7)
+    ("v" #'eyebrowse-switch-to-window-config-8)
+    ("b" #'eyebrowse-switch-to-window-config-9))
+
+;; C-x l d
+  (global-set-key (kbd "C-M-e") #'help/hydra-left-side/eyebrowse/body)
+
+)
 #+END_SRC
 
 ** Local navigation in a buffer
@@ -7307,25 +7337,25 @@ under the cursor.
 
     )  ;; end of mu4e
 
-  ;; sending mail
-  (setq auth-sources '("~/.authinfo.gpg"
-                       "~/Sync/shared/.authinfo.gpg"
-                       "~/.authinfo"
-                       "~/.netrc"))
+   ;; sending mail
+   (setq auth-sources '("~/.authinfo.gpg"
+                        "~/Sync/shared/.authinfo.gpg"
+                        "~/.authinfo"
+                        "~/.netrc"))
 
-  (use-package message
-    :defer t
-    :ensure nil
-    :custom (send-mail-function 'smtpmail-send-it))
+   (use-package message
+     :defer t
+     :ensure nil
+     :custom (send-mail-function 'smtpmail-send-it))
 
-  (use-package smtpmail
-    :defer t
-    :ensure nil
-    :custom
-    (smtpmail-smtp-server "smtp.gmail.com")
-    (smtpmail-smtp-service 465)
-    (smtpmail-stream-type 'ssl)
-    (message-kill-buffer-on-exit t "don't keep message buffers around"))
+   (use-package smtpmail
+     :defer t
+     :ensure nil
+     :custom
+     (smtpmail-smtp-server "smtp.gmail.com")
+     (smtpmail-smtp-service 465)
+     (smtpmail-stream-type 'ssl)
+     (message-kill-buffer-on-exit t "don't keep message buffers around"))
 #+END_SRC
 
 
