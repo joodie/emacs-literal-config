@@ -6170,8 +6170,7 @@ Run this perl code create a symbolic link after installation or upgrade.
   print `ls -l "${file}.jar"`;
 #+END_SRC
 
-The [[https://github.com/zwz/plantuml-mode][plantuml-mode]] helps editing the code. Also, check the new
-[[https://github.com/skuro/puml-mode][puml-mode]].
+The https://github.com/skuro/plantuml-mode helps editing the code.
 
 #+BEGIN_SRC emacs-lisp
   ;; ditaa
@@ -6179,6 +6178,8 @@ The [[https://github.com/zwz/plantuml-mode][plantuml-mode]] helps editing the co
                                           ; plantuml-mode
   (setq plantuml-jar-path (expand-file-name "/usr/local/bin/plantuml.jar"))
   (setq org-plantuml-jar-path plantuml-jar-path)
+
+  (use-package plantuml-mode)
 #+END_SRC
 
 ** TODOs
