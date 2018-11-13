@@ -2162,36 +2162,6 @@ recommended to be bound to =M-i= and =M-o=.
     :bind ("M-o" . change-outer))
 #+END_SRC
 
-** PENDING Cut and copy
-
-Note: This, nor previous code from Xah did not work for me!
-
-Default cut and copy behaviour in emacs when nothing is selected is
-to do nothing. These functions modify cut or copy to work the current line
-instead.
-
-#+BEGIN_SRC emacs-lisp
-  (defun slick-cut (beg end)
-    (interactive
-     (if mark-active
-         (list (region-beginning) (region-end))
-       (list (line-beginning-position) (line-beginning-position 2)))))
-
-  (advice-add 'kill-region :before #'slick-cut)
-
-  (defun slick-copy (beg end)
-    (interactive
-     (if mark-active
-         (list (region-beginning) (region-end))
-       (message "Copied line")
-       (list (line-beginning-position) (line-beginning-position 2)))))
-
-  (advice-add 'kill-ring-save :before #'slick-copy)
-#+END_SRC
-
-TODO: An other way of doing the same:
-http://pragmaticemacs.com/emacs/cut-or-copy-current-line-with-easy-kill/
-
 ** Undo-tree
 
 The emacs undo behaviour can be confusing. Every undo get added to the
