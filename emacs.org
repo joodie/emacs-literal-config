@@ -5449,6 +5449,7 @@ I use [[https://github.com/rejeep/wrap-region.el][wrap-region.el]] to add automa
     (wrap-region-add-wrapper "~" "~" nil 'org-mode)  ; code
     (wrap-region-add-wrapper "*" "*" nil 'org-mode)  ; bold
     (wrap-region-add-wrapper "/" "/" nil 'org-mode)  ; italic
+    (wrap-region-add-wrapper "+" "+" nil 'org-mode)  ; strikethrough
     (wrap-region-add-wrapper "=" "=" nil 'org-mode)) ; verbatim
 
 #+END_SRC
