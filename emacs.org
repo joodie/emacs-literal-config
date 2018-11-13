@@ -211,20 +211,6 @@ configuration.
 
 #+END_SRC
 
-** Lisp libraries
-
-[[https://github.com/magnars/dash.el][dash.el]] is a library of modern list functions.
-
-#+BEGIN_SRC emacs-lisp :tangle no
-  (use-package dash
-    :config
-    (if (>= emacs-major-version 24)
-        (use-package dash-functional)
-      (message "Warning: dash-functional needs Emacs v24"))
-    ;; (eval-after-load 'dash '(dash-enable-font-lock))
-    )
-#+END_SRC
-
 ** Options set using the customize interface
 
 By default, Emacs saves the options you set via the `customize-*`
