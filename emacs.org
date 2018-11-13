@@ -797,7 +797,7 @@ fringe.
   (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 #+END_SRC
 
-** Mode line
+** PENDING Mode line
 
 The default emacs mode line is confusing and boring. [[http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html][This setup]]
 makes it clear and easy to eye. Some might argue that the amount of
