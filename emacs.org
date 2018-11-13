@@ -8073,7 +8073,6 @@ modified using a variable =display-time-world-list=.
           ("Asia/Riyadh" "Jeddah")
           ("Indian/Mauritius" "Mauritius")
           ("Asia/Kolkata" "Delhi")
-          ("Asia/Kathmandu" "Kathmandu")
           ("Asia/Tokyo" "Tokyo")
           ("America/New_York" "New York")
           ("America/Los_Angeles" "Seattle")))
