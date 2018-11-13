@@ -4299,27 +4299,6 @@ environment:
 functions and methods. Inside a Python file move the cursor to some
 function/method definition and hit =C-c M-d=.
 
-** PENDING C++
-
-This is just causing warnings. Disabled.
-
-#+BEGIN_SRC emacs-lisp :tangle no
-  ;; Use the GDB visual debugging mode
-  (setq gdb-many-windows t)
-  ;; Turn Semantic on
-  ;;(require 'semantic/sb)
-  (semantic-mode 1)
-  ;; Try to make completions when not typing
-  (global-semantic-idle-completions-mode 1)
-  ;; Use the Semantic speedbar additions
-  ;; (add-hook 'speedbar-load-hook
-  ;;           (lambda () (use-package semantic/sb :defer t)))
-  ;; treat .h files as C++ files (instead of C)
-  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-  ;; Run compile when you press F5
-  ;;(global-set-key (kbd "<f5>") #'compile)
-#+END_SRC
-
 ** PENDING go
 
 See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][dotemacs/go-config.el]]
