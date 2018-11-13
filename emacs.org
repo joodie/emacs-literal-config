@@ -457,9 +457,9 @@ files have been selected.
     :config
     (setq dired-listing-switches "-alh")
     (setenv "PATH"
-        (concat
-         "/usr/local/bin:/usr/local/sbin:/Library/TeX/texbin:"
-         (getenv "PATH")))
+            (concat
+             "/usr/local/bin:/usr/local/sbin:/Library/TeX/texbin:"
+             (getenv "PATH")))
     ;; clever ediff of two marked files
     ;; -*- lexical-binding: t -*-
     (defun ora-ediff-files ()
@@ -689,7 +689,7 @@ I am trying out the new [[http://sourcefoundry.org/hack/][Hack 2.0]] font and ke
     (set-face-attribute 'default nil :family "Hack" :height 120))
   (set-fontset-font "fontset-startup" nil
                     "Menlo" nil 'append)
-  #+END_SRC
+#+END_SRC
 
 You can use =C-x C-+= and =C-x C--= (=text-scale-adjust=) to
 increase or decrease the buffer text size in the current buffer
@@ -2319,7 +2319,7 @@ Snippet names are expanded with =TAB=.
     (add-to-list 'yas-snippet-dirs (locate-user-emacs-file "snippets"))
     (yas-reload-all))
 
-(use-package yasnippet-snippets)
+  (use-package yasnippet-snippets)
 #+END_SRC
 
 Yasnippets can turned into a really useful tool: [[http://www.howardism.org/Technical/Emacs/templates-tutorial.html][Having Emacs Type for
@@ -3169,7 +3169,7 @@ and grade-level estimates]].
 
 LanguageTool now works with the latest release. I start with British
 English, but that can be changed when needed. I've disabled rules
- that give too many spurious hits in org mode. Besides,
+that give too many spurious hits in org mode. Besides,
 flyspell does it better anyway. The main way to launch langtool is to
 hit =C-x l g= that is short for "Emacs, launch grammar".
 
@@ -3402,7 +3402,7 @@ on, do not change anything.
   (defun goto-line-with-feedback ()
     "Show line numbers temporarily when prompting for the line number input.
 
-No change if line numbers were on to start with"
+  No change if line numbers were on to start with"
     (interactive)
     (let ((line-numbers-off-p (not display-line-numbers-mode)))
       (unwind-protect
@@ -3624,12 +3624,12 @@ clash badly. I try to set them back to somewhat calmer palette.
         (end-of-line)
         (insert "\n\t; note: ")
         (ledger-magic-tab))))
-    ;;    (bind-key "M-." 'ledger-add-note ledger-mode-map))
+  ;;    (bind-key "M-." 'ledger-add-note ledger-mode-map))
 
-    ;;  (use-package flycheck-ledger
-    ;;    :after ledger-mode)
-    ;; flycheck-ledger does syntax checking
-    ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
+  ;;  (use-package flycheck-ledger
+  ;;    :after ledger-mode)
+  ;; flycheck-ledger does syntax checking
+  ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
 #+END_SRC
 
 ** Ssh config
@@ -3830,17 +3830,17 @@ Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
 
 #+BEGIN_SRC emacs-lisp
   (use-package lispy
-  :after eros
-  :custom
-  (lispy-compat '(edebug macrostep) "editable compatibility mode")
-  ;; :hook  (emacs-lisp-mode . lispy-mode)
-  :config
-  (defun enable-lispy-mode () (lispy-mode 1))
-  :hook
-  ((emacs-lisp-mode
-    common-lisp-mode
-    scheme-mode
-    lisp-mode) . enable-lispy-mode))
+    :after eros
+    :custom
+    (lispy-compat '(edebug macrostep) "editable compatibility mode")
+    ;; :hook  (emacs-lisp-mode . lispy-mode)
+    :config
+    (defun enable-lispy-mode () (lispy-mode 1))
+    :hook
+    ((emacs-lisp-mode
+      common-lisp-mode
+      scheme-mode
+      lisp-mode) . enable-lispy-mode))
 
 #+END_SRC
 
@@ -3877,20 +3877,20 @@ perl-build= and install your favorite version of perl and put into
     (condition-case nil
         (plenv-global "5.26.2")
       (error (message "ERROR: unknown perl version. Is your plenv configured right?"))))
-    ;;(use-package flymake
-    ;;  :defer t
-    ;;  :config
-    ;;  (defun flymake-perl-init ()
-    ;;    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-    ;;                       'flymake-create-temp-with-folder-structure))
-    ;;           (local-file (file-relative-name
-    ;;                        temp-file
-    ;;                        (file-name-directory buffer-file-name))))
-    ;;      (list (guess-plenv-perl-path) (list "-wc" local-file))))
-    ;;
-    ;;  (push '(".+\\.p[ml]$" flymake-perl-init) flymake-allowed-file-name-masks)
-    ;;  (push '(".+\\.psgi$" flymake-perl-init) flymake-allowed-file-name-masks)
-    ;;  (push '(".+\\.t$" flymake-perl-init) flymake-allowed-file-name-masks)))
+  ;;(use-package flymake
+  ;;  :defer t
+  ;;  :config
+  ;;  (defun flymake-perl-init ()
+  ;;    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+  ;;                       'flymake-create-temp-with-folder-structure))
+  ;;           (local-file (file-relative-name
+  ;;                        temp-file
+  ;;                        (file-name-directory buffer-file-name))))
+  ;;      (list (guess-plenv-perl-path) (list "-wc" local-file))))
+  ;;
+  ;;  (push '(".+\\.p[ml]$" flymake-perl-init) flymake-allowed-file-name-masks)
+  ;;  (push '(".+\\.psgi$" flymake-perl-init) flymake-allowed-file-name-masks)
+  ;;  (push '(".+\\.t$" flymake-perl-init) flymake-allowed-file-name-masks)))
 #+END_SRC
 
 Use the built-in =cperl-mode= instead of the default =perl-mode=
@@ -4561,33 +4561,33 @@ Hydra: [[https://www.wisdomandwonder.com/article/10596/screencast-building-a-lit
     :config
     (eyebrowse-mode t)
 
- (defhydra help/hydra-left-side/eyebrowse (:color blue :hint nil)
-    "
-current eyebrowse slot: %(eyebrowse--get 'current-slot)
- _j_ previous _k_ last _l_ next _u_ close _i_ choose _o_ rename _q_ quit
- _a_ 00 _s_ 01 _d_ 02 _f_ 03 _g_ 04 _z_ 05 _x_ 06 _c_ 07 _v_ 08 _b_ 09"
-    ("j" #'eyebrowse-prev-window-config :exit nil)
-    ("k" #'eyebrowse-last-window-config)
-    ("l" #'eyebrowse-next-window-config :exit nil)
-    ("u" #'eyebrowse-close-window-config :exit nil)
-    ("i" #'eyebrowse-switch-to-window-config)
-    ("o" #'eyebrowse-rename-window-config :exit nil)
-    ("q" nil)
-    ("a" #'eyebrowse-switch-to-window-config-0)
-    ("s" #'eyebrowse-switch-to-window-config-1)
-    ("d" #'eyebrowse-switch-to-window-config-2)
-    ("f" #'eyebrowse-switch-to-window-config-3)
-    ("g" #'eyebrowse-switch-to-window-config-4)
-    ("z" #'eyebrowse-switch-to-window-config-5)
-    ("x" #'eyebrowse-switch-to-window-config-6)
-    ("c" #'eyebrowse-switch-to-window-config-7)
-    ("v" #'eyebrowse-switch-to-window-config-8)
-    ("b" #'eyebrowse-switch-to-window-config-9))
+    (defhydra help/hydra-left-side/eyebrowse (:color blue :hint nil)
+      "
+  current eyebrowse slot: %(eyebrowse--get 'current-slot)
+   _j_ previous _k_ last _l_ next _u_ close _i_ choose _o_ rename _q_ quit
+   _a_ 00 _s_ 01 _d_ 02 _f_ 03 _g_ 04 _z_ 05 _x_ 06 _c_ 07 _v_ 08 _b_ 09"
+      ("j" #'eyebrowse-prev-window-config :exit nil)
+      ("k" #'eyebrowse-last-window-config)
+      ("l" #'eyebrowse-next-window-config :exit nil)
+      ("u" #'eyebrowse-close-window-config :exit nil)
+      ("i" #'eyebrowse-switch-to-window-config)
+      ("o" #'eyebrowse-rename-window-config :exit nil)
+      ("q" nil)
+      ("a" #'eyebrowse-switch-to-window-config-0)
+      ("s" #'eyebrowse-switch-to-window-config-1)
+      ("d" #'eyebrowse-switch-to-window-config-2)
+      ("f" #'eyebrowse-switch-to-window-config-3)
+      ("g" #'eyebrowse-switch-to-window-config-4)
+      ("z" #'eyebrowse-switch-to-window-config-5)
+      ("x" #'eyebrowse-switch-to-window-config-6)
+      ("c" #'eyebrowse-switch-to-window-config-7)
+      ("v" #'eyebrowse-switch-to-window-config-8)
+      ("b" #'eyebrowse-switch-to-window-config-9))
 
-;; C-x l d
-  (global-set-key (kbd "C-M-e") #'help/hydra-left-side/eyebrowse/body)
+    ;; C-x l d
+    (global-set-key (kbd "C-M-e") #'help/hydra-left-side/eyebrowse/body)
 
-)
+    )
 #+END_SRC
 
 ** Local navigation in a buffer
@@ -5995,7 +5995,7 @@ Prefix arguments are very useful in this context:
 keys. Press shift up or down.
 
 [[https://github.com/justintaft/org-clock-split][GitHub - justintaft/org-clock-split: Split org-mode CLOCK entry while
- preserving time]] bound to =C-c \= in org mode.
+preserving time]] bound to =C-c \= in org mode.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-clock-convenience
@@ -6504,83 +6504,83 @@ footnotes.
 
 
 #+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'ox-latex
-  (add-to-list 'org-latex-classes
-               '("fu-org-article"
-                 "\\documentclass[11pt,a4paper]{article}
-       \\usepackage[T1]{fontenc}
-       \\usepackage{xunicode}        % for XeTex
-       \\usepackage{fontspec}        % for XeTex
-       \\usepackage{xltxtra}         % for XeTex
-       \\usepackage{url}             % for XeTex to break long URLs at line ending
-       \\usepackage[english,finnish]{babel}  % for XeTex
-       \\selectlanguage{english}
-       \\usepackage[osf]{libertine}  % Libertine fonts with old-style numbers
-       \\usepackage{graphicx}
-       \\usepackage{minted}
-       \\usepackage{hypernat}
-       \\usepackage[round]{natbib}
-       \\usepackage{microtype}
+  (with-eval-after-load 'ox-latex
+    (add-to-list 'org-latex-classes
+                 '("fu-org-article"
+                   "\\documentclass[11pt,a4paper]{article}
+         \\usepackage[T1]{fontenc}
+         \\usepackage{xunicode}        % for XeTex
+         \\usepackage{fontspec}        % for XeTex
+         \\usepackage{xltxtra}         % for XeTex
+         \\usepackage{url}             % for XeTex to break long URLs at line ending
+         \\usepackage[english,finnish]{babel}  % for XeTex
+         \\selectlanguage{english}
+         \\usepackage[osf]{libertine}  % Libertine fonts with old-style numbers
+         \\usepackage{graphicx}
+         \\usepackage{minted}
+         \\usepackage{hypernat}
+         \\usepackage[round]{natbib}
+         \\usepackage{microtype}
 
-       \\usepackage{paralist}
-       \\let\\itemize\\compactitem
-       \\let\\description\\compactdesc
-       \\let\\enumerate\\compactenum
+         \\usepackage{paralist}
+         \\let\\itemize\\compactitem
+         \\let\\description\\compactdesc
+         \\let\\enumerate\\compactenum
 
-       \\usepackage[a4paper, textheight=10in,
-                   marginparsep=7pt, marginparwidth=1.5in, margin=2in]{geometry}
+         \\usepackage[a4paper, textheight=10in,
+                     marginparsep=7pt, marginparwidth=1.5in, margin=2in]{geometry}
 
-       \\usepackage[colorlinks=true,urlcolor=black,linkcolor=black,citecolor=blue]{hyperref}
+         \\usepackage[colorlinks=true,urlcolor=black,linkcolor=black,citecolor=blue]{hyperref}
 
-       \\let\\nofiles\\relax % Void the \\nofiles command
+         \\let\\nofiles\\relax % Void the \\nofiles command
 
-       \\pagestyle{plain}
-       \\title{}
-             [NO-DEFAULT-PACKAGES]
-             [NO-PACKAGES]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-
-  ;; tufte export from https://github.com/smadhueagle/prelude/blob/master/personal/org-latex-custom.el
-  ;; tufte-book class for writing classy books
-  (add-to-list 'org-latex-classes
-               '("tufte-book"
-                 "\\documentclass{tufte-book}
-  \\usepackage[T1]{fontenc}
-  \\usepackage{color}
-  \\usepackage{amssymb}
-  \\usepackage{gensymb}
-  \\usepackage{nicefrac}
-  \\usepackage{microtype}
-  \\usepackage{units}"
-                 ("\\chapter{%s}" . "\\chapter*{%s}")
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+         \\pagestyle{plain}
+         \\title{}
+               [NO-DEFAULT-PACKAGES]
+               [NO-PACKAGES]"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 
-  ;; tufte-handout class for writing classy handouts and papers
-  (add-to-list 'org-latex-classes
-               '("tufte-handout"
-                 "\\documentclass{tufte-handout}
-  \\usepackage[T1]{fontenc}
-  \\usepackage{color}
-  \\usepackage{amssymb}
-  \\usepackage{amsmath}
-  \\usepackage{gensymb}
-  \\usepackage{nicefrac}
-  \\usepackage{units}
-  \\usepackage[a4paper]{geometry}"
+    ;; tufte export from https://github.com/smadhueagle/prelude/blob/master/personal/org-latex-custom.el
+    ;; tufte-book class for writing classy books
+    (add-to-list 'org-latex-classes
+                 '("tufte-book"
+                   "\\documentclass{tufte-book}
+    \\usepackage[T1]{fontenc}
+    \\usepackage{color}
+    \\usepackage{amssymb}
+    \\usepackage{gensymb}
+    \\usepackage{nicefrac}
+    \\usepackage{microtype}
+    \\usepackage{units}"
+                   ("\\chapter{%s}" . "\\chapter*{%s}")
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+    ;; tufte-handout class for writing classy handouts and papers
+    (add-to-list 'org-latex-classes
+                 '("tufte-handout"
+                   "\\documentclass{tufte-handout}
+    \\usepackage[T1]{fontenc}
+    \\usepackage{color}
+    \\usepackage{amssymb}
+    \\usepackage{amsmath}
+    \\usepackage{gensymb}
+    \\usepackage{nicefrac}
+    \\usepackage{units}
+    \\usepackage[a4paper]{geometry}"
+
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+END_SRC
 
 ** Language evaluation support
@@ -6607,16 +6607,16 @@ simple way:
   (use-package ob-latex :ensure nil :defer t)
   (use-package ob-lilypond :ensure nil :defer t)
 
-(org-babel-do-load-languages ' org-babel-load-languages
-                               '((shell      . t)
-                                 (js         . t)
-                                 (emacs-lisp . t)
-                                 (perl       . t)
-                                 (clojure    . t)
-                                 (python     . t)
-                                 (ruby       . t)
-                                 (css        . t)
-                                 (plantuml   . t)))
+  (org-babel-do-load-languages ' org-babel-load-languages
+                                 '((shell      . t)
+                                   (js         . t)
+                                   (emacs-lisp . t)
+                                   (perl       . t)
+                                   (clojure    . t)
+                                   (python     . t)
+                                   (ruby       . t)
+                                   (css        . t)
+                                   (plantuml   . t)))
 #+END_SRC
 
 ** Shortcuts for some language blocks
@@ -6824,8 +6824,8 @@ Use the custom abbreviation =okanban= to create it.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-kanban
-     :after org
-     :defer t)
+    :after org
+    :defer t)
 #+END_SRC
 
 ** Presentation
@@ -7214,7 +7214,7 @@ under the cursor.
     (add-to-list 'mu4e-view-actions '("view in browser" . mu4e-action-view-in-browser))
 
     (add-to-list 'mu4e-view-actions
-      '("ViewInBrowser" . mu4e-action-view-in-browser) t) ; press aV to view in browser
+                 '("ViewInBrowser" . mu4e-action-view-in-browser) t) ; press aV to view in browser
 
     ;; https://www.djcbsoftware.nl/2016/01/20/mu-0.9.16/
     (define-key mu4e-headers-mode-map (kbd "C-c c") 'org-mu4e-store-and-capture)
@@ -7359,25 +7359,25 @@ under the cursor.
 
     )  ;; end of mu4e
 
-   ;; sending mail
-   (setq auth-sources '("~/.authinfo.gpg"
-                        "~/Sync/shared/.authinfo.gpg"
-                        "~/.authinfo"
-                        "~/.netrc"))
+  ;; sending mail
+  (setq auth-sources '("~/.authinfo.gpg"
+                       "~/Sync/shared/.authinfo.gpg"
+                       "~/.authinfo"
+                       "~/.netrc"))
 
-   (use-package message
-     :defer t
-     :ensure nil
-     :custom (send-mail-function 'smtpmail-send-it))
+  (use-package message
+    :defer t
+    :ensure nil
+    :custom (send-mail-function 'smtpmail-send-it))
 
-   (use-package smtpmail
-     :defer t
-     :ensure nil
-     :custom
-     (smtpmail-smtp-server "smtp.gmail.com")
-     (smtpmail-smtp-service 465)
-     (smtpmail-stream-type 'ssl)
-     (message-kill-buffer-on-exit t "don't keep message buffers around"))
+  (use-package smtpmail
+    :defer t
+    :ensure nil
+    :custom
+    (smtpmail-smtp-server "smtp.gmail.com")
+    (smtpmail-smtp-service 465)
+    (smtpmail-stream-type 'ssl)
+    (message-kill-buffer-on-exit t "don't keep message buffers around"))
 #+END_SRC
 
 
@@ -8031,8 +8031,7 @@ Set [[https://www.reddit.com/r/emacs/comments/8jb4p5/editing_html_textareas_with
     :custom
     (atomic-chrome-url-major-mode-alist
      '(("reddit\\.com" . markdown-mode)
-       ("github\\.com" . gfm-mode))
-     "Major modes for URLs")
+       ("github\\.com" . gfm-mode)) "Major modes for URLs")
     :config
     (atomic-chrome-start-server))
 #+END_SRC
