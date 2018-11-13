@@ -6284,13 +6284,13 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
 [[https://www.reddit.com/r/orgmode/comments/9tljmi/faster_large_table_editing_disable_flyspell/][Faster Large Table Editing: Disable Flyspell! : orgmode]]
 
 #+BEGIN_SRC emacs-lisp
-(defun org-table-dont-flyspell (orig-fun &rest args)
-  (let ((flyspell-enabled (position 'flyspell-mode minor-mode-list)))
-    (flyspell-mode 0)
-    (apply orig-fun args)
-    (flyspell-mode flyspell-enabled)))
+  (defun org-table-dont-flyspell (orig-fun &rest args)
+    (let ((flyspell-enabled (position 'flyspell-mode minor-mode-list)))
+      (flyspell-mode 0)
+      (apply orig-fun args)
+      (flyspell-mode flyspell-enabled)))
 
-(advice-add 'org-cycle :around #'org-table-dont-flyspell)
+  (advice-add 'org-cycle :around #'org-table-dont-flyspell)
 #+END_SRC
 
 ** Org Babel
