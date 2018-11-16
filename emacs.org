@@ -3553,7 +3553,7 @@ The following tells ledger to use ISO dates and sets some default
 reports. There does not seem to be consensus on ledger file
 extension. I am using =led=.
 
-The ledger mode has been getting a lot of bug fixes recently. These
+The [[https://github.com/ledger/ledger-mode][ledger-mode]] has been getting a lot of bug fixes recently. These
 changes are affecting font coloring, too. Many of the font faces
 are inherited which are good in principle, but at the moment they
 clash badly. I try to set them back to somewhat calmer palette.
@@ -3561,7 +3561,7 @@ clash badly. I try to set them back to somewhat calmer palette.
 #+BEGIN_SRC emacs-lisp
   (use-package ledger-mode
     :mode "\\.led\\'"
-    :interpreter "ledger"
+    :interpreter "/usr/local/bin/ledger"
     :defines ledger-use-iso-dates
     :bind (:map ledger-mode-map
                 ("C-c C-c" . ledger-post-align-xact)
@@ -3575,9 +3575,11 @@ clash badly. I try to set them back to somewhat calmer palette.
              ("reg" "ledger -f %(ledger-file) reg")
              ("payee" "ledger -f %(ledger-file) reg @%(payee)")
              ("account" "ledger -f %(ledger-file) reg %(account)"))))
+
     :custom-face
     (ledger-font-comment-face ((t (:foreground "gray50"))))
     (ledger-occur-xact-face ((t (:background "LightCyan"))))
+
     :config
 
     (defun ledger-next-misc ()
@@ -3588,7 +3590,6 @@ clash badly. I try to set them back to somewhat calmer palette.
         (search-forward tag)
         (search-backward tag)
         (delete-char (length tag))))
-    ;;    (bind-key "M-m" 'ledger-next-misc ledger-mode-map)
 
     (defun ledger-add-note ()
       "Add a note to the current ledger entry.
@@ -3605,12 +3606,6 @@ clash badly. I try to set them back to somewhat calmer palette.
         (end-of-line)
         (insert "\n\t; note: ")
         (ledger-magic-tab))))
-  ;;    (bind-key "M-." 'ledger-add-note ledger-mode-map))
-
-  ;;  (use-package flycheck-ledger
-  ;;    :after ledger-mode)
-  ;; flycheck-ledger does syntax checking
-  ;;(eval-after-load 'ledger-mode '(require 'flycheck-ledger))
 #+END_SRC
 
 ** Ssh config
