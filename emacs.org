@@ -4661,10 +4661,13 @@ Key =M-j= joins the next line with the current one. Copied from
 joining current line to previous one.
 
 #+BEGIN_SRC emacs-lisp
-  (bind-key  "M-j"  #'(lambda ()
-                        (interactive)
-                        (join-line -1)))
-  (bind-key "C-c q" 'delete-indentation)
+
+  (defun join-line-with-next ()
+    (interactive)
+    (join-line -1))
+
+  (bind-key  "M-j"  #'join-line-with-next)
+  (bind-key "C-c q" #'delete-indentation)
 #+END_SRC
 
 When editing indented text, you seldom want to go to the first
