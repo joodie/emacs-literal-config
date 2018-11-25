@@ -238,7 +238,6 @@
     ("explicitely" "explicitly" nil 1)
     ("feb" "Feb." nil 0)
     ("february" "February" nil 0)
-    ("fi" "if" nil 1)
     ("flase" "false" nil 4)
     ("fo" "of" nil 1)
     ("forthnight" "fortnight" nil 0)
@@ -656,4 +655,3 @@ use Data::Printer;
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
-
