@@ -5211,6 +5211,7 @@ This and more files can be reached with my hydra-files by =C-z=.
                 _d_otfiles.txt  _w_ork.org
                 _h_ome.gpg      _l_edger:refile.led
                 _a_bbrevs       _k_äyttötili.led
+                _p_rojects
              "
     ("c" (find-file "~/Dropbox/installation.notes/balamac/ChangeLog"))
     ("e" (find-file "~/.emacs.d/emacs.org"))
@@ -5221,6 +5222,7 @@ This and more files can be reached with my hydra-files by =C-z=.
     ("w" (find-file "~/Dropbox/org/work.org"))
     ("l" (find-file "~/Documents/ledger/refile.led"))
     ("k" (find-file "~/Documents/ledger/2018_heikintili.led"))
+    ("p" (find-file "~/Documents/csc/csc-project-data.txt"))
     ("a" (find-file "~/.emacs.d/abbrev_defs"))
     ("o" org-info))
 #+END_SRC
