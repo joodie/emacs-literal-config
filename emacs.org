@@ -934,7 +934,9 @@ Minimalistic mode line replacement.
     (feebleline-show-git-branch t)
     (feebleline-show-dir t)
     :config
-    (feebleline-mode))
+    (set-face-attribute 'feebleline-asterisk-face nil
+                        :foreground "red" :background "white" :weight 'bold)
+    (feebleline-mode t))
 #+END_SRC
 
 ** Visual bell
