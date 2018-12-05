@@ -7395,6 +7395,7 @@ under the cursor.
     (smtpmail-smtp-server "smtp.gmail.com")
     (smtpmail-smtp-service 465)
     (smtpmail-stream-type 'ssl)
+    (smtpmail-stream-type 'starttls)
     (message-kill-buffer-on-exit t "don't keep message buffers around"))
 #+END_SRC
 
