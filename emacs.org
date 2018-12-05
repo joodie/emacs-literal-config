@@ -4549,7 +4549,7 @@ Hydra: [[https://www.wisdomandwonder.com/article/10596/screencast-building-a-lit
     :config
     (eyebrowse-mode t)
 
-    (defhydra help/hydra-left-side/eyebrowse (:color blue :hint nil)
+    (defhydra hydra-eyebrowse (:color blue :hint nil)
       "
   current eyebrowse slot: %(eyebrowse--get 'current-slot)
    _j_ previous _k_ last _l_ next _u_ close _i_ choose _o_ rename _q_ quit
@@ -4573,7 +4573,7 @@ Hydra: [[https://www.wisdomandwonder.com/article/10596/screencast-building-a-lit
       ("b" #'eyebrowse-switch-to-window-config-9))
 
     ;; C-x l d
-    (global-set-key (kbd "C-M-e") #'help/hydra-left-side/eyebrowse/body)
+    (global-set-key (kbd "C-M-e") #'hydra-eyebrowse/body)
 
     )
 #+END_SRC
