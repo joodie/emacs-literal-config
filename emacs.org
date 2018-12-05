@@ -6841,6 +6841,7 @@ Use the custom abbreviation =okanban= to create it.
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-kanban
+    :bind (:map org-mode-map ("H-k" . org-kanban/shift))
     :after org
     :defer t)
 #+END_SRC
