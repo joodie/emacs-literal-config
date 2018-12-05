@@ -2311,7 +2311,7 @@ Todo:
 + [[https://github.com/AndreaCrotti/yasnippet-snippets][AndreaCrotti/yasnippet-snippets: a collection of yasnippet snippets for many languages]]
 + [[https://www.reddit.com/r/emacs/comments/8vdhb4/tip_how_to_integrate_snippets_with_yasnippets/][TIP: How to integrate snippets with YASnippets : emacs]]
 
-*** autoinsert
+*** Autoinsert
 
 #+BEGIN_SRC emacs-lisp
   (use-package autoinsert
@@ -4830,7 +4830,8 @@ More in [[http://oremacs.com/swiper/#api][Ivy User Manual]].
 Also, save system clipboard before overwriting it from emacs
 ([[http://pragmaticemacs.com/emacs/prevent-emacs-wiping-the-system-clipboard/][Prevent Emacs wiping the system clipboard | Pragmatic Emacs]]).
 
-=counsel-imenu= is bound to 's' in worf mode.
+=counsel-imenu= is bound to 's' in worf mode. NOT! (wspecial-worf-save)
+is bound to it!
 
 =ivy-occur=, see [[https://oremacs.com/2017/11/18/dired-occur/][Save Ivy file completions to Dired · (or emacs]]
 
@@ -4850,7 +4851,7 @@ how to configure =counsel-git= and =counsel-rg=.
     :ensure counsel
     :diminish (ivy-mode . "")
     :init
-    (setq ivy-use-virtual-buffers t) ; Enable bookmarks and recentf in buffer list
+    (setq ivy-use-virtual-buffers t) ; Enables bookmarks and recentf in buffer list
     (setq enable-recursive-minibuffers t)
     (setq ivy-display-style 'fancy)
     (setq ivy-height 10)
@@ -4897,16 +4898,6 @@ how to configure =counsel-git= and =counsel-rg=.
      '(swiper-minibuffer-match-face-4
        ((t :background "#ffbbff" :weight bold))))
     )
-  ;; advice swiper to recenter on exit
-  ;; from http://pragmaticemacs.com/emacs/dont-search-swipe/
-  ;;(defun my/swiper-recenter (&rest args)
-  ;;  "recenter display after swiper"
-  ;;  (recenter))
-  ;;(advice-add 'swiper :after #'my/swiper-recenter))
-  ;; ; (advice-remove 'swiper #'my/swiper-recenter)
-  ;; end of use-package
-  ;; (fmakunbound 'my/swiper-recenter)
-
 
   ;; restore key bindings to isearch due to character folding in emacs 25.1
   (bind-key "C-`" 'isearch-forward)
@@ -6741,7 +6732,7 @@ can retrieve bibtex entries into it from several sources. Launch it
 with =C-x l g=.
 
 [[https://github.com/jkitchin/org-ref][org-ref]] is a set of tools to do literature references in org mode.
-Org-ref Read the [[https://github.com/jkitchin/org-ref/blob/master/org-ref.org][org-ref manual]].
+Read the [[https://github.com/jkitchin/org-ref/blob/master/org-ref.org][org-ref manual]].
 
 Looks like org-ref messes with LaTeX references unless it is told not
 to.
@@ -6755,7 +6746,7 @@ to.
           org-ref-default-bibliography '("~/Documents/latex/all.bib")
           org-ref-pdf-directory "~/Documents/bibliography/bibtex-pdfs/"))
   ;; org-ref-ivy-bibtex
-  ;; Do not mess up used defined label names
+  ;; Do not mess up user defined label names
   (setq org-latex-prefer-user-labels t)
 #+END_SRC
 
