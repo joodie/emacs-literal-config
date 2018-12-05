@@ -3802,21 +3802,33 @@ Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
                 ("M-s-<right>" . paredit-backward-barf-sexp)))
 #+END_SRC
 
-[[https://github.com/abo-abo/lispy][abo-abo/lispy]] adds vi-like one letter commands.
+[[https://github.com/abo-abo/lispy][lispy]] adds vi-like one letter commands when cursor is at parens.
 
 #+BEGIN_SRC emacs-lisp
   (use-package lispy
-    :after eros
-    :custom
-    (lispy-compat '(edebug macrostep) "editable compatibility mode")
-    ;; :hook  (emacs-lisp-mode . lispy-mode)
-    :config
-    (defun enable-lispy-mode () (lispy-mode 1))
-    :hook
-    ((emacs-lisp-mode
-      common-lisp-mode
-      scheme-mode
-      lisp-mode) . enable-lispy-mode))
+      :after (paredit)
+      :bind (:map lispy-mode-map
+                  ("s-<return>" . lispy-parens-down)
+                  ;;("e" . my-eros-lispy-eval)
+                  ;;("H-j" . join-line-with-next)
+            )
+      :custom
+      (lispy-compat '(edebug macrostep) "editable compatibility mode")
+      ;; :hook  (emacs-lisp-mode . lispy-mode)
+      :config
+      (defun enable-lispy-mode () (lispy-mode 1))
+
+      (defun my-eros-lispy-eval (eval-last-sexp-arg-internal)
+        "Move point from left to right paren and call `eros-eval-last-sexp'."
+        (interactive "P")
+        (if (lispy-left-p)
+            (special-lispy-different))
+        (eros-eval-last-sexp eval-last-sexp-arg-internal))
+
+      :hook
+      ((emacs-lisp-mode
+        scheme-mode
+        lisp-mode) . enable-lispy-mode))
 
 #+END_SRC
 
