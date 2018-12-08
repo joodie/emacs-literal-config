@@ -5378,16 +5378,16 @@ Uses =variable-pitch-mode=. To change the font, modify the
 #+BEGIN_SRC emacs-lisp
 
   (use-package org-variable-pitch
-    ;; :defer t
+    :defer t
     ;; :after org
-    :load-path "elisp/"
     ;;:hook ((org-mode . org-variable-pitch-minor-mode))
     :init
     (setq org-variable-pitch-fixed-font "Hack")
     :config
+    (add-to-list 'org-variable-pitch-fixed-faces 'org-date)
     (set-face-attribute 'variable-pitch nil
                         :family "Linux Libertine O"
-                        :height 150)
+                        :height 160)
     (add-hook 'org-mode-hook 'org-variable-pitch-minor-mode))
 #+END_SRC
 
