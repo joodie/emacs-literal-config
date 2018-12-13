@@ -49,6 +49,7 @@
 *** https://kalmistopiiri.wordpress.com/feed/
 *** http://www.heritagedaily.com/feed/rss
 *** https://www.sapiens.org/feed/
+*** http://eurogenes.blogspot.com/feeds/posts/default
 ** Culture                                                                 :cu:
 *** http://www.antroblogi.fi/feed/
 *** Language                                                              :l:
