@@ -40,7 +40,8 @@
 
 ;;; set loading of newer files over compiled at the very beginning
 (setq load-prefer-newer t)
-
+;; (setq max-specpdl-size 650)
+;; (setq max-lisp-eval-depth 400)
 ;;;
 ;;; package
 ;;;
