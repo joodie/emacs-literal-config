@@ -1963,6 +1963,9 @@ it into a document I was editing.
 file names like any text. The familiar =C-c C-c= commits the
 changes.
 
+[[http://mbork.pl/2018-12-10_Lesser_known_Dired_stuff][Lesser known Dired stuff]] shows how to edit directories into filenames
+and change file permissions.
+
 #+BEGIN_SRC emacs-lisp
   ;;http://mbork.pl/2015-04-25_Some_Dired_goodies
   ;;
@@ -1973,6 +1976,9 @@ changes.
           ("\\.ods\\'\\|\\.xlsx?\\'\\|\\.docx?\\'\\|\\.csv\\'" "libreoffice")))
   ;; open a file replacing the current dired buffer
   (put 'dired-find-alternate-file 'disabled nil)
+  ;; more dired capabilities
+  (setq wdired-create-parent-directories t)
+  (setq wdired-allow-to-change-permissions t)
 #+END_SRC
 *** Saving automatically
 
