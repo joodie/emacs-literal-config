@@ -4886,6 +4886,7 @@ how to configure =counsel-git= and =counsel-rg=.
            ("M-y" . ivy-next-line))
     :config
     (ivy-mode 1)
+    (counsel-mode 1)
 
     (setq ivy-re-builders-alist
           ;; allow regex input not in order
@@ -4932,6 +4933,20 @@ Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficien
   (use-package avy
     :bind (("M-s" . avy-goto-word-1)
            ("C-c C-j" . avy-resume)))
+#+END_SRC
+
+[[https://github.com/clemera/ivy-explorer][clemera/ivy-explorer: Dynamic file browsing grid for Emacs]]
+
+Users can navigate the grid using =Ctrl-f=, =Ctrl-b=, =Ctrl-n=, =Ctrl-p=. By
+pressing =,= users can enter directories or open files on the screen
+using avy. Pressing =;= will jump to the selected candidate and invoke
+the dipsatch action dialog. If you have to input them you can still
+use =C-q,=, =C-q ;=.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ivy-explorer
+    :config
+    (ivy-explorer-mode 1))
 #+END_SRC
 
 ** TRAMP mode
