@@ -749,6 +749,20 @@ Scroll bars in emacs frame are useless. Remove.
     (scroll-bar-mode -1))
 #+END_SRC
 
+** Title bar in OS X
+
+[[https://github.com/kunalb/poet][kunalb/poet: An emacs theme that's well suited for modes using
+variable pitch: particularly org-mode and markdown-mode.]]
+
+#+BEGIN_SRC emacs-lisp
+  ;; version > 26.1 on a Mac
+  (when (and
+         (eq system-type 'darwin)
+         (>= emacs-major-version 26))
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+    (add-to-list 'default-frame-alist '(ns-appearance . light)))
+#+END_SRC
+
 ** Disable dialog boxes
 
 Even mouse commands use echo area to ask confirmations
