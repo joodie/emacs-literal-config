@@ -8048,6 +8048,17 @@ I installed Liberation Serif for nov.el use.
     (add-hook 'nov-mode-hook #'visual-line-mode))
 #+END_SRC
 
+** Process monitor
+
+[[https://www.masteringemacs.org/article/displaying-interacting-processes-proced][Displaying and Interacting with processes using Proced - Mastering
+Emacs]]
+
+#+BEGIN_SRC emacs-lisp
+  (defun proced-settings ()
+    (proced-toggle-auto-update 1))
+  (add-hook 'proced-mode-hook 'proced-settings)
+#+END_SRC
+
 ** Web browsing
 
 *** PENDING w3m
