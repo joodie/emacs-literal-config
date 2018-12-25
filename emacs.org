@@ -782,8 +782,9 @@ For more, check out the documentation on =prettify-symbols-mode= using
 - the new (for 25.1) key binding =C-h o=.
 
   #+BEGIN_SRC emacs-lisp
-    (global-prettify-symbols-mode 1)
-    (setq prettify-symbols-unprettify-at-point 'right-edge)
+    (when (>= emacs-major-version 25)
+      (global-prettify-symbols-mode 1)
+      (setq prettify-symbols-unprettify-at-point 'right-edge))
   #+END_SRC
 
 ** Fringe decorations
@@ -1265,7 +1266,8 @@ file? : emacs]]).
 
   ;; save cursor position
   ;; remember cursor position, for emacs 25.1 or later
-  (save-place-mode 1)
+  (when (>= emacs-major-version 25)
+    (save-place-mode 1))
 
   ;; ignore custom modifications
   (setq custom-file "/tmp/null")
