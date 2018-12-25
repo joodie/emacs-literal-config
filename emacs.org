@@ -3632,6 +3632,15 @@ clash badly. I try to set them back to somewhat calmer palette.
         (ledger-magic-tab))))
 #+END_SRC
 
+*** Alternative: beancount
+
+- [[https://docs.google.com/document/d/1P5At-z1sP8rgwYLHso5sEy3u4rMnIUDDgob9Y_BYuWE/edit][Beancount - Getting Started - Google Docs]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package beancount
+    :mode "\\.beancount\\'"
+    :load-path "~/.emacs.d/lisp/beancount.el")
+#+END_SRC
 ** Ssh config
 
 [[https://github.com/jhgorrell/ssh-config-mode-el][ssh-config-mode-el]] highlights valid keys in ssh configuration files.
