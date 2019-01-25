@@ -3957,6 +3957,16 @@ the code is loaded only once when the cperl-mode is first called.
     '(bind-key  "C-c t" 'perltidy cperl-mode-map))
 #+END_SRC
 
+Adding POD tags to a perl buffer easily messes up fontification.
+Command [[https://stackoverflow.com/questions/1431843/updating-font-lock-keywords-in-emacs-without-major-mode-reload][my-font-lock-restart]] resets fontification.
+
+#+begin_src emacs-lisp
+(defun my-font-lock-restart ()
+  (interactive)
+  (setq font-lock-mode-major-mode nil)
+  (font-lock-fontify-buffer))
+#+end_src
+
 *** perl6
 
 The major mode will be autoloaded whenever a Perl 6 file is
