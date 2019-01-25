@@ -6540,10 +6540,7 @@ website framework export added.
     :ensure nil)
 
   (use-package ox-hugo
-    :after ox
-    :config
-    (use-package ox-hugo-auto-export
-      :ensure nil))
+    :after ox)
 #+END_SRC
 
 ** Latex export
