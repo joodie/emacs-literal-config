@@ -276,6 +276,8 @@ the place for them.
 
 A replacement for the Emacs **help** buffer.
 
+[[https://github.com/Wilfred/helpful][Wilfred/helpful: A better Emacs *help* buffer]]
+
 #+BEGIN_SRC emacs-lisp
   (use-package helpful
     :bind (("C-h o" . helpful-at-point)
@@ -607,6 +609,7 @@ does not seem to be possible this way.
     (bind-key "s-T" 'iterm-focus))
 
 #+END_SRC
+
 ** Emacsclient
 
 In OS X command line and GUI versions of emacs are not the same
@@ -662,6 +665,7 @@ Sets the initial frame (Emacs window) size.
   (add-to-list 'default-frame-alist '(height . 60))
   (add-to-list 'default-frame-alist '(width . 200))
 #+END_SRC
+
 ** Font
 
 The new OS X standard front, Menlo, is amazingly good to eye. It is
@@ -1148,6 +1152,7 @@ emacs.d]].
               (highlight-regexp "TODO" 'hi-red-b)))
   (global-hi-lock-mode 1)
 #+END_SRC
+
 *** Highlighting new text
 
 There is a built-in minor mode =highlight-changes-mode= that you can
@@ -1611,6 +1616,7 @@ buffer. I do not use greek letters in keys, so I've removed them.
                   "\n"))
           (princ "\n\n")))))
 #+END_SRC
+
 ** Org entities with ivy
 
 [[http://irreal.org/blog/?p=6637][Kitchin on Org Entities | Irreal]]
@@ -1972,6 +1978,7 @@ it into a document I was editing.
       (gui-set-selection 'PRIMARY start-file)
       (message "moved %s to %s" start-file-full end-file)))
 #+END_SRC
+
 *** Editing file lists with wdired
 
 [[http://www.masteringemacs.org/articles/2013/10/10/wdired-editable-dired-buffers/][Editable dired]] is part of standard emacs. Once you are in dired
@@ -1996,6 +2003,7 @@ and change file permissions.
   (setq wdired-create-parent-directories t)
   (setq wdired-allow-to-change-permissions t)
 #+END_SRC
+
 *** Saving automatically
 
 The [[https://github.com/bbatsov/super-save][super-save]] package saves files when the buffer looses focus.
@@ -2096,6 +2104,7 @@ comma separated fields. An =&= is used in LaTeX tables.
     (align-regexp start end
                   "\\(\\s-*\\)\\s-" 1 0 t))
 #+END_SRC
+
 ** Align text
 
 A more general application of the previous function is to align text
@@ -2502,6 +2511,7 @@ variable", =C-x t v=.
   ;; :config
   ;; (defvar my-do-not-capitalize-words '("lazyblorg" "mutt"))
 #+END_SRC
+
 ** iedit mode
 
 Activate the [[http://www.emacswiki.org/emacs/Iedit][Iedit]] mode by placing the cursor to a word and
@@ -2512,6 +2522,7 @@ selected and can be simultaneously edited.
   (use-package iedit
     :defer t)
 #+END_SRC
+
 ** PENDING Multiple cursors
 
 is an alternative to iedit. See [[https://github.com/Schnouki/dotfiles/blob/master/emacs/init-60-multiple-cursors.el][this dot files]] for more
@@ -3271,6 +3282,7 @@ https://www.reddit.com/r/emacs/comments/94t6p6/tip_packages_to_include_in_your_w
 
   (advice-add 'wiki-summary/format-summary-in-buffer :override #'my/format-summary-in-buffer)
 #+END_SRC
+
 *** Webster's
 
 The old Webster's 1913 Dictionary is a [[http://jsomers.net/blog/dictionary][rare beast]] where definitions
@@ -3329,6 +3341,7 @@ other modes
       ("s" origami-show-only-node)
       ("q" nil :color blue)))
 #+END_SRC
+
 ** Number groups
 
 Large numbers made easier to read by highlighting groups of three.
@@ -3351,6 +3364,7 @@ text for text files.
     :config
     (global-button-lock-mode 1))
 #+END_SRC
+
 ** Poetry mode
 
 Bob Newell's poetry mode is available from
@@ -3580,7 +3594,7 @@ extension. I am using =led=.
 The [[https://github.com/ledger/ledger-mode][ledger-mode]] has been getting a lot of bug fixes recently. These
 changes are affecting font coloring, too. Many of the font faces
 are inherited which are good in principle, but at the moment they
-clash badly. I try to set them back to somewhat calmer palette.
+clash badly. I try to set them back to a somewhat calmer palette.
 
 #+BEGIN_SRC emacs-lisp
   (use-package ledger-mode
@@ -3641,6 +3655,7 @@ clash badly. I try to set them back to somewhat calmer palette.
     :mode "\\.beancount\\'"
     :load-path "~/.emacs.d/lisp/beancount.el")
 #+END_SRC
+
 ** Ssh config
 
 [[https://github.com/jhgorrell/ssh-config-mode-el][ssh-config-mode-el]] highlights valid keys in ssh configuration files.
@@ -4140,6 +4155,7 @@ C-e= elisp evaluations at point. Set on by default, toggle with hydra
     :config
     (eros-mode 1))
 #+END_SRC
+
 ** SQL
 
 Automatically uppercase SQL keywords in sql-mode.
@@ -4408,6 +4424,7 @@ stories]]
   (use-package feature-mode
     :mode ("\\.feature\\'" . feature-mode))
 #+END_SRC
+
 ** YAML
 
 
