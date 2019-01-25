@@ -5260,7 +5260,7 @@ This and more files can be reached with my hydra-files by =C-z=.
     ("s" (switch-to-buffer "*scratch*"))
     ("w" (find-file "~/Dropbox/org/work.org"))
     ("l" (find-file "~/Documents/ledger/refile.led"))
-    ("k" (find-file "~/Documents/ledger/2018_heikintili.led"))
+    ("k" (find-file "~/Documents/ledger/2019_tilit.led"))
     ("p" (find-file "~/Documents/csc/csc-project-data.txt"))
     ("a" (find-file "~/.emacs.d/abbrev_defs"))
     ("o" org-info))
