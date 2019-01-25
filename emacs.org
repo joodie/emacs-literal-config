@@ -4367,9 +4367,7 @@ See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][do
           (set (make-local-variable 'compile-command)
                "go build -v && go test -v && go vet && golint")))
 
-    (use-package go-eldoc
-      :defer t
-      :config (go-eldoc-setup)))
+
 #+END_SRC
 
 ** Applescript
