@@ -5456,6 +5456,8 @@ Uses =variable-pitch-mode=. To change the font, modify the
                 (org-indent-mode)
                 )))
 
+  (require 'org-tempo)
+
   (use-package org-autolist
     :after org
     :diminish ""
@@ -5694,10 +5696,18 @@ hydra-org-template that is triggered by the =<= key.
             "☾ Last Quarter Moon"))
 
     ;; http://acidwords.com/posts/2018-03-02-extending-org-mode-easy-templates.html
+    (add-to-list 'org-structureq-template-alist
+                 '("C" . "comment"))
     (add-to-list 'org-structure-template-alist
-                 '("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT" ""))
-    (add-to-list 'org-structure-template-alist
-                 '("b" "#+BEGIN_ABSTRACT\n?\n#+END_ABSTRACT" ""))
+                 '("b" . "abstract"))
+
+;;(setq org-structure-template-alist (assq-delete-all 'e org-structure-template-alist))
+;;(push  '("ee" . "src emacs-lisp") org-structure-template-alist)
+;;(push  '("EE" . "example") org-structure-template-alist)
+;;(push  '("p" . "perl") org-structure-template-alist)
+;;(push  '("P" . "perl :results output :exports both :shebang \"#!/usr/bin/env perl\"\n") org-structure-template-alist)
+;;(push  '("u" . "plantuml :file CHANGE.png") org-structure-template-alist)
+;;(push  '("" . "") org-structure-template-alist)
 
 
     ;; http://oremacs.com/2015/03/07/hydra-org-templates/
@@ -5708,21 +5718,13 @@ hydra-org-template that is triggered by the =<= key.
                              _l_atex   _E_xample   _p_erl          _i_ndex:
                              _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
                              _s_rc     _V_erbatim  plant_u_ml      _H_TML:
-                             _h_tml    _n_ote     _C_omment        _A_SCII:
-                             ^ ^       a_b_stract
-                   "
+                             _h_tml    note       _C_omment        _A_SCII:
+                             ^ ^       a_b_stract                   "
       ("s" (hot-expand "<s"))
       ("E" (hot-expand "<e"))
       ("q" (hot-expand "<q"))
       ("v" (hot-expand "<v"))
       ("V" (hot-expand "<V"))
-      ("n" (let (text) ; org-reveal speaker notes
-             (when (region-active-p)
-               (setq text (buffer-substring (region-beginning) (region-end)))
-               (delete-region (region-beginning) (region-end)))
-             (insert "#+BEGIN_NOTES\n\n#+END_NOTES")
-             (forward-line -1)
-             (when text (insert text))))
       ("c" (hot-expand "<c"))
       ("C" (hot-expand "<C"))
       ("b" (hot-expand "<b"))
