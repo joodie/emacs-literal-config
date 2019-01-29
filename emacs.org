@@ -944,15 +944,31 @@ not make it look the way I wanted.
 [[https://github.com/tautologyclub/feebleline/][Removing the mode-line and using echo-area (smartly) instead]]
 Minimalistic mode line replacement.
 
+[2019-01-29 Tue 14:13] The feeble line has not worked for me for a
+while. Switched to using the developement branch until the master
+branch available from MELPA catches up.
+
 #+BEGIN_SRC emacs-lisp
   (use-package feebleline
     :defer t
+    :load-path "elisp/"
     :custom
     (feebleline-show-git-branch t)
     (feebleline-show-dir t)
+    (feebleline-msg-functions
+     '((feebleline-line-number :post "" :fmt "%5s")
+       (feebleline-column-number :pre ":" :fmt "%-2s")
+       (feebleline-file-modified-star :face font-lock-warning-face)
+       (feebleline-file-directory :post "")
+       (feebleline-file-or-buffer-name :face font-lock-keyword-face)
+       ;;(projectile-project-name)
+       (magit-get-current-branch :pre "  " :face feebleline-git-face)))
     :config
-    (set-face-attribute 'feebleline-asterisk-face nil
-                        :foreground "red" :background "white" :weight 'bold)
+
+    (defun feebleline-file-modified-star ()
+      "Display star if buffer file was modified."
+      (if (and (buffer-file-name) (buffer-modified-p)) "*" " "))
+
     (feebleline-mode t))
 #+END_SRC
 
