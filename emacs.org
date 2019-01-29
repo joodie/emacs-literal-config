@@ -5541,14 +5541,18 @@ Uses =variable-pitch-mode=. To change the font, modify the
   ;; (add-hook 'org-mode-hook 'wc-mode)
   (use-package wc-mode)
 
-  (setq org-M-RET-may-split-line '((default . nil)))
+    ;; too slow to have on by default
+    ;; (add-hook 'org-mode-hook 'wc-mode)
+    (use-package wc-mode)
 
-  (use-package org-contacts
-    :after org
-    :defer t
-    :ensure nil
-    :init
-    (setq org-contacts-files '("~/Dropbox/org/contacts.org")))
+    (setq org-M-RET-may-split-line '((default . nil)))
+
+    (use-package org-contacts
+      :after org
+      :defer t
+      :ensure nil
+      :init
+      (setq org-contacts-files '("~/Dropbox/org/contacts.org")))
 #+END_SRC
 
 See [[http://kitchingroup.cheme.cmu.edu/blog/2015/06/22/Clickable-org-contacts-in-text-files/][this page]] for clickable org-contacts in text files.
