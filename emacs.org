@@ -6985,6 +6985,7 @@ code blocks.
 
 #+BEGIN_SRC emacs-lisp
   (use-package ox-reveal
+    :disabled t
     :after org
     :init
     ;; (setq org-reveal-root "file:~/src/reveal.js")
