@@ -2190,6 +2190,15 @@ recommended to be bound to =M-i= and =M-o=.
     :bind ("M-o" . change-outer))
 #+END_SRC
 
+** Move lines or region
+
+[[https://github.com/emacsfodder/move-text][emacsfodder/move-text: move current line or region up or down]]
+
+#+begin_src emacs-lisp
+  (use-package move-text
+    :bind* (("H-j" . move-text-up)
+           ("H-m" . move-text-down)))
+#+end_src
 ** Undo-tree
 
 The emacs undo behaviour can be confusing. Every undo get added to the
