@@ -5022,6 +5022,8 @@ Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficien
            ("C-c C-j" . avy-resume)))
 #+END_SRC
 
+
+Disabled:
 [[https://github.com/clemera/ivy-explorer][clemera/ivy-explorer: Dynamic file browsing grid for Emacs]]
 
 Users can navigate the grid using =Ctrl-f=, =Ctrl-b=, =Ctrl-n=, =Ctrl-p=. By
@@ -5032,6 +5034,7 @@ use =C-q,=, =C-q ;=.
 
 #+BEGIN_SRC emacs-lisp
   (use-package ivy-explorer
+    :disabled t
     :config
     (ivy-explorer-mode 1))
 #+END_SRC
