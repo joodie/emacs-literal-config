@@ -3634,6 +3634,7 @@ clash badly. I try to set them back to a somewhat calmer palette.
      (quote (("test" "ledger ")
              ("bal" "ledger -f %(ledger-file) bal")
              ("reg" "ledger -f %(ledger-file) reg")
+             ("equity" "ledger -f %(ledger-file) equity")
              ("payee" "ledger -f %(ledger-file) reg @%(payee)")
              ("account" "ledger -f %(ledger-file) reg %(account)"))))
 
