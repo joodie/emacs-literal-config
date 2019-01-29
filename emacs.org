@@ -672,13 +672,11 @@ The new OS X standard front, Menlo, is amazingly good to eye. It is
 almost [[http://9-bits.com/post/123940811/menlo-font-macosx][the same]] as DejaVu Sans Mono. I have suspended the use of
 [[http://www.levien.com/type/myfonts/inconsolata.html][Inconsolata]] ([[http://www.levien.com/type/myfonts/Inconsolata.otf][Download]]) and [[http://zhm.github.io/symbola/][Symbola]] ([[http://zhm.github.io/symbola/fonts/Symbola.otf][Download]]) (see [[http://endlessparentheses.com/manually-choose-a-fallback-font-for-unicode.html][EndlessParentheses]]).
 
-I am trying out the new [[http://sourcefoundry.org/hack/][Hack 2.0]] font and keeping Menlo as a backup.
+I am trying out the new [[http://sourcefoundry.org/hack/][Hack 2.0]] font.
 
 #+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (set-face-attribute 'default nil :family "Hack" :height 130))
-  (set-fontset-font "fontset-startup" nil
-                    "Menlo" nil 'append)
 #+END_SRC
 
 You can use =C-x C-+= and =C-x C--= (=text-scale-adjust=) to
