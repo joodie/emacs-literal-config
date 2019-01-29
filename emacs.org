@@ -4397,7 +4397,11 @@ See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][do
           (shell-command (format "go get -u %s" pkg)))
         (load-file-from-gopath fname))))
 
-  (use-package company :defer t)
+  ;; [[http://company-mode.github.io/][company-mode for Emacs]]
+  (use-package company
+    :defer t
+    :config
+    (add-hook 'after-init-hook 'global-company-mode))
 
   (use-package company-go
     :defer t
