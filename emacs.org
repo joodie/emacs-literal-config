@@ -6397,6 +6397,10 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
   (setq org-hide-emphasis-markers t)
   ;; (setq org-hide-leading-stars t)
 
+  ;; Multiline fontification with org-emphasis-alist
+  ;; https://fuco1.github.io/2018-12-23-Multiline-fontification-with-org-emphasis-alist.html
+  (setcar (nthcdr 4 org-emphasis-regexp-components) 10)
+
   ;; ###
   (font-lock-add-keywords
    'org-mode
