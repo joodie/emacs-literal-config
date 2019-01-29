@@ -4967,6 +4967,7 @@ how to configure =counsel-git= and =counsel-rg=.
            ("M-y"     . counsel-yank-pop)
            ("s-f"     . counsel-git)
            ("s-g"     . counsel-rg)
+           ("s-l"     . counsel-ag)
            ("C-M-s"   . avy-goto-char-timer)
            :map ivy-minibuffer-map
            ("M-y" . ivy-next-line))
