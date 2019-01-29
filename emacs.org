@@ -7331,7 +7331,7 @@ under the cursor.
     (mu4e-compose-format-flowed t)        ; set format=flowed
     (mu4e-use-fancy-chars t "Unicode characters used in the interface")
     (mu4e-cache-maildir-list  t "to speed up maildir regeneration")
-    (mu4e-view-show-addresses t)
+    (mu4e-view-show-addresses t "Email address is shown in mail header")
     (mail-user-agent 'mu4e-user-agent)
     (mu4e-view-show-images t)
     (mu4e-view-image-max-width 800)
