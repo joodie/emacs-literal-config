@@ -7349,6 +7349,7 @@ under the cursor.
     (mu4e-view-show-images t)
     (mu4e-view-image-max-width 800)
     (mu4e-headers-date-format "%y-%m-%d %H:%M")
+    (mu4e-headers-time-format "%y-%m-%d %H:%M")
     (mu4e-headers-fields
      '( (:human-date   .  18)             ; 12, longer date format
         (:flags        .   6)
