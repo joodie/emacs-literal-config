@@ -1578,7 +1578,7 @@ The hydra implementing this is self-documenting.
     ("b" gscholar-bibtex)
     ("c" my/calendar)
     ("e" ediff-buffers)
-    ("d" help/hydra-left-side/eyebrowse/body)
+    ("d" hydra-eyebrowse/body)
     ("f" copy-file-name-to-clipboard)
     ("g" langtool-correct-buffer)
     ("h" howdoi-query)
