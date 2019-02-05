@@ -948,9 +948,13 @@ Minimalistic mode line replacement.
 while. Switched to using the developement branch until the master
 branch available from MELPA catches up.
 
+[2019-01-29 Tue 17:13] Disable feebleline development version. It was
+causing constant 10% CPU usage.
+
 #+BEGIN_SRC emacs-lisp
   (use-package feebleline
     :defer t
+    :disabled t
     :load-path "elisp/"
     :custom
     (feebleline-show-git-branch t)
@@ -964,7 +968,7 @@ branch available from MELPA catches up.
        ;;(projectile-project-name)
        (magit-get-current-branch :pre "  " :face feebleline-git-face)))
     :config
-
+    (setq feebleline-timer-interval 0.3)
     (defun feebleline-file-modified-star ()
       "Display star if buffer file was modified."
       (if (and (buffer-file-name) (buffer-modified-p)) "*" " "))
