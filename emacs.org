@@ -5777,17 +5777,17 @@ hydra-org-template that is triggered by the =<= key.
             "☾ Last Quarter Moon"))
 
     ;; http://acidwords.com/posts/2018-03-02-extending-org-mode-easy-templates.html
-    (add-to-list 'org-structureq-template-alist
+    (add-to-list 'org-structure-template-alist
                  '("C" . "comment"))
     (add-to-list 'org-structure-template-alist
                  '("b" . "abstract"))
 
-;;(setq org-structure-template-alist (assq-delete-all 'e org-structure-template-alist))
-;;(push  '("ee" . "src emacs-lisp") org-structure-template-alist)
+(setq org-structure-template-alist (assq-delete-all "e" org-structure-template-alist))
+(push  '("ee" . "src emacs-lisp") org-structure-template-alist)
 ;;(push  '("EE" . "example") org-structure-template-alist)
-;;(push  '("p" . "perl") org-structure-template-alist)
-;;(push  '("P" . "perl :results output :exports both :shebang \"#!/usr/bin/env perl\"\n") org-structure-template-alist)
-;;(push  '("u" . "plantuml :file CHANGE.png") org-structure-template-alist)
+(push  '("p" . "perl") org-structure-template-alist)
+(push  '("P" . "perl :results output :exports both :shebang \"#!/usr/bin/env perl\"\n") org-structure-template-alist)
+(push  '("u" . "plantuml :file CHANGE.png") org-structure-template-alist)
 ;;(push  '("" . "") org-structure-template-alist)
 
 
