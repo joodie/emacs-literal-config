@@ -180,7 +180,7 @@
     ("8ar" "→" nil 3)
     ("8at" "@" nil 1)
     ("8ell" "…" nil 0)
-    ("8eur" "€" nil 21)
+    ("8eur" "€" nil 51)
     ("8oc" "°C" nil 0)
     ("8pound" "£" nil 2)
     ("8zws" "​" nil 4)
@@ -202,6 +202,7 @@
     ("aug" "Aug." nil 0)
     ("august" "August" nil 0)
     ("availble" "available" nil 2)
+    ("bc" "because" nil 1)
     ("beacuse" "because" nil 0)
     ("behavious" "behaviors" nil 0)
     ("btw" "by the way" nil 0)
@@ -233,6 +234,7 @@
 (interactive)
 )" nil 1)
     ("eg" "e.g." nil 0)
+    ("ex" "For example," nil 0)
     ("excamples" "examples" nil 0)
     ("explicite" "explicit" nil 0)
     ("explicitely" "explicitly" nil 1)
@@ -256,7 +258,7 @@
     ("ie" "i.e." nil 0)
     ("ill" "I'll" nil 0)
     ("im" "I am" nil 0)
-    ("india" "India" nil 0)
+    ("india" "India" nil 7)
     ("inlcuding" "including" nil 0)
     ("interective" "interactive" nil 0)
     ("isnt" "is not" nil 0)
@@ -341,8 +343,10 @@ use Data::Printer;
     ("wednesday" "Wednesday" nil 0)
     ("wehn" "when" nil 0)
     ("whos" "who is" nil 0)
+    ("wi" "with" nil 1)
     ("wiht" "with" nil 1)
     ("wnt" "won't" nil 0)
+    ("wo" "without" nil 1)
     ("wont" "will not" nil 0)
     ("wouldnt" "would not" nil 0)
     ("wouldve" "would have" nil 0)
@@ -558,6 +562,8 @@ use Data::Printer;
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
+(define-abbrev-table 'plantuml-mode-abbrev-table '())
+
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
@@ -604,9 +610,7 @@ use Data::Printer;
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
 
-(define-abbrev-table 'sql-mode-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'sql-mode-abbrev-table '())
 
 (define-abbrev-table 'suggest-mode-abbrev-table '())
 
@@ -617,6 +621,8 @@ use Data::Printer;
 (define-abbrev-table 'tabulated-list-mode-abbrev-table '())
 
 (define-abbrev-table 'tar-mode-abbrev-table '())
+
+(define-abbrev-table 'term-mode-abbrev-table '())
 
 (define-abbrev-table 'tex-mode-abbrev-table '())
 
@@ -655,3 +661,4 @@ use Data::Printer;
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
+
