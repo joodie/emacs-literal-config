@@ -3245,7 +3245,7 @@ hit =C-x l g= that is short for "Emacs, launch grammar".
 
 [[http://oremacs.com/2015/05/22/define-word/][Define-word]] ([[http://oremacs.com/2015/05/22/define-word/][blog]]) gives English definitions to words under cursor
 using on-line Wordnik service. Use =C-c J= to search the word under
-the cursor. =M-x define-word= lets you type a word in.
+the cursor. =M-x define-word= lets you type a word in. It uses https://wordnik.com/.
 
 For situations without net, [[https://github.com/xuchunyang/osx-dictionary.el][osx-dictionary]] accesses the local OS X
 Dictionary application. Use =C-c j=, or =M-x osx-dictionary-search-pointer=.
@@ -3253,6 +3253,8 @@ Dictionary application. Use =C-c j=, or =M-x osx-dictionary-search-pointer=.
 Since I am using several dictionaries from different sources and
 syntax, I have turned off syntax highlighting for
 osx-dictionary-mode.
+
+[[http://mbork.pl/2017-01-14_I'm_now_using_the_right_dictionary][Marcin Borkowski: 2017-01-14 I'm now using the right dictionary]]
 
 #+BEGIN_SRC emacs-lisp
   (use-package define-word
@@ -5514,6 +5516,8 @@ Uses =variable-pitch-mode=. To change the font, modify the
 #+END_SRC
 
 ** Basic config
+
+- [[https://github.com/alphapapa/org-super-agenda][alphapapa/org-super-agenda: Supercharge your Org daily/weekly agenda by grouping items]]
 
 #+BEGIN_SRC emacs-lisp
   (use-package org
