@@ -5574,7 +5574,9 @@ Uses =variable-pitch-mode=. To change the font, modify the
     (setq org-pretty-entities t)
     (setq org-use-sub-superscripts "{}")
     ;; Don't allow editing of folded regions
-    (setq org-catch-invisible-edits 'error)
+    (setq org-catch-invisible-edits 'show-and-error)
+    (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "*") ("*" . "+")))
+    (setq org-cycle-separator-lines 0)
     (add-hook 'org-mode-hook
               (lambda ()
                 (visual-line-mode)
