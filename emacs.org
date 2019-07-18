@@ -814,7 +814,8 @@ fringe.
   (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 #+END_SRC
 
-** PENDING Mode line
+** Mode line
+*** PENDING Hand crafted mode line
 
 The default emacs mode line is confusing and boring. [[http://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html][This setup]]
 makes it clear and easy to eye. Some might argue that the amount of
@@ -939,7 +940,7 @@ not make it look the way I wanted.
                       :foreground "black" :background "#eab700")
 #+END_SRC
 
-** Feebleline
+*** PENDING Feebleline
 
 [[https://github.com/tautologyclub/feebleline/][Removing the mode-line and using echo-area (smartly) instead]]
 Minimalistic mode line replacement.
@@ -2210,7 +2211,8 @@ languages, and is really convenient!
 
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
-    :bind ("C-=" . er/expand-region))
+    :bind ("C-=" . er/expand-region)
+    :bind ("C-´" . er/expand-region))
 #+END_SRC
 
 *** Change inner
@@ -2557,7 +2559,22 @@ variable", =C-x t v=.
     :defer t)
 #+END_SRC
 
-** Title Capitalization
+** Capitalization
+
+*** fix-word
+
+[[https://github.com/mrkkrp/fix-word][mrkkrp/fix-word: Transform words in Emacs (upcase, downcase, capitalize, etc.)]]
+
+Works on current word, previous word(s), and selected regions.
+
+#+begin_src emacs-lisp
+(use-package fix-word
+  :bind (("M-u" . fix-word-upcase)
+         ("M-l" . fix-word-downcase)
+         ("M-c" . fix-word-capitalize)))
+#+end_src
+
+*** Title Capitalization
 
 [[https://github.com/novoid/title-capitalization.el][novoid/title-capitalization.el: Proper English title capitalization of a marked region]]
 
@@ -3287,6 +3304,9 @@ osx-dictionary-mode.
 
 [[http://mbork.pl/2017-01-14_I'm_now_using_the_right_dictionary][Marcin Borkowski: 2017-01-14 I'm now using the right dictionary]]
 
+Do not forget [[http://irreal.org/blog/?p=5609][Searching for Words with eww | Irreal]]: eww-search-words
+that searches the web for selected words.
+
 #+BEGIN_SRC emacs-lisp
   (use-package define-word
     :bind (("C-c J" . define-word-at-point)))
@@ -3844,6 +3864,8 @@ perl.
         :override t))
     (eval-after-load 'python-mode
       '(bind-key  "C-c C-c" 'quickrun python-mode-map))
+    (eval-after-load 'cperl-mode
+      '(bind-key  "C-c C-c" 'quickrun cperl-mode-map))
     (eval-after-load 'perl6-mode
       '(bind-key  "C-c C-c" 'quickrun perl6-mode-map)))
 #+END_SRC
@@ -4103,6 +4125,9 @@ ElDoc shows arguments to function under cursor in the minibuffer.
     (add-hook mode
               'my/general-lisp-hooks))
 #+END_SRC
+
+See:
+[[https://github.com/Lindydancer/lisp-extra-font-lock][Lindydancer/lisp-extra-font-lock: Highlight bound variables and quoted expressions in lisp]]
 
 *** Racket
 
@@ -4402,8 +4427,16 @@ environment:
   ;;(use-package py-yapf)
 
 
+
+;(use-package python-black
+;  :after python)
+
 #+END_SRC
 
+[[https://github.com/python/black][python/black: The uncompromising Python code formatter]]
+[[https://github.com/wbolster/emacs-python-black][wbolster/emacs-python-black: Emacs package to reformat Python using
+black-macchiato]]
+[[https://github.com/wbolster/black-macchiato][wbolster/black-macchiato: paints part of your python code black]]
 
 [[https://github.com/proofit404/anaconda-mode][proofit404/anaconda-mode: Code navigation, documentation lookup and completion for Python.]]
 
@@ -5579,6 +5612,8 @@ Uses =variable-pitch-mode=. To change the font, modify the
 
 - [[https://github.com/alphapapa/org-super-agenda][alphapapa/org-super-agenda: Supercharge your Org daily/weekly agenda by grouping items]]
 
+- [[https://yiufung.net/post/org-mode-hidden-gems-pt1/][Org-mode Hidden Gems - 01 Document Structure]]
+
 #+BEGIN_SRC emacs-lisp
   (use-package org
     :ensure org-plus-contrib
@@ -6152,7 +6187,7 @@ using org agenda commands.
     :config (org-dropbox-mode))
 #+END_SRC
 
-** TODO Org-gcal
+** Org-gcal
 
 The original author went silent
 [[https://github.com/myuhe/org-gcal.el][myuhe/org-gcal.el: Org sync with Google Calendar]]
