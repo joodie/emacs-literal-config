@@ -60,6 +60,19 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
+;;; quelpa
+(unless (require 'quelpa nil t)
+    (quelpa-self-upgrade)
+  (with-temp-buffer
+    (url-insert-file-contents "https://framagit.org/steckerhalter/quelpa/raw/master/bootstrap.el")
+    (eval-buffer)))
+
+;; install use-package and the quelpa handler
+(quelpa '(quelpa-use-package :fetcher github :repo "quelpa/quelpa-use-package"))
+(setq use-package-expand-minimally t)
+(require 'quelpa-use-package)
+(quelpa-use-package-activate-advice) ;; https://framagit.org/steckerhalter/quelpa-use-package
+
 ;;;
 ;;; use-package
 ;;;
