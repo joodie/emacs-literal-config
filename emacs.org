@@ -8266,6 +8266,37 @@ I installed Liberation Serif for nov.el use.
     (add-hook 'nov-mode-hook #'visual-line-mode))
 #+END_SRC
 
+** Graphs
+
+*** Mermaid for GANTT and flow
+
+- [[https://github.com/knsv/mermaid][knsv/mermaid: Generation of diagram and flowchart from text in a similar manner as markdown]]
+
+- Install =mmdc= binary
+#+begin_src sh
+cd
+npm install mermaid.cli
+#+end_src
+
+- [[https://github.com/abrochard/mermaid-mode][abrochard/mermaid-mode: Emacs major mode for working with mermaid graphs https://mermaidjs.github.io/]]
+
+- C-c C-c         mermaid-compile
+- C-c C-d         mermaid-open-doc
+- C-c C-o         mermaid-open-browser
+
+- Improvements:
+  - Compile and open image in buffer
+  - automatic mode selection on "mer" extension.
+
+#+begin_src emacs-lisp
+  (use-package mermaid-mode
+    :init
+    (setq mermaid-mmdc-location "~/node_modules/.bin/mmdc")
+    :config
+    (add-to-list 'auto-mode-alist '("\\.mer\\'" . mermaid-mode)))
+
+#+end_src
+
 ** Process monitor
 
 [[https://www.masteringemacs.org/article/displaying-interacting-processes-proced][Displaying and Interacting with processes using Proced - Mastering
