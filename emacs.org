@@ -6807,6 +6807,7 @@ simple way:
   (use-package ob-sqlite :ensure nil :defer t)
   (use-package ob-org :ensure nil :defer t)
   (use-package ob-latex :ensure nil :defer t)
+  (use-package ob-ledger :ensure nil :defer t)
   (use-package ob-lilypond :ensure nil :defer t)
 
   (org-babel-do-load-languages ' org-babel-load-languages
@@ -6816,6 +6817,8 @@ simple way:
                                    (perl       . t)
                                    (clojure    . t)
                                    (python     . t)
+                                   (ledger     . t)
+                                   (gnuplot    . t)
                                    (ruby       . t)
                                    (css        . t)
                                    (plantuml   . t)))
