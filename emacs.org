@@ -7376,7 +7376,7 @@ See more tweeks from
         (define-key smap "h" 'pdf-annot-add-highlight-markup-annotation)))
 #+END_EXAMPLE
 
-** Mail: gmail
+** Mail: mu4e
 
 [[https://www.reddit.com/r/emacs/comments/8q84dl/tip_how_to_easily_manage_your_emails_with_mu4e/][TIP: How to easily manage your emails with mu4e : emacs 🔊]]
 
@@ -7399,13 +7399,25 @@ gpg -e -r heikki.lehvaslaiho@gmail.com .mbsyncpass
 cd
 mkdir -p Maildir/gmail
 
+~/.authinfo.gpg
 
-machine imap.gmail.com login terencio.agozzino password <password> port 993
-machine smtp.gmail.com login terencio.agozzino password <password>
+machine imap.gmail.com login <firstname.surname> password <password> port 993
+machine smtp.gmail.com login <firstname.surname> password <password>
 port 465
 
+~/.mbsyncrc
+
+IMAPAccount zimbra
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/Sync/shared/.mbsync-zimbra.gpg"
+
+#+begin_src sh
+# encrypt
 gpg -e -r heikki.lehvaslaiho@gmail.com ~/.authinfo
-~/.authinfo.gpg
+# creates ~/.authinfo.gpg
+
+# decrypt
+gpg --output .authinfo  --decrypt .authinfo.gpg
+#+end_src
 
 ;; debug mail sending
 (setq smtpmail-debug-info t)
@@ -7422,7 +7434,7 @@ under the cursor.
 
   (use-package mu4e
     :ensure nil
-    :load-path "/usr/local/Cellar/mu/1.0/share/emacs/site-lisp/mu/mu4e/"
+    ;; :load-path "/usr/local/Cellar/mu/1.2.0_1/share/emacs/site-lisp/mu/mu4e/"
     :ensure-system-package mu
     :bind ("C-c m" . mu4e)
     :hook ((mu4e-compose-mode . flyspell-mode)
@@ -7451,7 +7463,7 @@ under the cursor.
     (mu4e-update-interval 300)
     (mu4e-compose-format-flowed t)        ; set format=flowed
     (mu4e-use-fancy-chars t "Unicode characters used in the interface")
-    (mu4e-cache-maildir-list  t "to speed up maildir regeneration")
+    (mu4e-cache-maildir-list t "to speed up maildir regeneration")
     (mu4e-view-show-addresses t "Email address is shown in mail header")
     (mail-user-agent 'mu4e-user-agent)
     (mu4e-view-show-images t)
@@ -7459,11 +7471,11 @@ under the cursor.
     (mu4e-headers-date-format "%y-%m-%d %H:%M")
     (mu4e-headers-time-format "%y-%m-%d %H:%M")
     (mu4e-headers-fields
-     '( (:human-date   .  18)             ; 12, longer date format
-        (:flags        .   6)
-        (:mailing-list .  10)
-        (:from         .  22)
-        (:subject      . nil)))
+     '((:human-date . 18)                 ; 12, longer date format
+       (:flags . 6)
+       (:mailing-list . 10)
+       (:from . 22)
+       (:subject . nil)))
     :config
     ;;store org-mode links to messages
     (require 'org-mu4e)
@@ -7476,7 +7488,7 @@ under the cursor.
 
     ;; https://www.djcbsoftware.nl/2016/01/20/mu-0.9.16/
     (define-key mu4e-headers-mode-map (kbd "C-c c") 'org-mu4e-store-and-capture)
-    (define-key mu4e-view-mode-map    (kbd "C-c c") 'org-mu4e-store-and-capture)
+    (define-key mu4e-view-mode-map (kbd "C-c c") 'org-mu4e-store-and-capture)
     (add-to-list 'org-capture-templates
                  ;; handle this message in the next two days
                  '("P" "process-soon" entry (file+olp+datetree "~/Dropbox/org/reference.org" "TODO")
@@ -7485,10 +7497,6 @@ under the cursor.
                  ;; wait for an e-mail reply
                  '("W" "wait-for-reply" entry (file+olp+datetree "~/Dropbox/org/reference.org")
                    "* WAIT %u %a %?\n"))
-
-    ;; bind capture templates to defaut keys within mu4e
-    (define-key mu4e-headers-mode-map (kbd "C-c c") 'org-mu4e-store-and-capture)
-    (define-key mu4e-view-mode-map    (kbd "C-c c") 'org-mu4e-store-and-capture)
 
     ;; https://emacs.stackexchange.com/questions/45112/how-to-prevent-mu4e-from-checking-mail-when-the-internet-is-down
     ;;(internet-up-p)
@@ -7502,70 +7510,70 @@ under the cursor.
                   (internet-up-p)))
 
     (setq mu4e-contexts
-          `( ,(make-mu4e-context
-               :name "csc"
-               :enter-func (lambda () (mu4e-message "Switch to the CSC context"))
-               ;; no leave-func
-               ;; we match based on the maildir of the message
-               ;; this matches maildir /zimbra and its sub-directories
-               :match-func (lambda (msg)
-                             (when msg
-                               (string-match-p "^/zimbra" (mu4e-message-field msg :maildir))))
-               :vars '( ( user-mail-address       . "heikki.lehvaslaiho@csc.fi" )
-                        ( user-full-name          . "Heikki Lehväslaiho" )
-                        ;; (mu4e-trash-folder "/zimbra/Trash")
-                        ;; (mu4e-sent-folder "/zimbra/Sent")
-                        ;; (mu4e-drafts-folder "/zimbra/Drafts")
-                        ;; (mu4e-refile-folder "/zimbra/Archive")
-                        ;;(mu4e-maildir-shortcuts
-                        ;; '(("/zimbra/Inbox" . ?i)))
-                        (mu4e-compose-signature
-                         . (concat
-                            "Heikki Lehväslaiho  heikki.lehvaslaiho@csc.fi\n"
-                            "CSC - IT Center for Science Ltd\n"
-                            "Keilaranta 14, P.O.Box 405, 02101 ESPOO, Finland"))))
-             ,(make-mu4e-context
-               :name "gmail"
-               :enter-func (lambda () (mu4e-message "Entering Gmail context"))
-               :leave-func (lambda () (mu4e-message "Leaving Gmail context"))
-               ;; we match based on the contact-fields of the message
-               :match-func (lambda (msg)
-                             (when msg
-                               (mu4e-message-contact-field-matches
-                                msg :to "heikki.lehvaslaiho@gmail.com")))
-               :vars '( ( user-mail-address      . "heikki.lehvaslaiho@gmail.com"  )
-                        ( user-full-name         . "Heikki Lehväslaiho" )
-                        ;;(mu4e-trash-folder "/gmail/Trash")
-                        ;;(mu4e-sent-folder "/gmail/Sent Mail")
-                        ;;(mu4e-drafts-folder "/gmail/Drafts")
-                        (mu4e-refile-folder "/gmail/Archive")
-                        ( smtpmail-smtp-server . "smtp.gmail.com" )
-                        ( mu4e-compose-signature
-                          . (concat
-                             "Heikki Lehväslaiho\n"
-                             "cell: +358 40 850 6640 http://about.me/heikki\n"
-                             "Porvoo, Finland\n"))))))
+          `(,(make-mu4e-context
+              :name "csc"
+              :enter-func (lambda () (mu4e-message "Switch to the CSC context"))
+              ;; no leave-func
+              ;; we match based on the maildir of the message
+              ;; this matches maildir /zimbra and its sub-directories
+              :match-func (lambda (msg)
+                            (when msg
+                              (string-match-p "^/zimbra" (mu4e-message-field msg :maildir))))
+              :vars '((user-mail-address . "heikki.lehvaslaiho@csc.fi")
+                      (user-full-name . "Heikki Lehväslaiho")
+                      ;; (mu4e-trash-folder "/zimbra/Trash")
+                      ;; (mu4e-sent-folder "/zimbra/Sent")
+                      ;; (mu4e-drafts-folder "/zimbra/Drafts")
+                      ;; (mu4e-refile-folder "/zimbra/Archive")
+                      ;;(mu4e-maildir-shortcuts
+                      ;; '(("/zimbra/Inbox" . ?i)))
+                      (mu4e-compose-signature
+                       . (concat
+                          "Heikki Lehväslaiho  heikki.lehvaslaiho@csc.fi\n"
+                          "CSC - IT Center for Science Ltd\n"
+                          "Keilaranta 14, P.O.Box 405, 02101 ESPOO, Finland"))))
+            ,(make-mu4e-context
+              :name "gmail"
+              :enter-func (lambda () (mu4e-message "Entering Gmail context"))
+              :leave-func (lambda () (mu4e-message "Leaving Gmail context"))
+              ;; we match based on the contact-fields of the message
+              :match-func (lambda (msg)
+                            (when msg
+                              (mu4e-message-contact-field-matches
+                               msg :to "heikki.lehvaslaiho@gmail.com")))
+              :vars '((user-mail-address . "heikki.lehvaslaiho@gmail.com")
+                      (user-full-name . "Heikki Lehväslaiho")
+                      ;;(mu4e-trash-folder "/gmail/Trash")
+                      ;;(mu4e-sent-folder "/gmail/Sent Mail")
+                      ;;(mu4e-drafts-folder "/gmail/Drafts")
+                      (mu4e-refile-folder "/gmail/Archive")
+                      (smtpmail-smtp-server . "smtp.gmail.com")
+                      (mu4e-compose-signature
+                       . (concat
+                          "Heikki Lehväslaiho\n"
+                          "cell: +358 40 850 6640 http://about.me/heikki\n"
+                          "Porvoo, Finland\n"))))))
 
     ;; these are the standard mu4e search bookmarks
     ;; I've only added the fourth one to pull up flagged emails in my inbox
     ;; I sometimes use this to shortlist emails I need to get around to ASAP
     (setq mu4e-bookmarks
-          `( ,(make-mu4e-bookmark
-               :name  "Unread messages"
-               :query "flag:unread AND NOT flag:trashed"
-               :key ?u)
-             ,(make-mu4e-bookmark
-               :name "Today's messages"
-               :query "date:today..now"
-               :key ?t)
-             ,(make-mu4e-bookmark
-               :name "Last 7 days"
-               :query "date:7d..now"
-               :key ?w)
-             ,(make-mu4e-bookmark
-               :name "Flagged in Gmail INBOX"
-               :query "maildir:\"/gmail/INBOX\" and flag:flagged"
-               :key ?f)))
+          `(,(make-mu4e-bookmark
+              :name "Unread messages"
+              :query "flag:unread AND NOT flag:trashed"
+              :key ?u)
+            ,(make-mu4e-bookmark
+              :name "Today's messages"
+              :query "date:today..now"
+              :key ?t)
+            ,(make-mu4e-bookmark
+              :name "Last 7 days"
+              :query "date:7d..now"
+              :key ?w)
+            ,(make-mu4e-bookmark
+              :name "Flagged in Gmail INBOX"
+              :query "maildir:\"/gmail/INBOX\" and flag:flagged"
+              :key ?f)))
 
     ;; mu4e-contexts set in secrets.el
 
@@ -7592,7 +7600,7 @@ under the cursor.
 
     (setq mu4e-headers-show-threads nil)  ; Use "P" to toggle threading
 
-    (setq mu4e-org-contacts-file  (car org-contacts-files))
+    (setq mu4e-org-contacts-file (car org-contacts-files))
     ;;(add-to-list 'mu4e-headers-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
     ;;(add-to-list 'mu4e-view-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
 
@@ -7613,30 +7621,32 @@ under the cursor.
         (message-insert-signature)))
 
     (add-hook 'mu4e-compose-mode-hook
-              (lambda () (local-set-key (kbd "C-c C-w") #'my-mu4e-choose-signature)))
+              (lambda () (local-set-key (kbd "C-c C-w") #'my-mu4e-choose-signature)))) ;; end of mu4e
 
-    )  ;; end of mu4e
+    ;; sending mail
+    (setq auth-sources '("~/.authinfo.gpg"
+                         "~/Sync/shared/.authinfo.gpg"
+                         "~/.authinfo"
+                         "~/.netrc"))
 
-  ;; sending mail
-  (setq auth-sources '("~/.authinfo.gpg"
-                       "~/Sync/shared/.authinfo.gpg"
-                       "~/.authinfo"
-                       "~/.netrc"))
+    (use-package message
+      :defer t
+      :ensure nil
+      :custom (send-mail-function 'smtpmail-send-it))
 
-  (use-package message
-    :defer t
-    :ensure nil
-    :custom (send-mail-function 'smtpmail-send-it))
+  ;;send mail using postfix
+  (setq send-mail-function 'sendmail-send-it)
+  (setq message-send-mail-function 'message-send-mail-with-sendmail)
 
-  (use-package smtpmail
-    :defer t
-    :ensure nil
-    :custom
-    (smtpmail-smtp-server "smtp.gmail.com")
-    (smtpmail-smtp-service 465)
-    (smtpmail-stream-type 'ssl)
-    (smtpmail-stream-type 'starttls)
-    (message-kill-buffer-on-exit t "don't keep message buffers around"))
+  ;;  (use-package smtpmail
+  ;;    :defer t
+  ;;    :ensure nil
+  ;;    :custom
+  ;;    (smtpmail-smtp-server "smtp.gmail.com")
+  ;;    (smtpmail-smtp-service 465)
+  ;;    (smtpmail-stream-type 'ssl)
+  ;;    (smtpmail-stream-type 'starttls)
+  ;;    (message-kill-buffer-on-exit t "don't keep message buffers around"))
 #+END_SRC
 
 
