@@ -6106,7 +6106,7 @@ for several accounts. The path to the file must exist.
   %(org-read-date)  %^{Payee}
       ; entered: %U
       Liabilities:MasterCard
-      Expenses:%^{Account}              € %^{Amount}
+      Expenses:%^{Account}              %^{Amount} €
      " :empty-lines-before 1)
                   ("lc" "Cash" plain
                    (file "~/Documents/ledger/refile.led")
@@ -6114,7 +6114,7 @@ for several accounts. The path to the file must exist.
   %(org-read-date) * %^{Payee}
       ; entered: %U
       Assets:Cash
-      Expenses:%^{Account}             € %^{Amount}
+      Expenses:%^{Account}             %^{Amount} €
      " :empty-lines-before 1 )
                   ("le" "EUR debit" plain
                    (file "~/Documents/ledger/refile.led")
@@ -6122,7 +6122,7 @@ for several accounts. The path to the file must exist.
   %(org-read-date) * %^{Payee}
       ; entered: %U
       Assets:Heikintili
-      Expenses:%^{Account}               € %^{Amount}
+      Expenses:%^{Account}               %^{Amount} €
      " :emptye-lines-before 1 ))
                 org-capture-templates))
 #+END_SRC
