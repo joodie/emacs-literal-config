@@ -6346,7 +6346,7 @@ find it. I am using [[http://brew.sh/][homebrew]] to maintain a recent copy of b
 a shell script wrapper.
 
 The org code seems to require the direct access to the jar file.
-Run this perl code create a symbolic link after installation or upgrade.
+Run this perl code to (re)create the symbolic link after installation or upgrade.
 
 #+HEADER: :results output :exports both :shebang "#!/usr/bin/env perl"
 #+BEGIN_SRC perl :tangle yes
@@ -8574,55 +8574,89 @@ The use of directory file:~/.emacs.p is from [[http://fasciism.com/2017/01/26/es
 See [[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][dot-files/emacs-eshell.org at master · howardabrams/dot-files]] for
 massive amounts of eshell configurations.
 
-
 The way to find more about shell commands is the same as in other
 shells: use =which=.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package eshell
-    :bind (("C-c 1" . eshell-here))
-    :config
-    (setenv "PAGER" "cat")
+    (use-package eshell
+      :bind (("C-c 1" . eshell-here)
+             ("C-c 2" . eshell-here-previous))
+      :config
+      (setenv "PAGER" "cat")
 
-    (defalias 'open 'find-file)
-    (defalias 'openo 'find-file-other-window)
+      (defalias 'open 'find-file)
+      (defalias 'openo 'find-file-other-window)
 
-    ;; from howardabrams
-    (defun eshell-here ()
-      "Opens up a new shell in the directory associated with the
-        current buffer's file. The eshell is renamed to match that
-        directory to make multiple eshell windows easier."
-      (interactive)
-      (let* ((height (/ (window-total-height) 3)))
-        (split-window-vertically (- height))
-        (other-window 1)
-        (eshell "new")
-        (insert (concat "ls"))
-        (eshell-send-input)))
+      ;; from howardabrams
+      (defun eshell-here (arg)
+        "Opens up a new shell in the directory associated with the
+            current buffer's file. The eshell is renamed to match that
+            directory to make multiple eshell windows easier.
+           Universal argument switches to an existing eshell buffer."
+        (interactive "P")
+        (let* ((height (/ (window-total-height) 3)))
+          (split-window-vertically (- height))
+          (other-window 1)
+          (if arg (eshell) (eshell "new"))
+          (insert (concat "ls"))
+          (eshell-send-input)))
 
-    (setq eshell-history-size 100000
-          eshell-directory-name "~/.emacs.p/eshell")
+      (defun eshell-here-previous ()
+        (interactive)
+        (let ((current-prefix-arg 4)) ;; emulate C-u
+          ;; invoke align-regexp interactively
+          (call-interactively 'eshell-here)))
 
-    (defun eshell/gst (&rest args)
-      (magit-status-internal (pop args) nil)
-      (eshell/echo))   ;; The echo command suppresses output
+      (setq eshell-history-size 100000
+            eshell-directory-name "~/.emacs.p/eshell")
 
-    (defun eshell/dd (&rest args)
-      (dired (pop args) "."))
+      (defun eshell/gst (&rest args)
+        (magit-status-internal (pop args) nil)
+        (eshell/echo))   ;; The echo command suppresses output
 
-    (defun eshell/d ()
-      "Open a dired instance of the current working directory."
-      (dired "."))
+      (defun eshell/dd (&rest args)
+        (dired (pop args) "."))
 
-    (defun eshell/qq ()
-      "Send the *eshell* buffer to the back of buffer list."
-      (bury-buffer)
-      (delete-window)))
-#+END_SRC
+      (defun eshell/d ()
+        "Open a dired instance of the current working directory."
+        (dired "."))
 
-*** Autosuggest on eshell
+      (defun eshell/qq ()
+        "Send the *eshell* buffer to the back of buffer list."
+        (bury-buffer)
+        (delete-window)))
 
-[[https://github.com/dieggsy/esh-autosuggest][dieggsy/esh-autosuggest: Fish-like autosuggestions in eshell.]]
+    ;; cd to a frequent directory
+    (use-package eshell-z
+      :after eshell)
+
+    ;; Quickly go to a specific parent directory in eshell
+    (use-package eshell-up
+      :after eshell)
+
+    (use-package fish-completion
+      :if (executable-find "fish")
+      :after eshell
+      :config (global-fish-completion-mode))
+
+    ;; `company-mode' backend to provide eshell history suggestion
+    (use-package esh-autosuggest
+      :hook (eshell-mode . esh-autosuggest-mode))
+
+    (use-package company-shell
+      :defer t)
+
+    (use-package fish-mode
+      :mode "\\.fish\\'"
+      :hook ((fish-mode shell-mode) . fish-mode-init)
+      :config
+      (defun fish-mode-init ()
+        (setq-local company-backends '((company-fish-shell
+                                        company-shell
+                                        company-shell-env
+                                        company-files
+                                        company-dabbrev-code
+                                        company-yasnippet)))))
 
   (use-package eshell-toggle
     :quelpa (eshell-toggle
@@ -8636,9 +8670,6 @@ shells: use =which=.
     (eshell-toggle-run-command nil)
     (eshell-toggle-init-function #'eshell-toggle-init-ansi-term))
 
-#+BEGIN_SRC emacs-lisp
-  (use-package esh-autosuggest
-    :hook (eshell-mode . esh-autosuggest-mode))
 #+END_SRC
 
 ** PENDING shell
