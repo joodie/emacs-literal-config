@@ -5536,7 +5536,7 @@ needs to be set before calling org mode.
      ((t (:overline "#A7A6AA" :foreground "#f00f00" :background "#efefef")))))
 #+END_SRC
 
-** org-variable-pitch.el
+** PENDING org-variable-pitch.el
 
 [[https://github.com/cadadr/elisp/blob/master/org-variable-pitch.el][elisp/org-variable-pitch.el at master · cadadr/elisp]]
 
@@ -5544,7 +5544,7 @@ Uses =variable-pitch-mode=. To change the font, modify the
 =variable-pitch= face. I have set it to "Linux Libertine O" from
 [[http://libertine-fonts.org/][Libertine Fonts – Libre multilingual font family]] .
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 
   (use-package org-variable-pitch
     :defer t
@@ -5556,7 +5556,8 @@ Uses =variable-pitch-mode=. To change the font, modify the
     (add-to-list 'org-variable-pitch-fixed-faces 'org-date)
     (set-face-attribute 'variable-pitch nil
                         :family "Linux Libertine O")
-    (add-hook 'org-mode-hook 'org-variable-pitch-minor-mode))
+    ;; (add-hook 'org-mode-hook 'org-variable-pitch-minor-mode)
+     )
 #+END_SRC
 
 ** Basic config
