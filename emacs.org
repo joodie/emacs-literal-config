@@ -6732,8 +6732,7 @@ footnotes.
 
          \\usepackage[a4paper, textheight=10in,
                      marginparsep=7pt, marginparwidth=1.5in, margin=2in]{geometry}
-
-         \\usepackage[colorlinks=true,urlcolor=black,linkcolor=black,citecolor=blue]{hyperref}
+         \\usepackage[colorlinks=true,urlcolor=blue,linkcolor=gray,citecolor=blue]{hyperref}
 
          \\let\\nofiles\\relax % Void the \\nofiles command
 
