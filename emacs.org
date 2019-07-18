@@ -8351,6 +8351,34 @@ Atomic-chrome server is not starting. If I run the commands manually
 from the function, it works. What is wrong? Solved: start server under
 config, not init.
 
+** PENDING Music and radio player
+
+- [[https://www.gnu.org/software/emms/quickstart.html][EMMS - Emacs Multimedia System]]
+- [[https://github.com/howardabrams/dot-files/blob/master/emacs-emms.org][dot-files/emacs-emms.org at master · howardabrams/dot-files]]
+- [[https://github.com/jbranso/.emacs.d/blob/master/lisp/init-emms.el][.emacs.d/init-emms.el at master · jbranso/.emacs.d]]
+- [[http://puntoblogspot.blogspot.com/2019/03/emms-ftw.html][puntoblogspot: emms ftw]]
+- [[https://framagit.org/steckerhalter/steckemacs.el/blob/master/steckemacs.el][steckemacs.el · master · steckerhalter / steckemacs.el · GitLab]]
+
+
+#+begin_src emacs-lisp
+
+(use-package emms
+:config
+(use-package emms-setup
+  :ensure nil
+  :init
+  (add-hook 'emms-player-started-hook 'emms-show)
+  (setq emms-show-format "Playing: %s")
+  :config
+  (emms-standard)
+  (emms-default-players)))
+
+(defun play-smooth-jazz ()
+  "Start up some nice Jazz"
+  (interactive)
+  (emms-play-streamlist "http://thejazzgroove.com/itunes.pls"))
+#+end_src
+
 ** Calculator
 
 For a long time I used python interactive command line mode to do
