@@ -3966,6 +3966,14 @@ Navigating Parentheses]]. Remember: =C-M-{n|p|f|b}=.
 
 #+END_SRC
 
+*** Poporg
+
+Pop open an org-mode buffer for comments, [[https://github.com/QBobWatson/poporg][poporg]].
+
+#+begin_src emacs-lisp
+(use-package poporg
+      :bind (("C-c /" . poporg-dwim)))
+#+end_src
 *** TODO Eglot, Emacs PolyGlot
 
 [[https://github.com/joaotavora/eglot][joaotavora/eglot: A client for Language Server Protocol servers]]
