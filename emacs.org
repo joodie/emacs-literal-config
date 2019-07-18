@@ -5592,7 +5592,7 @@ Uses =variable-pitch-mode=. To change the font, modify the
                 (org-indent-mode)
                 )))
 
-  (require 'org-tempo)
+  (require 'org-tempo) ;; old style block templates
 
   (use-package org-autolist
     :after org
