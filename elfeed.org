@@ -9,7 +9,11 @@
 # *** http://bruxelles.blogs.liberation.fr/feeds/
 *** Suomi                                                                :fi:
 **** http://www.hs.fi/uutiset/rss/
-**** http://yle.fi/uutiset/rss/paauutiset.rss
+**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-34837 #kotimaa
+**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-34953 # ulkomaa
+**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-150067 # kultuuri
+**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-819 # tiede
+**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-35354 # luonto
 **** https://suomenkuvalehti.fi/8hj38g7dh49g73jd02fasd/
 ** News in Science Journals                                               :j:
 *** http://feeds.nature.com/nature/rss/current
