@@ -4487,6 +4487,19 @@ See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][do
     :defer t)
 #+END_SRC
 
+** Gnuplot
+
+*** gnuplot-mode
+
+#+begin_src emacs-lisp
+  (use-package gnuplot
+    :init
+    (setq gnuplot-program "/usr/local/bin/gnuplot")
+    (setq auto-mode-alist
+          (append '(("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode))
+                  auto-mode-alist)))
+#+end_src
+
 ** PENDING Cucamber
 
 A major mode for [[https://github.com/ecukes/ecukes][cucumber]] event-driven testing description files:
