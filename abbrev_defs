@@ -121,6 +121,12 @@
 )" nil 5)
    ))
 
+(define-abbrev-table 'emms-lyrics-mode-abbrev-table '())
+
+(define-abbrev-table 'emms-show-all-mode-abbrev-table '())
+
+(define-abbrev-table 'emms-tag-editor-mode-abbrev-table '())
+
 (define-abbrev-table 'emojify-apropos-mode-abbrev-table '())
 
 (define-abbrev-table 'emojify-description-mode-abbrev-table '())
@@ -177,10 +183,11 @@
 
 (define-abbrev-table 'global-abbrev-table
   '(
-    ("8ar" "→" nil 3)
+    ("8ar" "→" nil 4)
     ("8at" "@" nil 1)
     ("8ell" "…" nil 0)
-    ("8eur" "€" nil 51)
+    ("8et" "&" nil 0)
+    ("8eur" "€" nil 54)
     ("8oc" "°C" nil 0)
     ("8pound" "£" nil 2)
     ("8zws" "​" nil 4)
@@ -202,7 +209,6 @@
     ("aug" "Aug." nil 0)
     ("august" "August" nil 0)
     ("availble" "available" nil 2)
-    ("bc" "because" nil 1)
     ("beacuse" "because" nil 0)
     ("behavious" "behaviors" nil 0)
     ("btw" "by the way" nil 0)
@@ -241,7 +247,7 @@
     ("feb" "Feb." nil 0)
     ("february" "February" nil 0)
     ("flase" "false" nil 4)
-    ("fo" "of" nil 1)
+    ("fo" "of" nil 2)
     ("forthnight" "fortnight" nil 0)
     ("fri" "Fri." nil 0)
     ("friday" "Friday" nil 0)
@@ -255,7 +261,6 @@
     ("hte" "the" nil 0)
     ("htem" "them" nil 0)
     ("hwat" "what" nil 0)
-    ("ie" "i.e." nil 0)
     ("ill" "I'll" nil 0)
     ("im" "I am" nil 0)
     ("india" "India" nil 7)
@@ -270,6 +275,8 @@
     ("july" "July" nil 0)
     ("jun" "Jun." nil 0)
     ("june" "June" nil 0)
+    ("lang" "language" nil 0)
+    ("langs" "languages" nil 0)
     ("latex" "LaTeX" nil 5)
     ("lauched" "launched" nil 0)
     ("legnht" "length" nil 1)
@@ -282,7 +289,7 @@
     ("mammalial" "mammalian" nil 0)
     ("mar" "Mar." nil 0)
     ("march" "March" nil 0)
-    ("matias" "Matias" nil 5)
+    ("matias" "Matias" nil 7)
     ("minna" "Minna" nil 19)
     ("mon" "Mon." nil 0)
     ("monday" "Monday" nil 0)
@@ -297,6 +304,8 @@
     ("oct" "Oct." nil 0)
     ("october" "October" nil 0)
     ("otehr" "other" nil 3)
+    ("otime" "Time-stamp: \" \"" nil 0)
+    ("otimestamp" "Time-stamp: \" \"" nil 0)
     ("precice" "precise" nil 0)
     ("provenanace" "provenance" nil 0)
     ("recepi" "recipe" nil 1)
@@ -325,9 +334,9 @@ use Data::Printer;
     ("strenghten" "strengthen" nil 0)
     ("sun" "Sun." nil 0)
     ("sunday" "Sunday" nil 0)
-    ("taht" "that" nil 14)
+    ("taht" "that" nil 15)
     ("techinques" "techniques" nil 0)
-    ("teh" "the" nil 1)
+    ("teh" "the" nil 2)
     ("tehm" "them" nil 0)
     ("thats" "that is" nil 0)
     ("thur" "Thur." nil 0)
@@ -352,7 +361,9 @@ use Data::Printer;
     ("wouldve" "would have" nil 0)
     ("wsnt" "wasn't" nil 0)
     ("wtdb" "What's the difference between" nil 0)
-   ))
+    ))
+
+(define-abbrev-table 'gnuplot-comint-mode-abbrev-table '())
 
 (define-abbrev-table 'gnus-article-edit-mode-abbrev-table '())
 
@@ -405,6 +416,8 @@ use Data::Printer;
 (define-abbrev-table 'ledger-report-mode-abbrev-table '())
 
 (define-abbrev-table 'lisp-mode-abbrev-table '())
+
+(define-abbrev-table 'locate-mode-abbrev-table '())
 
 (define-abbrev-table 'log-edit-mode-abbrev-table '())
 
@@ -479,6 +492,8 @@ use Data::Printer;
     ("c2h6" "C_{2}H_{6}" nil 0)
     ("ch4" "CH_{4}" nil 0)
     ("co2" "CO_{2}" nil 0)
+    ("fa" "FAIR" nil 0)
+    ("fair" "FAIR" nil 19)
     ("h2o" "H_{2}O" nil 0)
     ("lblk" "" skel-org-block-elisp 0)
     ("legnht" "length" nil 1)
@@ -513,10 +528,13 @@ use Data::Printer;
     ("olable" "#+LABEL: fig:label" nil 7)
     ("oname" "#+NAME:" nil 8)
     ("onotoc" "#+TOK: nil" nil 1)
+    ("ont" "ontology" nil 5)
     ("oref" "/ref{fig:label}" nil 8)
     ("oscale" "#+ATTR_LaTeX: scale=0.75" nil 1)
     ("oshebang" "#+PROPERTY: :shebang \"#!/usr/bin/env perl\"" nil 1)
     ("osize" "#+ATTR_LaTeX: width=0.70\\textwidth" nil 1)
+    ("otime" "
+# Time-stamp: \" \"" nil 2)
     ("otitle" "#+TITLE:" nil 16)
     ("otname" "#+TBLNAME:" nil 6)
     ("otoc" "#+OPTIONS: toc:nil num:nil" nil 10)
@@ -527,6 +545,7 @@ use Data::Printer;
     ("sditaa" "" skel-org-block-ditaa 0)
     ("sdot" "" skel-org-block-dot 0)
     ("selisp" "" skel-org-block-elisp 0)
+    ("sem" "semantic" nil 1)
     ("splant" "" skel-org-block-plantuml 0)
    ))
 
@@ -570,9 +589,7 @@ use Data::Printer;
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-   ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'quickrun--mode-abbrev-table '())
 
@@ -661,4 +678,3 @@ use Data::Printer;
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
 
 (define-abbrev-table 'yaml-mode-abbrev-table '())
-
