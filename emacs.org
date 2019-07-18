@@ -6027,6 +6027,8 @@ Code snippet capture code was mentioned in the  [[http://irreal.org/blog/?p=5244
            "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :CATEGORY: event\n     :END:\n     %T\n%i")
           ("a" "appointment" entry (file "~/Dropbox/org/gcal.org" )
            "* %?\n\n %^T\n\n:PROPERTIES:\n\n:END:\n\n")
+          ("u" "update" entry (file+olp+datetree "~/Dropbox/org/changelog.org")
+           "* %?\n     :PROPERTIES:\n     :CREATED:  %U\n     :END:     \n%i")
           ("c" "contacts" entry (file "~/Dropbox/org/contacts.org")
            "* %(org-contacts-template-name)
   :PROPERTIES:
