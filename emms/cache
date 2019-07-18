@@ -1,0 +1,3 @@
+;;; .emms-cache -*- mode: emacs-lisp; coding: utf-8; -*-
+(puthash "http://nyc01.egihosting.com:6232/listen.pls" '(*track* (type . streamlist) (name . "http://nyc01.egihosting.com:6232/listen.pls") (metadata "WBCR-LP - Berkshire Community Radio" "http://nyc01.egihosting.com:6232/listen.pls" 1 streamlist)) emms-cache-db)
+(puthash "http://thejazzgroove.com/itunes.pls" '(*track* (type . streamlist) (name . "http://thejazzgroove.com/itunes.pls") (metadata "WBCR-LP - Berkshire Community Radio" "http://nyc01.egihosting.com:6232/listen.pls" 1 streamlist)) emms-cache-db)

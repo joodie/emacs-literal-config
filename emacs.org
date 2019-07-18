@@ -3664,9 +3664,12 @@ clash badly. I try to set them back to a somewhat calmer palette.
     :bind (:map ledger-mode-map
                 ("C-c C-c" . ledger-post-align-xact)
                 ("M-m"     . ledger-next-misc)
-                ("M-."     . ledger-add-note))
+                ("M-."     . ledger-add-note)
+                ;("<tab>"   . ledger-magic-tab)
+              )
     :custom
     (ledger-use-iso-dates t "iso date format")
+   ;; (ledger-accounts-file "/Users/helehvas/Documents/ledger/accounts.")
     (ledger-reports
      (quote (("test" "ledger ")
              ("bal" "ledger -f %(ledger-file) bal")
@@ -3703,8 +3706,8 @@ clash badly. I try to set them back to a somewhat calmer palette.
         (unless (re-search-backward "^ +;" beg-of-xact t)
           (goto-char beg-of-xact))
         (end-of-line)
-        (insert "\n\t; note: ")
-        (ledger-magic-tab))))
+        (insert "\n    ; note: ")
+        (ledger-post-align-xact))))
 #+END_SRC
 
 *** Alternative: beancount
