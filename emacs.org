@@ -5926,7 +5926,8 @@ conflicts my other use for that binding.
     :diminish ""
     :defer t
     :config (add-hook 'org-mode-hook (lambda () (worf-mode 1)))
-    (define-key worf-mode-map (kbd "M-j") nil))
+    (define-key worf-mode-map (kbd "M-j") nil)
+    (define-key worf-mode-map (kbd "p") nil))
 #+END_SRC
 
 ** Capture templates
