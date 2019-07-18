@@ -8447,6 +8447,18 @@ shells: use =which=.
 
 [[https://github.com/dieggsy/esh-autosuggest][dieggsy/esh-autosuggest: Fish-like autosuggestions in eshell.]]
 
+  (use-package eshell-toggle
+    :quelpa (eshell-toggle
+             :repo "4DA/eshell-toggle"
+             :fetcher github
+             :version original)
+    :bind ("s-`" . eshell-toggle)
+    :custom
+    (eshell-toggle-size-fraction 3)
+    (eshell-toggle-use-projectile-root t)
+    (eshell-toggle-run-command nil)
+    (eshell-toggle-init-function #'eshell-toggle-init-ansi-term))
+
 #+BEGIN_SRC emacs-lisp
   (use-package esh-autosuggest
     :hook (eshell-mode . esh-autosuggest-mode))
