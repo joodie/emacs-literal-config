@@ -4546,6 +4546,14 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
     :defer t)
 #+END_SRC
 
+** ProtoBuf
+
+[[https://developers.google.com/protocol-buffers/docs/overview][Developer Guide  |  Protocol Buffers  |  Google Developers]]
+
+#+begin_src emacs-lisp
+(use-package protobuf-mode)
+
+#+end_src
 * Auto complete
 
 Getting auto completion to work right tends to be a messy process of
