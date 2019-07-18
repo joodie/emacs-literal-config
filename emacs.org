@@ -7102,6 +7102,56 @@ save. I helped rewrite the package!
    "file"
    :face (lambda (path) (if (file-exists-p path) 'org-link 'org-warning)))
 #+END_SRC
+** Org table movement
+
+[[https://github.com/dakra/dmacs/blob/master/init.org#personal-information][dmacs/init.org at master · dakra/dmacs]]
+
+#+begin_src emacs-lisp
+;; Nice org table navigation (and easy copy etc from cells)
+  ;; https://github.com/kaushalmodi/.emacs.d/blob/ea60f986d58b27f45d510cde1148bf6d52e10dda/setup-files/setup-org.el#L1041-L1080
+  ;;;; Table Field Marking
+  (defun org-table-mark-field ()
+    "Mark the current table field."
+    (interactive)
+    ;; Do not try to jump to the beginning of field if the point is already there
+    (when (not (looking-back "|[[:blank:]]?" nil))
+      (org-table-beginning-of-field 1))
+    (set-mark-command nil)
+    (org-table-end-of-field 1))
+
+  (defhydra hydra-org-table-mark-field
+    (:body-pre (org-table-mark-field)
+     :color red
+     :hint nil)
+    "
+   ^^      ^🠙^     ^^
+   ^^      _p_     ^^
+🠘 _b_  selection  _f_ 🠚          | Org table mark ▯field▮ |
+   ^^      _n_     ^^
+   ^^      ^🠛^     ^^
+"
+    ("x" exchange-point-and-mark "exchange point/mark")
+    ("f" (lambda (arg)
+           (interactive "p")
+           (when (eq 1 arg)
+             (setq arg 2))
+           (org-table-end-of-field arg)))
+    ("b" (lambda (arg)
+           (interactive "p")
+           (when (eq 1 arg)
+             (setq arg 2))
+           (org-table-beginning-of-field arg)))
+    ("n" next-line)
+    ("p" previous-line)
+    ("q" nil "cancel" :color blue))
+
+  (bind-keys
+   :map org-mode-map
+   :filter (org-at-table-p)
+   ("S-SPC" . hydra-org-table-mark-field/body))
+#+end_src
+
+
 * Applications
 
 Functionality that otherwise require external applications and are not
