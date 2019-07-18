@@ -5016,7 +5016,7 @@ how to configure =counsel-git= and =counsel-rg=.
             (setq counsel-rg-base-command
                   "rg -i -M 120 --no-heading --line-number --color never %s .")
             (org-mode . org-level-4)))
-    :bind (("C-s"     . swiper)
+    :bind (("C-s"     . swiper-isearch)
            ("C-c C-r" . ivy-resume)
            ("M-x"     . counsel-M-x)
            ("C-c C-o" . ivy-occur)
@@ -5052,6 +5052,10 @@ how to configure =counsel-git= and =counsel-rg=.
      '(swiper-minibuffer-match-face-4
        ((t :background "#ffbbff" :weight bold))))
     )
+
+
+(use-package ivy-hydra
+  :after (ivy hydra))
 
   ;; restore key bindings to isearch due to character folding in emacs 25.1
   (bind-key "C-`" 'isearch-forward)
