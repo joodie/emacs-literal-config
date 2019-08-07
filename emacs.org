@@ -2870,6 +2870,25 @@ it with =C-x l t= or =C-x git-timemachine=.
     :defer t)
 #+END_SRC
 
+** Git-auto-commit
+
+[[https://github.com/ryuslash/git-auto-commit-mode][git-auto-commit-mode: Automatically commit to git after each
+save]] helps to make sure important events like ledger file changes are
+always stored.
+
+Add this to the top of the file:
+
+#+begin_example
+;; -*- eval: (git-auto-commit-mode 1) -*-
+#+end_example
+
+See documentation for usage at directory or from a hook.
+
+#+begin_src emacs-lisp
+(use-package git-auto-commit-mode)
+#+end_src
+
+** ibuffer-vc
 * Text files
 
 ** Natural languages
