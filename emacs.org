@@ -4361,6 +4361,20 @@ so I bind the functions to Command (Super) key: =s-up>= and
     (bind-key "s-<down>" 'cider-repl-next-input cider-repl-mode-map))
 #+END_SRC
 
+** Julia
+
++ [[https://julialang.org/][The Julia Language]]
+  - Installed with =brew cask install julia=
++ Learn julia: [[https://benlauwens.github.io/ThinkJulia.jl/latest/book.html][Think Julia: How to Think Like a Computer Scientist]]
++ Julia workflow: [[https://tamaspapp.eu/post/julia-workflow/][My Julia workflow]]
+
+#+begin_src emacs-lisp
+  (use-package julia-mode
+    :mode "\\.jl\\'"
+    :interpreter ("julia" . julia-mode))
+  (use-package julia-repl)
+#+end_src
+
 ** Web mode
 
 #+BEGIN_SRC emacs-lisp
