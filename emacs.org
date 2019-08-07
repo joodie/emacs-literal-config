@@ -2889,6 +2889,23 @@ See documentation for usage at directory or from a hook.
 #+end_src
 
 ** ibuffer-vc
+
+[[https://github.com/purcell/ibuffer-vc][purcell/ibuffer-vc: Let Emacs' ibuffer-mode group files by git project
+etc., and show file state]]
+
+[[http://manuel-uberti.github.io//emacs/2019/08/06/ibuffer-magit/][Open Magit from Ibuffer – manu.el]]
+
+#+begin_src emacs-lisp
+(use-package ibuffer-vc
+:bind (:map ibuffer-mode-map ("c" . my-ibuffer-magit))
+:config
+(defun my-ibuffer-magit ()
+  "Open `magit-status' for the current buffer."
+  (interactive)
+  (let ((buf (ibuffer-current-buffer t)))
+    (magit-status (cdr (ibuffer-vc-root buf))))))
+#+end_src
+
 * Text files
 
 ** Natural languages
