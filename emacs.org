@@ -3879,12 +3879,19 @@ perl.
 
 #+BEGIN_SRC emacs-lisp
   (use-package quickrun
-    :after cperl
+    :after cperl-mode julia-mode
     :defer t
     :bind* (:map cperl-mode-map
                  ("C-c C-c" . quickrun)
-                 ("C-c C-a" . quickrun-with-arg))
+                 ("C-c C-a" . quickrun-with-arg)
+                 :map julia-mode-map
+                 ("C-c C-c" . quickrun))
     :config
+    (quickrun-add-command "julia"
+      '((:command . "/usr/local/bin/julia")
+        (:compile-only . " %s")
+        :override t))
+
     (quickrun-add-command "perl"
       '((:command . "~/.plenv/shims/perl")
         (:compile-only . "%c -wc %s")
