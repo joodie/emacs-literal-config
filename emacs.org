@@ -195,7 +195,7 @@ configuration.
   (defun my/turn-on (&rest mode-list)
     "Turn on the given (minor) modes."
     (dolist (m mode-list)
-      (funcall (my/->mode m) +1)))
+      (funcall (my/->mode m) t)))
 
   (defvar my/normal-base-modes
     (mapcar 'my/->mode '(text prog))
@@ -803,9 +803,9 @@ fringe.
       :defer t
       :diminish (git-gutter-mode . "")
       :init
-      (global-git-gutter-mode +1)
+      (global-git-gutter-mode t)
       (setq-default indicate-buffer-boundaries 'left)
-      (setq-default indicate-empty-lines +1)))
+      (setq-default indicate-empty-lines t)))
 #+END_SRC
 
 [[https://emacs.stackexchange.com/questions/45652/bent-arrow-in-visual-line-mode][fringe - Bent arrow (↩) in visual-line-mode - Emacs Stack Exchange]]
@@ -1416,7 +1416,7 @@ clutter. I am not afraid of double editing, so I disable that.
           savehist-autosave-interval 60
           ;; keep the home clean
           savehist-file (expand-file-name "savehist" my/backup-dir))
-    (savehist-mode +1))
+    (savehist-mode t))
 
   ;; disable lockfiles
   (setq create-lockfiles nil)
@@ -2072,7 +2072,7 @@ buffers.
     (super-save-idle-duration 10 "def 5 sec")
     (super-save-remote-files nil)
     :config
-    (super-save-mode +1))
+    (super-save-mode t))
 #+END_SRC
 
 *** Image mode
@@ -4672,7 +4672,7 @@ with =auto-complete= mode being more or less the /de facto/ standard.
       :init (setq ac-auto-show-menu t
                   ac-quick-help-delay 0.5
                   ac-use-fuzzy t)
-      :config (global-auto-complete-mode +1))
+      :config (global-auto-complete-mode t))
   #+END_SRC
 
 * Navigation
@@ -4837,7 +4837,7 @@ Hydra: [[https://www.wisdomandwonder.com/article/10596/screencast-building-a-lit
 almost all navigation tasks:
 
 #+BEGIN_SRC emacs-lisp
-  (global-subword-mode +1)
+  (global-subword-mode t)
   ;; (diminish 'subword-mode)
   (defhydra hydra-navigate (:color red
                                    :hint nil)
