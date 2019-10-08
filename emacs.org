@@ -2095,13 +2095,19 @@ following code adds the [[https://github.com/mhayashi1120/Emacs-imagex][image+]]
 scales the picture to the current frame.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package image
-    :ensure nil
-    :defer t
+  ;;  (use-package image
+  ;;    :ensure nil
+  ;;    :defer t
+  ;;    :config
+  ;;    (use-package image+
+  ;;      :defer t
+  ;;      :config (imagex-auto-adjust-mode 1)))
+
+  (use-package image+
+    :after 'image-mode
+    :init (add-hook 'image-mode-hook '(lambda () (require 'image+)))
     :config
-    (use-package image+
-      :defer t
-      :config (imagex-auto-adjust-mode 1)))
+    (imagex-auto-adjust-mode 1))
 #+END_SRC
 
 *** Editing as root
