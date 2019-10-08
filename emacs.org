@@ -87,13 +87,11 @@ that is given the package name as an argument. This automatically
 adds them to the [[file:Cask][Cask]] file for tracking.
 
 A new version of this file is detected by emacs at start up. The
-file file:~/.emacs.d/init.el contains the code for using cask and
+file file:~/.config/emacs/init.el contains the code for using cask and
 converting this org file to the corresponding emacs listp file,
-file:~/.emacs.d/emacs.el. Conversion takes some time, but it is only
+file:~/.config/emacs/emacs.el. Conversion takes some time, but it is only
 done when the file has changed.
 
-Sometimes you have to manually edit the cask file. It is at
-file:~/.emacs.d/Cask. There is a major mode for it.
 
 #+BEGIN_SRC emacs-lisp
   (use-package cask-mode)
@@ -263,13 +261,12 @@ of the emacs, the minibuffer.
 ** Custom lisp package directory
 
 There are still lisp packages that you have to copy manually and
-import to emacs. This defines =$HOME/.emacs.d/elisp= directory as
+import to emacs. This defines =$HOME/.config/emacs/elisp= directory as
 the place for them.
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path
-               (concat user-emacs-directory
-                       (convert-standard-filename "elisp/")))
+    (expand-file-name "elisp/" user-emacs-directory))
 #+END_SRC
 
 ** Helpful
@@ -1380,7 +1377,7 @@ it up (from file:~/.zshenv or file:~/.bash_profile):
 Default emacs behaviour is to clutter document directories with its
 backup files. The following creates numbered backups, limits the
 number of backups kept, and directs them all into
-=$HOME/.emacs.d/backups/= directory.
+=$HOME/.config/emacs/backups/= directory.
 
 Lockfiles with names prefixed with ".#" are an other type of Emacs
 clutter. I am not afraid of double editing, so I disable that.
@@ -1388,8 +1385,8 @@ clutter. I am not afraid of double editing, so I disable that.
 
 #+BEGIN_SRC emacs-lisp
 
-  (setq my/backup-dir "~/.emacs.d/backups/")
-  (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
+  (setq my/backup-dir (expand-file-name "backups" user-emacs-directory))
+  (setq backup-directory-alist '((".*" . "~/.config/emacs/backups/"))) ; needs a plain string
 
   (setq delete-by-moving-to-trash t
         trash-directory "~/.Trash/emacs")
@@ -3770,10 +3767,10 @@ clash badly. I try to set them back to a somewhat calmer palette.
 
 - [[https://docs.google.com/document/d/1P5At-z1sP8rgwYLHso5sEy3u4rMnIUDDgob9Y_BYuWE/edit][Beancount - Getting Started - Google Docs]]
 
-#+BEGIN_SRC emacs-lisp
+(#+BEGIN_SRC emacs-lisp
   (use-package beancount
     :mode "\\.beancount\\'"
-    :load-path "~/.emacs.d/lisp/beancount.el")
+    :load-path (expand-file-name "lisp/beancount.el" user-emacs-directory)
 #+END_SRC
 
 ** Ssh config
@@ -5458,7 +5455,7 @@ This and more files can be reached with my hydra-files by =C-z=.
   (defun my/edit-emacs-configuration ()
     "Open the main emacs configuration file."
     (interactive)
-    (find-file "~/.emacs.d/emacs.org"))
+    (find-file (expand-file-name "emacs.org" user-emacs-directory)))
   (bind-key "C-c e" 'my/edit-emacs-configuration)
 
   ;; I often want to add more comments to the last note
@@ -8029,8 +8026,10 @@ The read functions report their action in the echo field.
   (use-package elfeed-org
     ;;:defer t
     :after elfeed
+    :custom (rmh-elfeed-org-files '("~/.config/emacs/elfeed.org"))
     :config
     (elfeed-org))
+    ;; progn: Elfeed-org cannot open ~/.emacs.d/elfeed.org.  Make sure it exists or customize the variable ’rmh-elfeed-org-files’
 
   (use-package elfeed
     :hook (elfeed-show-mode . visual-line-mode)
