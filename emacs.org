@@ -54,11 +54,9 @@ packages with the dependency spec.
 
 ** Installation procedure
 
-- Install GNU Emacs 24 or higher
-- Install Cask from https://github.com/cask/cask
-- Clone [[https://github.com/heikkil/emacs-literal-config][the repository]] as ~$HOME/.emacs.d~ (or symlink it to that
+- Install GNU Emacs 25 or higher
+- Clone [[https://github.com/heikkil/emacs-literal-config][the repository]] as ~$HOME/.config/emacs~ (or symlink it to that
   directory).
-- Run ~cask install~ in ~$HOME/.emacs.d~
 - Make sure ~$HOME/.emacs.el~ does not exist
 - Start Emacs
 
@@ -513,7 +511,7 @@ files have been selected.
 Printing under OS X does not work in default emacs.  [[http://www.emacswiki.org/emacs/MacPrintMode][EmacsWiki]] has
 slightly outdated instructions:
 
-1. Copy [[https://raw.github.com/marcora/emacs/master/mac-print-mode.el][mac-print-mode.el]] into file:~/.emacs.d/elisp directory
+1. Copy [[https://raw.github.com/marcora/emacs/master/mac-print-mode.el][mac-print-mode.el]] into file:~/.config/emacs/elisp directory
 2. htmlize package should be already installed
 3. Install latest version of [[http://hmdt.jp/coral/][Coral]] (1.3)
    - Download and open the image file
@@ -659,8 +657,7 @@ command =funced=.
 Sets the initial frame (Emacs window) size.
 
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'default-frame-alist '(height . 60))
-  (add-to-list 'default-frame-alist '(width . 200))
+  (setq initial-frame-alist '((top . 0) (left . 0) (width . 200) (height . 60)))
 #+END_SRC
 
 ** Font
@@ -1119,6 +1116,12 @@ other window using =M-s-<arrow>=.
 The default keybindings are complex or do not work under OS X and
 a laptop keyboard. Correction: =C-M-v= and  =C-M-V= do work for
 scrolling the other window!
+
+*** Scroll all visible windows
+
+The built-in mode scroll-all-mode moves all visible windows in the
+frame the same amount.
+
 *** Help window focus
 
 Jump to the help window when it's opened.
@@ -2371,7 +2374,7 @@ asking. Giving it an universal argument (C-u) calls the standard
 
 *** Yasnippet
 
-Add your own [[http://joaotavora.github.io/yasnippet/][snippets]] to file:~/.emacs.d/snippets by placing files
+Add your own [[http://joaotavora.github.io/yasnippet/][snippets]] to file:~/.config/emacs/snippets by placing files
 there or invoking =yas-new-snippet= or =C-c & C-n= .
 
 Snippet names are expanded with =TAB=.
@@ -2929,11 +2932,14 @@ especially efficient.
 
 **** aspell
 
+[[http://blog.binchen.org/posts/aspell-0-60-8-will-have-direct-support-for-camelcase-words.html][Aspell 0.60.8 will have direct support for camelCase words | Chen's blog]]
+
 #+BEGIN_SRC emacs-lisp
   (setq ispell-program-name "/usr/local/bin/aspell") ; checker engine
   ;; (setq ispell-program-name "enchant-2") ; checker engine
 
   ;; Speed up aspell: ultra | fast | normal
+  (setq ispell-extra-args '("--sug-mode=ultra" "--camel-case"))
   (setq ispell-extra-args '("--sug-mode=ultra"))
 
   ;; Flyspell activation for text modes
@@ -4363,6 +4369,7 @@ so I bind the functions to Command (Super) key: =s-up>= and
 + [[https://julialang.org/][The Julia Language]]
   - Installed with =brew cask install julia=
 + Learn julia: [[https://benlauwens.github.io/ThinkJulia.jl/latest/book.html][Think Julia: How to Think Like a Computer Scientist]]
++ [[https://en.wikibooks.org/wiki/Introducing_Julia][Introducing Julia]]
 + Julia workflow: [[https://tamaspapp.eu/post/julia-workflow/][My Julia workflow]]
 
 #+begin_src emacs-lisp
@@ -5093,6 +5100,8 @@ the occur buffer before applying wgrep editing on it with =C-x C-q=.
 [[https://oremacs.com/2018/03/05/grep-exclude/][Using exclusion patterns when grepping · (or emacs]] gives details on
 how to configure =counsel-git= and =counsel-rg=.
 
+[[https://oremacs.com/2019/07/09/ivy-reverse-i-search/][Ivy reverse-i-search · (or emacs]]
+
 #+BEGIN_SRC emacs-lisp
 
   (setq save-interprogram-paste-before-kill t)
@@ -5172,6 +5181,11 @@ how to configure =counsel-git= and =counsel-rg=.
     (interactive)
     (isearch-exit)
     (goto-char isearch-other-end))
+
+;;(define-key minibuffer-local-map
+;;    (kbd "C-r") 'counsel-minibuffer-history)
+;;(define-key shell-mode-map
+;;    (kbd "C-r") 'counsel-shell-history)
 #+END_SRC
 
 Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficient-movement-using-avy/][search using avy]].
@@ -5631,11 +5645,11 @@ needs to be set before calling org mode.
 #+BEGIN_SRC emacs-lisp
  (custom-set-faces
    '(org-block-begin-line
-     ((t (:underline "#696969" :foreground "#f00f00" :background "#efefef"))))
+     ((t (:underline "#696969" :foreground "#f00f00" :background "#000000"))))
    '(org-block
      ((t (:background "#402020"))))
    '(org-block-end-line
-     ((t (:overline "#696969" :foreground "#f00f00" :background "#efefef")))))
+     ((t (:overline "#696969" :foreground "#f00f00" :background "#000000")))))
 
   (custom-set-faces
    '(org-block-begin-line
@@ -6206,6 +6220,7 @@ for several accounts. The path to the file must exist.
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
         (append '(("l" "Ledger entries")
+
                   ("lm" "MasterCard" plain
                    (file "~/Documents/ledger/refile.led")
                    "
@@ -6214,6 +6229,7 @@ for several accounts. The path to the file must exist.
       Liabilities:MasterCard
       Expenses:%^{Account}              %^{Amount} €
      " :empty-lines-before 1)
+
                   ("lc" "Cash" plain
                    (file "~/Documents/ledger/refile.led")
                    "
@@ -6222,6 +6238,7 @@ for several accounts. The path to the file must exist.
       Assets:Cash
       Expenses:%^{Account}             %^{Amount} €
      " :empty-lines-before 1 )
+
                   ("le" "EUR debit" plain
                    (file "~/Documents/ledger/refile.led")
                    "
@@ -6229,7 +6246,8 @@ for several accounts. The path to the file must exist.
       ; entered: %U
       Assets:Heikintili
       Expenses:%^{Account}               %^{Amount} €
-     " :emptye-lines-before 1 ))
+     " :empty-lines-before 1 ))
+
                 org-capture-templates))
 #+END_SRC
 
@@ -6479,7 +6497,7 @@ The https://github.com/skuro/plantuml-mode helps editing the code.
 #+BEGIN_SRC emacs-lisp
   ;; ditaa
   (setq org-ditaa-jar-path "/usr/local/bin/ditaa.jar")
-                                          ; plantuml-mode
+  ;; plantuml-mode
   (setq plantuml-jar-path (expand-file-name "/usr/local/bin/plantuml.jar"))
   (setq org-plantuml-jar-path plantuml-jar-path)
 
@@ -6646,7 +6664,7 @@ blocks. This also highlights source blocks in HTML exports.
   ;;(org-block-end-line
   ;; ((t (:overline "#A7A6AA" :foreground "#008ED1" :background "#EAEAFF"))))
 
-  ;; [https://github.com/howardabrams/dot-files/blob/master/emacs-org.org
+  ;; https://github.com/howardabrams/dot-files/blob/master/emacs-org.org
   (use-package ox-html
     :ensure nil
     :init
