@@ -5512,12 +5512,19 @@ This and more files can be reached with my hydra-files by =C-z=.
                 _d_otfiles.txt  _w_ork.org
                 _h_ome.gpg      _l_edger:refile.led
                 _a_bbrevs       _k_äyttötili.led
-                _p_rojects
+                _p_rojects      _m_medical.txt
              "
     ("c" (find-file "~/Dropbox/installation.notes/balamac/ChangeLog"))
-    ("e" (find-file "~/.emacs.d/emacs.org"))
+    ("e" (find-file (expand-file-name "emacs.org" user-emacs-directory)))
     ("d" (find-file "~/Dropbox/dotfiles/dotfiles.txt"))
+    ("g" (progn
+           (find-file "~/Dropbox/org/reference.org")
+           (goto-char (point-min))
+           (search-forward "# GASUM")
+           (org-reveal)
+           (org-show-context)))
     ("h" (find-file "~/Documents/documents/details/home.gpg"))
+    ("m" (find-file "~/Documents/medical/medical.txt"))
     ("r" my/last-captured-org-note)
     ("s" (switch-to-buffer "*scratch*"))
     ("w" (find-file "~/Dropbox/org/work.org"))
