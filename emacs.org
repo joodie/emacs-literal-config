@@ -6558,16 +6558,17 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
                    (trans . "<span class=\"task-in-progress\">[-]</span>"))))
 
   (use-package org-bullets
-    :disabled t
-    :defer t
-    :hook org-mode
+    :hook (org-mode . org-bullets-mode)
     :custom
-    (org-bullets-bullet-list '("◉" "○" "✺" "✹" "✸" "✷" "✭" "✶"  "✦"))
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+    (org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
+
+    ;;:config
+    ;;(org-bullets-bullet-list '("◉" "○" "✺" "✹" "✸" "✷" "✭" "✶"  "✦"))
+    ;(setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸"))
+    ;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
     ;; :init (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●" ))
     ;; :init (add-hook 'org-mode-hook 'org-bullets-mode)
-    )
+
 
   ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
   ;;(setq org-ellipsis "…")
