@@ -4073,8 +4073,9 @@ perl-build= and install your favorite version of perl and put into
     :defer t
     :config
     (condition-case nil
-        (plenv-global "5.26.2")
+        (plenv-global "5.30.0")
       (error (message "ERROR: unknown perl version. Is your plenv configured right?"))))
+
   ;;(use-package flymake
   ;;  :defer t
   ;;  :config
