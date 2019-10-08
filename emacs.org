@@ -375,6 +375,19 @@ The =locate= command is not available in OS X so alias it to mdfind.
     (setq locate-command "mdfind"))
 #+END_SRC
 
+**** ellocate
+
+[[https://github.com/walseb/ellocate][walseb/ellocate: A more flexible locate implemented in Emacs Lisp]]
+
+Run =ellocate-all=.
+
+#+begin_src emacs-lisp
+(use-package ellocate
+:custom
+(ellocate-scan-dirs '(("~/" "~/.emacs.p/ellocate-home-db"))))
+#+end_src
+
+
 *** Alerts
 
 [[https://github.com/jwiegley/alert][jwiegley/alert: A Growl-like alerts notifier for Emacs]]
