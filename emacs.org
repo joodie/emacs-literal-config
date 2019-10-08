@@ -1890,7 +1890,7 @@ have a separate function for unfilling paragraphs: Now you can press
                       (point-max))
              fill-column)))
       (if (eq major-mode 'org-mode)
-          (call-interactively #' org-fill-paragraph)
+          (call-interactively #'org-fill-paragraph)
         (call-interactively #'fill-paragraph))))
 
   ;; key defined after org mode loading
