@@ -1816,7 +1816,7 @@ space from the buffer.
 #+BEGIN_SRC emacs-lisp
   (setq-default indent-tabs-mode nil)
   ;; smart tab behavior - indent or complete
-  ;; (setq tab-always-indent 'complete)
+  (setq tab-always-indent 'complete)
 
   (defun my/clean-buffer-formatting ()
     "Indent and clean up the buffer"
@@ -3727,6 +3727,9 @@ The [[https://github.com/ledger/ledger-mode][ledger-mode]] has been getting a lo
 changes are affecting font coloring, too. Many of the font faces
 are inherited which are good in principle, but at the moment they
 clash badly. I try to set them back to a somewhat calmer palette.
+
+[[https://github.com/ledger/ledger-mode/pull/174][Move from pcomplete to completion-at-point-functions by jabranham · Pull Request #174 · ledger/ledger-mode · GitHub]]
+Have you set tab-always-indent to 'complete?
 
 #+BEGIN_SRC emacs-lisp
   (use-package ledger-mode
