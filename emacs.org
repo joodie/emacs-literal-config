@@ -640,7 +640,7 @@ editing text areas in a better environment.
     :defer t
     :if window-system
     :init
-    (add-hook 'after-init-hook 'edit-server-start t)
+    (add-hook 'after-init-hook #'edit-server-start t)
     :config
     (use-package edit-server-htmlize
       :config
@@ -649,8 +649,8 @@ editing text areas in a better environment.
         "edit-server-htmlize" "edit-server-htmlize" t)
       (autoload 'edit-server-maybe-htmlize-buffer
         "edit-server-htmlize" "edit-server-htmlize" t))
-    (add-hook 'edit-server-start-hook 'edit-server-maybe-dehtmlize-buffer)
-    (add-hook 'edit-server-done-hook  'edit-server-maybe-htmlize-buffer))
+    (add-hook 'edit-server-start-hook #'edit-server-maybe-dehtmlize-buffer)
+    (add-hook 'edit-server-done-hook  #'edit-server-maybe-htmlize-buffer))
 
 #+END_SRC
 
@@ -1807,7 +1807,7 @@ whitespace on save. The same function removes trailing empty lines
 at the end of the buffer.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  (add-hook 'before-save-hook #'delete-trailing-whitespace)
 #+END_SRC
 
 Tabs are automatically converted to spaces and trailing white space
@@ -1832,7 +1832,7 @@ space from the buffer.
     )
 
   (dolist (mode-hook (my/normal-mode-hooks))
-    (add-hook mode-hook 'my/general-formatting-hooks))
+    (add-hook mode-hook #'my/general-formatting-hooks))
 #+END_SRC
 
 UNIXy text files should always end in a newline character. This
@@ -1871,7 +1871,7 @@ For writing text, I prefer Emacs to do line wrapping for me.
 #+BEGIN_SRC emacs-lisp
   (defun my/text-formatting-hooks ()
     (my/turn-on 'auto-fill)) ; turn on automatic hard line wraps
-  (add-hook 'text-mode-hook 'my/text-formatting-hooks)
+  (add-hook 'text-mode-hook #'my/text-formatting-hooks)
 #+END_SRC
 
 If the line wrapping (explicitely =M-q=) needs to be [[http://www.emacswiki.org/emacs/UnfillParagraph][reversed]], use
@@ -2329,7 +2329,7 @@ A special form of abbreviation is a time stamp in a file. I do not
 want to see AM/PM time stamps.
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'before-save-hook 'time-stamp)
+  (add-hook 'before-save-hook #'time-stamp)
   (setq display-time-24hr-format t)
 #+END_SRC
 
@@ -2433,7 +2433,7 @@ Todo:
     ;; Don't want to be prompted before insertion:
     (setq auto-insert-query nil)
     (setq auto-insert-directory (locate-user-emacs-file "templates"))
-    (add-hook 'find-file-hook 'auto-insert)
+    (add-hook 'find-file-hook #'auto-insert)
     (auto-insert-mode 1)
     :config
 
@@ -2969,7 +2969,7 @@ especially efficient.
               ;;(diminish 'flyspell-mode " ✓")
               ))
   ;; Flyspell activation for programming modes
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  (add-hook 'prog-mode-hook #'flyspell-prog-mode)
 
   ;; fix ispell for org mode
   ;; http://endlessparentheses.com/ispell-and-org-mode.html
@@ -2987,7 +2987,7 @@ especially efficient.
   (defun flyspell-ignore-tex ()
     (interactive)
     (set (make-variable-buffer-local 'ispell-parser) 'tex))
-  (add-hook 'org-mode-hook 'flyspell-ignore-tex)
+  (add-hook 'org-mode-hook #'flyspell-ignore-tex)
 
 
   ;; Remove Flyspell from some sub modes of text mode
@@ -3624,7 +3624,7 @@ More [[http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor
                     and auto-fill-mode the opposite way."
         (adaptive-wrap-prefix-mode (if visual-line-mode 1 -1))
         (auto-fill-mode (if visual-line-mode -1 1)))
-      (add-hook 'visual-line-mode-hook 'my-activate-adaptive-wrap-prefix-mode))
+      (add-hook 'visual-line-mode-hook #'my-activate-adaptive-wrap-prefix-mode))
 
     (setq TeX-auto-save t)
     (setq TeX-parse-self t)
@@ -3640,12 +3640,12 @@ More [[http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor
     (defun my/latex-hooks ()
       (my/turn-on 'visual-line         ; now turns off auto-fill
                   'flyspell))
-    (add-hook 'latex-mode-hook 'my/latex-hooks) ; needs testing!!!
-    (add-hook 'latex-mode-hook 'turn-on-reftex) ; no -mode in the end
+    (add-hook 'latex-mode-hook #'my/latex-hooks) ; needs testing!!!
+    (add-hook 'latex-mode-hook #'turn-on-reftex) ; no -mode in the end
 
     ;; spell checking on LaTeX buffers
-    ;;(add-hook 'latex-mode-hook 'flyspell-mode)
-    (add-hook 'latex-mode-hook 'flyspell-buffer)
+    ;;(add-hook 'latex-mode-hook #'flyspell-mode)
+    (add-hook 'latex-mode-hook #'flyspell-buffer)
 
     (use-package latex-preview-pane
       :defer t)
@@ -3670,7 +3670,7 @@ automatic line wrapping.
   (defun my/nXML-hooks ()
     (auto-fill-mode -1))
 
-  (add-hook 'nXML-mode-hook 'my/nXML-hooks)
+  (add-hook 'nXML-mode-hook #'my/nXML-hooks)
 #+END_SRC
 
 ** Zsh and fish
@@ -3691,7 +3691,7 @@ framework for it.
     :init (setq-default indent-tabs-mode nil)
     (add-hook 'fish-mode-hook
               (lambda ()
-                (add-hook 'before-save-hook 'fish_indent-before-save))))
+                (add-hook 'before-save-hook #'fish_indent-before-save))))
 #+END_SRC
 
 ** MarkDown
@@ -3713,7 +3713,7 @@ My =org-mode= is configured to export to markdown format.
     ;;:hook pandoc-mode
     :config
     (setq markdown-command "multimarkdown")
-    (add-hook 'markdown-mode-hook 'pandoc-mode)
+    (add-hook 'markdown-mode-hook #'pandoc-mode)
     (use-package markdown-preview-mode
       :disabled t
       :hook markdown-mode))
@@ -3816,7 +3816,7 @@ Have you set tab-always-indent to 'complete?
                 ("C-p" . ssh-config-host-prev)
                 ("C-n" . ssh-config-host-next))
     :config
-    (add-hook 'ssh-config-mode-hook 'turn-on-font-lock))
+    (add-hook 'ssh-config-mode-hook #'turn-on-font-lock))
 #+END_SRC
 
 * Programming
@@ -3830,7 +3830,7 @@ shebang: the code makes those files executable on saving.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'after-save-hook
-            'executable-make-buffer-file-executable-if-script-p)
+            #'executable-make-buffer-file-executable-if-script-p)
 #+END_SRC
 
 *** Aggressive indent mode
@@ -4112,7 +4112,7 @@ Use the built-in =cperl-mode= instead of the default =perl-mode=
                   'electric-pair
                   'electric-operator
                   'aggressive-indent))
-    (add-hook 'cperl-mode-hook 'my/cperl-mode-hook t))
+    (add-hook 'cperl-mode-hook #'my/cperl-mode-hook t))
 #+END_SRC
 
 Call perltidy with =C-c t= from emacs to indent and beautify perl
@@ -4201,7 +4201,7 @@ ElDoc shows arguments to function under cursor in the minibuffer.
                 ))
   (dolist (mode (mapcar 'my/->mode-hook my/lisps))
     (add-hook mode
-              'my/general-lisp-hooks))
+              #'my/general-lisp-hooks))
 #+END_SRC
 
 See:
@@ -4375,7 +4375,7 @@ so I bind the functions to Command (Super) key: =s-up>= and
                   'highlight-parentheses))
 
     (add-hook 'cider-repl-mode-hook
-              'my/cider-repl-mode-hooks)
+              #'my/cider-repl-mode-hooks)
 
     (use-package clj-refactor
       :defer t
@@ -4474,7 +4474,7 @@ environment:
   ;;           (bind-key "C-c C-z" 'python-shell python-mode-map)
   ;;           (unbind-key "C-c c" python-mode-map))
   ;;
-  ;;         (add-hook 'python-mode-hook 'my-python-mode-hook)))
+  ;;         (add-hook 'python-mode-hook #'my-python-mode-hook)))
 
   (use-package elpy
     :init
@@ -4498,7 +4498,7 @@ environment:
     (setq jedi:complete-on-dot t)
     (flycheck-mode)
     ;;(pyenv-mode)
-    ;;(add-hook 'focus-out-hook 'save-buffer)
+    ;;(add-hook 'focus-out-hook #'save-buffer)
     ;;(highlight-lines-matching-regexp "import i?pdb")
     ;;(highlight-lines-matching-regexp "i?pdb.set_trace()")
     (turn-on-fci-mode)  ; fill-column-indicator
@@ -4507,9 +4507,9 @@ environment:
     ;;(elpy-clean-modeline)
     (highlight-indentation-mode))
 
-  (add-hook 'python-mode-hook 'my/setup-python-mode)
+  (add-hook 'python-mode-hook #'my/setup-python-mode)
   (add-hook 'python-mode-hook (lambda () (highlight-indentation-mode -1)))
-  (add-hook 'python-mode-hook 'jedi:ac-setup)
+  (add-hook 'python-mode-hook #'jedi:ac-setup)
   (add-hook 'python-mode-hook (lambda ()
                                 (use-package sphinx-doc
                                   :defer t
@@ -4567,7 +4567,7 @@ See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][do
   (use-package company
     :defer t
     :config
-    (add-hook 'after-init-hook 'global-company-mode))
+    (add-hook 'after-init-hook #'global-company-mode))
 
   (use-package company-go
     :defer t
@@ -4587,7 +4587,7 @@ See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][do
       ;; Use goimports instead of go-fmt
       (setq gofmt-command "goimports")
       ;; Call Gofmt before saving
-      (add-hook 'before-save-hook 'gofmt-before-save t)
+      (add-hook 'before-save-hook #'gofmt-before-save t)
 
       ;; Customize compile command to run go build
       (if (not (and (stringp compile-command)
@@ -5423,10 +5423,10 @@ headers and lists and has to be called after org-mode (see below).
   (setq framemove-hook-into-windmove t)
 
   ;; Make windmove work in org-mode:
-  (add-hook 'org-shiftup-final-hook 'windmove-up)
-  (add-hook 'org-shiftleft-final-hook 'windmove-left)
-  (add-hook 'org-shiftdown-final-hook 'windmove-down)
-  (add-hook 'org-shiftright-final-hook 'windmove-right)
+  (add-hook 'org-shiftup-final-hook #'windmove-up)
+  (add-hook 'org-shiftleft-final-hook #'windmove-left)
+  (add-hook 'org-shiftdown-final-hook #'windmove-down)
+  (add-hook 'org-shiftright-final-hook #'windmove-right)
 #+END_SRC
 
 *** wn-mode
@@ -5711,7 +5711,7 @@ Uses =variable-pitch-mode=. To change the font, modify the
     (add-to-list 'org-variable-pitch-fixed-faces 'org-date)
     (set-face-attribute 'variable-pitch nil
                         :family "Linux Libertine O")
-    ;; (add-hook 'org-mode-hook 'org-variable-pitch-minor-mode)
+    ;; (add-hook 'org-mode-hook #'org-variable-pitch-minor-mode)
      )
 #+END_SRC
 
@@ -5750,11 +5750,11 @@ Uses =variable-pitch-mode=. To change the font, modify the
     (add-hook 'org-mode-hook (lambda () (org-autolist-mode))))
 
   ;; too slow to have on by default
-  ;; (add-hook 'org-mode-hook 'wc-mode)
+  ;; (add-hook 'org-mode-hook #'wc-mode)
   (use-package wc-mode)
 
     ;; too slow to have on by default
-    ;; (add-hook 'org-mode-hook 'wc-mode)
+    ;; (add-hook 'org-mode-hook #'wc-mode)
     (use-package wc-mode)
 
     (setq org-M-RET-may-split-line '((default . nil)))
@@ -6237,8 +6237,8 @@ capture.
                 (if (assoc word alltags)
                     a~S                       (org-toggle-tag word 'saon)))
               headline-words)))
-  ;; (add-hook 'org-capture-before-finalize-hook 'org-auto-tag)
-  ;; (remove-hook 'org-capture-before-finalize-hook 'org-auto-tag)
+  ;; (add-hook 'org-capture-before-finalize-hook #'org-auto-tag)
+  ;; (remove-hook 'org-capture-before-finalize-hook #'org-auto-tag)
 #+END_SRC
 
 Todos can have additional keywords with dates: =DEADLINE= =C-c C-d=
@@ -6573,7 +6573,7 @@ Make custom markers for todo items:
                   (let (org-log-done org-log-states)   ; turn off logging
                     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
-                (add-hook 'org-after-todo-statistics-hook 'my-org-autodone)
+                (add-hook 'org-after-todo-statistics-hook #'my-org-autodone)
 
               #+END_SRC
 
@@ -6613,7 +6613,7 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
     ;(setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸"))
     ;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
     ;; :init (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●" ))
-    ;; :init (add-hook 'org-mode-hook 'org-bullets-mode)
+    ;; :init (add-hook 'org-mode-hook #'org-bullets-mode)
 
 
   ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
@@ -6640,7 +6640,7 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
     :after org
     :diminish ""
     :config
-    (add-hook 'org-mode-hook 'org-table-sticky-header-mode))
+    (add-hook 'org-mode-hook #'org-table-sticky-header-mode))
 #+END_SRC
 
 [[https://www.reddit.com/r/orgmode/comments/9tljmi/faster_large_table_editing_disable_flyspell/][Faster Large Table Editing: Disable Flyspell! : orgmode]]
@@ -6684,7 +6684,7 @@ blocks. This also highlights source blocks in HTML exports.
 
   ;; ###
   ;; display/update images in the buffer after I evaluate
-  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+  (add-hook 'org-babel-after-execute-hook #'org-display-inline-images 'append)
 
   ;; org block backgrounds
 
@@ -7133,7 +7133,7 @@ to.
 #       (bind-key "C-c )" 'reftex-citation org-mode-map)
 #       (bind-key "C-c (" 'org-mode-reftex-search org-mode-map))
 #       )
-#     (add-hook 'org-mode-hook 'org-mode-reftex-setup)
+#     (add-hook 'org-mode-hook #'org-mode-reftex-setup)
 #   #+END_SRC
 
 Bibliography is needed only in some documents. I have defined an
@@ -7449,7 +7449,7 @@ See more tweeks from
       (local-set-key (kbd "#") (quote bms/pdf-midnite-green))
       (local-set-key (kbd "$") (quote bms/pdf-midnite-original)))
 
-    (add-hook 'pdf-view-mode-hook 'bms/pdf-midnite-colour-schemes)
+    (add-hook 'pdf-view-mode-hook #'bms/pdf-midnite-colour-schemes)
 
     ;; save after adding comment
     ;; (advice-add 'pdf-annot-edit-contents-commit :after #'bjm/save-buffer-no-args)
@@ -7868,9 +7868,9 @@ bbdb-merge-records=.
     (setq gnus-use-cache t)
     (setq gnus-use-adaptive-scoring t)
     (setq gnus-save-score t)
-    (add-hook 'mail-citation-hook 'sc-cite-original)
-    (add-hook 'message-sent-hook 'gnus-score-followup-article)
-    (add-hook 'message-sent-hook 'gnus-score-followup-thread)
+    (add-hook 'mail-citation-hook #'sc-cite-original)
+    (add-hook 'message-sent-hook #'gnus-score-followup-article)
+    (add-hook 'message-sent-hook #'gnus-score-followup-thread)
     ;; @see http://stackoverflow.com/questions/945419/how-dont-use-gnus-adaptive-scoring-in-some-newsgroups
     (setq gnus-parameters
           '(("nnimap.*"
@@ -7903,7 +7903,7 @@ bbdb-merge-records=.
       :config
       (bbdb-initialize 'message 'gnus 'sendmail)
 
-      (add-hook 'gnus-startup-hook 'bbdb-insinuate-gnus)
+      (add-hook 'gnus-startup-hook #'bbdb-insinuate-gnus)
 
       ;; ###autoload
       (defun bbdb-timestamp-hook (record)
@@ -8419,7 +8419,7 @@ I installed Liberation Serif for nov.el use.
     (defun my-nov-font-setup ()
       (face-remap-add-relative 'variable-pitch :family "Liberation Serif"
                                :height 2.0))
-    (add-hook 'nov-mode-hook 'my-nov-font-setup)
+    (add-hook 'nov-mode-hook #'my-nov-font-setup)
     ;; (add-hook 'nov-mode-hook #'line-break-mode)
     (add-hook 'nov-mode-hook #'visual-line-mode))
 #+END_SRC
@@ -8463,7 +8463,7 @@ Emacs]]
 #+BEGIN_SRC emacs-lisp
   (defun proced-settings ()
     (proced-toggle-auto-update 1))
-  (add-hook 'proced-mode-hook 'proced-settings)
+  (add-hook 'proced-mode-hook #'proced-settings)
 #+END_SRC
 
 ** Web browsing
@@ -8525,7 +8525,7 @@ config, not init.
 (use-package emms-setup
   :ensure nil
   :init
-  (add-hook 'emms-player-started-hook 'emms-show)
+  (add-hook 'emms-player-started-hook #'emms-show)
   (setq emms-show-format "Playing: %s")
   :config
   (emms-standard)
@@ -8882,7 +8882,7 @@ files have been selected.
   (use-package winner
     :defer t
     :config (winner-mode 1)
-    (add-hook 'ediff-after-quit-hook-internal 'winner-undo))
+    (add-hook 'ediff-after-quit-hook-internal #'winner-undo))
 #+END_SRC
 
 ** Phonetic alphabet
