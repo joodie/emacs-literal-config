@@ -62,7 +62,7 @@
 
 ;;; quelpa
 (unless (require 'quelpa nil t)
-    (quelpa-self-upgrade)
+  (quelpa-self-upgrade)
   (with-temp-buffer
     (url-insert-file-contents "https://framagit.org/steckerhalter/quelpa/raw/master/bootstrap.el")
     (eval-buffer)))
@@ -169,5 +169,12 @@ Write only blocks that are:
               (message "Loading %s...done (%.3fs) [after-init]"
                        load-file-name elapsed)))
           t)
+
+(message
+ (concat "Welcome "      user-full-name
+         "! Emacs "      emacs-version
+         "; Org-mode "   org-version
+         "; System "     (system-name)
+         "; Time "       (emacs-init-time)))
 
 ;;; init.el ends here
