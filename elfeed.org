@@ -29,6 +29,7 @@
 *** https://journal.fi/tt/gateway/plugin/WebFeedGatewayPlugin/rss2
 ** Bio
 *** https://dazzlerblog.wordpress.com/feed/
+*** http://ewanbirney.com/feed
 ** Computers
 *** Security                                                              :s:
 **** https://www.schneier.com/blog/atom.xml
