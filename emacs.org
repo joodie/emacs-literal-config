@@ -6949,7 +6949,7 @@ footnotes.
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'ox-latex
     (add-to-list 'org-latex-classes
-                 '("fu-org-article"
+                 '("fu-org-article-fi"
                    "\\documentclass[11pt,a4paper]{article}
          \\usepackage[T1]{fontenc}
          \\usepackage{xunicode}        % for XeTex
@@ -6957,6 +6957,44 @@ footnotes.
          \\usepackage{xltxtra}         % for XeTex
          \\usepackage{url}             % for XeTex to break long URLs at line ending
          \\usepackage[english,finnish]{babel}  % for XeTex
+         \\selectlanguage{english}
+         \\usepackage[osf]{libertine}  % Libertine fonts with old-style numbers
+         \\usepackage{graphicx}
+         \\usepackage{minted}
+         \\usepackage{hypernat}
+         \\usepackage[round]{natbib}
+         \\usepackage{microtype}
+
+         \\usepackage{paralist}
+         \\let\\itemize\\compactitem
+         \\let\\description\\compactdesc
+         \\let\\enumerate\\compactenum
+
+         \\usepackage[a4paper, textheight=10in,
+                     marginparsep=7pt, marginparwidth=1.5in, margin=2in]{geometry}
+         \\usepackage[colorlinks=true,urlcolor=blue,linkcolor=gray,citecolor=blue]{hyperref}
+
+         \\let\\nofiles\\relax % Void the \\nofiles command
+
+         \\pagestyle{plain}
+         \\title{}
+               [NO-DEFAULT-PACKAGES]
+               [NO-PACKAGES]"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+   (add-to-list 'org-latex-classes
+                 '("fu-org-article"
+                   "\\documentclass[11pt,a4paper]{article}
+         \\usepackage[T1]{fontenc}
+         \\usepackage{xunicode}        % for XeTex
+         \\usepackage{fontspec}        % for XeTex
+         \\usepackage{xltxtra}         % for XeTex
+         \\usepackage{url}             % for XeTex to break long URLs at line ending
+         \\usepackage[finnish, english]{babel}  % for XeTex
          \\selectlanguage{english}
          \\usepackage[osf]{libertine}  % Libertine fonts with old-style numbers
          \\usepackage{graphicx}
