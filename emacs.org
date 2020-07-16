@@ -2256,9 +2256,21 @@ Press =C-<Return>= to enter it, use arrow keys to select, copy, and
 exit the rectangle editing mode by =C-c=.
 
 #+BEGIN_SRC emacs-lisp
-  (cua-mode t)
+  (cua-mode)
   (bind-key  "H-x H-x" 'exchange-point-and-mark)
 #+END_SRC
+
+*** PENDING Do The Right Thing on the current line when then is no active region
+
+[[https://github.com/purcell/whole-line-or-region/blob/master/whole-line-or-region.el][whole-line-or-region/whole-line-or-region.el at master ·
+purcell/whole-line-or-region]]
+
+#+begin_src emacs-lisp
+(use-package whole-line-or-region
+:init (whole-line-or-region-global-mode))
+#+end_src
+
+Alternative: whole-line-or-region-local-mode
 
 *** Expand region
 
@@ -2487,10 +2499,11 @@ Todo:
     (define-auto-insert "\\.html?$" ["default-html.html" autoinsert-yas-expand]))
 #+END_SRC
 
-** Fixing DOuble capitals
+** PENDING Fixing DOuble capitals
 
 Painless way to avoid double capitals in the beginning of words
 from [[http://endlessparentheses.com/fixing-double-capitals-as-you-type.html][Endless Parentheses]] and [[http://emacs.stackexchange.com/questions/13970/fixing-double-capitals-as-i-type/13975#13975][Emacs StackExchange]].
+
 
 #+BEGIN_SRC emacs-lisp
   (defun dcaps-to-scaps ()
@@ -5342,9 +5355,33 @@ aliases defined in the ssh config file. You can even use tab completion.
 Setting the default method frees you from typing it. Just open
 file, give '/', and start typing the name of the remote computer.
 
+[[https://willschenk.com/articles/2020/tramp_tricks/][Emacs Tramp tricks]] adds methods for looking inside dockers.
+
 #+BEGIN_SRC emacs-lisp
-  (setq tramp-default-method "ssh")
-  ;;(add-to-list ' tramp-remote-path "/usr/local/git/bin")
+    (setq tramp-default-method "ssh")
+    ;;(add-to-list ' tramp-remote-path "/usr/local/git/bin")
+
+  ;; ;; Open files in Docker containers like so: /docker:drunk_bardeen:/etc/passwd
+  ;; (push
+  ;;  (cons
+  ;;   "docker"
+  ;;   '((tramp-login-program "docker")
+  ;;     (tramp-login-args (("exec" "-it") ("%h") ("/bin/bash")))
+  ;;     (tramp-remote-shell "/bin/sh")
+  ;;     (tramp-remote-shell-args ("-i") ("-c"))))
+  ;;  tramp-methods)
+
+  ;; (defadvice tramp-completion-handle-file-name-all-completions
+  ;;   (around dotemacs-completion-docker activate)
+  ;;   "(tramp-completion-handle-file-name-all-completions \"\" \"/docker:\" returns
+  ;;     a list of active Docker container names, followed by colons."
+  ;;   (if (equal (ad-get-arg 1) "/docker:")
+  ;;       (let* ((dockernames-raw (shell-command-to-string "docker ps | awk '$NF != \"NAMES\" { print $NF \":\" }'"))
+  ;;              (dockernames (cl-remove-if-not
+  ;;                            #'(lambda (dockerline) (string-match ":$" dockerline))
+  ;;                            (split-string dockernames-raw "\n"))))
+  ;;         (setq ad-return-value dockernames))
+  ;;     ad-do-it))
 #+END_SRC
 
 ** PENDING Docker
@@ -6151,7 +6188,10 @@ hydra-org-template that is triggered by the =<= key.
           (self-insert-command 1))))) ;; end of org-agenda
 #+END_SRC
 
-** worf -- modal editing in org mode
+** PENDING worf -- modal editing in org mode
+
+Note: Alternative to org-speed. Activate with $(setq
+org-use-speed-commands t)$ and see =org-speed-command-help=.
 
 Adds vi-like modal key bindings to org mode by adding a new minor
 mode.[[http://oremacs.com/worf/README.html][ Documentation]]
@@ -7460,12 +7500,289 @@ save. I helped rewrite the package!
 #+end_src
 
 
+** PENDING Zotero
+
+This is a mess. Not working.
+
+- [[http://www.mkbehr.com/posts/a-research-workflow-with-zotero-and-org-mode/][A research workflow with Zotero and Org mode | mkbehr.com]]
+- [[https://gitlab.com/egh/zotxt][Erik Hetzner / zotxt · GitLab]]
+- [[https://github.com/egh/zotxt-emacs][GitHub - egh/zotxt-emacs]]
+
+#+begin_src emacs-lisp
+(use-package zotxt
+    :hook org-mode)
+#+end_src
+
+org-zotxt-default-search-method
+** Note taking : Zettelkasten
+
+#+begin_src emacs-lisp :results none
+
+  (use-package org-roam
+    :hook (after-init . org-roam-mode)
+    :custom
+    (org-roam-directory "~/Dropbox/org/zettel/")
+    (org-roam-completion-system 'ivy)
+    (org-roam-buffer-position 'left)
+    (org-roam-link-title-format "→%s")
+    (org-roam-index-file "index.org") ; default
+    (org-roam-verbose nil)
+    (org-roam-graph-viewer (if (eq system-type 'darwin) "open")) ;
+    :bind (:map org-roam-mode-map
+                (("C-c n l" . org-roam)
+                 ("C-c n f" . org-roam-find-file)
+                 ("C-c n x" . org-roam-jump-to-index)
+                 ("C-c n d" . org-roam-doctor)
+                 ("C-c n s" . org-roam-switch-to-buffer)
+                 ("C-c n u" . org-roam-unlinked-references)
+                 ("C-c n c" . org-roam-create-file)
+                 ("C-c n g" . org-roam-graph))
+                :map org-mode-map
+                (("C-c n i" . org-roam-insert)
+                 ("C-c n I" . org-roam-insert-immediate)))
+    :config
+    (org-roam-mode)
+    (require 'org-roam-protocol)
+    (custom-set-faces
+     '(org-roam-link
+       ((t (:foreground "#8B0000")))))    ; dark red
+
+  (defun org-roam-create-file ()
+    "Create a new roam file based on text under cursor
+
+          The line under cursor is used to create the new file name
+          slug. Org-mode header, line iterm markup is ignored from
+          the beginning of the line. Todo keywords are parsed from
+          variable org-todo-keywords and ignored. The remaining
+          text is turned the slug and a new org-roam file is
+          created. The selected text is turned into org-roam link
+          to the new file. Both files are saved and focus moved to
+          the new file.
+
+          If there is an active region, it is used to as the new file
+          name slug. Use carefully and and pay attention to what is selected!
+
+          If the slug is a substring of an existing filename, a new
+          link is created pointing to that file.
+
+          This function supports a concept note taking workflow where new
+          topics are listed in an outline as org headers or list items in
+          an index file.
+
+          Refactoring notes:
+
+          Org-roam 1.2.0 only supports capture templates for new file
+          creation. Additional header information from capture templates is
+          not used. See `org-roam-insert-immediate'.
+
+          No true org element parsing is attempted here. A fast, custom
+          regexp used covers most common use cases."
+    (interactive)
+    (when (org-roam--org-roam-file-p)
+      (let* ((new-name "")
+             (new-slug "")
+             (existing-roam-file "")
+             (new-path "")
+             (rstart (region-beginning))
+             (rend (region-end))
+             (todo-keys (seq-mapn
+                         (lambda (x)
+                           (replace-regexp-in-string
+                            (rx (syntax open-parenthesis)
+                                (* anything))
+                            ""
+                            x))
+                         (cdr (car org-todo-keywords))))
+             (datetime-prefix
+              (format-time-string
+               (substring org-roam-capture--file-name-default 2 -1))))
+        ;; without active region, use heuristics
+        (when (not (use-region-p))
+          (goto-char (line-beginning-position))
+          ;; skip org todo keys, header, and line item syntax
+          (re-search-forward
+           (rx-to-string `(zero-or-more
+                           (or          ; -- strings
+                            "[X]"       ; list item checkbox
+                            ,@todo-keys ; current todo keywords
+                            (any space  ; -- characters
+                                 "-"    ; unordered list item
+                                 "+"    ; unordered list item
+                                 "["    ; list item checkbox
+                                 "]"    ; list item checkbox
+                                 num    ; ordered list item
+                                 ")"    ; ordered list item
+                                 "."    ; ordered list item
+                                 "*")))) ; unordered list item or header
+           (line-end-position) t)
+          (setq rstart (point)
+                rend (line-end-position)))
+
+        ;; replace text with a roam link
+        (setq new-name (buffer-substring rstart rend))
+        (setq new-slug (org-roam--title-to-slug new-name))
+        ;; find a possible existing file, use relative links
+        ;; does not work with nested directory structure!
+        (setq existing-roam-file
+              (car (seq-filter '(lambda (x)  ; take the first
+                                  (if (string-match-p new-slug x)
+                                      x))
+                               (directory-files "."))))
+        ;; TODO sanity check for new-name
+        ;; - string length
+        ;; - duplicates
+        ;;
+
+        ;; replace text with a link
+        (delete-region rstart rend)
+        (if existing-roam-file
+            (progn
+              ;; file exists!
+              (setq new-path existing-roam-file)
+              (message "Linked to an existing file!"))
+          (setq new-path (concat datetime-prefix
+                                 "-"
+                                 new-slug
+                                 "."
+                                 (car org-roam-file-extensions))))
+        (insert (org-roam--format-link new-path
+                                       (org-roam--format-link-title new-name)))
+
+        ;; create, switch to, initialize and save the new buffer
+        (unless existing-roam-file
+          (save-buffer)
+          (find-file new-path)
+          (insert "#+title: " new-name "\n")
+          (write-file new-path)))))
+
+)
+
+    (use-package company-org-roam
+      :after org-roam
+      :config
+      (push 'company-org-roam company-backends))
+
+    (use-package org-roam-bibtex
+      :after org-roam
+      :hook (org-roam-mode . org-roam-bibtex-mode)
+      :bind (:map org-mode-map
+                  (("C-c n a" . orb-note-actions)))
+      :custom
+      (orb-note-actions-frontend 'hydra)
+      :config
+      ;; (org-roam-bibtex-mode +1)
+      )
+#+end_src
+
+To use it:
+
+org-roam-capture-templates
+
+(("d" "default" plain #'org-roam-capture--get-point "%?"
+:file-name "%<%Y%m%d%H%M%S>-${slug}" :head "#+title: ${title}\n" :unnarrowed t))
+
+
+
+The template prompt wildcards for preformatting.
+
+Only relevant when orb-preformat-templates is set to
+t (default).  This can be a string, a list of strings or
+a cons-cell alist, where each element is (STRING . STRING).
+
+Use only alphanumerical characters, dash and underscore.  See
+orb-edit-notes for implementation details.
+
+1. If the value is a string, a single keyword, it is treated as a
+BibTeX field-name, such as =key=.  In the following example all
+the prompts with the '=key=' keyword will be preformatted, as
+well as the corresponding match group %\1.
+
+(setq orb-preformat-keywords "=key=")
+(setq orb-preformat-keywords '("citekey" "date" "type" "pdf?" "note?" "author" "editor" "author-abbrev" "editor-abbrev" "author-or-editor-abbrev")
+)
+(setq org-roam-capture-templates
+      '(("d" "default" plain #'org-roam-capture--get-point "%?"
+         "#+ROAM_KEY: %<%Y%m%d%H%M%S>-${slug}"
+         :file-name "%<%Y%m%d%H%M%S>-${slug}"
+         :head "#+title: ${title}\n#+journal: ${journaltitle}\n"
+         :unnarrowed t)))
+
+
+2. If the value is a list of strings they are also treated as
+BibTeX field-names.  The respective prompts will be preformatted.
+
+(setq orb-preformat-keywords '("=key=" "title"))
+(setq org-roam-capture-templates
+      '(("r" "reference" plain (function org-roam-capture--get-point)
+         "#+ROAM_KEY: %^{=key=}%? fullcite: %\\1"
+         :file-name "references/${=key=}"
+         :head "#+TITLE: ${title}"
+         :unnarrowed t)))
+
+3. If the value is a list of cons cells, then the car of the cons
+cell is treated as a prompt keyword and the cdr as a BibTeX field
+name, and the latter will be used to retrieve the relevant value
+from the BibTeX entry.  If cdr is omitted, then the car is
+treated as the field name.
+
+(setq orb-preformat-keywords
+      '(("citekey" . "=key=")
+       ("type" . "=type=")
+       "title"))
+(setq org-roam-capture-templates
+      '(("r" "reference" plain (function org-roam-capture--get-point)
+         "#+ROAM_KEY: %^{citekey}%? fullcite: %\\1
+          #+TAGS: %^{type}
+          This %\\2 deals with ..."
+         :file-name "references/%<%Y-%m-%d-%H%M%S>_${title}"
+         :head "#+TITLE: ${title}"
+         :unnarrowed t)))
+
+
+call interactively `org-roam-bibtex-mode' or
+call (org-roam-bibtex-mode +1) from Lisp.
+
+After enabling ` org-roam-bibtex-mode ', the function
+`orb-edit-notes' will shadow `bibtex-completion-edit-notes' in
+Helm-bibtex, Ivy-bibtex.
+
+Additionally, `orb-notes-fn', which is a simple wrapper around
+`orb-edit-notes', is installed as Org-ref's
+`org-ref-notes-function'.  See Org-ref's documentation for how to
+setup many-files notes.  Take a notice that because of its size,
+Org-ref is not a dependency of Org-roam-bibtex, so it will not be
+pulled automatically by your package manager and must be installed
+manually.
+
+As a user option, `org-roam-capture-templates' can be dynamically
+preformatted with bibtex field values.  See
+`orb-preformat-keywords' for more details.
+
+Optionally, automatic switching to the perspective (Persp-mode)
+with the notes project (Projectile) is possible.  See
+`orb-edit-notes' for more details.
+
+orb-preformat-keywords
+(setq orb-preformat-keywords '("journaltitle" "date"))
+
+(map! :leader
+            :prefix "n"
+            :desc "org-roam" "l" #'org-roam
+            :desc "org-roam-insert" "i" #'org-roam-insert
+            :desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
+            :desc "org-roam-find-file" "f" #'org-roam-find-file
+            :desc "org-roam-show-graph" "g" #'org-roam-show-graph
+            :desc "org-roam-insert" "i" #'org-roam-insert
+            :desc "org-roam-capture" "c" #'org-roam-capture))
+
+
+
 * Applications
 
 Functionality that otherwise require external applications and are not
 really something a normal text editor would do.
 
-** PDF
+** PENDING PDF
 
 The [[https://github.com/politza/pdf-tools][pdf-tools]] package gives you fast in-memory rendering of PDF that
 is always in right resolution. It allows searching of PDFs with
@@ -8406,10 +8723,25 @@ The read functions report their action in the echo field.
                  do (yank)
                  do (org-capture-finalize)
                  (mapc #'elfeed-search-update-entry entries))
-        (unless (use-region-p) (forward-line)))))
+        (unless (use-region-p) (forward-line))))
+
+    (defun ar/elfeed-search-browse-background-url ()
+      "Open current `elfeed' entry (or region entries) in browser without losing focus."
+      (interactive)
+      (let ((entries (elfeed-search-selected)))
+        (mapc (lambda (entry)
+                (assert (memq system-type '(darwin)) t "open command is macOS only")
+                (start-process (concat "open " (elfeed-entry-link entry))
+                               nil "open" "--background" (elfeed-entry-link entry))
+                (elfeed-untag entry 'unread)
+                (elfeed-search-update-entry entry))
+              entries)
+        (unless (or elfeed-search-remain-on-entry (use-region-p))
+          (forward-line)))))
+
 #+END_SRC
 
-** Twitter
+** PENDING Twitter
 
 [[http://www.emacswiki.org/emacs/TwitteringMode][Twittering mode]] ([[https://github.com/hayamiz/twittering-mode][Github]])gives a full blown twitter client with avatar
 images, filtering, and posting. The key map incantation is "Emacs,
@@ -8550,7 +8882,7 @@ See https://github.com/abo-abo/hydra/wiki/Twittering
                ("a" . twittering-toggle-activate-buffer)))
 #+END_SRC
 
-** EPUB reader
+** PENDING EPUB reader
 
 [[https://github.com/wasamasa/nov.el][nov.el]] is already better for reading EPUB texts than
 [[https://github.com/bddean/emacs-ereader][ereader]], and it is being rapidly developed further.
@@ -8577,7 +8909,7 @@ I installed Liberation Serif for nov.el use.
     (add-hook 'nov-mode-hook #'visual-line-mode))
 #+END_SRC
 
-** Graphs
+** PENDING Graphs
 
 *** Mermaid for GANTT and flow
 
@@ -8880,6 +9212,8 @@ Eshell is a shell written in elisp that integrates with with emacs
 environment. My shortcut incantation is "Emacs, launch shell", =C-x
 l x=. (Sorry, this does not make sense!)
 
+Alternative is to use =eshell-toggle= and call it with hydra =C-x t e=.
+
 The use of directory file:~/.emacs.p is from [[http://fasciism.com/2017/01/26/eshell-customizations/][Eshell Customizations]].
 
 See [[https://github.com/howardabrams/dot-files/blob/master/emacs-eshell.org][dot-files/emacs-eshell.org at master · howardabrams/dot-files]] for
@@ -8889,98 +9223,113 @@ The way to find more about shell commands is the same as in other
 shells: use =which=.
 
 #+BEGIN_SRC emacs-lisp
-    (use-package eshell
-      :bind (("C-c 1" . eshell-here)
-             ("C-c 2" . eshell-here-previous))
-      :config
-      (setenv "PAGER" "cat")
+  (use-package eshell
+    :bind (("C-c 1" . eshell-here)
+           ("C-c 2" . eshell-here-previous))
+    :custom
+    ;; (shell-file-name "/usr/local/bin/fish")
+    (shell-file-name "/bin/zsh")
+    :config
+    (setenv "PAGER" "cat")
 
-      (defalias 'open 'find-file)
-      (defalias 'openo 'find-file-other-window)
+    (defalias 'open 'find-file)
+    (defalias 'openo 'find-file-other-window)
 
-      ;; from howardabrams
-      (defun eshell-here (arg)
-        "Opens up a new shell in the directory associated with the
-            current buffer's file. The eshell is renamed to match that
-            directory to make multiple eshell windows easier.
-           Universal argument switches to an existing eshell buffer."
-        (interactive "P")
-        (let* ((height (/ (window-total-height) 3)))
-          (split-window-vertically (- height))
-          (other-window 1)
-          (if arg (eshell) (eshell "new"))
-          (insert (concat "ls"))
-          (eshell-send-input)))
+    ;; from howardabrams
+    (defun eshell-here (arg)
+      "Opens up a new shell in the directory associated with the
+              current buffer's file. The eshell is renamed to match that
+              directory to make multiple eshell windows easier.
+             Universal argument switches to an existing eshell buffer."
+      (interactive "P")
+      (let* ((height (/ (window-total-height) 3)))
+        (split-window-vertically (- height))
+        (other-window 1)
+        (if arg (eshell) (eshell "new"))
+        (insert (concat "ls"))
+        (eshell-send-input)))
 
-      (defun eshell-here-previous ()
-        (interactive)
-        (let ((current-prefix-arg 4)) ;; emulate C-u
-          ;; invoke align-regexp interactively
-          (call-interactively 'eshell-here)))
+    (defun eshell-here-previous ()
+      (interactive)
+      (let ((current-prefix-arg 4)) ;; emulate C-u
+        ;; invoke align-regexp interactively
+        (call-interactively 'eshell-here)))
 
-      (setq eshell-history-size 100000
-            eshell-directory-name "~/.emacs.p/eshell")
+    (setq eshell-history-size 100000
+          eshell-directory-name "~/.emacs.p/eshell")
 
-      (defun eshell/gst (&rest args)
-        (magit-status-internal (pop args) nil)
-        (eshell/echo))   ;; The echo command suppresses output
+    (defun eshell/gst (&rest args)
+      (magit-status-internal (pop args) nil)
+      (eshell/echo))   ;; The echo command suppresses output
 
-      (defun eshell/dd (&rest args)
-        (dired (pop args) "."))
+    (defun eshell/dd (&rest args)
+      (dired (pop args) "."))
 
-      (defun eshell/d ()
-        "Open a dired instance of the current working directory."
-        (dired "."))
+    (defun eshell/d ()
+      "Open a dired instance of the current working directory."
+      (dired "."))
 
-      (defun eshell/qq ()
-        "Send the *eshell* buffer to the back of buffer list."
-        (bury-buffer)
-        (delete-window)))
+    (defun eshell/qq ()
+      "Send the *eshell* buffer to the back of buffer list."
+      (bury-buffer)
+      (delete-window)))
 
-    ;; cd to a frequent directory
-    (use-package eshell-z
-      :after eshell)
+  (use-package shell-pop
+    :after eshell
+    :custom
+    ;; This binding toggles popping up a shell, or moving cursour to the shell pop-up.
+    (shell-pop-universal-key "C-c 3")
+    ;; Percentage for shell-buffer window size.
+    (shell-pop-window-size 30)
+    ;; Position of the popped buffer: top, bottom, left, right, full.
+    (shell-pop-window-position "bottom")
+    ;; Please use an awesome shell.
+    ;;(shell-pop-term-shell "/bin/zsh")
+    )
 
-    ;; Quickly go to a specific parent directory in eshell
-    (use-package eshell-up
-      :after eshell)
+  ;; cd to a frequent directory
+  (use-package eshell-z
+    :after eshell)
 
-    (use-package fish-completion
-      :if (executable-find "fish")
-      :after eshell
-      :config (global-fish-completion-mode))
+  ;; Quickly go to a specific parent directory in eshell
+  (use-package eshell-up
+    :after eshell)
 
-    ;; `company-mode' backend to provide eshell history suggestion
-    (use-package esh-autosuggest
-      :hook (eshell-mode . esh-autosuggest-mode))
+  (use-package fish-completion
+    :if (executable-find "fish")
+    :after eshell
+    :config (global-fish-completion-mode))
 
-    (use-package company-shell
-      :defer t)
+  ;; `company-mode' backend to provide eshell history suggestion
+  (use-package esh-autosuggest
+    :hook (eshell-mode . esh-autosuggest-mode))
 
-    (use-package fish-mode
-      :mode "\\.fish\\'"
-      :hook ((fish-mode shell-mode) . fish-mode-init)
-      :config
-      (defun fish-mode-init ()
-        (setq-local company-backends '((company-fish-shell
-                                        company-shell
-                                        company-shell-env
-                                        company-files
-                                        company-dabbrev-code
-                                        company-yasnippet)))))
+  (use-package company-shell
+    :defer t)
+
+  (use-package fish-mode
+    :mode "\\.fish\\'"
+    :hook ((fish-mode shell-mode) . fish-mode-init)
+    :config
+    (defun fish-mode-init ()
+      (setq-local company-backends '((company-fish-shell
+                                      company-shell
+                                      company-shell-env
+                                      company-files
+                                      company-dabbrev-code
+                                      company-yasnippet)))))
 
   (use-package eshell-toggle
     :quelpa (eshell-toggle
              :repo "4DA/eshell-toggle"
              :fetcher github
              :version original)
-    :bind ("s-`" . eshell-toggle)
+    ;; :bind ("s-`" . eshell-toggle) ; call with hydra =C-x t e=
     :custom
     (eshell-toggle-size-fraction 3)
     (eshell-toggle-use-projectile-root t)
     (eshell-toggle-run-command nil)
     (eshell-toggle-init-function #'eshell-toggle-init-ansi-term))
-
 #+END_SRC
 
 ** PENDING shell
@@ -9158,7 +9507,7 @@ The [[https://github.com/vibhavp/emacs-xkcd][xkcd]] package implements an [[Http
                ("b" . xkcd-open-browser)))
 #+END_SRC
 
-*** 2048-game
+*** PENDING 2048-game
 
 Start a pure emacs and text-only version of the [[http://gabrielecirulli.github.io/2048/][2048]] game with
 =C-x l 2=.
