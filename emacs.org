@@ -5581,28 +5581,24 @@ This and more files can be reached with my hydra-files by =C-z=.
     (find-file (expand-file-name "emacs.org" user-emacs-directory)))
   (bind-key "C-c e" 'my/edit-emacs-configuration)
 
-  ;; I often want to add more comments to the last note
-  (defun my/last-captured-org-note ()
-    "Move to the last line of the last org capture note."
-    (interactive)
-    (find-file "~/Dropbox/org/reference.org")
-    (goto-char (point-max)))
-
   (bind-key "C-c z" 'hydra-goto/body)
   (defhydra hydra-goto (:color blue :hint nil)
     "
-         goto   buffer                                          info
-                -----------------------------------------------------
-                _c_hangeLog     _r_eference.org: last note      _o_rg
-                _e_macs.org     _s_cratch
-                _d_otfiles.txt  _w_ork.org
-                _h_ome.gpg      _l_edger:refile.led
-                _a_bbrevs       _k_äyttötili.led
-                _p_rojects      _m_medical.txt
+         goto   ^buffer^                                       ^info
+                ^------^---------------------------------------^----
+                _a_bbrevs         _l_edger:refile.led          _o_rg
+                _c_hangeLog       _m_medical.txt
+                _d_otfiles.txt    _p_rojects
+                _e_macs.org       _r_eference.org: last note
+                _g_asum           _s_cratch
+                _h_ome.gpg        _w_ork.org
+                _k_äyttötili.led
              "
-    ("c" (find-file "~/Dropbox/installation.notes/balamac/ChangeLog"))
-    ("e" (find-file (expand-file-name "emacs.org" user-emacs-directory)))
+
+    ("a" (find-file (expand-file-name "abbrev_defs" user-emacs-directory)))
+    ("c" (find-file "~/Dropbox/org/changelog.org"))
     ("d" (find-file "~/Dropbox/dotfiles/dotfiles.txt"))
+    ("e" (find-file (expand-file-name "emacs.org" user-emacs-directory)))
     ("g" (progn
            (find-file "~/Dropbox/org/reference.org")
            (goto-char (point-min))
@@ -5610,14 +5606,16 @@ This and more files can be reached with my hydra-files by =C-z=.
            (org-reveal)
            (org-show-context)))
     ("h" (find-file "~/Documents/documents/details/home.gpg"))
+    ("k" (find-file "~/Documents/ledger/2020_tilit.led"))
+    ("l" (find-file "~/Documents/ledger/refile.led"))
     ("m" (find-file "~/Documents/medical/medical.txt"))
-    ("r" my/last-captured-org-note)
+    ("p" (find-file "~/Documents/csc/csc-project-data.txt"))
+    ("r" (progn
+           (find-file "~/Dropbox/org/reference.org")
+           (goto-char (point-max))))
     ("s" (switch-to-buffer "*scratch*"))
     ("w" (find-file "~/Dropbox/org/work.org"))
-    ("l" (find-file "~/Documents/ledger/refile.led"))
-    ("k" (find-file "~/Documents/ledger/2019_tilit.led"))
-    ("p" (find-file "~/Documents/csc/csc-project-data.txt"))
-    ("a" (find-file "~/.emacs.d/abbrev_defs"))
+
     ("o" org-info))
 #+END_SRC
 
