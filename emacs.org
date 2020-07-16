@@ -35,15 +35,21 @@ does away the need to use =:ensure t= anywhere. The opposite can be
 true: There are cases when it is necessary to say =:ensure nil= to
 prevent loading of non-existing packages.
 
-System dependencies are defined using
-=use-package-ensure-system-package= from [[https://github.com/waymondo/use-package-ensure-system-package][waymondo]].
+System dependencies are defined with =use-package-ensure-system-package=
+from [[https://github.com/waymondo/use-package-ensure-system-package][waymondo]]. It expands the usa-package macro with the
+=:ensure-system-package= tag. These package are typically command line
+tools like =rg= or =mu=.
 
-For some reason, OSX is not detected, so I am setting =brew= manually.
+For some reason, OSX is not detected, so I am setting the homebrew
+package manager manually.
+
+[[https://github.com/quelpa/quelpa#installation][quelpa]] is an other extension that adds the epinymous tag for fetching
+and building a package from various sources and building it. Quelpa is
+configured in the init.el file together with use-package.
 
 #+BEGIN_SRC emacs-lisp
   (use-package use-package-ensure-system-package
-    :init
-    (setq system-packages-package-manager 'brew))
+    :custom (system-packages-package-manager 'brew))
 #+END_SRC
 
 ** Installation
@@ -535,8 +541,7 @@ files have been selected.
 
     (use-package dired-details+
       :defer t
-      :init
-      (setq dired-details-hidden-string ""))
+      :custom (dired-details-hidden-string ""))
 
     (use-package dired-narrow
       :defer t
@@ -2116,7 +2121,6 @@ buffers.
   (use-package super-save
     :defer nil
     :diminish ""
-    :init
     :custom
     (super-save-auto-save-when-idle t)
     (super-save-idle-duration 10 "def 5 sec")
@@ -2789,8 +2793,16 @@ smart-comment-end-action
   ;;      :bind "M-;"))
 
   (use-package smart-comment
-    :bind ("M-;" . smart-comment))
+    :bind ("M-;" . smart-comment)
+    :custom (smart-comment-mark-string "✠"))
 #+END_SRC
+
+
+place cursor at the end of the line, press ==M-;==
+and in modes that support it will add end of line comment
+# comment line
+# ✠ line marked for deletion with C-u M-;
+remove with =C-u C-u M-;=
 
 Remember: =C-x ;= sets the comment column (comment-set-column)
 
@@ -3367,21 +3379,24 @@ hit =C-x l g= that is short for "Emacs, launch grammar".
            ("C-x 4 l" . langtool-switch-default-language)
            ("C-x 4 4" . langtool-show-message-at-point)
            ("C-x 4 c" . langtool-correct-buffer))
-    :init
-    (setq langtool-language-tool-jar
-          "/usr/local/Cellar/languagetool/4.3/libexec/languagetool-commandline.jar")
-    (setq langtool-default-language "en")
-    ;; (setq langtool-user-arguments '(\"--languagemodel ~/data/lt\"))
-    (setq langtool-user-arguments '("--languagemodel" "~/data/lt")) ; try!
-    ;;(setq langtool-user-arguments "--languagemodel ~/data/lt")
-    ;;    (setq langtool-java-user-arguments nil)
-    (setq langtool-mother-tongue "en")
-    (setq langtool-disabled-rules '("WHITESPACE_RULE"
-                                    "EN_UNPAIRED_BRACKETS"
-                                    "COMMA_PARENTHESIS_WHITESPACE"
-                                    "EN_QUOTES"
-                                    "MORFOLOGIK_RULE_EN_GB"
-                                    "MORFOLOGIK_RULE_US")))
+    :custom
+    (langtool-language-tool-jar
+     "/usr/local/Cellar/languagetool/4.7/libexec/languagetool-commandline.jar"
+     "VERSION STRING HAS TO BE CHANGED WHEN UPGRADING")
+    (langtool-default-language "en" "British")
+    (langtool-user-arguments '("--languagemodel" "~/data/lt") " try!")
+    (langtool-mother-tongue "en")
+    (langtool-disabled-rules '("WHITESPACE_RULE"
+                               "EN_UNPAIRED_BRACKETS"
+                               "COMMA_PARENTHESIS_WHITESPACE"
+                               "EN_QUOTES"
+                               "MORFOLOGIK_RULE_EN_GB"
+                               "MORFOLOGIK_RULE_US"))
+    :config
+    (add-hook 'langtool-error-exists-hook
+              (lambda ()
+                (langtool-correct-buffer)
+                (langtool-check-done))))
 #+END_SRC
 
 *** Word definition
@@ -3427,9 +3442,7 @@ show alternative words.
 #+BEGIN_SRC emacs-lisp
   (use-package synosaurus
     :defer t
-    :init
-    ;;(setq synosaurus-backend)
-    (setq synosaurus-choose-method 'popup)
+    :custom (synosaurus-choose-method 'popup)
     :config
     (add-hook 'text-mode-hook #'synosaurus-mode))
 #+END_SRC
@@ -3523,7 +3536,7 @@ Large numbers made easier to read by highlighting groups of three.
 
 #+BEGIN_SRC emacs-lisp
   (use-package digit-groups
-    :init (setq digit-groups-global-mode t))
+    :custom (digit-groups-global-mode t))
 #+END_SRC
 
 This was added to the toggle hydra and can be invoked with =C-x t g=,
@@ -4133,12 +4146,12 @@ Use the built-in =cperl-mode= instead of the default =perl-mode=
   (use-package cperl-mode
     :mode "\\.\\([pP][Llm]\\|al\\)\\'"
     :interpreter ("perl" "perl5" "miniperl")
-    :init
-    (setq cperl-indent-level 4
-          cperl-close-paren-offset -4
-          cperl-continued-statement-offset 4
-          cperl-indent-parens-as-block t
-          cperl-tab-always-indent t)
+    :custom
+    (cperl-indent-level 4)
+    (cperl-close-paren-offset -4)
+    (cperl-continued-statement-offset 4)
+    (cperl-indent-parens-as-block t)
+    (cperl-tab-always-indent t)
     :config
     (defun my/cperl-mode-hook ()
       (my/turn-on 'show-paren
@@ -4445,17 +4458,17 @@ so I bind the functions to Command (Super) key: =s-up>= and
            ("\\.html\\.erb\\'" . web-mode)
            ("\\.mustache\\'" . web-mode)
            ("\\.php\\'" . web-mode))
-    :init
-    (setq web-mode-markup-indent-offset 2)
-    (setq web-mode-code-indent-offset 2)
-    (setq web-mode-css-indent-offset 2)
+    :custom
+    (web-mode-markup-indent-offset 2)
+    (web-mode-code-indent-offset 2)
+    (web-mode-css-indent-offset 2)
 
-    (setq web-mode-enable-auto-pairing t)
-    (setq web-mode-enable-auto-expanding t)
-    (setq web-mode-enable-css-colorization t)
+    (web-mode-enable-auto-pairing t)
+    (web-mode-enable-auto-expanding t)
+    (web-mode-enable-css-colorization t)
 
-    (setq web-mode-enable-current-element-highlight nil)
-    (setq web-mode-enable-current-column-highlight nil))
+    (web-mode-enable-current-element-highlight nil)
+    (web-mode-enable-current-column-highlight nil))
 #+END_SRC
 
 Also, check out [[https://github.com/smihica/emmet-mode][emmet-mode]].
@@ -5092,11 +5105,11 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
 
 #+BEGIN_SRC emacs-lisp
   (use-package bm
-    :init
-    (setq bm-in-lifo-order t)
-    (setq bm-cycle-all-buffers t)
-    (setq bm-highlight-style 'bm-highlight-only-fringe)
-    (setq bm-marker 'bm-marker-left)
+    :custom
+    (bm-in-lifo-order t)
+    (bm-cycle-all-buffers t)
+    (bm-highlight-style 'bm-highlight-only-fringe)
+    (bm-marker 'bm-marker-left)
     :bind
     (("C-c x" . hydra-bookmark/body))
     ("<left-fringe>" . bm-next-mouse)
@@ -5385,9 +5398,9 @@ functionality to it.
   (use-package projectile
     :defer t
     :diminish ""
-    :init
-    (setq projectile-completion-system 'ivy)
-    (setq projectile-file-exists-remote-cache-expire nil)
+    :custom
+    (projectile-completion-system 'ivy)
+    (projectile-file-exists-remote-cache-expire nil)
     :config
     (projectile-mode))
 
@@ -5788,8 +5801,7 @@ Uses =variable-pitch-mode=. To change the font, modify the
     :defer t
     ;; :after org
     ;;:hook ((org-mode . org-variable-pitch-minor-mode))
-    :init
-    (setq org-variable-pitch-fixed-font "Hack")
+    :custom (org-variable-pitch-fixed-font "Hack")
     :config
     (add-to-list 'org-variable-pitch-fixed-faces 'org-date)
     (set-face-attribute 'variable-pitch nil
@@ -5846,8 +5858,8 @@ Uses =variable-pitch-mode=. To change the font, modify the
       :after org
       :defer t
       :ensure nil
-      :init
-      (setq org-contacts-files '("~/Dropbox/org/contacts.org")))
+      :custom (org-contacts-files '("~/Dropbox/org/contacts.org")))
+
 #+END_SRC
 
 See [[http://kitchingroup.cheme.cmu.edu/blog/2015/06/22/Clickable-org-contacts-in-text-files/][this page]] for clickable org-contacts in text files.
@@ -5894,13 +5906,12 @@ Added a hydra to [[https://oremacs.com/2016/04/04/hydra-doc-syntax/][prettify]] 
 #+BEGIN_SRC emacs-lisp
   (use-package suomalainen-kalenteri
     :defer t
-    :init (setq org-agenda-start-on-weekday 1)) ;; 1 is Monday
+    :custom (org-agenda-start-on-weekday 1)) ;; 1 is Monday
 
   ;; speed-ups
   (setq org-agenda-inhibit-startup t
         org-agenda-use-tag-inheritance nil
         org-agenda-show-future-repeats 'next)
-
 
   ;;(define-key org-agenda-mode-map
   ;;    "v" 'hydra-org-agenda-view/body)
@@ -6782,11 +6793,11 @@ blocks. This also highlights source blocks in HTML exports.
   ;; https://github.com/howardabrams/dot-files/blob/master/emacs-org.org
   (use-package ox-html
     :ensure nil
-    :init
-    (setq org-html-postamble nil)
-    (setq org-export-with-section-numbers nil)
-    (setq org-export-with-toc nil)
-    (setq org-html-head-extra "
+    :custom
+    (org-html-postamble nil)
+    (org-export-with-section-numbers nil)
+    (org-export-with-toc nil)
+    (org-html-head-extra "
        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
        <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700' rel='stylesheet' type='text/css'>
        <style type='text/css'>
@@ -7211,28 +7222,50 @@ Read the [[https://github.com/jkitchin/org-ref/blob/master/org-ref.org][org-ref 
 Looks like org-ref messes with LaTeX references unless it is told not
 to.
 
+ivy-bibtex is in the same repo:
+[[https://github.com/tmalsburg/helm-bibtex][GitHub - tmalsburg/helm-bibtex: Search and manage bibliographies in Emacs]]
+
 #+BEGIN_SRC emacs-lisp
-  (use-package org-ref
-    :defer t
-    :after org
-    :init
-    (setq org-ref-bibliography-notes "~/Documents/bibliography/notes.org"
-          org-ref-default-bibliography '("~/Documents/latex/all.bib")
-          org-ref-pdf-directory "~/Documents/bibliography/bibtex-pdfs/"))
-  ;; org-ref-ivy-bibtex
-  ;; Do not mess up user defined label names
-  (setq org-latex-prefer-user-labels t)
+
+    (use-package ivy-bibtex
+      :bind ("C-c 9" . ivy-bibtex)
+      :custom
+      (bibtex-completion-bibliography '("~/Downloads/articles/hol-library.bib"))
+      (ivy-re-builders-alist
+       '((ivy-bibtex . ivy--regex-ignore-order)
+         (t . ivy--regex-plus)))
+      (bibtex-completion-pdf-field "file") ; using bibtex path reference to pdf file
+      (bibtex-completion-notes-path "~/Dropbox/org/zettel")
+      (bibtex-completion-pdf-symbol "⌘")
+      ;; (ivy-bibtex-default-action 'bibtex-completion-insert-citation)
+      (ivy-bibtex-default-action 'orb-notes-fn)
+  )
+
+      (use-package org-ref
+        :defer t
+        :after org
+        :custom
+        (org-ref-bibliography-notes "~/Documents/bibliography/notes.org")
+        (org-ref-default-bibliography '("~/Downloads/articles/hol-library.bib"))
+        (org-ref-pdf-directory "~/Documents/bibliography/bibtex-pdfs/")
+        ;; org-ref-ivy-bibtex
+        ;; Do not mess up user defined label names
+
+        (setq org-latex-prefer-user-labels t))
+
+
 #+END_SRC
+
 
 #+BEGIN_SRC emacs-lisp
   (setq reftex-default-bibliography
-        (quote ("~/Documents/latex/all.bib")))
+        (quote ("~/Downloads/articles/hol-library.bib")))
 
   (use-package gscholar-bibtex
     :defer t
-    :init
-    (setq gscholar-bibtex-database-file "~/Documents/latex/all.bib")
-    (setq gscholar-bibtex-default-source "Google Scholar")
+    :custom
+    (gscholar-bibtex-database-file "~/Downloads/articles/hol-library.bib")
+    (gscholar-bibtex-default-source "Google Scholar")
     :config
     (set-face-attribute 'gscholar-bibtex-title nil
                         :height 1.1
@@ -7335,9 +7368,7 @@ code blocks.
   (use-package ox-reveal
     :disabled t
     :after org
-    :init
-    ;; (setq org-reveal-root "file:~/src/reveal.js")
-    (setq org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"))
+    :custom (org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"))
 
   (use-package htmlize
     :defer t)
@@ -8224,11 +8255,12 @@ The read functions report their action in the echo field.
                 ("l" . elfeed-search-link-title)
                 ("v" . elfeed-search-quick-url-note))
     :init
-    (setq my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
     (setq-default elfeed-search-filter my/default-elfeed-search-filter)
-    (setq elfeed-sort-order 'ascending)
-    (setq elfeed-search-title-max-width 80) ; newspaper articles have long titles
-    (setq elfeed-use-curl t) ; new, using curl; now default, this is not needed
+    :custom
+    (my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
+    (elfeed-sort-order 'ascending)
+    (elfeed-search-title-max-width 80) ; newspaper articles have long titles
+    (elfeed-use-curl t) ; new, using curl; now default, this is not needed
     :config
 
     (use-package elfeed-goodies
@@ -8601,7 +8633,7 @@ Put the cursor inside an URL and incant: Emacs, lauch web =C-x l w=.
   (setq browse-url-browser-function 'browse-url-default-browser)
   (use-package w3m
     :defer t
-    :init (setq w3m-use-cookies t)
+    :custom (w3m-use-cookies t)
     :config (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t))
 #+END_SRC
 
@@ -8805,12 +8837,12 @@ for org-mode. [[https://github.com/masasam/emacs-easy-hugo][masasam/emacs-easy-h
 
 #+BEGIN_SRC emacs-lisp
   (use-package easy-hugo
-    :init
-    (setq easy-hugo-basedir "~/hugo/test/")
-    (setq easy-hugo-url "https://example.org/")
-    (setq easy-hugo-sshdomain "blogdomain")
-    (setq easy-hugo-root "/home/blog/")
-    (setq easy-hugo-previewtime "300")
+    :custom
+    (easy-hugo-basedir "~/hugo/test/")
+    (easy-hugo-url "https://example.org/")
+    (easy-hugo-sshdomain "blogdomain")
+    (easy-hugo-root "/home/blog/")
+    (easy-hugo-previewtime "300")
     :config
     (defhydra hydra-blog (:color blue :hint nil)
       "
@@ -9039,9 +9071,7 @@ are documented under =rx=:
 #+BEGIN_SRC emacs-lisp
   (use-package re-builder
     :defer 5
-    :init
-    ;; (setq reb-re-syntax 'string)
-    (setq reb-re-syntax 'rx))
+    :custom (reb-re-syntax 'rx)) ;'string
 #+END_SRC
 
 [[https://github.com/jwiegley/regex-tool/blob/master/regex-tool.el][jwiegley/regex-tool]] is similar tool for PCRE regexps.
@@ -9097,9 +9127,9 @@ Run =C-u 10 M-x tea-timer= to get the alert after 10 minutes.
   (use-package tea-timer
     :defer t
     :load-path "elisp/"
-    :init
-    (setq tea-timer-default-duration 1.5)
-    (setq tea-timer-message "Tea is ready!"))
+    :custom
+    (tea-timer-default-duration 1.5)
+    (tea-timer-message "Tea is ready!"))
 #+END_SRC
 
 ** Toys
