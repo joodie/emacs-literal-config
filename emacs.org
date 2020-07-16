@@ -315,10 +315,19 @@ A replacement for the Emacs **help** buffer.
 
 [[https://github.com/Wilfred/helpful][Wilfred/helpful: A better Emacs *help* buffer]]
 
+with an enhancement from [[https://github.com/xuchunyang/elisp-demos][xuchunyang/elisp-demos: Demonstrate Emacs
+Lisp APIs]] to display code examples of functions in use.
+
 #+BEGIN_SRC emacs-lisp
   (use-package helpful
     :bind (("C-h o" . helpful-at-point)
            ("C-h k" . helpful-key)))
+
+  (use-package elisp-demos
+    :after helpful
+    :config
+    (advice-add 'helpful-update
+                :after #'elisp-demos-advice-helpful-update))
 #+END_SRC
 
 ** Load secrets
