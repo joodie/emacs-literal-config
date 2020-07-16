@@ -5294,6 +5294,34 @@ use =C-q,=, =C-q ;=.
     (ivy-explorer-mode 1))
 #+END_SRC
 
+
+[[https://github.com/Yevgnen/ivy-rich][Yevgnen/ivy-rich: More friendly interface for ivy.]]
+
+#+begin_src emacs-lisp
+  (use-package ivy-rich
+    :after ivy
+    :init (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line)
+    :custom
+    (ivy-virtual-abbreviate 'full)
+    (ivy-rich-switch-buffer-align-virtual-buffer t)
+    (ivy-rich-path-style 'abbrev)
+    :config (ivy-rich-mode 1))
+#+end_src
+
+** Multiple cursors
+
+#+BEGIN_SRC emacs-lisp
+  (use-package multiple-cursors
+    :bind
+    (("C->" . mc/mark-next-like-this)
+     ("C-<" . mc/mark-previous-like-this)
+     ("C-c C-<" . mc/mark-all-like-this)
+     ("C-c C->" . mc/mark-all-like-this)))
+
+#+END_SRC
+
+
+
 ** TRAMP mode
 
 TRAMP mode allows opening remote files. It knows about ssh and
