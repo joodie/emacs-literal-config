@@ -5128,6 +5128,19 @@ You might as well start using [[https://www.emacswiki.org/emacs/BookmarkPlus][Bo
 
 ** Searching
 
+*** ripgrep
+
+[[https://github.com/dajva/rg.el][dajva/rg.el: Emacs search tool based on ripgrep]]
+
+#+begin_src emacs-lisp
+(use-package rg
+  ;; :ensure-system-package rg
+  :commands (rg rg-project rg-dwim ))
+#+end_src
+
+See also,
+*** swiper/ivy/councel
+
 [[https://github.com/abo-abo/swiper][Swiper]] is a replacement for isearch that faster and easier to
 configure. I bind it to isearch key, =C-s=. To complete current word
 to swiper minibuffer, press =M-j=. Isearch is still usable with =C-`=.
