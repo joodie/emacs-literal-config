@@ -1510,7 +1510,9 @@ The [[https://github.com/iqbalansari/restart-emacs][restart-emacs]] package make
 =restart-emacs=.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package restart-emacs)
+  (use-package restart-emacs
+    ;; Let's define an alias so there's no need to remember the order.
+    :config (defalias 'emacs-restart #'restart-emacs))
 #+END_SRC
 
 Use prefix arguments to modify:
