@@ -4739,6 +4739,16 @@ with =auto-complete= mode being more or less the /de facto/ standard.
 
 * Navigation
 
+** Mark ring
+
+Emacs uses local [[info:emacs#Mark Ring][local]] and global [[info:emacs#Global Mark Ring][global]] mark ring to keep track of
+past cursor positions. To go back, I set the following to streamline
+key presses after =C-u C-<SPC>= to =C-<SPC>=.
+
+#+begin_src emacs-lisp
+  (setq set-mark-command-repeat-pop t)
+#+end_src
+
 ** Window management
 
 Emacs has its own terminology where operating system windows are
