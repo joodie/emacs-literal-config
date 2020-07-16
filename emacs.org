@@ -1042,32 +1042,12 @@ causing constant 10% CPU usage.
 *** telephone-line
 - [[https://github.com/dbordak/telephone-line][dbordak/telephone-line: A new implementation of Powerline for Emacs]]
 - Examples: [[https://github.com/dbordak/telephone-line/blob/master/examples.org][telephone-line/examples.org at master · dbordak/telephone-line]]
-- Elements: [[https://github.com/dbordak/telephone-line/blob/master/telephone-line-segments.el][telephone-line/telephone-line-segments.el at master · dbordak/telephone-line]]
+- Elements: [[https://github.com/dbordak/telephone-line/blob/master/telephone-line-segments.el][telephone-line/telephone-line-segmentrs.el at master · dbordak/telephone-line]]
 
 #+begin_src emacs-lisp
   (use-package telephone-line
-    :init
-    (setq telephone-line-height 18)
-   ;; (setq telephone-line-lhs
-   ;;       '((ryo . (telephone-line-buffer-modified-segment))
-   ;;         (accent . (telephone-line-vc-segment
-   ;;                    telephone-line-erc-modified-channels-segment
-   ;;                    telephone-line-process-segment))
-   ;;         (nil . (telephone-line-projectile-segment
-   ;;                 telephone-line-buffer-segment))))
-   ;;
-   ;;
-   ;; ;; telephone-line-rhs
-   ;; (setq telephone-line-rhs
-   ;;       '((nil . (telephone-line-flycheck-segment
-   ;;                 telephone-line-misc-info-segment
-   ;;                 telephone-line-atom-eol-segment))
-   ;;         (accent . (telephone-line-major-mode-segment))
-   ;;         (evil . (telephone-line-airline-position-segment))
-   ;;         (accent . (telephone-line-window-number-segment))))
-
-    :config
-    (telephone-line-mode 1))
+    :custom (telephone-line-height 24)
+    :config (telephone-line-mode 1))
 #+end_src
 
 ** Visual bell
