@@ -799,9 +799,12 @@ PNG images when the =emojify-mode= is turned on.
   inserts the character í, and =C-x 8 " a= inserts the character ä.
 
 ** Reduce clutter
+** PENDING Reduce clutter
 
 Remove the toolbar. It's ugly and I never use it.
 Scroll bars in emacs frame are useless. Remove.
+
+Now done in [[early-init.el][file:early-init.el]].
 
 #+BEGIN_SRC emacs-lisp
   (when (display-graphic-p)
