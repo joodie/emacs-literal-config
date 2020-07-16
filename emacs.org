@@ -618,7 +618,7 @@ I've combined all those commands and bound them to =C-c v=.
 #+BEGIN_SRC emacs-lisp
   (when (eq system-type 'darwin)
     (use-package org-mac-link
-      :defer t
+      :demand t
       :ensure nil
       :after org
       :config
