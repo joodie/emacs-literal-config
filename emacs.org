@@ -6675,6 +6675,10 @@ The second uses [[https://github.com/sabof/org-bullets][org-bullets]] to beautif
 pretty UTF-8 characters. Custom bullets icons are from
 [[http://puntoblogspot.blogspot.fi/2016/01/pointy-org-bullets.html][puntoblogspot]].
 
+[[https://github.com/integral-dw/org-superstar-mode][integral-dw/org-superstar-mode: Make org-mode stars a little more
+super]] replaces org-bullets
+
+
 The third replaces ASCII ellipsis with a Unicode character.
 
 Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/Emacs/orgmode-wordprocessor.html][Org as a Word Processor]]
@@ -6691,29 +6695,26 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
     :custom
     (org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
 
-    ;;:config
-    ;;(org-bullets-bullet-list '("◉" "○" "✺" "✹" "✸" "✷" "✭" "✶"  "✦"))
-    ;(setq org-bullets-bullet-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸"))
-    ;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-    ;; :init (setq org-bullets-bullet-list '("✺" "✹" "✸" "✷" "✶" "✭" "✦" "■" "▲" "●" ))
-    ;; :init (add-hook 'org-mode-hook #'org-bullets-mode)
-
+  ;; (use-package org-superstar
+  ;;             :hook (org-mode . (lambda () (org-superstar-mode 1)))
+  ;;             :custom
+  ;;             (org-superstar-headline-bullets-list '("◉" "⁑" "⁂" "❖" "✮" "✱" "✸")))
 
   ;; http://endlessparentheses.com/changing-the-org-mode-ellipsis.html?source=rss
-  ;;(setq org-ellipsis "…")
-  (setq org-ellipsis "⤵")
-  (setq org-hide-emphasis-markers t)
-  ;; (setq org-hide-leading-stars t)
+    ;;(setq org-ellipsis "…")
+    (setq org-ellipsis "⤵")
+    (setq org-hide-emphasis-markers t)
+    ;; (setq org-hide-leading-stars t)
 
-  ;; Multiline fontification with org-emphasis-alist
-  ;; https://fuco1.github.io/2018-12-23-Multiline-fontification-with-org-emphasis-alist.html
-  (setcar (nthcdr 4 org-emphasis-regexp-components) 10)
+    ;; Multiline fontification with org-emphasis-alist
+    ;; https://fuco1.github.io/2018-12-23-Multiline-fontification-with-org-emphasis-alist.html
+    (setcar (nthcdr 4 org-emphasis-regexp-components) 10)
 
-  ;; ###
-  (font-lock-add-keywords
-   'org-mode
-   `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\(\\(?:\\[@\\(?:start:\\)?[0-9]+\\][ \t]*\\)?\\[\\(?:X\\|\\([0-9]+\\)/\\2\\)\\][^\n]*\n\\)" 1 'org-headline-done prepend))
-   'append)
+    ;; ###
+    (font-lock-add-keywords
+     'org-mode
+     `(("^[ \t]*\\(?:[-+*]\\|[0-9]+[).]\\)[ \t]+\\(\\(?:\\[@\\(?:start:\\)?[0-9]+\\][ \t]*\\)?\\[\\(?:X\\|\\([0-9]+\\)/\\2\\)\\][^\n]*\n\\)" 1 'org-headline-done prepend))
+     'append)
 #+END_SRC
 
 ** Org table optimizations
