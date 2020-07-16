@@ -4518,7 +4518,7 @@ environment:
     "Custom command to setup python-mode"
     (interactive)
     (let ((max-column 99))
-      (setq python-shell-interpreter "/usr/local/miniconda3/bin/python"
+      (setq python-shell-interpreter "//usr/local/Caskroom/miniconda/base/bin/python/python"
             python-shell-interpreter-args "-i"
             ;;venv-location "~/.virtualenvs"
             whitespace-line-column max-column
@@ -6754,7 +6754,7 @@ modern libraries is Anaconda python version 3.
 
 #+BEGIN_SRC emacs-lisp
   ;; Alternative python interpreter for babel blocks
-  (setq org-babel-python-command "/usr/local/miniconda3/bin/python")
+  (setq org-babel-python-command "/usr/local/Caskroom/miniconda/base/bin/python")
 #+END_SRC
 
 Use syntax highlighting ("fontification") in org-mode source
@@ -7074,11 +7074,10 @@ simple way:
   (use-package ob-clojure :ensure nil :defer t)
   (use-package ob-ruby :ensure nil)
   (use-package ob-shell :ensure nil :defer t)
-  ;;(use-package ob-python :ensure nil :defer t)
+  (use-package ob-python :ensure nil :defer t)
   ;;(use-package ob-ipython :defer t :defer t)
   (use-package ob-emacs-lisp :ensure nil :defer t)
   (use-package ob-dot :ensure nil :defer t)
-  (use-package ob-ditaa :ensure nil :defer t)
   (use-package ob-plantuml :ensure nil :defer t)
   (use-package ob-gnuplot :ensure nil :defer t)
   (use-package ob-sql :ensure nil :defer t)
@@ -7094,7 +7093,7 @@ simple way:
                                    (emacs-lisp . t)
                                    (perl       . t)
                                    (clojure    . t)
-;                                   (python     . t)
+                                   (python     . t)
                                    (ledger     . t)
                                    (gnuplot    . t)
                                    (ruby       . t)
