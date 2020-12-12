@@ -1547,6 +1547,12 @@ Use prefix arguments to modify:
 |     2 | -Q           |
 |     3 | <prompt>     |
 
+
+Finally, allow automatic killing of emacs processes at exit:
+
+#+begin_src emacs-lisp
+  (setq confirm-kill-processes nil)
+#+end_src
 * Key bindings
 
 ** Redefining default keys
