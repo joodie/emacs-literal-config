@@ -733,8 +733,18 @@ command =funced=.
 
 Sets the initial frame (Emacs window) size.
 
+Allow for pixel presizion resize that allows for fixing annoyance in
+OSX. [[https://www.wisdomandwonder.com/emacs/13168/make-your-emacs-frame-fit-flush-on-macos?utm_source=rss&utm_medium=rss&utm_campaign=make-your-emacs-frame-fit-flush-on-macos][Make Your Emacs Frame Fit Flush On macOS – Wisdom And Wonder]]
+
+[[https://emacsredux.com/blog/2020/12/04/maximize-the-emacs-frame-on-startup/][Maximize the Emacs Frame on Startup | Emacs Redux]]
+
 #+BEGIN_SRC emacs-lisp
-  (setq initial-frame-alist '((top . 0) (left . 0) (width . 200) (height . 60)))
+
+  ;; start every frame maximised to fullscreen
+  ;;(add-to-list 'default-frame-alist '(fullscreen . fullboth))
+  (add-hook 'window-setup-hook 'toggle-frame-maximized t)
+
+  (setq frame-resize-pixelwise t)
 #+END_SRC
 
 ** Font
