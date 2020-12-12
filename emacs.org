@@ -3107,8 +3107,8 @@ especially efficient.
 
   ;; switching languages
   ;; code adapted from http://www.emacswiki.org/emacs/FlySpell
-  ;; default is 'american'
-  (setq ispell-dictionary "american")
+  ;; default is British English
+  (setq ispell-dictionary "english")
 
   (let ((langs '( "english" "finnish" "american" )))
     (setq lang-ring (make-ring (length langs)))
@@ -3230,7 +3230,7 @@ especially efficient.
       _n_: next error        _c_: correct
       _t_: cycle languages   _k_: correct and add to abbrev
       _q_uit                 _i_: insert to personal list
-      ^ ^                    _u_: insert, uncapitalize and insert
+      ^ ^                    _u_: uncapitalize and insert
     "
     ("n" flyspell-goto-next-error)
     ("t" cycle-ispell-languages)
