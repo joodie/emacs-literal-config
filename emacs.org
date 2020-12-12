@@ -2218,6 +2218,7 @@ messages. Disable save messages with the new v27.1 variable
     (super-save-auto-save-when-idle t)
     (super-save-idle-duration 10 "def 5 sec")
     (super-save-remote-files nil)
+    (auto-save-no-message t)
     :config
     (super-save-mode t))
 #+END_SRC
