@@ -1480,7 +1480,7 @@ clutter. I am not afraid of double editing, so I disable that.
 #+BEGIN_SRC emacs-lisp
 
   (setq my/backup-dir (expand-file-name "backups" user-emacs-directory))
-  (setq backup-directory-alist '((".*" . "~/.config/emacs/backups/"))) ; needs a plain string
+  (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/"))) ; needs a plain string
 
   (setq delete-by-moving-to-trash t
         trash-directory "~/.Trash/emacs")
