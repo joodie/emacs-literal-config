@@ -6270,6 +6270,7 @@ conflicts my other use for that binding.
 
 #+BEGIN_SRC emacs-lisp
   (use-package worf
+    :disabled t
     :diminish ""
     :defer t
     :config (add-hook 'org-mode-hook (lambda () (worf-mode 1)))
