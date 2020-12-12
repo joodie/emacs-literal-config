@@ -1639,6 +1639,7 @@ be shown with =M-x describe-personal-keybindings=.
     ("m" global-disable-mouse-mode)
     ("k" cycle-ispell-languages :color red)
     ("l" display-line-numbers-mode)
+    ("L" literate-calc-minor-mode)
     ("o" org-toggle-link-display)
     ("p" org-toggle-pretty-entities)
     ("r" toggle-truncate-lines)
@@ -9106,6 +9107,16 @@ division. The following fixes it.
 
 The full blown =calc= has facinating possibilities that I explore
 occasionally but not often enough to learn to use it effectively.
+
+*** literate calc
+[[https://github.com/sulami/literate-calc-mode.el][sulami/literate-calc-mode.el: 🧮 Literate programming for M-x calc]]
+
+- Turn on the major-mode for any file or minor-mode for org-mode
+  compatibility.
+
+#+begin_src emacs-lisp
+(use-package literate-calc-mode)
+#+end_src
 
 ** World Clock
 
