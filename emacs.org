@@ -1132,6 +1132,25 @@ the buffer isn't visiting a file).
                    "%b"))))
 #+END_SRC
 
+** Fill column indicator
+
+[[https://tatrix.org/emacs/fill-column-indicator/][TatriX]]
+
+#+begin_src emacs-lisp
+
+(defun my-toggle-fill-column-indicator ()
+  "Toggle displaying of fill column indicator."
+  (interactive)
+  (if display-fill-column-indicator
+      (setq display-fill-column-indicator nil)
+    (setq display-fill-column-indicator t)
+    (setq display-fill-column-indicator-character ?|)))
+
+;(setq display-fill-column-indicator-character ?\N{U+2506})
+
+
+(custom-set-faces '(fill-column-indicator ((t (:foreground "#8B0000")))))
+#+end_src
 ** Windows
 *** Scrolling behavior
 
@@ -1620,19 +1639,19 @@ be shown with =M-x describe-personal-keybindings=.
   (bind-key "C-x t" 'hydra-toggle/body)
   (defhydra hydra-toggle (:color blue :hint nil)
     "
-             toggle _a_bbrev-mode          _h_tml preview for org   _o_rg link display     _t_remacs
-                    _c_: word-count mode   _i_edit                  _p_retty entities      _v_: string inflection
-                    _d_ebug-on-error       _k_: spelling language   _b_: overwrite mode    _w_ritegood-mode
-                    _e_ros                 _l_ine numbers           t_r_uncate-lines       _q_uit
-                    _f_olding              _n_arrowing              _m_ouse                white_s_pace-mode
-                    _g_roup digits         ^ ^                      _u_: rainbow mode
+             toggle _a_bbrev-mode            _h_tml preview for org   _o_rg link display     _t_remacs
+                    _c_: word-count mode     _i_edit                  _p_retty entities      _v_: string inflection
+                    _d_ebug-on-error         _k_: spelling language   _b_: overwrite mode    _w_ritegood-mode
+                    _e_shell-toggle          _l_ine numbers           t_r_uncate-lines       _q_uit
+                    _f_ill column indicator  _n_arrowing              _m_ouse                white_s_pace-mode
+                    _g_roup digits           _L_iterata calc          _u_: rainbow mode
                   "
     ("a" abbrev-mode)
     ("b" toggle-overwrite-mode)
     ("d" toggle-debug-on-error)
     ("c" wc-mode)
-    ("e" eros-mode)
-    ("f" toggle-selective-display)
+    ("e" eshell-toggle)
+    ("f" my-toggle-fill-column-indicator)
     ("g" digit-groups-mode)
     ("h" org-preview-html-mode)
     ("i" iedit-mode)
