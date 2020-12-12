@@ -10,13 +10,13 @@ programming style emacs configuration. I forked his original
 [[https://github.com/joodie/emacs-literal-config/][Github repository]] on 1st November 2013.
 
 On 2th July 2017 I adapted Holger Shurig's [[http://www.holgerschurig.de/en/emacs-init-tangle/][tangling]] code that
-dramatically improves tangling speed. The org code block order of now
+dramatically improves tangling speed. The org code block now
 corresponds directly to the code order in the generated el file.
 
 Also, code blocks do not need to be named. You can disable tangling of
 any code by setting the org todo-state to =PENDING= that is one my
-custom values. A block can also be exempted from tangling code
-':tangle no'.
+custom values. Alternatively, a block can also be exempted from
+tangling code with ':tangle no'.
 
 * How to use this configuration
 
@@ -61,7 +61,7 @@ packages with the dependency spec.
 ** Installation procedure
 
 - Install GNU Emacs 25 or higher
-- Clone [[https://github.com/heikkil/emacs-literal-config][the repository]] as ~$HOME/.config/emacs~ (or symlink it to that
+- Clone [[https://github.com/heikkil/emacs-literal-config][the repository]] as ~$HOME/.emacs.d~ (or symlink it to that
   directory).
 - Make sure ~$HOME/.emacs.el~ does not exist
 - Start Emacs
@@ -91,9 +91,9 @@ that is given the package name as an argument. This automatically
 adds them to the [[file:Cask][Cask]] file for tracking.
 
 A new version of this file is detected by emacs at start up. The
-file file:~/.config/emacs/init.el contains the code for using cask and
+file file:~/.emacs.d/init.el contains the code for using cask and
 converting this org file to the corresponding emacs listp file,
-file:~/.config/emacs/emacs.el. Conversion takes some time, but it is only
+file:~/.emacs.d/emacs.el. Conversion takes some time, but it is only
 done when the file has changed.
 
 
@@ -376,7 +376,7 @@ I am back to standard emacs.
     (setq mac-control-modifier 'control)
 
     ;; cut, copy paste, undo
-    (cua-mode t) ;; make sure cua mode is active
+    (cua-mode) ;; make sure cua mode is active
     ;; paste
     (bind-key "s-v" 'cua-paste)
     ;; copy
@@ -395,7 +395,7 @@ Option keys are bound to =meta=. I never use the right option key, so I
 return its use to OS.
 
 #+BEGIN_SRC emacs-lisp
-  ;; make Fn key do Hyper
+  ;; make Fn key do Hyper, abbreviation 'H'
   (setq ns-function-modifier 'hyper)
   ;; Option keys are meta, release right one os OS
   (setq ns-right-alternate-modifier 'none)
@@ -410,7 +410,7 @@ that. Thanks to Ting-Yu Lin for pointing it out.
 
 Although I have been using the fish shell for while, I was only
 recently bitten by a problem of loosing PATH. The fix comes from
-[[https://github.com/purcell/exec-path-from-shell/issues/9][here]]. Unfortunatelly there are still issues.
+[[https://github.com/purcell/exec-path-from-shell/issues/9][here]]. Unfortunately, there are still issues.
 
 No, fish as the default shell does not work. I am now using bash as
 the default shell and both tramp mode and magit pushing that were
@@ -587,7 +587,7 @@ files have been selected.
 Printing under OS X does not work in default emacs.  [[http://www.emacswiki.org/emacs/MacPrintMode][EmacsWiki]] has
 slightly outdated instructions:
 
-1. Copy [[https://raw.github.com/marcora/emacs/master/mac-print-mode.el][mac-print-mode.el]] into file:~/.config/emacs/elisp directory
+1. Copy [[https://raw.github.com/marcora/emacs/master/mac-print-mode.el][mac-print-mode.el]] into file:~/emacs.d/elisp directory
 2. htmlize package should be already installed
 3. Install latest version of [[http://hmdt.jp/coral/][Coral]] (1.3)
    - Download and open the image file
@@ -1180,6 +1180,7 @@ other window using =M-s-<arrow>=.
   (bind-key "M-s-<up>" 'scroll-down)
   (bind-key "M-s-<down>" 'scroll-up)
   (bind-key "M-s-<right>" 'scroll-other-window)
+  ;; alternative scroll-other-window-down
   (bind-key "M-s-<left>" #'(lambda () (interactive) (scroll-other-window '-)))
 #+END_SRC
 
@@ -1451,7 +1452,7 @@ it up (from file:~/.zshenv or file:~/.bash_profile):
 Default emacs behaviour is to clutter document directories with its
 backup files. The following creates numbered backups, limits the
 number of backups kept, and directs them all into
-=$HOME/.config/emacs/backups/= directory.
+=$HOME/.emacs.d/backups/= directory.
 
 Lockfiles with names prefixed with ".#" are an other type of Emacs
 clutter. I am not afraid of double editing, so I disable that.
@@ -1796,6 +1797,25 @@ all read-only files.
 #+BEGIN_SRC emacs-lisp
   (setq view-read-only t)
 #+END_SRC
+
+** Input methods
+
+There is no need to change the keyboard layout at the OS level when
+you use Emacs. In emacs, it is calls *input method* and defaults to
+multilingual text inputd *rfc1345*. It can be changed permanently by
+$(setq default-input-method 'TeX)$, but it is more common to do it
+interactively =C-u C-\= to select the input method temporarily for the
+current buffer. =C-\= re-enables the default one.
+
+#+begin_example
+=C-u C-\\= → finnish-keyboard
+# Write in Finnish
+=C-\\=
+# return to default
+#+end_example
+
+See [[info:emacs#Select Input Method][info:emacs#Select Input Method]] for more complex cases of language
+environments.
 
 ** Character encoding
 
@@ -2167,6 +2187,10 @@ You never have to save manually.
 Increased idle time to prevent idle saving messing up org mode edit-special
 buffers.
 
+Since saving is happening all the time, there is no need to print
+messages. Disable save messages with the new v27.1 variable
+=auto-save-no-message=.
+
 #+BEGIN_SRC emacs-lisp
   (use-package super-save
     :defer nil
@@ -2330,11 +2354,11 @@ and section. Just press =C-== and expand =\== and contract =-= the
 selection! This works in all text modes including most programming
 languages, and is really convenient!
 
-
 #+BEGIN_SRC emacs-lisp
   (use-package expand-region
-    :bind ("C-=" . er/expand-region)
-    :bind ("C-´" . er/expand-region))
+    :bind
+    ("C-=" . er/expand-region)
+    ("M-." . er/expand-region))
 #+END_SRC
 
 *** Change inner
@@ -2360,7 +2384,7 @@ recommended to be bound to =M-i= and =M-o=.
 #+end_src
 ** Undo-tree
 
-The emacs undo behaviour can be confusing. Every undo get added to the
+The emacs undo behaviour can be confusing. Every undo gets added to the
 stack just like any other editing event. If you end up going back and
 forth, you'll find yourself lost quick quickly. Undo tree has commands
 and a visualizer to put you back on the map. Hit =C-M-z= see where you
@@ -2496,7 +2520,7 @@ asking. Giving it an universal argument (C-u) calls the standard
 
 *** Yasnippet
 
-Add your own [[http://joaotavora.github.io/yasnippet/][snippets]] to file:~/.config/emacs/snippets by placing files
+Add your own [[http://joaotavora.github.io/yasnippet/][snippets]] to file:~/.emacs.d/snippets by placing files
 there or invoking =yas-new-snippet= or =C-c & C-n= .
 
 Snippet names are expanded with =TAB=.
@@ -2518,7 +2542,7 @@ Snippet names are expanded with =TAB=.
   (use-package yasnippet-snippets)
 #+END_SRC
 
-Yasnippets can turned into a really useful tool: [[http://www.howardism.org/Technical/Emacs/templates-tutorial.html][Having Emacs Type for
+Yasnippets can be turned into a really useful tool: [[http://www.howardism.org/Technical/Emacs/templates-tutorial.html][Having Emacs Type for
 You]].
 
 Todo:
@@ -2578,7 +2602,9 @@ from [[http://endlessparentheses.com/fixing-double-capitals-as-you-type.html][En
       (remove-hook 'post-self-insert-hook #'dcaps-to-scaps 'local)))
 
   (add-hook 'text-mode-hook #'dubcaps-mode)
+
 #+END_SRC
+
 
 ** Fixing text written with wrong keyboard layout
 
@@ -3888,9 +3914,9 @@ Have you set tab-always-indent to 'complete?
     (defun ledger-add-note ()
       "Add a note to the current ledger entry.
 
-        Adds a new comment line starting with ' ; note: ' and places
-        point to the end. The new line is always placed after other
-        comments."
+          Adds a new comment line starting with ' ; note: ' and places
+          point to the end. The new line is always placed after other
+          comments."
       (interactive)
       (ledger-navigate-beginning-of-xact)
       (let ((beg-of-xact (point)))
@@ -4339,6 +4365,7 @@ See:
 [[http://docs.racket-lang.org/pollen/][Pollen]], the racket pbook publishing, needs a special character for
 marking command lines. The chosen character is lozenge =◊=, keyed with =M-\=.
 
+
 #+BEGIN_SRC emacs-lisp
   (use-package racket-mode
     :defer t
@@ -4439,8 +4466,8 @@ check: =flycheck-package-setup=.
 *** eros
 
 Minor mode for Evaluation Result OverlayS for Emacs Lisp. Shows ==C-x
-C-e= elisp evaluations at point. Set on by default, toggle with hydra
-=C-x t e=. Simply ingenious!
+C-e= elisp evaluations at point. Set on by default, use =eros-mode= to
+toggle if needed. Simply ingenious!
 
 #+BEGIN_SRC emacs-lisp
   (use-package eros
@@ -4924,8 +4951,8 @@ The only missing piece is provided by the [[https://github.com/bbatsov/crux][cru
 #+END_SRC
 
 The built-in winner-mode defines =Ctrl+c ←= to go back to previous
-window configuration. Elsewhere, It is enabled
-globally with =(winner-mode 1).=
+window configuration. Elsewhere, it is enabled globally with
+=(winner-mode 1).=
 
 *** Eyebrowse
 
@@ -5071,6 +5098,7 @@ remember:
 #+BEGIN_SRC emacs-lisp
   (defalias 'qrr 'query-replace-regexp)  ; M-C-S %
 #+END_SRC
+
 
 Folding uses =set-selective-display= to show a high level
 outline of you document. Useful to get an [[http://emacs.wordpress.com/2007/01/16/quick-and-dirty-code-folding/][overview of long code
@@ -5333,31 +5361,31 @@ how to configure =counsel-git= and =counsel-rg=.
     )
 
 
-(use-package ivy-hydra
-  :after (ivy hydra))
+    (use-package ivy-hydra
+      :after (ivy hydra))
 
-  ;; restore key bindings to isearch due to character folding in emacs 25.1
-  (bind-key "C-`" 'isearch-forward)
-  (bind-key "C-r" 'isearch-backward)
+      ;; restore key bindings to isearch due to character folding in emacs 25.1
+      (bind-key "C-`" 'isearch-forward)
+      (bind-key "C-r" 'isearch-backward)
 
-  ;; Isearch convenience, space matches anything (non-greedy)
-  (setq search-whitespace-regexp ".*?")
+      ;; Isearch convenience, space matches anything (non-greedy)
+      (setq search-whitespace-regexp ".*?")
 
-  ;; http://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.htmlh
-  ;; This will only leave point at the start of search if you exit the
-  ;; search with C-↵ instead of ↵.
-  (define-key isearch-mode-map [(control return)]
-    #'isearch-exit-other-end)
-  (defun isearch-exit-other-end ()
-    "Exit isearch, at the opposite end of the string."
-    (interactive)
-    (isearch-exit)
-    (goto-char isearch-other-end))
+      ;; http://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.htmlh
+      ;; This will only leave point at the start of search if you exit the
+      ;; search with C-↵ instead of ↵.
+      (define-key isearch-mode-map [(control return)]
+        #'isearch-exit-other-end)
+      (defun isearch-exit-other-end ()
+        "Exit isearch, at the opposite end of the string."
+        (interactive)
+        (isearch-exit)
+        (goto-char isearch-other-end))
 
-;;(define-key minibuffer-local-map
-;;    (kbd "C-r") 'counsel-minibuffer-history)
-;;(define-key shell-mode-map
-;;    (kbd "C-r") 'counsel-shell-history)
+    ;;(define-key minibuffer-local-map
+    ;;    (kbd "C-r") 'counsel-minibuffer-history)
+    ;;(define-key shell-mode-map
+    ;;    (kbd "C-r") 'counsel-shell-history)
 #+END_SRC
 
 Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficient-movement-using-avy/][search using avy]].
@@ -5702,7 +5730,7 @@ This and more files can be reached with my hydra-files by =C-z=.
          goto   ^buffer^                                       ^info
                 ^------^---------------------------------------^----
                 _a_bbrevs         _l_edger:refile.led          _o_rg
-                _c_hangeLog       _m_medical.txt
+                _c_hangeLog       _m_edical.txt
                 _d_otfiles.txt    _p_rojects
                 _e_macs.org       _r_eference.org: last note
                 _g_asum           _s_cratch
@@ -6694,11 +6722,10 @@ use =C-M-i= to complete.
 
 ** External jars
 
-Tell org where to find external dependencies. Ditaa and PlantUML
-executable are java jar files. Ditaa is part of org-mode git repository but
-you have to download [[http://sourceforge.net/projects/plantuml/files/plantuml.jar/download][PlantUML]] and place somewhere where Emacs can
-find it. I am using [[http://brew.sh/][homebrew]] to maintain a recent copy of both with
-a shell script wrapper.
+Tell org where to find external dependencies. PlantUML executable is a
+java jar file. You have to download [[http://sourceforge.net/projects/plantuml/files/plantuml.jar/download][PlantUML]] and place somewhere where
+Emacs can find it. I am using [[http://brew.sh/][homebrew]] to maintain a recent copy of
+both with a shell script wrapper.
 
 The org code seems to require the direct access to the jar file.
 Run this perl code to (re)create the symbolic link after installation or upgrade.
@@ -6916,6 +6943,9 @@ blocks. This also highlights source blocks in HTML exports.
 
 [[http://pragmaticemacs.com/emacs/highlight-latex-text-in-org-mode/][Highlight latex text in org mode | Pragmatic Emacs]] gives code for
 fontifying inline LaTeX code like this: $y=mx+c$.
+
+TODO: [[https://github.com/io12/org-fragtog][io12/org-fragtog: Automatically toggle org-mode latex fragment
+previews as the cursor enters and exits them]]
 
 See [[http://irreal.org/blog/?p=6717][Emphasize LaTeX Code in an Org Buffer | Irreal]] comment from Grant
 Rettke to highlight even more.
@@ -7491,7 +7521,7 @@ save. I helped rewrite the package!
 
 ** Crypt
 
-###
+- Using GPG for symmetric file encoding and decoding [[https://tatrix.org/crypto/symmetric-gpg/][TatriX]]
 
 #+BEGIN_SRC emacs-lisp
   (use-package org-crypt
@@ -7926,7 +7956,7 @@ See more tweeks from
 
 
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results none
 
   (use-package pdf-tools
     :mode ("\\.pdf$" . pdf-tools-mode)
@@ -8719,10 +8749,10 @@ The read functions report their action in the echo field.
     (defun elfeed--read-tag (filter tag)
       "Template for filtering various feed categories.
 
-     FILTER is the filter string to apply, and TAG is a short name of
-     the displayed category.
+       FILTER is the filter string to apply, and TAG is a short name of
+       the displayed category.
 
-     The cursor is moved to the beginning of the first feed line."
+       The cursor is moved to the beginning of the first feed line."
       (setq elfeed-search-filter filter)
       (elfeed-search-update :force)
       (goto-char (point-min))
@@ -9173,6 +9203,7 @@ Set [[https://www.reddit.com/r/emacs/comments/8jb4p5/editing_html_textareas_with
     :config
     (atomic-chrome-start-server))
 #+END_SRC
+
 
 Atomic-chrome server is not starting. If I run the commands manually
 from the function, it works. What is wrong? Solved: start server under
