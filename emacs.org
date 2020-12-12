@@ -1674,8 +1674,8 @@ The hydra implementing this is self-documenting.
   (bind-key "C-x l" 'hydra-launch/body)
   (defhydra hydra-launch (:color blue :hint nil :idle 1.0)
     "
-  launch _2_048            _l_ink chrome       _s_ynonyms            _w_3m at point
-         _b_: gscholar-bib _k_eybindings       _p_ass                G_\+_ emacs
+  launch _a_rticle move    _l_ink chrome       _s_ynonyms            _w_3m at point
+         _b_ill move       _k_eybindings       _p_ass                G_\+_ emacs
          _c_: calfw        _n_ato-region       _P_aradox             _?_: emacsExchange
          _e_diff-buffers   de_N_ato            _q_: paradox upgrade  _=_: quick-calc
          _f_ilename2clipb  _m_y/move-file-here _t_imemachine git     _0_: repeat elisp
@@ -1683,15 +1683,17 @@ The hydra implementing this is self-documenting.
          tw_i_tter         ^ ^                 _z_: timezones        _x_: eshell
          _j_: org entities ^ ^                 _y_: binclock
          _d_: eyebrowse
+         _B_: gscholar-bib
         "
 
-    ("2" 2048-game)
-    ("b" gscholar-bibtex)
+    ("a" my/move-article)
+    ("b" my/move-bill)
+    ("B" gscholar-bibtex)
     ("c" my/calendar)
     ("e" ediff-buffers)
     ("d" hydra-eyebrowse/body)
     ("f" copy-file-name-to-clipboard)
-    ("g" langtool-correct-buffer)
+    ("g" langtool-check)
     ("h" howdoi-query)
     ("i" twit)
     ("j" ivy-insert-org-entity)
@@ -2050,7 +2052,7 @@ it into a document I was editing.
   ;; start directory
   (defvar my/move-file-here-start-dir (expand-file-name "~/Downloads"))
 
-  (defun my/move-file-here ()
+  (defun my/move-file-here (&optional here-dir)
     "Move file from somewhere else to here.
 
   The file is taken from a start directory set by
@@ -2059,6 +2061,10 @@ it into a document I was editing.
   buffer. The user is presented with a list of files in the start
   directory, from which to select the file to move, sorted by most
   recent first.
+
+  Modified to include an option argument. If the argument is an
+  existing directory name, move files there. This makes it easier
+  to extend the use of this function.
 
   The short filename is copied to clipboard.
 
@@ -2074,12 +2080,15 @@ it into a document I was editing.
 
       ;; get target directory
       ;; http://ergoemacs.org/emacs/emacs_copy_file_path.html
+      ;; test first if a dir name has been passed to the function
+      (if (file-directory-p here-dir)
+         (setq target-dir here-dir)
       (setq target-dir
             (if (equal major-mode 'dired-mode)
                 (expand-file-name default-directory)
               (if (null (buffer-file-name))
                   (user-error "ERROR: current buffer is not associated with a file.")
-                (file-name-directory (buffer-file-name)))))
+                (file-name-directory (buffer-file-name))))))
 
       ;; sort list by most recent
       ;; http://stackoverflow.com/questions/26514437/emacs-sort-list-of-directories-files-by-modification-date
@@ -2107,6 +2116,22 @@ it into a document I was editing.
       (gui-set-selection 'PRIMARY start-file)
       (message "moved %s to %s" start-file-full end-file)))
 #+END_SRC
+
+#+begin_src emacs-lisp
+  (defun my/move-bill ()
+    "Move a bill file from downloads directory to its destination.
+  Select the file to move interactively and copy the filename to
+  the clipboard"
+    (interactive)
+    (my/move-file-here "~/Documents/ledger/laskut"))
+
+(defun my/move-article ()
+    "Move an article file from downloads directory to its destination.
+  Select the file to move interactively and copy the filename to
+  the clipboard"
+    (interactive)
+    (my/move-file-here "~/Downloads/articles"))
+#+end_src
 
 *** Editing file lists with wdired
 
