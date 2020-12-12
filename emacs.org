@@ -9481,7 +9481,8 @@ converted region if the last character has been converted. This
 prevents the direct application of =denato-region= to reverse the
 change.
 
-** Regex tool
+** Regex
+*** Regex tool
 
 Coming from perl regexps, I find emacs regexps confusing. Launch
 =re-builder= to match anything in your current buffer. The shortcut
@@ -9510,6 +9511,24 @@ are documented under =rx=:
 complicated key binding =M-C-S %=.
 
 Read more on [[http://www.emacswiki.org/emacs/RegularExpression][emacs regexps]].
+
+*** xr
+
+=xr= does the reverse of =rx=, of course.
+
+[[https://emacsnotes.wordpress.com/2020/10/18/xr-a-new-weapon-for-your-regex-arsenal/][xr: A new weapon for your regex arsenal – Emacs Notes]]
+
+[[https://github.com/mattiase/xr][mattiase/xr: Inverse of rx: convert Emacs string regexps to rx form]]
+
+#+begin_src emacs-lisp
+(use-package xr)
+#+end_src
+
+Functions parsing regexp strings:
+
+   - xr      :: convert regexp to rx
+   - xr-pp   :: convert regexp to rx and pretty-print
+   - xr-lint :: find mistakes in regexp
 
 ** ChangeLog mode
 
