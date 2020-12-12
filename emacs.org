@@ -1391,6 +1391,73 @@ You can customize faces to make text stand out better:
 
 View a list of common colors: =list-colors-display=
 
+** SVG
+
+**** PENDING tag
+
+[[https://github.com/rougier/svg-tag-mode][rougier/svg-tag-mode: A minor mode for Emacs that replace keywords
+with nice SVG labels]]
+[[https://www.reddit.com/r/emacs/comments/jc4uou/tags_everywhere/][Tags everywhere... : emacs]]
+
+file:~/.emacs.d/quelpa/build/svg-tag-mode/svg-tag-mode.el
+
+#+begin_src emacs-lisp
+  (use-package svg-tag-mode
+    :quelpa (svg-tag-mode
+             :repo "rougier/svg-tag-mode"
+             :fetcher github
+             :version original)
+    :custom
+
+    (custom-set-faces
+     '(svg-tag-default-face
+       ((t (:height 120 :foreground "black" :background "yellow")))))
+    ;;((t (:height 120 :foreground "white" :background "maroon")))))
+
+
+    (defun svg-tag-round (text)
+      "Replace text with a round SVG image"
+      (svg-tag-make (substring text 1 -1) nil 1 1 12))
+
+    (setq svg-tag-default-line-width 1)
+    ;; (setq svg-tag-horizontal-offset -4)
+    (setq svg-tag-horizontal-offset 0)
+    (setq svg-tag-vertical-offset -1)
+    (setq svg-tag-default-inner-padding 1)
+    (setq svg-tag-tags
+          '((":?TODO:?" . (svg-tag-make "TODO"))
+            (":?NOTE:?" . (svg-tag-make " NOTE "))
+            ((rx (seq (group ":" (+ upper)) (zero-or-one (seq ":" eol)))) .
+             ((svg-tag-make (match-string 1)))) ; org tags
+            ;; (":EMACS:?" . (svg-tag-make " EMACS "))
+            ;; (":ORG:?" . (svg-tag-make " ORG "))
+            ;; (":ATORP:?" . (svg-tag-make " ATORP "))
+            ((rx (seq " " (repeat 4 (any num)) "-" (repeat 2 (any num)) "-"
+                      (repeat 2 (any num)) " " (1+ alpha) "day") " ") .
+                      (svg-tag-round (match-string 0))) ; org header date
+            ("(\\([0-9]\\))" . (svg-tag-round (match-string 1)))
+            ("(\\([0-9]\\))" . (svg-tag-round (match-string 1)))))
+    (svg-tag-mode))
+
+  (svg-tag-mode -1)
+
+  (setq svg-tag-tags '(
+                       (":NOTE:" . (svg-tag-make "NOTE"))))
+
+  (defface svg-tag-note-face
+    '((t :foreground "black"
+         :background "yellow"
+         :box (:line-width 1 :color "orange" :style nil)
+         ;;  :family ,(face-attribute 'default :family)
+         ;;  :weight ,(face-attribute 'default :weight)
+         :height 130))
+    "Face for note tag" :group 'svg-tag)
+#+end_src
+
+
+(1)  (3) (2)  NOTE :NOTE: :EMACS:ORG: :EMACS: :ORG:
+              TODO :TODO:
+
 * Start-up
 
 Start with the scratch buffer; no start-up screen. Restore previous
