@@ -6725,8 +6725,6 @@ Run this perl code to (re)create the symbolic link after installation or upgrade
 The https://github.com/skuro/plantuml-mode helps editing the code.
 
 #+BEGIN_SRC emacs-lisp
-  ;; ditaa
-  (setq org-ditaa-jar-path "/usr/local/bin/ditaa.jar")
   ;; plantuml-mode
   (setq plantuml-jar-path (expand-file-name "/usr/local/bin/plantuml.jar"))
   (setq org-plantuml-jar-path plantuml-jar-path)
