@@ -7841,6 +7841,66 @@ orb-preformat-keywords
 
 
 
+** Meeting notes
+
+[[https://github.com/DarkBuffalo/ox-report][DarkBuffalo/ox-report: Export your org file to minutes report PDF file]]
+
+#+begin_src emacs-lisp
+(use-package ox-report)
+#+end_src
+
+** Org translate
+
+[[https://elpa.gnu.org/packages/org-translate.html][GNU ELPA - org-translate]], a minor mode
+
+
+key             binding
+---             -------
+
+ESC             Prefix Command
+
+C-M-b           ogt-backward-segment
+C-M-f           ogt-forward-segment
+C-M-n           ogt-new-segment
+C-M-t           ogt-update-source-location
+C-M-y           ogt-new-glossary-term
+C-M-;           ogt-insert-glossary-translation
+
+
+#+begin_src emacs-lisp
+(use-package org-translate)
+#+end_src
+
+Compile log warns:
+
+
+In end of data:
+org-translate.el:895:1:Warning: the function ‘format-prompt’ is not known to
+    be defined.
+** ob-translate
+
+[[https://github.com/krisajenkins/ob-translate][krisajenkins/ob-translate: Allows you to translate blocks of text within org-mode.]]
+
+#+begin_src emacs-lisp
+  (use-package ob-translate)
+#+end_src
+
+#+begin_src translate :src en :dest it,fr,fi
+  This is a test.
+#+end_src
+
+#+RESULTS:
+| it | Questa è una prova. |
+| fr | C'est un test.      |
+| fi | Tämä on testi.      |
+
+#+begin_src translate :src fi :dest en
+  Virkamies
+#+end_src
+
+#+RESULTS:
+: Official
+
 * Applications
 
 Functionality that otherwise require external applications and are not
