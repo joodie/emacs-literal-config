@@ -291,6 +291,11 @@ limits of noticibility. So my 20MB should be fine. The code
 below prevents garbage collection during the most interactive part
 of the emacs, the minibuffer.
 
+=read-process-output-max= is a new variable since 2019-12-21 in emacs
+v27: introduces variable to control how much data emacs can read on
+one pass from the server. I am observing more than 30% improvement
+when running with this setting.
+
 #+BEGIN_SRC emacs-lisp
   (setq gc-cons-threshold 20000000)
 
@@ -302,12 +307,14 @@ of the emacs, the minibuffer.
 
   (add-hook 'minibuffer-setup-hook #'my-minibuffer-setup-hook)
   (add-hook 'minibuffer-exit-hook #'my-minibuffer-exit-hook)
+
+  (setq read-process-output-max (* 1024 1024))
 #+END_SRC
 
 ** Custom lisp package directory
 
 There are still lisp packages that you have to copy manually and
-import to emacs. This defines =$HOME/.config/emacs/elisp= directory as
+import to emacs. This defines =$HOME/.emacs.d/elisp= directory as
 the place for them.
 
 #+BEGIN_SRC emacs-lisp
