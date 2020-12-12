@@ -9096,7 +9096,7 @@ See https://github.com/abo-abo/hydra/wiki/Twittering
                ("a" . twittering-toggle-activate-buffer)))
 #+END_SRC
 
-** PENDING EPUB reader
+** EPUB reader
 
 [[https://github.com/wasamasa/nov.el][nov.el]] is already better for reading EPUB texts than
 [[https://github.com/bddean/emacs-ereader][ereader]], and it is being rapidly developed further.
@@ -9104,11 +9104,6 @@ See https://github.com/abo-abo/hydra/wiki/Twittering
 I installed Liberation Serif for nov.el use.
 
 #+BEGIN_SRC emacs-lisp
-  ;;  (use-package ereader
-  ;;    :config
-  ;;    (add-hook 'ereader-mode-hook #'line-break-mode)
-  ;;    (add-hook 'ereader-mode-hook #'visual-line-mode))
-
   (use-package nov
     :defer
     :init
