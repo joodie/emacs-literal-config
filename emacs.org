@@ -8155,7 +8155,7 @@ See more tweeks from
         (define-key smap "h" 'pdf-annot-add-highlight-markup-annotation)))
 #+END_EXAMPLE
 
-** Mail: mu4e
+** PENDING Mail: mu4e
 
 [[https://www.reddit.com/r/emacs/comments/8q84dl/tip_how_to_easily_manage_your_emails_with_mu4e/][TIP: How to easily manage your emails with mu4e : emacs 🔊]]
 
