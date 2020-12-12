@@ -8607,10 +8607,10 @@ The read functions report their action in the echo field.
   (use-package elfeed-org
     ;;:defer t
     :after elfeed
-    :custom (rmh-elfeed-org-files '("~/.config/emacs/elfeed.org"))
+    ;;:custom (rmh-elfeed-org-files '("~/.config/emacs/elfeed.org"))
     :config
     (elfeed-org))
-    ;; progn: Elfeed-org cannot open ~/.emacs.d/elfeed.org.  Make sure it exists or customize the variable ’rmh-elfeed-org-files’
+  ;; progn: Elfeed-org cannot open ~/.emacs.d/elfeed.org.  Make sure it exists or customize the variable ’rmh-elfeed-org-files’
 
   (use-package elfeed
     :hook (elfeed-show-mode . visual-line-mode)
@@ -8672,17 +8672,24 @@ The read functions report their action in the echo field.
       (interactive)
       (elfeed--read-tag my/default-elfeed-search-filter "all"))
 
+    (defun elfeed--remove-urheilu ()
+      "Remove sports articles from finnish news"
+      (setq elfeed-search-filter "@1-month-ago +unread +fi urhe")
+      (elfeed-search-update :force)
+      (elfeed-mark-all-as-read)
+      (message "elfeed: fi sports removed"))
+
     (defun elfeed--remove-sports ()
       "Remove sports articles from world news"
       (setq elfeed-search-filter "@1-month-ago +unread +n sport")
       (elfeed-search-update :force)
       (elfeed-mark-all-as-read)
-      (message "elfeed: sports removed"))
+      (message "elfeed: en sports removed"))
 
     (defun elfeed-read-news-fi ()
       "Show global news articles in Finnish"
       (interactive)
-      (elfeed--remove-sports)
+      (elfeed--remove-urheilu)
       (elfeed--read-tag "@1-month-ago +unread +fi " "Finnish news"))
 
     (defun elfeed-read-news ()
