@@ -4722,7 +4722,7 @@ See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][do
 
 #+END_SRC
 
-** Applescript
+** PENDING Applescript
 
 [[https://github.com/tequilasunset/apples-mode][Apples-mode]] is a major mode for applescript.
 
