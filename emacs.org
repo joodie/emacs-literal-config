@@ -8812,6 +8812,59 @@ The read functions report their action in the echo field.
 
 #+END_SRC
 
+** Telega
+
+- [[https://github.com/zevlg/telega.el][zevlg/telega.el: GNU Emacs telegram client (unofficial)]]
+- [[https://github.com/zevlg/telega.el/blob/master/doc/telega-manual.org][telega.el/telega-manual.org at master · zevlg/telega.el]]
+
+
+#+BEGIN_SRC emacs-lisp
+  (use-package telega
+    :after visual-fill-column
+    :bind (:map telega-chat-mode-map
+                ("t" . telega-show-message-text))
+    :config
+    (telega-notifications-mode 1))
+
+(defun telega-show-message-text (msg)
+  "Show message at point as text-only."
+  (interactive (list (telega-msg-at (point))))
+  (with-telega-help-win "*Telegram Message Text*"
+    (let* ((chat-id (plist-get msg :chat_id))
+          (msg-id (plist-get msg :id))
+          (chat (telega--getChat chat-id)))
+
+      (telega-ins "Date: ")
+      (telega-ins--date-iso8601 (plist-get msg :date) "\n")
+      (telega-ins "Chat: ")
+      (telega-ins (telega-chat-title chat) "\n")
+
+      ;;(telega-ins-fmt "Chat-id: %d\n" chat-id)
+      ;;(telega-ins-fmt "Message-id: %d\n" msg-id)
+      (let ((sender-uid (plist-get msg :sender_user_id)))
+        (unless (zerop sender-uid)
+          (telega-ins "Sender: ")
+          (insert-text-button (telega-user--name (telega-user--get sender-uid))
+                              :telega-link (cons 'user sender-uid))
+          (telega-ins "\n")))
+
+      (let* ((print-length nil)
+       (content (plist-get msg :content))
+       (messagetext (plist-get content :text))
+       (text (plist-get messagetext :text)))
+
+       (when text
+         (insert "\n" text "\n"))
+
+        ;;(telega-ins-fmt "\nMessage: %s\n" text)
+        ;;(telega-ins-fmt "\nMessage: %S\n" text)
+        ;;(telega-ins-fmt "\nMessage: %S\n" messagetext)
+        ;;(telega-ins-fmt "\nMessage: %S\n" content)
+))))
+
+#+END_SRC
+
+
 ** PENDING Twitter
 
 [[http://www.emacswiki.org/emacs/TwitteringMode][Twittering mode]] ([[https://github.com/hayamiz/twittering-mode][Github]])gives a full blown twitter client with avatar
