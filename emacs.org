@@ -4168,6 +4168,21 @@ Needs language specific servers. Installed:
 [[https://github.com/palantir/python-language-server][+ palantir/python-language-server: An implementation of the Language
 Server Protocol for Python]]
 
+*** Disabling electric-pair in the minibuffer
+
+I enable the electric pair mode in some programming major modes. This
+makes it sure that doubling of delimiters does not happend within the
+minibuffer.
+
+#+BEGIN_SRC emacs-lisp
+
+;; Disable pairs when entering minibuffer
+(add-hook 'minibuffer-setup-hook (lambda () (electric-pair-mode 0)))
+
+;; Renable pairs when existing minibuffer
+(add-hook 'minibuffer-exit-hook (lambda () (electric-pair-mode 1)))
+#+END_SRC
+
 ** Perl
 
 I recently moved from [[http://perlbrew.pl/][perlbrew]] to [[https://github.com/tokuhirom/plenv][plenv]] as a system that provides
