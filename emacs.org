@@ -1239,11 +1239,12 @@ changes place and window scrolls.
 #+BEGIN_SRC emacs-lisp
   (use-package beacon
     :diminish ""
+    :custom
+    (beacon-color "firebrick")
+    (beacon-size 20)         ; smaller than default 40
+    (beacon-blink-delay 0.1) ; faster than default 0.3 ms
+    (beacon-blink-when-focused t)
     :config
-    (setq beacon-color "firebrick")
-    (setq beacon-size 20)         ; smaller than default 40
-    (setq beacon-blink-delay 0.1) ; faster than default 0.3 ms
-    (setq beacon-blink-when-focused t)
     (beacon-mode 1))
 #+END_SRC
 
