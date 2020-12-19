@@ -3971,7 +3971,8 @@ Have you set tab-always-indent to 'complete?
     :bind (:map ledger-mode-map
                 ("C-c C-c" . ledger-post-align-xact)
                 ("M-m" . ledger-next-misc)
-                ("M-." . ledger-add-note))
+                ("M-." . ledger-add-note)
+                ("M-l" . ledger-add-bill))
     :custom
     (ledger-use-iso-dates t "iso date format")
     (ledger-binary-path  "/usr/local/bin/ledger")
@@ -3998,12 +3999,12 @@ Have you set tab-always-indent to 'complete?
         (search-backward tag)
         (delete-char (length tag))))
 
-    (defun ledger-add-note ()
-      "Add a note to the current ledger entry.
+    (defun ledger-add-note (&optional str)
+      "Add a note with an optional STR to the current ledger entry.
 
-          Adds a new comment line starting with ' ; note: ' and places
-          point to the end. The new line is always placed after other
-          comments."
+       Adds a new comment line starting with ' ; note: ' and places
+       point to the end. The new line is always placed after other
+       comments."
       (interactive)
       (ledger-navigate-beginning-of-xact)
       (let ((beg-of-xact (point)))
@@ -4011,8 +4012,20 @@ Have you set tab-always-indent to 'complete?
         (unless (re-search-backward "^ +;" beg-of-xact t)
           (goto-char beg-of-xact))
         (end-of-line)
-        (insert "\n    ; note: ")
-        (ledger-post-align-xact))))
+        (insert (concat "\n    ; note: " str))
+        (ledger-post-align-xact)))
+
+    (defun ledger-add-bill ()
+      "Add a note with invoice to the current ledger entry.
+
+       Adds a new comment line starting with ' ; note: laskut/',
+       places point to the end and asks interactively to select a
+       file from the Downloads folder. The new line is always
+       placed after other comments."
+      (interactive)
+      (ledger-add-note "laskut/")
+      (my/move-bill))
+
 #+END_SRC
 
 *** Alternative: beancount
