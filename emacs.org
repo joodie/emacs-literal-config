@@ -1908,6 +1908,24 @@ It is bound to launch hydra key =C-x l j=.
 
 #+END_SRC
 
+** Org key bindings for all buffers
+
+[[https://irreal.org/blog/?p=8733][Elfeed and Goto-address | Irreal]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package goto-addr
+    :ensure nil
+    :hook ((compilation-mode . goto-address-mode)
+           (prog-mode . goto-address-prog-mode)
+           (elfeed-show-mode . goto-address-mode)
+           (eshell-mode . goto-address-mode)
+           (shell-mode . goto-address-mode))
+    :bind (:map goto-address-highlight-keymap
+                ("C-c C-o" . goto-address-at-point))
+    :commands (goto-address-prog-mode
+               goto-address-mode))
+#+END_SRC
+
 * Formatting and white-space
 
 ** View read-only
