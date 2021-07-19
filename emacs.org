@@ -6832,7 +6832,7 @@ preserving time]] bound to =C-c \= in org mode.
 
   (use-package org-clock-split
     :bind (:map org-mode-map
-                ("C-c \\" . org-clock-split)))
+                ("H-/" . org-clock-split)))
 #+END_SRC
 
 *** Time tracking
