@@ -7128,6 +7128,9 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
 ** Org table optimizations
 
 #+BEGIN_SRC emacs-lisp
+
+   (global-set-key (kbd "s-/") 'org-table-create-or-convert-from-region)
+
   (use-package org-table-sticky-header
     :after org
     :diminish ""
