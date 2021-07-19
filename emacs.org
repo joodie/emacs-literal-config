@@ -3462,7 +3462,14 @@ that searches the web for selected words.
 Note to self: Using =j= as a key is not at all mnemonic but I am
 running out of letters.
 
-*** Synonyms: synosaurus
+Wordnet, see the synonyms section next, can be used for definitions,
+too. [[https://www.manueluberti.eu//emacs/2020/06/13/helm-wordnut/][My reliable English dictionary – Manuel Uberti]]
+
+#+begin_src emacs-lisp
+(use-package wordnut)
+#+end_src
+
+**** Synonyms: synosaurus
 
 [[https://github.com/hpdeifel/synosaurus][Synosaurus]] uses WordNet for offline functionality. Install Wordnet
 first: In OSX =brew install wordnet=. The interaction is through command
