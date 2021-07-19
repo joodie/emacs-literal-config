@@ -7522,9 +7522,9 @@ code blocks.
 
 #+BEGIN_SRC emacs-lisp
   (use-package ox-reveal
-    :disabled t
     :after org
-    :custom (org-reveal-root "http://cdn.jsdelivr.net/reveal.js/3.0.0/"))
+    :custom (org-reveal-root "http://cdn.jsdelivr.net/npm/reveal.js"))
+    ;; :custom (org-reveal-root "file:~/src/reveal.js/latest"))
 
   (use-package htmlize
     :defer t)
