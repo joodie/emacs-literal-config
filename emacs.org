@@ -5468,7 +5468,63 @@ how to configure =counsel-git= and =counsel-rg=.
 
 [[https://oremacs.com/2019/07/09/ivy-reverse-i-search/][Ivy reverse-i-search · (or emacs]]
 
+Overview of different approaches to projectwide search and replace:
++ [[https://with-emacs.com/posts/tutorials/search-and-replacement-techniques/][with-emacs · Search and Replacement Techniques]]
++ [[https://with-emacs.com/posts/tutorials/using-occur-for-search-and-replace-across-files/][with-emacs · Using Occur for Search and Replace across Files]]
+  - copy hooks and advise
++ Install [[https://github.com/NicolasPetton/noccur.el][NicolasPetton/noccur.el: Run multi-occur on project/dired
+  files]]
+
 #+BEGIN_SRC emacs-lisp
+
+  (use-package noccur
+    :config
+    (add-hook 'occur-mode-hook
+              (defun occur-show-replace-context+ ()
+                (add-hook 'replace-update-post-hook
+                          'occur-mode-display-occurrence nil 'local)))
+
+    (define-advice occur-mode-display-occurrence
+        (:around (fun &rest args) save-match-data)
+      (save-match-data
+        (apply fun args)))
+
+    (add-hook 'occur-mode-hook
+              (defun isearch-occur-setup+ ()
+                (add-function :after-while (local 'isearch-filter-predicate)
+                              'occur-isearch-filter-p+)))
+
+    (defun occur-isearch-filter-p+ (beg end)
+      "Return non-nil if match should be considered."
+      (and
+       (save-excursion
+         ;; always omit first line wich contains summary info and in multi-occur it
+         ;; has no occur-title property and isn't read only
+         (goto-char beg)
+         (not (= (point-min) (line-beginning-position))))
+       ;; omit the other occur header lines
+       (not (or (get-text-property beg 'occur-title)
+                (get-text-property end 'occur-title)))))
+
+    (defvar-local occur-edit-buffers+ nil
+      "Save buffers in which occur performed changes.")
+
+    (add-hook 'occur-edit-mode-hook
+              (defun occur-eddit-save-edits+ ()
+                (add-hook 'after-change-functions
+                          'occur-edit-remember-buffer+ nil t)))
+
+    (defun occur-edit-remember-buffer+ (&rest _)
+      (let* ((m (get-text-property (line-beginning-position) 'occur-target))
+             (buf (and (markerp m) (marker-buffer m))))
+        (when buf
+          (cl-pushnew buf occur-edit-buffers+))))
+
+    (define-advice occur-cease-edit (:before () save-edits)
+      (dolist (buf occur-edit-buffers+)
+        (with-current-buffer buf
+          (save-buffer)))))
+  ;; end of noccur
 
   (setq save-interprogram-paste-before-kill t)
 
@@ -5489,69 +5545,60 @@ how to configure =counsel-git= and =counsel-rg=.
             (setq counsel-rg-base-command
                   "rg -i -M 120 --no-heading --line-number --color never %s .")
             (org-mode . org-level-4)))
-    :bind (("C-s"     . swiper-isearch)
+    :bind (("C-s" . swiper-isearch)
+           ("C-7      . swiper-mc")
            ("C-c C-r" . ivy-resume)
-           ("M-x"     . counsel-M-x)
+           ("M-x" . counsel-M-x)
            ("C-c C-o" . ivy-occur)
-           ("C-c b"   . ivy-push-view)
-           ("C-c B"   . ivy-pop-view)
-           ("M-y"     . counsel-yank-pop)
-           ("s-f"     . counsel-git)
-           ("s-g"     . counsel-rg)
-           ("s-l"     . counsel-ag)
-           ("C-M-s"   . avy-goto-char-timer)
+           ("C-c b" . ivy-push-view)
+           ("C-c B" . ivy-pop-view)
+           ("M-y" . counsel-yank-pop)
+           ("s-f" . counsel-git)
+           ("s-g" . counsel-rg)
+           ("s-l" . counsel-ag)
+           ("C-M-s" . avy-goto-char-timer)
            :map ivy-minibuffer-map
            ("M-y" . ivy-next-line))
     :config
     (ivy-mode 1)
+    (ivy-set-occur 'ivy-switch-buffer 'ivy-switch-buffer-occur)
     (counsel-mode 1)
 
     (setq ivy-re-builders-alist
           ;; allow regex input not in order
-          '((t   . ivy--regex-ignore-order)))
+          '((t . ivy--regex-ignore-order)))
 
     (setq ivy-use-selectable-prompt t)
 
     ;; allow editing of occur buffers
-    (use-package wgrep)
+    (use-package wgrep))
+  ;; end of use-package ivy
 
-    (custom-set-faces
-     '(swiper-minibuffer-match-face-1
-       ((t :background "#dddddd")))
-     '(swiper-minibuffer-match-face-2
-       ((t :background "#bbbbbb" :weight bold)))
-     '(swiper-minibuffer-match-face-3
-       ((t :background "#bbbbff" :weight bold)))
-     '(swiper-minibuffer-match-face-4
-       ((t :background "#ffbbff" :weight bold))))
-    )
+  (use-package ivy-hydra
+    :after (ivy hydra))
 
+  ;; restore key bindings to isearch due to character folding in emacs 25.1
+  (bind-key "C-`" 'isearch-forward)
+  (bind-key "C-r" 'isearch-backward)
 
-    (use-package ivy-hydra
-      :after (ivy hydra))
+  ;; Isearch convenience, space matches anything (non-greedy)
+  (setq search-whitespace-regexp ".*?")
 
-      ;; restore key bindings to isearch due to character folding in emacs 25.1
-      (bind-key "C-`" 'isearch-forward)
-      (bind-key "C-r" 'isearch-backward)
+  ;; http://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.htmlh
+  ;; This will only leave point at the start of search if you exit the
+  ;; search with C-↵ instead of ↵.
+  (define-key isearch-mode-map [(control return)]
+    #'isearch-exit-other-end)
+  (defun isearch-exit-other-end ()
+    "Exit isearch, at the opposite end of the string."
+    (interactive)
+    (isearch-exit)
+    (goto-char isearch-other-end))
 
-      ;; Isearch convenience, space matches anything (non-greedy)
-      (setq search-whitespace-regexp ".*?")
-
-      ;; http://endlessparentheses.com/leave-the-cursor-at-start-of-match-after-isearch.htmlh
-      ;; This will only leave point at the start of search if you exit the
-      ;; search with C-↵ instead of ↵.
-      (define-key isearch-mode-map [(control return)]
-        #'isearch-exit-other-end)
-      (defun isearch-exit-other-end ()
-        "Exit isearch, at the opposite end of the string."
-        (interactive)
-        (isearch-exit)
-        (goto-char isearch-other-end))
-
-    ;;(define-key minibuffer-local-map
-    ;;    (kbd "C-r") 'counsel-minibuffer-history)
-    ;;(define-key shell-mode-map
-    ;;    (kbd "C-r") 'counsel-shell-history)
+  ;;(define-key minibuffer-local-map
+  ;;    (kbd "C-r") 'counsel-minibuffer-history)
+  ;;(define-key shell-mode-map
+  ;;    (kbd "C-r") 'counsel-shell-history)
 #+END_SRC
 
 Yet an other alternative way to [[http://pragmaticemacs.com/emacs/super-efficient-movement-using-avy/][search using avy]].
