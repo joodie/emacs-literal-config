@@ -2323,7 +2323,17 @@ messages. Disable save messages with the new v27.1 variable
     (super-save-remote-files nil)
     (auto-save-no-message t)
     :config
-    (super-save-mode t))
+    (super-save-mode t)
+
+    (add-to-list 'super-save-triggers 'next-buffer)
+    (add-to-list 'super-save-triggers 'previous-buffer)
+    (add-to-list 'super-save-triggers 'switch-to-buffer)
+    (add-to-list 'super-save-triggers 'other-window)
+    (add-to-list 'super-save-triggers 'windmove-up)
+    (add-to-list 'super-save-triggers 'windmove-down)
+    (add-to-list 'super-save-triggers 'windmove-left)
+    (add-to-list 'super-save-triggers 'windmove-right)
+    (setq magit-save-repository-buffers 'dontask))
 #+END_SRC
 
 *** Image mode
