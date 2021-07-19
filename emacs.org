@@ -297,7 +297,7 @@ one pass from the server. I am observing more than 30% improvement
 when running with this setting.
 
 #+BEGIN_SRC emacs-lisp
-  (setq gc-cons-threshold 20000000)
+  ;(setq gc-cons-threshold 20000000)
 
   (defun my-minibuffer-setup-hook ()
     (setq gc-cons-threshold most-positive-fixnum))
