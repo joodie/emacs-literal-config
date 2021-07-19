@@ -6180,7 +6180,7 @@ Uses =variable-pitch-mode=. To change the font, modify the
     (setq org-use-sub-superscripts "{}")
     ;; Don't allow editing of folded regions
     (setq org-catch-invisible-edits 'show-and-error)
-    (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "*") ("*" . "+")))
+    ;; (setq org-list-demote-modify-bullet '(("+" . "-") ("-" . "*") ("*" . "+")))
     (setq org-cycle-separator-lines 0)
     (add-hook 'org-mode-hook
               (lambda ()
@@ -6189,7 +6189,7 @@ Uses =variable-pitch-mode=. To change the font, modify the
                 (org-indent-mode)
                 )))
 
-  (require 'org-tempo) ;; old style block templates
+ ;; (require 'org-tempo) ;; old style block templates
 
   (use-package org-autolist
     :after org
@@ -6235,8 +6235,12 @@ slows emacs down drastically.
 
 I use [[https://github.com/rejeep/wrap-region.el][wrap-region.el]] to add automatic wrapping to org-mode text characters.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results none
   (use-package wrap-region
+    :after org
+    :bind (:map wrap-region-mode-map
+                ("s-b" . (lambda (arg) (interactive "p") (wrap-region-trigger arg "*")))
+                ("s-i" . (lambda (arg) (interactive "p") (wrap-region-trigger arg "/"))))
     :config
     (wrap-region-global-mode t)
     ;; (wrap-region-add-wrapper "`" "'")
@@ -6408,7 +6412,9 @@ hydra-org-template that is triggered by the =<= key.
     :bind* (("C-c a" . org-agenda)  ; bind* ensures that all minor mode bindings are overriden
             ("C-c c" . org-capture)
             ("C-c l" . org-store-link)
-            ("C-c C-s" . org-schedule)) ; override synosaurus
+            )
+    :bind (:map wrap-region-mode-map
+            ("C-c C-s" . org-schedule))
     :init
     (setq org-agenda-files '("~/Dropbox/org"))
     (setq org-return-follows-link t)
