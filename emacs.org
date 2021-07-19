@@ -5879,6 +5879,12 @@ keyboard layouts. The same needs to be done for emacs keybindings.
   (add-hook 'org-shiftright-final-hook #'windmove-right)
 #+END_SRC
 
+#+begin_src emacs-lisp
+(use-package windswap
+  :defer t)
+#+end_src
+
+
 *** wn-mode
 
 Let's try yet an other package [[https://github.com/luismbo/wn-mode][wn-mode]] to change between windows.
