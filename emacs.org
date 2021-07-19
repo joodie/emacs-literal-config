@@ -6131,14 +6131,16 @@ needs to be set before calling org mode.
    '(org-block-end-line
      ((t (:overline "#696969" :foreground "#f00f00" :background "#000000")))))
 
+  ;; for light modes
   (custom-set-faces
    '(org-block-begin-line
      ((t (:underline "#A7A6AA" :foreground "#f00f00" :background "#efefef"))))
    '(org-block
-     ((t (:background "#fffffc"))))
+     ((t (:background "#f0ffff")))) ; azure
    '(org-block-end-line
-     ((t (:overline "#A7A6AA" :foreground "#f00f00" :background "#efefef")))))
+     ((t (:overline "#a7a6aa" :foreground "#f00f00" :background "#efefef")))))
 #+END_SRC
+
 
 ** PENDING org-variable-pitch.el
 
@@ -6171,7 +6173,7 @@ Uses =variable-pitch-mode=. To change the font, modify the
 
 #+BEGIN_SRC emacs-lisp
   (use-package org
-    :ensure org-plus-contrib
+    ;; :ensure org-plus-contrib
     :mode ("\\.txt$" . org-mode)
     :diminish org-indent-mode
     :config
