@@ -7081,7 +7081,7 @@ blocks. This also highlights source blocks in HTML exports.
 #+BEGIN_SRC emacs-lisp
   (setq org-src-fontify-natively t
         org-src-tab-acts-natively t)
-
+  (setq org-latex-tables-booktabs t) ; to use the nice booktabs rules
   ;; ###
   ;; display/update images in the buffer after I evaluate
   (add-hook 'org-babel-after-execute-hook #'org-display-inline-images 'append)
@@ -7218,8 +7218,6 @@ document. Also rescale images to 300px for display.
   (setq org-startup-with-inline-images t)
   (setq org-image-actual-width 300)
   (org-display-inline-images t t)
-  ;;(add-hook 'org-babel-after-execute-hook
-  ;;          (lambda () (org-redisplay-inline-images)))
 #+END_SRC
 
 Enable flycheck in org-buffer  ([[http://www.wisdomandwonder.com/link/9573/how-to-correctly-enable-flycheck-in-babel-source-blocks][from here]])
@@ -7283,6 +7281,8 @@ footnotes.
          \\usepackage{hypernat}
          \\usepackage[round]{natbib}
          \\usepackage{microtype}
+         \\usepackage{float}
+         \\usepackage{booktabs}
 
          \\usepackage{paralist}
          \\let\\itemize\\compactitem
@@ -7321,6 +7321,8 @@ footnotes.
          \\usepackage{hypernat}
          \\usepackage[round]{natbib}
          \\usepackage{microtype}
+         \\usepackage{float}
+         \\usepackage{booktabs}
 
          \\usepackage{paralist}
          \\let\\itemize\\compactitem
@@ -7611,7 +7613,7 @@ document. Place them to the end. Read more about [[http://merkel.zoneo.net/Latex
   (define-skeleton skel-org-block-bibl
     "Insert a org/lisp bibliography block"
     ""
-    "\n\\bibliographystyle{plainnat}\n\\bibliography{~/Documents/latex/all.bib}\n"
+    "\n\\bibliographystyle{plainnat}\n\\bibliography{~/Downloads/articles/hol-library.bib}\n"
     _ -
     "")
 
