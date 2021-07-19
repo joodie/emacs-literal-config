@@ -4151,6 +4151,23 @@ windows.
 
 #+END_SRC
 
+[[https://duncan.codes/posts/2020-09-14-prose-linting-vale-emacs.org/index.html][Prose linting with Vale and Emacs]]
+
+Vale taking too much CPU cycles, disabled.
+
+#+begin_src emacs-lisp :tangle no
+  (flycheck-define-checker vale
+    "A checker for prose"
+    :command ("vale" "--minAlertLevel" "suggestion" "--output" "line" source)
+    :standard-input nil
+    :error-patterns
+    ((error line-start (file-name) ":" line ":" column ":"
+            (id (one-or-more (not (any ":")))) ":" (message) line-end))
+    :modes (markdown-mode org-mode text-mode))
+  (add-to-list 'flycheck-checkers 'vale 'append)
+#+end_src
+
+
 *** Quickrun
 
 [[https://github.com/syohex/emacs-quickrun][quickrun]]-package makes it easy to run any buffer with code in it. I
