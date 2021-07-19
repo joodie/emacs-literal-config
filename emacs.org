@@ -1148,7 +1148,7 @@ the buffer isn't visiting a file).
                    "%b"))))
 #+END_SRC
 
-** Fill column indicator
+** PENDING Fill column indicator
 
 [[https://tatrix.org/emacs/fill-column-indicator/][TatriX]]
 
@@ -1291,15 +1291,19 @@ Current line is subtly highlighted in pale blue.
 
 #+BEGIN_SRC emacs-lisp
   (when (display-graphic-p)
-    (global-hl-line-mode 1)
-    ;;(set-face-background hl-line-face "Grey20")
-    (set-face-background hl-line-face "LightCyan"))
+    (global-hl-line-mode 1))
+    ;;(set-face-background hl-line-face "Grey80")
+    (set-face-background hl-line-face "Grey20")
+    ;;(set-face-background hl-line-face "LightCyan")
+    ;;(set-face-background hl-line-face "honeydew2")
 #+END_SRC
 
-*** Highlight keywords globally
+*** PENDING Highlight keywords globally
 
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Highlight-Interactively.html][Highlight Interactively - GNU Emacs Manual]]. Adapted from [[http://www.bartuka.com/pages-output/personal-emacs-configuration/][@bartuka:
 emacs.d]].
+
+NOTE: testing replacing this with svg-tag-mode
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'hi-lock-mode-hook
@@ -1307,7 +1311,7 @@ emacs.d]].
               (highlight-regexp "FIXME" 'hi-red-b)
               (highlight-regexp "NOTE" 'hi-red-b)
               (highlight-regexp "TODO" 'hi-red-b)))
-  (global-hi-lock-mode 1)
+  (global-hi-lock-mode t)
 #+END_SRC
 
 *** Highlighting new text
@@ -2918,7 +2922,7 @@ configuration options and a sample hydra, also [[https://github.com/abo-abo/hydr
         (count-matches "\\sw+"))))
 #+END_SRC
 
-** Text editing by external programs
+** PENDING Text editing by external programs
 
 It used to be quicker for me to write perl scripts to format text than
 do it any other way. These functions demonstrate how a standard command
@@ -3045,6 +3049,13 @@ the new menu lists Operate, View and Mark.
 #+BEGIN_SRC emacs-lisp
   (defalias 'list-buffers 'ibuffer) ; make ibuffer default
 #+END_SRC
+** PENDING Piper - interactive editing
+
+[[https://gitlab.com/howardabrams/emacs-piper][Howard Abrams / emacs-piper · GitLab]]
+
+(use-package piper
+    :load-path "elisp/"
+    :bind ("C-c C-'" . piper))
 
 * Version control
 
@@ -3372,226 +3383,8 @@ especially efficient.
     ("u" (my/flyspell-save-word t)))
 #+END_SRC
 
-**** PENDING wcheck mode
-
-A level up in spell checking abstractions is [[https://github.com/tlikonen/wcheck-mode][Wcheck Mode]] that
-understands programs for proper inflection of words in Finnish in
-addition to standard flyspell.
-
-Sources:
-- http://www.hillenius.com/blog/2013/11/09_writers-need-spell-checkers-wcheck-mode.html
-
-  #+BEGIN_SRC emacs-lisp
-
-    (setq ispell-program-name "aspell")
-
-    (defvar my-finnish-syntax-table
-      (copy-syntax-table text-mode-syntax-table))
-
-    (modify-syntax-entry ?- "w" my-finnish-syntax-table)
-
-    (setq wcheck-language-data
-          '(("British English"
-             (program . "/usr/local/bin/aspell")
-             (args "-a"  "-l" "-d" "british")
-             (action-program . "/usr/local/bin/aspell")
-             (action-args "-a" "-d" "british")
-             (action-parser . wcheck-parser-ispell-suggestions))
-            ("Finnish"
-             (program . "/usr/local/bin/enchant")
-             (args "-l" "-d" "fi")
-             (syntax . my-finnish-syntax-table)
-             (action-program . "/usr/local/bin/enchant")
-             (action-args "-a" "-d" "fi")
-             (action-parser . wcheck-parser-ispell-suggestions))))
-  #+END_SRC
-
-
-[[https://github.com/tlikonen/wcheck-mode]] is the next level of
-abstraction in spell checking. It can work with standard ispell,
-aspell and hunspell, but also with enchant that can deal with
-languages that have more complex rules of inflection than typical
-Germanic languages. Finnish has a freeware program [[http://voikko.puimula.org/][Voikko]] that can
-deal with its intricacies.
-- http://www.hillenius.com/blog/2013/11/09_writers-need-spell-checkers-wcheck-mode.html
-- https://github.com/philc/emacs-config
-
-  #+BEGIN_SRC emacs-lisp
-
-    (autoload 'wcheck-mode "wcheck-mode"
-      "Toggle wcheck-mode." t)
-    (autoload 'wcheck-change-language "wcheck-mode"
-      "Switch wcheck-mode languages." t)
-    (autoload 'wcheck-actions "wcheck-mode"
-      "Open actions menu." t)
-    (autoload 'wcheck-jump-forward "wcheck-mode"
-      "Move point forward to next marked text area." t)
-    (autoload 'wcheck-jump-backward "wcheck-mode"
-      "Move point backward to previous marked text area." t)
-
-    ;; these two sexps set up a functional wcheck
-    (setq-default wcheck-language "english")
-    (setq-default wcheck-language-data
-                  '(("english"
-                     (program . "/usr/local/bin/aspell")
-                     (args "list") ; -l: list only the mispellings.
-                     (face . hi-yellow)
-                     (connection . pty)
-                     ;; Note that I don't use this functionality of providing suggested spelling corrects, and
-                     ;; this config is untested. I just like to highlight mispelled words.
-                     (action-program . "/usr/local/bin/aspell")
-                     (action-args "-a") ; -a: lists alternatives.
-                     (action-parser . wcheck-parser-ispell-suggestions))))
-
-
-
-    (defvar my-finnish-syntax-table
-      (copy-syntax-table text-mode-syntax-table))
-    (modify-syntax-entry ?- "w" my-finnish-syntax-table)
-    (setq-default wcheck-language "finnish")
-
-    (setq wcheck-language-data
-          '(("english"
-             (program . "/usr/local/bin/aspell")
-             (args "list") ; -l: list only the mispellings.
-             (face . hi-yellow)
-             (connection . pty)
-             (action-program . "/usr/local/bin/aspell")
-             (action-args "-a") ; -a: lists alternatives.
-             (action-parser . wcheck-parser-ispell-suggestions))
-            ("british"
-             (program . "/usr/local/bin/aspell")
-             (args "list" "-l" "en_BR") ; list: list only the mispellings.
-             (face . hi-yellow)
-             (connection . pty)
-             (action-program . "/usr/local/bin/aspell")
-             (action-args "-a" "-l" "en_BR") ; -a: lists alternatives.
-             (action-parser . wcheck-parser-ispell-suggestions))
-            ("finnish"
-             (program . "/usr/local/bin/enchant")
-             (args "-l" "-d" "fi")
-             (syntax . my-finnish-syntax-table)
-             (action-program . "/usr/local/bin/enchant")
-             (action-args "-a" "-d" "fi")
-             (action-parser . wcheck-parser-ispell-suggestions))
-            ))
-
-
-
-    ;; Set aspell as the spell program
-    (setq ispell-program-name "aspell")
-
-    ;; Speed up aspell: ultra | fast | normal
-    (setq ispell-extra-args '("--sug-mode=ultra"))
-
-    (setq ispell-dictionary "british")
-
-    (let ((langs '( "english" "finnish" "american" )))
-      (setq lang-ring (make-ring (length langs)))
-      (dolist (elem langs) (ring-insert lang-ring elem)))
-
-    ;;     ("British English"
-    ;;      (program . "/usr/local/bin/enchant")
-    ;;      (args "-l" "-d" "en_GB")
-    ;;      (face . hi-yellow)
-    ;;      (connection . pty)
-    ;;      (action-program . "/usr/local/bin/enchant")
-    ;;      (action-args "-a" "-d" "en_GB")
-    ;;      (action-parser . wcheck-parser-ispell-suggestions))))
-
-
-    ;; (setq wcheck-language-data
-    ;;       '(("british"
-    ;;          (program . "/usr/local/bin/aspell")
-    ;;          (args "-l" "-d" "british")
-    ;;          (action-program . "/usr/local/bin/aspell")
-    ;;          (action-args "-a" "-d" "british")
-    ;;          (action-parser . wcheck-parser-ispell-suggestions))
-    ;;         ("Finnish"
-    ;;          (program . "/usr/local/bin/enchant")
-    ;;          (args "-l" "-d" "fi")
-    ;;          (syntax . my-finnish-syntax-table)
-    ;;          (action-program . "/usr/local/bin/enchant")
-    ;;          (action-args "-a" "-d" "fi")
-    ;;          (action-parser . wcheck-parser-ispell-suggestions))
-    ;;         ("cat" ((program . "/bin/cat")))))
-
-    (bind-key "C-c s" 'wcheck-mode)
-    (bind-key "C-c l" 'wcheck-change-language)
-    (bind-key "C-c c" 'wcheck-actions)
-    ;;(bind-key "C-c n" 'wcheck-jump-forward)
-    ;;(bind-key "C-c p" 'wcheck-jump-backward)
-
-    (bind-key "C-c w" 'hydra-wcheck/body)
-    (defhydra hydra-wcheck (:color pink :hint nil)
-      "
-            ^Wcheck^             ^Check^      [Language: %`ispell-current-dictionary]
-          ^^-----------------------------------------------------------
-            _t_: toggle            _n_: next error
-            _c_: change language   _k_: correct and add to abbrev
-             a   actions           _i_: insert to personal list
-            _q_uit                 _u_: insert, uncapitalize and insert
-                   "
-      ("n" flyspell-goto-next-error)
-      ("t" cycle-ispell-languages)
-      ("q" nil :color blue)
-
-      ("c" ispell-word)
-      ("k" my/ispell-word-then-abbrev)
-      ("i" my/flyspell-save-word)
-      ("u" (my/flyspell-save-word t)))
-  #+END_SRC
-
-*** Writing style: writegood
-
-[[https://github.com/bnbeckwith/writegood-mode][Writegood mode]], =C-x t w=, highlights common writing problems in
-English text. It highlights weasel words, passive voice, and
-duplicate words. Additionally, it can show [[http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests][Flesch-Kincaid scoring
-and grade-level estimates]].
-
-#+BEGIN_SRC emacs-lisp
-  (use-package writegood-mode
-    :bind  (("C-c C-g g" . writegood-grade-level)
-            ("C-c C-g e" . writegood-reading-ease)))
-#+END_SRC
-
-*** Grammar: [[https://github.com/mhayashi1120/Emacs-langtool][languagetool]]
-
-LanguageTool now works with the latest release. I start with British
-English, but that can be changed when needed. I've disabled rules
-that give too many spurious hits in org mode. Besides,
-flyspell does it better anyway. The main way to launch langtool is to
-hit =C-x l g= that is short for "Emacs, launch grammar".
-
-#+BEGIN_SRC emacs-lisp
-
-  (use-package langtool
-    :bind (("C-x 4 w" . langtool-check)
-           ("C-x 4 W" . langtool-check-done)
-           ("C-x 4 l" . langtool-switch-default-language)
-           ("C-x 4 4" . langtool-show-message-at-point)
-           ("C-x 4 c" . langtool-correct-buffer))
-    :custom
-    (langtool-language-tool-jar
-     "/usr/local/Cellar/languagetool/4.7/libexec/languagetool-commandline.jar"
-     "VERSION STRING HAS TO BE CHANGED WHEN UPGRADING")
-    (langtool-default-language "en" "British")
-    (langtool-user-arguments '("--languagemodel" "~/data/lt") " try!")
-    (langtool-mother-tongue "en")
-    (langtool-disabled-rules '("WHITESPACE_RULE"
-                               "EN_UNPAIRED_BRACKETS"
-                               "COMMA_PARENTHESIS_WHITESPACE"
-                               "EN_QUOTES"
-                               "MORFOLOGIK_RULE_EN_GB"
-                               "MORFOLOGIK_RULE_US"))
-    :config
-    (add-hook 'langtool-error-exists-hook
-              (lambda ()
-                (langtool-correct-buffer)
-                (langtool-check-done))))
-#+END_SRC
-
-*** Word definition
+*** Look-up
+**** Word definition
 
 [[http://oremacs.com/2015/05/22/define-word/][Define-word]] ([[http://oremacs.com/2015/05/22/define-word/][blog]]) gives English definitions to words under cursor
 using on-line Wordnik service. Use =C-c J= to search the word under
@@ -3678,6 +3471,94 @@ The downloaded sdcv-mode and its =sdcv-search= command remains unused.
   (use-package sdcv-mode
     :disabled t
     :ensure nil)
+#+END_SRC
+
+*** Writing style:
+**** writegood
+
+[[https://github.com/bnbeckwith/writegood-mode][Writegood mode]], =C-x t w=, highlights common writing problems in
+English text. It highlights weasel words, passive voice, and
+duplicate words. Additionally, it can show [[http://en.wikipedia.org/wiki/Flesch%E2%80%93Kincaid_readability_tests][Flesch-Kincaid scoring
+and grade-level estimates]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package writegood-mode
+    :bind  (("C-c C-g g" . writegood-grade-level)
+            ("C-c C-g e" . writegood-reading-ease)))
+#+END_SRC
+
+**** PENDING Languagetool - flycheck
+
+[[https://github.com/emacs-languagetool/flycheck-languagetool][emacs-languagetool/flycheck-languagetool: Flycheck support for LanguageTool]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-languagetool
+    :hook (text-mode . (lambda ()
+                         (require 'flycheck-languagetool)))
+    :init
+    (setq flycheck-languagetool-server-jar "/usr/local/bin/languagetool-server.jar")
+    (setq flycheck-languagetool-url "http://localhost:8081")
+    (setq flycheck-languagetool-language "en-GB")
+    (setq flycheck-languagetool-server-args ("--languageModel" "/Users/helehvas/languagetool"))
+    )
+#+END_SRC
+
+**** PENDING [[https://github.com/mhayashi1120/Emacs-langtool][languagetool]]
+
+LanguageTool now works with the latest release. I start with British
+English, but that can be changed when needed. I've disabled rules
+that give too many spurious hits in org mode. Besides,
+flyspell does it better anyway. The main way to launch langtool is to
+hit =C-x l g= that is short for "Emacs, launch grammar".
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package langtool
+    :bind (("C-x 4 w" . langtool-check)
+           ("C-x 4 W" . langtool-check-done)
+           ("C-x 4 l" . langtool-switch-default-language)
+           ("C-x 4 4" . langtool-show-message-at-point)
+           ("C-x 4 c" . langtool-correct-buffer))
+    :custom
+    (langtool-language-tool-jar
+     "/usr/local/Cellar/languagetool/4.7/libexec/languagetool-commandline.jar"
+     "VERSION STRING HAS TO BE CHANGED WHEN UPGRADING")
+    (langtool-default-language "en" "British")
+    (langtool-user-arguments '("--languagemodel" "~/data/lt") " try!")
+    (langtool-mother-tongue "en")
+    (langtool-disabled-rules '("WHITESPACE_RULE"
+                               "EN_UNPAIRED_BRACKETS"
+                               "COMMA_PARENTHESIS_WHITESPACE"
+                               "EN_QUOTES"
+                               "MORFOLOGIK_RULE_EN_GB"
+                               "MORFOLOGIK_RULE_US"))
+    :config
+    (add-hook 'langtool-error-exists-hook
+              (lambda ()
+                (langtool-correct-buffer)
+                (langtool-check-done))))
+#+END_SRC
+
+**** PENDING Grammarly
+
++ [[https://github.com/znck/grammarly][znck/grammarly: Unofficial Grammarly VS Code Extension]]
++ [[https://github.com/emacs-grammarly/lsp-grammarly][emacs-grammarly/lsp-grammarly: lsp-mode ❤️ grammarly]]
+
+#+begin_src emacs-lisp :results none
+(use-package lsp-grammarly
+  :hook (text-mode . (lambda ()
+                       (require 'lsp-grammarly)
+                       (lsp))))  ; or lsp-deferred
+#+end_src
+*** PENDING Binder
+
+[[https://github.com/rnkn/binder][rnkn/binder: Emacs global minor mode facilitating multi-file writing
+projects]]
+
+Something for Cia
+
+#+BEGIN_SRC emacs-lisp
+  (use-package binder)
 #+END_SRC
 
 ** Text folding
@@ -3902,16 +3783,18 @@ More [[http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor
       :disabled nil))
 #+END_SRC
 
-** XML
+** PENDING XML
 
 I am using the builtin nXML mode for XML editing and turning off
 automatic line wrapping.
 
 #+BEGIN_SRC emacs-lisp
-  (defun my/nXML-hooks ()
-    (auto-fill-mode -1))
-
-  (add-hook 'nXML-mode-hook #'my/nXML-hooks)
+  (use-package nXML
+  :ensure nil
+  :mode (("\\.xsl\\'" . nxml-mode)
+         ("\\.xslt\\'" . nxml-mode))
+  :config
+  (auto-fill-mode -1))
 #+END_SRC
 
 ** Zsh and fish
@@ -6010,13 +5893,14 @@ exported.
 Unsetting variable org-M-RET-may-split-line disallows splitting heaser
 lines with enter ([[http://irreal.org/blog/?p=6297][Make M-RET better in Org Mode | Irreal]]).
 
-** Fontification
+** PENDING Fontification
 
 [[https://orgmode.org/worg/org-contrib/babel/examples/fontify-src-code-blocks.html][Pretty fontification of source code blocks]]
 needs to be set before calling org mode.
 
-#+BEGIN_SRC emacs-lisp
- (custom-set-faces
+#+BEGIN_SRC emacs-lisp :results none
+  ;; for dark modes
+  (custom-set-faces
    '(org-block-begin-line
      ((t (:underline "#696969" :foreground "#f00f00" :background "#000000"))))
    '(org-block
@@ -6764,14 +6648,36 @@ Out of the many options, these are the most useful:
 
   See [[http://orgmode.org/manual/Clocking-work-time.html][Clocking work time]].
 
-** PENDING MobileOrg
+** PENDING Org noter
 
-Use Dropbox for syncing my agenda files with my Android
-phone. Worry about the security implications later.
+[[https://github.com/weirdNox/org-noter][weirdNox/org-noter: Emacs document annotator, using Org-mode]]
 
-#+BEGIN_SRC emacs-lisp
-  (setq org-mobile-directory "~/Dropbox/org")
-#+END_SRC
+Sync notes on pdf, epub, and word files.
+
+#+begin_src emacs-lisp
+  (use-package org-noter
+    :after org
+    :custom
+    (org-noter-default-notes-file-names '("reference.org"))
+    (org-noter-notes-search-path '("~/Dropbox/org"))
+    (org-noter-separate-notes-from-heading t))
+#+end_src
+
+** Org-links at echo area
+
+[[https://stackoverflow.com/questions/30312638/is-there-a-package-or-setting-to-show-an-org-mode-link-under-cursor-destinatio][Is there a package or setting to show an org-mode link (under cursor)
+destination in the modeline or other area of Emacs window? - Stack
+Overflow]]
+
+#+begin_src emacs-lisp
+(defun link-message ()
+  (let ((object (org-element-context)))
+    (when (eq (car object) 'link)
+      (message "%s"
+           (org-element-property :raw-link object)))))
+
+(add-hook 'post-command-hook 'link-message)
+#+end_src
 
 ** Extending org completion
 
@@ -7724,7 +7630,10 @@ This is a mess. Not working.
 #+end_src
 
 org-zotxt-default-search-method
-** Note taking : Zettelkasten
+
+** PENDING Note taking : Zettelkasten
+
+[[https://github.com/org-roam/org-roam-server][org-roam/org-roam-server: A Web Application to Visualize the Org-Roam Database]]
 
 #+begin_src emacs-lisp :results none
 
@@ -7733,7 +7642,7 @@ org-zotxt-default-search-method
     :custom
     (org-roam-directory "~/Dropbox/org/zettel/")
     (org-roam-completion-system 'ivy)
-    (org-roam-buffer-position 'left)
+    (org-roam-buffer-position 'right)
     (org-roam-link-title-format "→%s")
     (org-roam-index-file "index.org") ; default
     (org-roam-verbose nil)
@@ -7757,131 +7666,140 @@ org-zotxt-default-search-method
      '(org-roam-link
        ((t (:foreground "#8B0000")))))    ; dark red
 
-  (defun org-roam-create-file ()
-    "Create a new roam file based on text under cursor
+    (defun org-roam-create-file ()
+      "Create a new roam file based on text under cursor
 
-          The line under cursor is used to create the new file name
-          slug. Org-mode header, line iterm markup is ignored from
-          the beginning of the line. Todo keywords are parsed from
-          variable org-todo-keywords and ignored. The remaining
-          text is turned the slug and a new org-roam file is
-          created. The selected text is turned into org-roam link
-          to the new file. Both files are saved and focus moved to
-          the new file.
+            The line under cursor is used to create the new file name
+            slug. Org-mode header, line iterm markup is ignored from
+            the beginning of the line. Todo keywords are parsed from
+            variable org-todo-keywords and ignored. The remaining
+            text is turned the slug and a new org-roam file is
+            created. The selected text is turned into org-roam link
+            to the new file. Both files are saved and focus moved to
+            the new file.
 
-          If there is an active region, it is used to as the new file
-          name slug. Use carefully and and pay attention to what is selected!
+            If there is an active region, it is used to as the new file
+            name slug. Use carefully and and pay attention to what is selected!
 
-          If the slug is a substring of an existing filename, a new
-          link is created pointing to that file.
+            If the slug is a substring of an existing filename, a new
+            link is created pointing to that file.
 
-          This function supports a concept note taking workflow where new
-          topics are listed in an outline as org headers or list items in
-          an index file.
+            This function supports a concept note taking workflow where new
+            topics are listed in an outline as org headers or list items in
+            an index file.
 
-          Refactoring notes:
+            Refactoring notes:
 
-          Org-roam 1.2.0 only supports capture templates for new file
-          creation. Additional header information from capture templates is
-          not used. See `org-roam-insert-immediate'.
+            Org-roam 1.2.0 only supports capture templates for new file
+            creation. Additional header information from capture templates is
+            not used. See `org-roam-insert-immediate'.
 
-          No true org element parsing is attempted here. A fast, custom
-          regexp used covers most common use cases."
-    (interactive)
-    (when (org-roam--org-roam-file-p)
-      (let* ((new-name "")
-             (new-slug "")
-             (existing-roam-file "")
-             (new-path "")
-             (rstart (region-beginning))
-             (rend (region-end))
-             (todo-keys (seq-mapn
-                         (lambda (x)
-                           (replace-regexp-in-string
-                            (rx (syntax open-parenthesis)
-                                (* anything))
-                            ""
-                            x))
-                         (cdr (car org-todo-keywords))))
-             (datetime-prefix
-              (format-time-string
-               (substring org-roam-capture--file-name-default 2 -1))))
-        ;; without active region, use heuristics
-        (when (not (use-region-p))
-          (goto-char (line-beginning-position))
-          ;; skip org todo keys, header, and line item syntax
-          (re-search-forward
-           (rx-to-string `(zero-or-more
-                           (or          ; -- strings
-                            "[X]"       ; list item checkbox
-                            ,@todo-keys ; current todo keywords
-                            (any space  ; -- characters
-                                 "-"    ; unordered list item
-                                 "+"    ; unordered list item
-                                 "["    ; list item checkbox
-                                 "]"    ; list item checkbox
-                                 num    ; ordered list item
-                                 ")"    ; ordered list item
-                                 "."    ; ordered list item
-                                 "*")))) ; unordered list item or header
-           (line-end-position) t)
-          (setq rstart (point)
-                rend (line-end-position)))
+            No true org element parsing is attempted here. A fast, custom
+            regexp used covers most common use cases."
+      (interactive)
+      (when (org-roam--org-roam-file-p)
+        (let* ((new-name "")
+               (new-slug "")
+               (existing-roam-file "")
+               (new-path "")
+               (rstart (region-beginning))
+               (rend (region-end))
+               (todo-keys (seq-mapn
+                           (lambda (x)
+                             (replace-regexp-in-string
+                              (rx (syntax open-parenthesis)
+                                  (* anything))
+                              ""
+                              x))
+                           (cdr (car org-todo-keywords))))
+               (datetime-prefix
+                (format-time-string
+                 (substring org-roam-capture--file-name-default 2 -1))))
+          ;; without active region, use heuristics
+          (when (not (use-region-p))
+            (goto-char (line-beginning-position))
+            ;; skip org todo keys, header, and line item syntax
+            (re-search-forward
+             (rx-to-string `(zero-or-more
+                             (or          ; -- strings
+                              "[X]"       ; list item checkbox
+                              ,@todo-keys ; current todo keywords
+                              (any space  ; -- characters
+                                   "-"    ; unordered list item
+                                   "+"    ; unordered list item
+                                   "["    ; list item checkbox
+                                   "]"    ; list item checkbox
+                                   num    ; ordered list item
+                                   ")"    ; ordered list item
+                                   "."    ; ordered list item
+                                   "*")))) ; unordered list item or header
+             (line-end-position) t)
+            (setq rstart (point)
+                  rend (line-end-position)))
+          (message "region %d %d" rstart rend)
+          ;; replace text with a roam link
+          (setq new-name (buffer-substring rstart rend))
+          (setq new-slug (org-roam--title-to-slug new-name))
+          ;; find a possible existing file, use relative links
+          ;; does not work with nested directory structure!
+          (setq existing-roam-file
+                (car (seq-filter #'(lambda (x)  ; take the first
+                                    (if (string-match-p new-slug x)
+                                        x))
+                                 (directory-files "."))))
+          ;; TODO sanity check for new-name
+          ;; - string length
+          ;; - duplicates
+          ;;
 
-        ;; replace text with a roam link
-        (setq new-name (buffer-substring rstart rend))
-        (setq new-slug (org-roam--title-to-slug new-name))
-        ;; find a possible existing file, use relative links
-        ;; does not work with nested directory structure!
-        (setq existing-roam-file
-              (car (seq-filter '(lambda (x)  ; take the first
-                                  (if (string-match-p new-slug x)
-                                      x))
-                               (directory-files "."))))
-        ;; TODO sanity check for new-name
-        ;; - string length
-        ;; - duplicates
-        ;;
+          ;; replace text with a link
+          (delete-region rstart rend)
+          (if existing-roam-file
+              (progn
+                ;; file exists!
+                (setq new-path existing-roam-file)
+                (message "Linked to an existing file!"))
+            (setq new-path (concat datetime-prefix
+                                   "-"
+                                   new-slug
+                                   "."
+                                   (car org-roam-file-extensions))))
+          (insert (org-roam--format-link new-path
+                                         (org-roam--format-link-title new-name)))
 
-        ;; replace text with a link
-        (delete-region rstart rend)
-        (if existing-roam-file
-            (progn
-              ;; file exists!
-              (setq new-path existing-roam-file)
-              (message "Linked to an existing file!"))
-          (setq new-path (concat datetime-prefix
-                                 "-"
-                                 new-slug
-                                 "."
-                                 (car org-roam-file-extensions))))
-        (insert (org-roam--format-link new-path
-                                       (org-roam--format-link-title new-name)))
+          ;; create, switch to, initialize and save the new buffer
+          (unless existing-roam-file
+            (save-buffer)
+            (find-file new-path)
+            (insert "#+title: " new-name "\n")
+            (write-file new-path)))))
 
-        ;; create, switch to, initialize and save the new buffer
-        (unless existing-roam-file
-          (save-buffer)
-          (find-file new-path)
-          (insert "#+title: " new-name "\n")
-          (write-file new-path)))))
+    )
 
-)
+      (use-package company-org-roam
+        :after org-roam
+        :config
+        (push 'company-org-roam company-backends))
 
-    (use-package company-org-roam
-      :after org-roam
-      :config
-      (push 'company-org-roam company-backends))
+      (use-package org-roam-bibtex
+        :after org-roam
+        :hook (org-roam-mode . org-roam-bibtex-mode)
+        :bind (:map org-mode-map
+                    (("C-c n a" . orb-note-actions)))
+        :custom
+        (orb-note-actions-frontend 'hydra)
+        :config
+        ;; (org-roam-bibtex-mode +1)
+        )
 
-    (use-package org-roam-bibtex
-      :after org-roam
-      :hook (org-roam-mode . org-roam-bibtex-mode)
-      :bind (:map org-mode-map
-                  (("C-c n a" . orb-note-actions)))
-      :custom
-      (orb-note-actions-frontend 'hydra)
-      :config
-      ;; (org-roam-bibtex-mode +1)
-      )
+(use-package deft
+:after org-roam
+:custom
+(deft-use-filter-string-for-filename t)
+(deft-directory org-roam-directory))
+
+;; [[https://github.com/org-roam/org-roam-server][org-roam/org-roam-server: A Web Application to Visualize the Org-Roam Database]]
+(use-package org-roam-server)
 #+end_src
 
 To use it:
@@ -7986,8 +7904,7 @@ orb-preformat-keywords
             :desc "org-roam-capture" "c" #'org-roam-capture))
 
 
-
-** Meeting notes
+** PENDING Meeting notes
 
 [[https://github.com/DarkBuffalo/ox-report][DarkBuffalo/ox-report: Export your org file to minutes report PDF file]]
 
@@ -9497,7 +9414,7 @@ Command =owp/do-publication= seems to do all I need.
     )
 #+END_SRC
 
-*** easy-hugo
+*** PENDING easy-hugo
 
 I really like [[https://gohugo.io/][Hugo]] static site generator and I've created a few
 websites with it. The latest (0.19) version includes built-in support
@@ -9541,6 +9458,16 @@ utility.
     :config
     (auth-source-pass-enable))
 #+END_SRC
+
+
+** PENDING vterm
+
++ [[https://github.com/akermu/emacs-libvterm][akermu/emacs-libvterm: Emacs libvterm integration]]
++ [[https://emacsconf.org/2020/talks/30/][EmacsConf - 2020 - talks - A tour of vterm]]
+
+#+begin_src emacs-lisp
+(use-package vterm)
+#+end_src
 
 ** eshell
 
