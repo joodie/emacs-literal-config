@@ -1603,6 +1603,19 @@ clutter. I am not afraid of double editing, so I disable that.
   (setq create-lockfiles nil)
 #+END_SRC
 
+* Deleting files
+
+Backups do not help if you delete files. Use system trash to safeguard
+deleted files. Remove kaybinding from the file delete command.
+
+#+begin_src emacs-lisp
+
+  (global-unset-key (kbd "C-c d")) ; delete-file-and-buffer
+
+  ;; Move deleted files to trash
+  (setq delete-by-moving-to-trash t)
+#+end_src
+
 * Confirmations and exiting emacs
 
 Set short y/n abbreviations for all confirmations and ask for
