@@ -1529,10 +1529,13 @@ GnuPGP need to be upgraded to v.2.1 that is not backward compatible:
   ln -s /usr/local/bin/gpg2 /usr/local/bin/gpg
 #+END_SRC
 
+Tell emacs where to find the decrypt binary.
+
 Tell emacs not to use any external programs for entering the
 passphrase.
 
 #+BEGIN_SRC emacs-lisp
+  (custom-set-variables '(epg-gpg-program  "/usr/local/bin/gpg"))
   (setf epa-pinentry-mode 'loopback)
 #+END_SRC
 
