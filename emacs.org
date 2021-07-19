@@ -8349,11 +8349,19 @@ See more tweeks from
       (pdf-view-midnight-minor-mode)
       )
 
+    (defun bms/pdf-midnite-white ()
+      "Set pdf-view-midnight-colors to white on black."
+      (interactive)
+      (setq pdf-view-midnight-colors '("#FFFFFF" . "#000000" )) ; white
+      (pdf-view-midnight-minor-mode)
+      )
+
     (defun bms/pdf-midnite-colour-schemes ()
       "Midnight mode colour schemes bound to keys"
       (local-set-key (kbd "!") (quote bms/pdf-no-filter))
       (local-set-key (kbd "@") (quote bms/pdf-midnite-amber))
       (local-set-key (kbd "#") (quote bms/pdf-midnite-green))
+      (local-set-key (kbd "%") (quote bms/pdf-midnite-white))
       (local-set-key (kbd "$") (quote bms/pdf-midnite-original)))
 
     (add-hook 'pdf-view-mode-hook #'bms/pdf-midnite-colour-schemes)
@@ -8425,9 +8433,9 @@ See more tweeks from
     :load-path "elisp/" ; elisp dir under ~/.emacs.d
     :config
     (add-to-list
-     'org-file-apps '("\\.pdf\\'" . org-pdfview-open))
+     'org-file-apps '("\\.pdf\\'" . (lambda (file link) (org-pdfview-open link))))
     (add-to-list
-     'org-file-apps '("\\.pdf::\\([[:digit:]]+\\)\\'" . org-pdfview-open)))
+     'org-file-apps '("\\.pdf::\\([[:digit:]]+\\)\\'" . (lambda (file link) (org-pdfview-open link)))))
 
 #+END_SRC
 
