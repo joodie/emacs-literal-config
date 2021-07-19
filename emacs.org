@@ -885,6 +885,35 @@ fringe.
   (setq visual-line-fringe-indicators '(left-curly-arrow right-curly-arrow))
 #+END_SRC
 
+** Center text
+
+[[https://alexschroeder.ch/wiki/2020-08-26_Emacs_without_the_bling][Alex Schroeder: 2020-08-26 Emacs without the bling]]
+
+This code defines a minor mode to center text on a wide window. I've
+modified it provide wider text area. Also, since it works by modifying
+fringe, I added code to disable git-gutter that adds colour to fringe
+and return it at exit.
+
+#+begin_src emacs-lisp
+(define-minor-mode center-window-mode
+    "Minor mode to center the window using wide fringes."
+    :init-value nil
+    :global t
+    :group 'editing-basics
+    (if (not center-window-mode)
+        (progn
+          (set-fringe-style nil) ; default
+          (git-gutter-mode))     ; enable
+        (git-gutter-mode -1)     ; else disable
+        (set-fringe-mode
+         (/ (- (frame-pixel-width)
+               (* (+ fill-column 4)
+                  (frame-char-width)))
+            4))))
+
+  ;; Use F9 to toggle centering
+  (global-set-key (kbd "<f9>") 'center-window-mode)
+#+end_src
 ** Mode line
 *** PENDING Hand crafted mode line
 
