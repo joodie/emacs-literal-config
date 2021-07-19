@@ -6727,16 +6727,16 @@ for several accounts. The path to the file must exist.
                   ("lm" "MasterCard" plain
                    (file "~/Documents/ledger/refile.led")
                    "
-  %(org-read-date)  %^{Payee}
+%(org-read-date)  %^{Payee}
       ; entered: %U
-      Liabilities:MasterCard
+      Liabilities:Payable:MasterCard
       Expenses:%^{Account}              %^{Amount} €
      " :empty-lines-before 1)
 
                   ("lc" "Cash" plain
                    (file "~/Documents/ledger/refile.led")
                    "
-  %(org-read-date) * %^{Payee}
+%(org-read-date) * %^{Payee}
       ; entered: %U
       Assets:Cash
       Expenses:%^{Account}             %^{Amount} €
@@ -6745,7 +6745,7 @@ for several accounts. The path to the file must exist.
                   ("le" "EUR debit" plain
                    (file "~/Documents/ledger/refile.led")
                    "
-  %(org-read-date) * %^{Payee}
+%(org-read-date) * %^{Payee}
       ; entered: %U
       Assets:Heikintili
       Expenses:%^{Account}               %^{Amount} €
