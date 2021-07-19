@@ -3881,7 +3881,7 @@ My =org-mode= is configured to export to markdown format.
     :commands (markdown-mode gfm-mode)
     ;;:hook pandoc-mode
     :config
-    (setq markdown-command "multimarkdown")
+    (setq markdown-command "/usr/local/Caskroom/miniconda/base/bin/pandoc")
     (add-hook 'markdown-mode-hook #'pandoc-mode)
     (use-package markdown-preview-mode
       :disabled t
