@@ -8976,16 +8976,16 @@ work in making selecting tags ever easier:
 
 The read functions report their action in the echo field.
 
-[[https://github.com/algernon/elfeed-goodies][Elfeed-goodies]] needs Powerline font tweeking.
+[[https://github.com/algernon/elfeed-goodies][Elfeed-goodies]] needs Powerline font tweaking.
 
-#+BEGIN_SRC emacs-lisp
+(use-package elfeed
+    :hook (elfeed-show-mode . visual-line-mode)
+    :bind (("C-c f" . elfeed)))
+
+#+BEGIN_SRC emacs-lisp :results none :export none
   (use-package elfeed-org
-    ;;:defer t
     :after elfeed
-    ;;:custom (rmh-elfeed-org-files '("~/.config/emacs/elfeed.org"))
-    :config
-    (elfeed-org))
-  ;; progn: Elfeed-org cannot open ~/.emacs.d/elfeed.org.  Make sure it exists or customize the variable ’rmh-elfeed-org-files’
+    :config (elfeed-org))
 
   (use-package elfeed
     :hook (elfeed-show-mode . visual-line-mode)
@@ -8997,6 +8997,7 @@ The read functions report their action in the echo field.
     :bind (:map elfeed-search-mode-map
                 ("=" . elfeed-update)
                 ("R" . elfeed-mark-all-as-read)
+                ("B" . ar/elfeed-search-browse-background-url)
                 ("0" . elfeed-read-all)
                 ("1" . elfeed-read-news-fi)
                 ("2" . elfeed-read-news)
@@ -9010,19 +9011,18 @@ The read functions report their action in the echo field.
                 ("l" . elfeed-search-link-title)
                 ("v" . elfeed-search-quick-url-note))
     :init
-    (setq-default elfeed-search-filter my/default-elfeed-search-filter)
+    (setq-default elfeed-search-filter "@1-month-ago +unread !sport ")
     :custom
     (my/default-elfeed-search-filter "@1-month-ago +unread !sport ")
     (elfeed-sort-order 'ascending)
     (elfeed-search-title-max-width 80) ; newspaper articles have long titles
-    (elfeed-use-curl t) ; new, using curl; now default, this is not needed
     :config
 
-    (use-package elfeed-goodies
-      :disabled t
-      :defer t
-      :config
-      (elfeed-goodies/setup))
+    ;;    (use-package elfeed-goodies
+    ;;      :disabled t
+    ;;      :defer t
+    ;;      :config
+    ;;      (elfeed-goodies/setup))
 
     (defun elfeed-mark-all-as-read ()
       "Mark currently shown articles read"
@@ -9033,19 +9033,20 @@ The read functions report their action in the echo field.
     (defun elfeed--read-tag (filter tag)
       "Template for filtering various feed categories.
 
-       FILTER is the filter string to apply, and TAG is a short name of
-       the displayed category.
+         FILTER is the filter string to apply, and TAG is a short name of
+         the displayed category.
 
-       The cursor is moved to the beginning of the first feed line."
+         The cursor is moved to the beginning of the first feed line."
       (setq elfeed-search-filter filter)
       (elfeed-search-update :force)
-      (goto-char (point-min))
+      ;;(goto-char (point-min))
+      (beginend-elfeed-search-mode-goto-beginning)
       (message (concat "elfeed: show " tag)))
 
     (defun elfeed-read-all ()
       "Show all new titles (except sport)"
       (interactive)
-      (elfeed--read-tag my/default-elfeed-search-filter "all"))
+      (elfeed--read-tag "@1-month-ago +unread !sport " ""))
 
     (defun elfeed--remove-urheilu ()
       "Remove sports articles from finnish news"
@@ -9153,11 +9154,11 @@ The read functions report their action in the echo field.
       (interactive)
       (let ((entry (elfeed-search-selected t)))
         (when (elfeed-entry-link entry)
-          (elfeed-link-title (entry) ))))
+          (elfeed-link-title (entry)))))
 
     (defun elfeed-search-quick-url-note ()
       "In search mode, capture the title and link for the selected
-              entry or entries in org aganda."
+                  entry or entries in org aganda."
       (interactive)
       (let ((entries (elfeed-search-selected)))
         (cl-loop for entry in entries
@@ -9175,14 +9176,15 @@ The read functions report their action in the echo field.
       (interactive)
       (let ((entries (elfeed-search-selected)))
         (mapc (lambda (entry)
-                (assert (memq system-type '(darwin)) t "open command is macOS only")
+                (cl-assert (memq system-type '(darwin)) t "open command is macOS only")
                 (start-process (concat "open " (elfeed-entry-link entry))
                                nil "open" "--background" (elfeed-entry-link entry))
                 (elfeed-untag entry 'unread)
                 (elfeed-search-update-entry entry))
               entries)
         (unless (or elfeed-search-remain-on-entry (use-region-p))
-          (forward-line)))))
+          (forward-line))))
+    ) ; end of elfeed.org
 
 #+END_SRC
 
