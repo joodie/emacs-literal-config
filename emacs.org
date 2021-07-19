@@ -728,6 +728,24 @@ command =funced=.
 #+END_SRC
 
 * Graphics and looks
+** Dashboard
+
+- [[https://github.com/emacs-dashboard/emacs-dashboard][emacs-dashboard/emacs-dashboard: An extensible emacs dashboard]]
+
+  #+begin_src emacs-lisp :results none
+    (use-package dashboard
+      :custom
+      (dashboard-set-footer nil)
+      (dashboard-items '((recents . 7)
+                         (bookmarks . 5)
+                         (projects . 7)
+                         (agenda . 5)))
+      ;; (dashboard-init-info "This is an init message!")
+      (dashboard-set-navigator t)
+      (dashboard-center-content t)
+      :config
+      (dashboard-setup-startup-hook))
+  #+end_src
 
 ** Frame size
 
