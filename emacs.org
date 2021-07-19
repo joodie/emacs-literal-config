@@ -3970,6 +3970,7 @@ Have you set tab-always-indent to 'complete?
       (ledger-add-note "laskut/")
       (my/move-bill))
 
+    (use-package flycheck-ledger))
 #+END_SRC
 
 *** Alternative: beancount
