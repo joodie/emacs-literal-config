@@ -1836,7 +1836,7 @@ The hydra implementing this is self-documenting.
     ("w" browse-url-at-point)
     ("x" eshell)
     ("y" binclock)
-    ("z" display-time-world)
+    ("z" world-clock)
     ("=" quick-calc)
     ("?" (browse-url "http://emacs.stackexchange.com/"))
     ("+" (browse-url "https://plus.google.com/communities/114815898697665598016"))
@@ -9313,7 +9313,7 @@ current time in a selection of time zones. The values displayed can be
 modified using a variable =display-time-world-list=.
 
 #+BEGIN_SRC emacs-lisp
-  (setq display-time-world-list
+  (setq world-clock-list
         '(("Europe/London" "London")
           ("Africa/Johannesburg" "Cape Town")
           ("Europe/Paris" "Paris")
@@ -9328,7 +9328,7 @@ modified using a variable =display-time-world-list=.
           ("America/Los_Angeles" "Seattle")))
 #+END_SRC
 
-I have added command =display-time-world= in my launch hydra to use
+I have added command =world-clock= in my launch hydra to use
 the incantation "Emacs, launch time Zones". =C-x l z=.
 
 ** Buffer sharing
