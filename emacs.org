@@ -2880,6 +2880,7 @@ Works on current word, previous word(s), and selected regions.
 [[https://github.com/novoid/title-capitalization.el][novoid/title-capitalization.el: Proper English title capitalization of a marked region]]
 
 #+BEGIN_SRC emacs-lisp
+(require 'ert)
   (use-package title-capitalization
     :bind ("C-8" . title-capitalization)
     :load-path "elisp/")
