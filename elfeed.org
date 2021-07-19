@@ -8,25 +8,33 @@
 *** http://www.bbc.com/culture/feed.rss
 # *** http://bruxelles.blogs.liberation.fr/feeds/
 *** Suomi                                                                :fi:
-**** http://www.hs.fi/uutiset/rss/
-**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-34837 #kotimaa
-**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-34953 # ulkomaa
-**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-150067 # kultuuri
-**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-819 # tiede
-**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-35354 # luonto
+**** http://www.hs.fi/rss/teasers/etusivu.xml
+**** http://www.hs.fi/rss/autotiede.xml # tiede
+
+**** https://feeds.yle.fi/uutiset/v1/majorHeadlines/YLE_UUTISET.rss # Pääuutiset
+**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET # Tuoreimmat uutiset
+**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-34837 # Kotimaa
+**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-34953 # Ulkomaat
+**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-150067 # Kulttuuri
+**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-819 # Tiede
+**** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-35354 # Luonto
 **** https://suomenkuvalehti.fi/8hj38g7dh49g73jd02fasd/
-** News in Science Journals                                               :j:
+**** http://www.soininvaara.fi/feed/rss
+
+** News in Science                                                       :j:
 *** http://feeds.nature.com/nature/rss/current
 *** http://news.sciencemag.org/rss/weekly_news_email.xml
 *** http://feeds.newscientist.com/science-news
-*** http://www.technologyreview.com/biomedicine/rss/
-*** http://www.technologyreview.com/topnews.rss
+# *** http://www.technologyreview.com/biomedicine/rss/
+# *** http://www.technologyreview.com/topnews.rss
 *** http://www.theatlantic.com/feed/channel/science/
-*** https://api.quantamagazine.org/feed/
-*** http://mosaicscience.com/feed/rss.xml
+# *** https://api.quantamagazine.org/feed/
+# *** http://mosaicscience.com/feed/rss.xml
 # *** http://epidemic.bio.ed.ac.uk/rss.xml
 *** https://www.sciencemag.org/rss/podcast.xml
 *** https://journal.fi/tt/gateway/plugin/WebFeedGatewayPlugin/rss2
+# *** https://phys.org/feeds/
+*** https://blogit.ts.fi/category/terveys-tiede/feed/
 ** Bio
 *** https://dazzlerblog.wordpress.com/feed/
 *** http://ewanbirney.com/feed
@@ -42,8 +50,8 @@
 # **** http://fasciism.com/feed.xml
 # **** http://whattheemacsd.com/http:/atom.xml
 *** Perl                                                                  :p:
-**** http://shallowsky.com/blog/index.rss
-**** http://perltricks.com/index.xml
+**** https://shallowsky.com/blog/index.atom
+# **** http://perltricks.com/index.xml
 *** Mobile                                                              :d:
 **** http://mobiili.fi/feed/
 
@@ -54,18 +62,21 @@
 *** http://www.heritagedaily.com/feed/rss
 *** https://www.sapiens.org/feed/
 *** http://eurogenes.blogspot.com/feeds/posts/default
+*** https://blogs.helsinki.fi/esalmela/feed/
 ** Culture                                                                 :cu:
 *** http://www.antroblogi.fi/feed/
 *** Language                                                              :l:
 **** http://feeds.feedburner.com/nybooks
 **** http://feedproxy.google.com/brainpickings/rss
+**** https://aeon.co/feed.rss
 *** Travel                                                                :t:
 **** http://nowheremag.com/feed/
 *** Design
 **** http://causticcovercritic.blogspot.co.uk/feeds/posts/default
-**** http://www.mymodernmet.com/profiles/blogs/feed/featured
+# **** http://www.mymodernmet.com/profiles/blogs/feed/featured
 *** Books
 **** https://20lukuaetsimassa.wordpress.com/feed/
+
 ** Comics                                                                  :c:
 # *** http://kimmo.suominen.com/stuff/vw.xml
 # *** http://kimmo.suominen.com/stuff/fingerpori.xml
@@ -76,11 +87,11 @@
 *** https://nensarjakuvat.wordpress.com/feed/atom/
 # *** http://kimmo.suominen.com/stuff/anonyymitelaimet.xml
 # *** http://www.comicsyndicate.org/Feed/Pearls%20before%20Swine
-*** http://fribergthorelli.com/wbk/index.php/feed/
+# *** http://fribergthorelli.com/wbk/index.php/feed/
 *** http://sssscomic.com/ssss-feed.xml
-*** http://www.lostnightmare.com/rss.php
-*** http://bird-boy.com/feed
-*** http://www.banquetcomic.com/feed/
+# *** http://www.lostnightmare.com/rss.php
+# *** http://bird-boy.com/feed
+# *** http://www.banquetcomic.com/feed/
 *** http://www.wildelifecomic.com/rss.php
 ** Friends                                                                 :f:
 *** http://heikkil.github.io/rss.xml
