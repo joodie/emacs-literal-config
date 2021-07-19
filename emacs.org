@@ -2364,17 +2364,9 @@ following code adds the [[https://github.com/mhayashi1120/Emacs-imagex][image+]]
 scales the picture to the current frame.
 
 #+BEGIN_SRC emacs-lisp
-  ;;  (use-package image
-  ;;    :ensure nil
-  ;;    :defer t
-  ;;    :config
-  ;;    (use-package image+
-  ;;      :defer t
-  ;;      :config (imagex-auto-adjust-mode 1)))
-
   (use-package image+
     :after 'image-mode
-    :init (add-hook 'image-mode-hook '(lambda () (require 'image+)))
+    :init (add-hook 'image-mode-hook #'(lambda () (require 'image+)))
     :config
     (imagex-auto-adjust-mode 1))
 #+END_SRC
@@ -4000,6 +3992,85 @@ Have you set tab-always-indent to 'complete?
     :config
     (add-hook 'ssh-config-mode-hook #'turn-on-font-lock))
 #+END_SRC
+
+* Image files
+
+
+
+[[https://lucidmanager.org/productivity/using-emacs-image-dired/][Viewing Images with Emacs and the image-dired package]]
+
+#+begin_src emacs-lisp
+
+        ;; open any file under cursor
+        ;; (define-key org-mode-map (kbd "H-o") 'ffap-other-window)
+        (define-key global-map (kbd "H-o") 'ffap-other-frame)
+
+        ;; Set External viewer
+        (setq image-dired-external-viewer "/Applications/GIMP-2.10.app/Contents/MacOS/gimp")
+
+        ;; Remap the keys to open the external image viewer with C-enter and
+        ;; lets you activate image-dired with C-t -C-d
+        (with-eval-after-load 'dired
+          (define-key dired-mode-map (kbd "C-t C-e") 'image-dired-dired-edit-comment-and-tags)
+          (define-key dired-mode-map (kbd "C-t C-l") 'image-dired-list-comment-and-tags)
+          (define-key dired-mode-map (kbd "C-t C-d") 'image-dired)
+          (define-key dired-mode-map (kbd "C-<return>") 'image-dired-dired-display-external))
+
+        (defun test ()
+          (interactive)
+          (with-help-window "*test*"
+            (with-current-buffer "*test*"
+              (insert "hello from test"))))
+
+        (defun format-ts2org (ts)
+          "Format timestamp TS to org-mode inactive timestamp.
+                 Timestamp is in format '[2021:06:12 14:18:22]'."
+
+          (interactive)
+          (let* ((year (rx (group (= 4 num)) ":" (group (= 2 num)) ":"))
+                 (ts (replace-regexp-in-string year "\\1-\\2-" ts))
+                 (time (date-to-time ts)))
+            (format-time-string "[%Y-%m-%d %a %H:%M:%S]" time)))
+
+        (defun image-dired-list-comment-and-tags ()
+          "List comment and tags of current or marked image files."
+          (interactive)
+
+          (let ((files (dired-get-marked-files)))
+            (with-help-window "*Image-Dired List Meta Data*"
+              (with-current-buffer "*Image-Dired List Meta Data*"
+                (org-mode)
+                ;;(read-only-mode -1)
+                ;;(setq-local buffer-read-only nil)
+                ;;(setq-local view-read-only t)
+                (insert "| Image | Video | Time| Tags | Comments |\n")
+                (insert "|---\n")
+
+                (dolist (file files)
+                  (let*
+                      ((fn (file-name-nondirectory file))
+                       (no (substring fn 4 8))
+                       (vno (format "%04d" (1+ (string-to-number no))))
+                       (vfn (concat "VIDO" vno ".AVI")))
+                    (insert "| ")
+                    (insert fn)
+                    (insert " | ")
+                    (insert vfn)
+                    (insert " | ")
+                    (insert (format-ts2org (image-dired-get-exif-data file "CreateDate")))
+                    (insert " | ")
+                    (insert (or (mapconcat
+                                 #'identity
+                                 (reverse (image-dired-list-tags file))
+                                 ", ") ""))
+                    (insert " |")
+                    (insert (or (image-dired-get-comment file) ""))
+                    (insert " |\n")))
+                (goto-char 3)
+                (org-ctrl-c-ctrl-c)
+                (goto-char 1)
+                (insert "\n")))))
+#+end_src
 
 * Programming
 
