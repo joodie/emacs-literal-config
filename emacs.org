@@ -3142,12 +3142,15 @@ be installed (e.g. =brew install hub= in OS X).
     ;; ignore whitespace
     (setq magit-diff-options '("-b")))
 
-  (use-package magithub
-    :disabled t
-    :ensure-system-package hub
-    :after magit
-    :config
-    (magithub-feature-autoinject t))
+  ;;(use-package magithub
+  ;;  :disabled t
+  ;;  :ensure-system-package hub
+  ;;  :after magit
+  ;;  :config
+  ;;  (magithub-feature-autoinject t))
+
+  (use-package forge
+    :after magit)
 
   (use-package git-commit
     :after magit
