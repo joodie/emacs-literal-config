@@ -1167,6 +1167,7 @@ the buffer isn't visiting a file).
 
 (custom-set-faces '(fill-column-indicator ((t (:foreground "#8B0000")))))
 #+end_src
+
 ** Windows
 *** Scrolling behavior
 
@@ -1406,7 +1407,7 @@ Note that it interferes with my current line highlighting. See [[Current line]].
     :hook css-mode)
 #+END_SRC
 
-** Colors
+** TODO Colors
 
 You can customize faces to make text stand out better:
 
@@ -1698,11 +1699,16 @@ all digits 0-9. Free single modifier key bindings for other uses in
 the future ([[http://pragmaticemacs.com/emacs/use-your-digits-and-a-personal-key-map-for-super-shortcuts/][Use your digits and a personal key map for super
 shortcuts | Pragmatic Emacs]])
 
+There are hardly any situations where I'd want to remove the file of
+the buffer I am editing. It happened to me once on the emacs.org file
+and I do not want to repeat that experience. Disable the key binding.
+
 #+BEGIN_SRC emacs-lisp
   ;; unset C- and M- digit keys
   (dotimes (n 10)
     (global-unset-key (kbd (format "C-%d" n)))
     (global-unset-key (kbd (format "M-%d" n))))
+
 #+END_SRC
 
 ** Show bindings
@@ -2001,7 +2007,7 @@ common conventions.
   (setq default-process-coding-system '(utf-8 . utf-8))
 
   (bind-key "C-c u"
-            (lambda () (interactive)
+            #'(lambda () (interactive)
               (set-buffer-file-coding-system 'utf-8-unix t)))
 
   ;; does mostly same as above
@@ -2167,7 +2173,7 @@ Automatically update file-associated buffers on file change. Also,
 auto refresh dired files.
 
 #+BEGIN_SRC emacs-lisp
-  (global-auto-revert-mode)
+  (global-auto-revert-mode t)
   ;; (diminish 'auto-revert-mode)
   (setq global-auto-revert-non-file-buffers t)
   (setq auto-revert-verbose t)
@@ -2334,7 +2340,7 @@ Since saving is happening all the time, there is no need to print
 messages. Disable save messages with the new v27.1 variable
 =auto-save-no-message=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results none
   (use-package super-save
     :defer nil
     :diminish ""
@@ -3471,7 +3477,7 @@ show alternative words.
     (add-hook 'text-mode-hook #'synosaurus-mode))
 #+END_SRC
 
-*** Wiki lookup
+**** Wiki lookup
 
 https://www.reddit.com/r/emacs/comments/94t6p6/tip_packages_to_include_in_your_workflow_part_i/
 
@@ -3495,7 +3501,7 @@ https://www.reddit.com/r/emacs/comments/94t6p6/tip_packages_to_include_in_your_w
   (advice-add 'wiki-summary/format-summary-in-buffer :override #'my/format-summary-in-buffer)
 #+END_SRC
 
-*** Webster's
+**** Webster's
 
 The old Webster's 1913 Dictionary is a [[http://jsomers.net/blog/dictionary][rare beast]] where definitions
 of words are poetic, informative and thought provoking.
@@ -3901,7 +3907,7 @@ clash badly. I try to set them back to a somewhat calmer palette.
 [[https://github.com/ledger/ledger-mode/pull/174][Move from pcomplete to completion-at-point-functions by jabranham · Pull Request #174 · ledger/ledger-mode · GitHub]]
 Have you set tab-always-indent to 'complete?
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results none
   (use-package ledger-mode
     :mode "\\.led\\'"
     :interpreter "/usr/local/bin/ledger"
@@ -3913,7 +3919,7 @@ Have you set tab-always-indent to 'complete?
                 ("M-l" . ledger-add-bill))
     :custom
     (ledger-use-iso-dates t "iso date format")
-    (ledger-binary-path  "/usr/local/bin/ledger")
+    (ledger-binary-path "/usr/local/bin/ledger")
     (ledger-reports
      '(("test" "ledger ")
        ("bal" "ledger -f %(ledger-file) bal")
@@ -4414,19 +4420,14 @@ Command [[https://stackoverflow.com/questions/1431843/updating-font-lock-keyword
   (font-lock-fontify-buffer))
 #+end_src
 
-*** perl6
+*** raku or perl6
 
-The major mode will be autoloaded whenever a Perl 6 file is
-visited. This includes any file with perl6 in the shebang, as well
-as any file with a .p6, .pm6, or .pl6 extension. It also applies
-to any .pm, .pl, and .t files whose first line of code looks like
-Perl 6.
+The default perl mode =cperl-mode = now recognizes  raku files and
+highlights appropriately.
 
-#+BEGIN_SRC emacs-lisp
-  (use-package perl6-mode
-    :defer t)
+[[https://blog.ciavash.name/2016/01/09/entering-perl6-unicode-characters-in-emacs.html][How to type Raku unicode characters in Emacs]]
 
-#+END_SRC
+(use-package flycheck-raku)  # flycheck for raku
 
 *** TODO Call =pod-mode= on POD documentation files and enable spell checking.
 
@@ -5755,11 +5756,19 @@ reading about it:
   (describe-package 'windmove)
 #+END_SRC
 
-I need to tell org-mode to [[http://orgmode.org/manual/Conflicts.html][allow the windmove]] commands where it
-does not use them for its own purposes. These commands work outside
-headers and lists and has to be called after org-mode (see below).
+I need to tell org-mode to [[http://orgmode.org/manual/Conflicts.html][allow the windmove]] commands where it does
+not use them for its own purposes. These commands work outside headers
+and lists and has to be called after org-mode (see below).
+
+I've redifined my OS X "move focus to next window" keys to '⌘ §'
+because the default binding does not stay the same when I change
+keyboard layouts. The same needs to be done for emacs keybindings.
 
 #+BEGIN_SRC emacs-lisp
+
+  ; other-frame
+  (define-key global-map (kbd "s-§") #'other-frame)
+;; (windmove-default-keybindings 'shift)   ; THIS
   (use-package framemove
     :defer t)
 
@@ -5884,7 +5893,7 @@ for treemacs config.
 
 Toggle treemacs panel: Emacs, Toggle treemacs =C-x t t=.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package treemacs
     :defer t
     :config
@@ -6141,7 +6150,7 @@ I use [[https://github.com/rejeep/wrap-region.el][wrap-region.el]] to add automa
     (wrap-region-add-wrapper "+" "+" nil 'org-mode)  ; strikethrough
     (wrap-region-add-wrapper "=" "=" nil 'org-mode)) ; verbatim
 
-#+END_SRC
+    #+END_SRC
 
 ** Agenda
 
@@ -6216,7 +6225,7 @@ Added a hydra to [[https://oremacs.com/2016/04/04/hydra-doc-syntax/][prettify]] 
 #+END_SRC
 
 You can add tags to any agenda item manually or preferably by
-pulling them from a list. At the agenda item header, hit =C-c C-c= to
+pulling them from a list. At the agenda item header, hit =C-c C-c= toy
 see the list and select any subset of tags by pressing the shortcut
 key(s). My tags are grouped: Searching with the group name will
 find entries with any sub tag.
@@ -6335,69 +6344,90 @@ hydra-org-template that is triggered by the =<= key.
 (setq org-structure-template-alist (assq-delete-all "e" org-structure-template-alist))
 (push  '("ee" . "src emacs-lisp") org-structure-template-alist)
 ;;(push  '("EE" . "example") org-structure-template-alist)
-(push  '("p" . "perl") org-structure-template-alist)
-(push  '("P" . "perl :results output :exports both :shebang \"#!/usr/bin/env perl\"\n") org-structure-template-alist)
-(push  '("u" . "plantuml :file CHANGE.png") org-structure-template-alist)
+(push  '("p" . "src perl") org-structure-template-alist)
+(push  '("P" . "src perl :results output :exports both :shebang \"#!/usr/bin/env perl\"\n") org-structure-template-alist)
+(push  '("u" . "src plantuml :file CHANGE.png") org-structure-template-alist)
 ;;(push  '("" . "") org-structure-template-alist)
 
-
-    ;; http://oremacs.com/2015/03/07/hydra-org-templates/
-    ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
-    (defhydra hydra-org-template (:color blue :hint nil)
-      "
-               org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
-                             _l_atex   _E_xample   _p_erl          _i_ndex:
-                             _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
-                             _s_rc     _V_erbatim  plant_u_ml      _H_TML:
-                             _h_tml    note       _C_omment        _A_SCII:
-                             ^ ^       a_b_stract                   "
-      ("s" (hot-expand "<s"))
-      ("E" (hot-expand "<e"))
-      ("q" (hot-expand "<q"))
-      ("v" (hot-expand "<v"))
-      ("V" (hot-expand "<V"))
-      ("c" (hot-expand "<c"))
-      ("C" (hot-expand "<C"))
-      ("b" (hot-expand "<b"))
-      ("l" (hot-expand "<l"))
-      ("h" (hot-expand "<h"))
-      ("a" (hot-expand "<a"))
-      ("L" (hot-expand "<L"))
-      ("i" (hot-expand "<i"))
-      ("e" (hot-expand "<s" "emacs-lisp"))
-      ("p" (hot-expand "<s" "perl"))
-      ("u" (hot-expand "<s" "plantuml :file CHANGE.png"))
-      ("P" (hot-expand "<s" "perl" ":results output :exports both :shebang \"#!/usr/bin/env perl\"\n"))
-      ("I" (hot-expand "<I"))
-      ("H" (hot-expand "<H"))
-      ("A" (hot-expand "<A"))
-      ("<" self-insert-command "ins")
-      ("o" nil "quit"))
-
-    (defun hot-expand (str &optional mod header)
-      "Expand org template.
-
-      STR is a structure template string recognised by org like <s. MOD is a
-      string with additional parameters to add the begin line of the
-      structure element. HEADER string includes more parameters that are
-      prepended to the element after the #+HEADERS: tag."
-      (let (text)
-        (when (region-active-p)
-          (setq text (buffer-substring (region-beginning) (region-end)))
-          (delete-region (region-beginning) (region-end))
-          (deactivate-mark))
-        (when header (insert "#+HEADERS: " header))
-        (insert str)
-        (org-try-structure-completion)
-        (when mod (insert mod) (forward-line))
-        (when text (insert text))))
-
-    (define-key org-mode-map "<"
-      (lambda () (interactive)
-        (if (or (region-active-p) (looking-back "^" nil))
-            (hydra-org-template/body)
-          (self-insert-command 1))))) ;; end of org-agenda
+)
+;;    ;; http://oremacs.com/2015/03/07/hydra-org-templates/
+;;    ;; https://github.com/abo-abo/hydra/wiki/Org-mode-block-templates
+;;    (defhydra hydra-org-template (:color blue :hint nil)
+;;      "
+;;               org-template  _c_enter  _q_uote     _e_macs-lisp    _L_aTeX:
+;;                             _l_atex   _E_xample   _p_erl          _i_ndex:
+;;                             _a_scii   _v_erse     _P_erl tangled  _I_NCLUDE:
+;;                             _s_rc     _V_erbatim  _t_ranslate     _H_TML:
+;;                             _h_tml    note        plant_u_ml      _A_SCII:
+;;                             ^ ^       a_b_stract _C_omment                  "
+;;      ("s" (hot-expand "<s"))
+;;      ("E" (hot-expand "<e"))
+;;      ("q" (hot-expand "<q"))
+;;      ("v" (hot-expand "<v"))
+;;      ("V" (hot-expand "<V"))
+;;      ("c" (hot-expand "<c"))
+;;      ("C" (hot-expand "<C"))
+;;      ("b" (hot-expand "<b"))
+;;      ("l" (hot-expand "<l"))
+;;      ("h" (hot-expand "<h"))
+;;      ("a" (hot-expand "<a"))
+;;      ("L" (hot-expand "<L"))
+;;      ("i" (hot-expand "<i"))
+;;      ("e" (hot-expand "<s" "emacs-lisp"))
+;;      ("p" (hot-expand "<s" "perl"))
+;;      ("t" (hot-expand "<s" "translate :dest en"))
+;;      ("u" (hot-expand "<s" "plantuml :file CHANGE.png"))
+;;      ("P" (hot-expand "<s" "perl" ":results output :exports both :shebang \"#!/usr/bin/env perl\"\n"))
+;;      ("I" (hot-expand "<I"))
+;;      ("H" (hot-expand "<H"))
+;;      ("A" (hot-expand "<A"))
+;;      ("<" self-insert-command "ins")
+;;      ("o" nil "quit"))
+;;
+;;    (defun hot-expand (str &optional mod header)
+;;      "Expand org template.
+;;
+;;      STR is a structure template string recognised by org like <s. MOD is a
+;;      string with additional parameters to add the begin line of the
+;;      structure element. HEADER string includes more parameters that are
+;;      prepended to the element after the #+HEADERS: tag."
+;;      (let (text)
+;;        (when (region-active-p)
+;;          (setq text (buffer-substring (region-beginning) (region-end)))
+;;          (delete-region (region-beginning) (region-end))
+;;          (deactivate-mark))
+;;        (when header (insert "#+HEADERS: " header))
+;;        (insert str)
+;;        (org-try-structure-completion)
+;;        (when mod (insert mod) (forward-line))
+;;        (when text (insert text))))
+;;
+;;    (define-key org-mode-map "<"
+;;      (lambda () (interactive)
+;;        (if (or (region-active-p) (looking-back "^" nil))
+;;            (hydra-org-template/body)
+;;          (self-insert-command 1))))) ;; end of org-agenda
 #+END_SRC
+
+** org src blocks
+
+- [[http://xenodium.com/emacs-org-block-company-completion/][Emacs org block company completion]]
+- [[http://xenodium.com/emacs-edit-after-org-block-completion/][Emacs: org block complete and edit]] # not implemented
+- [[https://raw.githubusercontent.com/xenodium/dotsies/main/emacs/ar/company-org-block.el][https://raw.githubusercontent.com/xenodium/dotsies/main/emacs/ar/company-org-block.el]]
+
+
+[[https://github.com/company-mode/company-quickhelp#is-it-any-good][company-mode/company-quickhelp: Documentation popup for Company]]
+
+#+begin_src emacs-lisp
+  (use-package company-org-block
+    :after (org company)
+    :load-path "elisp/"                   ; elisp dir under ~/.emacs.d
+    :config
+    (company-mode 1)
+    (add-to-list 'company-backends 'company-org-block)
+    )
+#+end_src
+
 
 ** PENDING worf -- modal editing in org mode
 
@@ -7026,8 +7056,12 @@ Do not show org mode *emphasis* /markers/. [[http://www.howardism.org/Technical/
 Run code with a block by =C-c C-c= without confirmation. This is a
 known security risk, but makes life easier. Beware.
 
+Second line configures source code editing (=C-'=) in the current
+window. [[https://irreal.org/blog/?p=8824][The Org Code Edit Buffer | Irreal]]
+
 #+BEGIN_SRC emacs-lisp
   (setq org-confirm-babel-evaluate nil)
+  (setq org-src-window-setup 'current-window)
 #+END_SRC
 
 If you have more than one interpreter for any of the languages in
@@ -7676,6 +7710,7 @@ save. I helped rewrite the package!
     (setq org-crypt-key nil))
 
 #+END_SRC
+
 ** Highlight links to files
 
 #+BEGIN_SRC emacs-lisp
@@ -7684,6 +7719,7 @@ save. I helped rewrite the package!
    "file"
    :face (lambda (path) (if (file-exists-p path) 'org-link 'org-warning)))
 #+END_SRC
+
 ** Org table movement
 
 [[https://github.com/dakra/dmacs/blob/master/init.org#personal-information][dmacs/init.org at master · dakra/dmacs]]
@@ -9152,7 +9188,7 @@ See https://github.com/abo-abo/hydra/wiki/Twittering
           "%FOLD{%RT{%FACE[bold]{RT}}%i%s  %r %@{}\n%FILL[          ]{%T%RT{\nretweeted by %s @%C{%Y-%m-%d %H:%M:%S}}}}")
     ;; mode line symbol
     (add-hook 'twittering-mode-hook
-              '(lambda () (setq mode-name "♪")))
+              #'(lambda () (setq mode-name "♪")))
     ;; hydra
     (defhydra hydra-twittering (:color blue :hint nil)
       "
