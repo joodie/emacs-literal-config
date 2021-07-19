@@ -3932,9 +3932,8 @@ Have you set tab-always-indent to 'complete?
        ("account" "ledger -f %(ledger-file) reg %(account)")))
 
     :custom-face
-    (ledger-font-comment-face ((t (:foreground "gray50"))))
-    (ledger-occur-xact-face ((t (:background "LightCyan"))))
-
+    ;;(ledger-font-comment-face ((t (:foreground "gray50"))))
+    ;;(ledger-occur-xact-face ((t (:background "LightCyan"))))
     :config
 
     (defun ledger-next-misc ()
