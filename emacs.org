@@ -4955,6 +4955,27 @@ Audio programming environment, [[https://github.com/digego/extempore][extempore]
 #+end_src
 * Auto complete
 
+** company
+
+- [[https://company-mode.github.io/][company-mode for Emacs]]
+- [[https://github.com/company-mode/company-quickhelp][company-mode/company-quickhelp: Documentation popup for Company]]
+
+#+begin_src emacs-lisp :results none
+      (use-package company
+        :init
+        (add-hook 'after-init-hook 'global-company-mode)
+        :custom
+        (company-idle-delay 0)
+        (company-minimum-prefix-length 3)
+        (company-selection-wrap-around t)
+        (company-show-numbers "on")
+        :config
+        (global-company-mode))
+#+end_src
+
+
+** PENDING fuzzy and auto-complete
+
 Getting auto completion to work right tends to be a messy process of
 trial and error, though in recent years the situation has improved,
 with =auto-complete= mode being more or less the /de facto/ standard.
