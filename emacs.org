@@ -5668,6 +5668,14 @@ file, give '/', and start typing the name of the remote computer.
     (setq tramp-default-method "ssh")
     ;;(add-to-list ' tramp-remote-path "/usr/local/git/bin")
 
+   ;; make tramp faster
+  (setq remote-file-name-inhibit-cache nil)
+  (setq vc-ignore-dir-regexp
+        (format "%s\\|%s"
+                vc-ignore-dir-regexp
+                tramp-file-name-regexp))
+  (setq tramp-verbose 1)
+
   ;; ;; Open files in Docker containers like so: /docker:drunk_bardeen:/etc/passwd
   ;; (push
   ;;  (cons
