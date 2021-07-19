@@ -3192,8 +3192,8 @@ it with =C-x l t= or =C-x git-timemachine=.
 
 ** Git-auto-commit
 
-[[https://github.com/ryuslash/git-auto-commit-mode][git-auto-commit-mode: Automatically commit to git after each
-save]] helps to make sure important events like ledger file changes are
+[[https://github.com/ryuslash/git-auto-commit-mode][git-auto-commit-mode: Automatically commit to git after each save]]
+helps to make sure important events like ledger file changes are
 always stored.
 
 Add this to the top of the file:
