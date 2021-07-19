@@ -9700,6 +9700,7 @@ utility.
 #+BEGIN_SRC emacs-lisp
   (use-package pass
     :defer t
+    :custom (epa-pinentry-mode 'loopback)
     :config
     (add-hook 'password-store-mode-hook
               (lambda () (view-mode -1))))
