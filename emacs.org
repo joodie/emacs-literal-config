@@ -1329,22 +1329,25 @@ in appropriate sections below.
 
 ** TODO Themes
 
-I find the emacs default white background the best. I've installed
-[[https://github.com/bbatsov/solarized-emacs][bbatsov's solarized-emacs]] theme since I read that it has a good org
-mode support. [[https://emacsthemes.com/themes/paper-theme.html][Paper theme]] an other one geared for org mode users.
+I find the emacs default white background the best, but the new
+default themes in modus-themes package are really good.
+
+Remember =modus-themes-toggle=!
 
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package solarized-theme
-  ;;   :defer t
-  ;;   :init (setq solarized-scale-org-headlines nil))
-  ;; (use-package paper-theme
-  ;;   :defer t
-  ;;   :init (setq paper-tint-factor 85))
-  ;; (use-package danneskjold-theme
-  ;;   :defer t)
-  ;; (use-package naquadah-theme
-  ;;   :defer t)
-
+  (use-package modus-themes           ; light & dark
+    :defer t
+    :init
+    (modus-themes-load-themes)
+    :custom
+    ;; allow these themes by default
+    (custom-safe-themes
+     '("7b3ce93a17ce4fc6389bba8ecb9fee9a1e4e01027a5f3532cc47d160fe303d5a"
+       "9e407b688cba911def862e8779e323a990749b592e5c0930330d344edb6d16c9"
+       default))
+    :config
+    (modus-themes-load-vivendi)
+    :bind ("<f6>" . modus-themes-toggle))
 #+END_SRC
 
 You are supposed to invoke themes with =M-x load-theme=. Strangely,
