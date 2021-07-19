@@ -45,13 +45,14 @@
 ;;;
 ;;; package
 ;;;
+;;  https://elpa.nongnu.org/nongnu/
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives
-             '("org" . "http://orgmode.org/elpa/") t)
+;; (add-to-list 'package-archives
+;;              '("gnu" . "http://elpa.gnu.org.org/packages/") t)
 (add-to-list 'package-archives
              '("emacswiki" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/emacswiki/") t)
 
@@ -115,7 +116,6 @@ Write only blocks that are:
 - doesn't have the todo-marker PEND (for PENDING)"
 
   (let* ((body-list ())
-         (gc-cons-threshold most-positive-fixnum)
          (org-babel-src-block-regexp
           (concat
            ;; (1) indentation                 (2) lang
@@ -147,14 +147,17 @@ Write only blocks that are:
     (byte-compile-file elfile)))
 
 (let ((orgfile (concat user-emacs-directory "emacs.org"))
-      (elfile (concat user-emacs-directory "emacs.el"))
-      (gc-cons-threshold most-positive-fixnum))
+      (elfile (concat user-emacs-directory "emacs.el")))
   (when (file-newer-than-file-p orgfile elfile)
     (my-tangle-config-org orgfile elfile))
   (load-file elfile))
 
+(add-hook 'after-init-hook (lambda nil
+                             (setq gc-cons-threshold     16777216
+                                   gc-cons-percentage   0.1
+                                   file-name-handler-alist old-file-name-handler)))
 
-(use-package-report)
+;; (use-package-report)
 
 ;;;
 ;;; report times

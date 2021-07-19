@@ -5,6 +5,11 @@
 ;; Emacs HEAD (27+) introduces early-init.el, which is run before init.el,
 ;; before package and UI initialization happens.
 
+
+(defvar old-file-name-handler file-name-handler-alist)
+(setq file-name-handler-alist nil
+      gc-cons-threshold most-positive-fixnum)
+
 ;; In Emacs 27+, package initialization occurs before `user-init-file' is
 ;; loaded, but after `early-init-file'.
 (setq package-enable-at-startup nil)
