@@ -5310,6 +5310,7 @@ the beginning of the line.
   (use-package crux
     :bind (("C-a" . crux-move-beginning-of-line)
            ("C-x 4 t" . crux-transpose-windows)
+           ("C-c o" . crux-open-with) ; current file with system application
            ("C-k" . crux-smart-kill-line)
            ("s-d" . crux-duplicate-current-line-or-region)
            ("s-D" . crux-duplicate-and-comment-current-line-or-region)
