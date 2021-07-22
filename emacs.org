@@ -6792,7 +6792,7 @@ Out of the many options, these are the most useful:
 
   See [[http://orgmode.org/manual/Clocking-work-time.html][Clocking work time]].
 
-** PENDING Org noter
+** Org noter
 
 [[https://github.com/weirdNox/org-noter][weirdNox/org-noter: Emacs document annotator, using Org-mode]]
 
