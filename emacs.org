@@ -3737,7 +3737,7 @@ More [[http://piotrkazmierczak.com/2010/05/13/emacs-as-the-ultimate-latex-editor
       :disabled nil))
 #+END_SRC
 
-** PENDING XML
+** XML
 
 I am using the builtin nXML mode for XML editing and turning off
 automatic line wrapping.
