@@ -1440,38 +1440,69 @@ clutter. I am not afraid of double editing, so I disable that.
 
 #+BEGIN_SRC emacs-lisp
 
-  (setq my/backup-dir (expand-file-name "backups" user-emacs-directory))
-  (setq backup-directory-alist '((".*" . "~/.emacs.d/backups/"))) ; needs a plain string
+    (setq my/backup-dir (expand-file-name "backups" user-emacs-directory))
+    (setq backup-directory-alist
+          '(("." . "~/.emacs.d/backups/"))) ; needs a plain string
 
-  (setq delete-by-moving-to-trash t
-        trash-directory "~/.Trash/emacs")
+    (setq delete-by-moving-to-trash t
+          trash-directory "~/.Trash/emacs")
 
-  (setq make-backup-files t      ; backup of a file the first time it is saved.
-        backup-by-copying t      ; don't clobber symlinks
-        version-control t        ; version numbers for backup files
-        delete-old-versions t    ; delete excess backup files silently
-        kept-old-versions 6      ; oldest versions to keep when a new numbered backup is made (default: 2)
-        kept-new-versions 20     ; newest versions to keep when a new numbered backup is made (default: 2)
-        auto-save-default t      ; auto-save every buffer that visits a file
-        auto-save-timeout 20     ; number of seconds idle time before auto-save (default: 30)
-        auto-save-interval 200   ; number of keystrokes between auto-saves (default: 300)
-        )
+    (setq make-backup-files t    ; backup of a file the first time it is saved.
+          backup-by-copying t    ; don't clobber symlinks
+          version-control t      ; version numbers for backup files
+          delete-old-versions t  ; delete excess backup files silently
+          kept-old-versions 2    ; oldest versions to keep when a new numbered backup is made (default: 2)
+          kept-new-versions 50   ; newest versions to keep when a new numbered backup is made (default: 2)
+          auto-save-default t    ; auto-save every buffer that visits a file
+          auto-save-timeout 20   ; number of seconds idle time before auto-save (default: 30)
+          auto-save-interval 200 ; number of keystrokes between auto-saves (default: 300)
+          )
 
-  (use-package savehist
-    :ensure nil ; built-in
-    :defer t
-    :config
-    (setq savehist-additional-variables
-          ;; search entries
-          '(search-ring regexp-search-ring)
-          ;; save every minute
-          savehist-autosave-interval 60
-          ;; keep the home clean
-          savehist-file (expand-file-name "savehist" my/backup-dir))
-    (savehist-mode t))
+    (use-package savehist
+      :ensure nil ; built-in
+      :defer t
+      :config
+      (setq savehist-additional-variables
+            ;; search entries
+            '(search-ring regexp-search-ring)
+            ;; save every minute
+            savehist-autosave-interval 60
+            ;; keep the home clean
+            savehist-file (expand-file-name "savehist" my/backup-dir))
+      (savehist-mode t))
 
-  ;; disable lockfiles
-  (setq create-lockfiles nil)
+    ;; disable lockfiles
+    (setq create-lockfiles nil)
+
+  (defun xah-make-backup ()
+    "Make a backup copy of current file or dired marked files.
+  If in dired, backup current file or marked files.
+  The backup file name is in this format
+   x.html~2018-05-15_133429~
+   The last part is hour, minutes, seconds.
+  in the same dir. If such a file already exist, it's overwritten.
+  If the current buffer is not associated with a file, nothing's done.
+
+  URL `http://ergoemacs.org/emacs/elisp_make-backup.html'
+  Version 2018-05-15"
+    (interactive)
+    (let (($fname (buffer-file-name))
+          ($date-time-format "%Y-%m-%d_%H%M%S"))
+      (if $fname
+          (let (($backup-name
+                 (concat $fname "~" (format-time-string $date-time-format) "~")))
+            (copy-file $fname $backup-name t)
+            (message (concat "Backup saved at: " $backup-name)))
+        (if (string-equal major-mode "dired-mode")
+            (progn
+              (mapc (lambda ($x)
+                      (let (($backup-name
+                             (concat $x "~" (format-time-string $date-time-format) "~")))
+                        (copy-file $x $backup-name t)))
+                    (dired-get-marked-files))
+              (message "marked files backed up"))
+          (user-error "buffer not file nor dired")))))
+
 #+END_SRC
 
 * Deleting files
@@ -3385,7 +3416,7 @@ The old Webster's 1913 Dictionary is a [[http://jsomers.net/blog/dictionary][rar
 of words are poetic, informative and thought provoking.
 
 I've installed a local copy the Webster's dictionary to my Mac and set
-it up as the first dictionary to search. Now the above key binding =C-c j=
+it up as the first dictionary to search. Now the key binding =C-c j=
 searches first Webster's.
 
 The downloaded sdcv-mode and its =sdcv-search= command remains unused.
@@ -4794,7 +4825,7 @@ See [[https://github.com/sigma/dotemacs/blob/master/lisp/config/go-config.el][do
                   auto-mode-alist)))
 #+end_src
 
-** PENDING Cucamber
+** PENDING Cucumber
 
 A major mode for [[https://github.com/ecukes/ecukes][cucumber]] event-driven testing description files:
 [[https://github.com/michaelklishin/cucumber.el][michaelklishin/cucumber.el: Emacs mode for editing Cucumber plain text
@@ -8112,7 +8143,6 @@ See more tweeks from
   - save the buffer after adding each annotation.
 
 
-
 #+BEGIN_SRC emacs-lisp :results none
 
   (use-package pdf-tools
@@ -9124,7 +9154,7 @@ The read functions report their action in the echo field.
 
 ** PENDING Twitter
 
-[[http://www.emacswiki.org/emacs/TwitteringMode][Twittering mode]] ([[https://github.com/hayamiz/twittering-mode][Github]])gives a full blown twitter client with avatar
+[[http://www.emacswiki.org/emacs/TwitteringMode][Twittering mode]] ([[https://github.com/hayamiz/twittering-mode][Github]]) gives a full blown twitter client with avatar
 images, filtering, and posting. The key map incantation is "Emacs,
 launch twItter", =C-x l i= (because =t= and =w=) were taken).
 
