@@ -1126,31 +1126,31 @@ changes place and window scrolls.
 ** Highlighting
 *** Current line
 
-Current line is subtly highlighted in pale blue.
+Current line is subtly highlighted.
 
 #+BEGIN_SRC emacs-lisp
   (when (display-graphic-p)
     (global-hl-line-mode 1))
     ;;(set-face-background hl-line-face "Grey80")
-    (set-face-background hl-line-face "Grey20")
+    ;;(set-face-background hl-line-face "Grey20")
     ;;(set-face-background hl-line-face "LightCyan")
     ;;(set-face-background hl-line-face "honeydew2")
 #+END_SRC
 
-*** PENDING Highlight keywords globally
+*** Highlight keywords globally
 
 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Highlight-Interactively.html][Highlight Interactively - GNU Emacs Manual]]. Adapted from [[http://www.bartuka.com/pages-output/personal-emacs-configuration/][@bartuka:
 emacs.d]].
 
+Better, implemented as a package: [[https://github.com/tarsius/hl-todo][tarsius/hl-todo: Highlight TODO keywords]]
+
 NOTE: testing replacing this with svg-tag-mode
 
 #+BEGIN_SRC emacs-lisp
-  (add-hook 'hi-lock-mode-hook
-            (lambda nil
-              (highlight-regexp "FIXME" 'hi-red-b)
-              (highlight-regexp "NOTE" 'hi-red-b)
-              (highlight-regexp "TODO" 'hi-red-b)))
-  (global-hi-lock-mode t)
+  (use-package hl-todo
+    :defer t
+    :hook ((prog-mode . hl-todo-mode)
+           (org-mode . hl-todo-mode)))
 #+END_SRC
 
 *** Highlighting new text
@@ -1166,14 +1166,18 @@ the "official" restraints. Specifically, I want my global key
 bindings to start with =C-c [lower case letter]=. Implementations are
 in appropriate sections below.
 
-** TODO Themes
+** Themes
 
 I find the emacs default white background the best, but the new
 default themes in modus-themes package are really good.
 
 Remember =modus-themes-toggle=!
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp :results none
+(info "(modus-themes) Top")
+#+end_src
+
+#+BEGIN_SRC emacs-lisp :results none
   (use-package modus-themes           ; light & dark
     :defer t
     :init
@@ -1185,6 +1189,31 @@ Remember =modus-themes-toggle=!
        "9e407b688cba911def862e8779e323a990749b592e5c0930330d344edb6d16c9"
        default))
     :config
+    (setq modus-themes-hl-line '(intese accented))
+
+    (setq modus-vivendi-theme-org-blocks 'rainbow
+          modus-operandi-theme-org-blocks 'grey-background)
+
+    (setq modus-vivendi-theme-mode-line '3d
+          modus-operandi-theme-mode-line '3d)
+
+    (setq modus-vivendi-theme-completions 'moderate
+          modus-operandi-theme-completions 'moderate)
+
+    (setq modus-vivendi-theme-scale-headings t
+          modus-operandi-theme-scale-headings t)
+    (setq modus-operandi-theme-scale-1 1.2
+          modus-operandi-theme-scale-2 1.4
+          modus-operandi-theme-scale-3 1.6
+          modus-operandi-theme-scale-4 1.8
+          modus-operandi-theme-scale-5 2.0)
+    (setq modus-vivendi-theme-scale-1 1.2
+          modus-vivendi-theme-scale-2 1.4
+          modus-vivendi-theme-scale-3 1.6
+          modus-vivendi-theme-scale-4 1.8
+          modus-vivendi-theme-scale-5 2.0)
+    (setq modus-vivendi-theme-scale-title 2.0)
+
     (modus-themes-load-vivendi)
     :bind ("<f6>" . modus-themes-toggle))
 #+END_SRC
