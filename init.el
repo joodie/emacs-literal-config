@@ -47,14 +47,12 @@
 ;;;
 ;;  https://elpa.nongnu.org/nongnu/
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+;;(add-to-list 'package-archives
+;;             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 ;; (add-to-list 'package-archives
-;;              '("gnu" . "http://elpa.gnu.org.org/packages/") t)
-(add-to-list 'package-archives
-             '("emacswiki" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/emacswiki/") t)
+;;              '("emacswiki" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/emacswiki/") t)
 
 ;; keep the installed packages in ~/.emacs.d/elpa
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
@@ -64,24 +62,26 @@
   (package-refresh-contents))
 
 ;;; quelpa
-(unless (require 'quelpa nil t)
-  (quelpa-self-upgrade)
-  (with-temp-buffer
-    (url-insert-file-contents "https://framagit.org/steckerhalter/quelpa/raw/master/bootstrap.el")
-    (eval-buffer)))
+                                        ;(unless (require 'quelpa nil t)
+                                        ;  (quelpa-self-upgrade)
+                                        ;  (with-temp-buffer
+                                        ;    (url-insert-file-contents "https://framagit.org/steckerhalter/quelpa/raw/master/bootstrap.el")
+                                        ;    (eval-buffer)))
 
 ;; install use-package and the quelpa handler
-(quelpa '(quelpa-use-package :fetcher github :repo "quelpa/quelpa-use-package"))
-(setq use-package-expand-minimally t)
-(require 'quelpa-use-package)
-(quelpa-use-package-activate-advice) ;; https://framagit.org/steckerhalter/quelpa-use-package
+                                        ;(quelpa '(quelpa-use-package :fetcher github :repo "quelpa/quelpa-use-package"))
+                                        ;(setq use-package-expand-minimally t)
+                                        ;(require 'quelpa-use-package)
+                                        ;(quelpa-use-package-activate-advice) ;; https://framagit.org/steckerhalter/quelpa-use-package
 
 ;;;
 ;;; use-package
 ;;;
-(unless (package-installed-p 'use-package)
-  ;;(package-refresh-contents)
-  (package-install 'use-package))
+;;(setq use-package-always-pin "melpa-stable")
+;;; use-package is built-in in emacs 29
+;; (unless (package-installed-p 'use-package)
+;;   ;;(package-refresh-contents)
+;;   (package-install 'use-package))
 (require 'use-package)
 (setq use-package-compute-statistics t)
 (setq use-package-verbose t)
@@ -153,9 +153,9 @@ Write only blocks that are:
   (load-file elfile))
 
 (add-hook 'after-init-hook (lambda nil
-                             (setq gc-cons-threshold     16777216
-                                   gc-cons-percentage   0.1
-                                   file-name-handler-alist old-file-name-handler)))
+                             gc-cons-percentage   0.1
+                             file-name-handler-alist old-file-name-handler))
+
 
 ;; (use-package-report)
 
@@ -182,4 +182,6 @@ Write only blocks that are:
          "; System "     (system-name)
          "; Time "       (emacs-init-time)))
 
+
+(provide 'init)
 ;;; init.el ends here

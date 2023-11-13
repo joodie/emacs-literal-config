@@ -56,3 +56,4 @@ history
 /.cache/
 /network-security.data
 /quelpa
+history.el

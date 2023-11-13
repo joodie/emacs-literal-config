@@ -7,9 +7,9 @@
 *** http://feeds.bbci.co.uk/news/health/rss.xml
 *** http://www.bbc.com/culture/feed.rss
 # *** http://bruxelles.blogs.liberation.fr/feeds/
+*** https://newlinesmag.com/feed/
 *** Suomi                                                                :fi:
 **** http://www.hs.fi/rss/teasers/etusivu.xml
-**** http://www.hs.fi/rss/autotiede.xml # tiede
 
 **** https://feeds.yle.fi/uutiset/v1/majorHeadlines/YLE_UUTISET.rss # Pääuutiset
 **** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET # Tuoreimmat uutiset
@@ -18,12 +18,11 @@
 **** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-150067 # Kulttuuri
 **** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-819 # Tiede
 **** https://feeds.yle.fi/uutiset/v1/recent.rss?publisherIds=YLE_UUTISET&concepts=18-35354 # Luonto
-**** https://suomenkuvalehti.fi/8hj38g7dh49g73jd02fasd/
-**** http://www.soininvaara.fi/feed/rss
+**** [[http://www.soininvaara.fi/feed/rss][Soininvaara]]
 
 ** News in Science                                                       :j:
 *** http://feeds.nature.com/nature/rss/current
-*** http://news.sciencemag.org/rss/weekly_news_email.xml
+# *** http://news.sciencemag.org/rss/weekly_news_email.xml
 *** http://feeds.newscientist.com/science-news
 # *** http://www.technologyreview.com/biomedicine/rss/
 # *** http://www.technologyreview.com/topnews.rss
@@ -31,10 +30,10 @@
 # *** https://api.quantamagazine.org/feed/
 # *** http://mosaicscience.com/feed/rss.xml
 # *** http://epidemic.bio.ed.ac.uk/rss.xml
-*** https://www.sciencemag.org/rss/podcast.xml
 *** https://journal.fi/tt/gateway/plugin/WebFeedGatewayPlugin/rss2
 # *** https://phys.org/feeds/
 *** https://blogit.ts.fi/category/terveys-tiede/feed/
+*** https://erictopol.substack.com/feed/
 ** Bio
 *** https://dazzlerblog.wordpress.com/feed/
 *** http://ewanbirney.com/feed
@@ -46,7 +45,7 @@
 **** http://emacsworld.blogspot.com/feeds/posts/default
 # **** https://emacs.stackexchange.com/feeds
 **** [[http://emacs.stackexchange.com/feeds][SX]]
-**** entry-title: \(emacs\|org-mode\)
+# **** entry-title: \(emacs\|org-mode\)
 # **** http://fasciism.com/feed.xml
 # **** http://whattheemacsd.com/http:/atom.xml
 *** Perl                                                                  :p:
@@ -61,13 +60,13 @@
 *** https://kalmistopiiri.wordpress.com/feed/
 *** http://www.heritagedaily.com/feed/rss
 *** https://www.sapiens.org/feed/
-*** http://eurogenes.blogspot.com/feeds/posts/default
+# *** http://eurogenes.blogspot.com/feeds/posts/default
 *** https://blogs.helsinki.fi/esalmela/feed/
+*** https://johnhawks.net/weblog/rss/
 ** Culture                                                                 :cu:
 *** http://www.antroblogi.fi/feed/
 *** Language                                                              :l:
 **** http://feeds.feedburner.com/nybooks
-**** http://feedproxy.google.com/brainpickings/rss
 **** https://aeon.co/feed.rss
 *** Travel                                                                :t:
 **** http://nowheremag.com/feed/
@@ -96,6 +95,7 @@
 ** Friends                                                                 :f:
 *** http://heikkil.github.io/rss.xml
 *** http://saffronwaldenlessons.blogspot.fi/atom.xml
+*** http://lothruput.blogspot.fi/atom.xml
 *** http://soloalgunaspalabras.wordpress.com/feed/
 *** http://tamara-kulikova.blogspot.com/feeds/posts/default
 *** http://listenlearnread.blogspot.com/feeds/posts/default

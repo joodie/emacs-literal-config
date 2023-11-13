@@ -1,1 +1,5 @@
-((magit-commit nil))
+((emoji--command-Emoji nil)
+ (emoji--command-Emoji\ >\ Symbols nil)
+ (emoji--command-Emoji\ >\ Symbols\ >\ gender nil)
+ (magit-commit nil)
+ (magit-dispatch nil))

@@ -4,3 +4,4 @@ alias m less $1
 alias du du -h $1
 alias ff find-file $1
 alias lt ls -lt $1 |head
+alias ffo find-file-other $1
